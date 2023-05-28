@@ -23,7 +23,7 @@ class EventFactory extends Factory
             'description' => Str::random(20),
             'image' => 'https://jjji.ru/200x200',
             'time_to_start' => now(),
-            'parenttable_id' => rand(1, 5)
+            'parent_id' => rand(1, 5)
         ];
     }
 }

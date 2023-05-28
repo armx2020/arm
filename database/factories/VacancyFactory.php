@@ -22,7 +22,7 @@ class VacancyFactory extends Factory
             'address' => Str::random(20),
             'description' => Str::random(20),
             'price' => rand(0,10),
-            'parenttable_id' => rand(1, 5)
+            'parent_id' => rand(1, 5)
         ];
     }
 }

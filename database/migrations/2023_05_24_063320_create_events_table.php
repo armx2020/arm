@@ -24,8 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('city_id')->nullable(); // исправить
             $table->foreign('city_id')->references('id')->on('cities');
 
-            $table->unsignedBigInteger('parenttable_id')->nullable();
-            $table->string('parenttable_type');
+            $table->morphs('parent');
         });
     }
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use App\Models\Event;
 
 class Company extends Model
 {
@@ -34,16 +35,16 @@ class Company extends Model
 
     public function projects(): MorphMany
     {
-        return $this->morphMany(Project::class, 'parenttable');
+        return $this->morphMany(Project::class, 'parent');
     }
 
     public function events(): MorphMany
     {
-        return $this->morphMany(Event::class, 'parenttable');
+        return $this->morphMany(Event::class, 'parent');
     }
 
     public function vacancies(): MorphMany
     {
-        return $this->morphMany(Vacancy::class, 'parenttable');
+        return $this->morphMany(Vacancy::class, 'parent');
     }
 }

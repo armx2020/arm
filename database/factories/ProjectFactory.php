@@ -22,7 +22,7 @@ class ProjectFactory extends Factory
             'address' => Str::random(20),
             'description' => Str::random(20),
             'image' => 'https://jjji.ru/200x200',
-            'parenttable_id' => rand(1, 5)
+            'parent_id' => rand(1, 5)
         ];
     }
 }

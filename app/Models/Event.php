@@ -2,22 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasCity;
+use App\Models\Traits\HasParent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Event extends Model
 {
-    use HasFactory;
+    use HasFactory, HasCity, HasParent;
 
-    public function city(): BelongsTo
-    {
-        return $this->belongsTo(City::class);
-    }
-
-    public function parenttable(): MorphTo
-    {
-        return $this->morphTo();
-    }
+    //
+    
 }

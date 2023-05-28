@@ -35,6 +35,6 @@ class Group extends Model
 
     public function events(): MorphMany
     {
-        return $this->morphMany(Event::class, 'parenttable');
+        return $this->morphMany(Event::class, 'parent');
     }
 }
