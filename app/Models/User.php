@@ -3,17 +3,32 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Traits\HasCity;
+use App\Models\Traits\HasCompanies;
+use App\Models\Traits\HasEvents;
+use App\Models\Traits\HasGroups;
+use App\Models\Traits\HasProjects;
+use App\Models\Traits\HasResumes;
+use App\Models\Traits\HasVacancies;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens,
+        HasFactory,
+        Notifiable,
+        HasCity,
+        HasCompanies,
+        HasGroups,
+        HasResumes,
+        HasProjects,
+        HasEvents,
+        HasVacancies;
+
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +36,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
+        'phone',
         'email',
         'password',
     ];
@@ -46,38 +63,4 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function city(): BelongsTo
-    {
-        return $this->belongsTo(City::class);
-    }
-
-    public function companies(): HasMany
-    {
-        return $this->hasMany(Company::class);
-    }
-
-    public function groups(): HasMany
-    {
-        return $this->hasMany(Group::class);
-    }
-
-    public function resumes(): HasMany
-    {
-        return $this->hasMany(Resume::class);
-    }
-
-    public function projects(): MorphMany
-    {
-        return $this->morphMany(Project::class, 'parenttable');
-    }
-
-    public function events(): MorphMany
-    {
-        return $this->morphMany(Event::class, 'parenttable');
-    }
-
-    public function vacancies(): MorphMany
-    {
-        return $this->morphMany(Vacancy::class, 'parenttable');
-    }
 }

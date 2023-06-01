@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\Auth\LoginController;
-use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,22 +29,5 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-
-Route::namespace('Admin')->name('admin.')->prefix('admin')->group(function () {
-
-    Route::get('/', [DashboardController::class, 'index'])->middleware(['auth:admin', 'verified'])->name('dashboard');
-
-    Route::group(['middleware' => 'guest:admin'], function () {
-        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-        Route::post('/login', [LoginController::class, 'login']);
-    });
-
-    Route::group(['middleware' => 'auth:admin'], function () {
-        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    });
-});
-
-
-
 require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';

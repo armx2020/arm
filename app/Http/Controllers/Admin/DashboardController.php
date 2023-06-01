@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $events = Event::with('parent')->limit(5)->get();
 
         $users = User::orderBy('id', 'desc')->limit(5)->get();
-     //   dd($users);
+      //  dd($events);
 
         return view('admin.dashboard', [
             'countUsersAll' => $countUsersAll,

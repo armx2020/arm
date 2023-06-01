@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
         \App\Models\GroupCategory::factory(100)->create();
 
         \App\Models\User::factory(10)
-            ->has(\App\Models\Company::factory()->count(15))
-            ->has(\App\Models\Group::factory()->count(15))
-            ->has(\App\Models\Resume::factory()->count(15))
+            ->has(\App\Models\Company::factory()->count(2))
+            ->has(\App\Models\Group::factory()->count(3))
+            ->has(\App\Models\Resume::factory()->count(4))
             ->create();
 
         // \App\Models\User::factory()->create([
@@ -34,11 +34,11 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\CompanyOffer::factory()->count(60)
             ->sequence(
-                ['offer_category_id' => rand(1, 30), 'company_id' => rand(1, 15)],
+                ['offer_category_id' => rand(1, 30), 'company_id' => rand(1, 20)],
             )
             ->create();
 
-        \App\Models\Vacancy::factory()->count(16)
+        \App\Models\Vacancy::factory()->count(6)
             ->sequence(
                 ['parent_type' => 'App\Models\Company'],
                 ['parent_type' => 'App\Models\Group'],
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             )
             ->create();
 
-        \App\Models\Project::factory()->count(16)
+        \App\Models\Project::factory()->count(6)
             ->sequence(
                 ['parent_type' => 'App\Models\Company'],
                 ['parent_type' => 'App\Models\Group'],
@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
             )
             ->create();
 
-        \App\Models\Event::factory()->count(16)
+        \App\Models\Event::factory()->count(6)
             ->sequence(
                 ['parent_type' => 'App\Models\Company'],
                 ['parent_type' => 'App\Models\Group'],
