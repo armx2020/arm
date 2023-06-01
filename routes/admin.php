@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 
@@ -15,6 +16,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
 
     Route::resource('user', UserController::class)->middleware(['auth:admin', 'verified']);
+    Route::resource('company', CompanyController::class)->middleware(['auth:admin', 'verified']);
 
 
 

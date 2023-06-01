@@ -88,11 +88,15 @@
                                             {{ $event->time_to_start}}
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                        @if( $event->parent->name == null)
-                                            {{ $event->parent->firstname}} {{ $event->parent->lastname}}  
-                                        @else
-                                            {{ $event->parent->name }}
-                                        @endif
+                                            @if($event->parent !== null)
+                                                @if( $event->parent->name == null)
+                                                    {{ $event->parent->firstname}} {{ $event->parent->lastname}}
+                                                @else
+                                                    {{ $event->parent->name }}
+                                                @endif
+                                            @else
+                                                no parent
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
@@ -114,8 +118,8 @@
             </div>
             <div class="flow-root">
                 <ul role="list" class="divide-y divide-gray-200">
-                   
-                @foreach($users as $user)
+
+                    @foreach($users as $user)
                     <li class="py-3 sm:py-4">
                         <div class="flex items-center space-x-4">
                             <div class="flex-shrink-0">

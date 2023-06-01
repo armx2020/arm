@@ -113,7 +113,7 @@ class UserController extends Controller
             'image' => ['image', 'max:2048'],
         ]);
     
-        $user = User::find($id);
+        $user = User::findOrFail($id);
 
         if ($request->image) {
             Storage::delete('public/'.$user->image);
@@ -142,7 +142,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::with(
+        $user = User::with(             // удалить связи
             'events',
             'groups',
             'companies',
