@@ -20,7 +20,6 @@ class CompanyFactory extends Factory
         return [
             'name' => Str::random(10),
             'address' => Str::random(20),
-            'logo' => 'https://jjji.ru/50x50',
             'description' => Str::random(20),
             'phone' => Str::random(36),
             'web' => Str::random(36),

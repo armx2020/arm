@@ -2,39 +2,21 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasCity;
+use App\Models\Traits\HasEvents;
+use App\Models\Traits\HasProjects;
+use App\Models\Traits\HasUser;
+use App\Models\Traits\HasVacancies;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Group extends Model
 {
-    use HasFactory;
-
-    public function city(): BelongsTo
-    {
-        return $this->belongsTo(City::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(City::class);
-    }
-
+    use HasFactory, HasCity, HasUser, HasEvents, HasProjects, HasVacancies;
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(GroupCategory::class);
-    }
-
-    public function projects(): MorphMany
-    {
-        return $this->morphMany(Project::class, 'parenttable');
-    }
-
-    public function events(): MorphMany
-    {
-        return $this->morphMany(Event::class, 'parent');
+        return $this->belongsTo(GroupCategory::class, 'group_category_id');
     }
 }

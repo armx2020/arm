@@ -59,8 +59,10 @@ class UserController extends Controller
         $user->telegram = $request->telegram;
         $user->instagram = $request->instagram;
         $user->vkontakte = $request->vkontakte;
-        $user->image = $request->file('image')->store('users', 'public');
 
+        if ($request->image) {
+            $user->image = $request->file('image')->store('users', 'public');
+        }
         
 
         $user->save();

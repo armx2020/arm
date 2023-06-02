@@ -10,7 +10,7 @@ class GroupCategory extends Model
 {
     use HasFactory;
 
-    public function categories(): HasMany
+    public function groups(): HasMany
     {
         return $this->hasMany(Group::class);
     }

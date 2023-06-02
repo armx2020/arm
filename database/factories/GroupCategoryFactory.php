@@ -19,6 +19,7 @@ class GroupCategoryFactory extends Factory
     {
         return [
             'name' => Str::random(10),
+            'sort_id' => rand(1, 50)
         ];
     }
 }

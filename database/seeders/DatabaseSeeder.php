@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        \App\Models\GroupCategory::factory(100)->create();
+        \App\Models\GroupCategory::factory(10)->create();
 
         \App\Models\User::factory(10)
             ->has(\App\Models\Company::factory()->count(2))

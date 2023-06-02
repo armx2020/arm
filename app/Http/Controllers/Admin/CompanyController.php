@@ -15,7 +15,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::with(['city'])->latest()->paginate(10);
+        $companies = Company::with(['city'])->latest()->paginate(20);
 
         return view('admin.company.index', ['companies'=>$companies]);
     }
@@ -35,8 +35,6 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-       // dd($request);
-
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
@@ -63,12 +61,15 @@ class CompanyController extends Controller
         $company->telegram = $request->telegram;
         $company->instagram = $request->instagram;
         $company->vkontakte = $request->vkontakte;
-        $company->logo = $request->file('logo')->store('companies', 'public');
         $company->user_id = $request->user;
+
+        if ($request->logo) {
+            $company->logo = $request->file('logo')->store('companies', 'public');
+        }
 
         $company->save();
 
-        return redirect()->route('admin.company.index')->with('success', 'The company added');
+        return redirect()->route('admin.group.index')->with('success', 'The company added');
 
     
     }

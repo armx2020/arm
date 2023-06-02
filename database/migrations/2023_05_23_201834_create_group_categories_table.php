@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name', 40);
+            $table->integer('sort_id');
             $table->boolean('activity')->default(true);
         });
     }

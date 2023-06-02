@@ -29,8 +29,7 @@ class UserFactory extends Factory
             'whatsapp' => Str::random(36),
             'instagram' => Str::random(36),
             'vkontakte'=> Str::random(36),
-            'telegram' => Str::random(36),
-            'image' => 'https://jjji.ru/50x50'            
+            'telegram' => Str::random(36),           
         ];
     }
 
