@@ -21,7 +21,6 @@ class ProjectFactory extends Factory
             'name' => Str::random(10),
             'address' => Str::random(20),
             'description' => Str::random(20),
-            'image' => 'https://jjji.ru/200x200',
             'parent_id' => rand(1, 5)
         ];
     }

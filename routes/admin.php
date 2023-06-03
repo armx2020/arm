@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\Admin\GroupCategoryController;
 use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\OfferCategoryController;
+use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\UserController;
 
 Route::name('admin.')->prefix('admin')->group(function () {
@@ -14,11 +16,15 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->middleware(['auth:admin', 'verified'])->name('dashboard');
 
 
-    Route::resource('user', UserController::class)->middleware(['auth:admin', 'verified']);
-    Route::resource('company', CompanyController::class)->middleware(['auth:admin', 'verified']);
-    Route::resource('groupCategory', GroupCategoryController::class)->middleware(['auth:admin', 'verified']);
-    Route::resource('group', GroupController::class)->middleware(['auth:admin', 'verified']);
-   
+    Route::middleware(['auth:admin', 'verified'])->group(function () {
+        Route::resource('user', UserController::class);
+        Route::resource('company', CompanyController::class);
+        Route::resource('groupCategory', GroupCategoryController::class);
+        Route::resource('group', GroupController::class);
+        Route::resource('offerCategory', OfferCategoryController::class);
+        Route::resource('offer', OfferController::class);
+    });
+
 
 
     Route::group(['middleware' => 'guest:admin'], function () {

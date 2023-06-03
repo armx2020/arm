@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\OfferCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,7 +19,10 @@ class OfferCategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => Str::random(10)
+            'name' => Str::random(10),
+            'sort_id' => rand(1, 10)
         ];
     }
+
+    protected $model = OfferCategory::class;
 }

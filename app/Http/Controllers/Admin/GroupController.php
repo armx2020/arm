@@ -179,7 +179,8 @@ class GroupController extends Controller
 
         $group->update();
 
-        return redirect()->route('admin.group.index')->with('success', 'The group saved');
+        return redirect()->route('admin.group.show', ['group'=>$group->id])
+                        ->with('success', 'The group saved');
     }
 
     /**

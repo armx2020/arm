@@ -12,7 +12,7 @@
                 </div>
                 @endif
                 <div class="mb-4">
-                    <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All groups</h1>
+                    <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All offers</h1>
                 </div>
                 <div class="sm:flex">
                     <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
@@ -24,11 +24,11 @@
                         </form>
                     </div>
                     <div class="flex items-center space-x-2 sm:space-x-3 ml-auto">
-                        <a href="{{ route('admin.group.create') }}" data-modal-toggle="add-user-modal" class="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+                        <a href="{{ route('admin.offer.create') }}" data-modal-toggle="add-user-modal" class="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
                             <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                             </svg>
-                            Add group
+                            Add offer
                         </a>
                     </div>
                 </div>
@@ -48,6 +48,9 @@
                                         Phone
                                     </th>
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                        Price
+                                    </th>
+                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                         City
                                     </th>
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
@@ -59,40 +62,43 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
 
-                                @foreach($groups as $group)
+                                @foreach($offers as $offer)
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
 
-                                        @if( $group->image == null)
-                                        <img class="h-10 w-10 rounded-full m-4" src="{{ url('/image/user.png')}}" alt="{{ $group->name }} logo">
+                                        @if( $offer->image == null)
+                                        <img class="h-10 w-10 rounded-full m-4" src="{{ url('/image/company.png')}}" alt="{{ $offer->name }}">
                                         @else
-                                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$group->image) }}" alt="{{ $group->image }} avatar">
+                                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$offer->image) }}" alt="{{ $offer->image }}">
                                         @endif
 
-                                        <a href="{{ route('admin.group.show', [ 'group' => $group->id ]) }}">
+                                        <a href="{{ route('admin.offer.show', [ 'offer' => $offer->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
-                                                <div class="text-base font-semibold text-gray-900">{{ $group->name }}</div>
-                                                <div class="text-sm font-normal text-gray-500">{{ $group->address}}</div>
+                                                <div class="text-base font-semibold text-gray-900">{{ $offer->name }}</div>
+                                                <div class="text-sm font-normal text-gray-500">{{ $offer->address}}</div>
                                             </div>
                                         </a>
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        @if( $group->phone == null)
+                                        @if( $offer->phone == null)
                                         no phone
                                         @else
-                                        {{ $group->phone }}
+                                        {{ $offer->phone }}
                                         @endif
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        @if($group->city == null)
+                                        {{ $offer->price}} {{ $offer->unit_of_price}}
+                                    </td>
+                                    <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
+                                        @if($offer->city == null)
                                         not selected
                                         @else
-                                        {{ $group->city }}
+                                        {{ $offer->city }}
                                         @endif
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-normal text-gray-900">
                                         <div class="flex items-center">
-                                            @if($group->activity == 1)
+                                            @if($offer->activity == 1)
                                             <div class="h-2.5 w-2.5 mx-auto rounded-full bg-green-400"></div>
                                             @else
                                             <div class="h-2.5 w-2.5 mx-auto rounded-full bg-red-400"></div>
@@ -101,21 +107,21 @@
                                     </td>
                                     <td class="p-4 whitespace-nowrap space-x-2 text-right">
                                         <div class="flex flex-row">
-                                        <a href="{{ route('admin.group.edit', ['group' => $group->id ]) }}" data-modal-toggle="user-modal" class="text-white mx-2 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                        <a href="{{ route('admin.offer.edit', ['offer' => $offer->id ]) }}" data-modal-toggle="user-modal" class="text-white mx-2 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                             <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
                                                 <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
                                             </svg>
-                                            Edit company
+                                            Edit offer
                                         </a>
-                                        <form action="{{ route('admin.group.destroy', ['group' => $group->id]) }}" method="post">
+                                        <form action="{{ route('admin.offer.destroy', ['offer' => $offer->id]) }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" data-modal-toggle="delete-user-modal" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                                 <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                                 </svg>
-                                                Delete company
+                                                Delete offer
                                             </button>
                                         </form>
                                         </div>
@@ -129,7 +135,7 @@
                 </div>
             </div>
         </div>
-        {{ $groups->links()}}
+        {{ $offers->links()}}
     </main>
 </div>
 

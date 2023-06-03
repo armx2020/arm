@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
 
         \App\Models\GroupCategory::factory(10)->create();
+        \App\Models\OfferCategory::factory(10)->create();
 
         \App\Models\User::factory(10)
             ->has(\App\Models\Company::factory()->count(2))
@@ -30,11 +31,11 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\News::factory(10)->create();
 
-        \App\Models\OfferCategory::factory(30)->create();
-
-        \App\Models\CompanyOffer::factory()->count(60)
+        \App\Models\CompanyOffer::factory()->count(30)
             ->sequence(
-                ['offer_category_id' => rand(1, 30), 'company_id' => rand(1, 20)],
+                ['offer_category_id' => rand(1, 10), 'company_id' => rand(1, 20)],
+                ['offer_category_id' => rand(1, 10), 'company_id' => rand(1, 20)],
+                ['offer_category_id' => rand(1, 10), 'company_id' => rand(1, 20)],
             )
             ->create();
 

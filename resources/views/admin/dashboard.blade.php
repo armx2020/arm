@@ -89,13 +89,13 @@
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
                                             @if($event->parent !== null)
-                                                @if( $event->parent->name == null)
-                                                    {{ $event->parent->firstname}} {{ $event->parent->lastname}}
-                                                @else
-                                                    {{ $event->parent->name }}
-                                                @endif
+                                            @if( $event->parent->name == null)
+                                            {{ $event->parent->firstname}} {{ $event->parent->lastname}}
                                             @else
-                                                no parent
+                                            {{ $event->parent->name }}
+                                            @endif
+                                            @else
+                                            no parent
                                             @endif
                                         </td>
                                     </tr>
@@ -123,7 +123,11 @@
                     <li class="py-3 sm:py-4">
                         <div class="flex items-center space-x-4">
                             <div class="flex-shrink-0">
-                                <img class="h-8 w-8 rounded-full" src='{{ $user->image}}' alt="avatar">
+                                @if( $user->image == null)
+                                    <img class="h-8 w-8 rounded-full" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                @else
+                                    <img class="h-8 w-8 rounded-full" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                @endif
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-gray-900 truncate">

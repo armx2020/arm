@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\GroupCategory;
+use App\Models\OfferCategory;
 use Illuminate\Http\Request;
 
-class GroupCategoryController extends Controller
+class OfferCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = GroupCategory::withCount('groups')->latest()->paginate(20);
+        $categories = OfferCategory::withCount('offers')->latest()->paginate(20);
 
-        return view('admin.groupcategory.index', ['categories' => $categories]);
+        return view('admin.offercategory.index', ['categories' => $categories]);
     }
 
     /**
@@ -23,7 +23,7 @@ class GroupCategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.groupcategory.create');
+        return view('admin.offercategory.create');
     }
 
     /**
@@ -36,14 +36,14 @@ class GroupCategoryController extends Controller
             'sort_id' => ['required', 'integer',],
         ]);
 
-        $category = new GroupCategory();
+        $category = new OfferCategory();
 
         $category->name = $request->name;
         $category->sort_id = $request->sort_id;
 
         $category->save();
 
-        return redirect()->route('admin.groupCategory.index')->with('success', 'The category added');
+        return redirect()->route('admin.offerCategory.index')->with('success', 'The category added');
     }
 
     /**
@@ -51,9 +51,9 @@ class GroupCategoryController extends Controller
      */
     public function show(string $id)
     {
-        $category = GroupCategory::with('groups')->findOrFail($id);
+        $category = OfferCategory::with('offers')->findOrFail($id);
 
-        return view('admin.groupcategory.show', ['category' => $category]);
+        return view('admin.offercategory.show', ['category' => $category]);
     }
 
     /**
@@ -61,9 +61,9 @@ class GroupCategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $category = GroupCategory::findOrFail($id);
+        $category = OfferCategory::findOrFail($id);
 
-        return view('admin.groupcategory.edit', ['category' => $category]);
+        return view('admin.offercategory.edit', ['category' => $category]);
     }
 
     /**
@@ -76,14 +76,14 @@ class GroupCategoryController extends Controller
             'sort_id' => ['required', 'integer',],
         ]);
 
-        $category = GroupCategory::findOrFail($id);
+        $category = OfferCategory::findOrFail($id);
 
         $category->name = $request->name;
         $category->sort_id = $request->sort_id;
 
         $category->update();
 
-        return redirect()->route('admin.groupCategory.show', ['groupCategory'=> $category->id])
+        return redirect()->route('admin.offerCategory.show', ['offerCategory'=> $category->id])
                         ->with('success', 'The category saved');
     }
 
@@ -92,10 +92,10 @@ class GroupCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $category = GroupCategory::findOrFail($id);
+        $category = OfferCategory::findOrFail($id);
 
         $category->delete();
 
-        return redirect()->route('admin.groupCategory.index')->with('success', 'The category deleted');
+        return redirect()->route('admin.offerCategory.index')->with('success', 'The category deleted');
     }
 }

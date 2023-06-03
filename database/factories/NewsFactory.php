@@ -21,11 +21,6 @@ class NewsFactory extends Factory
             'name' => Str::random(10),
             'description' => Str::random(20),
             'time' => now(),
-            'image' => 'https://jjji.ru/200x200',
-            'image1' => 'https://jjji.ru/200x200',
-            'image2' => 'https://jjji.ru/200x200',
-            'image3' => 'https://jjji.ru/200x200',
-            'image4' => 'https://jjji.ru/200x200',
         ];
     }
 }
