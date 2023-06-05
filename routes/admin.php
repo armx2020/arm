@@ -5,10 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\Admin\ExperienceController;
 use App\Http\Controllers\Admin\GroupCategoryController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\OfferCategoryController;
 use App\Http\Controllers\Admin\OfferController;
+use App\Http\Controllers\Admin\ResumeController;
 use App\Http\Controllers\Admin\UserController;
 
 Route::name('admin.')->prefix('admin')->group(function () {
@@ -23,6 +25,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('group', GroupController::class);
         Route::resource('offerCategory', OfferCategoryController::class);
         Route::resource('offer', OfferController::class);
+        Route::resource('resume', ResumeController::class);
+        Route::resource('experience', ExperienceController::class);
     });
 
 

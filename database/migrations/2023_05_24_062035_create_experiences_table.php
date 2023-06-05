@@ -16,7 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name', 40);
             $table->text('description')->nullable();
-            $table->time('working_time');
+            $table->date('start_worktime');
+            $table->date('end_worktime');
 
             $table->unsignedBigInteger('resume_id');
             $table->foreign('resume_id')->references('id')->on('resumes')->cascadeOnDelete();

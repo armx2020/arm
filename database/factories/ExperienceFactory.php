@@ -20,7 +20,8 @@ class ExperienceFactory extends Factory
         return [
             'name' => Str::random(10),
             'description' => Str::random(20),
-            'working_time' => now()
+            'start_worktime' => now(),
+            'end_worktime' => now()
         ];
     }
 }

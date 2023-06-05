@@ -15,21 +15,27 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\GroupCategory::factory(10)->create();
         \App\Models\OfferCategory::factory(10)->create();
+        \App\Models\City::factory(10)->create();
+        \App\Models\News::factory(10)->create();
 
         \App\Models\User::factory(10)
             ->has(\App\Models\Company::factory()->count(2))
             ->has(\App\Models\Group::factory()->count(3))
             ->has(\App\Models\Resume::factory()->count(4))
-            ->create();
+            ->create();     
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\City::factory(10)->create();
-
-        \App\Models\News::factory(10)->create();
+        \App\Models\Experience::factory()->count(5)
+            ->sequence(
+                ['resume_id' => rand(1, 10)],
+                ['resume_id' => rand(1, 10)],
+                ['resume_id' => rand(1, 10)],
+            )
+            ->create();
 
         \App\Models\CompanyOffer::factory()->count(30)
             ->sequence(

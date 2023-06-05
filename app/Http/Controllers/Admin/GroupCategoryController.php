@@ -51,7 +51,7 @@ class GroupCategoryController extends Controller
      */
     public function show(string $id)
     {
-        $category = GroupCategory::with('groups')->findOrFail($id);
+        $category = GroupCategory::withcount('groups')->findOrFail($id);
 
         return view('admin.groupcategory.show', ['category' => $category]);
     }

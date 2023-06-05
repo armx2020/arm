@@ -33,7 +33,7 @@ class OfferCategoryController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'sort_id' => ['required', 'integer',],
+            'sort_id' => ['required', 'integer'],
         ]);
 
         $category = new OfferCategory();
@@ -51,7 +51,7 @@ class OfferCategoryController extends Controller
      */
     public function show(string $id)
     {
-        $category = OfferCategory::with('offers')->findOrFail($id);
+        $category = OfferCategory::withcount('offers')->findOrFail($id);
 
         return view('admin.offercategory.show', ['category' => $category]);
     }
