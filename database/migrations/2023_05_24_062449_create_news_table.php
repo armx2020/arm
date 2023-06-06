@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->time('time');
+            $table->date('date');
             $table->string('name', 40);
+            $table->boolean('activity')->default(true);
             $table->text('description')->nullable();
             $table->string('image', 255)->nullable();
             $table->string('image1', 255)->nullable();

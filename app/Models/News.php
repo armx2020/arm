@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasCity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class News extends Model
 {
-    use HasFactory;
+    use HasFactory, HasCity;
 
-    public function city(): BelongsTo
-    {
-        return $this->belongsTo(City::class);
-    }
 }

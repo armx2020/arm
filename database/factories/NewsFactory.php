@@ -20,7 +20,7 @@ class NewsFactory extends Factory
         return [
             'name' => Str::random(10),
             'description' => Str::random(20),
-            'time' => now(),
+            'date' => now(),
         ];
     }
 }
