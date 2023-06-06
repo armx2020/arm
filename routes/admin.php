@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\OfferCategoryController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\ResumeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\VacancyController;
+
 
 Route::name('admin.')->prefix('admin')->group(function () {
 
@@ -27,6 +29,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('offer', OfferController::class);
         Route::resource('resume', ResumeController::class);
         Route::resource('experience', ExperienceController::class);
+        Route::resource('vacancy', VacancyController::class);
+        //Route::resource()
     });
 
 
