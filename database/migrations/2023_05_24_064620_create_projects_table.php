@@ -18,6 +18,8 @@ return new class extends Migration
             $table->boolean('activity')->default(true);
             $table->text('description')->nullable();
             $table->string('address', 128);
+            $table->unsignedInteger('donations_need');
+            $table->unsignedInteger('donations_have')->default(0);
             $table->string('image', 255)->nullable();
 
             $table->unsignedBigInteger('city_id')->nullable(); // исправить

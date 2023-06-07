@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\OfferCategoryController;
 use App\Http\Controllers\Admin\OfferController;
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ResumeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VacancyController;
@@ -34,6 +35,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('vacancy', VacancyController::class);
         Route::resource('event', EventController::class);
         Route::resource('news', NewsController::class);
+        Route::resource('project', ProjectController::class);
     });
 
 

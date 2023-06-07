@@ -26,16 +26,7 @@ class VacancyController extends Controller
      */
     public function create()
     {
-        return redirect()->route('admin.vacancy.index');
-        // $users = User::all();
-        // $companies = Company::all();
-        // $groups = Group::all();
-
-        // return view('admin.vacancy.create', [
-        //     'users' => $users,
-        //     'companies' => $companies,
-        //     'groups' => $groups
-        // ]);
+        return view('admin.vacancy.create');
     }
 
     /**
@@ -43,7 +34,25 @@ class VacancyController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect()->route('admin.vacancy.index');
+         $request->validate([
+            'name' => ['required', 'string', 'max:40'],
+            'address' => ['required', 'string', 'max:128'],
+            'description' => ['string'],
+            'image' => ['image', 'max:2048'],
+        ]);
+
+        $vacancy = new Vacancy();
+
+        $vacancy->name = $request->name;
+        $vacancy->address = $request->address;
+        $vacancy->description = $request->description;
+        $vacancy->price = $request->price;
+        $vacancy->parent_type = 'App\Models\Admin';
+        $vacancy->parent_id = 1;
+
+        $vacancy->save();
+
+        return redirect()->route('admin.vacancy.index')->with('success', 'The vacancy added');
     }
 
     /**

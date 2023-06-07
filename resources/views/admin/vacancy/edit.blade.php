@@ -44,7 +44,7 @@
                                             </div>
                                         </div>
                                         <div class="items-center p-6 border-gray-200 rounded-b">
-                                            <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save resume</button>
+                                            <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save vacancy</button>
                                         </div>
                                     </form>
                                 </div>

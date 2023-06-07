@@ -21,7 +21,7 @@ class EventFactory extends Factory
             'name' => Str::random(10),
             'address' => Str::random(20),
             'description' => Str::random(20),
-            'time_to_start' => now(),
+            'date_to_start' => now(),
             'parent_id' => rand(1, 5)
         ];
     }

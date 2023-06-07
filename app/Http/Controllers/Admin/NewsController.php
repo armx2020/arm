@@ -115,18 +115,23 @@ class NewsController extends Controller
         $news->description = $request->description;
 
         if ($request->image) {
+            Storage::delete('public/'.$news->image);
             $news->image = $request->file('image')->store('news', 'public');
         }
         if ($request->image1) {
+            Storage::delete('public/'.$news->image1);
             $news->image1 = $request->file('image1')->store('news', 'public');
         }
         if ($request->image2) {
+            Storage::delete('public/'.$news->image2);
             $news->image2 = $request->file('image2')->store('news', 'public');
         }
         if ($request->image3) {
+            Storage::delete('public/'.$news->image3);
             $news->image3 = $request->file('image3')->store('news', 'public');
         }
         if ($request->image4) {
+            Storage::delete('public/'.$news->image4);
             $news->image4 = $request->file('image4')->store('news', 'public');
         }
 

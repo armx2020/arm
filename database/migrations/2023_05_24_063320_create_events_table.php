@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->time('time_to_start');
+            $table->date('date_to_start');
             $table->string('name', 40);
             $table->boolean('activity')->default(true);
             $table->text('description')->nullable();
