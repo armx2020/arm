@@ -12,7 +12,6 @@
                             <div class="bg-white rounded-lg relative">
                                 <div class="flex items-start p-5 border-b rounded-t m-1 md:m-3">
                                     <div class="flex items-center mb-4">
-                                        <img class="h-20 w-20 rounded-full m-4" src="{{ url('/image/user.png')}}" alt="vacancy">
                                         <h3 class="text-2xl font-bold leading-none text-gray-900">New vacancy</h3>
                                     </div>
                                 </div>
@@ -37,12 +36,12 @@
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="price" class="text-sm font-medium text-gray-900 block mb-2">Price</label>
-                                                <input type="number" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('price')" required autocomplete="price" >
+                                                <input type="number" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('price')" required autocomplete="price">
                                                 <x-input-error :messages="$errors->get('price')" class="mt-2" />
                                             </div>
                                         </div>
-                                        <div class="items-center p-6 border-gray-200 rounded-b">
-                                            <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add vacancy</button>
+                                        <div class="items-center py-6 border-gray-200 rounded-b">
+                                            <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add vacancy</button>
                                         </div>
                                     </form>
                                 </div>

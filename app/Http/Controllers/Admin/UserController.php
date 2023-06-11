@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,14 +12,9 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $users = User::with('city')->latest()->paginate(20);
-
-        return view('admin.user.index', ['users' => $users]);
+        return view('admin.user.index');
     }
 
     /**
@@ -26,7 +22,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        $cities = City::all();
+        return view('admin.user.create', ['cities' => $cities]);
     }
 
     /**

@@ -95,12 +95,14 @@
                                 </table>
                             </div>
                             <hr class="my-5">
+                            @if($vacancy->description)
                             <div class=" my-6 text-center">
                                 <div class="flex-shrink-0 m-1">
                                     <span class="text-xl leading-none font-bold text-gray-900">DESCRIPTION</span>
                                 </div>
                                 {{ $vacancy -> description}}
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>

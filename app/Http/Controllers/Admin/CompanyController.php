@@ -38,7 +38,6 @@ class CompanyController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'description' => ['string'],
             'phone' => ['string', 'max:36'],
             'web' => ['max:250'],
             'viber' => ['max:36'],
@@ -69,7 +68,7 @@ class CompanyController extends Controller
 
         $company->save();
 
-        return redirect()->route('admin.group.index')->with('success', 'The company added');
+        return redirect()->route('admin.company.index')->with('success', 'The company added');
 
     
     }
@@ -102,7 +101,6 @@ class CompanyController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'description' => ['string'],
             'phone' => ['string', 'max:36'],
             'web' => ['max:250'],
             'viber' => ['max:36'],

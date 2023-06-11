@@ -34,6 +34,13 @@
                 </div>
             </div>
         </div>
+        @if (count($categories) === 0)
+        <div class="bg-white shadow p-4">
+            <div class="flex items-center text-center">
+                <h3 class="text-xl font-normal mx-auto">No categories</h3>
+            </div>
+        </div>
+        @else
         <div class=" mb-4 flex flex-col">
             <div class="overflow-x-auto">
                 <div class="align-middle inline-block min-w-full">
@@ -114,6 +121,7 @@
             </div>
         </div>
         {{ $categories->links()}}
+        @endif
     </main>
 </div>
 

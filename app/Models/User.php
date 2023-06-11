@@ -11,10 +11,12 @@ use App\Models\Traits\HasGroups;
 use App\Models\Traits\HasProjects;
 use App\Models\Traits\HasResumes;
 use App\Models\Traits\HasVacancies;
+use App\Models\Traits\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+// use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
@@ -28,6 +30,13 @@ class User extends Authenticatable
         HasProjects,
         HasEvents,
         HasVacancies;
+    use Search;
+
+
+    protected $searchable = [
+        'firstname',
+        'lastname',
+    ];
 
 
     /**
@@ -39,7 +48,7 @@ class User extends Authenticatable
         'firstname',
         'lastname',
         'phone',
-        'email',
+         'email',
         'password',
     ];
 

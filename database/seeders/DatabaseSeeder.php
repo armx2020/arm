@@ -15,10 +15,9 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\GroupCategory::factory(10)->create();
         \App\Models\OfferCategory::factory(10)->create();
-        \App\Models\City::factory(10)->create();
         \App\Models\News::factory(10)->create();
 
-        \App\Models\User::factory(10)
+        \App\Models\User::factory(100)
             ->has(\App\Models\Company::factory()->count(2))
             ->has(\App\Models\Group::factory()->count(3))
             ->has(\App\Models\Resume::factory()->count(4))

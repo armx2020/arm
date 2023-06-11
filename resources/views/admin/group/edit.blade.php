@@ -18,7 +18,7 @@
                                         @else
                                         <img class="h-20 w-20 rounded-full m-4" src="{{ asset('storage/'. $group->image) }}" alt="{{ $group->image }} logo">
                                         @endif
-                                        
+
                                         <h3 class="text-2xl font-bold leading-none text-gray-900">Edit {{ $group->name }}</h3>
                                     </div>
 
@@ -41,7 +41,7 @@
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="description" class="text-sm font-medium text-gray-900 block mb-2">Description</label>
-                                                <input type="text" name="description" id="description" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $group->description }}" required autofocus autocomplete="description">
+                                                <input type="text" name="description" id="description" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $group->description }}" autofocus autocomplete="description">
                                                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
@@ -67,9 +67,6 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-
-
-
                                         </div>
                                         <hr class="my-5">
                                         <div class="flex flex-row ">
@@ -109,10 +106,9 @@
                                                 <input type="text" name="vkontakte" id="vkontakte" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $group->vkontakte }}" autocomplete="vkontakte">
                                                 <x-input-error :messages="$errors->get('vkontakte')" class="mt-2" />
                                             </div>
-
                                         </div>
-                                        <div class="items-center p-6 border-gray-200 rounded-b">
-                                            <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save company</button>
+                                        <div class="items-center py-6 border-gray-200 rounded-b">
+                                            <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save company</button>
                                         </div>
                                     </form>
                                 </div>

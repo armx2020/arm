@@ -45,7 +45,7 @@
                                                 <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $company->phone }}" required autocomplete="phone" autocomplete="phone">
                                                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                             </div>
-                                            <div class="col-span-6 sm:col-span-3">
+                                            <div class="col-span-6">
                                                 <label for="user" class="text-sm font-medium text-gray-900 block mb-2">User*</label>
                                                 <select name="user" id="user" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                                     @foreach( $users as $user)
@@ -96,8 +96,8 @@
                                             </div>
 
                                         </div>
-                                        <div class="items-center p-6 border-gray-200 rounded-b">
-                                            <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save company</button>
+                                        <div class="items-center py-6 border-gray-200 rounded-b">
+                                            <button class="text-white w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save company</button>
                                         </div>
                                     </form>
                                 </div>
