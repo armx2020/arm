@@ -51,6 +51,7 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->city_id = $request->city;
         $user->viber = $request->viber;
         $user->whatsapp = $request->whatsapp;
         $user->telegram = $request->telegram;

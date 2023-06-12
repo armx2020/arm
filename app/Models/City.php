@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,6 +13,8 @@ class City extends Model
     protected $searchable = [
         'name',
     ];
+
+    protected $fillable = ['name'];
 
     public function users() : HasMany
     {
