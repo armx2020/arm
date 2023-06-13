@@ -37,15 +37,11 @@
                                                 <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Email*</label>
                                                 <input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $user->email }}" required autocomplete="email">
                                             </div>
-                                            <div class="col-span-6 sm:col-span-3">
-                                                <label for="password" class="text-sm font-medium text-gray-900 block mb-2">Password*</label>
-                                                <input type="password" name="password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required autocomplete="new-password">
-                                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                                            </div>
-                                            <div class="col-span-6 sm:col-span-3">
-                                                <label for="password_confirmation" class="text-sm font-medium text-gray-900 block mb-2">Confirm password*</label>
-                                                <input type="password" name="password_confirmation" id="password_confirmation" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required>
-                                                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                            <div class="col-span-6">
+                                                <label for="city" class="text-sm font-medium text-gray-900 block mb-2">City*</label>
+                                                <select name="city" class=" form-group shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" id="dd_city">
+                                                    <option value='{{ $user->city->id }}'>{{ $user->city->name }}</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <hr class="my-5">
@@ -63,7 +59,7 @@
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="viber" class="text-sm font-medium text-gray-900 block mb-2">Viber</label>
-                                                <input type="text" name="viber" id="viber" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"  value="{{ $user->viber }}" autocomplete="viber">
+                                                <input type="text" name="viber" id="viber" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $user->viber }}" autocomplete="viber">
                                                 <x-input-error :messages="$errors->get('viber')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
@@ -101,5 +97,32 @@
         </div>
     </main>
 </div>
+<script type='text/javascript'>
+    $(document).ready(function() {
+        // Initialize select2
+        if ($("#dd_city").length > 0) {
+            $("#dd_city").select2({
+                ajax: {
+                    url: " {{ route('cities') }}",
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                            "_token": "{{ csrf_token() }}",
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                }
+            });
+        }
 
+    });
+</script>
 @endsection

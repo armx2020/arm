@@ -58,11 +58,7 @@
                                                 @endif
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                @if($user->city == null)
-                                                not selected
-                                                @else
-                                                {{ $user->city }}
-                                                @endif
+                                                {{ $user->city->name }}
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-base font-normal text-gray-900">
                                                 <div class="flex items-center">
@@ -98,83 +94,47 @@
                                     </tbody>
                                 </table>
                             </div>
-
+                            <hr class="my-3">
                             <div class="flow-root my-6">
-                                <table class="table-fixed min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-100">
-                                        <tr>
-                                            <th scope="col" class="p-4 text-center text-md font-medium text-gray-500">
-                                                social
-                                            </th>
-                                            <th scope="col" class="p-4 text-center text-md font-medium text-gray-500">
-                                                value
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200 my-4">
-                                        <tr class="">
-                                            <td class="w-1/4 text-center p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                Viber
-                                            </td>
-                                            <td class="w-1/4 text-center p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                @if( $user->viber == null)
-                                                <div class="h-2.5 w-2.5 mx-auto rounded-full bg-red-400"></div>
-                                                @else
-                                                {{ $user->viber }}
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr class="">
-                                            <td class="w-1/2 text-center p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                whatsapp
-                                            </td>
-                                            <td class="w-1/2 text-center p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                @if( $user->whatsapp == null)
-                                                <div class="h-2.5 w-2.5 mx-auto rounded-full bg-red-400"></div>
-                                                @else
-                                                {{ $user->whatsapp }}
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr class="">
-                                            <td class="w-1/2 text-center p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                Telegram
-                                            </td>
-                                            <td class="w-1/2 text-center p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                @if( $user->telegram == null)
-                                                <div class="h-2.5 w-2.5 mx-auto rounded-full bg-red-400"></div>
-                                                @else
-                                                {{ $user->telegram }}
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr class="">
-                                            <td class="w-1/2 text-center p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                Instasgram
-                                            </td>
-                                            <td class="w-1/2 text-center p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                @if( $user->instagram == null)
-                                                <div class="h-2.5 w-2.5 mx-auto rounded-full bg-red-400"></div>
-                                                @else
-                                                {{ $user->instagram }}
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr class="">
-                                            <td class="w-1/2 text-center p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                Vkontakte
-                                            </td>
-                                            <td class="w-1/2 text-center p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                @if( $user->vkontakte == null)
-                                                <div class="h-2.5 w-2.5 mx-auto rounded-full bg-red-400"></div>
-                                                @else
-                                                {{ $user->vkontakte }}
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="grid grid-cols-1 md:grid-cols-3 m-5 justify-center gap-6">
+                                    @if($user->viber)
+                                    <div class="text-sm text-center font-normal text-gray-500">
+                                        <div class="text-base font-semibold text-gray-900">viber</div>
+                                        <div class="text-sm font-normal text-gray-500">{{ $user->viber}}</div>
+                                    </div>
+                                    @endif
+
+                                    @if($user->whatsapp)
+                                    <div class="text-sm text-center font-normal text-gray-500">
+                                        <div class="text-base font-semibold text-gray-900">watsapp</div>
+                                        <div class="text-sm font-normal text-gray-500">{{ $user->whatsapp}}</div>
+                                    </div>
+                                    @endif
+
+                                    @if($user->telegram)
+                                    <div class="text-sm text-center font-normal text-gray-500">
+                                        <div class="text-base font-semibold text-gray-900">telegram</div>
+                                        <div class="text-sm font-normal text-gray-500">{{ $user->telegram}}</div>
+                                    </div>
+                                    @endif
+
+                                    @if($user->instagram)
+                                    <div class="text-sm text-center font-normal text-gray-500">
+                                        <div class="text-base font-semibold text-gray-900">instagram</div>
+                                        <div class="text-sm font-normal text-gray-500">{{ $user->instagram}}</div>
+                                    </div>
+                                    @endif
+
+                                    @if($user->vkontakte)
+                                    <div class="text-sm text-center font-normal text-gray-500">
+                                        <div class="text-base font-semibold text-gray-900">vkontakte</div>
+                                        <div class="text-sm font-normal text-gray-500">{{ $user->vkontakte}}</div>
+                                    </div>
+                                    @endif
+
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

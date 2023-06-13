@@ -22,22 +22,22 @@
                                         <div class="grid grid-cols-6 gap-6">
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="firstname" class="text-sm font-medium text-gray-900 block mb-2">First Name*</label>
-                                                <input type="text" name="firstname" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('firstname')" required autofocus autocomplete="firstname">
+                                                <input type="text" name="firstname" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('firstname')" required autofocus>
                                                 <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="lastname" class="text-sm font-medium text-gray-900 block mb-2">Last Name*</label>
-                                                <input type="text" name="lastname" id="lastname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('lastname')" required autofocus autocomplete="lastname">
+                                                <input type="text" name="lastname" id="lastname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('lastname')" required autofocus>
                                                 <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6">
                                                 <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Email*</label>
-                                                <input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('email')" required autocomplete="email">
+                                                <input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('email')" required>
                                             </div>
 
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="password" class="text-sm font-medium text-gray-900 block mb-2">Password*</label>
-                                                <input type="password" name="password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required autocomplete="new-password">
+                                                <input type="password" name="password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required>
                                                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
@@ -47,13 +47,12 @@
                                             </div>
                                             <div class="col-span-6">
                                                 <label for="city" class="text-sm font-medium text-gray-900 block mb-2">City*</label>
-                                                <select name="city" id="city" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
-                                                    @foreach( $cities as $city)
-                                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                                    @endforeach
+                                                <select name="city" class=" form-group shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" id="dd_city">
+                                                    <option value='1'>-- select city --</option>
                                                 </select>
                                             </div>
                                         </div>
+
                                         <hr class="my-5">
                                         <div class="flex flex-row ">
                                             <label for="image" class="text-center text-sm font-medium text-gray-900 basis-1/6 my-2">image</label>
@@ -64,32 +63,32 @@
                                         <div class="grid grid-cols-6 gap-6">
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number</label>
-                                                <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" autocomplete="phone">
+                                                <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('phone')">
                                                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="viber" class="text-sm font-medium text-gray-900 block mb-2">Viber</label>
-                                                <input type="text" name="viber" id="viber" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" autocomplete="viber" :value="old('viber')">
+                                                <input type="text" name="viber" id="viber" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('viber')">
                                                 <x-input-error :messages="$errors->get('viber')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="whatsapp" class="text-sm font-medium text-gray-900 block mb-2">Whatsapp</label>
-                                                <input type="text" name="whatsapp" id="whatsapp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('whatsapp')" autocomplete="whatsapp">
+                                                <input type="text" name="whatsapp" id="whatsapp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('whatsapp')">
                                                 <x-input-error :messages="$errors->get('whatsapp')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="telegram" class="text-sm font-medium text-gray-900 block mb-2">Telegram</label>
-                                                <input type="text" name="telegram" id="telegram" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('telegram')" autocomplete="telegram">
+                                                <input type="text" name="telegram" id="telegram" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('telegram')">
                                                 <x-input-error :messages="$errors->get('telegram')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="instagram" class="text-sm font-medium text-gray-900 block mb-2">Instagram</label>
-                                                <input type="text" name="instagram" id="instagram" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('instagram')" autocomplete="instagram">
+                                                <input type="text" name="instagram" id="instagram" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('instagram')">
                                                 <x-input-error :messages="$errors->get('instagram')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="vkontakte" class="text-sm font-medium text-gray-900 block mb-2">Vkontakte</label>
-                                                <input type="text" name="vkontakte" id="vkontakte" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('vkontakte')" autocomplete="vkontakte">
+                                                <input type="text" name="vkontakte" id="vkontakte" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('vkontakte')">
                                                 <x-input-error :messages="$errors->get('vkontakte')" class="mt-2" />
                                             </div>
 
@@ -107,4 +106,32 @@
         </div>
     </main>
 </div>
+<script type='text/javascript'>
+    $(document).ready(function() {
+        // Initialize select2
+        if ($("#dd_city").length > 0) {
+            $("#dd_city").select2({
+                ajax: {
+                    url: " {{ route('cities') }}",
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                            "_token": "{{ csrf_token() }}",
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                }
+            });
+        }
+
+    });
+</script>
 @endsection

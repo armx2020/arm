@@ -12,8 +12,13 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    
+
+    <script src="{{ url('/jquery-3.7.0.min.js')}}"></script>
+    <script src="{{ url('/select2.min.js')}}"></script>
+    <link href="{{ url('/select2.min.css')}}" rel="stylesheet" />
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
     @livewireStyles
 </head>
 
@@ -26,22 +31,19 @@
         @include('admin.layouts.nav')
 
         <div class="bg-gray-900 opacity-50 hidden fixed inset-0 z-10" id="sidebarBackdrop"></div>
-        
+
         <div id="main-content" class="w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
-            
+
             <main class="min-h-screen">
                 @yield('content')
             </main>
-            
+
             @include('admin.layouts.footer')
         </div>
 
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="https://demo.themesberg.com/windster/app.bundle.js"></script>
     @livewireScripts
-   
+
 </body>
 
 </html>

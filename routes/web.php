@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+//use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Livewire\Citydropdown;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Route;
  });
 
 // Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
-// Route::get('/{city}', [HomeController::class, 'home'])->name('home');
+// Route::get('/home/{city}', [HomeController::class, 'home'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -34,8 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/Citydropdown', Citydropdown::class);
 
+Route::post('/cities', [CityController::class, 'getCities'])->name('cities');
 
 
 require __DIR__ . '/auth.php';

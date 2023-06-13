@@ -16,6 +16,8 @@ class City extends Model
 
     protected $fillable = ['name'];
 
+    public $timestamps = false;
+
     public function users() : HasMany
     {
         return $this->hasMany(User::class);

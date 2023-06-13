@@ -104,7 +104,6 @@ class UserController extends Controller
         $request->validate([
             'firstname' => ['required', 'string', 'max:32'],
             'lastname' => ['required', 'string', 'max:32'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'viber' => ['max:36'],
             'whatsapp' => ['max:36'],
             'telegram' => ['max:36'],
@@ -124,7 +123,7 @@ class UserController extends Controller
         $user->lastname = $request->lastname;
         $user->phone = $request->phone;
         $user->email = $request->email;
-        $user->password = Hash::make($request->password);
+        $user->city_id = $request->city;
         $user->viber = $request->viber;
         $user->whatsapp = $request->whatsapp;
         $user->telegram = $request->telegram;
@@ -142,7 +141,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::with(             // удалить связи
+        $user = User::with(
             'events',
             'groups',
             'companies',
