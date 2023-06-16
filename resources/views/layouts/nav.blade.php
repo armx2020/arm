@@ -112,3 +112,32 @@
         </button>
     </form>
 </div>
+
+<script type='text/javascript'>
+    $(document).ready(function() {
+        // Initialize select2
+        if ($("#dd_city").length > 0) {
+            $("#dd_city").select2({
+                ajax: {
+                    url: " {{ route('cities') }}",
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                            "_token": "{{ csrf_token() }}",
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                }
+            });
+        }
+
+    });
+</script>
