@@ -1,9 +1,10 @@
 <?php
 
-//use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\FromLocation;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,12 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
- Route::get('/', function () {
-     return view('welcome');
- });
+ Route::get('/', function () {})->name('welcome')->middleware(FromLocation::class);
 
-// Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
-// Route::get('/home/{city}', [HomeController::class, 'home'])->name('home');
+ //Route::get('/', [HomeController::class, 'welcome'])->name('welcome')->middleware(FromLocation::class);
+ Route::get('/home', [HomeController::class, 'main'])->name('main');
+ Route::get('/home/{city}', [HomeController::class, 'home'])->name('home');
+ //Route::get('/home/{city}/group/')
 
 Route::get('/dashboard', function () {
     return view('dashboard');
