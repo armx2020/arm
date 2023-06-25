@@ -10,29 +10,17 @@ use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $companies = Company::with(['city'])->latest()->paginate(20);
-
-        return view('admin.company.index', ['companies'=>$companies]);
+        return view('admin.company.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        $users = User::all();
-                
+        $users = User::all();     
         return view('admin.company.create', ['users' => $users]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -53,6 +41,7 @@ class CompanyController extends Controller
         $company->name = $request->name;
         $company->address = $request->address;
         $company->description = $request->description;
+        $company->city_id = $request->city;
         $company->phone = $request->phone;
         $company->web = $request->web;
         $company->viber = $request->viber;
@@ -72,19 +61,13 @@ class CompanyController extends Controller
 
     
     }
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         $company = Company::with('user')->findOrFail($id);
-
         return view('admin.company.show', ['company' => $company]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $company = Company::findOrFail($id);
@@ -93,9 +76,6 @@ class CompanyController extends Controller
         return view('admin.company.edit', ['company' => $company, 'users' => $users]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -121,6 +101,7 @@ class CompanyController extends Controller
         $company->name = $request->name;
         $company->address = $request->address;
         $company->description = $request->description;
+        $company->city_id = $request->city;
         $company->phone = $request->phone;
         $company->web = $request->web;
         $company->viber = $request->viber;
@@ -136,12 +117,9 @@ class CompanyController extends Controller
             ->with('success', "The company saved");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        $company = Company::with('user')->findOrFail($id);
+        $company = Company::findOrFail($id);
 
         if($company->logo !== null) {
             Storage::delete('public/'.$company->logo);

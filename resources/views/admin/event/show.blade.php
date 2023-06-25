@@ -1,56 +1,46 @@
 @extends('admin.layouts.app')
-
 @section('content')
-
-<div id="main-content" class="h-full w-full p-3 bg-gray-50 relative overflow-y-auto">
-    <main>
-        <div class=" my-2 flex flex-col">
-            <div class="overflow-x-auto">
-                <div class="align-middle inline-block min-w-full">
-                    <div class="shadow overflow-hidden">
-
-                        <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
-                            @if (session('success'))
-                            <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
-                                {{ session('success')}}
-                            </div>
-                            @endif
-
-                            <div class="flex items-center mb-4">
-                                <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $event->name }}</h3>
-                            </div>
-
-                            <div class="flow-root">
-                                <table class="table-fixed min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-100">
-                                        <tr>
-                                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                                Name
-                                            </th>
-                                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                                Address
-                                            </th>
-                                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                                City
-                                            </th>
-                                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                                Activity
-                                            </th>
-                                            <th scope="col" class="p-4">
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                       
-                                    <tr class="hover:bg-gray-100">
+<div class=" my-2 flex flex-col">
+    <div class="overflow-x-auto">
+        <div class="align-middle inline-block min-w-full">
+            <div class="shadow overflow-hidden">
+                <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+                    @if (session('success'))
+                    <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
+                        {{ session('success')}}
+                    </div>
+                    @endif
+                    <div class="flex items-center mb-4">
+                        @if( $event->image == null)
+                        <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-camera.png')}}" alt="{{ $event->name }}">
+                        @else
+                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$event->image) }}" alt="{{ $event->name }}">
+                        @endif
+                        <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $event->name }}</h3>
+                    </div>
+                    <div class="flow-root">
+                        <table class="table-fixed min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                        Name
+                                    </th>
+                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                        Address
+                                    </th>
+                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                        City
+                                    </th>
+                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                        Activity
+                                    </th>
+                                    <th scope="col" class="p-4">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-100">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-
-                                        @if( $event->image == null)
-                                        <img class="h-10 w-10 rounded-full m-4" src="{{ url('/image/user.png')}}" alt="{{ $event->name }}">
-                                        @else
-                                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$event->image) }}" alt="{{ $event->name }}">
-                                        @endif
-
                                         <a href="{{ route('admin.event.show', [ 'event' => $event->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $event->name }}</div>
@@ -58,14 +48,10 @@
                                         </a>
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                    <div class="text-sm font-normal text-gray-500">{{ $event->address}}</div>
+                                        <div class="text-sm font-normal text-gray-500">{{ $event->address}}</div>
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        @if($event->city == null)
-                                        not selected
-                                        @else
-                                        {{ $event->city }}
-                                        @endif
+                                        {{ $event->city->name }}
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-normal text-gray-900">
                                         <div class="flex items-center">
@@ -98,71 +84,59 @@
                                         </div>
                                     </td>
                                 </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <hr class="my-5">
-                            <div class=" my-6 text-center">
-                                <div class="flex-shrink-0 m-1">
-                                    <span class="text-xl leading-none font-bold text-gray-900">DESCRIPTION</span>
-                                </div>
-                                {{ $event -> description}}
-                            </div>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr class="my-5">
+                    <div class=" my-6 text-center">
+                        <div class="flex-shrink-0 m-1">
+                            <span class="text-xl leading-none font-bold text-gray-900">DESCRIPTION</span>
                         </div>
+                        {{ $event -> description}}
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="my-4 w-full grid grid-cols-1 gap-4">
-
-            @switch($event->parent_type)
-
-            @case('App\Models\Company')
-            <div class="bg-white shadow rounded-lg p-3">
-                <div class="flex flex-col items-center">
-                    <div class="flex-shrink-0 m-1">
-                        <span class="text-xl leading-none font-bold text-gray-900">Parent company </span>
-                    </div>
-                    <a href="{{ route('admin.company.show', ['company' => $event->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                        {{ $event->parent->name }}
-                    </a>
-                </div>
-            </div>
-            @break
-
-            @case('App\Models\Group')
-            <div class="bg-white shadow rounded-lg p-3">
-                <div class="flex flex-col items-center">
-                    <div class="flex-shrink-0 m-1">
-                        <span class="text-xl leading-none font-bold text-gray-900">Parent group </span>
-                    </div>
-                    <a href="{{ route('admin.group.show', ['group' => $event->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                        {{ $event->parent->name }}
-                    </a>
-                </div>
-            </div>
-            @break
-
-            @case('App\Models\User')
-            <div class="bg-white shadow rounded-lg p-3">
-                <div class="flex flex-col items-center">
-                    <div class="flex-shrink-0 m-1">
-                        <span class="text-xl leading-none font-bold text-gray-900">Parent user </span>
-                    </div>
-                    <a href="{{ route('admin.user.show', ['user' => $event->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                        {{ $event->parent->firstname }} {{ $event->parent->lastname }}
-                    </a>
-                </div>
-            </div>
-            @break
-
-
-            @endswitch
-
-        </div>
-    </main>
+    </div>
 </div>
-
+<div class="my-4 w-full grid grid-cols-1 gap-4">
+    @switch($event->parent_type)
+    @case('App\Models\Company')
+    <div class="bg-white shadow rounded-lg p-3">
+        <div class="flex flex-col items-center">
+            <div class="flex-shrink-0 m-1">
+                <span class="text-xl leading-none font-bold text-gray-900">Parent company </span>
+            </div>
+            <a href="{{ route('admin.company.show', ['company' => $event->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                {{ $event->parent->name }}
+            </a>
+        </div>
+    </div>
+    @break
+    @case('App\Models\Group')
+    <div class="bg-white shadow rounded-lg p-3">
+        <div class="flex flex-col items-center">
+            <div class="flex-shrink-0 m-1">
+                <span class="text-xl leading-none font-bold text-gray-900">Parent group </span>
+            </div>
+            <a href="{{ route('admin.group.show', ['group' => $event->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                {{ $event->parent->name }}
+            </a>
+        </div>
+    </div>
+    @break
+    @case('App\Models\User')
+    <div class="bg-white shadow rounded-lg p-3">
+        <div class="flex flex-col items-center">
+            <div class="flex-shrink-0 m-1">
+                <span class="text-xl leading-none font-bold text-gray-900">Parent user </span>
+            </div>
+            <a href="{{ route('admin.user.show', ['user' => $event->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                {{ $event->parent->firstname }} {{ $event->parent->lastname }}
+            </a>
+        </div>
+    </div>
+    @break
+    @endswitch
+</div>
 @endsection

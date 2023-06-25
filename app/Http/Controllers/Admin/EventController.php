@@ -9,27 +9,16 @@ use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $events = Event::with('parent')->latest()->paginate(20);
-
-        return view('admin.event.index', ['events' => $events]);
+        return view('admin.event.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.event.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -44,6 +33,7 @@ class EventController extends Controller
         $event->name = $request->name;
         $event->address = $request->address;
         $event->description = $request->description;
+        $event->city_id = $request->city;
         $event->date_to_start = $request->date_to_start;
         $event->parent_type = 'App\Models\Admin';
         $event->parent_id = 1;
@@ -57,9 +47,6 @@ class EventController extends Controller
         return redirect()->route('admin.event.index')->with('success', 'The event added');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $event = Event::with('parent')->findOrFail($id);
@@ -67,9 +54,6 @@ class EventController extends Controller
         return view('admin.event.show', ['event' => $event]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $event = Event::with('parent')->findOrFail($id);
@@ -77,9 +61,6 @@ class EventController extends Controller
         return view('admin.event.edit', ['event' => $event]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -94,6 +75,7 @@ class EventController extends Controller
         $event->name = $request->name;
         $event->address = $request->address;
         $event->description = $request->description;
+        $event->city_id = $request->city;
         $event->date_to_start = $request->date_to_start;
 
         if ($request->image) {
@@ -106,9 +88,6 @@ class EventController extends Controller
         return redirect()->route('admin.event.index')->with('success', 'The event added');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $event = Event::findOrFail($id);

@@ -1,20 +1,15 @@
 <div>
     <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200">
         <div class="mb-3 w-full">
-
             @if (session('success'))
             <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
                 {{ session('success')}}
             </div>
             @endif
-
-
             <div class="mb-4">
                 <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All users</h1>
             </div>
-
             <div class="sm:flex">
-
                 <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
                     <form class="lg:pr-3" method="get">
                         <label for="users-search" class="sr-only">Search</label>
@@ -31,9 +26,7 @@
                         Add user
                     </a>
                 </div>
-
             </div>
-
         </div>
     </div>
     <div wire:loading class="w-full">
@@ -136,17 +129,15 @@
                                     </td>
                                 </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="p-4">
+            {{ $users->links()}}
+        </div>
+        @endif
     </div>
-    <div class="p-4">
-        {{ $users->links()}}
-    </div>
-    @endif
-
 </div>

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -28,13 +29,13 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\Experience::factory()->count(5)
-            ->sequence(
-                ['resume_id' => rand(1, 10)],
-                ['resume_id' => rand(1, 10)],
-                ['resume_id' => rand(1, 10)],
-            )
-            ->create();
+        // \App\Models\Experience::factory()->count(5)
+        //     ->sequence(
+        //         ['resume_id' => rand(1, 10)],
+        //         ['resume_id' => rand(1, 10)],
+        //         ['resume_id' => rand(1, 10)],
+        //     )
+        //     ->create();
 
         \App\Models\CompanyOffer::factory()->count(30)
             ->sequence(
@@ -67,5 +68,9 @@ class DatabaseSeeder extends Seeder
                 ['parent_type' => 'App\Models\User'],
             )
             ->create();
+
+            DB::table('group_user')->insert(['group_id' => 1, 'user_id' => 1]);
+            DB::table('group_user')->insert(['group_id' => 2, 'user_id' => 2]);
+            DB::table('group_user')->insert(['group_id' => 3, 'user_id' => 3]);
     }
 }

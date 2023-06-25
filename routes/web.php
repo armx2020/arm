@@ -3,7 +3,9 @@
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegionController;
 use App\Http\Middleware\FromLocation;
 use Illuminate\Support\Facades\Route;
 
@@ -19,12 +21,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
- Route::get('/', function () {})->name('welcome')->middleware(FromLocation::class);
+//  Route::get('/', function () {
+//     return redirect()->route('main');
+//  })->name('welcome')->middleware(FromLocation::class);
 
- //Route::get('/', [HomeController::class, 'welcome'])->name('welcome')->middleware(FromLocation::class);
- Route::get('/home', [HomeController::class, 'main'])->name('main');
- Route::get('/home/{city}', [HomeController::class, 'home'])->name('home');
- //Route::get('/home/{city}/group/')
+ Route::get('/', [HomeController::class, 'welcome'])->name('welcome')->middleware(FromLocation::class);
+ Route::get('/home', [HomeController::class, 'home'])->name('home')->middleware(FromLocation::class);
+ Route::get('/groups', [GroupController::class, 'index'])->name('group.index')->middleware(FromLocation::class);
+
+ Route::get('/change', [HomeController::class, 'changeCity'])->name('changeCity');
+
+ Route::get('/groups', [GroupController::class, 'index'])->name('group.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -38,6 +45,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::post('/cities', [CityController::class, 'getCities'])->name('cities');
+Route::post('/regions', [RegionController::class, 'getRegions'])->name('regions');
 
 
 require __DIR__ . '/auth.php';

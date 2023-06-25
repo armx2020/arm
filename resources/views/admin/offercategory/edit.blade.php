@@ -1,16 +1,12 @@
 @extends('admin.layouts.app')
-
 @section('content')
-
-<div id="main-content" class="h-full w-full p-3 bg-gray-50 relative overflow-y-auto">
-    <main>
         <div class=" mb-4 flex flex-col">
             <div class="overflow-x-auto">
                 <div class="align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden">
-                        <div class="relative w-full px-4 h-full md:h-auto">
+                        <div class="relative w-full h-full md:h-auto">
                             <div class="bg-white rounded-lg relative">
-                                <div class="flex items-start p-5 border-b rounded-t m-1 md:m-3">
+                                <div class="flex items-start p-5 border-b rounded-t">
                                     <div class="flex items-center mb-4">
                                         <h3 class="text-2xl font-bold leading-none text-gray-900">Edit {{ $category->name }}</h3>
                                     </div>
@@ -33,8 +29,8 @@
                                                 <x-input-error :messages="$errors->get('sort_id')" class="mt-2" />
                                             </div>
                                         </div>
-                                         <div class="items-center p-6 border-gray-200 rounded-b">
-                                            <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save category</button>
+                                         <div class="items-center py-6 border-gray-200 rounded-b">
+                                            <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save category</button>
                                         </div>
                                     </form>
                                 </div>
@@ -44,7 +40,4 @@
                 </div>
             </div>
         </div>
-    </main>
-</div>
-
 @endsection

@@ -1,27 +1,23 @@
 @extends('admin.layouts.app')
-
 @section('content')
 <div class="flex flex-col">
     <div class="overflow-x-auto">
         <div class="align-middle inline-block min-w-full">
             <div class="shadow overflow-hidden">
-
                 <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                     @if (session('success'))
                     <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
                         {{ session('success')}}
                     </div>
                     @endif
-
                     <div class="flex items-center mb-4">
                         @if( $user->image == null)
-                        <img class="h-20 w-20 rounded-full m-4" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                        <img class="h-10 w-10 rounded-full m-4" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
                         @else
-                        <img class="h-20 w-20 rounded-full m-4" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
+                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
                         @endif
                         <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $user->firstname }} {{ $user->lastname }}</h3>
                     </div>
-
                     <div class="flow-root">
                         <table class="table-fixed min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-100">
@@ -100,46 +96,38 @@
                                 <div class="text-sm font-normal text-gray-500">{{ $user->viber}}</div>
                             </div>
                             @endif
-
                             @if($user->whatsapp)
                             <div class="text-sm text-center font-normal text-gray-500">
                                 <div class="text-base font-semibold text-gray-900">watsapp</div>
                                 <div class="text-sm font-normal text-gray-500">{{ $user->whatsapp}}</div>
                             </div>
                             @endif
-
                             @if($user->telegram)
                             <div class="text-sm text-center font-normal text-gray-500">
                                 <div class="text-base font-semibold text-gray-900">telegram</div>
                                 <div class="text-sm font-normal text-gray-500">{{ $user->telegram}}</div>
                             </div>
                             @endif
-
                             @if($user->instagram)
                             <div class="text-sm text-center font-normal text-gray-500">
                                 <div class="text-base font-semibold text-gray-900">instagram</div>
                                 <div class="text-sm font-normal text-gray-500">{{ $user->instagram}}</div>
                             </div>
                             @endif
-
                             @if($user->vkontakte)
                             <div class="text-sm text-center font-normal text-gray-500">
                                 <div class="text-base font-semibold text-gray-900">vkontakte</div>
                                 <div class="text-sm font-normal text-gray-500">{{ $user->vkontakte}}</div>
                             </div>
                             @endif
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="my-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-
+<div class="my-4 px-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
     @if (count($user->companies) > 0)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
@@ -148,13 +136,16 @@
             </div>
             <ul class="flex flex-wrap">
                 @foreach ($user->companies as $company)
-                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">{{ $company->name }}</li>
+                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                    <a href="{{ route('admin.company.show', ['company' => $company->id]) }}">
+                        {{ $company->name }}
+                    </a>
+                </li>
                 @endforeach
             </ul>
         </div>
     </div>
     @endif
-
     @if (count($user->vacancies) > 0)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
@@ -163,13 +154,16 @@
             </div>
             <ul class="flex flex-wrap">
                 @foreach ($user->vacancies as $vacancy)
-                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">{{ $vacancy->name }}</li>
+                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                    <a href="{{ route('admin.vacancy.show', ['vacancy' => $vacancy->id]) }}">
+                        {{ $vacancy->name }}
+                    </a>
+                </li>
                 @endforeach
             </ul>
         </div>
     </div>
     @endif
-
     @if (count($user->groups) > 0)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
@@ -178,13 +172,16 @@
             </div>
             <ul class="flex flex-wrap">
                 @foreach ($user->groups as $group)
-                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">{{ $group->name }}</li>
+                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                    <a href="{{ route('admin.group.show' , ['group' => $group->id]) }}">
+                        {{ $group->name }}
+                    </a>
+                </li>
                 @endforeach
             </ul>
         </div>
     </div>
     @endif
-
     @if (count($user->resumes) > 0)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
@@ -193,13 +190,16 @@
             </div>
             <ul class="flex flex-wrap">
                 @foreach ($user->resumes as $resume)
-                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">{{ $resume->name }}</li>
+                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                    <a href="{{ route('admin.resume.show', ['resume' => $resume->id]) }}">
+                        {{ $resume->name }}
+                    </a>
+                </li>
                 @endforeach
             </ul>
         </div>
     </div>
     @endif
-
     @if (count($user->projects) > 0)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
@@ -208,13 +208,16 @@
             </div>
             <ul class="flex flex-wrap">
                 @foreach ($user->projects as $project)
-                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">{{ $project->name }}</li>
+                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                    <a href="{{ route('admin.project.show', ['project' => $project->id]) }}">
+                        {{ $project->name }}
+                    </a>
+                </li>
                 @endforeach
             </ul>
         </div>
     </div>
     @endif
-
     @if (count($user->events) > 0)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
@@ -223,14 +226,15 @@
             </div>
             <ul class="flex flex-wrap">
                 @foreach ($user->events as $event)
-                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">{{ $event->name }}</li>
+                <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                    <a href="{{ route('admin.event.show', ['event' => $event->id]) }}">
+                        {{ $event->name }}
+                    </a>
+                </li>
                 @endforeach
             </ul>
         </div>
     </div>
     @endif
-
 </div>
-
-
 @endsection

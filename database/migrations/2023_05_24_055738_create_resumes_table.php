@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -20,13 +21,17 @@ return new class extends Migration
             $table->string('address', 128);
             $table->text('description')->nullable();
             
-            $table->unsignedBigInteger('city_id')->nullable(); // исправить
+            $table->unsignedBigInteger('city_id');
             $table->foreign('city_id')->references('id')->on('cities');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
 
         });
+
+        DB::statement(
+            'ALTER TABLE resumes ADD FULLTEXT fulltext_index(name, description)'
+        );
     }
 
     /**

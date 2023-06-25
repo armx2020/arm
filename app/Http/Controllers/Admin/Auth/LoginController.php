@@ -26,7 +26,7 @@ class LoginController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->back()->with('status', 'Неправильный логин или пароль')->onlyInput('login');;
+        return redirect()->back()->with('status', 'Incorrect login or password')->onlyInput('login');;
     }
 
     public function logout(Request $request)

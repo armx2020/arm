@@ -4,9 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class SearchUser extends Component
 {
+    use WithPagination;
+
     public $term = "";
 
     public function render()
@@ -18,7 +21,6 @@ class SearchUser extends Component
             sleep(1);
             $users = User::search($this->term)->paginate(20);
         }
-
 
         return view('livewire.search-user', ['users' => $users]);
     }

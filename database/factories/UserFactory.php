@@ -25,7 +25,7 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'city_id' => rand(1, 1127),
-            'phone' => rand(89001001010, 89999999999),
+            'phone' => Str::random(11),
             'viber' => Str::random(36),
             'whatsapp' => Str::random(36),
             'instagram' => Str::random(36),

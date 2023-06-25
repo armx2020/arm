@@ -4,11 +4,17 @@ namespace App\Models;
 
 use App\Models\Traits\HasCity;
 use App\Models\Traits\HasParent;
+use App\Models\Traits\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
     use HasFactory, HasCity, HasParent;
+    use Search;
+
+    protected $searchable = [
+        'name', 'description'
+    ]; 
 
 }

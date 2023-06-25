@@ -3,36 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Experience;
 use App\Models\Resume;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class ResumeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $resumes = Resume::with('user', 'experiences')->latest()->paginate(20);
-
-        return view('admin.resume.index', ['resumes' => $resumes]);
+        return view('admin.resume.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $users = User::all();
-
         return view('admin.resume.create', ['users' => $users]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -46,6 +33,7 @@ class ResumeController extends Controller
         $resume->name = $request->name;
         $resume->address = $request->address;
         $resume->description = $request->description;
+        $resume->city_id = $request->city;
         $resume->price = $request->price;
         $resume->user_id = $request->user;
 
@@ -54,31 +42,21 @@ class ResumeController extends Controller
         return redirect()->route('admin.resume.index')->with('success', 'The resume added');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        $resume = Resume::with('user', 'experiences')->findOrFail($id);
+        $resume = Resume::with('user')->findOrFail($id);
 
         return view('admin.resume.show', ['resume' => $resume]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $resume = Resume::findOrFail($id);
         $users = User::all();
-        $experiences = Experience::all();
         
-        return view('admin.resume.edit', ['resume'=>$resume, 'users'=>$users, 'experiences'=>$experiences]);
+        return view('admin.resume.edit', ['resume'=>$resume, 'users'=>$users]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -92,6 +70,7 @@ class ResumeController extends Controller
         $resume->name = $request->name;
         $resume->address = $request->address;
         $resume->description = $request->description;
+        $resume->city_id = $request->city;
         $resume->price = $request->price;
         $resume->user_id = $request->user;
 
@@ -100,9 +79,6 @@ class ResumeController extends Controller
         return redirect()->route('admin.resume.index')->with('success', 'The resume saved');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $resume = Resume::findOrFail($id);

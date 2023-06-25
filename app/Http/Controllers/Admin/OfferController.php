@@ -11,19 +11,11 @@ use Illuminate\Support\Facades\Storage;
 
 class OfferController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $offers = CompanyOffer::with('company', 'category')->latest()->paginate(20);
-
-        return view('admin.offer.index', ['offers' => $offers]);
+        return view('admin.offer.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $companies = Company::all();
@@ -32,9 +24,6 @@ class OfferController extends Controller
         return view('admin.offer.create', ['companies' => $companies, 'categories'=> $categories]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -62,6 +51,7 @@ class OfferController extends Controller
         $offer->description = $request->description;
         $offer->phone = $request->phone;
         $offer->price = $request->price;
+        $offer->city_id = $request->city;
         $offer->unit_of_price = $request->unit_of_price;
         $offer->web = $request->web;
         $offer->viber = $request->viber;
@@ -93,18 +83,12 @@ class OfferController extends Controller
         return redirect()->route('admin.offer.index')->with('success', 'The offer added');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $offer = CompanyOffer::with('company', 'category')->findOrFail($id);
         return view('admin.offer.show', ['offer' => $offer]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $offer = CompanyOffer::with('company', 'category')->findOrFail($id);
@@ -119,9 +103,6 @@ class OfferController extends Controller
                                             'companies' => $companies]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -150,6 +131,7 @@ class OfferController extends Controller
         $offer->phone = $request->phone;
         $offer->price = $request->price;
         $offer->unit_of_price = $request->unit_of_price;
+        $offer->city_id = $request->city;
         $offer->web = $request->web;
         $offer->viber = $request->viber;
         $offer->whatsapp = $request->whatsapp;
@@ -187,9 +169,6 @@ class OfferController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $offer = CompanyOffer::findOrFail($id);

@@ -11,7 +11,7 @@
                 @if ($city)
                 {{ preg_replace("/\([^)]+\)/","", $city) }}
                 @else
-                не выбрано
+                Вся Россия
                 @endif
             </button>
         </div>
@@ -87,7 +87,7 @@
                     @if ($city)
                     {{ preg_replace("/\([^)]+\)/","", $city) }}
                     @else
-                    не выбрано
+                    Вся Россия
                     @endif
                 </button>
             </div>
@@ -103,9 +103,9 @@
 
 <!-- select city -->
 <div id='selectCity' class="bg-white w-full align-middle text-right hidden">
-    <form method="GET" enctype="multipart/form-data" action="{{ route('main') }}">
-        <select name="city" class="mx-7" style="width: 25%" id="dd_city">
-            <option value='1'>-- select city --</option>
+    <form method="GET" enctype="multipart/form-data" action="{{ route('changeCity') }}">
+        <select name="city" class="mx-7" style="width: 40%" id="dd_city">
+            <option value='1'> Вся Россия</option>
         </select>
         <button type="submit" class="align-middle ml-1 mr-7 text-center rounded-md bg-blue-500 text-white h-7 px-6 items-center inline-block">
             выбрать

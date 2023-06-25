@@ -6,14 +6,15 @@
                     <div class="shadow overflow-hidden">
                         <div class="relative w-full h-full md:h-auto">
                             <div class="bg-white rounded-lg relative">
-                                <div class="flex items-center mb-4">
+                                <div class="flex items-center p-4">
                                     @if( $user->image == null)
-                                    <img class="h-20 w-20 rounded-full m-4" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                    <img class="h-10 w-10 rounded-full m-4" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
                                     @else
-                                    <img class="h-20 w-20 rounded-full m-4" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
+                                    <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
                                     @endif
                                     <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $user->firstname }} {{ $user->lastname }}</h3>
                                 </div>
+                                <hr>
                                 <div class="p-6 space-y-6">
                                     <form method="POST" enctype="multipart/form-data" action="{{ route('admin.user.update', ['user' => $user->id]) }}">
                                         @csrf
@@ -35,7 +36,7 @@
                                             </div>
                                             <div class="col-span-6">
                                                 <label for="city" class="text-sm font-medium text-gray-900 block mb-2">City*</label>
-                                                <select name="city" class=" form-group shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" id="dd_city">
+                                                <select name="city" class="w-full" id="dd_city">
                                                     <option value='{{ $user->city->id }}'>{{ $user->city->name }}</option>
                                                 </select>
                                             </div>

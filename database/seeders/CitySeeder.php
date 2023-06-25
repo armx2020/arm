@@ -36,7 +36,7 @@ class CitySeeder extends Seeder
             return $value;
         }
 
-
+      /* Add cities*/  
         $citiesInRussia = array([
             ['name' => 'не выбрано'],
             ['name' => 'Майкоп'],
@@ -1166,6 +1166,8 @@ class CitySeeder extends Seeder
             ['name' =>  'Щелкино'],
             ['name' =>  'Ялта'],
         ]);
+
+
 
         foreach ($citiesInRussia as $cityInRussia) {
             foreach($cityInRussia as $city) {

@@ -11,19 +11,11 @@ use Illuminate\Support\Facades\Storage;
 
 class GroupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $groups = Group::with('user')->latest()->paginate(10);
-
-        return view('admin.group.index', ['groups' => $groups]);
+       return view('admin.group.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories = GroupCategory::all();
@@ -32,9 +24,6 @@ class GroupController extends Controller
         return view('admin.group.create', ['categories' => $categories, 'users' => $users]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -60,6 +49,7 @@ class GroupController extends Controller
         $group->name = $request->name;
         $group->address = $request->address;
         $group->description = $request->description;
+        $group->city_id = $request->city;
         $group->phone = $request->phone;
         $group->web = $request->web;
         $group->viber = $request->viber;
@@ -91,19 +81,12 @@ class GroupController extends Controller
         return redirect()->route('admin.group.index')->with('success', 'The group added');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        $group = Group::with('user', 'category')->findOrFail($id);
-      
+        $group = Group::with('user', 'category', 'users')->findOrFail($id);
         return view('admin.group.show', ['group' => $group]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $group = Group::with('user', 'category')->findOrFail($id);
@@ -111,6 +94,7 @@ class GroupController extends Controller
         $users = User::all();
         $user = $group->user;
         $category = $group->category;
+
         return view('admin.group.edit', [   'group' => $group,
                                             'user' => $user,
                                             'category' => $category,
@@ -118,9 +102,6 @@ class GroupController extends Controller
                                             'users' => $users]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -146,6 +127,7 @@ class GroupController extends Controller
         $group->name = $request->name;
         $group->address = $request->address;
         $group->description = $request->description;
+        $group->city_id = $request->city;
         $group->phone = $request->phone;
         $group->web = $request->web;
         $group->viber = $request->viber;
@@ -183,12 +165,13 @@ class GroupController extends Controller
                         ->with('success', 'The group saved');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        $group = Group::findOrFail($id);
+        $group = Group::with('users')->findOrFail($id);
+
+        foreach($group->users as $user) {
+            $group->users()->detach($user->id);
+        }
 
         if($group->image !== null) {
             Storage::delete('public/'.$group->image);

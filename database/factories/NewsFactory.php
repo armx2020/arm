@@ -21,6 +21,7 @@ class NewsFactory extends Factory
             'name' => Str::random(10),
             'description' => Str::random(20),
             'date' => now(),
+            'city_id' => rand(1, 1127),
         ];
     }
 }

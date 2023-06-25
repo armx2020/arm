@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use Stevebauman\Location\Facades\Location;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-
-    public function home($param)
+    public function welcome()
     {
-        $city = City::where('InEnglish', '=', $param)->First();
-        
+        return redirect()->route('home');
+    }
+    
+    
+    public function home(Request $request)
+    { 
+        $city = City::where('InEnglish', 'like', $request->session()->get('city'))->First();
+ 
         $cityName = null;
 
         if ($city !== null) {
@@ -21,12 +27,12 @@ class HomeController extends Controller
         return view('home', ['city' => $cityName]);
     }
 
-    public function main(Request $request)
+    public function changeCity(Request $request)
     {
         $city = City::findOrFail($request->query('city'));
+        
+        $request->session()->put('city', $city->InEnglish);
 
-        $cityName = $city->InEnglish == 'no selected' ? 'russia' : $city->InEnglish;
-
-        return redirect()->route('home', ['city' => $cityName]);
+        return redirect()->route('home');
     }
 }

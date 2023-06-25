@@ -7,7 +7,7 @@
         <div class="bg-white rounded-xl p-2 lg:p-8 col-span-1 lg:col-span-2 row-span-1 lg:row-span-2">
             <div class="flex flex-row">
                 <div class="flex flex-col text-left basis-1/2 p-1 lg:p-4">
-                    @if ($city)
+                    @if ($city && $city !== 'не выбрано')
                     <div class="my-3 text-sm lg:text-2xl font-bold">Армянская обшина города - {{ preg_replace("/\([^)]+\)/","", $city) }}</div>
                     @else
                     <div class="my-3 text-md lg:text-2xl font-bold">Армянская обшина России</div>
@@ -34,7 +34,7 @@
             </a>
         </div>
         <div class="bg-white rounded-xl p-2">
-            <a href="">
+            <a href="{{ route('group.index') }}">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left basis-3/4 p-1 lg:p-4">
                         <div class="m-1 lg:m-2 font-bold">Группы, кружки, сообщества</div>

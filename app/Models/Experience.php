@@ -10,8 +10,8 @@ class Experience extends Model
 {
     use HasFactory;
 
-    public function resume(): BelongsTo
-    {
-        return $this->belongsTo(Resume::class);
-    }
+    // public function resume(): BelongsTo
+    // {
+    //     return $this->belongsTo(Resume::class);
+    // }
 }

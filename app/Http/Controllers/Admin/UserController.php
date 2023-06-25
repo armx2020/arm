@@ -17,18 +17,11 @@ class UserController extends Controller
         return view('admin.user.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        $cities = City::all();
-        return view('admin.user.create', ['cities' => $cities]);
+        return view('admin.user.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     { 
         $request->validate([
@@ -62,7 +55,6 @@ class UserController extends Controller
             $user->image = $request->file('image')->store('users', 'public');
         }
         
-
         $user->save();
 
         return redirect()->route('admin.user.index')->with('success', 'The user added');
@@ -86,19 +78,12 @@ class UserController extends Controller
         return view('admin.user.show', ['user' => $user]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $user = User::find($id);
-
         return view('admin.user.edit', ['user' => $user]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     { 
         $request->validate([
@@ -136,20 +121,13 @@ class UserController extends Controller
             ->with('success', "The user saved");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        $user = User::with(
-            'events',
-            'groups',
-            'companies',
-            'resumes',
-            'projects',
-            'vacancies'
-        )
-            ->findOrFail($id);
+        $user = User::with('inGroups')->findOrFail($id);
+
+        foreach($user->inGroups as $group) {
+            $user->inGroups()->detach($group->id);
+        }
 
         if($user->image !== null) {
             Storage::delete('public/'.$user->image);

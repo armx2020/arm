@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-// use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -39,6 +39,11 @@ class User extends Authenticatable
         'email'
     ];
 
+    public function inGroups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class);
+    }
+
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +54,7 @@ class User extends Authenticatable
         'firstname',
         'lastname',
         'phone',
-         'email',
+        'email',
         'password',
     ];
 

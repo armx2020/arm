@@ -16,13 +16,18 @@ class FromLocation
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $data = Location::get($ip);
+        if (!$request->session()->has('city')) {
+            
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $data = Location::get($ip);
 
-        $cityName = $data ? $data->cityName : 'russia';
+            $cityName = $data ? $data->cityName : 'no selected';
+            $regionName = $data ? $data->regionName : 'Russia';
 
-        return redirect()->route('home', ['city' => $cityName]);
+            $request->session()->put('city', $cityName);
+            $request->session()->put('region', $regionName);
+        }
 
-        //return $next($request);
+        return $next($request);
     }
 }

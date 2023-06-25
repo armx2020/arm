@@ -1,16 +1,12 @@
 @extends('admin.layouts.app')
-
 @section('content')
-
-<div id="main-content" class="h-full w-full p-3 bg-gray-50 relative overflow-y-auto">
-    <main>
         <div class=" mb-4 flex flex-col">
             <div class="overflow-x-auto">
                 <div class="align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden">
-                        <div class="relative w-full px-4 h-full md:h-auto">
+                        <div class="relative w-full h-full md:h-auto">
                             <div class="bg-white rounded-lg relative">
-                                <div class="flex items-start p-5 border-b rounded-t m-1 md:m-3">
+                                <div class="flex items-start p-5 border-b rounded-t">
                                     <div class="flex items-center mb-4">
                                         <h3 class="text-2xl font-bold leading-none text-gray-900">New category for group</h3>
                                     </div>
@@ -43,7 +39,4 @@
                 </div>
             </div>
         </div>
-    </main>
-</div>
-
 @endsection

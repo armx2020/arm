@@ -1,22 +1,18 @@
 @extends('admin.layouts.app')
-
 @section('content')
-
-<div id="main-content" class="h-full w-full p-3 bg-gray-50 relative overflow-y-auto">
-    <main>
-        <div class=" my-2 flex flex-col">
+        <div class="flex flex-col">
             <div class="overflow-x-auto">
                 <div class="align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden">
 
-                        <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+                        <div class="bg-white shadow rounded-lg p-4 h-full">
                             @if (session('success'))
                             <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
                                 {{ session('success')}}
                             </div>
                             @endif
 
-                            <div class="flex items-center mb-4">
+                            <div class="flex items-center m-4">
                                 <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $resume->name }}</h3>
                             </div>
 
@@ -49,11 +45,7 @@
                                                 {{ $resume->address }}
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                @if($resume->city == null)
-                                                not selected
-                                                @else
-                                                {{ $resume->city }}
-                                                @endif
+                                                {{ $resume->city->name }}
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-base font-normal text-gray-900">
                                                 <div class="flex items-center">
@@ -65,7 +57,7 @@
                                                 </div>
                                             </td>
                                             <td class="p-4 whitespace-nowrap space-x-2 text-right">
-                                                <div class="flex flex-row">
+                                                <div class="flex flex-row justify-end">
                                                     <a href="{{ route('admin.resume.edit', ['resume' => $resume->id ]) }}" data-modal-toggle="user-modal" class="text-white mx-2 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                                         <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
@@ -115,27 +107,5 @@
                 </div>
             </div>
 
-            @if (count($resume->experiences) > 0)
-            <div class="bg-white shadow rounded-lg p-3">
-                <div class="flex flex-col items-center">
-                    <div class="flex-shrink-0 my-4">
-                        <span class="text-xl leading-none font-bold text-gray-900">Experiences </span>
-                    </div>
-                    <ul class="flex flex-wrap">
-                        @foreach($resume->experiences as $experience)
-                        <li class="my-2">
-                            <a href="{{ route('admin.experience.show', ['experience' => $experience->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                                {{ $experience->name }}
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-            @endif
-
         </div>
-    </main>
-</div>
-
 @endsection

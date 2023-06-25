@@ -1,30 +1,23 @@
 @extends('admin.layouts.app')
-
 @section('content')
-
-<div id="main-content" class="h-full w-full p-3 bg-gray-50 relative overflow-y-auto">
-    <main>
-        <div class=" my-2 flex flex-col">
+        <div class="mb-2 flex flex-col">
             <div class="overflow-x-auto">
                 <div class="align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden">
-
                         <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                             @if (session('success'))
                             <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
                                 {{ session('success')}}
                             </div>
                             @endif
-
                             <div class="flex items-center mb-4">
                                 @if( $news->image == null)
-                                <img class="h-20 w-20 rounded-full m-4" src="{{ url('/image/company.png')}}" alt="{{ $news->image }}">
+                                <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-camera.png')}}" alt="{{ $news->name }}">
                                 @else
-                                <img class="h-20 w-20 rounded-full m-4" src="{{ asset('storage/'. $news->image) }}" alt="{{ $news->image }}">
+                                <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $news->image) }}" alt="{{ $news->name }}">
                                 @endif
                                 <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $news->name }}</h3>
-                            </div>
-
+                           </div>
                             <div class="flow-root">
                                 <table class="table-fixed min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-100">
@@ -58,11 +51,7 @@
                                         {{ $news->date }}
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        @if($news->city == null)
-                                        not selected
-                                        @else
-                                        {{ $news->city }}
-                                        @endif
+                                        {{ $news->city->name }}
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-normal text-gray-900">
                                         <div class="flex items-center">
@@ -110,7 +99,4 @@
                 </div>
             </div>
         </div>
-    </main>
-</div>
-
 @endsection

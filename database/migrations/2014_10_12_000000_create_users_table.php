@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->unsignedBigInteger('phone')->unique()->nullable();
+            $table->string('phone', 36)->unique();
             $table->string('viber', 36)->nullable()->unique();
             $table->string('whatsapp', 36)->nullable()->unique();
             $table->string('instagram', 255)->nullable()->unique();

@@ -1,60 +1,83 @@
 @extends('admin.layouts.app')
-
 @section('content')
-
-<div id="main-content" class="h-full w-full p-3 bg-gray-50 relative overflow-y-auto">
-    <main>
-        <div class=" mb-4 flex flex-col">
-            <div class="overflow-x-auto">
-                <div class="align-middle inline-block min-w-full">
-                    <div class="shadow overflow-hidden">
-                        <div class="relative w-full px-4 h-full md:h-auto">
-                            <div class="bg-white rounded-lg relative">
-                                <div class="flex items-start p-5 border-b rounded-t m-1 md:m-3">
-                                    <div class="flex items-center mb-4">
-                                        <h3 class="text-2xl font-bold leading-none text-gray-900">Edit {{ $vacancy->name }}</h3>
-                                    </div>
-
-                                </div>
-
-                                <div class="p-6 space-y-6">
-                                    <form method="POST" enctype="multipart/form-data" action="{{ route('admin.vacancy.update', ['vacancy'=> $vacancy->id]) }}">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="grid grid-cols-6 gap-6">
-                                            <div class="col-span-6 sm:col-span-3">
-                                                <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Name*</label>
-                                                <input type="text" name="name" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required autofocus autocomplete="name" value="{{ $vacancy->name }}">
-                                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                                            </div>
-                                            <div class="col-span-6 sm:col-span-3">
-                                                <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Address*</label>
-                                                <input type="text" name="address" id="address" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $vacancy->address }}" required autofocus autocomplete="address">
-                                                <x-input-error :messages="$errors->get('address')" class="mt-2" />
-                                            </div>
-                                            <div class="col-span-6 sm:col-span-3">
-                                                <label for="description" class="text-sm font-medium text-gray-900 block mb-2">Description</label>
-                                                <input type="text" name="description" id="description" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $vacancy->description }}" required autofocus autocomplete="description">
-                                                <x-input-error :messages="$errors->get('description')" class="mt-2" />
-                                            </div>
-                                            <div class="col-span-6 sm:col-span-3">
-                                                <label for="price" class="text-sm font-medium text-gray-900 block mb-2">Price</label>
-                                                <input type="number" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $vacancy-> price }}" required autocomplete="price">
-                                                <x-input-error :messages="$errors->get('price')" class="mt-2" />
-                                            </div>
-                                        </div>
-                                        <div class="items-center py-6 border-gray-200 rounded-b">
-                                            <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save vacancy</button>
-                                        </div>
-                                    </form>
-                                </div>
+<div class=" mb-4 flex flex-col">
+    <div class="overflow-x-auto">
+        <div class="align-middle inline-block min-w-full">
+            <div class="shadow overflow-hidden">
+                <div class="relative w-full h-full md:h-auto">
+                    <div class="bg-white rounded-lg relative">
+                        <div class="flex items-start p-5 border-b rounded-t">
+                            <div class="flex items-center my-4">
+                                <h3 class="text-2xl font-bold leading-none text-gray-900">Edit {{ $vacancy->name }}</h3>
                             </div>
+                        </div>
+                        <div class="p-6 space-y-6">
+                            <form method="POST" enctype="multipart/form-data" action="{{ route('admin.vacancy.update', ['vacancy'=> $vacancy->id]) }}">
+                                @csrf
+                                @method('PUT')
+                                <div class="grid grid-cols-6 gap-6">
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Name*</label>
+                                        <input type="text" name="name" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required value="{{ $vacancy->name }}">
+                                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Address*</label>
+                                        <input type="text" name="address" id="address" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $vacancy->address }}" required>
+                                        <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="description" class="text-sm font-medium text-gray-900 block mb-2">Description</label>
+                                        <input type="text" name="description" id="description" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $vacancy->description }}">
+                                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="price" class="text-sm font-medium text-gray-900 block mb-2">Price</label>
+                                        <input type="number" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $vacancy-> price }}">
+                                        <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                                    </div>
+                                    <div class="col-span-6">
+                                        <label for="city" class="text-sm font-medium text-gray-900 block mb-2">City*</label>
+                                        <select name="city" class="w-full" id="dd_city">
+                                            <option value='{{ $vacancy->city->id }}'>{{ $vacancy->city->name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="items-center py-6 border-gray-200 rounded-b">
+                                    <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save vacancy</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 </div>
-
+<script type='text/javascript'>
+    $(document).ready(function() {
+        if ($("#dd_city").length > 0) {
+            $("#dd_city").select2({
+                ajax: {
+                    url: " {{ route('cities') }}",
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                            "_token": "{{ csrf_token() }}",
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                }
+            });
+        }
+    });
+</script>
 @endsection

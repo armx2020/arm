@@ -8,27 +8,16 @@ use Illuminate\Http\Request;
 
 class GroupCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $categories = GroupCategory::withCount('groups')->latest()->paginate(20);
-
-        return view('admin.groupcategory.index', ['categories' => $categories]);
+        return view('admin.groupcategory.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.groupcategory.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -46,9 +35,6 @@ class GroupCategoryController extends Controller
         return redirect()->route('admin.groupCategory.index')->with('success', 'The category added');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $category = GroupCategory::withcount('groups')->findOrFail($id);
@@ -56,9 +42,6 @@ class GroupCategoryController extends Controller
         return view('admin.groupcategory.show', ['category' => $category]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $category = GroupCategory::findOrFail($id);
@@ -66,9 +49,6 @@ class GroupCategoryController extends Controller
         return view('admin.groupcategory.edit', ['category' => $category]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -87,9 +67,7 @@ class GroupCategoryController extends Controller
                         ->with('success', 'The category saved');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         $category = GroupCategory::findOrFail($id);

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -31,7 +32,7 @@ return new class extends Migration
             $table->string('image3', 255)->nullable();
             $table->string('image4', 255)->nullable();
 
-            $table->unsignedBigInteger('city_id')->nullable(); // исправить
+            $table->unsignedBigInteger('city_id');
             $table->foreign('city_id')->references('id')->on('cities');
 
             $table->unsignedBigInteger('user_id');
@@ -39,6 +40,10 @@ return new class extends Migration
             $table->unsignedBigInteger('group_category_id');
             $table->foreign('group_category_id')->references('id')->on('group_categories')->cascadeOnDelete();
         });
+
+        DB::statement(
+                'ALTER TABLE `groups` ADD FULLTEXT fulltext_index(name, description)'
+        );
     }
 
     /**

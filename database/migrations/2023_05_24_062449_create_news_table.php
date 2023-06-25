@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -24,9 +25,13 @@ return new class extends Migration
             $table->string('image3', 255)->nullable();
             $table->string('image4', 255)->nullable();
 
-            $table->unsignedBigInteger('city_id')->nullable(); // исправить
+            $table->unsignedBigInteger('city_id');
             $table->foreign('city_id')->references('id')->on('cities');
         });
+
+        DB::statement(
+            'ALTER TABLE `news` ADD FULLTEXT fulltext_index(name, description)'
+        );
     }
 
     /**
