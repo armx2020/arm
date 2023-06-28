@@ -44,7 +44,11 @@
                                         {{ $group->address}}
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
+                                        @if( $group->phone == null)
+                                        no phone
+                                        @else
                                         {{ $group->phone }}
+                                        @endif
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
                                         {{ $group->city->name }}
@@ -130,6 +134,7 @@
     </div>
 </div>
 <div class="my-4 w-full grid grid-cols-1 gap-4">
+    @if($group->user)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
             <div class="flex-shrink-0 m-1">
@@ -140,6 +145,7 @@
             </a>
         </div>
     </div>
+    @endif
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
             <div class="flex-shrink-0 m-1">

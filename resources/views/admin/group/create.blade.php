@@ -32,13 +32,14 @@
                                                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
-                                                <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number*</label>
+                                                <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number</label>
                                                 <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('phone')">
                                                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
-                                                <label for="user" class="text-sm font-medium text-gray-900 block mb-2">User*</label>
+                                                <label for="user" class="text-sm font-medium text-gray-900 block mb-2">User</label>
                                                 <select name="user" id="user" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                                <option selected disabled>no user</option>
                                                     @foreach( $users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>
                                                     @endforeach
@@ -46,7 +47,7 @@
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="cstegory" class="text-sm font-medium text-gray-900 block mb-2">Category*</label>
-                                                <select name="category" id="cstegory" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                                <select name="category" id="cstegory" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required>
                                                     @foreach( $categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                     @endforeach
@@ -56,6 +57,12 @@
                                                 <label for="city" class="text-sm font-medium text-gray-900 block mb-2">City*</label>
                                                 <select name="city" class="w-full" id="dd_city">
                                                     <option value='1'>-- select city --</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-span-6">
+                                                <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Region*</label>
+                                                <select name="city" class="w-full" id="dd_region">
+                                                    <option value='1'>-- select region --</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -99,7 +106,7 @@
                                             </div>
                                         </div>
                                         <div class="items-center py-6 border-gray-200 rounded-b">
-                                            <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add company</button>
+                                            <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add group</button>
                                         </div>
                                     </form>
                                 </div>
@@ -115,6 +122,30 @@
             $("#dd_city").select2({
                 ajax: {
                     url: " {{ route('cities') }}",
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                            "_token": "{{ csrf_token() }}",
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                }
+            });
+        }
+    });
+    $(document).ready(function() {
+        if ($("#dd_region").length > 0) {
+            $("#dd_region").select2({
+                ajax: {
+                    url: " {{ route('regions') }}",
                     type: "post",
                     delay: 250,
                     dataType: 'json',

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('activity')->default(true);
             $table->string('address', 128);
             $table->text('description')->nullable();
-            $table->string('phone', 36)->unique();
+            $table->string('phone', 36)->nullable()->unique();
             $table->string('web', 255)->nullable()->unique();
             $table->string('viber', 36)->nullable()->unique();
             $table->string('whatsapp', 36)->nullable()->unique();
@@ -32,12 +32,16 @@ return new class extends Migration
             $table->string('image3', 255)->nullable();
             $table->string('image4', 255)->nullable();
 
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('city_id')->default(1);
             $table->foreign('city_id')->references('id')->on('cities');
 
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('region_id')->default(1);
+            $table->foreign('region_id')->references('id')->on('regions');
+
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->unsignedBigInteger('group_category_id');
+
+            $table->unsignedBigInteger('group_category_id')->default(1);
             $table->foreign('group_category_id')->references('id')->on('group_categories')->cascadeOnDelete();
         });
 

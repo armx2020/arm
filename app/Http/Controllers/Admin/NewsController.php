@@ -23,7 +23,6 @@ class NewsController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'description' => ['string'],
             'image' => ['image', 'max:2048'],
             'image1' => ['image', 'max:2048'],
             'image2' => ['image', 'max:2048'],
@@ -81,7 +80,6 @@ class NewsController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'description' => ['string'],
             'image' => ['image', 'max:2048'],
             'image1' => ['image', 'max:2048'],
             'image2' => ['image', 'max:2048'],

@@ -35,7 +35,6 @@ class ProjectController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'description' => ['string'],
             'image' => ['image', 'max:2048'],
         ]);
 
@@ -88,7 +87,6 @@ class ProjectController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'description' => ['string'],
             'image' => ['image', 'max:2048'],
         ]);
 

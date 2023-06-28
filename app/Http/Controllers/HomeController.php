@@ -29,10 +29,11 @@ class HomeController extends Controller
 
     public function changeCity(Request $request)
     {
-        $city = City::findOrFail($request->query('city'));
+        $city = City::with('region')->findOrFail($request->query('city'));
         
         $request->session()->put('city', $city->InEnglish);
+        $request->session()->put('region', $city->region->InEnglish);
 
-        return redirect()->route('home');
+        return redirect()->back();
     }
 }

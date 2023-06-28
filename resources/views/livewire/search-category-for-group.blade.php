@@ -7,7 +7,7 @@
             </div>
             @endif
             <div class="mb-4">
-                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All categries for groups</h1>
+                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All categories for groups</h1>
             </div>
             <div class="sm:flex">
                 <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">

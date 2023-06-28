@@ -25,7 +25,6 @@ class ResumeController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'description' => ['string'],
         ]);
 
         $resume = new Resume();
@@ -62,7 +61,6 @@ class ResumeController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'description' => ['string'],
         ]);
 
         $resume = Resume::findOrFail($id);

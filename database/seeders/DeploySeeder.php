@@ -5,13 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
-
-class LocationSeeder extends Seeder
+class DeploySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         function translit($value)
@@ -1283,19 +1280,36 @@ class LocationSeeder extends Seeder
             }         
         }
 
-        /* Add group for region */
+        /* Add admins */
+        DB::table('admins')->insert([
+            'login' => 'root',
+            'password' => Hash::make('root'),
+        ]);
+        DB::table('admins')->insert([
+            'login' => 'root1',
+            'password' => Hash::make('root'),
+        ]);
 
+        /* Add categories for group*/
+        DB::table('group_categories')->insert([
+            'name' => 'Общины',
+            'sort_id' => 0,
+            'created_at' => '2023-06-28 14:18:19',
+            'updated_at' => '2023-06-28 14:18:19',
+        ]);
+
+        /* Add groups */
+        $i = 1;
         foreach ($regionsInRussia as $region) {
             foreach ($regionInRussia as $region) {
-                $i = 0;
                 DB::table('groups')->insert([
-                    'name' => 'Община' . $region['name'],
+                    'created_at' => '2023-06-28 14:18:19',
+                    'updated_at' => '2023-06-28 14:18:19',
+                    'name' => 'Община "' . $region['name']. '"',
                     'address' => $region['name'],
-                    'phone' => 45454545,
                     'image' => 'groups/groups.png',
                     'city_id' => 1,
-                    'region_id' => 1,
-                    'user_id' => 1,
+                    'region_id' => $i ++,
                     'group_category_id' => 1
                 ]);
             }

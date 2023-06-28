@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Group;
 use App\Models\GroupCategory;
 use App\Models\User;
@@ -29,8 +30,7 @@ class GroupController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'description' => ['string'],
-            'phone' => ['string', 'max:36'],
+            'phone' => ['max:36'],
             'web' => ['max:250'],
             'viber' => ['max:36'],
             'whatsapp' => ['max:36'],
@@ -44,12 +44,15 @@ class GroupController extends Controller
             'image4' => ['image', 'max:2048'],
         ]);
 
+        $city = City::with('region')->findOrFail($request->city);
+
         $group = new Group();
 
         $group->name = $request->name;
         $group->address = $request->address;
         $group->description = $request->description;
         $group->city_id = $request->city;
+        $group->region_id = $city->region->id; // add to region key
         $group->phone = $request->phone;
         $group->web = $request->web;
         $group->viber = $request->viber;
@@ -107,8 +110,7 @@ class GroupController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'description' => ['string'],
-            'phone' => ['string', 'max:36'],
+            'phone' => ['max:36'],
             'web' => ['max:250'],
             'viber' => ['max:36'],
             'whatsapp' => ['max:36'],
@@ -122,12 +124,16 @@ class GroupController extends Controller
             'image4' => ['image', 'max:2048'],
         ]);
 
+        $city = City::with('region')->findOrFail($request->city);
+
+
         $group = Group::findOrFail($id);
 
         $group->name = $request->name;
         $group->address = $request->address;
         $group->description = $request->description;
         $group->city_id = $request->city;
+        $group->region_id = $city->region->id; // add to region key
         $group->phone = $request->phone;
         $group->web = $request->web;
         $group->viber = $request->viber;

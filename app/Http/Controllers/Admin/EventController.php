@@ -24,7 +24,6 @@ class EventController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'description' => ['string'],
             'image' => ['image', 'max:2048'],
         ]);
 
@@ -66,7 +65,6 @@ class EventController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'description' => ['string'],
             'image' => ['image', 'max:2048'],
         ]);
 

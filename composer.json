@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^2.12",
+        "staudenmeir/belongs-to-through": "^2.13",
         "stevebauman/location": "^6.6"
     },
     "require-dev": {

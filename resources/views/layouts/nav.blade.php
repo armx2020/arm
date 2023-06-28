@@ -1,7 +1,7 @@
 <nav class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-wrap lg:justify-start p-2 lg:py-5">
-    <div class="flex w-full flex-wrap items-center justify-between px-1 lg:px-5">
+    <div class="flex w-11/12 flex-wrap items-center justify-between mx-auto">
         <div class="block px-2 xl:hidden">
-            <a class="" href="#">
+            <a class="" href="{{ route('home') }}">
                 <img src="{{ url('/image/logo-min.png')}}" class="w-20 h-8" alt="logo" />
             </a>
         </div>
@@ -54,7 +54,7 @@
             </ul>
         </div>
         <div class="hidden flex-grow items-center xl:flex">
-            <a href="#">
+            <a href="{{ route('home') }}">
                 <img src="{{ url('/image/logo.png')}}" class="w-30 h-10" alt="logo" />
             </a>
         </div>

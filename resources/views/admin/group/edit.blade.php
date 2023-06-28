@@ -13,7 +13,7 @@
                                         @else
                                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $group->image) }}" alt="{{ $group->image }}">
                                         @endif
-                                        <h3 class="text-2xl font-bold leading-none text-gray-900">Edit {{ $group->name }}</h3>
+                                        <h3 class="text-2xl font-bold leading-none text-gray-900">Edit - {{ $group->name }}</h3>
                                     </div>
                                 </div>
                                 <div class="p-6 space-y-6">
@@ -37,14 +37,18 @@
                                                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
-                                                <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number*</label>
-                                                <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $group->phone }}" required>
+                                                <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number</label>
+                                                <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $group->phone }}">
                                                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                             </div>
                                             <div class="col-span-6 sm:col-span-3">
                                                 <label for="user" class="text-sm font-medium text-gray-900 block mb-2">User*</label>
                                                 <select name="user" id="user" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                                    @if($user)
                                                     <option value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>
+                                                    @else
+                                                    <option value="">no user</option>
+                                                    @endif
                                                     @foreach( $users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>
                                                     @endforeach
@@ -63,6 +67,12 @@
                                                 <label for="city" class="text-sm font-medium text-gray-900 block mb-2">City*</label>
                                                 <select name="city" class="w-full" id="dd_city">
                                                     <option value='{{ $group->city->id }}'>{{ $group->city->name }}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-span-6">
+                                                <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Region*</label>
+                                                <select name="city" class="w-full" id="dd_region">
+                                                    <option value='{{ $group->region->id }}'>{{ $group->region->name }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -122,6 +132,30 @@
             $("#dd_city").select2({
                 ajax: {
                     url: " {{ route('cities') }}",
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                            "_token": "{{ csrf_token() }}",
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                }
+            });
+        }
+    });
+    $(document).ready(function() {
+        if ($("#dd_region").length > 0) {
+            $("#dd_region").select2({
+                ajax: {
+                    url: " {{ route('regions') }}",
                     type: "post",
                     delay: 250,
                     dataType: 'json',

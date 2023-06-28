@@ -20,3 +20,8 @@ $(document).ready(function() {
         document.body.style.position = '';
     });
 })
+$(document).ready(function() {
+    $("#CategoryButton").click(function() {
+        $("#selectCategory").toggle();
+    });
+})

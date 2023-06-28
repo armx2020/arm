@@ -3,7 +3,7 @@
 @section('content')
 
 <section>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-10 lg:grid-rows-4 gap-4 p-4 lg:p-10 max-h-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-10 lg:grid-rows-4 gap-4 w-11/12 mx-auto py-5 lg:py-10 max-h-full">
         <div class="bg-white rounded-xl p-2 lg:p-8 col-span-1 lg:col-span-2 row-span-1 lg:row-span-2">
             <div class="flex flex-row">
                 <div class="flex flex-col text-left basis-1/2 p-1 lg:p-4">
