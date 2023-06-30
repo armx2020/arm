@@ -30,7 +30,7 @@ class OfferController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'phone' => ['string', 'max:36'],
+            'phone' => ['max:36'],
             'web' => ['max:250'],
             'viber' => ['max:36'],
             'whatsapp' => ['max:36'],
@@ -111,7 +111,7 @@ class OfferController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['required', 'string', 'max:128'],
-            'phone' => ['string', 'max:36'],
+            'phone' => ['max:36'],
             'web' => ['max:250'],
             'viber' => ['max:36'],
             'whatsapp' => ['max:36'],
