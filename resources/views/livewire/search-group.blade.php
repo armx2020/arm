@@ -61,7 +61,7 @@
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                         City
                                     </th>
-                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                    <th scope="col" class="p-4 text-xs font-medium text-gray-500 uppercase">
                                         Activity
                                     </th>
                                     <th scope="col" class="p-4">
@@ -73,7 +73,7 @@
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
                                         @if( $group->image == null)
-                                        <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/group.png')}}" alt="{{ $group->name }}">
+                                        <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-image.png')}}" alt="{{ $group->name }}">
                                         @else
                                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$group->image) }}" alt="{{ $group->image }}">
                                         @endif
@@ -103,7 +103,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <td class="p-4 whitespace-nowrap space-x-2 text-right">
+                                    <td class="p-4 whitespace-nowrap space-x-2 text-right w-1/4">
                                         <div class="flex flex-row justify-end">
                                             <a href="{{ route('admin.group.edit', ['group' => $group->id ]) }}" data-modal-toggle="user-modal" class="text-white mx-2 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                                 <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

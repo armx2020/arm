@@ -26,9 +26,15 @@
                                         <input type="text" name="lastname" id="lastname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('lastname')" required autofocus>
                                         <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
                                     </div>
-                                    <div class="col-span-6">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Email*</label>
                                         <input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('email')" required>
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number*</label>
+                                        <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('phone')" required>
+                                        <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
@@ -56,11 +62,6 @@
                                 </div>
                                 <hr class="my-3">
                                 <div class="grid grid-cols-6 gap-6">
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number</label>
-                                        <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('phone')">
-                                        <x-input-error :messages="$errors->get('phone')" class="mt-2" />
-                                    </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="viber" class="text-sm font-medium text-gray-900 block mb-2">Viber</label>
                                         <input type="text" name="viber" id="viber" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('viber')">

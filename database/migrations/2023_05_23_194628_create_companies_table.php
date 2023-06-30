@@ -29,8 +29,11 @@ return new class extends Migration
             $table->string('vkontakte', 255)->nullable()->unique();
             $table->string('telegram', 255)->nullable()->unique();
 
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('city_id')->default(1);
             $table->foreign('city_id')->references('id')->on('cities');
+
+            $table->unsignedBigInteger('region_id')->default(1);
+            $table->foreign('region_id')->references('id')->on('regions');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

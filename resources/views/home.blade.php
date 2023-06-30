@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-xl p-2">
+        <div class="bg-white rounded-xl p-2 h-36 md:h-auto">
             <a href="">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left basis-3/4 p-1 lg:p-4">
@@ -33,7 +33,7 @@
                 </div>
             </a>
         </div>
-        <div class="bg-white rounded-xl p-2">
+        <div class="bg-white rounded-xl p-2 h-36 lg:h-auto">
             <a href="{{ route('group.index') }}">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left basis-3/4 p-1 lg:p-4">
@@ -47,7 +47,7 @@
                 </div>
             </a>
         </div>
-        <div class="bg-white rounded-xl p-2">
+        <div class="bg-white rounded-xl p-2 h-36 lg:h-auto">
             <a href="">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left basis-3/4 p-1 lg:p-4">
@@ -60,7 +60,7 @@
                 </div>
             </a>
         </div>
-        <div class="bg-orange-100 rounded-xl p-2">
+        <div class="bg-orange-100 rounded-xl p-2 h-36 lg:h-auto">
             <a href="">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left basis-3/4 p-1 lg:p-4">
@@ -73,7 +73,7 @@
                 </div>
             </a>
         </div>
-        <div class="bg-white rounded-xl p-2">
+        <div class="bg-white rounded-xl p-2 h-36 lg:h-auto">
             <a href="">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left text-md lg:text-xl basis-full p-1 lg:p-4">
@@ -82,7 +82,7 @@
                 </div>
             </a>
         </div>
-        <div class="bg-white rounded-xl p-2">
+        <div class="bg-white rounded-xl p-2 h-36 lg:h-auto">
             <a href="">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left text-md lg:text-xl basis-full p-1 lg:p-4">
@@ -92,15 +92,18 @@
                 </div>
             </a>
         </div>
-        <div class="bg-blue-100 rounded-xl p-2 col-span-1 lg:col-span-2 row-span-1 lg:row-span-2">
+        <div class="bg-blue-100 rounded-xl p-2 col-span-1 lg:col-span-2 row-span-1 lg:row-span-2 h-36 lg:h-auto">
             <div class="flex flex-row">
                 <div class="flex flex-col text-left basis-3/4 lg:basis-1/2 p-1 lg:p-4">
-                    <div class="my-2 lg:my-3 text-lg lg:text-2xl font-bold ">Наши проекты</div>
-                    <div class="my-5 font-light text-slate-500 hidden lg:flex">Сделанные проекты<br>Достижения, план работ</div>
-                    <a href="" class="inline-block text-center rounded-md bg-green-500 text-white w-4/5 xl:w-1/2 h-9 px-2 lg:px-6 py-2 items-center">
+                    <div class="m-1 lg:m-3 text-lg lg:text-2xl font-bold ">Наши проекты</div>
+                    <div class="mx-1 lg:mx-2 lg:my-3 font-light text-slate-500 hidden lg:flex">Сделанные проекты<br>Достижения, план работ</div>
+                    <a href="{{ route('project.index') }}" class="hidden lg:inline-block text-center rounded-md bg-green-500 text-white w-4/5 xl:w-1/2 h-9 px-2 lg:px-6 py-2 items-center">
                         Все проекты
                     </a>
-                    <a href="" class="my-2 lg:my-4 text-center rounded-md bg-blue-500 text-white w-4/5 xl:w-1/2 h-9 px-6 py-2 items-center hidden lg:inline-block">
+                    <a href="{{ route('project.index') }}" class="my-3 inline-block rounded-md bg-green-500 py-2 text-white lg:hidden text-center w-3/5 items-center">
+                        Все проекты
+                    </a>
+                    <a href="" class="my-2 lg:my-4 rounded-md bg-blue-500 text-white w-4/5 xl:w-1/2 h-9 px-6 py-2 items-center hidden lg:inline-block">
                         Добавить
                     </a>
                 </div>
@@ -109,7 +112,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-xl p-2">
+        <div class="bg-white rounded-xl p-2 h-36 lg:h-auto">
             <a href="">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left text-md lg:text-xl basis-full p-1 lg:p-4">
@@ -118,7 +121,7 @@
                 </div>
             </a>
         </div>
-        <div class="bg-blue-100 rounded-xl p-2">
+        <div class="bg-blue-100 rounded-xl p-2 h-36 lg:h-auto">
             <a href="">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left basis-3/4 p-1 lg:p-4">

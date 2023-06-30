@@ -59,12 +59,6 @@
                                                     <option value='1'>-- select city --</option>
                                                 </select>
                                             </div>
-                                            <div class="col-span-6">
-                                                <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Region*</label>
-                                                <select name="city" class="w-full" id="dd_region">
-                                                    <option value='1'>-- select region --</option>
-                                                </select>
-                                            </div>
                                         </div>
                                         <hr class="my-5">
                                         <div class="flex flex-row ">
@@ -122,30 +116,6 @@
             $("#dd_city").select2({
                 ajax: {
                     url: " {{ route('cities') }}",
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                            "_token": "{{ csrf_token() }}",
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response
-                        };
-                    },
-                    cache: true
-                }
-            });
-        }
-    });
-    $(document).ready(function() {
-        if ($("#dd_region").length > 0) {
-            $("#dd_region").select2({
-                ajax: {
-                    url: " {{ route('regions') }}",
                     type: "post",
                     delay: 250,
                     dataType: 'json',

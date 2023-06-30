@@ -19,12 +19,15 @@ return new class extends Migration
             $table->boolean('activity')->default(true);
             $table->text('description')->nullable();
             $table->string('address', 128);
-            $table->unsignedInteger('donations_need');
+            $table->unsignedInteger('donations_need')->default(0);
             $table->unsignedInteger('donations_have')->default(0);
             $table->string('image', 255)->nullable();
 
-            $table->unsignedBigInteger('city_id')->nullable(); // исправить
+            $table->unsignedBigInteger('city_id');
             $table->foreign('city_id')->references('id')->on('cities');
+
+            $table->unsignedBigInteger('region_id')->default(1);
+            $table->foreign('region_id')->references('id')->on('regions');
 
             $table->morphs('parent');
         });

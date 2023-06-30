@@ -34,7 +34,7 @@
                     <a class="mx-4 text-md" href="">Регистрация</a>
                 </li>
                 <li class="mb-2 block">
-                    <a class="" href="#">Проекты</a>
+                    <a class="" href="{{ route('project.index') }}">Проекты</a>
                 </li>
                 <li class="mb-2">
                     <a class="" href="#">Маркет</a>
@@ -46,7 +46,7 @@
                     <a class="" href="#">Новости</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="#">Группа</a>
+                    <a class="" href="{{ route('group.index') }}">Группы</a>
                 </li>
                 <li class="mb-2">
                     <a class="" href="#">Работа</a>
@@ -61,7 +61,7 @@
         <div class="visible hidden flex-grow basis-full items-center xl:!flex xl:basis-auto">
             <ul class="list-style-none mr-5 flex flex-col pl-0 lg:flex-row">
                 <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="#">Проекты</a>
+                    <a class="" href="{{ route('project.index') }}">Проекты</a>
                 </li>
                 <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                     <a class="" href="#">Маркет</a>
@@ -70,10 +70,10 @@
                     <a class="" href="#">Афиша</a>
                 </li>
                 <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="#">Новости</a>
+                    <a class="" href="">Новости</a>
                 </li>
                 <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="#">Группа</a>
+                    <a class="" href="{{ route('group.index') }}">Группы</a>
                 </li>
                 <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                     <a class="" href="#">Работа</a>
