@@ -12,7 +12,7 @@
                     @endif
                     <div class="flex items-center mb-4">
                         @if( $offer->image == null)
-                        <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/handbag.png')}}" alt="{{ $offer->name }}">
+                        <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-image.png')}}" alt="{{ $offer->name }}">
                         @else
                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $offer->image) }}" alt="{{ $offer->image }}">
                         @endif
@@ -34,7 +34,7 @@
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                         City
                                     </th>
-                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                    <th scope="col" class="p-4 text-xs font-medium text-gray-500 uppercase">
                                         Activity
                                     </th>
                                     <th scope="col" class="p-4">
@@ -64,7 +64,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <td class="p-4 whitespace-nowrap space-x-2 text-right">
+                                    <td class="p-4 whitespace-nowrap space-x-2 text-right w-1/5">
                                         <div class="flex flex-row">
                                             <a href="{{ route('admin.offer.edit', ['offer' => $offer->id ]) }}" data-modal-toggle="user-modal" class="text-white mx-2 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                                 <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -143,6 +143,7 @@
     </div>
 </div>
 <div class="my-4 w-full grid grid-cols-1 gap-4">
+    @if($offer->company)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
             <div class="flex-shrink-0 m-1">
@@ -153,6 +154,7 @@
             </a>
         </div>
     </div>
+    @endif
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
             <div class="flex-shrink-0 m-1">

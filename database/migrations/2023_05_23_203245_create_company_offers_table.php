@@ -20,14 +20,14 @@ return new class extends Migration
             $table->string('address', 128);
             $table->text('description')->nullable();
             $table->integer('price')->default(0);
-            $table->string('unit_of_price');
+            $table->string('unit_of_price')->default('RUB');
             $table->string('image', 255)->nullable();
             $table->string('image1', 255)->nullable();
             $table->string('image2', 255)->nullable();
             $table->string('image3', 255)->nullable();
             $table->string('image4', 255)->nullable();
 
-            $table->string('phone', 36)->unique();
+            $table->string('phone', 36)->nullable()->unique();
             $table->string('web', 255)->nullable()->unique();
             $table->string('viber', 36)->nullable()->unique();
             $table->string('whatsapp', 36)->nullable()->unique();
@@ -35,11 +35,14 @@ return new class extends Migration
             $table->string('vkontakte', 255)->nullable()->unique();
             $table->string('telegram', 255)->nullable()->unique();
 
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('city_id')->default(1);
             $table->foreign('city_id')->references('id')->on('cities');
 
-            $table->unsignedBigInteger('company_id');
-            $table->foreign('company_id')->references('id')->on('companies')->cascadeOnDelete();
+            $table->unsignedBigInteger('region_id')->default(1);
+            $table->foreign('region_id')->references('id')->on('regions');
+
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->unsignedBigInteger('offer_category_id');
             $table->foreign('offer_category_id')->references('id')->on('offer_categories')->cascadeOnDelete();
         });

@@ -37,7 +37,7 @@
                     <a class="" href="{{ route('project.index') }}">Проекты</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="#">Маркет</a>
+                    <a class="" href="{{ route('offer.index') }}">Маркет</a>
                 </li>
                 <li class="mb-2">
                     <a class="" href="#">Афиша</a>
@@ -64,7 +64,7 @@
                     <a class="" href="{{ route('project.index') }}">Проекты</a>
                 </li>
                 <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="#">Маркет</a>
+                    <a class="" href="{{ route('offer.index') }}">Маркет</a>
                 </li>
                 <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                     <a class="" href="#">Афиша</a>

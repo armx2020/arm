@@ -9,7 +9,7 @@
                         <div class="flex items-start p-5 border-b rounded-t">
                             <div class="flex items-center p-4">
                                 @if( $group->image == null)
-                                <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/group.png')}}" alt="{{ $group->name }}">
+                                <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-image.png')}}" alt="{{ $group->name }}">
                                 @else
                                 <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $group->image) }}" alt="{{ $group->image }}">
                                 @endif
@@ -44,10 +44,9 @@
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="user" class="text-sm font-medium text-gray-900 block mb-2">User*</label>
                                         <select name="user" id="user" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                            <option selected value="">no user</option>    
                                             @if($user)
                                             <option value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>
-                                            @else
-                                            <option value="">no user</option>
                                             @endif
                                             @foreach( $users as $user)
                                             <option value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>

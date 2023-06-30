@@ -12,7 +12,7 @@
                     @endif
                     <div class="flex items-center mb-4">
                         @if( $company->logo == null)
-                        <img class="h-20 w-20 rounded-full m-4" src="{{ url('/image/company.png')}}" alt="{{ $company->name }} logo">
+                        <img class="h-20 w-20 rounded-full m-4" src="{{ url('/image/mo-image.png')}}" alt="{{ $company->name }} logo">
                         @else
                         <img class="h-20 w-20 rounded-full m-4" src="{{ asset('storage/'. $company->logo) }}" alt="{{ $company->name }} logo">
                         @endif
@@ -31,7 +31,7 @@
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                         City
                                     </th>
-                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                    <th scope="col" class="p-4 text-xs font-medium text-gray-500 uppercase">
                                         Activity
                                     </th>
                                     <th scope="col" class="p-4">
@@ -47,11 +47,7 @@
                                         {{ $company->phone }}
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        @if($company->city == null)
-                                        not selected
-                                        @else
-                                        {{ $company->city }}
-                                        @endif
+                                        {{ $company->city->name }}
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-normal text-gray-900">
                                         <div class="flex items-center">
@@ -62,7 +58,7 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <td class="p-4 whitespace-nowrap space-x-2 text-right">
+                                    <td class="p-4 whitespace-nowrap space-x-2 text-right w-1/5">
                                         <div class="flex flex-row justify-end">
                                             <a href="{{ route('admin.company.edit', ['company' => $company->id ]) }}" data-modal-toggle="user-modal" class="text-white mx-2 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                                 <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -140,6 +136,7 @@
         </div>
     </div>
 </div>
+@if( $company->user )
 <div class="my-4 w-full grid grid-cols-1 gap-4">
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
@@ -152,6 +149,7 @@
         </div>
     </div>
 </div>
+@endif
 
 
 @endsection

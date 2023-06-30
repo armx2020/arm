@@ -8,7 +8,6 @@
                     <div class="bg-white rounded-lg relative">
                         <div class="flex items-start p-5 border-b rounded-t">
                             <div class="flex items-center p-4">
-                                <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/handbag.png')}}">
                                 <h3 class="text-2xl font-bold leading-none text-gray-900">New offer</h3>
                             </div>
                         </div>
@@ -23,7 +22,7 @@
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Address*</label>
-                                        <input type="text" name="address" id="address" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('address')" required >
+                                        <input type="text" name="address" id="address" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('address')" required>
                                         <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
@@ -32,23 +31,24 @@
                                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number*</label>
-                                        <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('phone')" required>
+                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number</label>
+                                        <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('phone')">
                                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="price" class="text-sm font-medium text-gray-900 block mb-2">Price*</label>
-                                        <input type="number" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('price')" required>
+                                        <label for="price" class="text-sm font-medium text-gray-900 block mb-2">Price</label>
+                                        <input type="number" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('price')">
                                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="unit_of_price" class="text-sm font-medium text-gray-900 block mb-2">Unit of price*</label>
-                                        <input type="text" name="unit_of_price" id="unit_of_price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('unit_of_price')" required>
+                                        <label for="unit_of_price" class="text-sm font-medium text-gray-900 block mb-2">Unit of price</label>
+                                        <input type="text" name="unit_of_price" id="unit_of_price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('unit_of_price')" value="RUB">
                                         <x-input-error :messages="$errors->get('unit_of_price')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="company" class="text-sm font-medium text-gray-900 block mb-2">Company*</label>
                                         <select name="company" id="company" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                        <option value="">no company</option>
                                             @foreach( $companies as $company)
                                             <option value="{{ $company->id }}">{{ $company->name }}</option>
                                             @endforeach

@@ -8,7 +8,7 @@
                     <div class="bg-white rounded-lg relative">
                         <div class="flex items-start p-5 border-b rounded-t">
                             <div class="flex items-center mb-4">
-                                <img class="h-10 w-10 rounded-full m-4" src="{{ url('/image/company.png')}}" alt="image">
+                                <img class="h-10 w-10 rounded-full m-4" src="{{ url('/image/no-image.png')}}" alt="image">
                                 <h3 class="text-2xl font-bold leading-none text-gray-900">New company</h3>
                             </div>
                         </div>
@@ -32,13 +32,14 @@
                                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number*</label>
-                                        <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('phone')" required>
+                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number</label>
+                                        <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('phone')">
                                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6">
-                                        <label for="user" class="text-sm font-medium text-gray-900 block mb-2">User*</label>
+                                        <label for="user" class="text-sm font-medium text-gray-900 block mb-2">User</label>
                                         <select name="user" id="user" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                        <option selected value="">no user</option>
                                             @foreach( $users as $user)
                                             <option value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>
                                             @endforeach

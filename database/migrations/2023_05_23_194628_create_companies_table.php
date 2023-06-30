@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('logo', 255)->nullable();
             $table->text('description')->nullable();
             
-            $table->string('phone', 36)->unique();
+            $table->string('phone', 36)->nullable()->unique();
             $table->string('web', 255)->nullable()->unique();
             $table->string('viber', 36)->nullable()->unique();
             $table->string('whatsapp', 36)->nullable()->unique();
@@ -35,7 +35,7 @@ return new class extends Migration
             $table->unsignedBigInteger('region_id')->default(1);
             $table->foreign('region_id')->references('id')->on('regions');
 
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
 

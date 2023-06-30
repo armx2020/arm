@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,12 +37,15 @@ class CompanyController extends Controller
             'logo' => ['image', 'max:2048'],
         ]);
 
+        $city = City::with('region')->findOrFail($request->city);
+
         $company = new Company();
 
         $company->name = $request->name;
         $company->address = $request->address;
         $company->description = $request->description;
         $company->city_id = $request->city;
+        $company->region_id = $city->region->id; // add to region key
         $company->phone = $request->phone;
         $company->web = $request->web;
         $company->viber = $request->viber;
@@ -93,6 +97,8 @@ class CompanyController extends Controller
 
         $company = Company::findOrFail($id);
 
+        $city = City::with('region')->findOrFail($request->city);
+
         if ($request->logo) {
             Storage::delete('public/'.$company->logo);
             $company->logo = $request->file('logo')->store('companies', 'public');
@@ -102,6 +108,7 @@ class CompanyController extends Controller
         $company->address = $request->address;
         $company->description = $request->description;
         $company->city_id = $request->city;
+        $company->region_id = $city->region->id; // add to region key
         $company->phone = $request->phone;
         $company->web = $request->web;
         $company->viber = $request->viber;

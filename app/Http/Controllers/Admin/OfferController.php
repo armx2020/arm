@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Company;
 use App\Models\CompanyOffer;
 use App\Models\OfferCategory;
@@ -43,6 +44,8 @@ class OfferController extends Controller
             'image4' => ['image', 'max:2048'],
         ]);
 
+        $city = City::with('region')->findOrFail($request->city);
+
         $offer = New CompanyOffer();
 
         $offer->name = $request->name;
@@ -51,6 +54,7 @@ class OfferController extends Controller
         $offer->phone = $request->phone;
         $offer->price = $request->price;
         $offer->city_id = $request->city;
+        $offer->region_id = $city->region->id; // add to region key
         $offer->unit_of_price = $request->unit_of_price;
         $offer->web = $request->web;
         $offer->viber = $request->viber;
@@ -123,6 +127,8 @@ class OfferController extends Controller
 
         $offer = CompanyOffer::findOrFail($id);
 
+        $city = City::with('region')->findOrFail($request->city);
+
         $offer->name = $request->name;
         $offer->address = $request->address;
         $offer->description = $request->description;
@@ -130,6 +136,7 @@ class OfferController extends Controller
         $offer->price = $request->price;
         $offer->unit_of_price = $request->unit_of_price;
         $offer->city_id = $request->city;
+        $offer->region_id = $city->region->id; // add to region key
         $offer->web = $request->web;
         $offer->viber = $request->viber;
         $offer->whatsapp = $request->whatsapp;

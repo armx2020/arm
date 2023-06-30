@@ -1297,6 +1297,44 @@ class DeploySeeder extends Seeder
             'created_at' => '2023-06-28 14:18:19',
             'updated_at' => '2023-06-28 14:18:19',
         ]);
+        DB::table('group_categories')->insert([
+            'name' => 'Школы',
+            'sort_id' => 1,
+            'created_at' => '2023-06-28 14:18:19',
+            'updated_at' => '2023-06-28 14:18:19',
+        ]);
+        DB::table('group_categories')->insert([
+            'name' => 'Кружки и секции',
+            'sort_id' => 2,
+            'created_at' => '2023-06-28 14:18:19',
+            'updated_at' => '2023-06-28 14:18:19',
+        ]);
+        DB::table('group_categories')->insert([
+            'name' => 'Религия',
+            'sort_id' => 3,
+            'created_at' => '2023-06-28 14:18:19',
+            'updated_at' => '2023-06-28 14:18:19',
+        ]);
+        DB::table('group_categories')->insert([
+            'name' => 'Прочее',
+            'sort_id' => 4,
+            'created_at' => '2023-06-28 14:18:19',
+            'updated_at' => '2023-06-28 14:18:19',
+        ]);
+
+        /* Add categories for offer*/
+        DB::table('offer_categories')->insert([
+            'name' => 'Траснпорт',
+            'sort_id' => 0,
+            'created_at' => '2023-06-28 14:18:19',
+            'updated_at' => '2023-06-28 14:18:19',
+        ]);
+        DB::table('offer_categories')->insert([
+            'name' => 'Дом и строительство',
+            'sort_id' => 1,
+            'created_at' => '2023-06-28 14:18:19',
+            'updated_at' => '2023-06-28 14:18:19',
+        ]);
 
         /* Add groups */
         $i = 1;
