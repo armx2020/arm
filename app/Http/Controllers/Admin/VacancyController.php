@@ -3,35 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Company;
-use App\Models\Group;
-use App\Models\User;
+use App\Models\City;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 
 class VacancyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $vacancies = Vacancy::with('parent')->latest()->paginate(20);
-
         return view('admin.vacancy.index', ['vacancies' => $vacancies]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.vacancy.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
          $request->validate([
@@ -39,6 +28,8 @@ class VacancyController extends Controller
             'address' => ['required', 'string', 'max:128'],
             'image' => ['image', 'max:2048'],
         ]);
+
+        $city = City::with('region')->findOrFail($request->city);
 
         $vacancy = new Vacancy();
 
@@ -48,33 +39,27 @@ class VacancyController extends Controller
         $vacancy->price = $request->price;
         $vacancy->parent_type = 'App\Models\Admin';
         $vacancy->parent_id = 1;
+        $vacancy->city_id = $request->city;
+        $vacancy->region_id = $city->region->id; // add to region key
 
         $vacancy->save();
 
         return redirect()->route('admin.vacancy.index')->with('success', 'The vacancy added');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $vacancy = Vacancy::with('parent')->findOrFail($id);
         return view('admin.vacancy.show', ['vacancy' => $vacancy]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $vacancy = Vacancy::findOrFail($id);
         return view('admin.vacancy.edit', ['vacancy' => $vacancy]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -85,10 +70,14 @@ class VacancyController extends Controller
         
         $vacancy = Vacancy::findOrFail($id);
 
+        $city = City::with('region')->findOrFail($request->city);
+
         $vacancy->name = $request->name;
         $vacancy->address = $request->address;
         $vacancy->description = $request->description;
         $vacancy->price = $request->price;
+        $vacancy->city_id = $request->city;
+        $vacancy->region_id = $city->region->id; // add to region key
 
         $vacancy->update();
 
@@ -96,9 +85,7 @@ class VacancyController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         $vacancy = Vacancy::findOrFail($id);

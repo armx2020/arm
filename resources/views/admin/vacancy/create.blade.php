@@ -32,7 +32,7 @@
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="price" class="text-sm font-medium text-gray-900 block mb-2">Price</label>
-                                        <input type="number" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('price')" required>
+                                        <input type="number" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('price')">
                                         <x-input-error :messages="$errors->get('price')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6">

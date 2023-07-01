@@ -20,7 +20,6 @@
                 </div>
             </div>
             <div class="bg-white rounded-md py-3 hidden lg:block" id="selectCategory">
-                <!-- <div class="m-4 font-bold">Категории</div> -->
                 <div class="m-2 block">
                     <input class="float-left ml-2 mr-4 mt-1 appearance-none rounded-sm " type="radio" wire:model="term" value="2" name="select" />
                     <label class="inline-block " for="checkboxDefault">
@@ -61,18 +60,18 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($projects as $project)
                     <div class="block rounded-lg bg-white">
-                        <a href="#!" class="">
+                        <a href="#!" class="h-48 max-w-xs block">
                             @if( $project->image == null )
-                            <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="" />
+                            <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16 " src="{{ url('/image/no-image.png')}}" alt="{{ $project->image }}" />
                             @else
-                            <img class="max-w-xs h-48 rounded-lg my-2 mx-auto" src="{{ asset( 'storage/'.$project->image) }}" alt="{{ $project->image }} avatar">
+                            <img class="h-48 w-full rounded-lg m-4 flex object-cover" src="{{ asset( 'storage/'.$project->image) }}" alt="{{ $project->image }}">
                             @endif
                         </a>
                         <div class="p-6">
-                            <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+                            <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
                                 {{ $project->name }}
                             </h5>
-                            <p class="mb-4 break-all text-base text-neutral-600 dark:text-neutral-200">
+                            <p class="mb-4 break-all text-base text-neutral-400">
                                 {{ $project->description }}
                             </p>
                             <hr class="my-3">
@@ -84,7 +83,7 @@
                                 <div class="w-full bg-gray-200">
                                     <div class="bg-green-500 h-5 text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100" style='width: {!! ($project->donations_have * 100)/ $project->donations_need !!}%'></div>
                                 </div>
-                               </div>
+                            </div>
                         </div>
                     </div>
                     @endforeach

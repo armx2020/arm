@@ -9,6 +9,7 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\VacancyController;
 use App\Http\Middleware\FromLocation;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,7 @@ use Illuminate\Support\Facades\Route;
  Route::get('/projects' , [ProjectController::class, 'index'])->name('project.index')->middleware(FromLocation::class);
  Route::get('/companies' , [CompanyController::class, 'index'])->name('company.index')->middleware(FromLocation::class);
  Route::get('/offers' , [OfferController::class, 'index'])->name('offer.index')->middleware(FromLocation::class);
+ Route::get('/vacancies', [VacancyController::class, 'index'])->name('vacancy.index')->middleware(FromLocation::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

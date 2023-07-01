@@ -21,8 +21,11 @@ return new class extends Migration
             $table->string('address', 128);
             $table->text('description')->nullable();
            
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('city_id')->default(1);
             $table->foreign('city_id')->references('id')->on('cities');
+
+            $table->unsignedBigInteger('region_id')->default(1);
+            $table->foreign('region_id')->references('id')->on('regions');
 
             $table->morphs('parent');
         });

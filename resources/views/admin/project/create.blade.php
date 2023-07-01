@@ -32,12 +32,12 @@
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="donations_need" class="text-sm font-medium text-gray-900 block mb-2">Need donations</label>
-                                        <input type="number" name="donations_need" id="donations_need" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('donations_need')" required>
+                                        <input type="number" name="donations_need" id="donations_need" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('donations_need')" value="0" required>
                                         <x-input-error :messages="$errors->get('donations_need')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="donations_have" class="text-sm font-medium text-gray-900 block mb-2">Have donations</label>
-                                        <input type="number" name="donations_have" id="donations_have" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('donations_have')" required>
+                                        <input type="number" name="donations_have" id="donations_have" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('donations_have')" value="0" required>
                                         <x-input-error :messages="$errors->get('donations_have')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6">

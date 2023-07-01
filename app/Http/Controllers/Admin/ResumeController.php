@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Resume;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,12 +28,15 @@ class ResumeController extends Controller
             'address' => ['required', 'string', 'max:128'],
         ]);
 
+        $city = City::with('region')->findOrFail($request->city);
+
         $resume = new Resume();
 
         $resume->name = $request->name;
         $resume->address = $request->address;
         $resume->description = $request->description;
         $resume->city_id = $request->city;
+        $resume->region_id = $city->region->id; // add to region key
         $resume->price = $request->price;
         $resume->user_id = $request->user;
 
@@ -63,12 +67,15 @@ class ResumeController extends Controller
             'address' => ['required', 'string', 'max:128'],
         ]);
 
+        $city = City::with('region')->findOrFail($request->city);
+
         $resume = Resume::findOrFail($id);
 
         $resume->name = $request->name;
         $resume->address = $request->address;
         $resume->description = $request->description;
         $resume->city_id = $request->city;
+        $resume->region_id = $city->region->id; // add to region key
         $resume->price = $request->price;
         $resume->user_id = $request->user;
 
