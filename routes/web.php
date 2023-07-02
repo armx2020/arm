@@ -55,7 +55,6 @@ Route::middleware('auth')->group(function () {
 
 
 Route::post('/cities', [CityController::class, 'getCities'])->name('cities');
-Route::post('/regions', [RegionController::class, 'getRegions'])->name('regions');
 
 
 require __DIR__ . '/auth.php';

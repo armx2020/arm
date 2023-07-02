@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                                 <div class="items-center py-6 border-gray-200 rounded-b">
-                                    <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add company</button>
+                                    <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add offer</button>
                                 </div>
                             </form>
                         </div>
