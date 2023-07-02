@@ -61,7 +61,7 @@
             </a>
         </div>
         <div class="bg-orange-100 rounded-xl p-2 h-36 lg:h-auto">
-            <a href="">
+            <a href="{{ route('vacancy.index') }}">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left basis-3/4 p-1 lg:p-4">
                         <div class="m-1 lg:m-2 font-bold">Поиск работы</div>

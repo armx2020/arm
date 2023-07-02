@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vacancy extends Model
 {
-    use HasFactory, HasCity,HasRegion, HasParent;
+    use HasFactory, HasCity, HasRegion, HasParent;
     use Search;
 
     protected $searchable = [
