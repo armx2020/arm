@@ -73,14 +73,20 @@
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
                                         @if( $group->image == null)
-                                        <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-image.png')}}" alt="{{ $group->name }}">
+                                        <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $group->name }}">
                                         @else
                                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$group->image) }}" alt="{{ $group->image }}">
                                         @endif
                                         <a href="{{ route('admin.group.show', [ 'group' => $group->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $group->name }}</div>
-                                                <div class="text-sm font-normal text-gray-500">{{ $group->address}}</div>
+                                                <div class="text-sm font-normal text-gray-500">
+                                                    @if( $group->address == null)
+                                                    no address
+                                                    @else
+                                                    {{ $group->address }}
+                                                    @endif
+                                                </div>
                                             </div>
                                         </a>
                                     </td>

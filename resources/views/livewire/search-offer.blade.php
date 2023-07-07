@@ -76,7 +76,7 @@
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
                                         @if( $offer->image == null)
-                                        <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-image.png')}}" alt="{{ $offer->name }}">
+                                        <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $offer->name }}">
                                         @else
                                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$offer->image) }}" alt="{{ $offer->image }}">
                                         @endif

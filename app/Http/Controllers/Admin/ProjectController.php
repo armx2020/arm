@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Company;
+use App\Models\Group;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,14 +20,22 @@ class ProjectController extends Controller
 
     public function create()
     {
-        return view('admin.project.create');
+        $users = User::all();
+        $companies = Company::all();
+        $groups = Group::all();
+
+        return view('admin.project.create', [
+                                        'users' => $users,
+                                        'companies' => $companies,
+                                        'groups' => $groups
+        ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'address' => ['required', 'string', 'max:128'],
+            'address' => ['max:128'],
             'image' => ['image', 'max:2048'],
         ]);
 
@@ -39,8 +50,20 @@ class ProjectController extends Controller
         $project->region_id = $city->region->id; // add to region key
         $project->donations_need = $request->donations_need;
         $project->donations_have = $request->donations_have;
-        $project->parent_type = 'App\Models\Admin';
-        $project->parent_id = 1;
+        
+        if ($request->parent == 'User') {
+            $project->parent_type = 'App\Models\User';
+            $project->parent_id = $request->user;
+        } elseif ($request->parent == 'Company') {
+            $project->parent_type = 'App\Models\Company';
+            $project->parent_id = $request->company;
+        } elseif ($request->parent == 'Group') {
+            $project->parent_type = 'App\Models\Group';
+            $project->parent_id = $request->group;
+        } else {
+            $project->parent_type = 'App\Models\Admin';
+            $project->parent_id = 1;
+        }
 
         if ($request->image) {
             $project->image = $request->file('image')->store('projects', 'public');
@@ -62,14 +85,23 @@ class ProjectController extends Controller
     {
         $project = Project::with('parent')->findOrFail($id);
 
-        return view('admin.project.edit', ['project' => $project]);
+        $users = User::all();
+        $companies = Company::all();
+        $groups = Group::all();
+
+        return view('admin.project.edit', [
+                    'project' => $project,
+                    'users' => $users,
+                    'companies' => $companies,
+                    'groups' => $groups
+        ]);
     }
 
     public function update(Request $request, string $id)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'address' => ['required', 'string', 'max:128'],
+            'address' => ['max:128'],
             'image' => ['image', 'max:2048'],
         ]);
 
@@ -84,6 +116,21 @@ class ProjectController extends Controller
         $project->region_id = $city->region->id; // add to region key
         $project->donations_need = $request->donations_need;
         $project->donations_have = $request->donations_have;
+
+        if ($request->parent == 'User') {
+            $project->parent_type = 'App\Models\User';
+            $project->parent_id = $request->user;
+        } elseif ($request->parent == 'Company') {
+            $project->parent_type = 'App\Models\Company';
+            $project->parent_id = $request->company;
+        } elseif ($request->parent == 'Group') {
+            $project->parent_type = 'App\Models\Group';
+            $project->parent_id = $request->group;
+        } else {
+            $project->parent_type = 'App\Models\Admin';
+            $project->parent_id = 1;
+        }
+
 
         if ($request->image) {
             Storage::delete('public/'.$project->image);

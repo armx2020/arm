@@ -12,7 +12,7 @@
                     @endif
                     <div class="flex items-center mb-4">
                         @if( $event->image == null)
-                        <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-camera.png')}}" alt="{{ $event->name }}">
+                        <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $event->name }}">
                         @else
                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$event->image) }}" alt="{{ $event->name }}">
                         @endif
@@ -31,7 +31,7 @@
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                         City
                                     </th>
-                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                    <th scope="col" class="p-4 text-xs font-medium text-gray-500 uppercase">
                                         Activity
                                     </th>
                                     <th scope="col" class="p-4">
@@ -48,7 +48,13 @@
                                         </a>
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        <div class="text-sm font-normal text-gray-500">{{ $event->address}}</div>
+                                        <div class="text-sm font-normal text-gray-500">
+                                            @if($event->address)
+                                            {{ $event->address}}
+                                            @else
+                                            no address
+                                            @endif
+                                        </div>
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
                                         {{ $event->city->name }}
@@ -62,8 +68,8 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <td class="p-4 whitespace-nowrap space-x-2 text-right">
-                                        <div class="flex flex-row">
+                                    <td class="p-4 whitespace-nowrap space-x-2 text-right w-1/6">
+                                        <div class="flex flex-row justify-end">
                                             <a href="{{ route('admin.event.edit', ['event' => $event->id ]) }}" data-modal-toggle="user-modal" class="text-white mx-2 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                                 <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>

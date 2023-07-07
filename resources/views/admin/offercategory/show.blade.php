@@ -1,25 +1,18 @@
 @extends('admin.layouts.app')
-
 @section('content')
-
-<div id="main-content" class="h-full w-full p-3 bg-gray-50 relative overflow-y-auto">
-    <main>
         <div class=" my-2 flex flex-col">
             <div class="overflow-x-auto">
                 <div class="align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden">
-
                         <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                             @if (session('success'))
                             <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
                                 {{ session('success')}}
                             </div>
                             @endif
-
                             <div class="flex items-center mb-4">
                                 <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $category->name }}</h3>
                             </div>
-
                             <div class="flow-root">
                                 <table class="table-auto min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-100">
@@ -64,8 +57,8 @@
                                                     @endif
                                                 </div>
                                             </td>
-                                            <td class="p-4 whitespace-nowrap space-x-2 text-right">
-                                                <div class="flex flex-row">
+                                            <td class="p-4 whitespace-nowrap space-x-2 w-1/6">
+                                                <div class="flex flex-row justify-end">
                                                     <a href="{{ route('admin.offerCategory.edit', ['offerCategory' => $category->id ]) }}" data-modal-toggle="user-modal" class="text-white mx-2 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                                         <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>

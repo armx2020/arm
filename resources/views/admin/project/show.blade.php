@@ -12,7 +12,7 @@
                     @endif
                     <div class="flex items-center mb-4">
                         @if( $project->image == null)
-                        <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-image.png')}}" alt="{{ $project->name }}">
+                        <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $project->name }}">
                         @else
                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$project->image) }}" alt="{{ $project->name }}">
                         @endif
@@ -44,7 +44,13 @@
                                         <a href="{{ route('admin.project.show', [ 'project' => $project->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $project->name }}</div>
-                                                <div class="text-sm font-normal text-gray-500">{{ $project->address}}</div>
+                                                <div class="text-sm font-normal text-gray-500">
+                                                    @if($project->address)
+                                                    {{ $project->address}}
+                                                    @else
+                                                    no address
+                                                    @endif
+                                                </div>
                                             </div>
                                         </a>
                                     </td>
@@ -85,7 +91,6 @@
                                         </div>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>

@@ -36,8 +36,11 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr class="">
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        <div class="text-base font-semibold text-gray-900">{{ $vacancy->name }}</div>
-                                        <div class="text-sm font-normal text-gray-500">{{ $vacancy->address}}</div>
+                                        @if($vacancy->address)
+                                        {{ $vacancy->address }}
+                                        @else
+                                        no address
+                                        @endif
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
                                         @if( $vacancy->price == null)

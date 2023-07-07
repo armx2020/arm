@@ -9,9 +9,9 @@
                         <div class="flex items-start p-5 border-b rounded-t">
                             <div class="flex items-center mb-4">
                                 @if( $company->logo == null)
-                                <img class="h-20 w-20 rounded-full m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }} logo">
+                                <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }} logo">
                                 @else
-                                <img class="h-20 w-20 rounded-full m-4" src="{{ asset('storage/'. $company->logo) }}" alt="{{ $company->name }} logo">
+                                <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $company->logo) }}" alt="{{ $company->name }} logo">
                                 @endif
                                 <h3 class="text-2xl font-bold leading-none text-gray-900">Edit {{ $company->name }}</h3>
                             </div>
@@ -27,8 +27,8 @@
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Address*</label>
-                                        <input type="text" name="address" id="address" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $company->address }}" required>
+                                        <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Address</label>
+                                        <input type="text" name="address" id="address" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $company->address }}">
                                         <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
@@ -46,7 +46,7 @@
                                         <select name="user" id="user" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                             <option selected value="">no user</option>    
                                             @if($company->user)
-                                            <option value="{{ $company->user->id }}">{{ $company->user->firstname }} {{ $company->user->lastname }}</option>
+                                            <option selected value="{{ $company->user->id }}">{{ $company->user->firstname }} {{ $company->user->lastname }}</option>
                                             @endif
                                             @foreach( $users as $user)
                                             <option value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>

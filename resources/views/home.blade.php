@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 
 <section>
@@ -21,7 +20,7 @@
             </div>
         </div>
         <div class="bg-white rounded-xl p-2 h-36 md:h-auto">
-            <a href="">
+            <a href="{{ route('event.index') }}">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left basis-3/4 p-1 lg:p-4">
                         <div class="m-1 lg:m-2 font-bold">Афиша событий</div>
@@ -48,7 +47,7 @@
             </a>
         </div>
         <div class="bg-white rounded-xl p-2 h-36 lg:h-auto">
-            <a href="">
+            <a href="{{ route('news.index') }}">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left basis-3/4 p-1 lg:p-4">
                         <div class="m-1 lg:m-2 font-bold">Новости</div>

@@ -8,7 +8,7 @@
                     <div class="bg-white rounded-lg relative">
                         <div class="flex items-start p-5 border-b rounded-t">
                             <div class="flex items-center mb-4">
-                                <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-camera.png')}}" alt="news">
+                                <img class="h-10 w-10 rounded-lg m-4 opacity-50" src="{{ url('/image/no-image.png')}}" alt="news">
                                 <h3 class="text-2xl font-bold leading-none text-gray-900">New news</h3>
                             </div>
                         </div>

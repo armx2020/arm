@@ -9,7 +9,7 @@
                         <div class="flex items-start p-5 border-b rounded-t">
                             <div class="flex items-center mb-4">
                                 @if( $news->image == null)
-                                <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-camera.png')}}" alt="{{ $news->name }}">
+                                <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $news->name }}">
                                 @else
                                 <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $news->image) }}" alt="{{ $news->image }}">
                                 @endif

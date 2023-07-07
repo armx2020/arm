@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name', 40);
             $table->boolean('activity')->default(true);
             $table->text('description')->nullable();
-            $table->string('address', 128);
+            $table->string('address', 128)->nullable();
             $table->unsignedInteger('donations_need')->default(0);
             $table->unsignedInteger('donations_have')->default(0);
             $table->string('image', 255)->nullable();

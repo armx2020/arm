@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Company;
+use App\Models\Group;
+use App\Models\User;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 
@@ -18,14 +21,22 @@ class VacancyController extends Controller
 
     public function create()
     {
-        return view('admin.vacancy.create');
+        $users = User::all();
+        $companies = Company::all();
+        $groups = Group::all();
+
+        return view('admin.vacancy.create', [
+                                        'users' => $users,
+                                        'companies' => $companies,
+                                        'groups' => $groups
+        ]);
     }
 
     public function store(Request $request)
     {
          $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'address' => ['required', 'string', 'max:128'],
+            'address' => ['max:128'],
             'image' => ['image', 'max:2048'],
         ]);
 
@@ -37,10 +48,23 @@ class VacancyController extends Controller
         $vacancy->address = $request->address;
         $vacancy->description = $request->description;
         $vacancy->price = $request->price;
-        $vacancy->parent_type = 'App\Models\Admin';
-        $vacancy->parent_id = 1;
         $vacancy->city_id = $request->city;
         $vacancy->region_id = $city->region->id; // add to region key
+
+        if ($request->parent == 'User') {
+            $vacancy->parent_type = 'App\Models\User';
+            $vacancy->parent_id = $request->user;
+        } elseif ($request->parent == 'Company') {
+            $vacancy->parent_type = 'App\Models\Company';
+            $vacancy->parent_id = $request->company;
+        } elseif ($request->parent == 'Group') {
+            $vacancy->parent_type = 'App\Models\Group';
+            $vacancy->parent_id = $request->group;
+        } else {
+            $vacancy->parent_type = 'App\Models\Admin';
+            $vacancy->parent_id = 1;
+        }
+
 
         $vacancy->save();
 
@@ -56,7 +80,17 @@ class VacancyController extends Controller
     public function edit(string $id)
     {
         $vacancy = Vacancy::findOrFail($id);
-        return view('admin.vacancy.edit', ['vacancy' => $vacancy]);
+
+        $users = User::all();
+        $companies = Company::all();
+        $groups = Group::all();
+
+        return view('admin.vacancy.edit', [
+                        'vacancy' => $vacancy,
+                        'users' => $users,
+                        'companies' => $companies,
+                        'groups' => $groups
+                        ]);
     }
 
 
@@ -64,7 +98,7 @@ class VacancyController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'address' => ['required', 'string', 'max:128'],
+            'address' => ['max:128'],
         ]);
 
         
@@ -78,6 +112,20 @@ class VacancyController extends Controller
         $vacancy->price = $request->price;
         $vacancy->city_id = $request->city;
         $vacancy->region_id = $city->region->id; // add to region key
+
+        if ($request->parent == 'User') {
+            $vacancy->parent_type = 'App\Models\User';
+            $vacancy->parent_id = $request->user;
+        } elseif ($request->parent == 'Company') {
+            $vacancy->parent_type = 'App\Models\Company';
+            $vacancy->parent_id = $request->company;
+        } elseif ($request->parent == 'Group') {
+            $vacancy->parent_type = 'App\Models\Group';
+            $vacancy->parent_id = $request->group;
+        } else {
+            $vacancy->parent_type = 'App\Models\Admin';
+            $vacancy->parent_id = 1;
+        }
 
         $vacancy->update();
 

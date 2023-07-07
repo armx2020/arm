@@ -25,7 +25,7 @@ class ResumeController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'address' => ['required', 'string', 'max:128'],
+            'address' => ['max:128'],
         ]);
 
         $city = City::with('region')->findOrFail($request->city);
@@ -64,7 +64,7 @@ class ResumeController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'address' => ['required', 'string', 'max:128'],
+            'address' => ['max:128'],
         ]);
 
         $city = City::with('region')->findOrFail($request->city);

@@ -9,7 +9,7 @@
                         <div class="flex items-start p-5 border-b rounded-t">
                             <div class="flex items-center p-4">
                                 @if( $group->image == null)
-                                <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-image.png')}}" alt="{{ $group->name }}">
+                                <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $group->name }}">
                                 @else
                                 <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $group->image) }}" alt="{{ $group->image }}">
                                 @endif
@@ -27,8 +27,8 @@
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Address*</label>
-                                        <input type="text" name="address" id="address" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $group->address }}" required>
+                                        <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Address</label>
+                                        <input type="text" name="address" id="address" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $group->address }}">
                                         <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
@@ -44,9 +44,9 @@
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="user" class="text-sm font-medium text-gray-900 block mb-2">User*</label>
                                         <select name="user" id="user" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
-                                            <option selected value="">no user</option>    
-                                            @if($user)
-                                            <option value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>
+                                            <option value="">no user</option>    
+                                            @if($category->user)
+                                            <option  selected value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>
                                             @endif
                                             @foreach( $users as $user)
                                             <option value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>
@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                                 <div class="items-center py-6 border-gray-200 rounded-b">
-                                    <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save company</button>
+                                    <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save group</button>
                                 </div>
                             </form>
                         </div>

@@ -4,7 +4,9 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -40,6 +42,9 @@ use Illuminate\Support\Facades\Route;
  Route::get('/companies' , [CompanyController::class, 'index'])->name('company.index')->middleware(FromLocation::class);
  Route::get('/offers' , [OfferController::class, 'index'])->name('offer.index')->middleware(FromLocation::class);
  Route::get('/vacancies', [VacancyController::class, 'index'])->name('vacancy.index')->middleware(FromLocation::class);
+ Route::get('/events', [EventController::class, 'index'])->name('event.index')->middleware(FromLocation::class);
+ Route::get('/news', [NewsController::class, 'index'])->name('news.index')->middleware(FromLocation::class);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -25,7 +25,7 @@
                     @if ($companies->isEmpty())
                     <div class="w-full text-center p-4">
                         <div class="flex items-center text-center justify-center">
-                            <h3 class="text-2xl font-normal mx-auto">В КАТЕГОРИИ НЕТ ГРУПП</h3>
+                            <h3 class="text-2xl font-normal mx-auto">В РЕГИОНЕ НЕТ КОМПАНИЙ</h3>
                         </div>
                     </div>
                     @else

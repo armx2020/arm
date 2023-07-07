@@ -75,7 +75,7 @@
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
 
                                         @if( $company->logo == null)
-                                        <img class="h-10 w-10 rounded-full m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }} logo">
+                                        <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }} logo">
                                         @else
                                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$company->logo) }}" alt="{{ $company->logo }} avatar">
                                         @endif

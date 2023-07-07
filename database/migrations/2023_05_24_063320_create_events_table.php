@@ -19,11 +19,14 @@ return new class extends Migration
             $table->string('name', 40);
             $table->boolean('activity')->default(true);
             $table->text('description')->nullable();
-            $table->string('address', 128);
+            $table->string('address', 128)->nullable();
             $table->string('image', 255)->nullable();
 
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('city_id')->default(1);
             $table->foreign('city_id')->references('id')->on('cities');
+
+            $table->unsignedBigInteger('region_id')->default(1);
+            $table->foreign('region_id')->references('id')->on('regions');
 
             $table->morphs('parent');
         });

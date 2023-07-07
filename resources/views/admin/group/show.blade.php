@@ -41,7 +41,11 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr class="">
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        {{ $group->address}}
+                                        @if( $group->address == null)
+                                        no address
+                                        @else
+                                        {{ $group->address }}
+                                        @endif
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
                                         @if( $group->phone == null)

@@ -12,9 +12,9 @@
                     @endif
                     <div class="flex items-center mb-4">
                         @if( $company->logo == null)
-                        <img class="h-20 w-20 rounded-full m-4" src="{{ url('/image/mo-image.png')}}" alt="{{ $company->name }} logo">
+                        <img class="h-10 w-10 rounded-дп m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }} logo">
                         @else
-                        <img class="h-20 w-20 rounded-full m-4" src="{{ asset('storage/'. $company->logo) }}" alt="{{ $company->name }} logo">
+                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $company->logo) }}" alt="{{ $company->name }} logo">
                         @endif
                         <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $company->name }}</h3>
                     </div>
@@ -23,7 +23,7 @@
                             <thead class="bg-gray-100">
                                 <tr>
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                        Name
+                                        Address
                                     </th>
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                         Phone
@@ -41,10 +41,18 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr class="">
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        {{ $company->address}}
+                                        @if($company->address)
+                                            {{ $company->address}}
+                                        @else
+                                            no address
+                                        @endif
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        {{ $company->phone }}
+                                        @if($company->phone)
+                                            {{ $company->phone }}
+                                        @else
+                                            no phone
+                                        @endif
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
                                         {{ $company->city->name }}
@@ -150,6 +158,5 @@
     </div>
 </div>
 @endif
-
 
 @endsection

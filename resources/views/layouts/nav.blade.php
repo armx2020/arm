@@ -40,10 +40,10 @@
                     <a class="" href="{{ route('offer.index') }}">Маркет</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="#">Афиша</a>
+                    <a class="" href="{{ route('event.index') }}">Афиша</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="#">Новости</a>
+                    <a class="" href="{{ route('news.index') }}">Новости</a>
                 </li>
                 <li class="mb-2">
                     <a class="" href="{{ route('group.index') }}">Группы</a>
@@ -67,10 +67,10 @@
                     <a class="" href="{{ route('offer.index') }}">Маркет</a>
                 </li>
                 <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="#">Афиша</a>
+                    <a class="" href="{{ route('event.index') }}">Афиша</a>
                 </li>
                 <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="">Новости</a>
+                    <a class="" href="{{ route('news.index') }}">Новости</a>
                 </li>
                 <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                     <a class="" href="{{ route('group.index') }}">Группы</a>

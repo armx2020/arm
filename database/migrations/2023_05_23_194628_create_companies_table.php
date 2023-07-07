@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name', 40);
             $table->boolean('activity')->default(true);
-            $table->string('address', 128);
+            $table->string('address', 128)->nullable();
             $table->string('logo', 255)->nullable();
             $table->text('description')->nullable();
             

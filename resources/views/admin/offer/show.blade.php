@@ -12,7 +12,7 @@
                     @endif
                     <div class="flex items-center mb-4">
                         @if( $offer->image == null)
-                        <img class="h-10 w-10 rounded-full m-4 opacity-50" src="{{ url('/image/no-image.png')}}" alt="{{ $offer->name }}">
+                        <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $offer->name }}">
                         @else
                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $offer->image) }}" alt="{{ $offer->image }}">
                         @endif
@@ -23,7 +23,7 @@
                             <thead class="bg-gray-100">
                                 <tr>
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                        Name
+                                        Address
                                     </th>
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                         Phone
@@ -44,10 +44,18 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr class="">
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        {{ $offer->address}}
+                                        @if($offer->address)
+                                            {{ $offer->address}}
+                                        @else
+                                            no address
+                                        @endif
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                        {{ $offer->phone }}
+                                        @if($offer->phone)
+                                            {{ $offer->phone }}
+                                        @else
+                                            no phone
+                                        @endif
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
                                         {{ $offer->price}} {{ $offer->unit_of_price}}

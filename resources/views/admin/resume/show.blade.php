@@ -21,9 +21,6 @@
                                     <thead class="bg-gray-100">
                                         <tr>
                                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                                Name
-                                            </th>
-                                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                                 Address
                                             </th>
                                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
@@ -39,10 +36,11 @@
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         <tr class="">
                                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                {{ $resume->address}}
-                                            </td>
-                                            <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
+                                                @if($resume->address)
                                                 {{ $resume->address }}
+                                                @else
+                                                no address
+                                                @endif
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
                                                 {{ $resume->city->name }}

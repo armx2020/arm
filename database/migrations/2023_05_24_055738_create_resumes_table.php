@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('price')->nullable();
             $table->string('name', 40);
             $table->boolean('activity')->default(true);
-            $table->string('address', 128);
+            $table->string('address', 128)->nullable();
             $table->text('description')->nullable();
             
             $table->unsignedBigInteger('city_id')->default(1);

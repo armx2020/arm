@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->string('InEnglish', 255);
+            $table->boolean('center')->default(false);
 
             $table->unsignedBigInteger('region_id');
             $table->foreign('region_id')->references('id')->on('regions');

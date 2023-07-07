@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -32,9 +33,12 @@ class NewsController extends Controller
 
         $news = new News();
 
+        $city = City::with('region')->findOrFail($request->city);
+
         $news->name = $request->name;
         $news->date = $request->date;
         $news->city_id = $request->city;
+        $news->region_id = $city->region->id; // add to region key
         $news->description = $request->description;
 
         if ($request->image) {
@@ -88,10 +92,12 @@ class NewsController extends Controller
         ]);
 
         $news = News::findOrFail($id);
+        $city = City::with('region')->findOrFail($request->city);
 
         $news->name = $request->name;
         $news->date = $request->date;
         $news->city_id = $request->city;
+        $news->region_id = $city->region->id; // add to region key
         $news->description = $request->description;
 
         if ($request->image) {
