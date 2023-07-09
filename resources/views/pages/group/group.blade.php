@@ -24,7 +24,11 @@
     <div class="flex flex-col w-11/12 mx-auto my-6 lg:my-8">
         <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10">
             <div class="flex flex-col">
+                @if( $group->image == null )
+                <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
+                @else
                 <img src="{{ asset( 'storage/'.$group->image) }}" alt="" class="h-48 rounded-lg m-1 lg:m-5">
+                @endif
                 <!-- <p class="text-left font-bold text-md mx-5 my-5">Рейтинг 8,2</p> -->
                 <div class="mx-5">
                     <div class="my-2 flex flex-row">
