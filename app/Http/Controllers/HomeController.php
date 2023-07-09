@@ -26,6 +26,10 @@ class HomeController extends Controller
             $cityName = $city->name;
         }
 
+        if(empty($region)) {
+            $region = Region::where('InEnglish', '=', 'Russia')->First();
+        }
+
         return view('home', ['city' => $cityName, 'region' => $region]);
     }
 
