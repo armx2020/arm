@@ -17,6 +17,6 @@ class VacancyController extends Controller
             $cityName = $city->name;
         }  
 
-        return view('vacancy', ['city' => $cityName]);
+        return view('pages.vacancy.vacancies', ['city' => $cityName]);
     }
 }

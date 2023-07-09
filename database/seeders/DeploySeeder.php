@@ -1343,8 +1343,7 @@ class DeploySeeder extends Seeder
                 DB::table('groups')->insert([
                     'created_at' => '2023-06-28 14:18:19',
                     'updated_at' => '2023-06-28 14:18:19',
-                    'name' => 'Община "' . $region['name']. '"',
-                    'address' => $region['name'],
+                    'name' => 'Армянская община ' . $region['name'],
                     'image' => 'groups/groups.png',
                     'city_id' => 1,
                     'region_id' => $i ++,

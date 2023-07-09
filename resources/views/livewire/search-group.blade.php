@@ -75,7 +75,7 @@
                                         @if( $group->image == null)
                                         <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $group->name }}">
                                         @else
-                                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$group->image) }}" alt="{{ $group->image }}">
+                                        <img class="h-10 w-10 rounded-lg object-cover m-4" src="{{ asset( 'storage/'.$group->image) }}" alt="{{ $group->image }}">
                                         @endif
                                         <a href="{{ route('admin.group.show', [ 'group' => $group->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">

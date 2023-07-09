@@ -38,6 +38,8 @@ use Illuminate\Support\Facades\Route;
  Route::get('/change', [HomeController::class, 'changeCity'])->name('changeCity');
 
  Route::get('/groups', [GroupController::class, 'index'])->name('group.index')->middleware(FromLocation::class);
+ Route::get('/group/{id}', [GroupController::class, 'show'])->name('group.show')->middleware(FromLocation::class);
+ 
  Route::get('/projects' , [ProjectController::class, 'index'])->name('project.index')->middleware(FromLocation::class);
  Route::get('/companies' , [CompanyController::class, 'index'])->name('company.index')->middleware(FromLocation::class);
  Route::get('/offers' , [OfferController::class, 'index'])->name('offer.index')->middleware(FromLocation::class);

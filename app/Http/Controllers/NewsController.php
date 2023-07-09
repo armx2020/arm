@@ -17,6 +17,6 @@ class NewsController extends Controller
             $cityName = $city->name;
         }  
 
-        return view('news', ['city' => $cityName]);
+        return view('pages.news.news', ['city' => $cityName]);
     }
 }

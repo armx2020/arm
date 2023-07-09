@@ -17,6 +17,6 @@ class EventController extends Controller
             $cityName = $city->name;
         }  
 
-        return view('event', ['city' => $cityName]);
+        return view('pages.event.events', ['city' => $cityName]);
     }
 }

@@ -57,7 +57,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($groups as $group)
                     <div class="block rounded-lg bg-white">
-                        <a href="#!" class="h-48 max-w-xs block">
+                        <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="h-48 max-w-xs block">
                             @if( $group->image == null )
                             <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else

@@ -76,7 +76,7 @@
                                         @if( $event->image == null)
                                         <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $event->name }}">
                                         @else
-                                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$event->image) }}" alt="{{ $event->name }}">
+                                        <img class="h-10 w-10 object-cover rounded-lg m-4" src="{{ asset( 'storage/'.$event->image) }}" alt="{{ $event->name }}">
                                         @endif
 
                                         <a href="{{ route('admin.event.show', [ 'event' => $event->id ]) }}">

@@ -17,6 +17,6 @@ class OfferController extends Controller
             $cityName = $city->name;
         }  
 
-        return view('offer', ['city' => $cityName]);
+        return view('pages.offer.offers', ['city' => $cityName]);
     }
 }

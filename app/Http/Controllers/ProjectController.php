@@ -17,6 +17,6 @@ class ProjectController extends Controller
             $cityName = $city->name;
         }  
 
-        return view('project', ['city' => $cityName]);
+        return view('pages.project.projects', ['city' => $cityName]);
     }
 }
