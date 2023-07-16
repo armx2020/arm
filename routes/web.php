@@ -4,6 +4,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\NewsController;
@@ -48,9 +49,7 @@ use Illuminate\Support\Facades\Route;
  Route::get('/news', [NewsController::class, 'index'])->name('news.index')->middleware(FromLocation::class);
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified', 'from'])->name('dashboard');
 
 
 
@@ -65,4 +64,5 @@ Route::post('/cities', [CityController::class, 'getCities'])->name('cities');
 
 
 require __DIR__ . '/auth.php';
+//require __DIR__ . '/authentication.php';
 require __DIR__ . '/admin.php';

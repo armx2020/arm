@@ -41,8 +41,8 @@
                 </div>
             </div>
             <div class="flex flex-col px-3 lg:px-10">
-                <h3 class="text-left text-xl lg:text-2xl m-2 lg:m-5">{{ $group->name }}</h1>
-                    <p class="text-left text-md lg:text-lg mx-2 lg:mx-5 text-gray-500">{{ $group->city->name }}</p>
+                <h3 class="text-left text-xl lg:text-2xl m-2 md:m-5">{{ $group->name }}</h1>
+                    <p class="text-left text-md lg:text-lg mx-2 md:mx-5 text-gray-500">{{ $group->city->name }}</p>
                     <p class="text-justify m-2 lg:m-5 mt-6 lg:mt-10 text-md break-all">{{ $group->description }}</p>
             </div>
         </div>

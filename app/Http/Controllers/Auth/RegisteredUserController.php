@@ -6,49 +6,123 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
-    public function create(): View
+    public function create(Request $request)
     {
+        $request->session()->forget('count');
         return view('auth.register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
             'firstname' => ['required', 'string', 'max:32'],
             'lastname' => ['required', 'string', 'max:32'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', 'min:8', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+        $request->session()->put('firstname', $request->firstname);
+        $request->session()->put('lastname', $request->lastname);
+        $request->session()->put('email', $request->email);
+        $request->session()->put('password', $request->password);
+
+        return view('auth.form-phone', ['messages' => []]);
+    }
+
+    public function store_phone(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'phone' => ['required', 'max:32', 'unique:' . User::class],
         ]);
 
-        event(new Registered($user));
+        if ($validator->fails()) {
+            $fieldsWithErrorMessagesArray = $validator->messages()->get('*');
+            return view('auth.form-phone', ['messages' => $fieldsWithErrorMessagesArray['phone']]);
+        }
 
-        Auth::login($user);
+        $validated = $validator->safe()->only(['phone']);
 
-        return redirect(RouteServiceProvider::HOME);
+        $request->session()->put('phone', $validated['phone']);
+
+        // sms.ru
+        $ch = curl_init("https://sms.ru/code/call");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
+            "phone" => $validated['phone'], // номер телефона пользователя
+             "ip" => $_SERVER["REMOTE_ADDR"],
+            "ip" =>  '2.95.19.255',
+            "api_id" => "AF091A73-77E1-9945-9455-280D8014D741"
+        )));
+
+        $body = curl_exec($ch);
+        curl_close($ch);
+
+        $json = json_decode($body);
+        //       $json = (object) array('status' => 'OK', 'code' => 0000);
+
+        if ($json) {
+            if ($json->status == "OK") {
+                $request->session()->put('code', $json->code);
+                $request->session()->put('code_live', $json->code);
+
+                return view('auth.confirm-phone', ['count' => []]);
+            } else {
+                return view('auth.form-phone',  ['messages' => []])->with('error',  'У вас слишком много запросов. Попробуйте позже');
+            }
+        } else {
+            return view('auth.form-phone', ['messages' => []])->with('error',  "Запрос не выполнился. Не удалось установить связь с сервером. ");
+        }
+    }
+
+    public function store_code(Request $request)
+    {
+        if ($request->session()->has('count')) {
+            $request->session()->decrement('count');
+        } else {
+            $request->session()->put('count', 3);
+        }
+
+        if ($request->session()->get('count') <= 0) {
+            $request->session()->forget('count');
+            return redirect()->route('register')->with('error', 'Количество попыток превышно. Попробуйте позже');
+        } else {
+            if ($request->code == $request->session()->get('code')) {
+
+                $user = User::create([
+                    'firstname' => $request->session()->get('firstname'),
+                    'lastname' => $request->session()->get('lastname'),
+                    'phone' => $request->session()->get('phone'),
+                    'email' => $request->session()->get('email'),
+                    'password' => Hash::make($request->session()->get('password')),
+                ]);
+
+                $request->session()->forget('firstname');
+                $request->session()->forget('lastname');
+                $request->session()->forget('phone');
+                $request->session()->forget('email');
+                $request->session()->forget('password');
+                $request->session()->forget('code');
+                $request->session()->forget('code_live');
+                $request->session()->forget('count');
+
+                event(new Registered($user));
+
+                Auth::login($user);
+
+                return redirect(RouteServiceProvider::HOME);
+            } else {
+
+                return view('auth.confirm-phone', ['count' => $request->session()->get('count')]);
+            }
+        }
     }
 }

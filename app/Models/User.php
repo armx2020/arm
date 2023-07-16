@@ -9,6 +9,7 @@ use App\Models\Traits\HasCompanies;
 use App\Models\Traits\HasEvents;
 use App\Models\Traits\HasGroups;
 use App\Models\Traits\HasProjects;
+use App\Models\Traits\HasRegion;
 use App\Models\Traits\HasResumes;
 use App\Models\Traits\HasVacancies;
 use App\Models\Traits\Search;
@@ -24,6 +25,7 @@ class User extends Authenticatable
         HasFactory,
         Notifiable,
         HasCity,
+        HasRegion,
         HasCompanies,
         HasGroups,
         HasResumes,

@@ -30,8 +30,8 @@
             </svg>
             <ul class="list-style-none mx-auto flex flex-col pl-0 text-center text-xl mt-10">
                 <li class="mb-4 p-4 block border">
-                    <a class="mx-4 text-md" href="#">Войти</a>
-                    <a class="mx-4 text-md" href="">Регистрация</a>
+                    <a class="mx-4 text-md" href="{{ route('login') }}">Войти</a>
+                    <a class="mx-4 text-md" href="{{ route('register') }}">Регистрация</a>
                 </li>
                 <li class="mb-2 block">
                     <a class="" href="{{ route('project.index') }}">Проекты</a>
@@ -84,33 +84,49 @@
             <div class="block">
                 <button class="text-blue-600 text-sm hover:text-blue-400 block" id="locationButton2">
                     <img src="{{ url('/image/location-marker.png')}}" class="w-4 h-4 inline align-middle" />
-                    @if ($city)
+                    @isset ($city)
                     {{ preg_replace("/\([^)]+\)/","", $city) }}
                     @else
                     Вся Россия
-                    @endif
+                    @endisset
                 </button>
             </div>
+
+            @auth
             <div class="flex flex-row items-center">
-                <a class="mx-4" href="#">Войти</a>
-                <a class="inline-block bg-orange-600 rounded-lg px-6 pb-2 pt-2.5 text-white">
+                <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->email }}</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="inline-block bg-orange-600 rounded-lg px-6 pb-2 pt-2.5 text-white" href="{{ route('register') }}">
+                        Выход
+                    </button>
+                </form>
+            </div>
+            @endauth
+
+            @guest
+            <div class="flex flex-row items-center">
+                <a class="mx-4" href="{{ route('login') }}">Войти</a>
+                <a class="inline-block bg-orange-600 rounded-lg px-6 pb-2 pt-2.5 text-white" href="{{ route('register') }}">
                     Регистрация
                 </a>
             </div>
+            @endguest
+
         </div>
     </div>
 </nav>
 
 <!-- select city -->
-<div id='selectCity' class="bg-white w-full align-middle text-right hidden">
-    <form method="GET" enctype="multipart/form-data" action="{{ route('changeCity') }}">
-        <select name="city" class="mx-7" style="width: 40%" id="dd_city">
+<div id='selectCity' class="align-middle text-right w-full lg:w-10/12 hidden">
+    <div class="w-11/12 md:w-6/12 lg:w-1/4 float-right mr-3 lg:mr-24">
+    <form id="formSelect" method="GET" enctype="multipart/form-data" class="object-right" action="{{ route('changeCity') }}">
+        <select name="city" class="mx-7" style="width: 100%" id="dd_city">
             <option value='1'> Вся Россия</option>
         </select>
-        <button type="submit" class="align-middle ml-1 mr-7 text-center rounded-md bg-blue-500 text-white h-7 px-6 items-center inline-block">
-            выбрать
-        </button>
+        <button type="submit" class="hidden" id="sendButton"></button>
     </form>
+    </div>
 </div>
 
 <script type='text/javascript'>
@@ -138,6 +154,10 @@
                 }
             });
         }
-
+        $('#dd_city').change(function() {
+            $(this).find(":selected").each(function() {
+                $( "#formSelect" ).submit();
+            });
+        });
     });
 </script>

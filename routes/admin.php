@@ -20,10 +20,8 @@ use App\Http\Controllers\Admin\VacancyController;
 
 Route::name('admin.')->prefix('admin')->group(function () {
 
-    Route::get('/', [DashboardController::class, 'index'])->middleware(['auth:admin', 'verified'])->name('dashboard');
-
-
     Route::middleware(['auth:admin', 'verified'])->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('user', UserController::class);
         Route::resource('company', CompanyController::class);
         Route::resource('groupCategory', GroupCategoryController::class);
@@ -37,7 +35,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('news', NewsController::class);
         Route::resource('project', ProjectController::class);
     });
-
 
 
     Route::group(['middleware' => 'guest:admin'], function () {
