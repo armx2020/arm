@@ -12,7 +12,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/scripts.js',
                 'resources/js/jquery-3.7.0.min.js',
-                'resources/js/jquery.maskedinput.js',
+                'resources/js/jquery.maskedinput.min.js',
         //        'resources/js/select2.min.js',
                 'resources/js/mask_phone.js',
             ],
