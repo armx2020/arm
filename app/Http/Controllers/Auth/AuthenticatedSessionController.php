@@ -28,21 +28,21 @@ class AuthenticatedSessionController extends Controller
             $request->session()->put('remember', $request->remember);
 
             // sms.ru 
-            // $ch = curl_init("https://sms.ru/code/call");
-            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            // curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
-            //     "phone" => Auth::user()->phone, // номер телефона пользователя
-            //     "ip" => $_SERVER["REMOTE_ADDR"],
-            //     // "ip" =>  '2.95.19.255',
-            //     "api_id" => "AF091A73-77E1-9945-9455-280D8014D741"
-            // )));
+            $ch = curl_init("https://sms.ru/code/call");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
+                "phone" => Auth::user()->phone, // номер телефона пользователя
+                "ip" => $_SERVER["REMOTE_ADDR"],
+                // "ip" =>  '2.95.19.255',
+                "api_id" => "AF091A73-77E1-9945-9455-280D8014D741"
+            )));
 
-            // $body = curl_exec($ch);
-            // curl_close($ch);
+            $body = curl_exec($ch);
+            curl_close($ch);
 
-         //   $json = json_decode($body);
-                    $json = (object) array('status' => 'OK', 'code' => 0000);
+           $json = json_decode($body);
+           //         $json = (object) array('status' => 'OK', 'code' => 0000);
             if ($json) {
                 if ($json->status == "OK") {
                     $request->session()->put('code', $json->code);
