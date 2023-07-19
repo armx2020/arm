@@ -13,6 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
+    <script src="{{ url('/jquery-3.7.0.min.js')}}"></script>
     <script src="{{ url('/jquery.maskedinput.min.js')}}"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -24,10 +25,10 @@
                 <img src="{{ url('/image/logo-app.png')}}" class="w-60" alt="logo" />
             </a>
         </div>
-        <div class="popup-fade"></div>
         <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white overflow-hidden sm:rounded-lg">
             {{ $slot }}
         </div>
     </div>
+    @vite(['resources/js/mask_phone.js'])
 </body>
 </html>

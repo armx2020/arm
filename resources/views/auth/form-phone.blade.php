@@ -40,5 +40,4 @@
         </div>
 
     </form>
-    @vite(['resources/js/mask_phone.js'])
 </x-guest-layout>

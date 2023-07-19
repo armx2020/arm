@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -15,8 +16,18 @@ class DashboardController extends Controller
 
         if ($city !== null) {
             $cityName = $city->name;
-        }  
+        }
 
-        return view('dashboard', ['city' => $cityName]);
+        $sum =  (Auth::user()->city !== 1 ? 10 : 0) +
+                    (Auth::user()->image ? 10 : 0) +
+                    (Auth::user()->viber ? 5 : 0) +
+                    (Auth::user()->whatsapp ? 5 : 0) +
+                    (Auth::user()->instagram ? 5 : 0) +
+                    (Auth::user()->vkontakte ? 5 : 0) +
+                    (Auth::user()->telegram ? 5 : 0);
+
+            $fullness = (round(($sum / 45)*100));
+
+        return view('dashboard', ['city' => $cityName, 'fullness' => $fullness]);
     }
 }

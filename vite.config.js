@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/css/select.css',
                 'resources/js/app.js',
                 'resources/js/scripts.js',
+                'resources/js/mask_phone.js'
             ],
             refresh: true,
         }),

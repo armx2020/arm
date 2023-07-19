@@ -34,8 +34,9 @@ class UserController extends Controller
             'telegram' => ['max:36'],
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
-            'image' => ['image', 'max:2048'],
         ]);
+
+        $city = City::with('region')->findOrFail($request->city);
 
         $user = new User();
 
@@ -45,6 +46,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->city_id = $request->city;
+        $user->region_id = $city->region->id;
         $user->viber = $request->viber;
         $user->whatsapp = $request->whatsapp;
         $user->telegram = $request->telegram;
@@ -94,10 +96,10 @@ class UserController extends Controller
             'telegram' => ['max:36'],
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
-            'image' => ['image', 'max:2048'],
         ]);
     
         $user = User::findOrFail($id);
+        $city = City::with('region')->findOrFail($request->city);
 
         if ($request->image) {
             Storage::delete('public/'.$user->image);
@@ -109,6 +111,7 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->city_id = $request->city;
+        $user->region_id = $city->region->id;
         $user->viber = $request->viber;
         $user->whatsapp = $request->whatsapp;
         $user->telegram = $request->telegram;
