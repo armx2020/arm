@@ -1,6 +1,6 @@
 <x-guest-layout>
 
-    <form method="POST" action="{{ route('register_code') }}">
+    <form method="POST" action="{{ route('register.code') }}">
         @csrf
 
         <div class="w-full sm:max-w-md px-1 py-4 bg-white overflow-hidden sm:rounded-lg z-50">

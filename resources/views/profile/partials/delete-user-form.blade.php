@@ -49,7 +49,6 @@
     <script type='text/javascript'>
         $(document).ready(function() {
             $("#confirm-user-deletion-button").click(function() {
-                console.log('hjhj');
                 $("#confirm-user-deletion").toggle();
             });
             $("#confirm-user-deletion-close").click(function() {

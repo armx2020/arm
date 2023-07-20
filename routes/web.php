@@ -9,6 +9,8 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\Profile\GroupController as ProfileGroupController;
+use App\Http\Controllers\Profile\MyGroupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegionController;
@@ -54,9 +56,18 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 
 
 Route::middleware('auth')->group(function () {
+    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Group
+    Route::get('/mygroups', [MyGroupController::class, 'index'])->name('mygroup.index');
+    Route::post('/mygroups', [MyGroupController::class, 'store'])->name('mygroup.store');
+    Route::get('/mygroups/{id}', [MyGroupController::class, 'show'])->name('mygroup.show');
+    Route::get('/mygroups/{id}/edit', [MyGroupController::class, 'edit'])->name('mygroup.edit');
+    Route::patch('/mygroups/{id}', [MyGroupController::class, 'update'])->name('mygroup.update');
+    Route::delete('/mygroups/{id}', [MyGroupController::class, 'destroy'])->name('mygroup.destroy');
 });
 
 
@@ -64,5 +75,4 @@ Route::post('/cities', [CityController::class, 'getCities'])->name('cities');
 
 
 require __DIR__ . '/auth.php';
-//require __DIR__ . '/authentication.php';
 require __DIR__ . '/admin.php';

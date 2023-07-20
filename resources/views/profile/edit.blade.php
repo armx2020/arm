@@ -6,7 +6,7 @@
             <ul class="m-6 text-md">
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Главная</a></li>
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мои компания</a></li>
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мои группы</a></li>
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mygroup.index') }}">Мои группы</a></li>
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Маркет</a></li>
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Новости</a></li>
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мероприятия</a></li>

@@ -1,6 +1,6 @@
 <x-guest-layout>
 
-    <form method="POST" action="{{ route('register_phone') }}">
+    <form method="POST" action="{{ route('register.phone') }}">
         @csrf
 
         <div>

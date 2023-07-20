@@ -7,7 +7,7 @@
             <ul class="m-6 text-md">
                 <li class="p-2 bg-gray-100 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Главная</a></li>
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мои компания</a></li>
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мои группы</a></li>
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mygroup.index') }}">Мои группы</a></li>
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Маркет</a></li>
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Новости</a></li>
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мероприятия</a></li>
@@ -20,6 +20,7 @@
             </ul>
         </div>
     </div>
+
     <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
         <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10">
             <div class="flex flex-col basis-1/4">
@@ -29,7 +30,7 @@
                 <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 lg:p-10 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                 @endif
                 <!-- <p class="text-left font-bold text-md mx-5 my-5">Рейтинг 8,2</p> -->
-                <div class="mx-5">
+                <div class="m-5">
                     <div class="my-2 flex flex-row">
                         <div class="basis-4/5 text-left text-sm">Заполненость профиля</div>
                         <div class="basis-1/5 text-right text-sm">{{ $fullness }}%</div>
@@ -74,6 +75,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 </div>
 
