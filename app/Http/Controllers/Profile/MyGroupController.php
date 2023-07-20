@@ -152,7 +152,7 @@ class MyGroupController extends Controller
 
         $city = City::with('region')->findOrFail($request->group_city);
         
-        $group = Group::where('id', '=', 90)->where('user_id', '=', Auth::user()->id)->get();
+        $group = Group::where('id', '=', $id)->where('user_id', '=', Auth::user()->id)->get();
 
         $group->name = $request->name;
         $group->address = $request->address;
