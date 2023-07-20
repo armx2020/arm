@@ -149,11 +149,11 @@ class MyGroupController extends Controller
             'image3' => ['image', 'max:2048'],
             'image4' => ['image', 'max:2048'],
         ]);
-        
+
         $city = City::with('region')->findOrFail($request->group_city);
         
-        $group = Group::where('id', '=', $id)->where('user_id', '=', Auth::user()->id)->first();
-        
+        $group = Group::where('id', '=', 90)->where('user_id', '=', Auth::user()->id)->get();
+
         $group->name = $request->name;
         $group->address = $request->address;
         $group->description = $request->description;
