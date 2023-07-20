@@ -23,7 +23,7 @@
     <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
         <div class="flex flex-col basis-full">
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10 relative">
-                <form method="post" action="{{ route('mygroup.update', ['id' => 90]) }}" class="w-full" enctype="multipart/form-data">
+                <form method="post" action="{{ route('mygroup.update', ['id' => $group->id]) }}" class="w-full" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
 
