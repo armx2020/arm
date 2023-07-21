@@ -10,6 +10,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\Profile\GroupController as ProfileGroupController;
+use App\Http\Controllers\Profile\MyCompanyController;
 use App\Http\Controllers\Profile\MyGroupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -68,6 +69,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/mygroups/{id}/edit', [MyGroupController::class, 'edit'])->name('mygroup.edit');
     Route::patch('/mygroups/{id}', [MyGroupController::class, 'update'])->name('mygroup.update');
     Route::delete('/mygroups/{id}', [MyGroupController::class, 'destroy'])->name('mygroup.destroy');
+
+    // Company
+    Route::get('/mycompanies', [MyCompanyController::class, 'index'])->name('mycompany.index');
+    Route::post('/mycompanies', [MyCompanyController::class, 'store'])->name('mycompany.store');
+    Route::get('/mycompanies/{id}', [MyCompanyController::class, 'show'])->name('mycompany.show');
+    Route::get('/mycompanies/{id}/edit', [MyCompanyController::class, 'edit'])->name('mycompany.edit');
+    Route::patch('/mycompanies/{id}', [MyCompanyController::class, 'update'])->name('mycompany.update');
+    Route::delete('/mycompanies/{id}', [MyCompanyController::class, 'destroy'])->name('mycompany.destroy');
 });
 
 

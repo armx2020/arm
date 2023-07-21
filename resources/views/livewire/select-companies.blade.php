@@ -33,10 +33,10 @@
                         @foreach($companies as $company)
                         <div class="block rounded-lg bg-white">
                             <a href="#!" class="h-48 max-w-xs block">
-                                @if( $company->logo == null )
-                                <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="logo" />
+                                @if( $company->image == null )
+                                <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @else
-                                <img class="h-48 w-full rounded-lg m-4 flex object-cover" src="{{ asset( 'storage/'.$company->logo) }}" alt="logo">
+                                <img class="h-48 w-full rounded-lg m-4 flex object-cover" src="{{ asset( 'storage/'.$company->image) }}" alt="image">
                                 @endif
                             </a>
                             <div class="p-6">

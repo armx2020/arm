@@ -11,10 +11,10 @@
                     </div>
                     @endif
                     <div class="flex items-center mb-4">
-                        @if( $company->logo == null)
-                        <img class="h-10 w-10 rounded-дп m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }} logo">
+                        @if( $company->image == null)
+                        <img class="h-10 w-10 rounded-дп m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }} image">
                         @else
-                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $company->logo) }}" alt="{{ $company->name }} logo">
+                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $company->image) }}" alt="{{ $company->name }} image">
                         @endif
                         <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $company->name }}</h3>
                     </div>

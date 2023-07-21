@@ -8,10 +8,10 @@
                     <div class="bg-white rounded-lg relative">
                         <div class="flex items-start p-5 border-b rounded-t">
                             <div class="flex items-center mb-4">
-                                @if( $company->logo == null)
-                                <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }} logo">
+                                @if( $company->image == null)
+                                <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }} image">
                                 @else
-                                <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $company->logo) }}" alt="{{ $company->name }} logo">
+                                <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $company->image) }}" alt="{{ $company->name }} image">
                                 @endif
                                 <h3 class="text-2xl font-bold leading-none text-gray-900">Edit {{ $company->name }}</h3>
                             </div>
@@ -62,9 +62,9 @@
                                 </div>
                                 <hr class="my-5">
                                 <div class="flex flex-row ">
-                                    <label for="logo" class="text-center text-sm font-medium text-gray-900 basis-1/6 my-2">logo</label>
-                                    <input type="file" name="logo" id="logo" class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5">
-                                    <x-input-error :messages="$errors->get('logo')" class="mt-2" />
+                                    <label for="image" class="text-center text-sm font-medium text-gray-900 basis-1/6 my-2">image</label>
+                                    <input type="file" name="image" id="image" class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5">
+                                    <x-input-error :messages="$errors->get('image')" class="mt-2" />
                                 </div>
                                 <hr class="my-3">
                                 <div class="grid grid-cols-6 gap-6">

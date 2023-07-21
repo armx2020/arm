@@ -134,7 +134,7 @@ class MyGroupController extends Controller
             $cityName = $city->name;
         }
 
-        $group = Group::where('id', '=', $id)->where('user_id', '=', Auth::user()->id)->first();
+        $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
         $categories = GroupCategory::orderBy('sort_id', 'asc')->get();
 
         return view('profile.pages.group.edit', ['city' => $cityName, 'group' => $group, 'categories' => $categories]);
@@ -214,7 +214,7 @@ class MyGroupController extends Controller
 
     public function destroy($id)
     {
-        $group = Group::where('id', '=', $id)->where('user_id', '=', Auth::user()->id)->with('users')->first();
+        $group = Group::with('users')->where('user_id', '=', Auth::user()->id)->find($id);
 
         foreach($group->users as $user) {
             $group->users()->detach($user->id);

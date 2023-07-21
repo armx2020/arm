@@ -34,7 +34,7 @@ class CompanyController extends Controller
             'telegram' => ['max:36'],
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
-            'logo' => ['image', 'max:2048'],
+            'image' => ['image', 'max:2048'],
         ]);
 
         $city = City::with('region')->find($request->city);
@@ -59,8 +59,8 @@ class CompanyController extends Controller
         $company->vkontakte = $request->vkontakte;
         $company->user_id = $request->user;
 
-        if ($request->logo) {
-            $company->logo = $request->file('logo')->store('companies', 'public');
+        if ($request->image) {
+            $company->image = $request->file('image')->store('companies', 'public');
         }
 
         $company->save();
@@ -105,7 +105,7 @@ class CompanyController extends Controller
             'telegram' => ['max:36'],
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
-            'logo' => ['image', 'max:2048'],
+            'image' => ['image', 'max:2048'],
         ]);
 
         $company = Company::find($id);
@@ -120,9 +120,9 @@ class CompanyController extends Controller
             $city = City::find(1);
         }
 
-        if ($request->logo) {
-            Storage::delete('public/'.$company->logo);
-            $company->logo = $request->file('logo')->store('companies', 'public');
+        if ($request->image) {
+            Storage::delete('public/'.$company->image);
+            $company->image = $request->file('image')->store('companies', 'public');
         }
 
         $company->name = $request->name;
@@ -153,8 +153,8 @@ class CompanyController extends Controller
             return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
         }
 
-        if($company->logo !== null) {
-            Storage::delete('public/'.$company->logo);
+        if($company->image !== null) {
+            Storage::delete('public/'.$company->image);
         }
 
         $company->delete();

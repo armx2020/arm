@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name', 40);
             $table->boolean('activity')->default(true);
             $table->string('address', 128)->nullable();
-            $table->string('logo', 255)->nullable();
+            $table->string('image', 255)->nullable();
             $table->text('description')->nullable();
             
             $table->string('phone', 36)->nullable()->unique();

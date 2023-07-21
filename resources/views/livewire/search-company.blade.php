@@ -79,10 +79,10 @@
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
 
-                                        @if( $company->logo == null)
-                                        <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }} logo">
+                                        @if( $company->image == null)
+                                        <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }} image">
                                         @else
-                                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$company->logo) }}" alt="{{ $company->logo }} avatar">
+                                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$company->image) }}" alt="{{ $company->image }} avatar">
                                         @endif
 
                                         <a href="{{ route('admin.company.show', [ 'company' => $company->id ]) }}">
