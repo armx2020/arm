@@ -6,17 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class LoginController extends Controller
 {
-
     public function showLoginForm()
     {
         return view('admin.login');
     }
     public function login(Request $request)
     {
-
         if (Auth::guard('admin')->attempt([
             'login'    => $request->get('login'),
             'password' => $request->get('password')

@@ -25,7 +25,7 @@
     @livewireStyles
 </head>
 
-<body class="antialiased">
+<body class="antialiased w-full">
     <div class="min-h-screen bg-neutral-100">
         @include('layouts.nav')
         @yield('content')

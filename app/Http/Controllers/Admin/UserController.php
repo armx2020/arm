@@ -36,7 +36,11 @@ class UserController extends Controller
             'vkontakte' => ['max:36'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $user = new User();
 
@@ -77,12 +81,21 @@ class UserController extends Controller
         )
             ->findOrFail($id);
 
+        if(empty($user)) {
+            return redirect()->route('admin.user.index')->with('alert', 'The user no finded');
+        }
+
         return view('admin.user.show', ['user' => $user]);
     }
 
     public function edit(string $id)
     {
         $user = User::find($id);
+
+        if(empty($user)) {
+            return redirect()->route('admin.user.index')->with('alert', 'The user no finded');
+        }
+
         return view('admin.user.edit', ['user' => $user]);
     }
 
@@ -98,8 +111,17 @@ class UserController extends Controller
             'vkontakte' => ['max:36'],
         ]);
     
-        $user = User::findOrFail($id);
-        $city = City::with('region')->findOrFail($request->city);
+        $user = User::find($id);
+
+        if(empty($user)) {
+            return redirect()->route('admin.user.index')->with('alert', 'The user no finded');
+        }
+
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         if ($request->image) {
             Storage::delete('public/'.$user->image);
@@ -126,7 +148,11 @@ class UserController extends Controller
 
     public function destroy(string $id)
     {
-        $user = User::with('inGroups')->findOrFail($id);
+        $user = User::with('inGroups')->find($id);
+
+        if(empty($user)) {
+            return redirect()->route('admin.user.index')->with('alert', 'The user no finded');
+        }
 
         foreach($user->inGroups as $group) {
             $user->inGroups()->detach($group->id);

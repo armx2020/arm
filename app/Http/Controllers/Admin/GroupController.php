@@ -44,7 +44,12 @@ class GroupController extends Controller
             'image4' => ['image', 'max:2048'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
+
 
         $group = new Group();
 
@@ -86,13 +91,23 @@ class GroupController extends Controller
 
     public function show(string $id)
     {
-        $group = Group::with('user', 'category', 'users')->findOrFail($id);
+        $group = Group::with('user', 'category', 'users')->find($id);
+
+        if(empty($group)) {
+            return redirect()->route('admin.group.index')->with('alert', 'The group no finded');
+        }
+
         return view('admin.group.show', ['group' => $group]);
     }
 
     public function edit(string $id)
     {
-        $group = Group::with('user', 'category')->findOrFail($id);
+        $group = Group::with('user', 'category')->find($id);
+
+        if(empty($group)) {
+            return redirect()->route('admin.group.index')->with('alert', 'The group no finded');
+        }
+
         $categories = GroupCategory::all();
         $users = User::all();
         $user = $group->user;
@@ -124,10 +139,18 @@ class GroupController extends Controller
             'image4' => ['image', 'max:2048'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
 
-        $group = Group::findOrFail($id);
+        $group = Group::find($id);
+
+        if(empty($group)) {
+            return redirect()->route('admin.group.index')->with('alert', 'The group no finded');
+        }
 
         $group->name = $request->name;
         $group->address = $request->address;
@@ -173,7 +196,11 @@ class GroupController extends Controller
 
     public function destroy(string $id)
     {
-        $group = Group::with('users')->findOrFail($id);
+        $group = Group::with('users')->find($id);
+
+        if(empty($group)) {
+            return redirect()->route('admin.group.index')->with('alert', 'The group no finded');
+        }
 
         foreach($group->users as $user) {
             $group->users()->detach($user->id);

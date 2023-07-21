@@ -7,7 +7,7 @@ use App\Models\Company;
 use App\Models\Event;
 use App\Models\Group;
 use App\Models\User;
-use Illuminate\Http\Request;
+
 
 class DashboardController extends Controller
 {

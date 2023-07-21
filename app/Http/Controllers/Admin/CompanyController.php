@@ -37,7 +37,11 @@ class CompanyController extends Controller
             'logo' => ['image', 'max:2048'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $company = new Company();
 
@@ -68,13 +72,22 @@ class CompanyController extends Controller
 
     public function show(string $id)
     {
-        $company = Company::with('user')->findOrFail($id);
+        $company = Company::with('user')->find($id);
+
+        if(empty($company)) {
+            return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
+        }
         return view('admin.company.show', ['company' => $company]);
     }
 
     public function edit(string $id)
     {
-        $company = Company::findOrFail($id);
+        $company = Company::find($id);
+
+        if(empty($company)) {
+            return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
+        }
+
         $users = User::all();
         
         return view('admin.company.edit', ['company' => $company, 'users' => $users]);
@@ -95,9 +108,17 @@ class CompanyController extends Controller
             'logo' => ['image', 'max:2048'],
         ]);
 
-        $company = Company::findOrFail($id);
+        $company = Company::find($id);
 
-        $city = City::with('region')->findOrFail($request->city);
+        if(empty($company)) {
+            return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
+        }
+
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         if ($request->logo) {
             Storage::delete('public/'.$company->logo);
@@ -126,7 +147,11 @@ class CompanyController extends Controller
 
     public function destroy(string $id)
     {
-        $company = Company::findOrFail($id);
+        $company = Company::find($id);
+
+        if(empty($company)) {
+            return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
+        }
 
         if($company->logo !== null) {
             Storage::delete('public/'.$company->logo);

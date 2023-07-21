@@ -28,7 +28,11 @@ class ResumeController extends Controller
             'address' => ['max:128'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $resume = new Resume();
 
@@ -47,14 +51,22 @@ class ResumeController extends Controller
 
     public function show(string $id)
     {
-        $resume = Resume::with('user')->findOrFail($id);
+        $resume = Resume::with('user')->find($id);
+
+        if(empty($resume)) {
+            return redirect()->route('admin.resume.index')->with('alert', 'The resume no finded');
+        }
 
         return view('admin.resume.show', ['resume' => $resume]);
     }
 
     public function edit(string $id)
     {
-        $resume = Resume::findOrFail($id);
+        $resume = Resume::find($id);
+
+        if(empty($resume)) {
+            return redirect()->route('admin.resume.index')->with('alert', 'The resume no finded');
+        }
         $users = User::all();
         
         return view('admin.resume.edit', ['resume'=>$resume, 'users'=>$users]);
@@ -67,9 +79,17 @@ class ResumeController extends Controller
             'address' => ['max:128'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
 
-        $resume = Resume::findOrFail($id);
+        if (empty($city)) {
+            $city = City::find(1);
+        }
+
+        $resume = Resume::find($id);
+
+        if(empty($resume)) {
+            return redirect()->route('admin.resume.index')->with('alert', 'The resume no finded');
+        }
 
         $resume->name = $request->name;
         $resume->address = $request->address;
@@ -86,7 +106,12 @@ class ResumeController extends Controller
 
     public function destroy(string $id)
     {
-        $resume = Resume::findOrFail($id);
+        $resume = Resume::find($id);
+
+        if(empty($resume)) {
+            return redirect()->route('admin.resume.index')->with('alert', 'The resume no finded');
+        }
+        
         $resume->delete();
 
         return redirect()->route('admin.resume.index')->with('success', 'The resume deleted');

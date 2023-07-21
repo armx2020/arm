@@ -41,7 +41,11 @@ class ProjectController extends Controller
 
         $project = new Project();
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $project->name = $request->name;
         $project->address = $request->address;
@@ -76,14 +80,22 @@ class ProjectController extends Controller
 
     public function show(string $id)
     {
-        $project = Project::with('parent')->findOrFail($id);
+        $project = Project::with('parent')->find($id);
+
+        if(empty($project)) {
+            return redirect()->route('admin.project.index')->with('alert', 'The event no finded');
+        }
 
         return view('admin.project.show', ['project' => $project]);
     }
 
     public function edit(string $id)
     {
-        $project = Project::with('parent')->findOrFail($id);
+        $project = Project::with('parent')->find($id);
+
+        if(empty($project)) {
+            return redirect()->route('admin.project.index')->with('alert', 'The event no finded');
+        }
 
         $users = User::all();
         $companies = Company::all();
@@ -105,9 +117,17 @@ class ProjectController extends Controller
             'image' => ['image', 'max:2048'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
 
-        $project = Project::findOrFail($id);
+        if (empty($city)) {
+            $city = City::find(1);
+        }
+
+        $project = Project::find($id);
+
+        if(empty($project)) {
+            return redirect()->route('admin.project.index')->with('alert', 'The event no finded');
+        }
 
         $project->name = $request->name;
         $project->address = $request->address;
@@ -145,7 +165,12 @@ class ProjectController extends Controller
 
     public function destroy(string $id)
     {
-        $project = Project::with('parent')->findOrFail($id);
+        $project = Project::with('parent')->find($id);
+
+        if(empty($project)) {
+            return redirect()->route('admin.project.index')->with('alert', 'The event no finded');
+        }
+        
         $project->delete();
 
         return redirect()->route('admin.project.index')->with('success', 'The project deleted');

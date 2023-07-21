@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class ExperienceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $experiences = Experience::with('resume')->latest()->paginate(20);
@@ -19,9 +16,6 @@ class ExperienceController extends Controller
         return view('admin.experience.index', ['experiences'=>$experiences]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $resumes = Resume::all();
@@ -29,9 +23,6 @@ class ExperienceController extends Controller
         return view('admin.experience.create', ['resumes' => $resumes]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -52,9 +43,6 @@ class ExperienceController extends Controller
         return redirect()->route('admin.experience.index')->with('success', 'The experience added');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $experience = Experience::findOrFail($id);
@@ -62,9 +50,6 @@ class ExperienceController extends Controller
         return view('admin.experience.show', ['experience' => $experience]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $experience = Experience::findOrFail($id);
@@ -73,9 +58,6 @@ class ExperienceController extends Controller
         return view('admin.experience.edit', ['experience' => $experience, 'resumes' => $resumes]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -96,9 +78,6 @@ class ExperienceController extends Controller
         return redirect()->route('admin.experience.index')->with('success', 'The experience saved');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $experience = Experience::findOrFail($id);

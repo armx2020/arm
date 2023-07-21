@@ -47,7 +47,12 @@ class MyGroupController extends Controller
             'image4' => ['image', 'max:2048'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->group_city);
+        $city = City::with('region')->find($request->group_city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
+
         $group = new Group();
 
         $group->name = $request->name;
@@ -96,7 +101,11 @@ class MyGroupController extends Controller
             $cityName = $city->name;
         }
 
-        $group = Group::where('id', '=', $id)->where('user_id', '=', Auth::user()->id)->first();
+        $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
+
+        if (empty($group)) {
+            return redirect()->route('mygroup.index')->with('alert', 'Группа не найдена');
+        }
 
         $sum =  ($group->address ? 10 : 0) +
                     ($group->description ? 10 : 0) +
@@ -150,9 +159,17 @@ class MyGroupController extends Controller
             'image4' => ['image', 'max:2048'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->group_city);
+        $city = City::with('region')->find($request->group_city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
         
-        $group = Group::where('id', '=', $id)->where('user_id', '=', Auth::user()->id)->get();
+        $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
+
+        if (empty($group)) {
+            return redirect()->route('mygroup.index')->with('alert', 'Группа не найдена');
+        }
 
         $group->name = $request->name;
         $group->address = $request->address;

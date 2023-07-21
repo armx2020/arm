@@ -23,15 +23,33 @@
             </span>
         </button>
         <div class="bg-white w-full min-h-screen absolute top-0 right-0 z-40 hidden" id="menu">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" id="closeMenu" class="w-7 h-7 absolute right-4 top-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" id="closeMenu" class="w-6 h-6 absolute right-14 top-3">
                 <g>
                     <path d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </g>
             </svg>
             <ul class="list-style-none mx-auto flex flex-col pl-0 text-center text-xl mt-10">
-                <li class="mb-4 p-4 block border">
-                    <a class="mx-4 text-md" href="{{ route('login') }}">Войти</a>
-                    <a class="mx-4 text-md" href="{{ route('register') }}">Регистрация</a>
+                <li class="mb-4 my-2 p-4 flex border justify-center">
+                    @auth
+                    <div class="flex flex-row items-center">
+                        <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->email }}</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="inline-block bg-orange-600 rounded-lg px-6 pb-2 pt-2.5 text-white" href="{{ route('register') }}">
+                                Выход
+                            </button>
+                        </form>
+                    </div>
+                    @endauth
+
+                    @guest
+                    <div class="flex flex-row items-center">
+                        <a class="mx-4" href="{{ route('login') }}">Войти</a>
+                        <a class="inline-block bg-orange-600 rounded-lg px-6 pb-2 pt-2.5 text-white" href="{{ route('register') }}">
+                            Регистрация
+                        </a>
+                    </div>
+                    @endguest
                 </li>
                 <li class="mb-2 block">
                     <a class="" href="{{ route('project.index') }}">Проекты</a>

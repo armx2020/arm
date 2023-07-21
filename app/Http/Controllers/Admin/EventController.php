@@ -39,7 +39,11 @@ class EventController extends Controller
             'image' => ['image', 'max:2048'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $event = new Event();
 
@@ -75,14 +79,22 @@ class EventController extends Controller
 
     public function show(string $id)
     {
-        $event = Event::with('parent')->findOrFail($id);
+        $event = Event::with('parent')->find($id);
+
+        if(empty($event)) {
+            return redirect()->route('admin.event.index')->with('alert', 'The event no finded');
+        }
 
         return view('admin.event.show', [ 'event' => $event ]);
     }
 
     public function edit(string $id)
     {
-        $event = Event::with('parent')->findOrFail($id);
+        $event = Event::with('parent')->find($id);
+
+        if(empty($event)) {
+            return redirect()->route('admin.event.index')->with('alert', 'The event no finded');
+        }
         
         $users = User::all();
         $companies = Company::all();
@@ -104,9 +116,17 @@ class EventController extends Controller
             'image' => ['image', 'max:2048'],
         ]);
 
-        $event = Event::findOrFail($id);
+        $event = Event::find($id);
+
+        if(empty($event)) {
+            return redirect()->route('admin.event.index')->with('alert', 'The event no finded');
+        }
         
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $event->name = $request->name;
         $event->address = $request->address;
@@ -141,7 +161,12 @@ class EventController extends Controller
 
     public function destroy(string $id)
     {
-        $event = Event::findOrFail($id);
+        $event = Event::find($id);
+
+        if(empty($event)) {
+            return redirect()->route('admin.event.index')->with('alert', 'The event no finded');
+        }
+        
         $event->delete();
 
         return redirect()->route('admin.event.index')->with('succes', 'The event deleted');

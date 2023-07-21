@@ -1,24 +1,8 @@
 @extends('layouts.app')
 @section('content')
 <div class="flex flex-col lg:flex-row w-11/12 mx-auto my-10">
-    <div class="flex flex-col basis-full lg:basis-1/5 ">
-        <div class="bg-white rounded-md pb-3 lg:m-3 my-3 hidden lg:block" id="selectCategory">
-            <ul class="m-6 text-md">
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Главная</a></li>
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мои компания</a></li>
-                <li class="p-2 bg-gray-100 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мои группы</a></li>
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Маркет</a></li>
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Новости</a></li>
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мероприятия</a></li>
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Моё резюме</a></li>
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мои проекты</a></li>
-                <hr class="mt-3">
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('profile.edit') }}">Настройки</a></li>
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Справочник</a></li>
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Выход</a></li>
-            </ul>
-        </div>
-    </div>
+
+    <x-nav-profile page="mygroups"></x-nav-profile>
 
     <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
         @if(session('success'))
@@ -91,7 +75,7 @@
                         <form method="post" action="{{ route('mygroup.destroy', ['id' => $group->id]) }}" class="inline">
                             @csrf
                             @method('delete')
-                            <button  type="submit" class="bg-red-100 hover:bg-red-400 rounded-md py-2 pl-2 pr-2 m-1" title="удалить">
+                            <button type="submit" class="bg-red-100 hover:bg-red-400 rounded-md py-2 pl-2 pr-2 m-1" title="удалить">
                                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="22" height="22" viewBox="0 0 140.172 140.172" style="enable-background:new 0 0 140.172 140.172;" xml:space="preserve">
                                     <g>
                                         <g id="_x36_4._Trash">

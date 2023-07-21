@@ -37,14 +37,22 @@ class OfferCategoryController extends Controller
 
     public function show(string $id)
     {
-        $category = OfferCategory::withcount('offers')->findOrFail($id);
+        $category = OfferCategory::withcount('offers')->find($id);
+
+        if(empty($category)) {
+            return redirect()->route('admin.offercategory.index')->with('alert', 'The category no finded');
+        }
 
         return view('admin.offercategory.show', ['category' => $category]);
     }
 
     public function edit(string $id)
     {
-        $category = OfferCategory::findOrFail($id);
+        $category = OfferCategory::find($id);
+
+        if(empty($category)) {
+            return redirect()->route('admin.offercategory.index')->with('alert', 'The category no finded');
+        }
 
         return view('admin.offercategory.edit', ['category' => $category]);
     }
@@ -56,7 +64,11 @@ class OfferCategoryController extends Controller
             'sort_id' => ['required', 'integer',],
         ]);
 
-        $category = OfferCategory::findOrFail($id);
+        $category = OfferCategory::find($id);
+
+        if(empty($category)) {
+            return redirect()->route('admin.offercategory.index')->with('alert', 'The category no finded');
+        }
 
         $category->name = $request->name;
         $category->sort_id = $request->sort_id;
@@ -69,7 +81,11 @@ class OfferCategoryController extends Controller
 
     public function destroy(string $id)
     {
-        $category = OfferCategory::findOrFail($id);
+        $category = OfferCategory::find($id);
+
+        if(empty($category)) {
+            return redirect()->route('admin.offercategory.index')->with('alert', 'The category no finded');
+        }
 
         $category->delete();
 

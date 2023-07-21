@@ -6,6 +6,11 @@
                 {{ session('success')}}
             </div>
             @endif
+            @if (session('alert'))
+            <div class="mb-4 rounded-lg bg-yellow-100 px-6 py-5 text-base text-yellow-700" role="alert">
+                {{ session('alert')}}
+            </div>
+            @endif
             <div class="mb-4">
                 <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All project</h1>
             </div>

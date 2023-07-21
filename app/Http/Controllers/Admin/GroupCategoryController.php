@@ -37,14 +37,22 @@ class GroupCategoryController extends Controller
 
     public function show(string $id)
     {
-        $category = GroupCategory::withcount('groups')->findOrFail($id);
+        $category = GroupCategory::withcount('groups')->find($id);
+
+        if(empty($category)) {
+            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category no finded');
+        }
 
         return view('admin.groupcategory.show', ['category' => $category]);
     }
 
     public function edit(string $id)
     {
-        $category = GroupCategory::findOrFail($id);
+        $category = GroupCategory::find($id);
+
+        if(empty($category)) {
+            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category no finded');
+        }
 
         return view('admin.groupcategory.edit', ['category' => $category]);
     }
@@ -56,7 +64,11 @@ class GroupCategoryController extends Controller
             'sort_id' => ['required', 'integer',],
         ]);
 
-        $category = GroupCategory::findOrFail($id);
+        $category = GroupCategory::find($id);
+
+        if(empty($category)) {
+            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category no finded');
+        }
 
         $category->name = $request->name;
         $category->sort_id = $request->sort_id;
@@ -70,7 +82,11 @@ class GroupCategoryController extends Controller
 
     public function destroy(string $id)
     {
-        $category = GroupCategory::findOrFail($id);
+        $category = GroupCategory::find($id);
+
+        if(empty($category)) {
+            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category no finded');
+        }
 
         $category->delete();
 

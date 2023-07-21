@@ -40,7 +40,11 @@ class VacancyController extends Controller
             'image' => ['image', 'max:2048'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $vacancy = new Vacancy();
 
@@ -65,7 +69,6 @@ class VacancyController extends Controller
             $vacancy->parent_id = 1;
         }
 
-
         $vacancy->save();
 
         return redirect()->route('admin.vacancy.index')->with('success', 'The vacancy added');
@@ -73,13 +76,22 @@ class VacancyController extends Controller
 
     public function show(string $id)
     {
-        $vacancy = Vacancy::with('parent')->findOrFail($id);
+        $vacancy = Vacancy::with('parent')->find($id);
+
+        if(empty($vacancy)) {
+            return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy no finded');
+        }
+
         return view('admin.vacancy.show', ['vacancy' => $vacancy]);
     }
 
     public function edit(string $id)
     {
-        $vacancy = Vacancy::findOrFail($id);
+        $vacancy = Vacancy::find($id);
+
+        if(empty($vacancy)) {
+            return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy no finded');
+        }
 
         $users = User::all();
         $companies = Company::all();
@@ -93,7 +105,6 @@ class VacancyController extends Controller
                         ]);
     }
 
-
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -102,9 +113,17 @@ class VacancyController extends Controller
         ]);
 
         
-        $vacancy = Vacancy::findOrFail($id);
+        $vacancy = Vacancy::find($id);
 
-        $city = City::with('region')->findOrFail($request->city);
+        if(empty($vacancy)) {
+            return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy no finded');
+        }
+
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $vacancy->name = $request->name;
         $vacancy->address = $request->address;
@@ -130,13 +149,16 @@ class VacancyController extends Controller
         $vacancy->update();
 
         return redirect()->route('admin.vacancy.index')->with('success', 'The vacancy saved');
-
     }
-
 
     public function destroy(string $id)
     {
-        $vacancy = Vacancy::findOrFail($id);
+        $vacancy = Vacancy::find($id);
+
+        if(empty($vacancy)) {
+            return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy no finded');
+        }
+
         $vacancy->delete();
 
         return redirect()->route('admin.vacancy.index')->with('success', 'The vacancy deleted');

@@ -44,7 +44,11 @@ class OfferController extends Controller
             'image4' => ['image', 'max:2048'],
         ]);
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $offer = New CompanyOffer();
 
@@ -88,13 +92,23 @@ class OfferController extends Controller
 
     public function show(string $id)
     {
-        $offer = CompanyOffer::with('company', 'category')->findOrFail($id);
+        $offer = CompanyOffer::with('company', 'category')->find($id);
+
+        if(empty($offer)) {
+            return redirect()->route('admin.offer.index')->with('alert', 'The offer no finded');
+        }
+
         return view('admin.offer.show', ['offer' => $offer]);
     }
 
     public function edit(string $id)
     {
-        $offer = CompanyOffer::with('company', 'category')->findOrFail($id);
+        $offer = CompanyOffer::with('company', 'category')->find($id);
+
+        if(empty($offer)) {
+            return redirect()->route('admin.offer.index')->with('alert', 'The offer no finded');
+        }
+
         $categories = OfferCategory::all();
         $companies = Company::all();
         $company = $offer->company;
@@ -125,9 +139,17 @@ class OfferController extends Controller
             'image4' => ['image', 'max:2048'],
         ]);
 
-        $offer = CompanyOffer::findOrFail($id);
+        $offer = CompanyOffer::find($id);
 
-        $city = City::with('region')->findOrFail($request->city);
+        if(empty($offer)) {
+            return redirect()->route('admin.offer.index')->with('alert', 'The offer no finded');
+        }
+
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $offer->name = $request->name;
         $offer->address = $request->address;
@@ -176,7 +198,11 @@ class OfferController extends Controller
 
     public function destroy(string $id)
     {
-        $offer = CompanyOffer::findOrFail($id);
+        $offer = CompanyOffer::find($id);
+
+        if(empty($offer)) {
+            return redirect()->route('admin.offer.index')->with('alert', 'The offer no finded');
+        }
 
         if($offer->image !== null) {
             Storage::delete('public/'.$offer->image);

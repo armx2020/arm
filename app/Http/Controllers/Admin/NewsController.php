@@ -33,7 +33,11 @@ class NewsController extends Controller
 
         $news = new News();
 
-        $city = City::with('region')->findOrFail($request->city);
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $news->name = $request->name;
         $news->date = $request->date;
@@ -69,13 +73,22 @@ class NewsController extends Controller
 
     public function show(string $id)
     {
-        $news = News::findOrFail($id);
+        $news = News::find($id);
+
+        if(empty($news)) {
+            return redirect()->route('admin.news.index')->with('alert', 'The news no finded');
+        }
+
         return view('admin.news.show', ['news' => $news]);
     }
 
     public function edit(string $id)
     {
-        $news = News::findOrFail($id);
+        $news = News::find($id);
+
+        if(empty($news)) {
+            return redirect()->route('admin.news.index')->with('alert', 'The news no finded');
+        }
         
         return view('admin.news.edit', ['news' => $news]);
     }
@@ -91,8 +104,17 @@ class NewsController extends Controller
             'image4' => ['image', 'max:2048'],
         ]);
 
-        $news = News::findOrFail($id);
-        $city = City::with('region')->findOrFail($request->city);
+        $news = News::find($id);
+
+        if(empty($news)) {
+            return redirect()->route('admin.news.index')->with('alert', 'The news no finded');
+        }
+
+        $city = City::with('region')->find($request->city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         $news->name = $request->name;
         $news->date = $request->date;
@@ -128,7 +150,12 @@ class NewsController extends Controller
 
     public function destroy(string $id)
     {
-        $news = News::findOrFail($id);
+        $news = News::find($id);
+
+        if(empty($news)) {
+            return redirect()->route('admin.news.index')->with('alert', 'The news no finded');
+        }
+
         $news->delete();
 
         return redirect()->route('admin.news.index')->with('success', 'The news deleted');
