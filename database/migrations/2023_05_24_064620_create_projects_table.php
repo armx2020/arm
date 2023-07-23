@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedInteger('donations_have')->default(0);
             $table->string('image', 255)->nullable();
 
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('city_id')->default(1);;
             $table->foreign('city_id')->references('id')->on('cities');
 
             $table->unsignedBigInteger('region_id')->default(1);

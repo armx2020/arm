@@ -14,9 +14,9 @@
             @endif
 
             @if($page == 'mycompanies')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mycompany.index') }}">Мои компания</a></li>
+            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mycompany.index') }}">Мои компании</a></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mycompany.index') }}">Мои компания</a></li>
+            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mycompany.index') }}">Мои компании</a></li>
             @endif
 
             @if($page == 'mygroups')
@@ -51,9 +51,9 @@
 
 
             @if($page == 'myprojects')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мои проекты</a></li>
+            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myproject.index') }}">Мои проекты</a></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Мои проекты</a></li>
+            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myproject.index') }}">Мои проекты</a></li>
             @endif
 
             <hr class="mt-3">

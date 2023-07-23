@@ -15,10 +15,10 @@ class MyGroupController extends Controller
     public function index(Request $request)
     {
         $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
 
-        if ($city !== null) {
+        if (empty($city)) {
+            $cityName = City::find(1);
+        } else {
             $cityName = $city->name;
         }
 
@@ -94,10 +94,10 @@ class MyGroupController extends Controller
     public function show(Request $request, $id)
     {
         $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
 
-        if ($city !== null) {
+        if (empty($city)) {
+            $cityName = City::find(1);
+        } else {
             $cityName = $city->name;
         }
 
@@ -127,10 +127,10 @@ class MyGroupController extends Controller
     public function edit(Request $request, $id)
     {
         $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
 
-        if ($city !== null) {
+        if (empty($city)) {
+            $cityName = City::find(1);
+        } else {
             $cityName = $city->name;
         }
 

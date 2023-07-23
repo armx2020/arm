@@ -22,10 +22,8 @@ class FromLocation
             $data = Location::get($ip);
 
             $cityName = $data ? $data->cityName : 'no selected';
-            $regionName = $data ? $data->regionName : 'Russia';
 
             $request->session()->put('city', $cityName);
-            $request->session()->put('region', $regionName);
         }
 
         return $next($request);

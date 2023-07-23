@@ -19,10 +19,10 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
 
-        if ($city !== null) {
+        if (empty($city)) {
+            $cityName = City::find(1);
+        } else {
             $cityName = $city->name;
         }
 
@@ -47,7 +47,11 @@ class ProfileController extends Controller
         ]);
  
         $user = User::findOrFail(Auth::user()->id);
-        $city = City::with('region')->findOrFail($request->user_city);
+        $city = City::with('region')->find($request->project_city);
+
+        if (empty($city)) {
+            $city = City::find(1);
+        }
 
         if ($request->image) {
             Storage::delete('public/'.$user->image);

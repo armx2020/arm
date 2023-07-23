@@ -12,6 +12,7 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\Profile\GroupController as ProfileGroupController;
 use App\Http\Controllers\Profile\MyCompanyController;
 use App\Http\Controllers\Profile\MyGroupController;
+use App\Http\Controllers\Profile\MyProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegionController;
@@ -77,6 +78,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/mycompanies/{id}/edit', [MyCompanyController::class, 'edit'])->name('mycompany.edit');
     Route::patch('/mycompanies/{id}', [MyCompanyController::class, 'update'])->name('mycompany.update');
     Route::delete('/mycompanies/{id}', [MyCompanyController::class, 'destroy'])->name('mycompany.destroy');
+
+    // Project
+    Route::get('/myprojects', [MyProjectController::class, 'index'])->name('myproject.index');
+    Route::post('/myprojects', [MyProjectController::class, 'store'])->name('myproject.store');
+    Route::get('/myprojects/{id}', [MyProjectController::class, 'show'])->name('myproject.show');
+    Route::get('/myprojects/{id}/edit', [MyProjectController::class, 'edit'])->name('myproject.edit');
+    Route::patch('/myprojects/{id}', [MyProjectController::class, 'update'])->name('myproject.update');
+    Route::delete('/myprojects/{id}', [MyProjectController::class, 'destroy'])->name('myproject.destroy');
 });
 
 

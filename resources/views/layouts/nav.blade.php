@@ -140,7 +140,7 @@
     <div class="w-11/12 md:w-6/12 lg:w-1/4 float-right mr-3 lg:mr-24">
         <form id="formSelect" method="GET" enctype="multipart/form-data" class="object-right" action="{{ route('changeCity') }}">
             <select name="city" class="mx-7" style="width: 100%" id="dd_city">
-                <option value='1'> Вся Россия</option>
+                <option value='1'> выберите город</option>
             </select>
             <button type="submit" class="hidden" id="sendButton"></button>
         </form>

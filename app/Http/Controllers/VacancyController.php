@@ -10,12 +10,12 @@ class VacancyController extends Controller
     public function index(Request $request)
     {   
         $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
 
-        if ($city !== null) {
+        if (empty($city)) {
+            $cityName = City::find(1);
+        } else {
             $cityName = $city->name;
-        }  
+        }
 
         return view('pages.vacancy.vacancies', ['city' => $cityName]);
     }

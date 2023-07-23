@@ -24,12 +24,12 @@ class GroupController extends Controller
     public function show(Request $request, $id)
     {
         $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
 
-        if ($city !== null) {
+        if (empty($city)) {
+            $cityName = City::find(1);
+        } else {
             $cityName = $city->name;
-        }  
+        } 
 
         $group = Group::with('events', 'projects', 'vacancies')->findOrFail($id);
 
