@@ -13,6 +13,7 @@ use App\Http\Controllers\Profile\GroupController as ProfileGroupController;
 use App\Http\Controllers\Profile\MyCompanyController;
 use App\Http\Controllers\Profile\MyGroupController;
 use App\Http\Controllers\Profile\MyProjectController;
+use App\Http\Controllers\Profile\MyResumeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegionController;
@@ -86,6 +87,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/myprojects/{id}/edit', [MyProjectController::class, 'edit'])->name('myproject.edit');
     Route::patch('/myprojects/{id}', [MyProjectController::class, 'update'])->name('myproject.update');
     Route::delete('/myprojects/{id}', [MyProjectController::class, 'destroy'])->name('myproject.destroy');
+
+    // Resume
+    Route::get('/myresumes', [MyResumeController::class, 'index'])->name('myresume.index');
+    Route::post('/myresumes', [MyResumeController::class, 'store'])->name('myresume.store');
+    Route::get('/myresumes/{id}', [MyResumeController::class, 'show'])->name('myresume.show');
+    Route::get('/myresumes/{id}/edit', [MyResumeController::class, 'edit'])->name('myresume.edit');
+    Route::patch('/myresumes/{id}', [MyResumeController::class, 'update'])->name('myresume.update');
+    Route::delete('/myresumes/{id}', [MyResumeController::class, 'destroy'])->name('myresume.destroy');
 });
 
 

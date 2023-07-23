@@ -4,7 +4,7 @@ namespace App\Services;
 
 class SmsService {
 
-    public static function callTo($phone, $ip, $active = false)
+    public static function callTo($phone, $ip, $active = true) // false -> для теста (код 0000)
     {
         $result = [];
         if ($active == true ) {

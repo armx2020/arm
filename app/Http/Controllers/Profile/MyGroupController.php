@@ -135,6 +135,11 @@ class MyGroupController extends Controller
         }
 
         $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
+
+        if (empty($group)) {
+            return redirect()->route('mygroup.index')->with('alert', 'Группа не найдена');
+        }
+
         $categories = GroupCategory::orderBy('sort_id', 'asc')->get();
 
         return view('profile.pages.group.edit', ['city' => $cityName, 'group' => $group, 'categories' => $categories]);
@@ -215,6 +220,10 @@ class MyGroupController extends Controller
     public function destroy($id)
     {
         $group = Group::with('users')->where('user_id', '=', Auth::user()->id)->find($id);
+
+        if (empty($group)) {
+            return redirect()->route('mygroup.index')->with('alert', 'Группа не найдена');
+        }
 
         foreach($group->users as $user) {
             $group->users()->detach($user->id);

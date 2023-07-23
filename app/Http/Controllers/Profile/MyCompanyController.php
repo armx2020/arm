@@ -85,7 +85,7 @@ class MyCompanyController extends Controller
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
-            return redirect()->route('mycompany.index')->with('alert', 'Группа не найдена');
+            return redirect()->route('mycompany.index')->with('alert', 'Компания не найдена');
         }
 
         $sum =  ($company->address ? 10 : 0) +
@@ -114,7 +114,12 @@ class MyCompanyController extends Controller
         } else {
             $cityName = $city->name;
         }
+
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
+
+        if (empty($company)) {
+            return redirect()->route('mycompany.index')->with('alert', 'Компания не найдена');
+        }
 
         return view('profile.pages.company.edit', ['city' => $cityName, 'company' => $company]);
     }
@@ -143,7 +148,7 @@ class MyCompanyController extends Controller
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
-            return redirect()->route('mycompany.index')->with('alert', 'Группа не найдена');
+            return redirect()->route('mycompany.index')->with('alert', 'Компания не найдена');
         }
 
         $company->name = $request->name;
@@ -173,6 +178,10 @@ class MyCompanyController extends Controller
     public function destroy($id)
     {
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
+
+        if (empty($company)) {
+            return redirect()->route('mycompany.index')->with('alert', 'Компания не найдена');
+        }
 
         if($company->image !== null) {
             Storage::delete('public/'.$company->image);

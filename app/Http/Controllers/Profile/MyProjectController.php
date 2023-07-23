@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Project;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -78,7 +77,7 @@ class MyProjectController extends Controller
         $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
 
         if (empty($project)) {
-            return redirect()->route('myproject.index')->with('alert', 'Группа не найдена');
+            return redirect()->route('myproject.index')->with('alert', 'Проект не найден');
         }
 
         return view('profile.pages.project.show', ['city' => $cityName, 'project' => $project]);
@@ -95,6 +94,10 @@ class MyProjectController extends Controller
         }
 
         $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
+
+        if (empty($project)) {
+            return redirect()->route('myproject.index')->with('alert', 'Проект не найден');
+        }
 
         return view('profile.pages.project.edit', ['city' => $cityName, 'project' => $project]);
     }
@@ -116,7 +119,7 @@ class MyProjectController extends Controller
         $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
 
         if (empty($project)) {
-            return redirect()->route('myproject.index')->with('alert', 'Группа не найдена');
+            return redirect()->route('myproject.index')->with('alert', 'Проект не найден');
         }
 
         $project->name = $request->name;
@@ -145,6 +148,10 @@ class MyProjectController extends Controller
     public function destroy($id)
     {
         $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
+
+        if (empty($project)) {
+            return redirect()->route('myproject.index')->with('alert', 'Проект не найден');
+        }
 
         if($project->image !== null) {
             Storage::delete('public/'.$project->image);
