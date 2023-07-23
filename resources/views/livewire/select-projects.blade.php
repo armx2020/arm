@@ -78,10 +78,10 @@
                             <div>
                                 <div class="my-2 flex flex-row">
                                     <div class="basis-1/2 text-left font-bold">{{ $project->donations_need }} руб.</div>
-                                    <div class="basis-1/2 text-right">{!! $project->donations_have ? ($project->donations_have * 100)/ $project->donations_need : 0 !!} %</div>
+                                    <div class="basis-1/2 text-right">{!! round($project->donations_have ? ($project->donations_have * 100)/ $project->donations_need : 0) !!} %</div>
                                 </div>
                                 <div class="w-full bg-gray-200">
-                                    <div class="bg-green-500 h-5 text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100" style='width: {!! $project->donations_have ? ($project->donations_have * 100)/ $project->donations_need : 0 !!}%'></div>
+                                    <div class="bg-green-500 h-5 text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100" style='width: {!! round($project->donations_have ? ($project->donations_have * 100)/ $project->donations_need : 0) !!}%'></div>
                                 </div>
                             </div>
                         </div>
