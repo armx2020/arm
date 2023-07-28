@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
         //$code = substr(str_shuffle($permitted_chars), 0, 8);
         $code = '12345678';
 
-        $json = SmsService::sendTo($request->phone, 'Ваш пароль для входа (не передавайте ни кому) ' . $code, false);
+        $json = SmsService::sendTo($request->phone, 'Ваш пароль для входа (не передавайте ни кому) ' . $code);
 
 
         if ($json) {

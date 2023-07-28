@@ -81,7 +81,8 @@
 
                     <div class="my-3">
                         <label for="cstegory" class="text-sm font-medium text-gray-900 block mb-2">Категория</label>
-                        <select name="category" id="cstegory" class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>
+                        <select name="category" id="category" class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>
+                            <option value="{{ $group->category->id }}">{{ $group->category->name }}</option>
                             @foreach( $categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
