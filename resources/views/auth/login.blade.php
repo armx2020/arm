@@ -9,7 +9,7 @@
         <x-input-error :messages="session('error')" class="mt-2 mb-3" />
         @endif
 
-        <!-- Email Address -->
+        <!-- Phone -->
         <div>
             <x-input-label for="phone" :value="__('Телефон')" />
             <x-text-input id="Phone" class="block mt-1 w-full mask-phone" type="tel" name="phone" :value="old('phone')" required autofocus autocomplete="phone" />
