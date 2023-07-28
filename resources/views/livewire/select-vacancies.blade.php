@@ -56,7 +56,7 @@
                         @foreach($works as $work)
                         @if($typeName == 'ВАКАНСИЙ')
                         <div class="block rounded-lg bg-white">
-                            <a href="#!" class="h-26 max-w-xs block align-center">
+                            <a href="#!" class="block h-52">
                                 <div class="p-6">
                                     <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
                                         {{ $work->name }}
@@ -83,7 +83,7 @@
                                 @if( $work->user->image == null )
                                 <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="{{ $work->name }} avatar" />
                                 @else
-                                <img class="h-48 w-full rounded-lg m-4 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="{{ $work->name }} avatar">
+                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="{{ $work->name }} avatar">
                                 @endif
                             </a>
                             <div class="p-6">

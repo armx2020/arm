@@ -57,11 +57,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($groups as $group)
                     <div class="block rounded-lg bg-white">
-                        <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="h-48 max-w-xs block">
+                        <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="block h-52">
                             @if( $group->image == null )
-                            <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
+                            <img class="h-48 rounded-lg mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
-                            <img class="h-48 w-full rounded-lg m-4 flex object-cover" src="{{ asset( 'storage/'.$group->image) }}" alt="image">
+                            <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$group->image) }}" alt="image">
                             @endif
                         </a>
                         <div class="p-6">

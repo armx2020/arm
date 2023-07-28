@@ -1,12 +1,15 @@
 <x-guest-layout>
 
-    <form method="POST" action="{{ route('store') }}">
+    <form method="POST" action="{{ route('register.code') }}">
         @csrf
 
         <div class="w-full sm:max-w-md px-1 py-4 bg-white overflow-hidden sm:rounded-lg z-50">
             <div class="flex items-center justify-between my-3">
                 <p class="text-lg font-bold text-gray-900">
-                    ВХОД
+                    РЕГИСТРАЦИЯ
+                </p>
+                <p class="text-sm text-gray-400">
+                    ШАГ 3/3
                 </p>
             </div>
 
@@ -28,16 +31,16 @@
 
                 <!-- confirm_phone -->
                 <div>
-                    <x-input-label for="code" :value="__('код  подтверждения - последние 4 цифры входящего номера')" />
+                    <x-input-label for="code" :value="__('введите 6-значный код подтверждения')" />
                     <x-text-input id="code" class="block my-2 w-full" placeholder="введите код" type="text" name="code" :value="old('code')" require autofocus />
                     <x-input-error :messages="$errors->get('code')" class="mt-2" />
                 </div>
                 <div class="flex items-center justify-between mt-4">
-                    <a href="{{ route('login') }}" class="popup-close underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <a href="{{ route('register') }}" class="popup-close underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         ВЕРНУТЬСЯ НАЗАД
                     </a>
                     <x-primary-button class="ml-4">
-                        {{ __('ВОЙТИ') }}
+                        {{ __('Зарегистрироваться') }}
                     </x-primary-button>
                 </div>
         </div>

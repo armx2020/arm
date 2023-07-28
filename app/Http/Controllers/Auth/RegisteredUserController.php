@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
         $request->session()->put('email', $request->email);
         $request->session()->put('password', $request->password);
 
-        return view('auth.form-phone', ['messages' => []]);
+        return view('auth.phone', ['messages' => []]);
     }
 
     public function store_phone(Request $request)
@@ -46,26 +46,29 @@ class RegisteredUserController extends Controller
 
         if ($validator->fails()) {
             $fieldsWithErrorMessagesArray = $validator->messages()->get('*');
-            return view('auth.form-phone', ['messages' => $fieldsWithErrorMessagesArray['phone']]);
+            return view('auth.phone', ['messages' => $fieldsWithErrorMessagesArray['phone']]);
         }
 
         $validated = $validator->safe()->only(['phone']);
 
         $request->session()->put('phone', $validated['phone']);
 
-        $json = SmsService::callTo($validated['phone'], $_SERVER["REMOTE_ADDR"]);
-        
+        //     $json = SmsService::callTo($validated['phone'], $_SERVER["REMOTE_ADDR"]);
+
+        $code = rand(111111, 999999);
+        $json = SmsService::sendTo($validated['phone'], 'Ваш код подтверждения ' .$code, false);
+
+
         if ($json) {
             if ($json->status == "OK") {
-                $request->session()->put('code', $json->code);
-                $request->session()->put('code_live', $json->code);
-
-                return view('auth.confirm-phone', ['count' => []]);
+                 $request->session()->put('code', $code);
+dump($code);
+                return view('auth.code', ['count' => []]);
             } else {
-                return view('auth.form-phone',  ['messages' => []])->with('error',  'У вас слишком много запросов. Попробуйте позже');
+                return view('auth.phone',  ['messages' => []])->with('error',  'У вас слишком много запросов. Попробуйте позже');
             }
         } else {
-            return view('auth.form-phone', ['messages' => []])->with('error',  "Запрос не выполнился. Не удалось установить связь с сервером. ");
+            return view('auth.phone', ['messages' => []])->with('error',  "Запрос не выполнился. Не удалось установить связь с сервером. ");
         }
     }
 
@@ -82,7 +85,7 @@ class RegisteredUserController extends Controller
             return redirect()->route('register')->with('error', 'Количество попыток превышно. Попробуйте позже');
         } else {
             if ($request->code == $request->session()->get('code')) {
-
+                
                 $user = User::create([
                     'firstname' => $request->session()->get('firstname'),
                     'lastname' => $request->session()->get('lastname'),
@@ -107,7 +110,7 @@ class RegisteredUserController extends Controller
                 return redirect(RouteServiceProvider::HOME);
             } else {
 
-                return view('auth.confirm-phone', ['count' => $request->session()->get('count')]);
+                return view('auth.code', ['count' => $request->session()->get('count')]);
             }
         }
     }
