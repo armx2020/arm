@@ -13,17 +13,18 @@ class MyCompanyController extends Controller
 {
     public function index(Request $request)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-
-        if (empty($city)) {
-            $cityName = City::find(1);
-        } else {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $companies = Auth::user()->companies;
 
-        return view('profile.pages.company.index', ['city' => $cityName, 'companies' => $companies]);
+        return view('profile.pages.company.index', [
+            'city' => $request->session()->get('city'),
+            'companies' => $companies,
+            'cities' => $cities
+        ]);
     }
 
     public function store(Request $request)
@@ -69,18 +70,15 @@ class MyCompanyController extends Controller
 
         $company->save();
 
-        return redirect()->route('mycompany.index')->with('success', 'Компания "' .$company->name. '" добавлена');
+        return redirect()->route('mycompany.index')->with('success', 'Компания "' . $company->name . '" добавлена');
     }
 
     public function show(Request $request, $id)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-
-        if (empty($city)) {
-            $cityName = City::find(1);
-        } else {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
@@ -89,31 +87,33 @@ class MyCompanyController extends Controller
         }
 
         $sum =  ($company->address ? 10 : 0) +
-                    ($company->description ? 10 : 0) +
-                    ($company->image ? 10 : 0) +
-                    ($company->phone ? 5 : 0) +
-                    ($company->web ? 5 : 0) +
-                    ($company->viber ? 5 : 0) +
-                    ($company->whatsapp ? 5 : 0) +
-                    ($company->instagram ? 5 : 0) +
-                    ($company->vkontakte ? 5 : 0) +
-                    ($company->telegram ? 5 : 0);
+            ($company->description ? 10 : 0) +
+            ($company->image ? 10 : 0) +
+            ($company->phone ? 5 : 0) +
+            ($company->web ? 5 : 0) +
+            ($company->viber ? 5 : 0) +
+            ($company->whatsapp ? 5 : 0) +
+            ($company->instagram ? 5 : 0) +
+            ($company->vkontakte ? 5 : 0) +
+            ($company->telegram ? 5 : 0);
 
-        $fullness = (round(($sum / 65)*100));
+        $fullness = (round(($sum / 65) * 100));
 
 
-        return view('profile.pages.company.show', ['city' => $cityName, 'company' => $company, 'fullness' => $fullness]);
+        return view('profile.pages.company.show', [
+            'city' => $request->session()->get('city'),
+            'company' => $company,
+            'fullness' => $fullness,
+            'cities' => $cities
+        ]);
     }
 
     public function edit(Request $request, $id)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-
-        if (empty($city)) {
-            $cityName = City::find(1);
-        } else {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
@@ -121,7 +121,11 @@ class MyCompanyController extends Controller
             return redirect()->route('mycompany.index')->with('alert', 'Компания не найдена');
         }
 
-        return view('profile.pages.company.edit', ['city' => $cityName, 'company' => $company]);
+        return view('profile.pages.company.edit', [
+            'city' => $request->session()->get('city'),
+            'company' => $company,
+            'cities' => $cities
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -144,7 +148,7 @@ class MyCompanyController extends Controller
         if (empty($city)) {
             $city = City::find(1);
         }
-        
+
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
@@ -166,13 +170,13 @@ class MyCompanyController extends Controller
         $company->user_id = Auth::user()->id;
 
         if ($request->image) {
-            Storage::delete('public/'.$company->image);
+            Storage::delete('public/' . $company->image);
             $company->image = $request->file('image')->store('companies', 'public');
         }
 
         $company->update();
 
-        return redirect()->route('mycompany.show', ['id' => $company->id])->with('success', 'Группа "' .$company->name. '" обнавлена');
+        return redirect()->route('mycompany.show', ['id' => $company->id])->with('success', 'Группа "' . $company->name . '" обнавлена');
     }
 
     public function destroy($id)
@@ -183,8 +187,8 @@ class MyCompanyController extends Controller
             return redirect()->route('mycompany.index')->with('alert', 'Компания не найдена');
         }
 
-        if($company->image !== null) {
-            Storage::delete('public/'.$company->image);
+        if ($company->image !== null) {
+            Storage::delete('public/' . $company->image);
         }
 
         $company->delete();

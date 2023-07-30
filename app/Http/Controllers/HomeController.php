@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
-use App\Models\Region;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -16,25 +15,25 @@ class HomeController extends Controller
 
     public function home(Request $request)
     {
-        $city = City::with('region')->where('InEnglish', 'like', $request->session()->get('city'))->First();
+        $cities = City::all()->sortBy('name')
+                            ->groupBy(function($item) { 
+            return mb_substr($item->name, 0, 1); 
+        });
 
-         if(empty($city)) {
-            $cityName = City::find(1);
-            $region = Region::find(1);
-        } else {
-            $cityName = $city->name;
-            $region = $city->region;
-        }
-
-        return view('home', ['city' => $cityName, 'region' => $region]);
+        return view('home', [
+            'city'   => $request->session()->get('city'),
+            'region' => $request->session()->get('region'),
+            'regionId' => $request->session()->get('regionId'),
+            'cities' => $cities,
+        ]);
     }
 
-    public function changeCity(Request $request)
+    public function changeCity(Request $request, $id)
     {
-        $city = City::with('region')->find($request->query('city'));
+        $city = City::with('region')->find($id);
 
-        $request->session()->put('city', $city->InEnglish);
-        $request->session()->put('region', $city->region->InEnglish);
+        $request->session()->put('city', $city->name);
+        $request->session()->put('region', $city->region->name);
 
         return redirect()->back();
     }

@@ -9,25 +9,26 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function index(Request $request)
-    {   
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-
-        if (empty($city)) {
-            $cityName = City::find(1);
-        } else {
-            $cityName = $city->name;
-        }
+    {
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $sum =  (Auth::user()->city !== 1 ? 10 : 0) +
-                    (Auth::user()->image ? 10 : 0) +
-                    (Auth::user()->viber ? 5 : 0) +
-                    (Auth::user()->whatsapp ? 5 : 0) +
-                    (Auth::user()->instagram ? 5 : 0) +
-                    (Auth::user()->vkontakte ? 5 : 0) +
-                    (Auth::user()->telegram ? 5 : 0);
+            (Auth::user()->image ? 10 : 0) +
+            (Auth::user()->viber ? 5 : 0) +
+            (Auth::user()->whatsapp ? 5 : 0) +
+            (Auth::user()->instagram ? 5 : 0) +
+            (Auth::user()->vkontakte ? 5 : 0) +
+            (Auth::user()->telegram ? 5 : 0);
 
-            $fullness = (round(($sum / 45)*100));
+        $fullness = (round(($sum / 45) * 100));
 
-        return view('dashboard', ['city' => $cityName, 'fullness' => $fullness]);
+        return view('dashboard', [
+            'city'   => $request->session()->get('city'),
+            'fullness' => $fullness,
+            'cities' => $cities
+        ]);
     }
 }

@@ -12,17 +12,18 @@ class MyResumeController extends Controller
 {
     public function index(Request $request)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
-
-        if ($city !== null) {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $resumes = Auth::user()->resumes;
 
-        return view('profile.pages.resume.index', ['city' => $cityName, 'resumes' => $resumes]);
+        return view('profile.pages.resume.index', [
+            'city'   => $request->session()->get('city'),
+            'resumes' => $resumes,
+            'cities' => $cities
+        ]);
     }
 
     public function store(Request $request)
@@ -47,23 +48,20 @@ class MyResumeController extends Controller
 
         $resume->city_id = $request->resume_city;
         $resume->region_id = $city->region->id;
-        
+
         $resume->user_id = Auth::user()->id;
-    
+
         $resume->save();
 
-        return redirect()->route('myresume.index')->with('success', 'Резюме "' .$resume->name. '" добавлено');
+        return redirect()->route('myresume.index')->with('success', 'Резюме "' . $resume->name . '" добавлено');
     }
 
     public function show(Request $request, $id)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
-
-        if ($city !== null) {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $resume = Resume::with('user')->where('user_id', '=', Auth::user()->id)->find($id);
 
@@ -71,18 +69,19 @@ class MyResumeController extends Controller
             return redirect()->route('myresume.index')->with('alert', 'Резюме не найдено');
         }
 
-        return view('profile.pages.resume.show', ['city' => $cityName, 'resume' => $resume]);
+        return view('profile.pages.resume.show', [
+            'city'   => $request->session()->get('city'),
+            'resume' => $resume,
+            'cities' => $cities
+        ]);
     }
 
     public function edit(Request $request, $id)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
-
-        if ($city !== null) {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $resume = Resume::with('user')->where('user_id', '=', Auth::user()->id)->find($id);
 
@@ -90,7 +89,11 @@ class MyResumeController extends Controller
             return redirect()->route('myresume.index')->with('alert', 'Резюме не найдено');
         }
 
-        return view('profile.pages.resume.edit', ['city' => $cityName, 'resume' => $resume]);
+        return view('profile.pages.resume.edit', [
+            'city'   => $request->session()->get('city'),
+            'resume' => $resume,
+            'cities' => $cities
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -105,7 +108,7 @@ class MyResumeController extends Controller
         if (empty($city)) {
             $city = City::find(1);
         }
-        
+
         $resume = Resume::with('user')->where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($resume)) {
@@ -119,12 +122,12 @@ class MyResumeController extends Controller
 
         $resume->city_id = $request->resume_city;
         $resume->region_id = $city->region->id;
-        
+
         $resume->user_id = Auth::user()->id;
 
         $resume->update();
 
-        return redirect()->route('myresume.show', ['id' => $resume->id])->with('success', 'Резюме "' .$resume->name. '" обнавлено');
+        return redirect()->route('myresume.show', ['id' => $resume->id])->with('success', 'Резюме "' . $resume->name . '" обнавлено');
     }
 
     public function destroy($id)

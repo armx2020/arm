@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 class OfferController extends Controller
 {
     public function index(Request $request)
-    {   
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
+    {
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
-        if (empty($city)) {
-            $cityName = City::find(1);
-        } else {
-            $cityName = $city->name;
-        }
-
-        return view('pages.offer.offers', ['city' => $cityName]);
+        return view('pages.offer.offers', [
+            'city'   => $request->session()->get('city'),
+            'cities' => $cities
+        ]);
     }
 }

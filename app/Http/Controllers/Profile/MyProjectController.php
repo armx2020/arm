@@ -13,17 +13,18 @@ class MyProjectController extends Controller
 {
     public function index(Request $request)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
-
-        if ($city !== null) {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $projects = Auth::user()->projects;
 
-        return view('profile.pages.project.index', ['city' => $cityName, 'projects' => $projects]);
+        return view('profile.pages.project.index', [
+            'city'   => $request->session()->get('city'),
+            'projects' => $projects,
+            'cities' => $cities
+        ]);
     }
 
     public function store(Request $request)
@@ -50,10 +51,10 @@ class MyProjectController extends Controller
 
         $project->city_id = $request->project_city;
         $project->region_id = $city->region->id;
-        
+
         $project->parent_type = 'App\Models\User';
         $project->parent_id = Auth::user()->id;
-    
+
 
         if ($request->image) {
             $project->image = $request->file('image')->store('projects', 'public');
@@ -61,18 +62,15 @@ class MyProjectController extends Controller
 
         $project->save();
 
-        return redirect()->route('myproject.index')->with('success', 'Проект "' .$project->name. '" добавлена');
+        return redirect()->route('myproject.index')->with('success', 'Проект "' . $project->name . '" добавлена');
     }
 
     public function show(Request $request, $id)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
-
-        if ($city !== null) {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
 
@@ -80,18 +78,19 @@ class MyProjectController extends Controller
             return redirect()->route('myproject.index')->with('alert', 'Проект не найден');
         }
 
-        return view('profile.pages.project.show', ['city' => $cityName, 'project' => $project]);
+        return view('profile.pages.project.show', [
+            'city'   => $request->session()->get('city'),
+            'project' => $project,
+            'cities' => $cities
+        ]);
     }
 
     public function edit(Request $request, $id)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-      
-        $cityName = null;
-
-        if ($city !== null) {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
 
@@ -99,7 +98,11 @@ class MyProjectController extends Controller
             return redirect()->route('myproject.index')->with('alert', 'Проект не найден');
         }
 
-        return view('profile.pages.project.edit', ['city' => $cityName, 'project' => $project]);
+        return view('profile.pages.project.edit', [
+            'city'   => $request->session()->get('city'),
+            'project' => $project,
+            'cities' => $cities
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -115,7 +118,7 @@ class MyProjectController extends Controller
         if (empty($city)) {
             $city = City::find(1);
         }
-        
+
         $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
 
         if (empty($project)) {
@@ -128,21 +131,21 @@ class MyProjectController extends Controller
 
         $project->donations_need = $request->donations_need;
         $project->donations_have = $request->donations_have;
-        
+
         $project->city_id = $request->project_city;
         $project->region_id = $city->region->id;
-        
+
         $project->parent_type = 'App\Models\User';
         $project->parent_id = Auth::user()->id;
 
         if ($request->image) {
-            Storage::delete('public/'.$project->image);
+            Storage::delete('public/' . $project->image);
             $project->image = $request->file('image')->store('projects', 'public');
         }
 
         $project->update();
 
-        return redirect()->route('myproject.show', ['id' => $project->id])->with('success', 'Проект "' .$project->name. '" обнавлен');
+        return redirect()->route('myproject.show', ['id' => $project->id])->with('success', 'Проект "' . $project->name . '" обнавлен');
     }
 
     public function destroy($id)
@@ -153,8 +156,8 @@ class MyProjectController extends Controller
             return redirect()->route('myproject.index')->with('alert', 'Проект не найден');
         }
 
-        if($project->image !== null) {
-            Storage::delete('public/'.$project->image);
+        if ($project->image !== null) {
+            Storage::delete('public/' . $project->image);
         }
 
         $project->delete();

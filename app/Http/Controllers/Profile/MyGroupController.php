@@ -14,18 +14,20 @@ class MyGroupController extends Controller
 {
     public function index(Request $request)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-
-        if (empty($city)) {
-            $cityName = City::find(1);
-        } else {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $groups = Auth::user()->groups;
         $categories = GroupCategory::orderBy('sort_id', 'asc')->get();
 
-        return view('profile.pages.group.index', ['city' => $cityName, 'groups' => $groups, 'categories' => $categories]);
+        return view('profile.pages.group.index', [
+            'city'   => $request->session()->get('city'),
+            'groups' => $groups,
+            'categories' => $categories,
+            'cities' => $cities
+        ]);
     }
 
     public function store(Request $request)
@@ -88,18 +90,15 @@ class MyGroupController extends Controller
 
         $group->save();
 
-        return redirect()->route('mygroup.index')->with('success', 'Группа "' .$group->name. '" добавлена');
+        return redirect()->route('mygroup.index')->with('success', 'Группа "' . $group->name . '" добавлена');
     }
 
     public function show(Request $request, $id)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-
-        if (empty($city)) {
-            $cityName = City::find(1);
-        } else {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
 
@@ -108,31 +107,33 @@ class MyGroupController extends Controller
         }
 
         $sum =  ($group->address ? 10 : 0) +
-                    ($group->description ? 10 : 0) +
-                    ($group->image ? 10 : 0) +
-                    ($group->phone ? 5 : 0) +
-                    ($group->web ? 5 : 0) +
-                    ($group->viber ? 5 : 0) +
-                    ($group->whatsapp ? 5 : 0) +
-                    ($group->instagram ? 5 : 0) +
-                    ($group->vkontakte ? 5 : 0) +
-                    ($group->telegram ? 5 : 0);
+            ($group->description ? 10 : 0) +
+            ($group->image ? 10 : 0) +
+            ($group->phone ? 5 : 0) +
+            ($group->web ? 5 : 0) +
+            ($group->viber ? 5 : 0) +
+            ($group->whatsapp ? 5 : 0) +
+            ($group->instagram ? 5 : 0) +
+            ($group->vkontakte ? 5 : 0) +
+            ($group->telegram ? 5 : 0);
 
-        $fullness = (round(($sum / 65)*100));
+        $fullness = (round(($sum / 65) * 100));
 
 
-        return view('profile.pages.group.show', ['city' => $cityName, 'group' => $group, 'fullness' => $fullness]);
+        return view('profile.pages.group.show', [
+            'city'   => $request->session()->get('city'),
+            'group' => $group,
+            'fullness' => $fullness,
+            'cities' => $cities
+        ]);
     }
 
     public function edit(Request $request, $id)
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-
-        if (empty($city)) {
-            $cityName = City::find(1);
-        } else {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
 
@@ -142,7 +143,12 @@ class MyGroupController extends Controller
 
         $categories = GroupCategory::orderBy('sort_id', 'asc')->get();
 
-        return view('profile.pages.group.edit', ['city' => $cityName, 'group' => $group, 'categories' => $categories]);
+        return view('profile.pages.group.edit', [
+            'city'   => $request->session()->get('city'),
+            'group' => $group,
+            'categories' => $categories,
+            'cities' => $cities
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -169,7 +175,7 @@ class MyGroupController extends Controller
         if (empty($city)) {
             $city = City::find(1);
         }
-        
+
         $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($group)) {
@@ -192,29 +198,29 @@ class MyGroupController extends Controller
         $group->group_category_id = $request->category;
 
         if ($request->image) {
-            Storage::delete('public/'.$group->image);
+            Storage::delete('public/' . $group->image);
             $group->image = $request->file('image')->store('groups', 'public');
         }
         if ($request->image1) {
-            Storage::delete('public/'.$group->image1);
+            Storage::delete('public/' . $group->image1);
             $group->image1 = $request->file('image1')->store('groups', 'public');
         }
         if ($request->image2) {
-            Storage::delete('public/'.$group->image2);
+            Storage::delete('public/' . $group->image2);
             $group->image2 = $request->file('image2')->store('groups', 'public');
         }
         if ($request->image3) {
-            Storage::delete('public/'.$group->image3);
+            Storage::delete('public/' . $group->image3);
             $group->image3 = $request->file('image3')->store('groups', 'public');
         }
         if ($request->image4) {
-            Storage::delete('public/'.$group->image4);
+            Storage::delete('public/' . $group->image4);
             $group->image4 = $request->file('image4')->store('groups', 'public');
         }
 
         $group->update();
 
-        return redirect()->route('mygroup.show', ['id' => $group->id])->with('success', 'Группа "' .$group->name. '" обнавлена');
+        return redirect()->route('mygroup.show', ['id' => $group->id])->with('success', 'Группа "' . $group->name . '" обнавлена');
     }
 
     public function destroy($id)
@@ -225,24 +231,24 @@ class MyGroupController extends Controller
             return redirect()->route('mygroup.index')->with('alert', 'Группа не найдена');
         }
 
-        foreach($group->users as $user) {
+        foreach ($group->users as $user) {
             $group->users()->detach($user->id);
         }
 
-        if($group->image !== null) {
-            Storage::delete('public/'.$group->image);
+        if ($group->image !== null) {
+            Storage::delete('public/' . $group->image);
         }
-        if($group->image1 !== null) {
-            Storage::delete('public/'.$group->image1);
+        if ($group->image1 !== null) {
+            Storage::delete('public/' . $group->image1);
         }
-        if($group->image2 !== null) {
-            Storage::delete('public/'.$group->image2);
+        if ($group->image2 !== null) {
+            Storage::delete('public/' . $group->image2);
         }
-        if($group->image3 !== null) {
-            Storage::delete('public/'.$group->image3);
+        if ($group->image3 !== null) {
+            Storage::delete('public/' . $group->image3);
         }
-        if($group->image4 !== null) {
-            Storage::delete('public/'.$group->image4);
+        if ($group->image4 !== null) {
+            Storage::delete('public/' . $group->image4);
         }
 
         $group->delete();

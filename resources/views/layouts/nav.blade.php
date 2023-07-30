@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="block px-2 xl:hidden">
-            <button class="text-blue-600 text-sm hover:text-blue-400" id="locationButton1">
+            <button class="text-blue-600 text-sm hover:text-blue-400 locationButton" id="locationButton">
                 <img src="{{ url('/image/location-marker.png')}}" class="w-4 h-4 inline" />
                 @if ($city)
                 {{ preg_replace("/\([^)]+\)/","", $city) }}
@@ -100,7 +100,7 @@
         </div>
         <div class="hidden lg:basis-1/3 xl:flex basis-1/4 items-center justify-between">
             <div class="block">
-                <button class="text-blue-600 text-sm hover:text-blue-400 block" id="locationButton2">
+                <button class="text-blue-600 text-sm hover:text-blue-400 block locationButton" id="locationButton">
                     <img src="{{ url('/image/location-marker.png')}}" class="w-4 h-4 inline align-middle" />
                     @isset ($city)
                     {{ preg_replace("/\([^)]+\)/","", $city) }}
@@ -135,47 +135,47 @@
     </div>
 </nav>
 
-<!-- select city -->
-<div id='selectCity' class="align-middle text-right w-full lg:w-10/12 hidden">
-    <div class="w-11/12 md:w-6/12 lg:w-1/4 float-right mr-3 lg:mr-24">
-        <form id="formSelect" method="GET" enctype="multipart/form-data" class="object-right" action="{{ route('changeCity') }}">
-            <select name="city" class="mx-7" style="width: 100%" id="dd_city">
-                <option value='1'> выберите город</option>
-            </select>
-            <button type="submit" class="hidden" id="sendButton"></button>
-        </form>
+<div id="location_form" class="hidden fixed inset-0 px-4 min-h-full overlow-hidden sm:px-0 z-50" focusable>
+    <div class="absolute inset-0 bg-gray-500 opacity-75 location-close"></div>
+
+    <div class="my-5 mx-auto opacity-100 translate-y-0 sm:scale-100 bg-white rounded-lg overflow-auto shadow-xl transform transition-all sm:w-11/12 lg:w-10/12 h-5/6">
+        
+        <div class="m-7">
+        <x-secondary-button class="location-close absolute right-4 top-4">
+            {{ __('Закрыть') }}
+        </x-secondary-button>
+            @foreach($cities as $letter => $letterCities)
+            <h3 class="text-xl font-bold my-2">{{ $letter }}</h3>
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                @foreach($letterCities as $city)
+                <div class="px-1 hover:text-gray-500">
+                    <a href="{{ route('changeCity', ['id' => $city->id ]) }}">
+                    {{ $city->name }}
+                    </a>
+                </div>
+                @endforeach
+            </div>
+            <hr class="my-4">
+            @endforeach
+        </div>
     </div>
 </div>
 
+
+
+
+
+
+
 <script type='text/javascript'>
     $(document).ready(function() {
-        // Initialize select2
-        if ($("#dd_city").length > 0) {
-            $("#dd_city").select2({
-                ajax: {
-                    url: " {{ route('cities') }}",
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                            "_token": "{{ csrf_token() }}",
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response
-                        };
-                    },
-                    cache: true
-                }
-            });
-        }
-        $('#dd_city').change(function() {
-            $(this).find(":selected").each(function() {
-                $("#formSelect").submit();
-            });
+        $(".locationButton").click(function() {
+            $("#location_form").toggle();
+            $('body, html').css('overflow', 'hidden')
+        });
+        $(".location-close").click(function() {
+            $("#location_form").toggle();
+            $('body, html').css('overflow', 'visible')
         });
     });
 </script>

@@ -41,7 +41,7 @@ use Illuminate\Support\Facades\Route;
  Route::get('/home', [HomeController::class, 'home'])->name('home')->middleware(FromLocation::class);
  Route::get('/groups', [GroupController::class, 'index'])->name('group.index')->middleware(FromLocation::class);
 
- Route::get('/change', [HomeController::class, 'changeCity'])->name('changeCity');
+ Route::get('/city/{id}', [HomeController::class, 'changeCity'])->name('changeCity');
 
  Route::get('/groups', [GroupController::class, 'index'])->name('group.index')->middleware(FromLocation::class);
  Route::get('/group/{id}', [GroupController::class, 'show'])->name('group.show')->middleware(FromLocation::class);

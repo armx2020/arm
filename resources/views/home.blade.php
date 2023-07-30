@@ -9,10 +9,10 @@
                     @if (empty($region))
                     <div class="my-3 text-sm lg:text-2xl font-bold">Армянская обшина города - России</div>
                     @else
-                    <div class="my-3 text-md lg:text-2xl font-bold">Армянская обшина {{ $region->name }}</div>
+                    <div class="my-3 text-md lg:text-2xl font-bold">Армянская обшина {{ $region }}</div>
                     @endif
                     <div class="my-5 text-sm lg:text-md font-normal lg:font-light text-slate-500 hidden lg:block">Информационный справочник для армян России и мира</div>
-                    <div class="text-blue-600 text:md lg:text-xl"><a href="{{ route('group.show', ['id' => $region->id]) }}">Подробнее &rarr;</a></div>
+                    <div class="text-blue-600 text:md lg:text-xl"><a href="{{ route('group.show', ['id' => $regionId]) }}">Подробнее &rarr;</a></div>
                 </div>
                 <div class="basis-1/2 w-15 h-15">
                     <img src="{{ url('/image/banner1.png')}}" alt="banner">

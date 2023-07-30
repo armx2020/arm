@@ -16,12 +16,7 @@
         </div>
         @endif
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5 w-full">
-            <button id="add_group" class="h-80 block rounded-lg border-dashed border-2 border-indigo-600 hover:bg-white">
-                <div class="flex flex-col">
-                    <div class="text-9xl text-indigo-600 flex mx-auto leading-none">+</div>
-                    <div class="text-xl text-indigo-600 flex mx-auto uppercase">Добавить группу</div>
-                </div>
-            </button>
+
             @foreach($groups as $group)
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('mygroup.show', ['id' => $group->id ]) }}" class="block h-52">
@@ -63,6 +58,12 @@
                 </div>
             </div>
             @endforeach
+            <button id="add_group" class="h-80 block rounded-lg border-dashed border-2 border-indigo-600 hover:bg-white">
+                <div class="flex flex-col">
+                    <div class="text-9xl text-indigo-600 flex mx-auto leading-none">+</div>
+                    <div class="text-xl text-indigo-600 flex mx-auto uppercase">Добавить группу</div>
+                </div>
+            </button>
         </div>
     </div>
 

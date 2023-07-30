@@ -18,16 +18,15 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        $city = City::where('InEnglish', '=', $request->session()->get('city'))->First();
-
-        if (empty($city)) {
-            $cityName = City::find(1);
-        } else {
-            $cityName = $city->name;
-        }
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         return view('profile.edit', [
-            'user' => $request->user(), 'city' => $cityName
+            'user' => $request->user(),
+            'city'   => $request->session()->get('city'),
+            'cities' => $cities
         ]);
     }
 
@@ -45,7 +44,7 @@ class ProfileController extends Controller
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
         ]);
- 
+
         $user = User::findOrFail(Auth::user()->id);
         $city = City::with('region')->find($request->project_city);
 
@@ -54,7 +53,7 @@ class ProfileController extends Controller
         }
 
         if ($request->image) {
-            Storage::delete('public/'.$user->image);
+            Storage::delete('public/' . $user->image);
             $user->image = $request->file('image')->store('users', 'public');
         }
 
