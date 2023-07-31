@@ -86,14 +86,34 @@
                         </select>
                     </div>
 
-                    <div class="flex items-center gap-4 my-3">
+                    <div class="my-5">
                         <x-primary-button>{{ __('Сохранить') }}</x-primary-button>
                     </div>
+                </form>
+            </div>
+
+            <div class="flex basis-full bg-white rounded-md p-1 lg:p-10 relative my-6">
+                <form method="post" action="{{ route('mycompany.destroy', ['id' => $company->id]) }}" class="w-full">
+                    @csrf
+                    @method('delete')
+
+
+
+                    <div class="mt-6 flex flex-row justify-between basis-full">
+                        <div class="text-lg font-medium text-gray-900 flex">
+                            {{ __('Вы уверены, что хотите удалить?') }}
+                        </div>
+                        <x-danger-button class="flex">
+                            {{ __('Удалить') }}
+                        </x-danger-button>
+                    </div>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 <script type='text/javascript'>
     $(document).ready(function() {
         if ($("#company_city").length > 0) {

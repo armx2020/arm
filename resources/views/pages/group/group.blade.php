@@ -84,12 +84,11 @@
                         @endif
                     </a>
                     <div class="p-3 lg:p-6">
-                        <h5 class="mb-1 lg:mb-3 break-words text-md lg:text-lg font-medium leading-tight text-neutral-800">
-                            {{ $event->name }}
-                        </h5>
-                        <p class="mb-4 break-all text-base text-neutral-400">
-                            {{ $event->description }}
-                        </p>
+                        <div class="h-12">
+                            <h5 class="mb-1 lg:mb-3 break-words text-md lg:text-lg font-medium leading-tight text-neutral-800">
+                                {{ $event->name }}
+                            </h5>
+                        </div>
                         <hr class="my-1 lg:my-3">
                         <div>
                             <p class="text-right pb-0">{{ $event->date_to_start }}</p>
@@ -119,12 +118,11 @@
                         @endif
                     </a>
                     <div class="p-3 lg:p-6">
-                        <h5 class="mb-1 lg:mb-3 break-words text-md lg:text-lg font-medium leading-tight text-neutral-800">
-                            {{ $project->name }}
-                        </h5>
-                        <p class="mb-4 break-all text-base text-neutral-400">
-                            {{ $project->description }}
-                        </p>
+                        <div class="h-12">
+                            <h5 class="mb-1 lg:mb-3 break-words text-md lg:text-lg font-medium leading-tight text-neutral-800">
+                                {{ $project->name }}
+                            </h5>
+                        </div>
                         <hr class="my-1 lg:my-3">
                         <div>
                             <div class="my-2 flex flex-row">
@@ -154,12 +152,11 @@
                 <div class="block rounded-lg bg-white">
                     <a href="#!" class="h-26 block align-center">
                         <div class="p-3 lg:p-6">
-                            <h5 class="mb-1 lg:mb-3 break-words text-md lg:text-lg font-medium leading-tight text-neutral-800">
-                                {{ $work->name }}
-                            </h5>
-                            <p class="mb-4 break-all text-base text-neutral-400">
-                                {{ $work->description }}
-                            </p>
+                            <div class="h-12">
+                                <h5 class="mb-1 lg:mb-3 break-words text-md lg:text-lg font-medium leading-tight text-neutral-800">
+                                    {{ $work->name }}
+                                </h5>
+                            </div>
                             <hr class="my-1 lg:my-3">
                             <div>
                                 <p class="text-center text-md font-bold pb-0">

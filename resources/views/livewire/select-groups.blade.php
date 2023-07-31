@@ -65,12 +65,11 @@
                             @endif
                         </a>
                         <div class="p-6">
-                            <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
-                                {{ $group->name }}
-                            </h5>
-                            <p class="mb-4 break-all text-base text-neutral-400">
-                                {{ $group->description }}
-                            </p>
+                            <div class="h-12">
+                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                    {{ $group->name }}
+                                </h5>
+                            </div>
                             <hr class="my-3">
                             <div>
                                 <p class="text-left pb-0">

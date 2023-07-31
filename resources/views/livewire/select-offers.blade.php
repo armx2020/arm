@@ -65,16 +65,15 @@
                             @endif
                         </a>
                         <div class="p-6">
-                            <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
-                                {{ $offer->name }}
-                            </h5>
-                            <p class="mb-4 break-all text-base text-neutral-400">
-                                {{ $offer->description }}
-                            </p>
+                            <div class="h-12">
+                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                    {{ $offer->name }}
+                                </h5>
+                            </div>
                             <hr class="my-3">
                             <div>
                                 <p class="text-right font-bold pb-0">
-                                {{ $offer->price }} {{ $offer->unit_of_price }}
+                                    {{ $offer->price }} {{ $offer->unit_of_price }}
                                 </p>
                             </div>
                         </div>
