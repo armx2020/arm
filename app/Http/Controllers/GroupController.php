@@ -28,7 +28,7 @@ class GroupController extends Controller
                 return mb_substr($item->name, 0, 1);
             });
 
-        $group = Group::with('events', 'projects', 'vacancies')->findOrFail($id);
+        $group = Group::with('events', 'projects', 'vacancies', 'news')->findOrFail($id);
 
         $sum =  ($group->address ? 10 : 0) +
             ($group->description ? 10 : 0) +

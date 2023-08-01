@@ -30,6 +30,22 @@ class MyGroupController extends Controller
         ]);
     }
 
+    public function create(Request $request)
+    {
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
+
+        $categories = GroupCategory::orderBy('sort_id', 'asc')->get();
+
+        return view('profile.pages.group.create', [
+            'city'   => $request->session()->get('city'),
+            'categories' => $categories,
+            'cities' => $cities
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -90,7 +106,7 @@ class MyGroupController extends Controller
 
         $group->save();
 
-        return redirect()->route('mygroup.index')->with('success', 'Группа "' . $group->name . '" добавлена');
+        return redirect()->route('mygroups.index')->with('success', 'Группа "' . $group->name . '" добавлена');
     }
 
     public function show(Request $request, $id)
@@ -103,7 +119,7 @@ class MyGroupController extends Controller
         $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($group)) {
-            return redirect()->route('mygroup.index')->with('alert', 'Группа не найдена');
+            return redirect()->route('mygroups.index')->with('alert', 'Группа не найдена');
         }
 
         $sum =  ($group->address ? 10 : 0) +
@@ -138,7 +154,7 @@ class MyGroupController extends Controller
         $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($group)) {
-            return redirect()->route('mygroup.index')->with('alert', 'Группа не найдена');
+            return redirect()->route('mygroups.index')->with('alert', 'Группа не найдена');
         }
 
         $categories = GroupCategory::orderBy('sort_id', 'asc')->get();
@@ -179,7 +195,7 @@ class MyGroupController extends Controller
         $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($group)) {
-            return redirect()->route('mygroup.index')->with('alert', 'Группа не найдена');
+            return redirect()->route('mygroups.index')->with('alert', 'Группа не найдена');
         }
 
         $group->name = $request->name;
@@ -220,7 +236,7 @@ class MyGroupController extends Controller
 
         $group->update();
 
-        return redirect()->route('mygroup.show', ['id' => $group->id])->with('success', 'Группа "' . $group->name . '" обнавлена');
+        return redirect()->route('mygroups.show', ['mygroup' => $group->id])->with('success', 'Группа "' . $group->name . '" обнавлена');
     }
 
     public function destroy($id)
@@ -228,7 +244,7 @@ class MyGroupController extends Controller
         $group = Group::with('users')->where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($group)) {
-            return redirect()->route('mygroup.index')->with('alert', 'Группа не найдена');
+            return redirect()->route('mygroups.index')->with('alert', 'Группа не найдена');
         }
 
         foreach ($group->users as $user) {
@@ -253,6 +269,6 @@ class MyGroupController extends Controller
 
         $group->delete();
 
-        return redirect()->route('mygroup.index')->with('success', 'Группа удалена');
+        return redirect()->route('mygroups.index')->with('success', 'Группа удалена');
     }
 }

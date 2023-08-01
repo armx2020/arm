@@ -65,13 +65,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Group
+    Route::resource('mygroups' , MyGroupController::class);
+/*
     Route::get('/mygroups', [MyGroupController::class, 'index'])->name('mygroup.index');
     Route::post('/mygroups', [MyGroupController::class, 'store'])->name('mygroup.store');
     Route::get('/mygroups/{id}', [MyGroupController::class, 'show'])->name('mygroup.show');
     Route::get('/mygroups/{id}/edit', [MyGroupController::class, 'edit'])->name('mygroup.edit');
     Route::patch('/mygroups/{id}', [MyGroupController::class, 'update'])->name('mygroup.update');
     Route::delete('/mygroups/{id}', [MyGroupController::class, 'destroy'])->name('mygroup.destroy');
-
+*/
     // Company
     Route::get('/mycompanies', [MyCompanyController::class, 'index'])->name('mycompany.index');
     Route::post('/mycompanies', [MyCompanyController::class, 'store'])->name('mycompany.store');

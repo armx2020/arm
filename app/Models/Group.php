@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\HasCity;
 use App\Models\Traits\HasEvents;
+use App\Models\Traits\HasNews;
 use App\Models\Traits\HasProjects;
 use App\Models\Traits\HasRegion;
 use App\Models\Traits\HasUser;
@@ -17,7 +18,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Group extends Model
 {
-    use HasFactory, HasCity, HasRegion, HasUser, HasEvents, HasProjects, HasVacancies;
+    use HasFactory, 
+        HasCity,
+        HasRegion,
+        HasUser,
+        HasEvents,
+        HasProjects,
+        HasNews,
+        HasVacancies;
     use Search;
  
     protected $searchable = [

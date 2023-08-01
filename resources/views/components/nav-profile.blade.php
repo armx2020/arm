@@ -20,9 +20,9 @@
             @endif
 
             @if($page == 'mygroups')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mygroup.index') }}">Мои группы</a></li>
+            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mygroups.index') }}">Мои группы</a></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mygroup.index') }}">Мои группы</a></li>
+            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mygroups.index') }}">Мои группы</a></li>
             @endif
 
             @if($page == 'market')

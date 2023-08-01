@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -1298,26 +1297,38 @@ class DeploySeeder extends Seeder
             'updated_at' => '2023-06-28 14:18:19',
         ]);
         DB::table('group_categories')->insert([
-            'name' => 'Школы',
+            'name' => 'Сообщества',
             'sort_id' => 1,
             'created_at' => '2023-06-28 14:18:19',
             'updated_at' => '2023-06-28 14:18:19',
         ]);
         DB::table('group_categories')->insert([
-            'name' => 'Кружки и секции',
+            'name' => 'Школы',
             'sort_id' => 2,
             'created_at' => '2023-06-28 14:18:19',
             'updated_at' => '2023-06-28 14:18:19',
         ]);
         DB::table('group_categories')->insert([
-            'name' => 'Религия',
+            'name' => 'Кружки и секции',
             'sort_id' => 3,
             'created_at' => '2023-06-28 14:18:19',
             'updated_at' => '2023-06-28 14:18:19',
         ]);
         DB::table('group_categories')->insert([
-            'name' => 'Прочее',
+            'name' => 'Религия',
             'sort_id' => 4,
+            'created_at' => '2023-06-28 14:18:19',
+            'updated_at' => '2023-06-28 14:18:19',
+        ]);
+        DB::table('group_categories')->insert([
+            'name' => 'Интересные места',
+            'sort_id' => 5,
+            'created_at' => '2023-06-28 14:18:19',
+            'updated_at' => '2023-06-28 14:18:19',
+        ]);
+        DB::table('group_categories')->insert([
+            'name' => 'Прочее',
+            'sort_id' => 6,
             'created_at' => '2023-06-28 14:18:19',
             'updated_at' => '2023-06-28 14:18:19',
         ]);

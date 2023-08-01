@@ -30,6 +30,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('region_id')->default(1);
             $table->foreign('region_id')->references('id')->on('regions');
+
+            $table->morphs('parent');
         });
 
         DB::statement(

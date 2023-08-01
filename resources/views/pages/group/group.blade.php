@@ -63,6 +63,11 @@
                         Работа
                     </button>
                 </li>
+                <li>
+                    <button id="news_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                        Новости
+                    </button>
+                </li>
             </ul>
         </div>
         <div class="flex basis-full mt-3 mb-16" id="events">
@@ -174,6 +179,40 @@
             </div>
             @endif
         </div>
+        <div class="basis-full mt-3 mb-16 hidden" id="news">
+            @if($group->news->isEmpty())
+            <div class="w-full text-center p-4">
+                <div class="flex items-center text-center justify-center">
+                    <h3 class="text-2xl font-normal mx-auto">У ГРУППЫ НЕТ НОВОСТЕЙ</h3>
+                </div>
+            </div>
+            @else
+            <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                @foreach($group->news as $new)
+                <div class="block rounded-lg bg-white">
+                    <a href="#!" class="block h-52">
+                        @if( $new->image == null )
+                        <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
+                        @else
+                        <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$new->image) }}" alt="image">
+                        @endif
+                    </a>
+                    <div class="p-6">
+                        <div class="h-12">
+                            <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                {{ $new->name }}
+                            </h5>
+                        </div>
+                        <hr class="my-3">
+                        <div>
+                            <p class="text-right pb-0">{{ $new->date }}</p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endif
+        </div>
     </div>
 </section>
 <script>
@@ -184,34 +223,57 @@
             $('#events').show();
             $('#projects').hide();
             $('#vacancies').hide();
+            $('#news').hide();
             $('#event_button').css('color', '#0043ff');
             $('#event_button').css('border-bottom-color', '#0043ff');
             $('#project_button').css('color', '');
             $('#project_button').css('border-bottom-color', '');
             $('#vacancy_button').css('color', '');
             $('#vacancy_button').css('border-bottom-color', '');
+            $('#news_button').css('color', '');
+            $('#news_button').css('border-bottom-color', '');
         });
         $('#project_button').on('click', function() {
             $('#events').hide();
             $('#projects').show();
             $('#vacancies').hide();
+            $('#news').hide();
             $('#event_button').css('color', '');
             $('#event_button').css('border-bottom-color', '');
             $('#project_button').css('color', '#0043ff');
             $('#project_button').css('border-bottom-color', '#0043ff');
             $('#vacancy_button').css('color', '');
             $('#vacancy_button').css('border-bottom-color', '');
+            $('#news_button').css('color', '');
+            $('#news_button').css('border-bottom-color', '');
         });
         $('#vacancy_button').on('click', function() {
             $('#events').hide();
             $('#projects').hide();
             $('#vacancies').show();
+            $('#news').hide();
             $('#event_button').css('color', '');
             $('#event_button').css('border-bottom-color', '');
             $('#project_button').css('color', '');
             $('#project_button').css('border-bottom-color', '');
             $('#vacancy_button').css('color', '#0043ff');
             $('#vacancy_button').css('border-bottom-color', '#0043ff');
+            $('#news_button').css('color', '');
+            $('#news_button').css('border-bottom-color', '');
+        });
+        $('#news_button').on('click', function() {
+            $('#events').hide();
+            $('#projects').hide();
+            $('#vacancies').hide();
+            $('#news').show();
+            $('#event_button').css('color', '');
+            $('#event_button').css('border-bottom-color', '');
+            $('#project_button').css('color', '');
+            $('#project_button').css('border-bottom-color', '');
+            $('#vacancy_button').css('color', '');
+            $('#vacancy_button').css('border-bottom-color', '');
+            $('#news_button').css('color', '#0043ff');
+            $('#news_button').css('border-bottom-color', '#0043ff');
         });
     });
 </script>
