@@ -75,24 +75,24 @@
                 </div>
             </div>
             <div class="flex-flex-row py-2 lg:py-10">
-                <ul class="mb-4 flex list-none flex-row flex-wrap border-b-0 pl-0 basis-1/2">
+                <ul class="mb-4 flex list-none flex-row flex-wrap border-b-0 pl-0">
                     <li>
-                        <button id="event_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
-                            Мероприятия
+                        <button id="event_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-2 md:px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 sm:text-xs md:text-sm lg:text-lg font-thin text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                            События
                         </button>
                     </li>
                     <li>
-                        <button id="project_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                        <button id="project_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-2 md:px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 sm:text-xs md:text-sm lg:text-lg font-thin text-neutral-600 hover:border-gray-500 hover:text-gray-700">
                             Проекты
                         </button>
                     </li>
                     <li>
-                        <button id="vacancy_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                        <button id="vacancy_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-2 md:px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 sm:text-xs md:text-sm lg:text-lg font-thin text-neutral-600 hover:border-gray-500 hover:text-gray-700">
                             Работа
                         </button>
                     </li>
                     <li>
-                        <button id="news_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                        <button id="news_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-2 md:px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 sm:text-xs md:text-sm lg:text-lg font-thin text-neutral-600 hover:border-gray-500 hover:text-gray-700">
                             Новости
                         </button>
                     </li>

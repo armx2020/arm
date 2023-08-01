@@ -6,7 +6,6 @@ use App\Models\City;
 use App\Models\Group;
 use App\Models\Region;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -33,9 +32,7 @@ class HomeController extends Controller
         
         return view('home', [
             'city'   => $request->session()->get('city'),
-            'region' => $request->session()->get('region'),
             'group' => $group,
-            'regionId' => $request->session()->get('regionId'),
             'cities' => $cities,
         ]);
     }

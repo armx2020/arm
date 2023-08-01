@@ -29,7 +29,6 @@
                 @else
                 <img src="{{ asset( 'storage/'.$group->image) }}" alt="" class="h-48 rounded-lg m-1 lg:m-5">
                 @endif
-                <!-- <p class="text-left font-bold text-md mx-5 my-5">Рейтинг 8,2</p> -->
                 <div class="mx-5">
                     <div class="my-2 flex flex-row">
                         <div class="basis-4/5 text-left text-sm">Заполненость профиля</div>
@@ -47,24 +46,24 @@
             </div>
         </div>
         <div class="flex-flex-row py-2 lg:py-10">
-            <ul class="mb-4 flex list-none flex-row flex-wrap border-b-0 pl-0 basis-1/2">
+            <ul class="mb-4 flex list-none flex-row flex-wrap border-b-0 pl-0">
                 <li>
-                    <button id="event_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
-                        Мероприятия
+                    <button id="event_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-2 md:px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 sm:text-xs md:text-sm lg:text-lg font-thin text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                        События
                     </button>
                 </li>
                 <li>
-                    <button id="project_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                    <button id="project_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-2 md:px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 sm:text-xs md:text-sm lg:text-lg font-thin text-neutral-600 hover:border-gray-500 hover:text-gray-700">
                         Проекты
                     </button>
                 </li>
                 <li>
-                    <button id="vacancy_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                    <button id="vacancy_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-2 md:px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 sm:text-xs md:text-sm lg:text-lg font-thin text-neutral-600 hover:border-gray-500 hover:text-gray-700">
                         Работа
                     </button>
                 </li>
                 <li>
-                    <button id="news_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                    <button id="news_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-2 md:px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 sm:text-xs md:text-sm lg:text-lg font-thin text-neutral-600 hover:border-gray-500 hover:text-gray-700">
                         Новости
                     </button>
                 </li>
