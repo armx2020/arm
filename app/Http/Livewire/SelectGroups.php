@@ -19,13 +19,22 @@ class SelectGroups extends Component
 
     public function mount(Request $request)
     {
-        $reg = Region::where('InEnglish', '=', $request->session()->get('region'))->First();
+        $reg = Region::where('name', '=', $request->session()->get('region'))->First();
         
         if(empty($reg)){
             $this->region = 1;
         } else {
             $this->region = $reg->id;
-        }     
+        }
+        
+        switch ($request->session()->pull('filter')) {
+            case 'places':
+                $this->term = 6;
+                break;
+            case 'religion':
+                $this->term = 5;
+                break;
+        }
     }
 
     public function render()

@@ -17,7 +17,7 @@ class GroupController extends Controller
 
         return view('pages.group.groups', [
             'city'   => $request->session()->get('city'),
-            'cities' => $cities
+            'cities' => $cities,
         ]);
     }
 
@@ -49,5 +49,17 @@ class GroupController extends Controller
             'fullness' => $fullness,
             'cities' => $cities
         ]);
+    }
+
+    public function places(Request $request)
+    {
+        $request->session()->put('filter', 'places');
+        return redirect()->route('group.index');
+    }
+
+    public function religion(Request $request)
+    {
+        $request->session()->put('filter', 'religion');
+        return redirect()->route('group.index');
     }
 }

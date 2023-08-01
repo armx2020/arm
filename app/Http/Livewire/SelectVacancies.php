@@ -18,7 +18,7 @@ class SelectVacancies extends Component
 
     public function mount(Request $request)
     {
-        $reg = Region::where('InEnglish', '=', $request->session()->get('region'))->First();
+        $reg = Region::where('name', '=', $request->session()->get('region'))->First();
 
         if (empty($reg)) {
             $this->region = 1;

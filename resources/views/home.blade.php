@@ -69,7 +69,7 @@
             </a>
         </div>
         <div class="bg-white rounded-xl p-2 h-36 lg:h-auto">
-            <a href="">
+            <a href="{{ route('group.places') }}">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left text-md lg:text-xl basis-full p-1 lg:p-4">
                         <div class="m-1 lg:m-3 font-bold">Интересные места для посещений</div>
@@ -78,7 +78,7 @@
             </a>
         </div>
         <div class="bg-white rounded-xl p-2 h-36 lg:h-auto">
-            <a href="">
+            <a href="{{ route('group.show', ['id' => $group->id]) }}">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left text-md lg:text-xl basis-full p-1 lg:p-4">
                         <div class="m-1 lg:m-3 font-bold">Сервис <br class="hidden lg:block"> моя община</div>
@@ -98,7 +98,7 @@
                     <a href="{{ route('project.index') }}" class="my-3 inline-block rounded-md bg-green-500 py-2 text-white lg:hidden text-center w-3/5 items-center">
                         Все проекты
                     </a>
-                    <a href="" class="my-2 lg:my-4 rounded-md bg-blue-500 text-white w-4/5 xl:w-1/2 h-9 px-6 py-2 items-center hidden lg:inline-block">
+                    <a href="{{ route('dashboard') }}" class="my-2 lg:my-4 rounded-md bg-blue-500 text-white w-4/5 xl:w-1/2 h-9 px-6 py-2 items-center hidden lg:inline-block">
                         Добавить
                     </a>
                 </div>
@@ -108,7 +108,7 @@
             </div>
         </div>
         <div class="bg-white rounded-xl p-2 h-36 lg:h-auto">
-            <a href="">
+            <a href="{{ route('group.religion') }}">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left text-md lg:text-xl basis-full p-1 lg:p-4">
                         <div class="m-1 lg:m-3 font-bold">Религия и церковь</div>
@@ -117,7 +117,7 @@
             </a>
         </div>
         <div class="bg-blue-100 rounded-xl p-2 h-36 lg:h-auto">
-            <a href="">
+            <a href="{{ route('offer.index') }}">
                 <div class="flex flex-row h-full">
                     <div class="flex flex-col text-left basis-3/4 p-1 lg:p-4">
                         <div class="m-2 font-bold">Бизнес справочник</div>
