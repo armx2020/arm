@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create']) ->name('register');
     Route::post('register', [RegisteredUserController::class, 'store']);
-    // Route::post('phone', [RegisteredUserController::class, 'store_phone'])->name('register.phone');
-    // Route::post('code', [RegisteredUserController::class, 'store_code'])->name('register.code');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('login', [AuthenticatedSessionController::class, 'store']);

@@ -29,7 +29,7 @@ class SmsService
         return $result;
     }
 
-    public static function sendTo($phone, $message, $active = true)
+    public static function sendTo($phone, $message, $active = false)
     {
         $result = [];
 
@@ -40,8 +40,8 @@ class SmsService
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
                 "api_id" => "AF091A73-77E1-9945-9455-280D8014D741",
-                "to" => $phone, // До 100 штук до раз
-                "msg" => $message, // Если приходят крякозябры, то уберите iconv и оставьте только "Привет!",
+                "to" => $phone,
+                "msg" => $message,
                 "json" => 1,
             )));
 
@@ -50,7 +50,7 @@ class SmsService
 
             $result = json_decode($body);
         } else {
-            $result = (object) array('status' => 'OK', 'code' => 000000);
+            $result = (object) array('status' => 'OK');
         }
 
         return $result;

@@ -7,7 +7,7 @@
     <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
         <div class="flex flex-col basis-full">
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10 relative">
-                <form method="post" action="{{ route('mycompany.update', ['id' => $company->id]) }}" class="w-full" enctype="multipart/form-data">
+                <form method="post" action="{{ route('mycompanies.update', ['mycompany' => $company->id]) }}" class="w-full" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
 
@@ -92,16 +92,14 @@
                 </form>
             </div>
 
-            <div class="flex basis-full bg-white rounded-md p-1 lg:p-10 relative my-6">
-                <form method="post" action="{{ route('mycompany.destroy', ['id' => $company->id]) }}" class="w-full">
+            <div class="flex basis-full bg-gray-200 rounded-md p-3 my-6 text-sm">
+                <form method="post" action="{{ route('mycompanies.destroy', ['mycompany' => $company->id]) }}" class="w-full text-center">
                     @csrf
                     @method('delete')
 
-
-
-                    <div class="mt-6 flex flex-row justify-between basis-full">
+                    <div class="m-2 flex flex-row justify-between basis-full">
                         <div class="text-lg font-medium text-gray-900 flex">
-                            {{ __('Вы уверены, что хотите удалить?') }}
+                            {{ __('Чтобы удалить, нажмите') }}
                         </div>
                         <x-danger-button class="flex">
                             {{ __('Удалить') }}

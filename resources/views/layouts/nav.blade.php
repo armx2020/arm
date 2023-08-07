@@ -2,7 +2,7 @@
     <div class="flex w-11/12 flex-wrap items-center justify-between mx-auto">
         <div class="block px-2 xl:hidden">
             <a class="" href="{{ route('home') }}">
-                <img src="{{ url('/image/logo-min.png')}}" class="w-20 h-8" alt="logo" />
+                <img src="{{ url('/image/logo.png')}}" class="w-21 h-7" alt="logo" />
             </a>
         </div>
         <div class="block px-2 xl:hidden">
@@ -23,7 +23,7 @@
             </span>
         </button>
         <div class="bg-white w-full min-h-screen absolute top-0 right-0 z-40 hidden" id="menu">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" id="closeMenu" class="w-6 h-6 absolute right-14 top-3">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" id="closeMenu" class="w-6 h-6 absolute right-8 top-3">
                 <g>
                     <path d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </g>
@@ -45,7 +45,7 @@
                     @guest
                     <div class="flex flex-row items-center">
                         <a class="mx-4" href="{{ route('login') }}">Войти</a>
-                        <a class="inline-block bg-orange-600 rounded-lg px-6 pb-2 pt-2.5 text-white" href="{{ route('register') }}">
+                        <a class="mx-4" href="{{ route('register') }}">
                             Регистрация
                         </a>
                     </div>
@@ -160,12 +160,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
 
 <script type='text/javascript'>
     $(document).ready(function() {

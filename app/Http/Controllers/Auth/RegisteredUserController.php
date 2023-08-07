@@ -56,7 +56,7 @@ class RegisteredUserController extends Controller
                 return redirect(RouteServiceProvider::HOME);
 
             } else {
-                return redirect()->route('register')->with('error',  'У вас слишком много запросов. Попробуйте позже');
+                return redirect()->route('register')->with('error',  'У вас слишком много попыток. Попробуйте позже');
             }
         } else {
             return redirect()->route('register')->with('error',  "Запрос не выполнился. Не удалось установить связь с сервером. ");

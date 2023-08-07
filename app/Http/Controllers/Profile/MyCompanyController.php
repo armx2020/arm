@@ -27,6 +27,19 @@ class MyCompanyController extends Controller
         ]);
     }
 
+    public function create(Request $request)
+    {
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
+
+        return view('profile.pages.company.create', [
+            'city'   => $request->session()->get('city'),
+            'cities' => $cities
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([

@@ -21,19 +21,24 @@ use App\Http\Controllers\Admin\VacancyController;
 Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::middleware(['auth:admin', 'verified'])->group(function () {
+        
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::resource('user', UserController::class);
-        Route::resource('company', CompanyController::class);
-        Route::resource('groupCategory', GroupCategoryController::class);
-        Route::resource('group', GroupController::class);
-        Route::resource('offerCategory', OfferCategoryController::class);
-        Route::resource('offer', OfferController::class);
-        Route::resource('resume', ResumeController::class);
-        Route::resource('experience', ExperienceController::class);
-        Route::resource('vacancy', VacancyController::class);
-        Route::resource('event', EventController::class);
-        Route::resource('news', NewsController::class);
-        Route::resource('project', ProjectController::class);
+        
+        Route::resources([
+            'user'          =>  UserController::class,
+            'company'       =>  CompanyController::class,
+            'groupCategory' =>  GroupCategoryController::class,
+            'group'         =>  GroupController::class,
+            'offerCategory' =>  OfferCategoryController::class,
+            'offer'         =>  OfferController::class,
+            'resume'        =>  ResumeController::class,
+            'experience'    =>  ExperienceController::class,
+            'vacancy'       =>  VacancyController::class,
+            'event'         =>  EventController::class,
+            'news'          =>  NewsController::class,
+            'project'       =>  ProjectController::class
+        ]);
+        
     });
 
 
