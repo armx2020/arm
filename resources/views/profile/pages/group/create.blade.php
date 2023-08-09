@@ -45,6 +45,12 @@
                     </div>
 
                     <div class="my-3">
+                        <x-input-label for="whatsapp" :value="__('Whatsapp')" />
+                        <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full" :value="old('whatsapp')" autofocus />
+                        <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
+                    </div>
+
+                    <div class="my-3">
                         <x-input-label for="web" :value="__('Веб')" />
                         <x-text-input id="web" name="web" type="text" class="mt-1 block w-full" :value="old('web')" autofocus />
                         <x-input-error class="mt-2" :messages="$errors->get('web')" />

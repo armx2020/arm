@@ -11,7 +11,7 @@
         </div>
         @endif
         <div class="flex flex-col basis-full">
-            <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10 relative">
+            <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
                 <div class="flex flex-col basis-1/4">
                     @if( $group->image == null )
                     <img class="h-40 lg:h-48 rounded-lg mx-auto p-14 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
@@ -47,7 +47,7 @@
                                     vkontakte: {{ $group->vkontakte ? $group->vkontakte : 'не указан'}}
                                 </div>
                                 <div class="text-sm font-normal text-gray-600">
-                                    watsapp: {{ $group->whatsapp ? $group->vwhatsapp : 'не указан'}}
+                                    watsapp: {{ $group->whatsapp ? $group->whatsapp : 'не указан'}}
                                 </div>
                                 <div class="text-sm font-normal text-gray-600">
                                     telegram: {{ $group->telegram ? $group->telegram  : 'не указан'}}

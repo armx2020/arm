@@ -123,6 +123,7 @@ class MyGroupController extends Controller
         }
 
         $sum =  ($group->address ? 10 : 0) +
+            ($group->name ? 5 : 0) +
             ($group->description ? 10 : 0) +
             ($group->image ? 10 : 0) +
             ($group->phone ? 5 : 0) +
@@ -133,7 +134,7 @@ class MyGroupController extends Controller
             ($group->vkontakte ? 5 : 0) +
             ($group->telegram ? 5 : 0);
 
-        $fullness = (round(($sum / 65) * 100));
+        $fullness = (round(($sum / 70) * 100));
 
 
         return view('profile.pages.group.show', [

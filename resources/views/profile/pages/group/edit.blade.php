@@ -16,7 +16,7 @@
                             @if( $group->image == null)
                             <img class="h-20 w-20 rounded-lg m-4 p-4 object-cover" src="{{ url('/image/no-image.png')}}" alt="{{ $group->name }}">
                             @else
-                            <img class="h-20 w-20 rounded-full m-4 object-cover" src="{{ asset('storage/'. $group->image) }}" alt="{{ $group->image }}">
+                            <img class="h-20 w-20 rounded-lg m-4 p-4 object-cover" src="{{ asset('storage/'. $group->image) }}" alt="{{ $group->image }}">
                             @endif
                         </div>
 
@@ -47,6 +47,12 @@
                         <x-input-label for="phone" :value="__('Телефон')" />
                         <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $group->phone)" autofocus />
                         <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+                    </div>
+
+                    <div class="my-3">
+                        <x-input-label for="whatsapp" :value="__('Whatsapp')" />
+                        <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full" :value="old('whatsapp')" autofocus />
+                        <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
                     </div>
 
                     <div class="my-3">
