@@ -6,7 +6,7 @@
 
     <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
         <div class="flex flex-col basis-full">
-            <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10 relative">
+            <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
                 <form method="post" action="{{ route('mycompanies.update', ['mycompany' => $company->id]) }}" class="w-full" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
@@ -16,7 +16,7 @@
                             @if( $company->image == null)
                             <img class="h-20 w-20 rounded-lg m-4 p-4 object-cover" src="{{ url('/image/no-image.png')}}" alt="{{ $company->name }}">
                             @else
-                            <img class="h-20 w-20 rounded-full m-4 object-cover" src="{{ asset('storage/'. $company->image) }}" alt="{{ $company->image }}">
+                            <img class="h-20 w-20 rounded-lg m-4 p-4 object-cover" src="{{ asset('storage/'. $company->image) }}" alt="{{ $company->image }}">
                             @endif
                         </div>
 
@@ -47,6 +47,12 @@
                         <x-input-label for="phone" :value="__('Телефон')" />
                         <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $company->phone)" autofocus />
                         <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+                    </div>
+
+                    <div class="my-3">
+                        <x-input-label for="whatsapp" :value="__('Whatsapp')" />
+                        <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full" :value="old('whatsapp')" autofocus />
+                        <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
                     </div>
 
                     <div class="my-3">
@@ -92,7 +98,7 @@
                 </form>
             </div>
 
-            <div class="flex basis-full bg-gray-200 rounded-md p-3 my-6 text-sm">
+            <div class="flex basis-full bg-gray-200 rounded-md p-5 my-6 text-sm">
                 <form method="post" action="{{ route('mycompanies.destroy', ['mycompany' => $company->id]) }}" class="w-full text-center">
                     @csrf
                     @method('delete')

@@ -83,7 +83,7 @@ class MyCompanyController extends Controller
 
         $company->save();
 
-        return redirect()->route('mycompany.index')->with('success', 'Компания "' . $company->name . '" добавлена');
+        return redirect()->route('mycompanies.index')->with('success', 'Компания "' . $company->name . '" добавлена');
     }
 
     public function show(Request $request, $id)
@@ -96,7 +96,7 @@ class MyCompanyController extends Controller
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
-            return redirect()->route('mycompany.index')->with('alert', 'Компания не найдена');
+            return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
         }
 
         $sum =  ($company->address ? 10 : 0) +
@@ -108,9 +108,10 @@ class MyCompanyController extends Controller
             ($company->whatsapp ? 5 : 0) +
             ($company->instagram ? 5 : 0) +
             ($company->vkontakte ? 5 : 0) +
-            ($company->telegram ? 5 : 0);
-
-        $fullness = (round(($sum / 65) * 100));
+            ($company->telegram ? 5 : 0)+
+            ($company->name ? 5 : 0);
+//dd($sum);
+        $fullness = (round(($sum / 70) * 100));
 
 
         return view('profile.pages.company.show', [
@@ -131,7 +132,7 @@ class MyCompanyController extends Controller
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
-            return redirect()->route('mycompany.index')->with('alert', 'Компания не найдена');
+            return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
         }
 
         return view('profile.pages.company.edit', [
@@ -165,7 +166,7 @@ class MyCompanyController extends Controller
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
-            return redirect()->route('mycompany.index')->with('alert', 'Компания не найдена');
+            return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
         }
 
         $company->name = $request->name;
@@ -189,7 +190,7 @@ class MyCompanyController extends Controller
 
         $company->update();
 
-        return redirect()->route('mycompany.show', ['id' => $company->id])->with('success', 'Группа "' . $company->name . '" обнавлена');
+        return redirect()->route('mycompanies.show', ['mycompany' => $company->id])->with('success', 'Группа "' . $company->name . '" обнавлена');
     }
 
     public function destroy($id)
@@ -197,7 +198,7 @@ class MyCompanyController extends Controller
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
-            return redirect()->route('mycompany.index')->with('alert', 'Компания не найдена');
+            return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
         }
 
         if ($company->image !== null) {
@@ -206,6 +207,6 @@ class MyCompanyController extends Controller
 
         $company->delete();
 
-        return redirect()->route('mycompany.index')->with('success', 'Группа удалена');
+        return redirect()->route('mycompanies.index')->with('success', 'Группа удалена');
     }
 }
