@@ -9,11 +9,11 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OfferController;
-use App\Http\Controllers\Profile\GroupController as ProfileGroupController;
 use App\Http\Controllers\Profile\MyCompanyController;
 use App\Http\Controllers\Profile\MyGroupController;
 use App\Http\Controllers\Profile\MyProjectController;
 use App\Http\Controllers\Profile\MyResumeController;
+use App\Http\Controllers\Profile\MyOfferController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\VacancyController;
@@ -79,7 +79,7 @@ Route::middleware('auth')->group(function () {
         'mycompanies'   =>  MyCompanyController::class,
         'myprojects'    =>  MyProjectController::class,
         'myresumes'     =>  MyResumeController::class,
-
+        'myoffers'      =>  MyOfferController::class,
     ]);
 
 

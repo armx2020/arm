@@ -52,30 +52,4 @@
         </div>
     </div>
 </div>
-<script type='text/javascript'>
-    $(document).ready(function() {
-        if ($("#group_city").length > 0) {
-            $("#group_city").select2({
-                ajax: {
-                    url: " {{ route('cities') }}",
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                            "_token": "{{ csrf_token() }}",
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response
-                        };
-                    },
-                    cache: true
-                }
-            });
-        }
-    });
-</script>
 @endsection

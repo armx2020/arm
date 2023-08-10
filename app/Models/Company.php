@@ -30,7 +30,7 @@ class Company extends Model
         'name', 'description'
     ];
 
-    public function offer(): HasMany
+    public function offers(): HasMany
     {
         return $this->hasMany(CompanyOffer::class);
     }

@@ -110,9 +110,8 @@ class MyCompanyController extends Controller
             ($company->vkontakte ? 5 : 0) +
             ($company->telegram ? 5 : 0)+
             ($company->name ? 5 : 0);
-//dd($sum);
-        $fullness = (round(($sum / 70) * 100));
 
+            $fullness = (round(($sum / 70) * 100));
 
         return view('profile.pages.company.show', [
             'city' => $request->session()->get('city'),
