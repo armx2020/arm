@@ -31,10 +31,10 @@
             <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myoffers.index') }}">Маркет</a></li>
             @endif
 
-            @if($page == 'news')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Новости</a></li>
+            @if($page == 'mynews')
+            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mynews.index') }}">Новости</a></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Новости</a></li>
+            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mynews.index') }}">Новости</a></li>
             @endif
 
             @if($page == 'events')

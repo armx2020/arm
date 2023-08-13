@@ -11,6 +11,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\Profile\MyCompanyController;
 use App\Http\Controllers\Profile\MyGroupController;
+use App\Http\Controllers\Profile\MyNewsController;
 use App\Http\Controllers\Profile\MyProjectController;
 use App\Http\Controllers\Profile\MyResumeController;
 use App\Http\Controllers\Profile\MyOfferController;
@@ -80,6 +81,7 @@ Route::middleware('auth')->group(function () {
         'myprojects'    =>  MyProjectController::class,
         'myresumes'     =>  MyResumeController::class,
         'myoffers'      =>  MyOfferController::class,
+        'mynews'        =>  MyNewsController::class
     ]);
 
 
