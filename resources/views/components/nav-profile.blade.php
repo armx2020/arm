@@ -37,16 +37,16 @@
             <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mynews.index') }}">Новости</a></li>
             @endif
 
-            @if($page == 'events')
+            @if($page == 'myevents')
             <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myevents.index') }}">Мероприятия</a></li>
             @else
             <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myevents.index') }}">Мероприятия</a></li>
             @endif
 
             @if($page == 'myresumes')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myresumes.index') }}">Моё резюме</a></li>
+            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myresumes.index') }}">Работа</a></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myresumes.index') }}">Моё резюме</a></li>
+            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myresumes.index') }}">Работа</a></li>
             @endif
 
 

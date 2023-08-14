@@ -67,14 +67,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 
 Route::middleware('auth')->group(function () {
 
-
-
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
 
     Route::resources([
         'mygroups'      =>  MyGroupController::class,
@@ -85,13 +81,6 @@ Route::middleware('auth')->group(function () {
         'mynews'        =>  MyNewsController::class,
         'myevents'      =>  MyEventController::class,
     ]);
-
-    // Route::get('/myprojects', [MyProjectController::class, 'index'])->name('myproject.index');
-    // Route::post('/myprojects', [MyProjectController::class, 'store'])->name('myproject.store');
-    // Route::get('/myprojects/{id}', [MyProjectController::class, 'show'])->name('myproject.show');
-    // Route::get('/myprojects/{id}/edit', [MyProjectController::class, 'edit'])->name('myproject.edit');
-    // Route::patch('/myprojects/{id}', [MyProjectController::class, 'update'])->name('myproject.update');
-    // Route::delete('/myprojects/{id}', [MyProjectController::class, 'destroy'])->name('myproject.destroy');
 
     // Route::get('/myresumes', [MyResumeController::class, 'index'])->name('myresume.index');
     // Route::post('/myresumes', [MyResumeController::class, 'store'])->name('myresume.store');

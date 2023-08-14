@@ -22,9 +22,9 @@ class MyOfferController extends Controller
 
         $companies = Company::with('offers')->where('user_id', '=', Auth::user()->id)->get();
 
-        // if (count($companies) == 0) {
-        //     return redirect()->route('myoffers.index')->with('alert', 'У вас нет компаний! Сначала добавьте вашу компанию.');
-        // }
+        if (count($companies) == 0) {
+            return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте вашу компанию.');
+        }
 
         $categories = OfferCategory::orderBy('sort_id', 'asc')->get();
 
@@ -256,6 +256,6 @@ class MyOfferController extends Controller
 
         $offer->delete();
 
-        return redirect()->route('myoffers.index')->with('success', 'Группа удалена');
+        return redirect()->route('myoffers.index')->with('success', 'Товар удалён');
     }
 }

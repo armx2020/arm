@@ -26,7 +26,7 @@
                     @if( $news->image == null )
                     <img class="h-48 rounded-lg mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
-                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$offer->image) }}" alt="image">
+                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$news->image) }}" alt="image">
                     @endif
                 </a>
                 <div class="px-6">
@@ -56,7 +56,7 @@
                     @if( $news->image == null )
                     <img class="h-48 rounded-lg mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
-                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$offer->image) }}" alt="image">
+                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$news->image) }}" alt="image">
                     @endif
                 </a>
                 <div class="px-6">

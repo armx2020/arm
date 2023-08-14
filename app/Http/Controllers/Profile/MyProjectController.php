@@ -21,10 +21,14 @@ class MyProjectController extends Controller
             });
 
         $projects = Auth::user()->projects;
+        $groups = Group::where('user_id', '=', Auth::user()->id)->with('news')->get();
+        $companies = Company::where('user_id', '=', Auth::user()->id)->with('news')->get();
 
         return view('profile.pages.project.index', [
             'city'   => $request->session()->get('city'),
             'projects' => $projects,
+            'groups' => $groups,
+            'companies' => $companies,
             'cities' => $cities
         ]);
     }
@@ -72,9 +76,22 @@ class MyProjectController extends Controller
         $project->city_id = $request->project_city;
         $project->region_id = $city->region->id;
 
-        $project->parent_type = 'App\Models\User';
-        $project->parent_id = Auth::user()->id;
+        $parent = $request->parent;
+        $parent_explode = explode('|', $parent);
 
+        if ($parent_explode[0] == 'User') {
+            $project->parent_type = 'App\Models\User';
+            $project->parent_id = $parent_explode[1];
+        } elseif ($parent_explode[0] == 'Company') {
+            $project->parent_type = 'App\Models\Company';
+            $project->parent_id = $parent_explode[1];
+        } elseif ($parent_explode[0] == 'Group') {
+            $project->parent_type = 'App\Models\Group';
+            $project->parent_id = $parent_explode[1];
+        } else {
+            $project->parent_type = 'App\Models\Admin';
+            $project->parent_id = 1;
+        }
 
         if ($request->image) {
             $project->image = $request->file('image')->store('projects', 'public');
@@ -92,17 +109,32 @@ class MyProjectController extends Controller
                 return mb_substr($item->name, 0, 1);
             });
 
-        $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
+        $project = Project::with('parent')->find($id);
 
         if (empty($project)) {
             return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
-        }
+        } else {
+            if (
+                ($project->parent_type == 'App\Models\User'     && $project->parent_id == Auth::user()->id) ||
+                ($project->parent_type == 'App\Models\Company'  && $project->parent->user_id == Auth::user()->id) ||
+                ($project->parent_type == 'App\Models\Group'    && $project->parent->user_id == Auth::user()->id)
+            ) {
+                if ($project->donations_have > 0 && $project->donations_need > 0) {
+                    $fullness = (round(($project->donations_have * 100) / $project->donations_need));
+                } else {
+                    $fullness = 0;
+                }
 
-        return view('profile.pages.project.show', [
-            'city'   => $request->session()->get('city'),
-            'project' => $project,
-            'cities' => $cities
-        ]);
+                return view('profile.pages.project.show', [
+                    'city'   => $request->session()->get('city'),
+                    'project' => $project,
+                    'fullness' => $fullness,
+                    'cities' => $cities
+                ]);
+            } else {
+                return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
+            }
+        }
     }
 
     public function edit(Request $request, $id)
@@ -112,17 +144,25 @@ class MyProjectController extends Controller
                 return mb_substr($item->name, 0, 1);
             });
 
-        $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
+        $project = Project::with('parent')->find($id);
 
         if (empty($project)) {
             return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
+        } else {
+            if (
+                ($project->parent_type == 'App\Models\User'     && $project->parent_id == Auth::user()->id) ||
+                ($project->parent_type == 'App\Models\Company'  && $project->parent->user_id == Auth::user()->id) ||
+                ($project->parent_type == 'App\Models\Group'    && $project->parent->user_id == Auth::user()->id)
+            ) {
+                return view('profile.pages.project.edit', [
+                    'city'   => $request->session()->get('city'),
+                    'project' => $project,
+                    'cities' => $cities
+                ]);
+            } else {
+                return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
+            }
         }
-
-        return view('profile.pages.project.edit', [
-            'city'   => $request->session()->get('city'),
-            'project' => $project,
-            'cities' => $cities
-        ]);
     }
 
     public function update(Request $request, $id)
@@ -139,49 +179,59 @@ class MyProjectController extends Controller
             $city = City::find(1);
         }
 
-        $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
+        $project = Project::with('parent')->find($id);
 
         if (empty($project)) {
             return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
+        } else {
+            if (
+                ($project->parent_type == 'App\Models\User'     && $project->parent_id == Auth::user()->id) ||
+                ($project->parent_type == 'App\Models\Company'  && $project->parent->user_id == Auth::user()->id) ||
+                ($project->parent_type == 'App\Models\Group'    && $project->parent->user_id == Auth::user()->id)
+            ) {
+                $project->name = $request->name;
+                $project->address = $request->address;
+                $project->description = $request->description;
+
+                $project->donations_need = $request->donations_need;
+                $project->donations_have = $request->donations_have;
+
+                if ($request->image) {
+                    Storage::delete('public/' . $project->image);
+                    $project->image = $request->file('image')->store('projects', 'public');
+                }
+
+                $project->update();
+
+                return redirect()->route('myprojects.show', ['myproject' => $project->id])->with('success', 'Проект "' . $project->name . '" обнавлен');
+            } else {
+                return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
+            }
         }
-
-        $project->name = $request->name;
-        $project->address = $request->address;
-        $project->description = $request->description;
-
-        $project->donations_need = $request->donations_need;
-        $project->donations_have = $request->donations_have;
-
-        $project->city_id = $request->project_city;
-        $project->region_id = $city->region->id;
-
-        $project->parent_type = 'App\Models\User';
-        $project->parent_id = Auth::user()->id;
-
-        if ($request->image) {
-            Storage::delete('public/' . $project->image);
-            $project->image = $request->file('image')->store('projects', 'public');
-        }
-
-        $project->update();
-
-        return redirect()->route('myprojects.show', ['id' => $project->id])->with('success', 'Проект "' . $project->name . '" обнавлен');
     }
 
     public function destroy($id)
     {
-        $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
+        $project = Project::with('parent')->find($id);
 
         if (empty($project)) {
             return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
-        }
+        } else {
+            if (
+                ($project->parent_type == 'App\Models\User'     && $project->parent_id == Auth::user()->id) ||
+                ($project->parent_type == 'App\Models\Company'  && $project->parent->user_id == Auth::user()->id) ||
+                ($project->parent_type == 'App\Models\Group'    && $project->parent->user_id == Auth::user()->id)
+            ) {
+                if ($project->image !== null) {
+                    Storage::delete('public/' . $project->image);
+                }
+        
+                $project->delete();
 
-        if ($project->image !== null) {
-            Storage::delete('public/' . $project->image);
-        }
-
-        $project->delete();
-
-        return redirect()->route('myprojects.index')->with('success', 'Проект удален');
+                return redirect()->route('myprojects.index')->with('success', 'Проект удален');
+            } else {
+                return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
+            }
+        }             
     }
 }

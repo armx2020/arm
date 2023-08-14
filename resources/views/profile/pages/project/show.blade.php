@@ -21,10 +21,10 @@
                     <div class="m-5">
                         <div class="my-2 flex flex-row">
                             <div class="basis-1/2 text-left font-bold">{{ $project->donations_need }} руб.</div>
-                            <div class="basis-1/2 text-right">{!! round($project->donations_have ? ($project->donations_have * 100)/ $project->donations_need : 0) !!} %</div>
+                            <div class="basis-1/2 text-right">{{ $fullness }} %</div>
                         </div>
                         <div class="w-full bg-gray-200">
-                            <div class="bg-green-500 h-5 text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100" style='width: {!! round($project->donations_have ? ($project->donations_have * 100)/ $project->donations_need : 0) !!}%'></div>
+                            <div class="bg-green-500 h-5 text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100" style='width: {!! $fullness !!}%'></div>
                         </div>
                     </div>
                 </div>
@@ -38,25 +38,25 @@
                             <h4 class="text-left text-lg lg:text-xl my-2 mx-3">Социальные сети</h4>
                             <div class="grid grid-cols-2 justify-center gap-2 mx-3">
                                 <div class="text-sm font-normal text-gray-600">
-                                    телефон: {{ $project->phone ? $project->phone : 'не указан' }}
+                                    телефон: {{ $project->parent->phone ? $project->parent->phone : 'не указан' }}
                                 </div>
                                 <div class="text-sm font-normal text-gray-600">
-                                    web: {{ $project->web ? $project->web : 'не указан' }}
+                                    web: {{ $project->parent->web ? $project->parent->web : 'не указан' }}
                                 </div>
                                 <div class="text-sm font-normal text-gray-600">
-                                    vkontakte: {{ $project->vkontakte ? $project->vkontakte : 'не указан'}}
+                                    vkontakte: {{ $project->parent->vkontakte ? $project->parent->vkontakte : 'не указан'}}
                                 </div>
                                 <div class="text-sm font-normal text-gray-600">
-                                    watsapp: {{ $project->whatsapp ? $project->vwhatsapp : 'не указан'}}
+                                    watsapp: {{ $project->parent->whatsapp ? $project->parent->vwhatsapp : 'не указан'}}
                                 </div>
                                 <div class="text-sm font-normal text-gray-600">
-                                    telegram: {{ $project->telegram ? $project->telegram  : 'не указан'}}
+                                    telegram: {{ $project->parent->telegram ? $project->parent->telegram  : 'не указан'}}
                                 </div>
                                 <div class="text-sm font-normal text-gray-600">
-                                    instagram: {{ $project->instagram ? $project->instagram : 'не указан'}}
+                                    instagram: {{ $project->parent->instagram ? $project->parent->instagram : 'не указан'}}
                                 </div>
                                 <div class="text-sm font-normal text-gray-600">
-                                    viber: {{ $project->viber ? $project->viber : 'не указан'}}
+                                    viber: {{ $project->parent->viber ? $project->parent->viber : 'не указан'}}
                                 </div>
 
                             </div>
@@ -71,21 +71,6 @@
                                 </g>
                             </svg>
                         </a>
-                        <form method="post" action="{{ route('myprojects.destroy', ['myproject' => $project->id]) }}" class="inline">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="bg-red-100 hover:bg-red-400 rounded-md py-2 pl-2 pr-2 m-1" title="удалить">
-                                <svg class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="22" height="22" viewBox="0 0 140.172 140.172" style="enable-background:new 0 0 140.172 140.172;" xml:space="preserve">
-                                    <g>
-                                        <g id="_x36_4._Trash">
-                                            <g>
-                                                <path d="M70.086,112.138c3.867,0,7.009-3.142,7.009-7.009V49.06c0-3.869-3.142-7.008-7.009-7.008     c-3.869,0-7.008,3.14-7.008,7.008v56.069C63.078,108.996,66.217,112.138,70.086,112.138z M126.155,14.017h-21.026V7.009     C105.129,3.14,101.987,0,98.12,0H42.052c-3.869,0-7.008,3.14-7.008,7.009v7.008H14.018c-3.872,0-7.009,3.14-7.009,7.009     s3.137,7.008,7.009,7.008v98.12c0,7.741,6.276,14.018,14.017,14.018h84.103c7.741,0,14.018-6.276,14.018-14.018v-98.12     c3.867,0,7.008-3.14,7.008-7.008S130.022,14.017,126.155,14.017z M112.138,126.154H28.035v-98.12h84.103V126.154z      M49.061,112.138c3.869,0,7.008-3.142,7.008-7.009V49.06c0-3.869-3.14-7.008-7.008-7.008s-7.009,3.14-7.009,7.008v56.069     C42.052,108.996,45.192,112.138,49.061,112.138z M91.112,112.138c3.867,0,7.008-3.142,7.008-7.009V49.06     c0-3.869-3.141-7.008-7.008-7.008s-7.009,3.14-7.009,7.008v56.069C84.104,108.996,87.245,112.138,91.112,112.138z" />
-                                            </g>
-                                        </g>
-                                    </g>
-                                </svg>
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>

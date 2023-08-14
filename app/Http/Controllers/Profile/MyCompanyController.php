@@ -194,10 +194,14 @@ class MyCompanyController extends Controller
 
     public function destroy($id)
     {
-        $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
+        $company = Company::with('offers')->where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
             return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
+        }
+
+        if (count($company->offers) > 0) {
+            return redirect()->route('mycompanies.index')->with('alert', 'У компании есть товары, необходимо удалить сначало их');
         }
 
         if ($company->image !== null) {
@@ -206,6 +210,6 @@ class MyCompanyController extends Controller
 
         $company->delete();
 
-        return redirect()->route('mycompanies.index')->with('success', 'Группа удалена');
+        return redirect()->route('mycompanies.index')->with('success', 'Компания удалена');
     }
 }

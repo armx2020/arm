@@ -190,13 +190,13 @@ class MyNewsController extends Controller
 
         $news = News::with('parent')->find($id);
 
-        if (empty($event)) {
-            return redirect()->route('mynews.index')->with('alert', 'Мероприятие не найдено');
+        if (empty($news)) {
+            return redirect()->route('mynews.index')->with('alert', 'Новость не найдена');
         } else {
             if (
-                ($event->parent_type == 'App\Models\User' && $event->parent_id == Auth::user()->id) ||
-                ($event->parent_type == 'App\Models\Company' && $event->parent->user_id == Auth::user()->id) ||
-                ($event->parent_type == 'App\Models\Group' && $event->parent->user_id == Auth::user()->id)
+                ($news->parent_type == 'App\Models\User' && $news->parent_id == Auth::user()->id) ||
+                ($news->parent_type == 'App\Models\Company' && $news->parent->user_id == Auth::user()->id) ||
+                ($news->parent_type == 'App\Models\Group' && $news->parent->user_id == Auth::user()->id)
             ) {
                 $news->name = $request->name;
                 $news->description = $request->description;
