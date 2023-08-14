@@ -10,6 +10,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\Profile\MyCompanyController;
+use App\Http\Controllers\Profile\MyEventController;
 use App\Http\Controllers\Profile\MyGroupController;
 use App\Http\Controllers\Profile\MyNewsController;
 use App\Http\Controllers\Profile\MyProjectController;
@@ -81,16 +82,9 @@ Route::middleware('auth')->group(function () {
         'myprojects'    =>  MyProjectController::class,
         'myresumes'     =>  MyResumeController::class,
         'myoffers'      =>  MyOfferController::class,
-        'mynews'        =>  MyNewsController::class
+        'mynews'        =>  MyNewsController::class,
+        'myevents'      =>  MyEventController::class,
     ]);
-
-
-    // Route::get('/mycompanies', [MyCompanyController::class, 'index'])->name('mycompany.index');
-    // Route::post('/mycompanies', [MyCompanyController::class, 'store'])->name('mycompany.store');
-    // Route::get('/mycompanies/{id}', [MyCompanyController::class, 'show'])->name('mycompany.show');
-    // Route::get('/mycompanies/{id}/edit', [MyCompanyController::class, 'edit'])->name('mycompany.edit');
-    // Route::patch('/mycompanies/{id}', [MyCompanyController::class, 'update'])->name('mycompany.update');
-    // Route::delete('/mycompanies/{id}', [MyCompanyController::class, 'destroy'])->name('mycompany.destroy');
 
     // Route::get('/myprojects', [MyProjectController::class, 'index'])->name('myproject.index');
     // Route::post('/myprojects', [MyProjectController::class, 'store'])->name('myproject.store');

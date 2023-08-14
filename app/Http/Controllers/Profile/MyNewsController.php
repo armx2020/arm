@@ -20,8 +20,6 @@ class MyNewsController extends Controller
                 return mb_substr($item->name, 0, 1);
             });
 
-        $news = News::all();
-
         $groups = Group::where('user_id', '=', Auth::user()->id)->with('news')->get();
         $companies = Company::where('user_id', '=', Auth::user()->id)->with('news')->get();
         $news = Auth::user()->news;
@@ -192,40 +190,48 @@ class MyNewsController extends Controller
 
         $news = News::with('parent')->find($id);
 
-        if (empty($news)) {
-            return redirect()->route('mynews.index')->with('alert', 'Новость не найдена');
-        } 
+        if (empty($event)) {
+            return redirect()->route('mynews.index')->with('alert', 'Мероприятие не найдено');
+        } else {
+            if (
+                ($event->parent_type == 'App\Models\User' && $event->parent_id == Auth::user()->id) ||
+                ($event->parent_type == 'App\Models\Company' && $event->parent->user_id == Auth::user()->id) ||
+                ($event->parent_type == 'App\Models\Group' && $event->parent->user_id == Auth::user()->id)
+            ) {
+                $news->name = $request->name;
+                $news->description = $request->description;
+                $news->date = $request->date;
+                $news->city_id = $request->news_city;
+                $news->region_id = $city->region->id;
 
-        $news->name = $request->name;
-        $news->description = $request->description;
-        $news->date = $request->date;
-        $news->city_id = $request->news_city;
-        $news->region_id = $city->region->id;
+                if ($request->image) {
+                    Storage::delete('public/' . $news->image);
+                    $news->image = $request->file('image')->store('news', 'public');
+                }
+                if ($request->image1) {
+                    Storage::delete('public/' . $news->image1);
+                    $news->image1 = $request->file('image1')->store('news', 'public');
+                }
+                if ($request->image2) {
+                    Storage::delete('public/' . $news->image2);
+                    $news->image2 = $request->file('image2')->store('news', 'public');
+                }
+                if ($request->image3) {
+                    Storage::delete('public/' . $news->image3);
+                    $news->image3 = $request->file('image3')->store('news', 'public');
+                }
+                if ($request->image4) {
+                    Storage::delete('public/' . $news->image4);
+                    $news->image4 = $request->file('image4')->store('news', 'public');
+                }
 
-        if ($request->image) {
-            Storage::delete('public/' . $news->image);
-            $news->image = $request->file('image')->store('news', 'public');
-        }
-        if ($request->image1) {
-            Storage::delete('public/' . $news->image1);
-            $news->image1 = $request->file('image1')->store('news', 'public');
-        }
-        if ($request->image2) {
-            Storage::delete('public/' . $news->image2);
-            $news->image2 = $request->file('image2')->store('news', 'public');
-        }
-        if ($request->image3) {
-            Storage::delete('public/' . $news->image3);
-            $news->image3 = $request->file('image3')->store('news', 'public');
-        }
-        if ($request->image4) {
-            Storage::delete('public/' . $news->image4);
-            $news->image4 = $request->file('image4')->store('news', 'public');
-        }
+                $news->update();
 
-        $news->update();
-
-        return redirect()->route('mynews.index')->with('success', 'Новость "' . $news->name . '" обновлена');
+                return redirect()->route('mynews.index')->with('success', 'Новость "' . $news->name . '" обновлена');
+            } else {
+                return redirect()->route('mynews.index')->with('alert', 'Новость не найдена');
+            }
+        }
     }
 
     public function destroy($id)
@@ -234,10 +240,23 @@ class MyNewsController extends Controller
 
         if (empty($news)) {
             return redirect()->route('mynews.index')->with('alert', 'Новость не найдена');
-        } 
+        } else {
+            if (
+                ($news->parent_type == 'App\Models\User' && $news->parent_id == Auth::user()->id) ||
+                ($news->parent_type == 'App\Models\Company' && $news->parent->user_id == Auth::user()->id) ||
+                ($news->parent_type == 'App\Models\Group' && $news->parent->user_id == Auth::user()->id)
+            ) {
 
-        $news->delete();
+                if ($news->image) {
+                    Storage::delete('public/' . $news->image);
+                }
 
-        return redirect()->route('mynews.index')->with('success', 'Новость удалена');
+                $news->delete();
+
+                return redirect()->route('mynews.index')->with('success', 'Новость удалена');
+            } else {
+                return redirect()->route('mynews.index')->with('alert', 'Новость не найдена');
+            }
+        }
     }
 }

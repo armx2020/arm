@@ -2,12 +2,12 @@
 @section('content')
 <div class="flex flex-col lg:flex-row w-11/12 mx-auto my-10">
 
-    <x-nav-profile page="mynews"></x-nav-profile>
+    <x-nav-profile page="myevents"></x-nav-profile>
 
     <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
         <div class="flex flex-col basis-full">
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10 relative">
-                <form method="post" action="{{ route('mynews.store') }}" class="w-full" enctype="multipart/form-data">
+                <form method="post" action="{{ route('myevents.store') }}" class="w-full" enctype="multipart/form-data">
                     @csrf
 
                     <div class="flex flex-row">
@@ -28,8 +28,14 @@
 
                     <div class="my-3">
                         <label for="date" class="text-sm font-medium text-gray-900 block mb-2">Дата*</label>
-                        <input type="date" name="date" id="date" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" required>
+                        <input type="date" name="date_to_start" id="date" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}" required>
                         <x-input-error :messages="$errors->get('date')" class="mt-2" />
+                    </div>
+
+                    <div class="my-3">
+                        <x-input-label for="address" :value="__('Адрес')" />
+                        <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" :value="old('address')" autofocus />
+                        <x-input-error class="mt-2" :messages="$errors->get('address')" />
                     </div>
 
                     <div class="my-3">
@@ -55,8 +61,8 @@
                     </div>
 
                     <div class="my-6">
-                        <label for="news_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
-                        <select name="news_city" class="w-full" style="border-color: rgb(209 213 219)" id="news_city">
+                        <label for="event_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
+                        <select name="event_city" class="w-full" style="border-color: rgb(209 213 219)" id="event_city">
                         <option value=1>Выберите город</option>
                     </select>
                     </div>
@@ -71,8 +77,8 @@
 </div>
 <script type='text/javascript'>
     $(document).ready(function() {
-        if ($("#news_city").length > 0) {
-            $("#news_city").select2({
+        if ($("#event_city").length > 0) {
+            $("#event_city").select2({
                 ajax: {
                     url: " {{ route('cities') }}",
                     type: "post",
