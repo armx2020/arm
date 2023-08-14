@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Company;
+use App\Models\Group;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +26,24 @@ class MyProjectController extends Controller
             'city'   => $request->session()->get('city'),
             'projects' => $projects,
             'cities' => $cities
+        ]);
+    }
+
+    public function create(Request $request)
+    {
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
+
+        $companies = Company::where('user_id', '=', Auth::user()->id)->get();
+        $groups = Group::where('user_id', '=', Auth::user()->id)->get();
+
+        return view('profile.pages.project.create', [
+            'city'      => $request->session()->get('city'),
+            'companies' => $companies,
+            'groups'    => $groups,
+            'cities'    => $cities
         ]);
     }
 
@@ -62,7 +82,7 @@ class MyProjectController extends Controller
 
         $project->save();
 
-        return redirect()->route('myproject.index')->with('success', 'Проект "' . $project->name . '" добавлена');
+        return redirect()->route('myprojects.index')->with('success', 'Проект "' . $project->name . '" добавлена');
     }
 
     public function show(Request $request, $id)
@@ -75,7 +95,7 @@ class MyProjectController extends Controller
         $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
 
         if (empty($project)) {
-            return redirect()->route('myproject.index')->with('alert', 'Проект не найден');
+            return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
         }
 
         return view('profile.pages.project.show', [
@@ -95,7 +115,7 @@ class MyProjectController extends Controller
         $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
 
         if (empty($project)) {
-            return redirect()->route('myproject.index')->with('alert', 'Проект не найден');
+            return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
         }
 
         return view('profile.pages.project.edit', [
@@ -122,7 +142,7 @@ class MyProjectController extends Controller
         $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
 
         if (empty($project)) {
-            return redirect()->route('myproject.index')->with('alert', 'Проект не найден');
+            return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
         }
 
         $project->name = $request->name;
@@ -145,7 +165,7 @@ class MyProjectController extends Controller
 
         $project->update();
 
-        return redirect()->route('myproject.show', ['id' => $project->id])->with('success', 'Проект "' . $project->name . '" обнавлен');
+        return redirect()->route('myprojects.show', ['id' => $project->id])->with('success', 'Проект "' . $project->name . '" обнавлен');
     }
 
     public function destroy($id)
@@ -153,7 +173,7 @@ class MyProjectController extends Controller
         $project = Project::where('parent_id', '=', Auth::user()->id)->where('parent_type', '=', 'App\Models\User')->find($id);
 
         if (empty($project)) {
-            return redirect()->route('myproject.index')->with('alert', 'Проект не найден');
+            return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
         }
 
         if ($project->image !== null) {
@@ -162,6 +182,6 @@ class MyProjectController extends Controller
 
         $project->delete();
 
-        return redirect()->route('myproject.index')->with('success', 'Проект удален');
+        return redirect()->route('myprojects.index')->with('success', 'Проект удален');
     }
 }
