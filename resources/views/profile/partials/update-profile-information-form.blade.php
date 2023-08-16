@@ -18,15 +18,19 @@
         <div class="flex flex-row">
             <div class="flex">
                 @if( $user->image == null)
-                <img class="h-20 w-20 rounded-full m-4 object-cover" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                <img class="h-20 w-20 rounded-full m-4 object-cover" id="img" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
                 @else
-                <img class="preview h-20 w-20 rounded-full m-4 object-cover" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
+                <img class="preview h-20 w-20 rounded-full m-4 object-cover" id="img" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
                 @endif
             </div>
 
             <div class="flex items-center">
-                <input name="image" type="file" id="image" class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5" />
+                <label class="input-file relative inline-block">
+                    <input name="image" type="file" accept=".jpg,.jpeg,.png" id="image" class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                    <span class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл</span>
+                </label>
             </div>
+
         </div>
 
         <div>
@@ -125,6 +129,37 @@
                     }
                 });
             }
+
+            $('#image').on('change', function(event) {
+                var selectedFile = event.target.files[0];
+
+                // Check file size (in bytes)
+                var fileSize = selectedFile.size;
+                var maxSize = 2000000; // 2 mb
+                if (fileSize > maxSize) {
+                    $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
+                    $('.input-file input[type=file]').next().css({"color" : "rgb(239 68 68)"});
+                    $('.input-file input[type=file]').val('');
+                    $('.input-file input[type=file]').next().html(file.name);
+                    return;
+                } else {
+                    let file = this.files[0];
+                    $('.input-file input[type=file]').next().html(file.name);
+                    $(this).next().css({"color" : "rgb(71 85 105)"});
+
+                    // Display file preview
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        $('#img').attr('src', event.target.result);
+
+                    };
+                    reader.readAsDataURL(selectedFile);
+                    return;
+                }
+            });
+            // $('.input-file input[type=file]').on('change', function() {
+
+            // });
         });
     </script>
 </section>
