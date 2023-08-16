@@ -75,19 +75,19 @@
                 </div>
             </div>
             <div class="flex-flex-row py-2 lg:py-10">
-                <ul class="mb-4 flex list-none flex-row flex-wrap border-b-0 pl-0 basis-1/2">
+                <ul class="mb-4 flex list-none flex-row flex-wrap border-b-0 pl-0">
                     <li>
-                        <button id="event_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
-                            Мероприятия
+                        <button id="event_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-2 md:px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 sm:text-xs md:text-sm lg:text-lg font-thin text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                            События
                         </button>
                     </li>
                     <li>
-                        <button id="project_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                        <button id="project_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-2 md:px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 sm:text-xs md:text-sm lg:text-lg font-thin text-neutral-600 hover:border-gray-500 hover:text-gray-700">
                             Проекты
                         </button>
                     </li>
                     <li>
-                        <button id="vacancy_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 text-sm lg:text-lg font-medium text-neutral-600 hover:border-gray-500 hover:text-gray-700">
+                        <button id="vacancy_button" class="my-2 block border-x-0 border-b-2 border-t-0 border-neutral-200 px-2 md:px-5 lg:px-10 pb-2 lg:pb-3.5 pt-4 sm:text-xs md:text-sm lg:text-lg font-thin text-neutral-600 hover:border-gray-500 hover:text-gray-700">
                             Работа
                         </button>
                     </li>
@@ -109,7 +109,7 @@
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($company->events as $event)
                     <div class="block rounded-lg bg-white">
-                        <a href="#!" class="h-48 max-w-lg block">
+                        <a href="{{ route('myevents.show', ['myevent' => $event->id ]) }}" class="h-48 max-w-lg block">
                             @if( $event->image == null )
                             <img class="max-w-lg h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -144,7 +144,7 @@
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($company->projects as $project)
                     <div class="block rounded-lg bg-white">
-                        <a href="#!" class="h-48 max-w-lg block">
+                        <a href="{{ route('myprojects.show', ['myproject' => $project->id ]) }}" class="h-48 max-w-lg block">
                             @if( $project->image == null )
                             <img class="max-w-lg h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="{{ $project->image }}" />
                             @else
@@ -185,7 +185,7 @@
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($company->vacancies as $work)
                     <div class="block rounded-lg bg-white">
-                        <a href="#!" class="h-26 block align-center">
+                        <a href="{{ route('myvacancy.show', ['myvacancy' => $work->id ]) }}" class="h-26 block align-center">
                             <div class="p-3 lg:p-6">
                                 <h5 class="mb-1 lg:mb-3 break-words text-md lg:text-lg font-medium leading-tight text-neutral-800">
                                     {{ $work->name }}
@@ -221,7 +221,7 @@
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($company->news as $new)
                     <div class="block rounded-lg bg-white">
-                        <a href="#!" class="block h-52">
+                        <a href="{{ route('mynews.show', ['mynews' => $news->id ]) }}" class="block h-52">
                             @if( $new->image == null )
                             <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else

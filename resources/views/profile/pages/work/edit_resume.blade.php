@@ -2,73 +2,58 @@
 @section('content')
 <div class="flex flex-col lg:flex-row w-11/12 mx-auto my-10">
 
-    <x-nav-profile page="myevents"></x-nav-profile>
+    <x-nav-profile page="myworks"></x-nav-profile>
 
     <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
         <div class="flex flex-col basis-full">
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10 relative">
-                <form method="post" action="{{ route('myevents.update', ['myevent' => $event->id ]) }}" class="w-full" enctype="multipart/form-data">
+                <form method="post" action="{{ route('myresume.update', ['myresume' => $resume->id]) }}" class="w-full" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
 
-                    <div class="w-full">
-                        <h2 class="text-xl">Редактировать мероприятие</h2>
+                    <div class="w-full mb-3">
+                        <h2 class="text-xl">Редактировать резюме</h2>
                         <hr class="w-full h-2 my-2">
-                    </div>
-
-                    <div class="flex flex-row">
-                        <div class="flex">
-                            @if( $event->image == null)
-                            <img class="h-20 w-20 rounded-lg m-4 p-4 object-cover" src="{{ url('/image/no-image.png')}}" alt="{{ $event->name }}">
-                            @else
-                            <img class="h-20 w-20 rounded-lg m-4 p-4 object-cover" src="{{ asset('storage/'. $event->image) }}" alt="{{ $event->image }}">
-                            @endif
-                        </div>
-
-                        <div class="flex items-center">
-                            <input name="image" type="file" id="image" class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5" />
-                        </div>
                     </div>
 
                     <div class="my-3">
                         <x-input-label for="name" :value="__('Название*')" />
-                        <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $event->name)" required autofocus />
+                        <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $resume->name)" required autofocus />
                         <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     </div>
 
                     <div class="my-3">
-                        <label for="date" class="text-sm font-medium text-gray-900 block mb-2">Дата*</label>
-                        <input type="date" name="date_to_start" id="date" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $event->date_to_start }}" max="{{ date('Y-m-d') }}" required>
-                        <x-input-error :messages="$errors->get('date_to_start')" class="mt-2" />
-                    </div>
-
-                    <div class="my-3">
                         <x-input-label for="address" :value="__('Адрес')" />
-                        <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" :value="old('address', $event->address)" autofocus />
+                        <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" :value="old('address', $resume->address)" autofocus />
                         <x-input-error class="mt-2" :messages="$errors->get('address')" />
                     </div>
 
                     <div class="my-3">
                         <x-input-label for="description" :value="__('Описание')" />
-                        <x-text-input id="description" name="description" type="text" class="mt-1 block w-full" :value="old('description', $event->description)" autofocus />
+                        <x-text-input id="description" name="description" type="text" class="mt-1 block w-full" :value="old('description', $resume->description)" autofocus />
                         <x-input-error class="mt-2" :messages="$errors->get('description')" />
                     </div>
 
+                    <div class="my-2">
+                        <x-input-label for="price" :value="__('Ожидаемая зарплата')" />
+                        <x-text-input id="price" name="price" type="number" class="mt-1 block w-full" :value="old('price', $resume->price, 0)" min=0 autofocus />
+                        <x-input-error class="mt-2" :messages="$errors->get('price')" />
+                    </div>
+
                     <div class="my-3">
-                        <label for="event_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
-                        <select name="event_city" class="w-full" style="border-color: rgb(209 213 219)" id="event_city">
-                            <option value='{{ $event->city->id }}'>{{ $event->city->name }}</option>
+                        <label for="resume_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
+                        <select name="resume_city" class="w-full" style="border-color: rgb(209 213 219)" id="resume_city">
+                            <option value='{{ $resume->city->id }}'>{{ $resume->city->name }}</option>
                         </select>
                     </div>
 
-                    <div class="flex items-center gap-4 my-6">
+                    <div class="flex items-center gap-4 my-5">
                         <x-primary-button>{{ __('Сохранить') }}</x-primary-button>
                     </div>
                 </form>
             </div>
-
             <div class="flex basis-full bg-gray-200 rounded-md p-3 my-6">
-                <form method="post" action="{{ route('myevents.destroy', ['myevent' => $event->id]) }}" class="w-full text-center">
+                <form method="post" action="{{ route('myresume.destroy', ['myresume' => $resume->id]) }}" class="w-full text-center">
                     @csrf
                     @method('delete')
 
@@ -88,8 +73,8 @@
 </div>
 <script type='text/javascript'>
     $(document).ready(function() {
-        if ($("#event_city").length > 0) {
-            $("#event_city").select2({
+        if ($("#resume_city").length > 0) {
+            $("#resume_city").select2({
                 ajax: {
                     url: " {{ route('cities') }}",
                     type: "post",

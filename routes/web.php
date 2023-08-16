@@ -16,6 +16,7 @@ use App\Http\Controllers\Profile\MyNewsController;
 use App\Http\Controllers\Profile\MyProjectController;
 use App\Http\Controllers\Profile\MyResumeController;
 use App\Http\Controllers\Profile\MyOfferController;
+use App\Http\Controllers\Profile\MyWorkController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\VacancyController;
@@ -60,9 +61,7 @@ Route::get('/vacancies', [VacancyController::class, 'index'])->name('vacancy.ind
 Route::get('/events', [EventController::class, 'index'])->name('event.index')->middleware(FromLocation::class);
 Route::get('/news', [NewsController::class, 'index'])->name('news.index')->middleware(FromLocation::class);
 
-
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified', 'from'])->name('dashboard');
-
 
 
 Route::middleware('auth')->group(function () {
@@ -76,18 +75,22 @@ Route::middleware('auth')->group(function () {
         'mygroups'      =>  MyGroupController::class,
         'mycompanies'   =>  MyCompanyController::class,
         'myprojects'    =>  MyProjectController::class,
-        'myresumes'     =>  MyResumeController::class,
         'myoffers'      =>  MyOfferController::class,
         'mynews'        =>  MyNewsController::class,
         'myevents'      =>  MyEventController::class,
     ]);
 
-    // Route::get('/myresumes', [MyResumeController::class, 'index'])->name('myresume.index');
-    // Route::post('/myresumes', [MyResumeController::class, 'store'])->name('myresume.store');
-    // Route::get('/myresumes/{id}', [MyResumeController::class, 'show'])->name('myresume.show');
-    // Route::get('/myresumes/{id}/edit', [MyResumeController::class, 'edit'])->name('myresume.edit');
-    // Route::patch('/myresumes/{id}', [MyResumeController::class, 'update'])->name('myresume.update');
-    // Route::delete('/myresumes/{id}', [MyResumeController::class, 'destroy'])->name('myresume.destroy');
+    Route::get('/myworks', [MyWorkController::class, 'index'])->name('myworks.index');
+    Route::post('/myresume', [MyWorkController::class, 'store_resume'])->name('myresume.store');
+    Route::post('/myvacancy', [MyWorkController::class, 'store_vacancy'])->name('myvacancy.store');
+    Route::get('/myresume/{myresume}', [MyWorkController::class, 'show_resume'])->name('myresume.show');
+    Route::get('/myvacancy/{myvacancy}', [MyWorkController::class, 'show_vacancy'])->name('myvacancy.show');
+    Route::get('/myresume/{myresume}/edit', [MyWorkController::class, 'edit_resume'])->name('myresume.edit');
+    Route::get('/myvacancy/{myvacancy}/edit', [MyWorkController::class, 'edit_vacancy'])->name('myvacancy.edit');
+    Route::patch('/myresume/{myresume}', [MyWorkController::class, 'update_resume'])->name('myresume.update');
+    Route::patch('/myvacancy/{myvacancy}', [MyWorkController::class, 'update_vacancy'])->name('myvacancy.update');
+    Route::delete('/myresume/{myresume}', [MyWorkController::class, 'destroy_resume'])->name('myresume.destroy');
+    Route::delete('/myvacancy/{myvacancy}', [MyWorkController::class, 'destroy_vacancy'])->name('myvacancy.destroy');
 });
 
 

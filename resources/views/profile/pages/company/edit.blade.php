@@ -11,6 +11,11 @@
                     @csrf
                     @method('patch')
 
+                    <div class="w-full">
+                        <h2 class="text-xl">Редактировать компанию</h2>
+                        <hr class="w-full h-2 my-2">
+                    </div>
+
                     <div class="flex flex-row">
                         <div class="flex">
                             @if( $company->image == null)

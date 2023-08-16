@@ -63,6 +63,10 @@
             <form method="post" action="{{ route('myoffers.store') }}" class="px-6 py-3" enctype="multipart/form-data">
                 @csrf
 
+                <h2 class="text-lg font-medium text-center text-gray-900">
+                        {{ __('Новый товар') }}
+                    </h2>
+
                 <div class="flex flex-row">
                     <div class="flex">
                         <img class="h-20 w-20 rounded-lg p-4 object-cover" src="{{ url('/image/no-image.png')}}" alt="">

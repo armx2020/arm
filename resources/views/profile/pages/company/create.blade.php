@@ -9,6 +9,11 @@
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10 relative">
                 <form method="post" action="{{ route('mycompanies.store') }}" class="w-full" enctype="multipart/form-data">
                     @csrf
+
+                    <div class="w-full">
+                        <h2 class="text-xl">Добавить компанию</h2>
+                        <hr class="w-full h-2 my-2">
+                    </div>
                     
                     <div class="flex flex-row">
                         <div class="flex">

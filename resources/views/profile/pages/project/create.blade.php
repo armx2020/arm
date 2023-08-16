@@ -10,6 +10,11 @@
                 <form method="post" action="{{ route('myprojects.store') }}" class="w-full" enctype="multipart/form-data">
                     @csrf
 
+                    <div class="w-full">
+                        <h2 class="text-xl">Новый проект</h2>
+                        <hr class="w-full h-2 my-2">
+                    </div>
+
                     <div class="flex flex-row">
                         <div class="flex">
                             <img class="h-20 w-20 rounded-lg m-4 p-4 object-cover" src="{{ url('/image/no-image.png')}}" alt="">

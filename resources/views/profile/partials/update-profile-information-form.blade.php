@@ -25,7 +25,7 @@
             </div>
 
             <div class="flex items-center">
-                <input name="image" type="file" id="image" class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5"/>
+                <input name="image" type="file" id="image" class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5" />
             </div>
         </div>
 
@@ -98,10 +98,6 @@
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Сохранить') }}</x-primary-button>
-
-            @if (session('status') === 'profile-updated')
-            <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)" class="text-sm text-gray-600">{{ __('Сохранено!') }}</p>
-            @endif
         </div>
     </form>
     <script type='text/javascript'>

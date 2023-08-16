@@ -109,7 +109,7 @@
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($group->events as $event)
                     <div class="block rounded-lg bg-white">
-                        <a href="#!" class="h-48 max-w-lg block">
+                        <a href="{{ route('myevents.show', ['myevent' => $event->id ]) }}" class="h-48 max-w-lg block">
                             @if( $event->image == null )
                             <img class="max-w-lg h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -144,7 +144,7 @@
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($group->projects as $project)
                     <div class="block rounded-lg bg-white">
-                        <a href="#!" class="h-48 max-w-lg block">
+                        <a href="{{ route('myprojects.show', ['myproject' => $project->id ]) }}" class="h-48 max-w-lg block">
                             @if( $project->image == null )
                             <img class="max-w-lg h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="{{ $project->image }}" />
                             @else
@@ -185,7 +185,7 @@
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($group->vacancies as $work)
                     <div class="block rounded-lg bg-white">
-                        <a href="#!" class="h-26 block align-center">
+                        <a href="{{ route('myvacancy.show', ['myvacancy' => $work->id ]) }}" class="h-26 block align-center">
                             <div class="p-3 lg:p-6">
                                 <h5 class="mb-1 lg:mb-3 break-words text-md lg:text-lg font-medium leading-tight text-neutral-800">
                                     {{ $work->name }}
@@ -221,7 +221,7 @@
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($group->news as $new)
                     <div class="block rounded-lg bg-white">
-                        <a href="#!" class="block h-52">
+                        <a href="{{ route('mynews.show', ['mynews' => $news->id ]) }}" class="block h-52">
                             @if( $new->image == null )
                             <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
