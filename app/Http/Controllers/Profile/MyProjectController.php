@@ -196,11 +196,17 @@ class MyProjectController extends Controller
                 $project->donations_need = $request->donations_need;
                 $project->donations_have = $request->donations_have;
 
-                if ($request->image) {
+                
+
+                if ($request->image_r == 'delete') {
                     Storage::delete('public/' . $project->image);
+                    $project->image = null;            
+                }
+        
+                if ($request->image) {    
+                    Storage::delete('public/' . $project->image);   
                     $project->image = $request->file('image')->store('projects', 'public');
                 }
-
                 $project->update();
 
                 return redirect()->route('myprojects.show', ['myproject' => $project->id])->with('success', 'Проект "' . $project->name . '" обнавлен');

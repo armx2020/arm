@@ -214,22 +214,53 @@ class MyGroupController extends Controller
         $group->user_id = Auth::user()->id;
         $group->group_category_id = $request->category;
 
-        if ($request->image) {
+
+        if ($request->image_r == 'delete') {
             Storage::delete('public/' . $group->image);
+            $group->image = null;            
+        }
+
+        if ($request->image_r1 == 'delete') {
+            Storage::delete('public/' . $group->image1);
+            $group->image1 = null;            
+        }
+
+        if ($request->image_r2 == 'delete') {
+            Storage::delete('public/' . $group->image2);
+            $group->image2 = null;            
+        }
+
+        if ($request->image_r3 == 'delete') {
+            Storage::delete('public/' . $group->image3);
+            $group->image3 = null;            
+        }
+
+        if ($request->image_r4 == 'delete') {
+            Storage::delete('public/' . $group->image4);
+            $group->image4 = null;            
+        }
+
+
+        if ($request->image) {
+            Storage::delete('public/' . $group->image);            
             $group->image = $request->file('image')->store('groups', 'public');
         }
+
         if ($request->image1) {
             Storage::delete('public/' . $group->image1);
             $group->image1 = $request->file('image1')->store('groups', 'public');
         }
+
         if ($request->image2) {
             Storage::delete('public/' . $group->image2);
             $group->image2 = $request->file('image2')->store('groups', 'public');
         }
+
         if ($request->image3) {
             Storage::delete('public/' . $group->image3);
             $group->image3 = $request->file('image3')->store('groups', 'public');
         }
+
         if ($request->image4) {
             Storage::delete('public/' . $group->image4);
             $group->image4 = $request->file('image4')->store('groups', 'public');

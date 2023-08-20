@@ -14,9 +14,9 @@
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
                 <div class="flex flex-col basis-1/4">
                     @if( $group->image == null )
-                    <img class="h-40 lg:h-48 rounded-lg mx-auto p-14 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                    <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
-                    <img src="{{ asset( 'storage/'.$group->image) }}" alt="" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover">
+                    <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ asset( 'storage/'.$group->image) }}" alt="image">
                     @endif
                     <div class="m-5">
                         <div class="my-2 flex flex-row">

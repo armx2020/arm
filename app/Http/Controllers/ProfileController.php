@@ -52,6 +52,10 @@ class ProfileController extends Controller
             $city = City::find(1);
         }
 
+        if ($request->image_r == 'delete') {
+            Storage::delete('public/' . $user->image);
+            $user->image = null;            
+        }
         if ($request->image) {
             Storage::delete('public/' . $user->image);
             $user->image = $request->file('image')->store('users', 'public');

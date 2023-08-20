@@ -195,6 +195,10 @@ class MyEventController extends Controller
                 $event->city_id = $request->event_city;
                 $event->region_id = $city->region->id;
 
+                if ($request->image_r == 'delete') {
+                    Storage::delete('public/' . $event->image);
+                    $event->image = null;            
+                }
                 if ($request->image) {
                     Storage::delete('public/' . $event->image);
                     $event->image = $request->file('image')->store('events', 'public');

@@ -12,16 +12,21 @@
     <form method="post" action="{{ route('profile.update') }}" class="space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
-
+        <input name="image_r" type="text" id="image_r" class="hidden" style="z-index:-10;" />
 
 
         <div class="flex flex-row">
-            <div class="flex">
+            <div class="flex relative">
                 @if( $user->image == null)
-                <img class="h-20 w-20 rounded-full m-4 object-cover" id="img" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                <img class="h-20 w-20 rounded-full m-4 object-cover" id="img" src="{{ url('/image/no-image.png')}}" alt="{{ $user->firstname }} avatar">
                 @else
-                <img class="preview h-20 w-20 rounded-full m-4 object-cover" id="img" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
+                <img class="h-20 w-20 rounded-full m-4 object-cover" id="img" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
                 @endif
+                <button type="button" id="remove_image" class="absolute top-2 right-2" @if( $user->image == null)
+                                style="display: none;"
+                                @else
+                                style="display: block;"
+                                @endif><img src="{{ url('/image/remove.png')}}" class="w-5 h-5" style="cursor:pointer;"></button>
             </div>
 
             <div class="flex items-center">
@@ -129,7 +134,6 @@
                     }
                 });
             }
-
             $('#image').on('change', function(event) {
                 var selectedFile = event.target.files[0];
 
@@ -141,11 +145,19 @@
                     $('.input-file input[type=file]').next().css({"color" : "rgb(239 68 68)"});
                     $('.input-file input[type=file]').val('');
                     $('.input-file input[type=file]').next().html(file.name);
+                    $('#image_r').val('');
+                    $('#remove_image').css({
+                    "display": "none"
+                });
                     return;
                 } else {
                     let file = this.files[0];
+                    $('#image_r').val('');
                     $('.input-file input[type=file]').next().html(file.name);
                     $(this).next().css({"color" : "rgb(71 85 105)"});
+                    $('#remove_image').css({
+                    "display": "block"
+                });
 
                     // Display file preview
                     var reader = new FileReader();
@@ -157,9 +169,15 @@
                     return;
                 }
             });
-            // $('.input-file input[type=file]').on('change', function() {
-
-            // });
+            $('#remove_image').on('click', function() {
+            $('#image').val('');
+            $('#image_r').val('delete');
+            $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
+            $('.input-file input[type=file]').next().html('Выберите файл');
+            $('#remove_image').css({
+                "display": "none"
+            });
+        });
         });
     </script>
 </section>

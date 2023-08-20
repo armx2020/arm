@@ -182,11 +182,17 @@ class MyCompanyController extends Controller
         $company->vkontakte = $request->vkontakte;
         $company->user_id = Auth::user()->id;
 
-        if ($request->image) {
+
+        if ($request->image_r == 'delete') {
             Storage::delete('public/' . $company->image);
-            $company->image = $request->file('image')->store('companies', 'public');
+            $company->image = null;            
         }
 
+        if ($request->image) {    
+            Storage::delete('public/' . $company->image);   
+            $company->image = $request->file('image')->store('companies', 'public');
+        }
+        
         $company->update();
 
         return redirect()->route('mycompanies.show', ['mycompany' => $company->id])->with('success', 'Группа "' . $company->name . '" обнавлена');

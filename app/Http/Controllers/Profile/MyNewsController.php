@@ -204,6 +204,31 @@ class MyNewsController extends Controller
                 $news->city_id = $request->news_city;
                 $news->region_id = $city->region->id;
 
+                if ($request->image_r == 'delete') {
+                    Storage::delete('public/' . $news->image);
+                    $news->image = null;            
+                }
+        
+                if ($request->image_r1 == 'delete') {
+                    Storage::delete('public/' . $news->image1);
+                    $news->image1 = null;            
+                }
+        
+                if ($request->image_r2 == 'delete') {
+                    Storage::delete('public/' . $news->image2);
+                    $news->image2 = null;            
+                }
+        
+                if ($request->image_r3 == 'delete') {
+                    Storage::delete('public/' . $news->image3);
+                    $news->image3 = null;            
+                }
+        
+                if ($request->image_r4 == 'delete') {
+                    Storage::delete('public/' . $news->image4);
+                    $news->image4 = null;            
+                }
+
                 if ($request->image) {
                     Storage::delete('public/' . $news->image);
                     $news->image = $request->file('image')->store('news', 'public');

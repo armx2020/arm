@@ -200,6 +200,31 @@ class MyOfferController extends Controller
         $offer->instagram = $company->instagram;
         $offer->vkontakte = $company->vkontakte;
 
+        if ($request->image_r == 'delete') {
+            Storage::delete('public/' . $offer->image);
+            $offer->image = null;            
+        }
+
+        if ($request->image_r1 == 'delete') {
+            Storage::delete('public/' . $offer->image1);
+            $offer->image1 = null;            
+        }
+
+        if ($request->image_r2 == 'delete') {
+            Storage::delete('public/' . $offer->image2);
+            $offer->image2 = null;            
+        }
+
+        if ($request->image_r3 == 'delete') {
+            Storage::delete('public/' . $offer->image3);
+            $offer->image3 = null;            
+        }
+
+        if ($request->image_r4 == 'delete') {
+            Storage::delete('public/' . $offer->image4);
+            $offer->image4 = null;            
+        }
+
         if ($request->image) {
             Storage::delete('public/' . $offer->image);
             $offer->image = $request->file('image')->store('offers', 'public');

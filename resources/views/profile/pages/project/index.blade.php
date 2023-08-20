@@ -22,7 +22,7 @@
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('myprojects.show', ['myproject' => $project->id ]) }}" class="block h-52">
                     @if( $project->image == null )
-                    <img class="h-48 rounded-lg mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
+                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
                     <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$project->image) }}" alt="image">
                     @endif
@@ -51,7 +51,7 @@
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('myprojects.show', ['myproject' => $project->id ]) }}" class="block h-52">
                     @if( $project->image == null )
-                    <img class="h-48 rounded-lg mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
+                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
                     <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$project->image) }}" alt="image">
                     @endif
@@ -79,7 +79,7 @@
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('myprojects.show', ['myproject' => $project->id ]) }}" class="block h-52">
                     @if( $project->image == null )
-                    <img class="h-48 rounded-lg mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
+                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
                     <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$project->image) }}" alt="image">
                     @endif

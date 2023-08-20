@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="bg-white rounded-md pb-3 lg:m-3 my-3 hidden lg:block" id="select-profile-menu">
-        <ul class="m-6 text-md">
+        <ul class="m-6 text-sm">
 
             @if($page == 'main')
             <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Главная</a></li>

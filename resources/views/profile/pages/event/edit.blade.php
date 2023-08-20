@@ -10,6 +10,7 @@
                 <form method="post" action="{{ route('myevents.update', ['myevent' => $event->id ]) }}" class="w-full" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
+                    <input name="image_r" type="text" id="image_r" class="hidden" style="z-index:-10;" />
 
                     <div class="w-full">
                         <h2 class="text-xl">Редактировать мероприятие</h2>
@@ -17,16 +18,26 @@
                     </div>
 
                     <div class="flex flex-row">
-                        <div class="flex">
+                        <div class="flex relative">
                             @if( $event->image == null)
-                            <img class="h-20 w-20 rounded-lg m-4 p-4 object-cover" src="{{ url('/image/no-image.png')}}" alt="{{ $event->name }}">
+                            <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img" src="{{ url('/image/no-image.png')}}" alt="image">
                             @else
-                            <img class="h-20 w-20 rounded-lg m-4 p-4 object-cover" src="{{ asset('storage/'. $event->image) }}" alt="{{ $event->image }}">
+                            <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img" src="{{ asset('storage/'. $event->image) }}" alt="image">
                             @endif
+                            <button type="button" id="remove_image" class="absolute top-5 right-5" @if( $event->image == null)
+                                style="display: none;"
+                                @else
+                                style="display: block;"
+                                @endif
+                                ><img src="{{ url('/image/remove.png')}}" class="w-5 h-5" style="cursor:pointer;">
+                            </button>
                         </div>
 
                         <div class="flex items-center">
-                            <input name="image" type="file" id="image" class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5" />
+                            <label class="input-file relative inline-block">
+                                <input name="image" type="file" accept=".jpg,.jpeg,.png" id="image" class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                <span class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл</span>
+                            </label>
                         </div>
                     </div>
 
@@ -110,6 +121,54 @@
                 }
             });
         }
+        $('#image').on('change', function(event) {
+            var selectedFile = event.target.files[0];
+
+            // Check file size (in bytes)
+            var fileSize = selectedFile.size;
+            var maxSize = 2000000; // 2 mb
+            if (fileSize > maxSize) {
+                $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
+                $('.input-file input[type=file]').next().css({
+                    "color": "rgb(239 68 68)"
+                });
+                $('#image').val('');
+                $('#image_r').val('');
+                $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
+                $('#remove_image').css({
+                    "display": "none"
+                });
+                return;
+            } else {
+                let file = this.files[0];
+                $('.input-file input[type=file]').next().html(file.name);
+                $(this).next().css({
+                    "color": "rgb(71 85 105)"
+                });
+                $('#remove_image').css({
+                    "display": "block"
+                });
+                $('#image_r').val('');
+
+                // Display file preview
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    $('#img').attr('src', event.target.result);
+
+                };
+                reader.readAsDataURL(selectedFile);
+                return;
+            }
+        });
+        $('#remove_image').on('click', function() {
+            $('#image').val('');
+            $('#image_r').val('delete');
+            $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
+            $('.input-file input[type=file]').next().html('Выберите файл');
+            $('#remove_image').css({
+                "display": "none"
+            });
+        });
     });
 </script>
 @endsection
