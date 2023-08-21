@@ -12,17 +12,40 @@
         @endif
         <div class="flex flex-col basis-full">
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
-                <div class="flex flex-col basis-1/4">
-                    @if( $offer->image == null )
-                    <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
-                    @else
-                    <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ asset( 'storage/'.$offer->image) }}" alt="image">
+                <div class="flex flex-col basis-1/4" @if( $offer->image !== null )
+                    id="slider"
                     @endif
+                    >
+                    <ul>
+                        @if( $offer->image == null )
+                        <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                        @else
+                        <li><img src="{{ asset( 'storage/'.$offer->image) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image"></li>
+                        @endif
+
+                        @if($offer->image1)
+                        <li><img src="{{ asset( 'storage/'.$offer->image1) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image1"></li>
+                        @endif
+
+                        @if($offer->image2)
+                        <li><img src="{{ asset( 'storage/'.$offer->image2) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image2"></li>
+                        @endif
+
+                        @if($offer->image3)
+                        <li><img src="{{ asset( 'storage/'.$offer->image3) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image3"></li>
+                        @endif
+
+                        @if($offer->image4)
+                        <li><img src="{{ asset( 'storage/'.$offer->image4) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image4"></li>
+                        @endif
+                    </ul>
+
                     <div class="m-5">
                         <div class="my-2 text-center">
                             <p class="mx-3 inline">{{ $offer->price }} {{ $offer->unit_of_price }}</p>
                         </div>
                     </div>
+
                 </div>
                 <div class="flex flex-col px-3 lg:px-10 basis-3/4">
                     <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $offer->name }}</h1>
@@ -73,4 +96,17 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#slider ul').bxSlider({
+            pager: true,
+            controls: true,
+            auto: true,
+            mode: 'fade',
+            pause: 10000,
+            minSlides: 1,
+            maxSlides: 1
+        });
+    });
+</script>
 @endsection

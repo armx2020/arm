@@ -21,7 +21,7 @@
     <!-- Scripts -->
     <script src="{{ url('/jquery-3.7.0.min.js')}}"></script>
     <script src="{{ url('/select2.min.js')}}"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/select.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/select.css', 'resources/js/jquery.bxslider.js'])
     @livewireStyles
 </head>
 

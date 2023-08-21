@@ -9,7 +9,8 @@ export default defineConfig({
                 'resources/css/select.css',
                 'resources/js/app.js',
                 'resources/js/scripts.js',
-                'resources/js/mask_phone.js'
+                'resources/js/mask_phone.js',
+                'resources/js/jquery.bxslider.js'
             ],
             refresh: true,
         }),

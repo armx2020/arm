@@ -111,9 +111,9 @@
                     <div class="block rounded-lg bg-white">
                         <a href="{{ route('myevents.show', ['myevent' => $event->id ]) }}" class="h-48 max-w-lg block">
                             @if( $event->image == null )
-                            <img class="max-w-lg h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
+                            <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
-                            <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 lg:p-4 flex object-cover" src="{{ asset( 'storage/'.$event->image) }}" alt="image">
+                            <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$event->image) }}" alt="image">
                             @endif
                         </a>
                         <div class="p-3 lg:p-6">
@@ -146,9 +146,9 @@
                     <div class="block rounded-lg bg-white">
                         <a href="{{ route('myprojects.show', ['myproject' => $project->id ]) }}" class="h-48 max-w-lg block">
                             @if( $project->image == null )
-                            <img class="max-w-lg h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="{{ $project->image }}" />
+                            <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
-                            <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 lg:p-4 flex object-cover" src="{{ asset( 'storage/'.$project->image) }}" alt="{{ $project->image }}">
+                            <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$project->image) }}" alt="image">
                             @endif
                         </a>
                         <div class="p-3 lg:p-6">
@@ -223,7 +223,7 @@
                     <div class="block rounded-lg bg-white">
                         <a href="{{ route('mynews.show', ['mynews' => $news->id ]) }}" class="block h-52">
                             @if( $new->image == null )
-                            <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
+                            <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
                             <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$new->image) }}" alt="image">
                             @endif

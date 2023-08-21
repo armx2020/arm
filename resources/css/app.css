@@ -10,3 +10,90 @@ body {
     line-height: 150%;
     color: #111928;
 }
+
+#slider {
+	overflow: hidden;
+}
+#slider ul {
+	margin: 0;
+	padding: 0;
+}
+#slider .bx-wrapper {
+	position: relative;
+}
+#slider .bx-controls {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+ 
+/* Пагинация */
+#slider .bx-pager {
+	position: absolute;
+	left: 30px;
+	right: 30px;
+	bottom: 14px;
+	text-align: center;
+}
+#slider .bx-pager-item {
+	display: inline-block;
+	margin: 0 4px;
+	position: relative;
+	z-index: 100;
+}
+#slider .bx-pager-item a {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	overflow: hidden;
+	text-indent: 999px;
+	background: #fff;
+	border-radius: 50%;
+	border: 1px solid #999;
+}
+#slider .bx-pager-item a.active {
+	background: #000000;
+}
+#slider .bx-pager-item a:hover {
+	background: #f3e792;
+}
+ 
+/* Кнопки управления */
+#slider .bx-controls-direction {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+#slider .bx-controls-direction a:hover {
+	filter: brightness(90%);
+}
+#slider .bx-prev {
+	background: url('/public/prev.png') 0 0 no-repeat; 
+	display: inline-block; 
+	width: 30px;
+	height: 30px;	
+	position: absolute;
+	margin-top: -15px;	
+	top: 50%;
+	left: 10px;
+	overflow: hidden;
+	text-indent: 999px; 
+	z-index: 1000;
+}
+#slider .bx-next {
+	background: url('/public/next.png') 0 0 no-repeat; 
+	display: inline-block; 
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	margin-top: -15px;	
+	top: 50%;
+	right: 10px;
+	overflow: hidden;
+	text-indent: 999px;
+	z-index: 1000;
+}
