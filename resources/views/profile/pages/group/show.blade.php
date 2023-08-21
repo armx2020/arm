@@ -13,7 +13,7 @@
 
         <div class="flex flex-col basis-full">
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
-                <div class="flex flex-col basis-1/4" @if( $group->image !== null )
+                <div class="flex flex-col basis-1/4" @if( $group->image !== null && $group->image1 !== null)
                 id="slider"
                 @endif    
                 >
