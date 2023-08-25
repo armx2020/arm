@@ -12,7 +12,7 @@
         @endif
         <div class="flex flex-col basis-full">
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
-            <div class="flex flex-col basis-1/4" @if( $news->image !== null && $news->image1 !== null)
+                <div class="flex flex-col basis-1/4" @if( $news->image !== null && $news->image1 !== null)
                     id="slider"
                     @endif
                     >
@@ -43,11 +43,11 @@
                 </div>
                 <div class="flex flex-col px-3 lg:px-10 basis-3/4">
                     <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $news->name }}</h1>
-                    <p class="text-left text-sm mx-4 my-1 text-gray-600">{{ $news->parent->name }}</p>
-                        <p class="text-left text-md lg:text-lg mx-4 my-1 text-gray-500">город: {{ $news->city->name }} ({{$news->region->name }})</p>
-                        <p class="text-left text-md mx-4 text-gray-600">{{ $news->date }}</p>
-                        <p class="text-left text-sm mx-4 my-1 text-gray-600">{{ $news->description }}</p>
-                    </div>
+                        <p class="text-left text-sm mx-4 my-1 text-gray-600">инициатор: {{ $news->parent->name ? $news->parent->name : $news->parent->firstname }} {{ $news->parent->lastname }}</p>
+                        <p class="text-left text-sm mx-4 my-1 text-gray-600">город: {{ $news->city->name }} ({{$news->region->name }})</p>
+                        <p class="text-left text-sm mx-4 my-1 text-gray-600">{{ $news->date }}</p>
+                        <p class="text-left text-sm mx-4 my-1 text-gray-500">{{ $news->description }}</p>
+                </div>
                 <div class="absolute right-6 top-3">
                     <div class="my-3 break-all text-base text-right">
                         <a href="{{ route('mynews.edit', ['mynews' => $news->id]) }}" class="inline border-2 hover:border-yellow-400 border-yellow-100 bg-yellow-100 hover:bg-yellow-400 rounded-md py-2 pl-2 pr-1 my-1" title="редактировать">

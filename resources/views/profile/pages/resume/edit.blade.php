@@ -2,12 +2,12 @@
 @section('content')
 <div class="flex flex-col lg:flex-row w-11/12 mx-auto my-10">
 
-    <x-nav-profile page="myworks"></x-nav-profile>
+    <x-nav-profile page="myresumes"></x-nav-profile>
 
     <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
         <div class="flex flex-col basis-full">
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10 relative">
-                <form method="post" action="{{ route('myresume.update', ['myresume' => $resume->id]) }}" class="w-full" enctype="multipart/form-data">
+                <form method="post" action="{{ route('myresumes.update', ['myresume' => $resume->id]) }}" class="w-full" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
 
@@ -53,7 +53,7 @@
                 </form>
             </div>
             <div class="flex basis-full bg-gray-200 rounded-md p-3 my-6">
-                <form method="post" action="{{ route('myresume.destroy', ['myresume' => $resume->id]) }}" class="w-full text-center">
+                <form method="post" action="{{ route('myresumes.destroy', ['myresume' => $resume->id]) }}" class="w-full text-center">
                     @csrf
                     @method('delete')
 

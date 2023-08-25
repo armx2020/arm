@@ -66,6 +66,31 @@
                     </div>
 
                     <div class="my-3">
+                        <label for="parent" class="text-sm font-medium text-gray-900 block mb-2">Инициатор</label>
+                        <select name="parent" id="parent" class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>
+                            <option 
+                            @if($event->parent_type == 'App\Models\User')
+                            value="User|{{ $event->parent->id }}"
+                            @elseif ($event->parent_type == 'App\Models\Company')
+                            value="Company|{{ $event->parent->id }}"
+                            @else ($event->parent_type == 'App\Models\Group')
+                            value="Group|{{ $event->parent->id }}"
+                            @endif
+                            > {{ $event->parent->name ? $event->parent->name : $event->parent->firstname }} {{  $event->parent->lastname }}</option>
+                            <option disabled>-выберите инициатора-</option>
+                            <option value="User|{{ Auth::user()->id }}">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</option>
+                            <option disabled>-группы-</option>
+                            @foreach( $groups as $group)
+                            <option value="Group|{{ $group->id }}">{{ $group->name }}</option>
+                            @endforeach
+                            <option disabled>-компании-</option>
+                            @foreach( $companies as $company)
+                            <option value="Company|{{ $company->id }}">{{ $company->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="my-3">
                         <label for="event_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
                         <select name="event_city" class="w-full" style="border-color: rgb(209 213 219)" id="event_city">
                             <option value='{{ $event->city->id }}'>{{ $event->city->name }}</option>

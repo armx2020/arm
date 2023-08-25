@@ -160,10 +160,15 @@ class MyNewsController extends Controller
                 ($news->parent_type == 'App\Models\Company' && $news->parent->user_id == Auth::user()->id) ||
                 ($news->parent_type == 'App\Models\Group' && $news->parent->user_id == Auth::user()->id)
             ) {
+                $companies = Company::where('user_id', '=', Auth::user()->id)->get();
+                $groups = Group::where('user_id', '=', Auth::user()->id)->get();
+
                 return view('profile.pages.news.edit', [
                     'city'   => $request->session()->get('city'),
                     'news'  => $news,
-                    'cities' => $cities
+                    'cities' => $cities,
+                    'companies' => $companies,
+                    'groups'    => $groups,
                 ]);
             } else {
                 return redirect()->route('mynews.index')->with('alert', 'Новость не найдена');
@@ -204,29 +209,46 @@ class MyNewsController extends Controller
                 $news->city_id = $request->news_city;
                 $news->region_id = $city->region->id;
 
+                $parent = $request->parent;
+                $parent_explode = explode('|', $parent);
+
+                if ($parent_explode[0] == 'User') {
+                    $news->parent_type = 'App\Models\User';
+                    $news->parent_id = $parent_explode[1];
+                } elseif ($parent_explode[0] == 'Company') {
+                    $news->parent_type = 'App\Models\Company';
+                    $news->parent_id = $parent_explode[1];
+                } elseif ($parent_explode[0] == 'Group') {
+                    $news->parent_type = 'App\Models\Group';
+                    $news->parent_id = $parent_explode[1];
+                } else {
+                    $news->parent_type = 'App\Models\Admin';
+                    $news->parent_id = 1;
+                }
+
                 if ($request->image_r == 'delete') {
                     Storage::delete('public/' . $news->image);
-                    $news->image = null;            
+                    $news->image = null;
                 }
-        
+
                 if ($request->image_r1 == 'delete') {
                     Storage::delete('public/' . $news->image1);
-                    $news->image1 = null;            
+                    $news->image1 = null;
                 }
-        
+
                 if ($request->image_r2 == 'delete') {
                     Storage::delete('public/' . $news->image2);
-                    $news->image2 = null;            
+                    $news->image2 = null;
                 }
-        
+
                 if ($request->image_r3 == 'delete') {
                     Storage::delete('public/' . $news->image3);
-                    $news->image3 = null;            
+                    $news->image3 = null;
                 }
-        
+
                 if ($request->image_r4 == 'delete') {
                     Storage::delete('public/' . $news->image4);
-                    $news->image4 = null;            
+                    $news->image4 = null;
                 }
 
                 if ($request->image) {

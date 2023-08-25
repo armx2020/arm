@@ -30,7 +30,7 @@
                 </div>
                 <div class="flex flex-col px-3 lg:px-10 basis-3/4">
                     <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $company->name }}</h1>
-                        <p class="text-left text-md lg:text-lg mx-4 my-1 text-gray-500">город: {{ $company->city->name }} ({{$company->region->name }})</p>
+                        <p class="text-left text-sm mx-4 my-1 text-gray-600">город: {{ $company->city->name }} ({{$company->region->name }})</p>
                         <p class="text-left text-sm mx-4 my-1 text-gray-600">{{ $company->description }}</p>
 
                         <hr class="mt-3 mb-3">
@@ -221,7 +221,7 @@
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($company->news as $new)
                     <div class="block rounded-lg bg-white">
-                        <a href="{{ route('mynews.show', ['mynews' => $news->id ]) }}" class="block h-52">
+                        <a href="{{ route('mynews.show', ['mynews' => $new->id ]) }}" class="block h-52">
                             @if( $new->image == null )
                             <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else

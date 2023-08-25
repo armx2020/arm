@@ -43,11 +43,29 @@
             <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myevents.index') }}">Мероприятия</a></li>
             @endif
 
-            @if($page == 'myworks')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myworks.index') }}">Работа</a></li>
+            @if($page == 'myresumes' || $page == 'myvacancies')
+            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><button id="dropdown_button">Работа</button></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myworks.index') }}">Работа</a></li>
+            <li class="p-2 hover:text-gray-500 rounded-md"><button id="dropdown_button">Работа</button></li>
             @endif
+
+            @if($page == 'myresumes' || $page == 'myvacancies')
+            <ul id="dropdown_ul" class="block">
+            @else
+            <ul id="dropdown_ul" class="hidden">
+            @endif
+                @if($page == 'myresumes')
+                <li class="text-gray-400 p-2 pl-6 hover:text-gray-500 rounded-md"><a href="{{ route('myresumes.index') }}">мои резюме</a></li>
+                @else
+                <li class="text-gray-600 p-2 pl-6 hover:text-gray-500 rounded-md"><a href="{{ route('myresumes.index') }}">мои резюме</a></li>
+                @endif
+
+                @if($page == 'myvacancies')
+                <li class="text-gray-400 p-2 pl-6 hover:text-gray-500 rounded-md"><a href="{{ route('myvacancies.index') }}">мои вакансии</a></li>
+                @else
+                <li class="text-gray-600 p-2 pl-6 hover:text-gray-500 rounded-md"><a href="{{ route('myvacancies.index') }}">мои вакансии</a></li>
+                @endif
+            </ul>
 
 
             @if($page == 'myprojects')
@@ -69,7 +87,7 @@
             @else
             <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Справочник</a></li>
             @endif
-            
+
         </ul>
     </div>
 </div>

@@ -185,6 +185,31 @@
                     </div>
 
                     <div class="my-3">
+                        <label for="parent" class="text-sm font-medium text-gray-900 block mb-2">Инициатор</label>
+                        <select name="parent" id="parent" class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>
+                            <option 
+                            @if($news->parent_type == 'App\Models\User')
+                            value="User|{{ $news->parent->id }}"
+                            @elseif ($news->parent_type == 'App\Models\Company')
+                            value="Company|{{ $news->parent->id }}"
+                            @else ($news->parent_type == 'App\Models\Group')
+                            value="Group|{{ $news->parent->id }}"
+                            @endif
+                            > {{ $news->parent->name ? $news->parent->name : $news->parent->firstname }} {{  $news->parent->lastname }}</option>
+                            <option disabled>-выберите инициатора-</option>
+                            <option value="User|{{ Auth::user()->id }}">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</option>
+                            <option disabled>-группы-</option>
+                            @foreach( $groups as $group)
+                            <option value="Group|{{ $group->id }}">{{ $group->name }}</option>
+                            @endforeach
+                            <option disabled>-компании-</option>
+                            @foreach( $companies as $company)
+                            <option value="Company|{{ $company->id }}">{{ $company->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="my-3">
                         <label for="news_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
                         <select name="news_city" class="w-full" style="border-color: rgb(209 213 219)" id="news_city">
                             <option value='{{ $news->city->id }}'>{{ $news->city->name }}</option>

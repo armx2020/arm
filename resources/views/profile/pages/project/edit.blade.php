@@ -72,6 +72,31 @@
                     </div>
 
                     <div class="my-3">
+                        <label for="parent" class="text-sm font-medium text-gray-900 block mb-2">Инициатор</label>
+                        <select name="parent" id="parent" class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>
+                            <option 
+                            @if($project->parent_type == 'App\Models\User')
+                            value="User|{{ $project->parent->id }}"
+                            @elseif ($project->parent_type == 'App\Models\Company')
+                            value="Company|{{ $project->parent->id }}"
+                            @else ($project->parent_type == 'App\Models\Group')
+                            value="Group|{{ $project->parent->id }}"
+                            @endif
+                            > {{ $project->parent->name ? $project->parent->name : $project->parent->firstname }} {{  $project->parent->lastname }}</option>
+                            <option disabled>-выберите инициатора-</option>
+                            <option value="User|{{ Auth::user()->id }}">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</option>
+                            <option disabled>-группы-</option>
+                            @foreach( $groups as $group)
+                            <option value="Group|{{ $group->id }}">{{ $group->name }}</option>
+                            @endforeach
+                            <option disabled>-компании-</option>
+                            @foreach( $companies as $company)
+                            <option value="Company|{{ $company->id }}">{{ $company->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="my-3">
                         <label for="project_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
                         <select name="project_city" class="w-full" style="border-color: rgb(209 213 219)" id="project_city">
                             <option value='{{ $project->city->id }}'>{{ $project->city->name }}</option>

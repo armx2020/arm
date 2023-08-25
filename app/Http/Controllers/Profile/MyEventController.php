@@ -113,7 +113,7 @@ class MyEventController extends Controller
             });
 
         $event = Event::with('parent')->find($id);
-    
+
         if (empty($event)) {
             return redirect()->route('myevents.index')->with('alert', 'Мероприятие не найдено');
         } else {
@@ -150,10 +150,15 @@ class MyEventController extends Controller
                 ($event->parent_type == 'App\Models\Company' && $event->parent->user_id == Auth::user()->id) ||
                 ($event->parent_type == 'App\Models\Group' && $event->parent->user_id == Auth::user()->id)
             ) {
+                $companies = Company::where('user_id', '=', Auth::user()->id)->get();
+                $groups = Group::where('user_id', '=', Auth::user()->id)->get();
+
                 return view('profile.pages.event.edit', [
                     'city'   => $request->session()->get('city'),
                     'event'  => $event,
-                    'cities' => $cities
+                    'cities' => $cities,
+                    'companies' => $companies,
+                    'groups'    => $groups,
                 ]);
             } else {
                 return redirect()->route('mynevents.index')->with('alert', 'Мероприятие не найдено');
@@ -195,9 +200,26 @@ class MyEventController extends Controller
                 $event->city_id = $request->event_city;
                 $event->region_id = $city->region->id;
 
+                $parent = $request->parent;
+                $parent_explode = explode('|', $parent);
+
+                if ($parent_explode[0] == 'User') {
+                    $event->parent_type = 'App\Models\User';
+                    $event->parent_id = $parent_explode[1];
+                } elseif ($parent_explode[0] == 'Company') {
+                    $event->parent_type = 'App\Models\Company';
+                    $event->parent_id = $parent_explode[1];
+                } elseif ($parent_explode[0] == 'Group') {
+                    $event->parent_type = 'App\Models\Group';
+                    $event->parent_id = $parent_explode[1];
+                } else {
+                    $event->parent_type = 'App\Models\Admin';
+                    $event->parent_id = 1;
+                }
+
                 if ($request->image_r == 'delete') {
                     Storage::delete('public/' . $event->image);
-                    $event->image = null;            
+                    $event->image = null;
                 }
                 if ($request->image) {
                     Storage::delete('public/' . $event->image);

@@ -7,7 +7,7 @@
     <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
         <div class="flex flex-col basis-full">
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10 relative">
-                <form method="post" action="{{ route('myvacancy.update', ['myvacancy' => $vacancy->id]) }}" class="w-full" enctype="multipart/form-data">
+                <form method="post" action="{{ route('myvacancies.update', ['myvacancy' => $vacancy->id]) }}" class="w-full" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
 
@@ -41,6 +41,31 @@
                     </div>
 
                     <div class="my-3">
+                        <label for="parent" class="text-sm font-medium text-gray-900 block mb-2">Инициатор</label>
+                        <select name="parent" id="parent" class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>
+                            <option 
+                            @if($vacancy->parent_type == 'App\Models\User')
+                            value="User|{{ $vacancy->parent->id }}"
+                            @elseif ($vacancy->parent_type == 'App\Models\Company')
+                            value="Company|{{ $vacancy->parent->id }}"
+                            @else ($vacancy->parent_type == 'App\Models\Group')
+                            value="Group|{{ $vacancy->parent->id }}"
+                            @endif
+                            > {{ $vacancy->parent->name ? $vacancy->parent->name : $vacancy->parent->firstname }} {{  $vacancy->parent->lastname }}</option>
+                            <option disabled>-выберите инициатора-</option>
+                            <option value="User|{{ Auth::user()->id }}">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</option>
+                            <option disabled>-группы-</option>
+                            @foreach( $groups as $group)
+                            <option value="Group|{{ $group->id }}">{{ $group->name }}</option>
+                            @endforeach
+                            <option disabled>-компании-</option>
+                            @foreach( $companies as $company)
+                            <option value="Company|{{ $company->id }}">{{ $company->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="my-3">
                         <label for="vacancy_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
                         <select name="vacancy_city" class="w-full" style="border-color: rgb(209 213 219)" id="vacancy_city">
                             <option value='{{ $vacancy->city->id }}'>{{ $vacancy->city->name }}</option>
@@ -53,7 +78,7 @@
                 </form>
             </div>
             <div class="flex basis-full bg-gray-200 rounded-md p-3 my-6">
-                <form method="post" action="{{ route('myvacancy.destroy', ['myvacancy' => $vacancy->id]) }}" class="w-full text-center">
+                <form method="post" action="{{ route('myvacancies.destroy', ['myvacancy' => $vacancy->id]) }}" class="w-full text-center">
                     @csrf
                     @method('delete')
 
