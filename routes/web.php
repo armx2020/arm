@@ -82,18 +82,6 @@ Route::middleware('auth')->group(function () {
         'myresumes'     =>  MyResumeController::class,
         'myvacancies'   =>  MyVacancyController::class
     ]);
-
-    // Route::get('/myworks', [MyWorkController::class, 'index'])->name('myworks.index');
-    // Route::post('/myresume', [MyWorkController::class, 'store_resume'])->name('myresume.store');
-    // Route::post('/myvacancy', [MyWorkController::class, 'store_vacancy'])->name('myvacancy.store');
-    // Route::get('/myresume/{myresume}', [MyWorkController::class, 'show_resume'])->name('myresume.show');
-    // Route::get('/myvacancy/{myvacancy}', [MyWorkController::class, 'show_vacancy'])->name('myvacancy.show');
-    // Route::get('/myresume/{myresume}/edit', [MyWorkController::class, 'edit_resume'])->name('myresume.edit');
-    // Route::get('/myvacancy/{myvacancy}/edit', [MyWorkController::class, 'edit_vacancy'])->name('myvacancy.edit');
-    // Route::patch('/myresume/{myresume}', [MyWorkController::class, 'update_resume'])->name('myresume.update');
-    // Route::patch('/myvacancy/{myvacancy}', [MyWorkController::class, 'update_vacancy'])->name('myvacancy.update');
-    // Route::delete('/myresume/{myresume}', [MyWorkController::class, 'destroy_resume'])->name('myresume.destroy');
-    // Route::delete('/myvacancy/{myvacancy}', [MyWorkController::class, 'destroy_vacancy'])->name('myvacancy.destroy');
 });
 
 

@@ -24,7 +24,7 @@
                             <div class="basis-1/2 text-right">{{ $fullness }} %</div>
                         </div>
                         <div class="w-full bg-gray-200">
-                            <div class="bg-green-500 h-5 text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100" style='width: {!! $fullness !!}%'></div>
+                            <div class="bg-green-500 h-5 text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100" style='width: {{ $fullness }}%'></div>
                         </div>
                     </div>
                 </div>

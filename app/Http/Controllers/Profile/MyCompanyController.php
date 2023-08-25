@@ -8,6 +8,7 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image as Image;
 
 class MyCompanyController extends Controller
 {
@@ -79,6 +80,7 @@ class MyCompanyController extends Controller
 
         if ($request->image) {
             $company->image = $request->file('image')->store('companies', 'public');
+            Image::make('storage/'.$company->image)->resize(400, 200)->save();
         }
 
         $company->save();
@@ -191,6 +193,7 @@ class MyCompanyController extends Controller
         if ($request->image) {    
             Storage::delete('public/' . $company->image);   
             $company->image = $request->file('image')->store('companies', 'public');
+            Image::make('storage/'.$company->image)->resize(400, 200)->save();
         }
         
         $company->update();
