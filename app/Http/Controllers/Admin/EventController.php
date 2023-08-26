@@ -10,6 +10,7 @@ use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image as Image;
 
 class EventController extends Controller
 {
@@ -36,7 +37,7 @@ class EventController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['max:128'],
-            'image' => ['image', 'max:2048'],
+            'image' => ['image'],
         ]);
 
         $city = City::with('region')->find($request->city);
@@ -70,6 +71,9 @@ class EventController extends Controller
 
         if ($request->image) {
             $event->image = $request->file('image')->store('events', 'public');
+            Image::make('storage/'.$event->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $event->save();
@@ -113,7 +117,7 @@ class EventController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['max:128'],
-            'image' => ['image', 'max:2048'],
+            'image' => ['image'],
         ]);
 
         $event = Event::find($id);
@@ -152,6 +156,9 @@ class EventController extends Controller
         if ($request->image) {
             Storage::delete('public/' . $event->image);
             $event->image = $request->file('image')->store('events', 'public');
+            Image::make('storage/'.$event->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $event->update();

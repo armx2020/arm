@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image as Image;
 
 class UserController extends Controller
 {
@@ -34,6 +35,7 @@ class UserController extends Controller
             'telegram' => ['max:36'],
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
+            'image' => ['image'],
         ]);
 
         $city = City::with('region')->find($request->city);
@@ -59,6 +61,9 @@ class UserController extends Controller
 
         if ($request->image) {
             $user->image = $request->file('image')->store('users', 'public');
+            Image::make('storage/'.$user->image)->resize(200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
         
         $user->save();
@@ -109,6 +114,7 @@ class UserController extends Controller
             'telegram' => ['max:36'],
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
+            'image' => ['image'],
         ]);
     
         $user = User::find($id);
@@ -126,6 +132,9 @@ class UserController extends Controller
         if ($request->image) {
             Storage::delete('public/'.$user->image);
             $user->image = $request->file('image')->store('users', 'public');
+            Image::make('storage/'.$user->image)->resize(200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $user->firstname = $request->firstname;

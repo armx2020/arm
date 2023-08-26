@@ -10,6 +10,7 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image as Image;
 
 class MyNewsController extends Controller
 {
@@ -55,11 +56,11 @@ class MyNewsController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'image' => ['image', 'max:2048'],
-            'image1' => ['image', 'max:2048'],
-            'image2' => ['image', 'max:2048'],
-            'image3' => ['image', 'max:2048'],
-            'image4' => ['image', 'max:2048'],
+            'image' => ['image'],
+            'image1' => ['image'],
+            'image2' => ['image'],
+            'image3' => ['image'],
+            'image4' => ['image'],
         ]);
 
         $city = City::with('region')->find($request->news_city);
@@ -93,21 +94,35 @@ class MyNewsController extends Controller
             $news->parent_id = 1;
         }
 
-
         if ($request->image) {
             $news->image = $request->file('image')->store('news', 'public');
+            Image::make('storage/'.$news->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
         if ($request->image1) {
             $news->image1 = $request->file('image1')->store('news', 'public');
+            Image::make('storage/'.$news->image1)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
         if ($request->image2) {
             $news->image2 = $request->file('image2')->store('news', 'public');
+            Image::make('storage/'.$news->image2)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
         if ($request->image3) {
             $news->image3 = $request->file('image3')->store('news', 'public');
+            Image::make('storage/'.$news->image3)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
         if ($request->image4) {
             $news->image4 = $request->file('image4')->store('news', 'public');
+            Image::make('storage/'.$news->image4)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $news->save();
@@ -180,11 +195,11 @@ class MyNewsController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'image' => ['image', 'max:2048'],
-            'image1' => ['image', 'max:2048'],
-            'image2' => ['image', 'max:2048'],
-            'image3' => ['image', 'max:2048'],
-            'image4' => ['image', 'max:2048'],
+            'image' => ['image'],
+            'image1' => ['image'],
+            'image2' => ['image'],
+            'image3' => ['image'],
+            'image4' => ['image'],
         ]);
 
         $city = City::with('region')->find($request->news_city);
@@ -254,22 +269,37 @@ class MyNewsController extends Controller
                 if ($request->image) {
                     Storage::delete('public/' . $news->image);
                     $news->image = $request->file('image')->store('news', 'public');
+                    Image::make('storage/'.$news->image)->resize(400, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save();
                 }
                 if ($request->image1) {
                     Storage::delete('public/' . $news->image1);
                     $news->image1 = $request->file('image1')->store('news', 'public');
+                    Image::make('storage/'.$news->image1)->resize(400, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save();
                 }
                 if ($request->image2) {
                     Storage::delete('public/' . $news->image2);
                     $news->image2 = $request->file('image2')->store('news', 'public');
+                    Image::make('storage/'.$news->image2)->resize(400, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save();
                 }
                 if ($request->image3) {
                     Storage::delete('public/' . $news->image3);
                     $news->image3 = $request->file('image3')->store('news', 'public');
+                    Image::make('storage/'.$news->image3)->resize(400, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save();
                 }
                 if ($request->image4) {
                     Storage::delete('public/' . $news->image4);
                     $news->image4 = $request->file('image4')->store('news', 'public');
+                    Image::make('storage/'.$news->image4)->resize(400, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save();
                 }
 
                 $news->update();

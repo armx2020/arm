@@ -28,6 +28,9 @@
                             </label>
                         </div>
                     </div>
+                    <div>
+                        <x-input-error :messages="$errors->get('image')" />
+                    </div>
 
                     <div class="my-3">
                         <x-input-label for="name" :value="__('Название*')" />
@@ -132,7 +135,7 @@
         $('#image').on('change', function(event) {
             var selectedFile = event.target.files[0];
             var fileSize = selectedFile.size;
-            var maxSize = 20000000; // 2 mb
+            var maxSize = 200000000; // 2 mb
             if (fileSize > maxSize) {
                 $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
                 $('.input-file input[type=file]').next().css({
@@ -140,7 +143,9 @@
                 });
                 $('#image').val('');
                 $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
-                $('#remove_image').css({"display":"none"});
+                $('#remove_image').css({
+                    "display": "none"
+                });
                 return;
             } else {
                 let file = this.files[0];
@@ -148,7 +153,9 @@
                 $(this).next().css({
                     "color": "rgb(71 85 105)"
                 });
-                $('#remove_image').css({"display":"block"});
+                $('#remove_image').css({
+                    "display": "block"
+                });
 
                 // Display file preview
                 var reader = new FileReader();
@@ -165,7 +172,9 @@
             $('#image').val('');
             $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
             $('.input-file input[type=file]').next().html('Выберите файл');
-            $('#remove_image').css({"display":"none"});
+            $('#remove_image').css({
+                "display": "none"
+            });
         })
     });
 </script>

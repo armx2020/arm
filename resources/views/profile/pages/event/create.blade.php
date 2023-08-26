@@ -28,6 +28,9 @@
                             </label>
                         </div>
                     </div>
+                    <div>
+                        <x-input-error :messages="$errors->get('image')" />
+                    </div>
 
                     <div class="my-3">
                         <x-input-label for="name" :value="__('Название*')" />

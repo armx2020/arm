@@ -57,11 +57,7 @@ class MyEventController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['max:128'],
-            'image' => ['image', 'max:2048'],
-            'image1' => ['image', 'max:2048'],
-            'image2' => ['image', 'max:2048'],
-            'image3' => ['image', 'max:2048'],
-            'image4' => ['image', 'max:2048'],
+            'image' => ['image'],
         ]);
 
         $city = City::with('region')->find($request->news_city);
@@ -99,6 +95,9 @@ class MyEventController extends Controller
 
         if ($request->image) {
             $event->image = $request->file('image')->store('events', 'public');
+            Image::make('storage/'.$event->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $event->save();
@@ -171,11 +170,7 @@ class MyEventController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
-            'image' => ['image', 'max:2048'],
-            'image1' => ['image', 'max:2048'],
-            'image2' => ['image', 'max:2048'],
-            'image3' => ['image', 'max:2048'],
-            'image4' => ['image', 'max:2048'],
+            'image' => ['image'],
         ]);
 
         $city = City::with('region')->find($request->news_city);
@@ -225,6 +220,9 @@ class MyEventController extends Controller
                 if ($request->image) {
                     Storage::delete('public/' . $event->image);
                     $event->image = $request->file('image')->store('events', 'public');
+                    Image::make('storage/'.$event->image)->resize(400, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save();
                 }
 
                 $event->update();

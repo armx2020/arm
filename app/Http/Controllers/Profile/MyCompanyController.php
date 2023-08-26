@@ -80,7 +80,9 @@ class MyCompanyController extends Controller
 
         if ($request->image) {
             $company->image = $request->file('image')->store('companies', 'public');
-            Image::make('storage/'.$company->image)->resize(400, 200)->save();
+            Image::make('storage/'.$company->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $company->save();
@@ -155,7 +157,7 @@ class MyCompanyController extends Controller
             'telegram' => ['max:36'],
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
-            'image' => ['image', 'max:2048'],
+            'image' => ['image'],
         ]);
 
         $city = City::with('region')->find($request->company_city);
@@ -193,7 +195,9 @@ class MyCompanyController extends Controller
         if ($request->image) {    
             Storage::delete('public/' . $company->image);   
             $company->image = $request->file('image')->store('companies', 'public');
-            Image::make('storage/'.$company->image)->resize(400, 200)->save();
+            Image::make('storage/'.$company->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
         
         $company->update();

@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image as Image;
 
 class CompanyController extends Controller
 {
@@ -34,7 +35,7 @@ class CompanyController extends Controller
             'telegram' => ['max:36'],
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
-            'image' => ['image', 'max:2048'],
+            'image' => ['image'],
         ]);
 
         $city = City::with('region')->find($request->city);
@@ -61,6 +62,9 @@ class CompanyController extends Controller
 
         if ($request->image) {
             $company->image = $request->file('image')->store('companies', 'public');
+            Image::make('storage/'.$company->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $company->save();

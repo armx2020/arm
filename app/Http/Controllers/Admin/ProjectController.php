@@ -10,6 +10,7 @@ use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image as Image;
 
 class ProjectController extends Controller
 {
@@ -36,7 +37,7 @@ class ProjectController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['max:128'],
-            'image' => ['image', 'max:2048'],
+            'image' => ['image'],
         ]);
 
         $project = new Project();
@@ -71,6 +72,9 @@ class ProjectController extends Controller
 
         if ($request->image) {
             $project->image = $request->file('image')->store('projects', 'public');
+            Image::make('storage/'.$project->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $project->save();
@@ -114,7 +118,7 @@ class ProjectController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['max:128'],
-            'image' => ['image', 'max:2048'],
+            'image' => ['image'],
         ]);
 
         $city = City::with('region')->find($request->city);
@@ -155,6 +159,9 @@ class ProjectController extends Controller
         if ($request->image) {
             Storage::delete('public/'.$project->image);
             $project->image = $request->file('image')->store('projects', 'public');
+            Image::make('storage/'.$project->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $project->save();

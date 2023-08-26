@@ -9,6 +9,7 @@ use App\Models\GroupCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image as Image;
 
 class MyGroupController extends Controller
 {
@@ -58,11 +59,11 @@ class MyGroupController extends Controller
             'telegram' => ['max:36'],
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
-            'image' => ['image', 'max:2048'],
-            'image1' => ['image', 'max:2048'],
-            'image2' => ['image', 'max:2048'],
-            'image3' => ['image', 'max:2048'],
-            'image4' => ['image', 'max:2048'],
+            'image' => ['image'],
+            'image1' => ['image'],
+            'image2' => ['image'],
+            'image3' => ['image'],
+            'image4' => ['image'],
         ]);
 
         $city = City::with('region')->find($request->group_city);
@@ -90,18 +91,33 @@ class MyGroupController extends Controller
 
         if ($request->image) {
             $group->image = $request->file('image')->store('groups', 'public');
+            Image::make('storage/'.$group->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
         if ($request->image1) {
             $group->image1 = $request->file('image1')->store('groups', 'public');
+            Image::make('storage/'.$group->image1)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
         if ($request->image2) {
             $group->image2 = $request->file('image2')->store('groups', 'public');
+            Image::make('storage/'.$group->image2)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
         if ($request->image3) {
             $group->image3 = $request->file('image3')->store('groups', 'public');
+            Image::make('storage/'.$group->image3)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
         if ($request->image4) {
             $group->image4 = $request->file('image4')->store('groups', 'public');
+            Image::make('storage/'.$group->image4)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $group->save();
@@ -180,11 +196,11 @@ class MyGroupController extends Controller
             'telegram' => ['max:36'],
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
-            'image' => ['image', 'max:2048'],
-            'image1' => ['image', 'max:2048'],
-            'image2' => ['image', 'max:2048'],
-            'image3' => ['image', 'max:2048'],
-            'image4' => ['image', 'max:2048'],
+            'image' => ['image'],
+            'image1' => ['image'],
+            'image2' => ['image'],
+            'image3' => ['image'],
+            'image4' => ['image'],
         ]);
 
         $city = City::with('region')->find($request->group_city);
@@ -244,26 +260,41 @@ class MyGroupController extends Controller
         if ($request->image) {
             Storage::delete('public/' . $group->image);            
             $group->image = $request->file('image')->store('groups', 'public');
+            Image::make('storage/'.$group->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         if ($request->image1) {
             Storage::delete('public/' . $group->image1);
             $group->image1 = $request->file('image1')->store('groups', 'public');
+            Image::make('storage/'.$group->image1)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         if ($request->image2) {
             Storage::delete('public/' . $group->image2);
             $group->image2 = $request->file('image2')->store('groups', 'public');
+            Image::make('storage/'.$group->image2)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         if ($request->image3) {
             Storage::delete('public/' . $group->image3);
             $group->image3 = $request->file('image3')->store('groups', 'public');
+            Image::make('storage/'.$group->image3)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         if ($request->image4) {
             Storage::delete('public/' . $group->image4);
             $group->image4 = $request->file('image4')->store('groups', 'public');
+            Image::make('storage/'.$group->image4)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $group->update();
