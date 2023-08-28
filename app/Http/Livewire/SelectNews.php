@@ -28,11 +28,17 @@ class SelectNews extends Component
     {
         if ($this->region == 1) {
             $news = News::orderBy('date')->paginate(12);
+            $recommendations = [];
         } else {
             $news = News::with('region')
                 ->where('region_id', '=', $this->region)
                 ->orderBy('date')
                 ->paginate(12);
+
+            $recommendations = News::with('region')
+                ->whereNot(function ($query) {
+                    $query->where('region_id', '=', $this->region);
+                })->limit(3)->get();
         }
 
         $regions = Region::all();
@@ -40,6 +46,7 @@ class SelectNews extends Component
         return view('livewire.select-news', [
             'news' => $news,
             'regions' => $regions,
+            'recommendations' => $recommendations,
             'region' => $this->region
         ]);
     }

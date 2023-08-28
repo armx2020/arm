@@ -28,6 +28,8 @@ class SelectProjects extends Component
 
     public function render()
     {
+        $recommendations = [];
+
         if ($this->region == 1) {
             if ($this->term == 2) {
                 $projects = Project::paginate(12);
@@ -37,13 +39,24 @@ class SelectProjects extends Component
         } else {
             if ($this->term == 2) {
                 $projects = Project::with('region')
-                            ->where('region_id', '=', $this->region)
-                            ->paginate(12);
+                    ->where('region_id', '=', $this->region)
+                    ->paginate(12);
+
+                $recommendations = Project::with('region')
+                    ->whereNot(function ($query) {
+                        $query->where('region_id', '=', $this->region);
+                    })->limit(3)->get();
             } else {
                 $projects = Project::with('region')
-                        ->where('region_id', '=', $this->region)
-                        ->where('activity', '=', $this->term)
-                        ->paginate(12);
+                    ->where('region_id', '=', $this->region)
+                    ->where('activity', '=', $this->term)
+                    ->paginate(12);
+
+                $recommendations = Project::with('region')
+                    ->where('activity', '=', $this->term)
+                    ->whereNot(function ($query) {
+                        $query->where('region_id', '=', $this->region);
+                    })->limit(3)->get();
             }
         }
 
@@ -52,6 +65,7 @@ class SelectProjects extends Component
         return view('livewire.select-projects', [
             'projects' => $projects,
             'regions' => $regions,
+            'recommendations' => $recommendations,
             'region' => $this->region
         ]);
     }

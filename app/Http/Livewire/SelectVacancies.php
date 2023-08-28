@@ -33,19 +33,29 @@ class SelectVacancies extends Component
                 $typeName = 'ВАКАНСИЙ';
             if ($this->region == 1) {
                 $works = Vacancy::paginate(12);
+                $recommendations = [];
             } else {
                 $works = Vacancy::with('region', 'parent')
                     ->where('region_id', '=', $this->region)
                     ->paginate(12);
+                $recommendations = Vacancy::with('region', 'parent')
+                    ->whereNot(function ($query) {
+                        $query->where('region_id', '=', $this->region);
+                    })->limit(3)->get();
             }
         } else {
                 $typeName = 'РЕЗЮМЕ';
             if ($this->region == 1) {
-                $works = Resume::with('user')->paginate(12); 
+                $works = Resume::with('user')->paginate(12);
+                $recommendations = []; 
             } else {
                 $works = Resume::with('user', 'region')
                     ->where('region_id', '=', $this->region)
                     ->paginate(12);
+                $recommendations = Resume::with('user', 'region')
+                    ->whereNot(function ($query) {
+                        $query->where('region_id', '=', $this->region);
+                    })->limit(3)->get();
             }
         }
         $regions = Region::all();
@@ -54,6 +64,7 @@ class SelectVacancies extends Component
             'works' => $works,
             'regions' => $regions,
             'region' => $this->region,
+            'recommendations' => $recommendations,
             'typeName' => $typeName
         ]);
     }

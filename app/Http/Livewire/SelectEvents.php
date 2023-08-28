@@ -28,11 +28,17 @@ class SelectEvents extends Component
     {
         if ($this->region == 1) {
             $events = Event::orderBy('date_to_start')->paginate(12);
+            $recommendations = [];
         } else {
             $events = Event::with('region')
                 ->where('region_id', '=', $this->region)
                 ->orderBy('date_to_start')
                 ->paginate(12);
+
+            $recommendations = Event::with('region')
+                ->whereNot(function ($query) {
+                    $query->where('region_id', '=', $this->region);
+                })->limit(3)->get();
         }
 
         $regions = Region::all();
@@ -40,7 +46,8 @@ class SelectEvents extends Component
         return view('livewire.select-events', [
             'events' => $events,
             'regions' => $regions,
-            'region' => $this->region
+            'region' => $this->region,
+            'recommendations' => $recommendations,
         ]);
     }
 }
