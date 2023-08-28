@@ -34,9 +34,9 @@
                         <div class="block rounded-lg bg-white">
                             <a href="#!" class="block h-52">
                                 @if( $company->image == null )
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @else
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$company->image) }}" alt="image">
+                                <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ asset( 'storage/'.$company->image) }}" alt="image">
                                 @endif
                             </a>
                             <div class="p-6">

@@ -30,6 +30,10 @@ class GroupController extends Controller
 
         $group = Group::with('events', 'projects', 'vacancies', 'news')->findOrFail($id);
 
+        if (empty($group)) {
+            return redirect()->route('groups.index')->with('alert', 'Группа не найдена');
+        }
+
         $sum =  ($group->address ? 10 : 0) +
             ($group->description ? 10 : 0) +
             ($group->image ? 10 : 0) +

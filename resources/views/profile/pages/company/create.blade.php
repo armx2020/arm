@@ -135,7 +135,7 @@
         $('#image').on('change', function(event) {
             var selectedFile = event.target.files[0];
             var fileSize = selectedFile.size;
-            var maxSize = 200000000; // 2 mb
+            var maxSize = 2000000; // 2 mb
             if (fileSize > maxSize) {
                 $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
                 $('.input-file input[type=file]').next().css({

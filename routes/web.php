@@ -56,13 +56,29 @@ Route::get('/groups/places', [GroupController::class, 'places'])->name('group.pl
 Route::get('/groups/religion', [GroupController::class, 'religion'])->name('group.religion')->middleware(FromLocation::class);
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('project.index')->middleware(FromLocation::class);
+Route::get('/project/{id}', [ProjectController::class, 'show'])->name('project.show')->middleware(FromLocation::class);
+
 Route::get('/companies', [CompanyController::class, 'index'])->name('company.index')->middleware(FromLocation::class);
+Route::get('/company/{id}', [CompanyController::class, 'show'])->name('company.show')->middleware(FromLocation::class);
+
 Route::get('/offers', [OfferController::class, 'index'])->name('offer.index')->middleware(FromLocation::class);
+Route::get('/offer/{id}', [OfferController::class, 'show'])->name('offer.show')->middleware(FromLocation::class);
+
 Route::get('/vacancies', [VacancyController::class, 'index'])->name('vacancy.index')->middleware(FromLocation::class);
+Route::get('/vacancy/{id}', [VacancyController::class, 'show_vacancy'])->name('vacancy.show')->middleware(FromLocation::class);
+Route::get('/resume/{id}', [VacancyController::class, 'show_resume'])->name('resume.show')->middleware(FromLocation::class);
+
 Route::get('/events', [EventController::class, 'index'])->name('event.index')->middleware(FromLocation::class);
+Route::get('/event/{id}', [EventController::class, 'show'])->name('event.show')->middleware(FromLocation::class);
+
 Route::get('/news', [NewsController::class, 'index'])->name('news.index')->middleware(FromLocation::class);
+Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show')->middleware(FromLocation::class);
+
+Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show')->middleware(FromLocation::class);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified', 'from'])->name('dashboard');
+
+
 
 
 Route::middleware('auth')->group(function () {

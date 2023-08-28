@@ -31,6 +31,37 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function show(Request $request, $id)
+    {
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
+
+        $user = User::find($id);
+
+        if (empty($user)) {
+            return redirect()->route('welcome')->with('alert', 'Товар не найден');
+        }
+
+        $sum =  ($user !== 1 ? 10 : 0) +
+            ($user ? 10 : 0) +
+            ($user ? 5 : 0) +
+            ($user ? 5 : 0) +
+            ($user ? 5 : 0) +
+            ($user ? 5 : 0) +
+            ($user ? 5 : 0);
+
+        $fullness = (round(($sum / 45) * 100));
+
+        return view('pages.user.user', [
+            'city'   => $request->session()->get('city'),
+            'user' => $user,
+            'fullness' => $fullness,
+            'cities' => $cities
+        ]);
+    }
+
     /**
      * Update the user's profile information.
      */
@@ -56,12 +87,12 @@ class ProfileController extends Controller
 
         if ($request->image_r == 'delete') {
             Storage::delete('public/' . $user->image);
-            $user->image = null;            
+            $user->image = null;
         }
         if ($request->image) {
             Storage::delete('public/' . $user->image);
             $user->image = $request->file('image')->store('users', 'public');
-            Image::make('storage/'.$user->image)->resize(200, null, function ($constraint) {
+            Image::make('storage/' . $user->image)->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }

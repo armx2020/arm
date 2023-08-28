@@ -55,47 +55,51 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                         @foreach($works as $work)
                         @if($typeName == 'ВАКАНСИЙ')
-                        <div class="block rounded-lg bg-white">
-                            <a href="#!" class="block h-52">
-                                <div class="p-6">
-                                    <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
-                                        {{ $work->name }}
-                                    </h5>
-                                    <p class="mb-4 break-all text-base text-neutral-400">
-                                        {{ $work->description }}
-                                    </p>
-                                    <hr class="my-3">
-                                    <div>
-                                        <p class="text-center text-md font-bold pb-0">
-                                            @if($work->price)
-                                            {{ $work->price }} RUB.
-                                            @else
-                                            no price
-                                            @endif
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        @else
-                        <div class="block rounded-lg bg-white">
-                            <a href="#!" class="block h-52">
-                                @if( $work->user->image == null )
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="{{ $work->name }} avatar" />
+                        <div class="block rounded-lg bg-white h-80">
+                            <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="block h-52">
+                                @if( $work->parent == null )
+                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @else
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="{{ $work->name }} avatar">
+                                @if( $work->parent->image == null )
+                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                @else
+                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->parent->image) }}" alt="image">
+                                @endif
                                 @endif
                             </a>
-                            <div class="p-6">
-                                <div class="h-12">
-                                    <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
-                                        {{ $work->name }}
-                                    </h5>
+                            <div class="px-6">
+                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                    {{$work->name }}
+                                </h5>
+                                <hr class="my-2">
+                                <div class="my-4 break-all text-base text-right">
+                                    <p class="mx-3 inline text-md font-bold">
+                                        @if($work->price !== null && $work->price !== 0)
+                                        {{ $work->price }} RUB.
+                                        @else
+                                        no price
+                                        @endif
+                                    </p>
                                 </div>
-                                <hr class="my-3">
-                                <div>
-                                    <p class="text-center text-md font-bold pb-0">
-                                        @if($work->price)
+                            </div>
+                        </div>
+                        @else
+                        <div class="block rounded-lg bg-white h-80">
+                            <a href="{{ route('resume.show', ['id' => $work->id ]) }}" class="block h-52">
+                                @if( $work->user->image == null )
+                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/user.png')}}" alt="image" />
+                                @else
+                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="image">
+                                @endif
+                            </a>
+                            <div class="px-6">
+                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                    {{ $work->name }}
+                                </h5>
+                                <hr class="my-2">
+                                <div class="my-4 break-all text-base text-right">
+                                    <p class="mx-3 inline text-md font-bold">
+                                        @if($work->price !== 0)
                                         {{ $work->price }} RUB.
                                         @else
                                         no price

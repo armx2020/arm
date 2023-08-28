@@ -34,7 +34,7 @@ class SelectVacancies extends Component
             if ($this->region == 1) {
                 $works = Vacancy::paginate(12);
             } else {
-                $works = Vacancy::with('region')
+                $works = Vacancy::with('region', 'parent')
                     ->where('region_id', '=', $this->region)
                     ->paginate(12);
             }

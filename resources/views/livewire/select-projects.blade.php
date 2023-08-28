@@ -59,21 +59,19 @@
                 @else
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($projects as $project)
-                    <div class="block rounded-lg bg-white">
-                        <a href="#!" class="block h-52">
+                    <div class="block rounded-lg bg-white h-80">
+                        <a href="{{ route('myprojects.show', ['myproject' => $project->id ]) }}" class="block h-52">
                             @if( $project->image == null )
-                            <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="{{ $project->image }}" />
+                            <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
-                            <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$project->image) }}" alt="{{ $project->image }}">
+                            <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$project->image) }}" alt="image">
                             @endif
                         </a>
-                        <div class="p-6">
-                            <div class="h-12">
-                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
-                                    {{ $project->name }}
-                                </h5>
-                            </div>
-                            <hr class="my-3">
+                        <div class="px-6">
+                            <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                {{ $project->name }}
+                            </h5>
+                            <hr class="my-2">
                             <div>
                                 <div class="my-2 flex flex-row">
                                     <div class="basis-1/2 text-left font-bold">{{ $project->donations_need }} руб.</div>

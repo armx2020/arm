@@ -202,7 +202,7 @@ class MyCompanyController extends Controller
         
         $company->update();
 
-        return redirect()->route('mycompanies.show', ['mycompany' => $company->id])->with('success', 'Группа "' . $company->name . '" обнавлена');
+        return redirect()->route('mycompanies.show', ['mycompany' => $company->id])->with('success', 'Компания "' . $company->name . '" обнавлена');
     }
 
     public function destroy($id)
