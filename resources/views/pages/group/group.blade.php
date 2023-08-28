@@ -23,21 +23,44 @@
 <section>
     <div class="flex flex-col w-11/12 mx-auto my-6 lg:my-8">
         <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10">
-            <div class="flex flex-col">
-                @if( $group->image == null )
-                <img class="max-w-xs h-48 rounded-lg my-2 mx-auto p-16" src="{{ url('/image/no-image.png')}}" alt="image" />
-                @else
-                <img src="{{ asset( 'storage/'.$group->image) }}" alt="" class="h-48 rounded-lg m-1 lg:m-5">
+            <div class="flex flex-col basis-1/4" @if( $group->image !== null && $group->image1 !== null)
+                id="slider"
                 @endif
-                <div class="mx-5">
+                >
+                <ul>
+                    @if( $group->image == null )
+                    <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                    @else
+                    <li><img src="{{ asset( 'storage/'.$group->image) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image"></li>
+                    @endif
+
+                    @if($group->image1)
+                    <li><img src="{{ asset( 'storage/'.$group->image1) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image1"></li>
+                    @endif
+
+                    @if($group->image2)
+                    <li><img src="{{ asset( 'storage/'.$group->image2) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image2"></li>
+                    @endif
+
+                    @if($group->image3)
+                    <li><img src="{{ asset( 'storage/'.$group->image3) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image3"></li>
+                    @endif
+
+                    @if($group->image4)
+                    <li><img src="{{ asset( 'storage/'.$group->image4) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image4"></li>
+                    @endif
+                </ul>
+
+                <div class="m-5">
                     <div class="my-2 flex flex-row">
-                        <div class="basis-4/5 text-left text-sm">Заполненость профиля</div>
+                        <div class="basis-4/5 text-left text-sm">Заполненость профиля группы</div>
                         <div class="basis-1/5 text-right text-sm">{{ $fullness }}%</div>
                     </div>
                     <div class="w-full bg-gray-200 rounded-md mb-5">
                         <div class="bg-green-500 h-2 text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100" style='width: {{ $fullness }}%'></div>
                     </div>
                 </div>
+
             </div>
             <div class="flex flex-col px-3 lg:px-10">
                 <h3 class="text-left text-xl lg:text-2xl m-2 md:m-5">{{ $group->name }}</h1>
@@ -273,6 +296,15 @@
             $('#vacancy_button').css('border-bottom-color', '');
             $('#news_button').css('color', '#0043ff');
             $('#news_button').css('border-bottom-color', '#0043ff');
+        });
+        $('#slider ul').bxSlider({
+            pager: true,
+            controls: true,
+            auto: true,
+            mode: 'fade',
+            pause: 10000,
+            minSlides: 1,
+            maxSlides: 1
         });
     });
 </script>
