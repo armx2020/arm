@@ -60,7 +60,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($projects as $project)
                     <div class="block rounded-lg bg-white h-80">
-                        <a href="{{ route('myprojects.show', ['myproject' => $project->id ]) }}" class="block h-52">
+                        <a href="{{ route('project.show', ['id' => $project->id ]) }}" class="block h-52">
                             @if( $project->image == null )
                             <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
