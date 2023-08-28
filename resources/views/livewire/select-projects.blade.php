@@ -68,7 +68,7 @@
                             @endif
                         </a>
                         <div class="px-6">
-                            <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                            <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800 h-20">
                                 {{ $project->name }}
                             </h5>
                             <hr class="my-2">
