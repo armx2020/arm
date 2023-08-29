@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Group;
 use App\Models\GroupCategory;
 use App\Models\Region;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Http\Request;
@@ -16,6 +15,8 @@ class SelectGroups extends Component
     use WithPagination;
 
     public $term = 0;
+    public $sort = "created_at|asc";
+    public $view = 1;
     public $region;
 
     public function mount(Request $request)
@@ -40,17 +41,21 @@ class SelectGroups extends Component
 
     public function render()
     {
+        $exp = explode('|', $this->sort);
+
         if ($this->term == 0 && $this->region == 1) {
-            $groups = Group::with('users')->paginate(12);
+            $groups = Group::with('users')->orderBy($exp[0], $exp[1])->paginate(12);
             $recommendations = [];
         } elseif ($this->term !== 0 && $this->region == 1) {
             $groups = Group::with('users', 'region')
                 ->where('group_category_id', '=', $this->term)
+                ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = [];
         } elseif ($this->term == 0 && $this->region !== 1) {
             $groups = Group::with('users', 'region')
                 ->where('region_id', '=', $this->region)
+                ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
 
             $recommendations = Group::with('user', 'region')
@@ -61,6 +66,7 @@ class SelectGroups extends Component
             $groups = Group::with('users', 'region')
                 ->where('group_category_id', '=', $this->term)
                 ->where('region_id', '=', $this->region)
+                ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
 
             $recommendations = Group::with('user', 'region')
