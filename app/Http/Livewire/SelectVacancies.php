@@ -15,6 +15,8 @@ class SelectVacancies extends Component
 
     public $region;
     public $type = 0;
+    public $sort = "created_at|asc";
+    public $view = 1;
 
     public function mount(Request $request)
     {
@@ -29,14 +31,17 @@ class SelectVacancies extends Component
 
     public function render()
     {
+        $exp = explode('|', $this->sort);
+
         if ($this->type == 0) {
                 $typeName = 'ВАКАНСИЙ';
             if ($this->region == 1) {
-                $works = Vacancy::paginate(12);
+                $works = Vacancy::orderBy($exp[0], $exp[1])->paginate(12);
                 $recommendations = [];
             } else {
                 $works = Vacancy::with('region', 'parent')
                     ->where('region_id', '=', $this->region)
+                    ->orderBy($exp[0], $exp[1])
                     ->paginate(12);
                 $recommendations = Vacancy::with('region', 'parent')
                     ->whereNot(function ($query) {
@@ -46,11 +51,12 @@ class SelectVacancies extends Component
         } else {
                 $typeName = 'РЕЗЮМЕ';
             if ($this->region == 1) {
-                $works = Resume::with('user')->paginate(12);
+                $works = Resume::with('user')->orderBy($exp[0], $exp[1])->paginate(12);
                 $recommendations = []; 
             } else {
                 $works = Resume::with('user', 'region')
                     ->where('region_id', '=', $this->region)
+                    ->orderBy($exp[0], $exp[1])
                     ->paginate(12);
                 $recommendations = Resume::with('user', 'region')
                     ->whereNot(function ($query) {

@@ -7,8 +7,8 @@
             <option value="created_at|desc">по дате создания: max</option>
             <option value="updated_at|asc">по дате изменения: min</option>
             <option value="updated_at|desc">по дате изменения: max</option>
-            <!-- <option value="'id', 'asc'">по рейтенгу: max</option>
-                            <option value="'id', 'asc'">по рейтингу: max</option> -->
+            <option value="rating|asc">по рейтенгу: min</option>
+            <option value="rating|desc">по рейтингу: max</option>
         </select>
     </div>
     <div class="bg-white rounded-md mb-3">

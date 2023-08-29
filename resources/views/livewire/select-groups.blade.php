@@ -216,11 +216,11 @@
                 <div class="grid grid-cols-1 gap-3 lg:gap-5">
                     @foreach($groups as $group)
                     <div class="flex flex-row rounded-lg bg-white h-64">
-                        <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="flex basis-1/3">
+                        <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="basis-1/3">
                             @if( $group->image == null )
-                            <img class="w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                            <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
-                            <img class="w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$group->image) }}" alt="image">
+                            <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$group->image) }}" alt="image">
                             @endif
                         </a>
                         <div class="p-6 flex flex-col basis-2/3">
@@ -541,9 +541,9 @@
                     <div class="flex flex-row rounded-lg bg-white h-64">
                         <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="flex basis-1/3">
                             @if( $group->image == null )
-                            <img class="w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                            <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
-                            <img class="w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$group->image) }}" alt="image">
+                            <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$group->image) }}" alt="image">
                             @endif
                         </a>
                         <div class="p-6 flex flex-col basis-2/3">

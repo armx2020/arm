@@ -15,6 +15,8 @@ class SelectOffers extends Component
 
     public $term = 0;
     public $region;
+    public $sort = "created_at|asc";
+    public $view = 1;
 
     public function mount(Request $request)
     {
@@ -29,17 +31,21 @@ class SelectOffers extends Component
 
     public function render()
     {
+        $exp = explode('|', $this->sort);
+
         if ($this->term == 0 && $this->region == 1) {
-            $offers = CompanyOffer::with('company')->paginate(12);
+            $offers = CompanyOffer::with('company')->orderBy($exp[0], $exp[1])->paginate(12);
             $recommendations = [];
         } elseif ($this->term !== 0 && $this->region == 1) {
             $offers = CompanyOffer::with('company', 'region')
                 ->where('offer_category_id', '=', $this->term)
+                ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = [];
         } elseif ($this->term == 0 && $this->region !== 1) {
             $offers = CompanyOffer::with('company', 'region')
                 ->where('region_id', '=', $this->region)
+                ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = CompanyOffer::with('company', 'region')
                 ->whereNot(function ($query) {
@@ -49,6 +55,7 @@ class SelectOffers extends Component
             $offers = CompanyOffer::with('company', 'region')
                 ->where('offer_category_id', '=', $this->term)
                 ->where('region_id', '=', $this->region)
+                ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = CompanyOffer::with('company', 'region')
                 ->where('offer_category_id', '=', $this->term)

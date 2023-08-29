@@ -41,8 +41,7 @@
             </div>
             <div class="flex flex-col px-3 lg:px-10 basis-3/4">
                 <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $project->name }}</h1>
-                    <p class="text-left text-sm mx-4 my-1 text-gray-600">инициатор: {{ $project->parent->name ? $project->parent->name : $project->parent->firstname }} {{ $project->parent->lastname }}</p>
-                    <p class="text-left text-sm mx-4 my-1 text-gray-600">город: {{ $project->city->name }} ({{$project->region->name }})</p>
+                    <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $project->city->name }} ({{$project->region->name }})</p>
                     <p class="text-left text-sm mx-4 my-1 text-gray-500">{{ $project->description }}</p>
                     <hr class="mt-3 mb-3">
                     <div class="flow-root mb-3">

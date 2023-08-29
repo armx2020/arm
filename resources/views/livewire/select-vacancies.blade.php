@@ -37,6 +37,7 @@
             </div>
             <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
                 <div wire:loading class="w-full">
+                    <x-sort />
                     <div class="p-4">
                         <div class="text-2xl items-center text-center justify-center">
                             <img class="h-5 w-5 rounded-full m-4 inline" src="{{ url('/image/loading.gif')}}">
@@ -52,6 +53,10 @@
                         </div>
                     </div>
                     @else
+
+                    <x-sort />
+
+                    @if($view == 1)
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                         @foreach($works as $work)
                         @if($typeName == 'ВАКАНСИЙ')
@@ -111,18 +116,80 @@
                         @endif
                         @endforeach
                     </div>
+                    @else
+                    <div class="grid grid-cols-1 gap-3 lg:gap-5">
+                        @foreach($works as $work)
+                        @if($typeName == 'ВАКАНСИЙ')
+                        <div class="flex flex-row rounded-lg bg-white h-64">
+                            <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="basis-1/2">
+                                @if( $work->parent == null )
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                @else
+                                @if( $work->parent->image == null )
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                @else
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->parent->image) }}" alt="image">
+                                @endif
+                                @endif
+                            </a>
+                            <div class="p-6 flex flex-col basis-2/3">
+                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                    {{$work->name }}
+                                </h5>
+                                <hr class="my-3">
+                                <div class="my-4 break-all text-base text-right">
+                                    <p class="mx-3 inline text-md font-bold">
+                                        @if($work->price !== null && $work->price !== 0)
+                                        {{ $work->price }} RUB.
+                                        @else
+                                        no price
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        <div class="block rounded-lg bg-white h-80">
+                            <a href="{{ route('resume.show', ['id' => $work->id ]) }}" class="block h-52">
+                                @if( $work->user->image == null )
+                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/user.png')}}" alt="image" />
+                                @else
+                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="image">
+                                @endif
+                            </a>
+                            <div class="px-6">
+                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                    {{ $work->name }}
+                                </h5>
+                                <hr class="my-2">
+                                <div class="my-4 break-all text-base text-right">
+                                    <p class="mx-3 inline text-md font-bold">
+                                        @if($work->price !== 0)
+                                        {{ $work->price }} RUB.
+                                        @else
+                                        no price
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
+                    </div>
+                    @endif
                     @endif
 
                     @if(count($recommendations) > 0)
-                <div class="w-full text-left p-4 mt-8">
-                    <div class="flex items-center text-left justify-left">
-                        <h3 class="text-2xl font-normal">Рекомендации</h3>
+                    <div class="w-full text-left p-4 mt-8">
+                        <div class="flex items-center text-left justify-left">
+                            <h3 class="text-2xl font-normal">Рекомендации</h3>
+                        </div>
                     </div>
-                </div>
-                <hr class="w-full mb-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
-                    @foreach($recommendations as $work)
-                    @if($typeName == 'ВАКАНСИЙ')
+                    <hr class="w-full mb-4">
+                    @if($view == 1)
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                        @foreach($recommendations as $work)
+                        @if($typeName == 'ВАКАНСИЙ')
                         <div class="block rounded-lg bg-white h-80">
                             <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="block h-52">
                                 @if( $work->parent == null )
@@ -177,9 +244,70 @@
                             </div>
                         </div>
                         @endif
-                    @endforeach
-                </div>
-                @endif
+                        @endforeach
+                    </div>
+                    @else
+                    <div class="grid grid-cols-1 gap-3 lg:gap-5">
+                        @foreach($recommendations as $work)
+                        @if($typeName == 'ВАКАНСИЙ')
+                        <div class="flex flex-row rounded-lg bg-white h-64">
+                            <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="basis-1/2">
+                                @if( $work->parent == null )
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                @else
+                                @if( $work->parent->image == null )
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                @else
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->parent->image) }}" alt="image">
+                                @endif
+                                @endif
+                            </a>
+                            <div class="p-6 flex flex-col basis-2/3">
+                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                    {{$work->name }}
+                                </h5>
+                                <hr class="my-3">
+                                <div class="my-4 break-all text-base text-right">
+                                    <p class="mx-3 inline text-md font-bold">
+                                        @if($work->price !== null && $work->price !== 0)
+                                        {{ $work->price }} RUB.
+                                        @else
+                                        no price
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        <div class="block rounded-lg bg-white h-80">
+                            <a href="{{ route('resume.show', ['id' => $work->id ]) }}" class="block h-52">
+                                @if( $work->user->image == null )
+                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/user.png')}}" alt="image" />
+                                @else
+                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="image">
+                                @endif
+                            </a>
+                            <div class="px-6">
+                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                    {{ $work->name }}
+                                </h5>
+                                <hr class="my-2">
+                                <div class="my-4 break-all text-base text-right">
+                                    <p class="mx-3 inline text-md font-bold">
+                                        @if($work->price !== 0)
+                                        {{ $work->price }} RUB.
+                                        @else
+                                        no price
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
+                    </div>
+                    @endif
+                    @endif
                 </div>
             </div>
         </div>

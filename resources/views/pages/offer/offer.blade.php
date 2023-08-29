@@ -60,7 +60,7 @@
             </div>
             <div class="flex flex-col px-3 lg:px-10 basis-3/4">
                 <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $offer->name }}</h1>
-                    <p class="text-left text-md lg:text-lg mx-4 my-1 text-gray-500">город: {{ $offer->city->name }} ({{$offer->region->name }})</p>
+                    <p class="text-left text-md lg:text-lg mx-4 my-1 text-gray-500">{{ $offer->city->name }} ({{$offer->region->name }})</p>
                     <p class="text-left text-sm mx-4 my-1 text-gray-600">{{ $offer->description }}</p>
 
                     <hr class="mt-3 mb-3">
