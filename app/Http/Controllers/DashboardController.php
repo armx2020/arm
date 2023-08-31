@@ -31,4 +31,19 @@ class DashboardController extends Controller
             'cities' => $cities
         ]);
     }
+
+    public function questions(Request $request)
+    {
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
+
+
+
+        return view('profile.pages.questions', [
+            'city'   => $request->session()->get('city'),
+            'cities' => $cities
+        ]);
+    }
 }

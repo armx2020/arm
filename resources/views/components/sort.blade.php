@@ -12,7 +12,7 @@
         </select>
     </div>
     <div class="bg-white rounded-md mb-3">
-        <select name="view" class="w-full border-0" wire:model="view">
+        <select name="view" class="w-full border-0 hidden md:block" wire:model="view">
             <option value="1">сетка</option>
             <option value="2">столбик</option>
         </select>

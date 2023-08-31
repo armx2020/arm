@@ -23,19 +23,22 @@
 <section>
     <div class="flex flex-col w-11/12 mx-auto my-6 lg:my-8">
         <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
-            <div class="flex flex-col basis-1/4">
+            <div class="flex flex-col basis-1/5">
                 @if( $event->image == null )
-                <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                <img class="h-56 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                 @else
-                <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ asset( 'storage/'.$event->image) }}" alt="image">
+                <img class="h-56 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$event->image) }}" alt="image">
                 @endif
+
+                <div class="m-5">
+                    <div class="my-2 text-center">
+                        <p class="mx-3 inline">{{ $event->date_to_start }}</p>
+                    </div>
+                </div>
             </div>
             <div class="flex flex-col px-3 lg:px-10 basis-3/4">
-                <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $event->name }}</h1>
-                    <p class="text-left text-sm mx-4 my-1 text-gray-600">инициатор: {{ $event->parent->name ? $event->parent->name : $event->parent->firstname }} {{ $event->parent->lastname }}</p>
-                    <p class="text-left text-sm mx-4 my-1 text-gray-600">город: {{ $event->city->name }} ({{$event->region->name }})</p>
-                    <p class="text-left text-sm mx-4 text-gray-600">{{ $event->date_to_start }}</p>
-                    <p class="text-left text-sm mx-4 my-1 text-gray-600">{{ $event->description }}</p>
+                <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $event->name }} ({{ $event->parent->name ? $event->parent->name : $event->parent->firstname. ' ' .$event->parent->lastname }})</h1>
+                {{ $news->date }}
             </div>
         </div>
     </div>

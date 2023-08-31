@@ -28,7 +28,7 @@ class ProjectController extends Controller
                 return mb_substr($item->name, 0, 1);
             });
 
-        $project = Project::with('parent')->findOrFail($id);
+        $project = Project::with('parent')->find($id);
 
         if (empty($project)) {
             return redirect()->route('projects.index')->with('alert', 'Проект не найден');

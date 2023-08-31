@@ -76,12 +76,15 @@ Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show')->mi
 
 Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show')->middleware(FromLocation::class);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified', 'from'])->name('dashboard');
 
 
 
 
-Route::middleware('auth')->group(function () {
+
+Route::middleware(['auth', 'verified', 'from'])->group(function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/questions', [DashboardController::class, 'questions'])->name('questions');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

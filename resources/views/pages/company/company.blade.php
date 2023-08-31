@@ -9,64 +9,92 @@
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li>
-            <a href="{{ route('group.index') }}" class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600">Группы</a>
+            <a href="{{ route('company.index') }}" class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600">Компании</a>
         </li>
         <li>
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li class="text-neutral-500 dark:text-neutral-400">
-            <a href="{{ route('group.show', ['id' => $group->id]) }}">
-                {{ $group->name }}</a>
+            <a href="{{ route('company.show', ['id' => $company->id]) }}">
+                {{ $company->name }}</a>
         </li>
     </ol>
 </nav>
 <section>
     <div class="flex flex-col w-11/12 mx-auto my-6 lg:my-8">
         <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10">
-            <div class="flex flex-col basis-1/5" @if( $group->image !== null && $group->image1 !== null)
+            <div class="flex flex-col basis-1/5" @if( $company->image !== null && $company->image1 !== null)
                 id="slider"
                 @endif
                 >
                 <ul>
-                    @if( $group->image == null )
+                    @if( $company->image == null )
                     <img src="{{ url('/image/no-image.png')}}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image" />
                     @else
-                    <li><img src="{{ asset( 'storage/'.$group->image) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image"></li>
+                    <li><img src="{{ asset( 'storage/'.$company->image) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image"></li>
                     @endif
 
-                    @if($group->image1)
-                    <li><img src="{{ asset( 'storage/'.$group->image1) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image1"></li>
+                    @if($company->image1)
+                    <li><img src="{{ asset( 'storage/'.$company->image1) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image1"></li>
                     @endif
 
-                    @if($group->image2)
-                    <li><img src="{{ asset( 'storage/'.$group->image2) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image2"></li>
+                    @if($company->image2)
+                    <li><img src="{{ asset( 'storage/'.$company->image2) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image2"></li>
                     @endif
 
-                    @if($group->image3)
-                    <li><img src="{{ asset( 'storage/'.$group->image3) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image3"></li>
+                    @if($company->image3)
+                    <li><img src="{{ asset( 'storage/'.$company->image3) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image3"></li>
                     @endif
 
-                    @if($group->image4)
-                    <li><img src="{{ asset( 'storage/'.$group->image4) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image4"></li>
+                    @if($company->image4)
+                    <li><img src="{{ asset( 'storage/'.$company->image4) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image4"></li>
                     @endif
                 </ul>
-
-                <div class="m-5">
-                    <div class="my-2 flex flex-row">
-                        <div class="basis-1/2 text-right">{{ $fullness }} %</div>
-                    </div>
-                    <div class="w-full bg-gray-200">
-                        <div class="bg-green-500 h-5 text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100" style='width: {{ $fullness }}%'></div>
-                    </div>
-                </div>
-
             </div>
             <div class="flex flex-col px-3 lg:px-10">
-                <h3 class="text-left text-xl lg:text-2xl m-2 md:m-5">{{ $group->name }}</h1>
-                    <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $group->city->name }} ({{ $group->region->name }})</p>
-                    <p class="text-left text-sm mx-4 my-1 text-gray-500 break-all">{{ $group->description }}</p>
+                <h3 class="text-left text-xl lg:text-2xl m-2 md:m-5">{{ $company->name }}</h1>
+                    <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $company->city->name }} ({{ $company->region->name }})</p>
+                    <p class="text-left text-sm mx-4 my-1 text-gray-500 break-all">{{ $company->description }}</p>
             </div>
         </div>
+
+        @if(count($company->offers) > 0) 
+        <div class="flex flex-col basis-full my-5">
+            <div class="w-full text-left p-4 mt-8">
+                <div class="flex items-center text-left justify-left">
+                    <h3 class="text-2xl font-normal">Товары компании</h3>
+                </div>
+            </div>
+            <hr class="w-full mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-3 lg:gap-5">
+                @foreach($company->offers as $offer)
+                <div class="block rounded-lg bg-white h-80">
+                    <a href="{{ route('offer.show', ['id' => $offer->id ]) }}" class="block h-52">
+                        @if( $offer->image == null )
+                        <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                        @else
+                        <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$offer->image) }}" alt="image">
+                        @endif
+                    </a>
+                    <div class="px-6">
+                        <div class="h-12">
+                            <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                {{ $offer->name }}
+                            </h5>
+                        </div>
+                        <hr class="my-2">
+                        <div>
+                            <p class="text-right font-bold pb-0">
+                                {{ $offer->price }} {{ $offer->unit_of_price }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
         <div class="flex-flex-row py-2 lg:py-10">
             <ul class="mb-4 flex list-none flex-row flex-wrap border-b-0 pl-0">
                 <li>
@@ -92,15 +120,15 @@
             </ul>
         </div>
         <div class="flex basis-full mt-3 mb-16" id="events">
-            @if($group->events->isEmpty())
+            @if($company->events->isEmpty())
             <div class="w-full text-center p-4">
                 <div class="flex items-center text-center justify-center">
-                    <h3 class="text-2xl font-normal mx-auto">У ГРУППЫ НЕТ ПРЕДСТОЯЩИХ МЕРОПРИЯТИЙ</h3>
+                    <h3 class="text-2xl font-normal mx-auto">У КОМПАНИИ НЕТ ПРЕДСТОЯЩИХ МЕРОПРИЯТИЙ</h3>
                 </div>
             </div>
             @else
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
-                @foreach($group->events as $event)
+                @foreach($company->events as $event)
                 <div class="block rounded-lg bg-white h-80">
                     <a href="{{ route('event.show', ['id' => $event->id ]) }}" class="block h-52">
                         @if( $event->image == null )
@@ -126,15 +154,15 @@
             @endif
         </div>
         <div class="basis-full mt-3 mb-16 hidden" id="projects">
-            @if($group->projects->isEmpty())
+            @if($company->projects->isEmpty())
             <div class="w-full text-center p-4">
                 <div class="flex items-center text-center justify-center">
-                    <h3 class="text-2xl font-normal mx-auto">У ГРУППЫ НЕТ ПРОЕКТОВ</h3>
+                    <h3 class="text-2xl font-normal mx-auto">У КОМПАНИИ НЕТ ПРОЕКТОВ</h3>
                 </div>
             </div>
             @else
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
-                @foreach($group->projects as $project)
+                @foreach($company->projects as $project)
                 <div class="block rounded-lg bg-white h-96">
                     <a href="{{ route('project.show', ['id' => $project->id ]) }}" class="block h-52">
                         @if( $project->image == null )
@@ -164,15 +192,15 @@
             @endif
         </div>
         <div class="basis-full mt-3 mb-16 hidden" id="vacancies">
-            @if($group->vacancies->isEmpty())
+            @if($company->vacancies->isEmpty())
             <div class="w-full text-center p-4">
                 <div class="flex items-center text-center justify-center">
-                    <h3 class="text-2xl font-normal mx-auto">У ГРУППЫ НЕТ ВАКАНСИЙ</h3>
+                    <h3 class="text-2xl font-normal mx-auto">У КОМПАНИИ НЕТ ВАКАНСИЙ</h3>
                 </div>
             </div>
             @else
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
-                @foreach($group->vacancies as $work)
+                @foreach($company->vacancies as $work)
                 <div class="block rounded-lg bg-white h-80">
                     <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="block h-52">
                         @if( $work->parent == null )
@@ -206,15 +234,15 @@
             @endif
         </div>
         <div class="basis-full mt-3 mb-16 hidden" id="news">
-            @if($group->news->isEmpty())
+            @if($company->news->isEmpty())
             <div class="w-full text-center p-4">
                 <div class="flex items-center text-center justify-center">
-                    <h3 class="text-2xl font-normal mx-auto">У ГРУППЫ НЕТ НОВОСТЕЙ</h3>
+                    <h3 class="text-2xl font-normal mx-auto">У КОМПАНИИ НЕТ НОВОСТЕЙ</h3>
                 </div>
             </div>
             @else
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
-                @foreach($group->news as $new)
+                @foreach($company->news as $new)
                 <div class="block rounded-lg bg-white h-80">
                     <a href="{{ route('news.show', ['id' => $new->id ]) }}" class="block h-52">
                         @if( $new->image == null )
@@ -239,6 +267,7 @@
             </div>
             @endif
         </div>
+
     </div>
 </section>
 <script>

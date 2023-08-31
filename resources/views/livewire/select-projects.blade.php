@@ -102,13 +102,17 @@
                             @endif
                         </a>
                         <div class="p-6 flex flex-col basis-2/3">
-                            <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800 h-20">
+                            <h5 class="mb-1 break-words text-lg font-medium leading-tight text-neutral-800 1-20">
                                 {{ $project->name }}
                             </h5>
-                            <p class="mb-4 break-words font-medium leading-tight text-neutral-600">
-                                {{ $project->description}}
+                            <p class="break-words font-medium leading-tight text-neutral-800">
+                                {{ $project->address}}
                             </p>
                             <hr class="my-3">
+                            <p class="mb-4 break-words font-medium leading-tight text-neutral-500">
+                                {{ $project->description}}
+                            </p>
+
                             <div>
                                 <div class="my-2 flex flex-row">
                                     <div class="basis-1/2 text-left font-bold">{{ $project->donations_need }} руб.</div>
@@ -173,13 +177,17 @@
                             @endif
                         </a>
                         <div class="p-6 flex flex-col basis-2/3">
-                            <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800 h-20">
+                            <h5 class="mb-1 break-words text-lg font-medium leading-tight text-neutral-800 1-20">
                                 {{ $project->name }}
                             </h5>
-                            <p class="mb-4 break-words font-medium leading-tight text-neutral-600">
-                                {{ $project->description}}
+                            <p class="break-words font-medium leading-tight text-neutral-800">
+                                {{ $project->address}}
                             </p>
                             <hr class="my-3">
+                            <p class="mb-4 break-words font-medium leading-tight text-neutral-500">
+                                {{ $project->description}}
+                            </p>
+
                             <div>
                                 <div class="my-2 flex flex-row">
                                     <div class="basis-1/2 text-left font-bold">{{ $project->donations_need }} руб.</div>

@@ -27,7 +27,7 @@
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('myresumes.show', ['myresume' => $resume->id ]) }}" class="block h-52">
                     @if( $resume->user->image == null )
-                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/user.png')}}" alt="image" />
+                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
                     <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$resume->user->image) }}" alt="image">
                     @endif

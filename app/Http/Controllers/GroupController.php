@@ -28,7 +28,7 @@ class GroupController extends Controller
                 return mb_substr($item->name, 0, 1);
             });
 
-        $group = Group::with('events', 'projects', 'vacancies', 'news')->findOrFail($id);
+        $group = Group::with('events', 'projects', 'vacancies', 'news')->find($id);
 
         if (empty($group)) {
             return redirect()->route('groups.index')->with('alert', 'Группа не найдена');

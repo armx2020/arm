@@ -123,7 +123,7 @@ class MyOfferController extends Controller
                 return mb_substr($item->name, 0, 1);
             });
 
-        $offer = CompanyOffer::find($id);
+        $offer = CompanyOffer::with('company')->find($id);
 
         if (empty($offer)) {
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');

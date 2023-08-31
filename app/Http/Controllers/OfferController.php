@@ -34,9 +34,15 @@ class OfferController extends Controller
             return redirect()->route('offers.index')->with('alert', 'Товар не найден');
         }
 
+        $recommendations = CompanyOffer::where('company_id', '=', $offer->company->id)
+            ->whereNot(function ($query) use ($id) {
+                $query->where('id', '=', $id);
+            })->paginate(12);
+
         return view('pages.offer.offer', [
             'city'   => $request->session()->get('city'),
             'offer' => $offer,
+            'recommendations' => $recommendations,
             'cities' => $cities
         ]);
     }

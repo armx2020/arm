@@ -32,12 +32,18 @@ class SelectCompanies extends Component
         $exp = explode('|', $this->sort);
 
         if ($this->region == 1) {
-                $companies = Company::orderBy($exp[0], $exp[1])->paginate(12);
+            $companies = Company::orderBy($exp[0], $exp[1])->paginate(12);
+            $recommendations = [];
         } else {
-                $companies = Company::with('region')
-                            ->where('region_id', '=', $this->region)
-                            ->orderBy($exp[0], $exp[1])
-                            ->paginate(12);
+            $companies = Company::with('region')
+                ->where('region_id', '=', $this->region)
+                ->orderBy($exp[0], $exp[1])
+                ->paginate(12);
+
+            $recommendations = Company::with('region')
+                ->whereNot(function ($query) {
+                    $query->where('region_id', '=', $this->region);
+                })->limit(3)->get();
         }
 
         $regions = Region::all();
@@ -45,7 +51,8 @@ class SelectCompanies extends Component
         return view('livewire.select-companies', [
             'companies' => $companies,
             'regions' => $regions,
-            'region' => $this->region
+            'region' => $this->region,
+            'recommendations' => $recommendations,
         ]);
     }
 }
