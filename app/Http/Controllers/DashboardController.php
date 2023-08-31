@@ -14,7 +14,7 @@ class DashboardController extends Controller
             ->groupBy(function ($item) {
                 return mb_substr($item->name, 0, 1);
             });
-
+//dd(Auth::user());
         $sum =  (Auth::user()->city !== 1 ? 10 : 0) +
             (Auth::user()->image ? 10 : 0) +
             (Auth::user()->viber ? 5 : 0) +

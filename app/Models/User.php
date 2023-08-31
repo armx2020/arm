@@ -60,6 +60,7 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
+        'last_active_at'
     ];
 
     /**
@@ -80,6 +81,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'last_active_at' => 'datetime:Y-m-d H:i:s',
     ];
-
 }
