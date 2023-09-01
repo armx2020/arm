@@ -43,10 +43,11 @@
                 </div>
                 <div class="flex flex-col px-3 lg:px-10 basis-3/4">
                     <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $news->name }}</h3>
-                        <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $news->parent->name ? $news->parent->name : $news->parent->firstname }} {{ $news->parent->lastname }}</p>
-                        <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $news->city->name }} ({{$news->region->name }})</p>
-                        <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $news->date }}</p>
-                        <p class="text-left text-sm mx-4 my-1 text-gray-500 break-all">{{ $news->description }}</p>
+                    <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $news->parent->name ? $news->parent->name : $news->parent->firstname }} {{ $news->parent->lastname }}</p>
+                    <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $news->city->name }} {{ $news->address }}
+                    </p>
+                    <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $news->date }}</p>
+                    <p class="text-left text-sm mx-4 my-1 text-gray-500 break-all">{{ $news->description }}</p>
                 </div>
                 <div class="absolute right-6 top-3">
                     <div class="my-3 break-all text-base text-right">

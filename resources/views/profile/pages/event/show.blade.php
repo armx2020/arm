@@ -22,7 +22,7 @@
                 <div class="flex flex-col px-3 lg:px-10 basis-3/4">
                     <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $event->name }}</h3>
                     <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $event->parent->name ? $event->parent->name : $event->parent->firstname }} {{ $event->parent->lastname }}</p>
-                    <p class="text-left text-md mx-4 my-1 text-gray-600">город: {{ $event->city->name }} ({{$event->region->name }})</p>
+                    <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $event->city->name }} {{ $event->address }}</p>
                     <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $event->date_to_start }}</p>
                     <p class="text-left text-sm mx-4 my-1 text-gray-500 break-all">{{ $event->description }}</p>
                 </div>

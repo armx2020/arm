@@ -38,7 +38,8 @@
             </div>
             <div class="flex flex-col px-3 lg:px-10 basis-3/4">
                 <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $event->name }} ({{ $event->parent->name ? $event->parent->name : $event->parent->firstname. ' ' .$event->parent->lastname }})</h3>
-                <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $event->address }}</p>
+                <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $event->city->name }} {{ $event->address }}</p>
+                <p class="text-left text-sm mx-4 my-1 text-gray-500 break-all">{{ $event->description }}</p>
             </div>
         </div>
     </div>

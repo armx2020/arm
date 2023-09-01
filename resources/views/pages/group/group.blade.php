@@ -63,8 +63,7 @@
             </div>
             <div class="flex flex-col px-3 lg:px-10">
                 <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $group->name }}</h3>
-                <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $group->city->name }} ({{ $group->region->name }})
-                    <br>{{ $group->address }}
+                <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $group->city->name }} {{ $group->address }}
                 </p>
                 <p class="text-left text-sm mx-4 my-1 text-gray-500 break-all">{{ $group->description }}</p>
                 <hr class="mt-3 mb-3">
