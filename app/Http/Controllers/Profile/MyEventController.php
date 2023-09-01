@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Event;
+use App\Models\EventCategory;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,10 +44,12 @@ class MyEventController extends Controller
 
         $companies = Company::where('user_id', '=', Auth::user()->id)->get();
         $groups = Group::where('user_id', '=', Auth::user()->id)->get();
+        $categories = EventCategory::orderBy('sort_id', 'asc')->get();
 
         return view('profile.pages.event.create', [
             'city'      => $request->session()->get('city'),
             'companies' => $companies,
+            'categories' => $categories,
             'groups'    => $groups,
             'cities'    => $cities
         ]);
@@ -74,6 +77,7 @@ class MyEventController extends Controller
         $event->date_to_start = $request->date_to_start;
         $event->city_id = $request->event_city;
         $event->region_id = $city->region->id;
+        $event->event_category_id = $request->category;
 
         $parent = $request->parent;
         $parent_explode = explode('|', $parent);
@@ -152,12 +156,14 @@ class MyEventController extends Controller
             ) {
                 $companies = Company::where('user_id', '=', Auth::user()->id)->get();
                 $groups = Group::where('user_id', '=', Auth::user()->id)->get();
+                $categories = EventCategory::orderBy('sort_id', 'asc')->get();
 
                 return view('profile.pages.event.edit', [
                     'city'   => $request->session()->get('city'),
                     'event'  => $event,
                     'cities' => $cities,
                     'companies' => $companies,
+                    'categories' => $categories,
                     'groups'    => $groups,
                 ]);
             } else {
@@ -195,6 +201,7 @@ class MyEventController extends Controller
                 $event->date_to_start = $request->date_to_start;
                 $event->city_id = $request->event_city;
                 $event->region_id = $city->region->id;
+                $event->event_category_id = $request->category;
 
                 $parent = $request->parent;
                 $parent_explode = explode('|', $parent);

@@ -94,6 +94,16 @@
                     </div>
 
                     <div class="my-3">
+                        <label for="category" class="text-sm font-medium text-gray-900 block mb-2">Категория</label>
+                        <select name="category" id="category" class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>
+                            <option value="{{ $event->category->id }}">{{ $event->category->name }}</option>
+                            @foreach( $categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="my-3">
                         <label for="event_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
                         <select name="event_city" class="w-full" style="border-color: rgb(209 213 219)" id="event_city">
                             <option value='{{ $event->city->id }}'>{{ $event->city->name }}</option>
