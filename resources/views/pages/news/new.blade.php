@@ -59,7 +59,7 @@
 
             </div>
             <div class="flex flex-col px-3 lg:px-10 basis-3/4">
-                <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $news->name }}</h1>
+                <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $news->name }}</h3>
                     <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $news->city->name }} ({{$news->region->name }})
                         <br>{{ $news->address }}
                     </p>

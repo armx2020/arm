@@ -1,4 +1,4 @@
-<section class="my-6">
+<section class="my-6 w-full">
     <header>
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Удалить учетную запись') }}
@@ -14,7 +14,7 @@
     <div id="confirm-user-deletion" class="hidden fixed inset-0 px-4 min-h-screen sm:px-0 z-50" focusable>
         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         <div class="my-16 mx-auto opacity-100 translate-y-0 sm:scale-100 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full md:max-w-md lg:max-w-lg ">
-            <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+            <form method="post" action="{{ route('profile.destroy') }}" class="p-6 w-full">
                 @csrf
                 @method('delete')
 

@@ -44,13 +44,13 @@ class ProfileController extends Controller
             return redirect()->route('welcome')->with('alert', 'Товар не найден');
         }
 
-        $sum =  ($user !== 1 ? 10 : 0) +
-            ($user ? 10 : 0) +
-            ($user ? 5 : 0) +
-            ($user ? 5 : 0) +
-            ($user ? 5 : 0) +
-            ($user ? 5 : 0) +
-            ($user ? 5 : 0);
+        $sum =  ($user->image ? 10 : 0) +
+            ($user->phone ? 10 : 0) +
+            ($user->viber ? 5 : 0) +
+            ($user->whatsapp ? 5 : 0) +
+            ($user->telegram ? 5 : 0) +
+            ($user->instagram ? 5 : 0) +
+            ($user->vkontakte ? 5 : 0);
 
         $fullness = (round(($sum / 45) * 100));
 

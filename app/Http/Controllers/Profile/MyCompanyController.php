@@ -80,7 +80,7 @@ class MyCompanyController extends Controller
 
         if ($request->image) {
             $company->image = $request->file('image')->store('companies', 'public');
-            Image::make('storage/'.$company->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $company->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -112,10 +112,10 @@ class MyCompanyController extends Controller
             ($company->whatsapp ? 5 : 0) +
             ($company->instagram ? 5 : 0) +
             ($company->vkontakte ? 5 : 0) +
-            ($company->telegram ? 5 : 0)+
+            ($company->telegram ? 5 : 0) +
             ($company->name ? 5 : 0);
 
-            $fullness = (round(($sum / 70) * 100));
+        $fullness = (round(($sum / 70) * 100));
 
         return view('profile.pages.company.show', [
             'city' => $request->session()->get('city'),
@@ -189,17 +189,17 @@ class MyCompanyController extends Controller
 
         if ($request->image_r == 'delete') {
             Storage::delete('public/' . $company->image);
-            $company->image = null;            
+            $company->image = null;
         }
 
-        if ($request->image) {    
-            Storage::delete('public/' . $company->image);   
+        if ($request->image) {
+            Storage::delete('public/' . $company->image);
             $company->image = $request->file('image')->store('companies', 'public');
-            Image::make('storage/'.$company->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $company->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
-        
+
         $company->update();
 
         return redirect()->route('mycompanies.show', ['mycompany' => $company->id])->with('success', 'Компания "' . $company->name . '" обнавлена');
@@ -207,7 +207,7 @@ class MyCompanyController extends Controller
 
     public function destroy($id)
     {
-        $company = Company::with('offers')->where('user_id', '=', Auth::user()->id)->find($id);
+        $company = Company::with('events', 'projects', 'vacancies', 'news', 'offers')->where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
             return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
@@ -215,6 +215,31 @@ class MyCompanyController extends Controller
 
         if (count($company->offers) > 0) {
             return redirect()->route('mycompanies.index')->with('alert', 'У компании есть товары, необходимо удалить сначало их');
+        }
+
+        foreach ($company->events as $event) {
+            if ($event->image) {
+                Storage::delete('public/' . $event->image);
+            }
+            $event->delete();
+        }
+
+        foreach ($company->news as $news) {
+            if ($news->image) {
+                Storage::delete('public/' . $news->image);
+            }
+            $news->delete();
+        }
+
+        foreach ($company->projects as $project) {
+            if ($project->image !== null) {
+                Storage::delete('public/' . $project->image);
+            }
+           $project->delete();
+        }
+
+        foreach ($company->vacancies as $vacancy) {
+            $vacancy->delete();
         }
 
         if ($company->image !== null) {

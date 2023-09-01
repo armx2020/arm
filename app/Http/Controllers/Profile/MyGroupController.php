@@ -310,6 +310,31 @@ class MyGroupController extends Controller
             return redirect()->route('mygroups.index')->with('alert', 'Группа не найдена');
         }
 
+        foreach ($group->events as $event) {
+            if ($event->image) {
+                Storage::delete('public/' . $event->image);
+            }
+            $event->delete();
+        }
+
+        foreach ($group->news as $news) {
+            if ($news->image) {
+                Storage::delete('public/' . $news->image);
+            }
+            $news->delete();
+        }
+
+        foreach ($group->projects as $project) {
+            if ($project->image !== null) {
+                Storage::delete('public/' . $project->image);
+            }
+           $project->delete();
+        }
+
+        foreach ($group->vacancies as $vacancy) {
+            $vacancy->delete();
+        }
+
         foreach ($group->users as $user) {
             $group->users()->detach($user->id);
         }

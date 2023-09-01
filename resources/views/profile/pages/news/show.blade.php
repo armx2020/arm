@@ -18,35 +18,35 @@
                     >
                     <ul>
                         @if( $news->image == null )
-                        <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                        <img class="h-56 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                         @else
-                        <li><img src="{{ asset( 'storage/'.$news->image) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image"></li>
+                        <li><img src="{{ asset( 'storage/'.$news->image) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image"></li>
                         @endif
 
                         @if($news->image1)
-                        <li><img src="{{ asset( 'storage/'.$news->image1) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image1"></li>
+                        <li><img src="{{ asset( 'storage/'.$news->image1) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image1"></li>
                         @endif
 
                         @if($news->image2)
-                        <li><img src="{{ asset( 'storage/'.$news->image2) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image2"></li>
+                        <li><img src="{{ asset( 'storage/'.$news->image2) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image2"></li>
                         @endif
 
                         @if($news->image3)
-                        <li><img src="{{ asset( 'storage/'.$news->image3) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image3"></li>
+                        <li><img src="{{ asset( 'storage/'.$news->image3) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image3"></li>
                         @endif
 
                         @if($news->image4)
-                        <li><img src="{{ asset( 'storage/'.$news->image4) }}" class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" alt="image4"></li>
+                        <li><img src="{{ asset( 'storage/'.$news->image4) }}" class="h-56 w-full rounded-2xl p-2 flex object-cover" alt="image4"></li>
                         @endif
                     </ul>
 
                 </div>
                 <div class="flex flex-col px-3 lg:px-10 basis-3/4">
-                    <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $news->name }}</h1>
-                        <p class="text-left text-sm mx-4 my-1 text-gray-600">инициатор: {{ $news->parent->name ? $news->parent->name : $news->parent->firstname }} {{ $news->parent->lastname }}</p>
-                        <p class="text-left text-sm mx-4 my-1 text-gray-600">город: {{ $news->city->name }} ({{$news->region->name }})</p>
-                        <p class="text-left text-sm mx-4 my-1 text-gray-600">{{ $news->date }}</p>
-                        <p class="text-left text-sm mx-4 my-1 text-gray-500">{{ $news->description }}</p>
+                    <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $news->name }}</h3>
+                        <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $news->parent->name ? $news->parent->name : $news->parent->firstname }} {{ $news->parent->lastname }}</p>
+                        <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $news->city->name }} ({{$news->region->name }})</p>
+                        <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $news->date }}</p>
+                        <p class="text-left text-sm mx-4 my-1 text-gray-500 break-all">{{ $news->description }}</p>
                 </div>
                 <div class="absolute right-6 top-3">
                     <div class="my-3 break-all text-base text-right">

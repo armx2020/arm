@@ -14,18 +14,18 @@
             <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
                 <div class="flex flex-col basis-1/4">
                     @if( $event->image == null )
-                    <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                    <img class="h-56 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
-                    <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ asset( 'storage/'.$event->image) }}" alt="image">
+                    <img class="h-56 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$event->image) }}" alt="image">
                     @endif
                 </div>
                 <div class="flex flex-col px-3 lg:px-10 basis-3/4">
-                    <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $event->name }}</h1>
-                        <p class="text-left text-sm mx-4 my-1 text-gray-600">инициатор: {{ $event->parent->name ? $event->parent->name : $event->parent->firstname }} {{  $event->parent->lastname }}</p>
-                        <p class="text-left text-sm mx-4 my-1 text-gray-600">город: {{ $event->city->name }} ({{$event->region->name }})</p>
-                        <p class="text-left text-sm mx-4 text-gray-600">{{ $event->date_to_start }}</p>
-                        <p class="text-left text-sm mx-4 my-1 text-gray-600">{{ $event->description }}</p>
-                    </div>
+                    <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $event->name }}</h3>
+                    <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $event->parent->name ? $event->parent->name : $event->parent->firstname }} {{ $event->parent->lastname }}</p>
+                    <p class="text-left text-md mx-4 my-1 text-gray-600">город: {{ $event->city->name }} ({{$event->region->name }})</p>
+                    <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $event->date_to_start }}</p>
+                    <p class="text-left text-sm mx-4 my-1 text-gray-500 break-all">{{ $event->description }}</p>
+                </div>
                 <div class="absolute right-6 top-3">
                     <div class="my-3 break-all text-base text-right">
                         <a href="{{ route('myevents.edit', ['myevent' => $event->id]) }}" class="inline border-2 hover:border-yellow-400 border-yellow-100 bg-yellow-100 hover:bg-yellow-400 rounded-md py-2 pl-2 pr-1 my-1" title="редактировать">
