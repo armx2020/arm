@@ -57,7 +57,7 @@
 
         <div class="flex mt-2">
             <label for="confirm_policy" class="inline-flex items-center">
-                <span class="text-center text-xs text-gray-600">Создавая учетную запись, я соглашаюсь с <a href="{{ route('privacy-policy') }}" target="_blank" class="text-indigo-400 underline">Политикой конфиденциальности</a> и <a href="{{ route('condition-of-use') }}" target="_blank" class="text-indigo-400 underline">Условием импользования</a>.</span>
+                <span class="text-center text-xs text-gray-600">Создавая учетную запись, я соглашаюсь с <a href="{{ route('privacy-policy') }}" target="_blank" class="text-indigo-400 underline">Политикой конфиденциальности</a> и <a href="{{ route('condition-of-use') }}" target="_blank" class="text-indigo-400 underline">Условием иcпользования</a>.</span>
             </label>
         </div>
     </form>
