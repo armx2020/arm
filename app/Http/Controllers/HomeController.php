@@ -18,9 +18,9 @@ class HomeController extends Controller
     public function home(Request $request)
     {
         $cities = City::all()->sortBy('name')
-                            ->groupBy(function($item) { 
-            return mb_substr($item->name, 0, 1); 
-        });
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
 
         $region = Region::where('name', 'like', $request->session()->get('region'))->First();
 
@@ -29,7 +29,7 @@ class HomeController extends Controller
         }
 
         $group = Group::find($region->id);
-        
+
         return view('home', [
             'city'   => $request->session()->get('city'),
             'group' => $group,
@@ -45,5 +45,33 @@ class HomeController extends Controller
         $request->session()->put('region', $city->region->name);
 
         return redirect()->back();
+    }
+
+    public function privacyPolicy(Request $request)
+    {
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
+            
+
+        return view('pages.privacy-policy', [
+            'city'   => $request->session()->get('city'),
+            'cities' => $cities,
+        ]);
+    }
+
+    public function conditionOfUse(Request $request)
+    {
+        $cities = City::all()->sortBy('name')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name, 0, 1);
+            });
+            
+
+        return view('pages.condition-of-use', [
+            'city'   => $request->session()->get('city'),
+            'cities' => $cities,
+        ]);
     }
 }

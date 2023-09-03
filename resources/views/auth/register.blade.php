@@ -43,14 +43,22 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+
         <div class="flex items-center justify-between mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Уже зарегистрированы?') }}
             </a>
 
-            <x-primary-button class="ml-4">
+            <x-primary-button class="ml-4" id="primary-button">
                 {{ __('Регистрация') }}
             </x-primary-button>
+        </div>
+        <hr class="my-2">
+
+        <div class="flex mt-2">
+            <label for="confirm_policy" class="inline-flex items-center">
+                <span class="text-center text-xs text-gray-600">Создавая учетную запись, я соглашаюсь с <a href="{{ route('condition-of-use') }}" target="_blank" class="text-indigo-400 underline">Политику конфиденциальности</a> и <a href="{{ route('privacy-policy') }}" target="_blank" class="text-indigo-400 underline">Политику конфиденциальности</a>.</span>
+            </label>
         </div>
     </form>
 </x-guest-layout>
