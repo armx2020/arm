@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
+use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Services\CompanyService;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image as Image;
 
 class CompanyController extends Controller
 {
+    public function __construct(private CompanyService $companyService)
+    {
+        $this->companyService = $companyService;
+    }
+
     public function index()
     {
         return view('admin.company.index');
@@ -19,66 +23,23 @@ class CompanyController extends Controller
 
     public function create()
     {
-        $users = User::all();     
+        $users = User::all();
+
         return view('admin.company.create', ['users' => $users]);
     }
 
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:40'],
-            'address' => ['max:128'],
-            'phone' => ['max:36'],
-            'web' => ['max:250'],
-            'viber' => ['max:36'],
-            'whatsapp' => ['max:36'],
-            'telegram' => ['max:36'],
-            'instagram' => ['max:36'],
-            'vkontakte' => ['max:36'],
-            'image' => ['image'],
-        ]);
-
-        $city = City::with('region')->find($request->city);
-
-        if (empty($city)) {
-            $city = City::find(1);
-        }
-
-        $company = new Company();
-
-        $company->name = $request->name;
-        $company->address = $request->address;
-        $company->description = $request->description;
-        $company->city_id = $request->city;
-        $company->region_id = $city->region->id; // add to region key
-        $company->phone = $request->phone;
-        $company->web = $request->web;
-        $company->viber = $request->viber;
-        $company->whatsapp = $request->whatsapp;
-        $company->telegram = $request->telegram;
-        $company->instagram = $request->instagram;
-        $company->vkontakte = $request->vkontakte;
-        $company->user_id = $request->user;
-
-        if ($request->image) {
-            $company->image = $request->file('image')->store('companies', 'public');
-            Image::make('storage/'.$company->image)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        $company->save();
+        $this->companyService->store($request);
 
         return redirect()->route('admin.company.index')->with('success', 'The company added');
-
-    
     }
 
     public function show(string $id)
     {
         $company = Company::with('user')->find($id);
 
-        if(empty($company)) {
+        if (empty($company)) {
             return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
         }
         return view('admin.company.show', ['company' => $company]);
@@ -88,62 +49,24 @@ class CompanyController extends Controller
     {
         $company = Company::find($id);
 
-        if(empty($company)) {
+        if (empty($company)) {
             return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
         }
 
         $users = User::all();
-        
+
         return view('admin.company.edit', ['company' => $company, 'users' => $users]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(CompanyRequest $request, string $id)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:40'],
-            'address' => ['max:128'],
-            'phone' => ['max:36'],
-            'web' => ['max:250'],
-            'viber' => ['max:36'],
-            'whatsapp' => ['max:36'],
-            'telegram' => ['max:36'],
-            'instagram' => ['max:36'],
-            'vkontakte' => ['max:36'],
-            'image' => ['image', 'max:2048'],
-        ]);
-
         $company = Company::find($id);
 
-        if(empty($company)) {
+        if (empty($company)) {
             return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
         }
 
-        $city = City::with('region')->find($request->city);
-
-        if (empty($city)) {
-            $city = City::find(1);
-        }
-
-        if ($request->image) {
-            Storage::delete('public/'.$company->image);
-            $company->image = $request->file('image')->store('companies', 'public');
-        }
-
-        $company->name = $request->name;
-        $company->address = $request->address;
-        $company->description = $request->description;
-        $company->city_id = $request->city;
-        $company->region_id = $city->region->id; // add to region key
-        $company->phone = $request->phone;
-        $company->web = $request->web;
-        $company->viber = $request->viber;
-        $company->whatsapp = $request->whatsapp;
-        $company->telegram = $request->telegram;
-        $company->instagram = $request->instagram;
-        $company->vkontakte = $request->vkontakte;
-        $company->user_id = $request->user;
-
-        $company->update();
+        $company = $this->companyService->update($request, $company);
 
         return redirect()->route('admin.company.show', ['company' => $company->id])
             ->with('success', "The company saved");
@@ -153,12 +76,41 @@ class CompanyController extends Controller
     {
         $company = Company::find($id);
 
-        if(empty($company)) {
+        if (empty($company)) {
             return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
         }
 
-        if($company->image !== null) {
-            Storage::delete('public/'.$company->image);
+        if (count($company->offers) > 0) {
+            return redirect()->route('admin.company.index')->with('alert', 'У компании есть товары, необходимо удалить сначало их');
+        }
+
+        foreach ($company->events as $event) {
+            if ($event->image) {
+                Storage::delete('public/' . $event->image);
+            }
+            $event->delete();
+        }
+
+        foreach ($company->news as $news) {
+            if ($news->image) {
+                Storage::delete('public/' . $news->image);
+            }
+            $news->delete();
+        }
+
+        foreach ($company->projects as $project) {
+            if ($project->image !== null) {
+                Storage::delete('public/' . $project->image);
+            }
+           $project->delete();
+        }
+
+        foreach ($company->vacancies as $vacancy) {
+            $vacancy->delete();
+        }
+
+        if ($company->image !== null) {
+            Storage::delete('public/' . $company->image);
         }
 
         $company->delete();
