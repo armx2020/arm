@@ -69,7 +69,7 @@ class CompanyController extends Controller
         $company = $this->companyService->update($request, $company);
 
         return redirect()->route('admin.company.show', ['company' => $company->id])
-            ->with('success', "The company saved");
+            ->with('success', "The company updated");
     }
 
     public function destroy(string $id)

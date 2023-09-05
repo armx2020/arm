@@ -82,7 +82,7 @@ class GroupController extends Controller
         $group = $this->groupService->update($request, $group);
 
         return redirect()->route('admin.group.show', ['group' => $group->id])
-            ->with('success', 'The group saved');
+            ->with('success', 'The group updated');
     }
 
     public function destroy(string $id)

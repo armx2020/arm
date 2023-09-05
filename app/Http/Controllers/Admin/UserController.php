@@ -152,7 +152,7 @@ class UserController extends Controller
         $user->update();
 
         return redirect()->route('admin.user.show', ['user' => $user->id])
-            ->with('success', "The user saved");
+            ->with('success', "The user updated");
     }
 
     public function destroy(string $id)

@@ -82,7 +82,7 @@ class OfferController extends Controller
         $this->offerService->update($request, $offer);
 
         return redirect()->route('admin.offer.show', ['offer' => $offer->id])
-            ->with('success', 'The offer saved');
+            ->with('success', 'The offer updated');
     }
 
     public function destroy(string $id)

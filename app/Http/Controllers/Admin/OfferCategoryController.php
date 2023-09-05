@@ -76,7 +76,7 @@ class OfferCategoryController extends Controller
         $category->update();
 
         return redirect()->route('admin.offerCategory.show', ['offerCategory'=> $category->id])
-                        ->with('success', 'The category saved');
+                        ->with('success', 'The category updated');
     }
 
     public function destroy(string $id)

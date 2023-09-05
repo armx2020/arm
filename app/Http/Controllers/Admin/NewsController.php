@@ -225,7 +225,7 @@ class NewsController extends Controller
 
         $news->update();
 
-        return redirect()->route('admin.news.index')->with('success', 'The news saved');
+        return redirect()->route('admin.news.index')->with('success', 'The news updated');
     }
 
     public function destroy(string $id)

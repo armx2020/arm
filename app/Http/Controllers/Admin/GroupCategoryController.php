@@ -76,7 +76,7 @@ class GroupCategoryController extends Controller
         $category->update();
 
         return redirect()->route('admin.groupCategory.show', ['groupCategory'=> $category->id])
-                        ->with('success', 'The category saved');
+                        ->with('success', 'The category updated');
     }
 
 

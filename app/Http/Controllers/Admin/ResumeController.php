@@ -67,7 +67,7 @@ class ResumeController extends Controller
 
         $resume = $this->resumeService->update($request, $resume);
 
-        return redirect()->route('admin.resume.index')->with('success', 'The resume saved');
+        return redirect()->route('admin.resume.index')->with('success', 'The resume updated');
     }
 
     public function destroy(string $id)

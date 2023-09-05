@@ -163,7 +163,7 @@ class EventController extends Controller
 
         $event->update();
 
-        return redirect()->route('admin.event.index')->with('success', 'The event added');
+        return redirect()->route('admin.event.index')->with('success', 'The event updated');
     }
 
     public function destroy(string $id)

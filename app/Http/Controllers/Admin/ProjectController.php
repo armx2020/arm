@@ -167,7 +167,7 @@ class ProjectController extends Controller
         $project->save();
 
 
-        return redirect()->route('admin.project.index')->with('success', 'The project saved');
+        return redirect()->route('admin.project.index')->with('success', 'The project updated');
     }
 
     public function destroy(string $id)
