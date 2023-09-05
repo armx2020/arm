@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GroupRequest extends FormRequest
+class OfferRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,11 +31,11 @@ class GroupRequest extends FormRequest
             'telegram' => ['max:36'],
             'instagram' => ['max:36'],
             'vkontakte' => ['max:36'],
-            'image' => ['image', 'max:20000'],
-            'image1' => ['image', 'max:20000'],
-            'image2' => ['image', 'max:20000'],
-            'image3' => ['image', 'max:20000'],
-            'image4' => ['image', 'max:20000'],
+            'image' => ['image', 'max:2048'],
+            'image1' => ['image', 'max:2048'],
+            'image2' => ['image', 'max:2048'],
+            'image3' => ['image', 'max:2048'],
+            'image4' => ['image', 'max:2048'],
             'image_r' => [],
             'image_r1' => [],
             'image_r2' => [],
@@ -43,8 +43,9 @@ class GroupRequest extends FormRequest
             'image_r4' => [],
             'description' => [],
             'city' => [],
-            'user' => [],
-            'category' => []
+            'unit_of_price' => [],
+            'category' => [],
+            'company' => []
         ];
     }
 }

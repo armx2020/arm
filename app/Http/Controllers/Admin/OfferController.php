@@ -3,15 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OfferRequest;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\CompanyOffer;
 use App\Models\OfferCategory;
-use Illuminate\Http\Request;
+use App\Services\OfferService;
 use Illuminate\Support\Facades\Storage;
 
 class OfferController extends Controller
 {
+    public function __construct(private OfferService $offerService)
+    {
+        $this->offerService = $offerService;
+    }
+
     public function index()
     {
         return view('admin.offer.index');
@@ -22,70 +28,12 @@ class OfferController extends Controller
         $companies = Company::all();
         $categories = OfferCategory::all();
 
-        return view('admin.offer.create', ['companies' => $companies, 'categories'=> $categories]);
+        return view('admin.offer.create', ['companies' => $companies, 'categories' => $categories]);
     }
 
-    public function store(Request $request)
+    public function store(OfferRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:40'],
-            'address' => ['max:128'],
-            'phone' => ['max:36'],
-            'web' => ['max:250'],
-            'viber' => ['max:36'],
-            'whatsapp' => ['max:36'],
-            'telegram' => ['max:36'],
-            'instagram' => ['max:36'],
-            'vkontakte' => ['max:36'],
-            'image' => ['image', 'max:2048'],
-            'image1' => ['image', 'max:2048'],
-            'image2' => ['image', 'max:2048'],
-            'image3' => ['image', 'max:2048'],
-            'image4' => ['image', 'max:2048'],
-        ]);
-
-        $city = City::with('region')->find($request->city);
-
-        if (empty($city)) {
-            $city = City::find(1);
-        }
-
-        $offer = New CompanyOffer();
-
-        $offer->name = $request->name;
-        $offer->address = $request->address;
-        $offer->description = $request->description;
-        $offer->phone = $request->phone;
-        $offer->price = $request->price;
-        $offer->city_id = $request->city;
-        $offer->region_id = $city->region->id; // add to region key
-        $offer->unit_of_price = $request->unit_of_price;
-        $offer->web = $request->web;
-        $offer->viber = $request->viber;
-        $offer->whatsapp = $request->whatsapp;
-        $offer->telegram = $request->telegram;
-        $offer->instagram = $request->instagram;
-        $offer->vkontakte = $request->vkontakte;
-        $offer->company_id = $request->company;
-        $offer->offer_category_id = $request->category;
-
-        if ($request->image) {
-            $offer->image = $request->file('image')->store('offers', 'public');
-        }
-        if ($request->image1) {
-            $offer->image1 = $request->file('image1')->store('offers', 'public');
-        }
-        if ($request->image2) {
-            $offer->image2 = $request->file('image2')->store('offers', 'public');
-        }
-        if ($request->image3) {
-            $offer->image3 = $request->file('image3')->store('offers', 'public');
-        }
-        if ($request->image4) {
-            $offer->image4 = $request->file('image4')->store('offers', 'public');
-        }
-
-        $offer->save();
+        $this->offerService->store($request);
 
         return redirect()->route('admin.offer.index')->with('success', 'The offer added');
     }
@@ -94,8 +42,8 @@ class OfferController extends Controller
     {
         $offer = CompanyOffer::with('company', 'category')->find($id);
 
-        if(empty($offer)) {
-            return redirect()->route('admin.offer.index')->with('alert', 'The offer no finded');
+        if (empty($offer)) {
+            return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
         }
 
         return view('admin.offer.show', ['offer' => $offer]);
@@ -105,119 +53,60 @@ class OfferController extends Controller
     {
         $offer = CompanyOffer::with('company', 'category')->find($id);
 
-        if(empty($offer)) {
-            return redirect()->route('admin.offer.index')->with('alert', 'The offer no finded');
+        if (empty($offer)) {
+            return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
         }
 
         $categories = OfferCategory::all();
         $companies = Company::all();
         $company = $offer->company;
         $category = $offer->category;
-        return view('admin.offer.edit', [   'offer' => $offer,
-                                            'company' => $company,
-                                            'category' => $category,
-                                            'categories' => $categories,
-                                            'companies' => $companies]);
+
+        return view('admin.offer.edit', [
+            'offer' => $offer,
+            'company' => $company,
+            'category' => $category,
+            'categories' => $categories,
+            'companies' => $companies
+        ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(OfferRequest $request, string $id)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:40'],
-            'address' => ['max:128'],
-            'phone' => ['max:36'],
-            'web' => ['max:250'],
-            'viber' => ['max:36'],
-            'whatsapp' => ['max:36'],
-            'telegram' => ['max:36'],
-            'instagram' => ['max:36'],
-            'vkontakte' => ['max:36'],
-            'image' => ['image', 'max:2048'],
-            'image1' => ['image', 'max:2048'],
-            'image2' => ['image', 'max:2048'],
-            'image3' => ['image', 'max:2048'],
-            'image4' => ['image', 'max:2048'],
-        ]);
-
         $offer = CompanyOffer::find($id);
 
-        if(empty($offer)) {
-            return redirect()->route('admin.offer.index')->with('alert', 'The offer no finded');
+        if (empty($offer)) {
+            return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
         }
 
-        $city = City::with('region')->find($request->city);
+        $this->offerService->update($request, $offer);
 
-        if (empty($city)) {
-            $city = City::find(1);
-        }
-
-        $offer->name = $request->name;
-        $offer->address = $request->address;
-        $offer->description = $request->description;
-        $offer->phone = $request->phone;
-        $offer->price = $request->price;
-        $offer->unit_of_price = $request->unit_of_price;
-        $offer->city_id = $request->city;
-        $offer->region_id = $city->region->id; // add to region key
-        $offer->web = $request->web;
-        $offer->viber = $request->viber;
-        $offer->whatsapp = $request->whatsapp;
-        $offer->telegram = $request->telegram;
-        $offer->instagram = $request->instagram;
-        $offer->vkontakte = $request->vkontakte;
-        $offer->company_id = $request->company;
-        $offer->offer_category_id = $request->category;
-
-        if ($request->image) {
-            Storage::delete('public/'.$offer->image);
-            $offer->image = $request->file('image')->store('offers', 'public');
-        }
-        if ($request->image1) {
-            Storage::delete('public/'.$offer->image1);
-            $offer->image1 = $request->file('image1')->store('offers', 'public');
-        }
-        if ($request->image2) {
-            Storage::delete('public/'.$offer->image2);
-            $offer->image2 = $request->file('image2')->store('offers', 'public');
-        }
-        if ($request->image3) {
-            Storage::delete('public/'.$offer->image3);
-            $offer->image3 = $request->file('image3')->store('offers', 'public');
-        }
-        if ($request->image4) {
-            Storage::delete('public/'.$offer->image4);
-            $offer->image4 = $request->file('image4')->store('offers', 'public');
-        }
-
-        $offer->update();
-
-        return redirect()->route('admin.offer.show', ['offer'=>$offer->id])
-                        ->with('success', 'The offer saved');
-
+        return redirect()->route('admin.offer.show', ['offer' => $offer->id])
+            ->with('success', 'The offer saved');
     }
 
     public function destroy(string $id)
     {
         $offer = CompanyOffer::find($id);
 
-        if(empty($offer)) {
-            return redirect()->route('admin.offer.index')->with('alert', 'The offer no finded');
+        if (empty($offer)) {
+            return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
         }
 
-        if($offer->image !== null) {
-            Storage::delete('public/'.$offer->image);
+        if ($offer->image !== null) {
+            Storage::delete('public/' . $offer->image);
         }
-        if($offer->image1 !== null) {
-            Storage::delete('public/'.$offer->image1);
+        if ($offer->image1 !== null) {
+            Storage::delete('public/' . $offer->image1);
         }
-        if($offer->image2 !== null) {
-            Storage::delete('public/'.$offer->image2);
+        if ($offer->image2 !== null) {
+            Storage::delete('public/' . $offer->image2);
         }
-        if($offer->image3 !== null) {
-            Storage::delete('public/'.$offer->image3);
+        if ($offer->image3 !== null) {
+            Storage::delete('public/' . $offer->image3);
         }
-        if($offer->image4 !== null) {
-            Storage::delete('public/'.$offer->image4);
+        if ($offer->image4 !== null) {
+            Storage::delete('public/' . $offer->image4);
         }
 
         $offer->delete();

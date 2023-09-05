@@ -40,7 +40,7 @@ class CompanyController extends Controller
         $company = Company::with('user')->find($id);
 
         if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
+            return redirect()->route('admin.company.index')->with('alert', 'The company not found');
         }
         return view('admin.company.show', ['company' => $company]);
     }
@@ -50,7 +50,7 @@ class CompanyController extends Controller
         $company = Company::find($id);
 
         if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
+            return redirect()->route('admin.company.index')->with('alert', 'The company not found');
         }
 
         $users = User::all();
@@ -63,7 +63,7 @@ class CompanyController extends Controller
         $company = Company::find($id);
 
         if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
+            return redirect()->route('admin.company.index')->with('alert', 'The company not found');
         }
 
         $company = $this->companyService->update($request, $company);
@@ -77,11 +77,11 @@ class CompanyController extends Controller
         $company = Company::find($id);
 
         if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'The company no finded');
+            return redirect()->route('admin.company.index')->with('alert', 'The company not found');
         }
 
         if (count($company->offers) > 0) {
-            return redirect()->route('admin.company.index')->with('alert', 'У компании есть товары, необходимо удалить сначало их');
+            return redirect()->route('admin.company.index')->with('alert', 'The company has products, you need to delete them first');
         }
 
         foreach ($company->events as $event) {

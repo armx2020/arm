@@ -43,7 +43,7 @@ class GroupController extends Controller
         $group = Group::with('user', 'category', 'users')->find($id);
 
         if (empty($group)) {
-            return redirect()->route('admin.group.index')->with('alert', 'The group no finded');
+            return redirect()->route('admin.group.index')->with('alert', 'The group not found');
         }
 
         return view('admin.group.show', ['group' => $group]);
@@ -54,7 +54,7 @@ class GroupController extends Controller
         $group = Group::with('user', 'category')->find($id);
 
         if (empty($group)) {
-            return redirect()->route('admin.group.index')->with('alert', 'The group no finded');
+            return redirect()->route('admin.group.index')->with('alert', 'The group not found');
         }
 
         $categories = GroupCategory::all();
@@ -76,7 +76,7 @@ class GroupController extends Controller
         $group = Group::find($id);
 
         if (empty($group)) {
-            return redirect()->route('admin.group.index')->with('alert', 'The group no finded');
+            return redirect()->route('admin.group.index')->with('alert', 'The group not found');
         }
 
         $group = $this->groupService->update($request, $group);
@@ -90,7 +90,7 @@ class GroupController extends Controller
         $group = Group::with('users', 'events', 'projects', 'vacancies', 'news')->find($id);
 
         if (empty($group)) {
-            return redirect()->route('admin.group.index')->with('alert', 'The group no finded');
+            return redirect()->route('admin.group.index')->with('alert', 'The group not found');
         }
 
         foreach ($group->events as $event) {
