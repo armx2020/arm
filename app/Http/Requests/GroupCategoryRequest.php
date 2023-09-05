@@ -23,7 +23,7 @@ class GroupCategoryRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:40'],
-            'sort_id' => ['required', 'integer',],
+            'sort_id' => ['required'],
         ];
     }
 }
