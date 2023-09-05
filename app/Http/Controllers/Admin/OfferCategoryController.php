@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OfferCategoryRequest;
 use App\Models\OfferCategory;
-use Illuminate\Http\Request;
+use App\Services\OfferCategoryService;
 
 class OfferCategoryController extends Controller
 {
+    public function __construct(private OfferCategoryService $offerCategoryService)
+    {
+        $this->offerCategoryService = $offerCategoryService;
+    }
+
     public function index()
     {
         return view('admin.offercategory.index');
@@ -18,19 +24,9 @@ class OfferCategoryController extends Controller
         return view('admin.offercategory.create');
     }
 
-    public function store(Request $request)
+    public function store(OfferCategoryRequest$request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:40'],
-            'sort_id' => ['required', 'integer'],
-        ]);
-
-        $category = new OfferCategory();
-
-        $category->name = $request->name;
-        $category->sort_id = $request->sort_id;
-
-        $category->save();
+        $this->offerCategoryService->store($request);
 
         return redirect()->route('admin.offerCategory.index')->with('success', 'The category added');
     }
@@ -40,7 +36,7 @@ class OfferCategoryController extends Controller
         $category = OfferCategory::withcount('offers')->find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.offercategory.index')->with('alert', 'The category no finded');
+            return redirect()->route('admin.offercategory.index')->with('alert', 'The category not found');
         }
 
         return view('admin.offercategory.show', ['category' => $category]);
@@ -51,29 +47,21 @@ class OfferCategoryController extends Controller
         $category = OfferCategory::find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.offercategory.index')->with('alert', 'The category no finded');
+            return redirect()->route('admin.offercategory.index')->with('alert', 'The category not found');
         }
 
         return view('admin.offercategory.edit', ['category' => $category]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(OfferCategoryRequest $request, string $id)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:40'],
-            'sort_id' => ['required', 'integer',],
-        ]);
-
         $category = OfferCategory::find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.offercategory.index')->with('alert', 'The category no finded');
+            return redirect()->route('admin.offercategory.index')->with('alert', 'The category not found');
         }
 
-        $category->name = $request->name;
-        $category->sort_id = $request->sort_id;
-
-        $category->update();
+        $category = $this->offerCategoryService->update($request, $category);
 
         return redirect()->route('admin.offerCategory.show', ['offerCategory'=> $category->id])
                         ->with('success', 'The category updated');
@@ -84,7 +72,7 @@ class OfferCategoryController extends Controller
         $category = OfferCategory::find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.offercategory.index')->with('alert', 'The category no finded');
+            return redirect()->route('admin.offercategory.index')->with('alert', 'The category not found');
         }
 
         $category->delete();

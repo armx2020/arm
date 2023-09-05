@@ -79,7 +79,7 @@ class OfferController extends Controller
             return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
         }
 
-        $this->offerService->update($request, $offer);
+        $offer = $this->offerService->update($request, $offer);
 
         return redirect()->route('admin.offer.show', ['offer' => $offer->id])
             ->with('success', 'The offer updated');

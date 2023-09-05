@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GroupCategoryRequest;
 use App\Models\GroupCategory;
-use Illuminate\Http\Request;
+use App\Services\GroupCategoryService;
 
 class GroupCategoryController extends Controller
 {
+    public function __construct(private GroupCategoryService $groupCategoryService)
+    {
+        $this->groupCategoryService = $groupCategoryService;
+    }
+
     public function index()
     {
         return view('admin.groupcategory.index');
@@ -18,19 +24,9 @@ class GroupCategoryController extends Controller
         return view('admin.groupcategory.create');
     }
 
-    public function store(Request $request)
+    public function store(GroupCategoryRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:40'],
-            'sort_id' => ['required', 'integer',],
-        ]);
-
-        $category = new GroupCategory();
-
-        $category->name = $request->name;
-        $category->sort_id = $request->sort_id;
-
-        $category->save();
+        $this->groupCategoryService->store($request);
 
         return redirect()->route('admin.groupCategory.index')->with('success', 'The category added');
     }
@@ -40,7 +36,7 @@ class GroupCategoryController extends Controller
         $category = GroupCategory::withcount('groups')->find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category no finded');
+            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category not found');
         }
 
         return view('admin.groupcategory.show', ['category' => $category]);
@@ -51,29 +47,21 @@ class GroupCategoryController extends Controller
         $category = GroupCategory::find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category no finded');
+            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category not found');
         }
 
         return view('admin.groupcategory.edit', ['category' => $category]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(GroupCategoryRequest $request, string $id)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:40'],
-            'sort_id' => ['required', 'integer',],
-        ]);
-
         $category = GroupCategory::find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category no finded');
+            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category not found');
         }
 
-        $category->name = $request->name;
-        $category->sort_id = $request->sort_id;
-
-        $category->update();
+        $category = $this->groupCategoryService->update($request, $category);
 
         return redirect()->route('admin.groupCategory.show', ['groupCategory'=> $category->id])
                         ->with('success', 'The category updated');
@@ -85,7 +73,7 @@ class GroupCategoryController extends Controller
         $category = GroupCategory::find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category no finded');
+            return redirect()->route('admin.groupCategory.index')->with('alert', 'The category not found');
         }
 
         $category->delete();
