@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
+use App\Http\Requests\ResumeRequest;
 use App\Models\Resume;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Services\ResumeService;
 
 class ResumeController extends Controller
 {
+    public function __construct(private ResumeService $resumeService)
+    {
+        $this->resumeService = $resumeService;
+    }
+
     public function index()
     {
         return view('admin.resume.index');
@@ -21,30 +26,9 @@ class ResumeController extends Controller
         return view('admin.resume.create', ['users' => $users]);
     }
 
-    public function store(Request $request)
+    public function store(ResumeRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:40'],
-            'address' => ['max:128'],
-        ]);
-
-        $city = City::with('region')->find($request->city);
-
-        if (empty($city)) {
-            $city = City::find(1);
-        }
-
-        $resume = new Resume();
-
-        $resume->name = $request->name;
-        $resume->address = $request->address;
-        $resume->description = $request->description;
-        $resume->city_id = $request->city;
-        $resume->region_id = $city->region->id; // add to region key
-        $resume->price = $request->price;
-        $resume->user_id = $request->user;
-
-        $resume->save();
+        $this->resumeService->store($request);
 
         return redirect()->route('admin.resume.index')->with('success', 'The resume added');
     }
@@ -54,7 +38,7 @@ class ResumeController extends Controller
         $resume = Resume::with('user')->find($id);
 
         if(empty($resume)) {
-            return redirect()->route('admin.resume.index')->with('alert', 'The resume no finded');
+            return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
         }
 
         return view('admin.resume.show', ['resume' => $resume]);
@@ -65,41 +49,23 @@ class ResumeController extends Controller
         $resume = Resume::find($id);
 
         if(empty($resume)) {
-            return redirect()->route('admin.resume.index')->with('alert', 'The resume no finded');
+            return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
         }
+
         $users = User::all();
         
-        return view('admin.resume.edit', ['resume'=>$resume, 'users'=>$users]);
+        return view('admin.resume.edit', ['resume' => $resume, 'users' => $users]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(ResumeRequest $request, string $id)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:40'],
-            'address' => ['max:128'],
-        ]);
-
-        $city = City::with('region')->find($request->city);
-
-        if (empty($city)) {
-            $city = City::find(1);
-        }
-
         $resume = Resume::find($id);
 
         if(empty($resume)) {
-            return redirect()->route('admin.resume.index')->with('alert', 'The resume no finded');
+            return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
         }
 
-        $resume->name = $request->name;
-        $resume->address = $request->address;
-        $resume->description = $request->description;
-        $resume->city_id = $request->city;
-        $resume->region_id = $city->region->id; // add to region key
-        $resume->price = $request->price;
-        $resume->user_id = $request->user;
-
-        $resume->update();
+        $resume = $this->resumeService->update($request, $resume);
 
         return redirect()->route('admin.resume.index')->with('success', 'The resume saved');
     }
@@ -109,7 +75,7 @@ class ResumeController extends Controller
         $resume = Resume::find($id);
 
         if(empty($resume)) {
-            return redirect()->route('admin.resume.index')->with('alert', 'The resume no finded');
+            return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
         }
         
         $resume->delete();
