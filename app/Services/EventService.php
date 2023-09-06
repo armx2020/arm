@@ -81,6 +81,10 @@ class EventService
             $event->parent_id = 1;
         }
 
+        if ($request->image_r == 'delete') {
+            Storage::delete('public/' . $event->image);
+            $event->image = null;
+        }
         if ($request->image) {
             Storage::delete('public/' . $event->image);
             $event->image = $request->file('image')->store('events', 'public');

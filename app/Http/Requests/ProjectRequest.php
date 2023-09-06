@@ -11,7 +11,7 @@ class ProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class ProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'              => ['required', 'string', 'max:40'],
+            'address'           => ['max:128'],
+            'image'             => ['image', 'max:20000'],
+            'image_r'           => [],
+            'description'       => [],
+            'city'              => [],
+            'donations_need'    => [],
+            'donations_have'    => [],
+            'parent'            => []
+
         ];
     }
 }
