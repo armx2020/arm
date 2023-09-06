@@ -81,7 +81,7 @@ class EventController extends Controller
             return redirect()->route('admin.event.index')->with('alert', 'The event not found');
         }
 
-        $this->eventService->update($request, $event);
+        $event = $this->eventService->update($request, $event);
 
         return redirect()->route('admin.event.index')->with('success', 'The event updated');
     }

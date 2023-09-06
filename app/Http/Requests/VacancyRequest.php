@@ -25,6 +25,7 @@ class VacancyRequest extends FormRequest
             'name'          => ['required', 'string', 'max:40'],
             'address'       => ['max:128'],
             'image'         => ['image', 'max:20000'],
+            'image_r'       => [],
             'price'         => [],
             'description'   => [],
             'city'          => [],

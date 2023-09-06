@@ -82,7 +82,7 @@ class VacancyController extends Controller
             return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
         }
 
-        $this->vacancyService->update($request, $vacancy);       
+        $vacancy = $this->vacancyService->update($request, $vacancy);       
 
         return redirect()->route('admin.vacancy.index')->with('success', 'The vacancy updated');
     }

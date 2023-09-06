@@ -22,8 +22,8 @@ class OfferCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:40'],
-            'sort_id' => ['required'],
+            'name'      => ['required', 'string', 'max:40'],
+            'sort_id'   => ['required'],
         ];
     }
 }
