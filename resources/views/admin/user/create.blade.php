@@ -6,15 +6,24 @@
             <div class="shadow overflow-hidden">
                 <div class="relative w-full h-full md:h-auto">
                     <div class="bg-white rounded-lg relative">
-                        <div class="flex items-start p-5 border-b rounded-t">
-                            <div class="flex items-center mb-4">
-                                <img class="h-10 w-10 rounded-full m-4" src="{{ url('/image/user.png')}}" alt="avatar">
-                                <h3 class="text-2xl font-bold leading-none text-gray-900">New user</h3>
-                            </div>
-                        </div>
                         <div class="p-6 space-y-6">
                             <form method="POST" enctype="multipart/form-data" action="{{ route('admin.user.store') }}">
                                 @csrf
+                                <div class="flex flex-row">
+                                    <div class="flex relative mx-6 my-6">
+                                        <img class="h-20 w-20 rounded-full m-4 object-cover" id="img" src="{{ url('/image/no-image.png')}}" alt="avatar">
+                                        <button type="button" id="remove_image" class="absolute top-2 right-2" style="display: none;"><img src="{{ url('/image/remove.png')}}" class="w-5 h-5" style="cursor:pointer;"></button>
+                                    </div>
+
+                                    <div class="flex items-center">
+                                        <label class="input-file relative inline-block">
+                                            <input name="image" type="file" accept=".jpg,.jpeg,.png" id="image" class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                            <span class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="firstname" class="text-sm font-medium text-gray-900 block mb-2">First Name*</label>
@@ -49,18 +58,12 @@
                                     </div>
                                     <div class="col-span-6">
                                         <label for="city" class="text-sm font-medium text-gray-900 block mb-2">City*</label>
-                                        <select name="city" class="w-full" id="dd_city">
+                                        <select name="city" class="w-full rounded-lg" id="dd_city">
                                             <option value='1'>-- select city --</option>
                                         </select>
                                     </div>
                                 </div>
                                 <hr class="my-5">
-                                <div class="flex flex-row ">
-                                    <label for="image" class="text-center text-sm font-medium text-gray-900 basis-1/6 my-2">image</label>
-                                    <input type="file" name="image" id="image" class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5">
-                                    <x-input-error :messages="$errors->get('image')" class="mt-2" />
-                                </div>
-                                <hr class="my-3">
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="viber" class="text-sm font-medium text-gray-900 block mb-2">Viber</label>
@@ -123,6 +126,54 @@
                 }
             });
         }
+        $('#image').on('change', function(event) {
+            var selectedFile = event.target.files[0];
+
+            // Check file size (in bytes)
+            var fileSize = selectedFile.size;
+            var maxSize = 2000000; // 2 mb
+            if (fileSize > maxSize) {
+                $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
+                $('.input-file input[type=file]').next().css({
+                    "color": "rgb(239 68 68)"
+                });
+                $('.input-file input[type=file]').val('');
+                $('.input-file input[type=file]').next().html(file.name);
+                $('#image_r').val('');
+                $('#remove_image').css({
+                    "display": "none"
+                });
+                return;
+            } else {
+                let file = this.files[0];
+                $('#image_r').val('');
+                $('.input-file input[type=file]').next().html(file.name);
+                $(this).next().css({
+                    "color": "rgb(71 85 105)"
+                });
+                $('#remove_image').css({
+                    "display": "block"
+                });
+
+                // Display file preview
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    $('#img').attr('src', event.target.result);
+
+                };
+                reader.readAsDataURL(selectedFile);
+                return;
+            }
+        });
+        $('#remove_image').on('click', function() {
+            $('#image').val('');
+            $('#image_r').val('delete');
+            $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
+            $('.input-file input[type=file]').next().html('Выберите файл');
+            $('#remove_image').css({
+                "display": "none"
+            });
+        });
     });
 </script>
 @endsection

@@ -23,10 +23,10 @@
                 <img class="h-20 w-20 rounded-full m-4 object-cover" id="img" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
                 @endif
                 <button type="button" id="remove_image" class="absolute top-2 right-2" @if( $user->image == null)
-                                style="display: none;"
-                                @else
-                                style="display: block;"
-                                @endif><img src="{{ url('/image/remove.png')}}" class="w-5 h-5" style="cursor:pointer;"></button>
+                    style="display: none;"
+                    @else
+                    style="display: block;"
+                    @endif><img src="{{ url('/image/remove.png')}}" class="w-5 h-5" style="cursor:pointer;"></button>
             </div>
 
             <div class="flex items-center">
@@ -142,22 +142,26 @@
                 var maxSize = 2000000; // 2 mb
                 if (fileSize > maxSize) {
                     $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
-                    $('.input-file input[type=file]').next().css({"color" : "rgb(239 68 68)"});
+                    $('.input-file input[type=file]').next().css({
+                        "color": "rgb(239 68 68)"
+                    });
                     $('.input-file input[type=file]').val('');
                     $('.input-file input[type=file]').next().html(file.name);
                     $('#image_r').val('');
                     $('#remove_image').css({
-                    "display": "none"
-                });
+                        "display": "none"
+                    });
                     return;
                 } else {
                     let file = this.files[0];
                     $('#image_r').val('');
                     $('.input-file input[type=file]').next().html(file.name);
-                    $(this).next().css({"color" : "rgb(71 85 105)"});
+                    $(this).next().css({
+                        "color": "rgb(71 85 105)"
+                    });
                     $('#remove_image').css({
-                    "display": "block"
-                });
+                        "display": "block"
+                    });
 
                     // Display file preview
                     var reader = new FileReader();
@@ -170,14 +174,14 @@
                 }
             });
             $('#remove_image').on('click', function() {
-            $('#image').val('');
-            $('#image_r').val('delete');
-            $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
-            $('.input-file input[type=file]').next().html('Выберите файл');
-            $('#remove_image').css({
-                "display": "none"
+                $('#image').val('');
+                $('#image_r').val('delete');
+                $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
+                $('.input-file input[type=file]').next().html('Выберите файл');
+                $('#remove_image').css({
+                    "display": "none"
+                });
             });
-        });
         });
     </script>
 </section>

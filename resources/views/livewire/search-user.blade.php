@@ -36,8 +36,8 @@
     </div>
     <div wire:loading class="w-full">
         <div class="bg-white shadow p-4">
-            <div class="items-center text-center justify-center">
-                <img class="h-5 w-5 rounded-full m-4 inline" src="{{ url('/image/loading.gif')}}">
+            <div class="flex items-center text-center justify-center">
+                <img class="h-5 w-5 rounded-full m-4" src="{{ url('/image/loading.gif')}}">
                 LOADING
             </div>
         </div>
@@ -80,9 +80,9 @@
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
 
                                         @if( $user->image == null)
-                                        <img class="h-10 w-10 rounded-full m-4" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                        <img class="h-10 w-10 rounded-full m-1 object-cover" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
                                         @else
-                                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                        <img class="h-10 w-10 rounded-full m-1 object-cover" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
                                         @endif
 
                                         <a href="{{ route('admin.user.show', [ 'user' => $user->id ]) }}">
@@ -99,7 +99,7 @@
                                         {{ $user->phone }}
                                         @endif
                                     </td>
-                                    <td class="p-4 whitespace-nowrap text-base text-center font-medium text-gray-900">
+                                    <td class="p-4 whitespace-nowrap text-base text-center text-gray-900">
                                         {{ $user->city->name }}
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base text-center font-normal text-gray-900">

@@ -17,13 +17,12 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    
+
 
     <script src="{{ url('/jquery-3.7.0.min.js')}}"></script>
     <script src="{{ url('/select2.min.js')}}"></script>
-    <link href="{{ url('/select2.min.css')}}" rel="stylesheet" />
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/select.css'])
     @livewireStyles
 </head>
 
@@ -44,11 +43,11 @@
             </main>
 
             @include('admin.layouts.footer')
+
         </div>
 
     </div>
     @livewireScripts
-    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
 </body>
 
 </html>

@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image as Image;
 
 class UserController extends Controller
 {
+    public function __construct(private UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function index()
     {
         return view('admin.user.index');
@@ -23,57 +26,13 @@ class UserController extends Controller
         return view('admin.user.create');
     }
 
-    public function store(Request $request)
-    { 
-        $request->validate([
-            'firstname' => ['required', 'string', 'max:32'],
-            'lastname' => ['required', 'string', 'max:32'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'viber' => ['max:36'],
-            'whatsapp' => ['max:36'],
-            'telegram' => ['max:36'],
-            'instagram' => ['max:36'],
-            'vkontakte' => ['max:36'],
-            'image' => ['image'],
-        ]);
-
-        $city = City::with('region')->find($request->city);
-
-        if (empty($city)) {
-            $city = City::find(1);
-        }
-
-        $user = new User();
-
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->phone = $request->phone;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->city_id = $request->city;
-        $user->region_id = $city->region->id;
-        $user->viber = $request->viber;
-        $user->whatsapp = $request->whatsapp;
-        $user->telegram = $request->telegram;
-        $user->instagram = $request->instagram;
-        $user->vkontakte = $request->vkontakte;
-
-        if ($request->image) {
-            $user->image = $request->file('image')->store('users', 'public');
-            Image::make('storage/'.$user->image)->resize(200, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-        
-        $user->save();
+    public function store(StoreUserRequest $request)
+    {
+        $this->userService->store($request);
 
         return redirect()->route('admin.user.index')->with('success', 'The user added');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $user = User::with(
@@ -84,10 +43,10 @@ class UserController extends Controller
             'projects',
             'vacancies'
         )
-            ->findOrFail($id);
+            ->find($id);
 
-        if(empty($user)) {
-            return redirect()->route('admin.user.index')->with('alert', 'The user no finded');
+        if (empty($user)) {
+            return redirect()->route('admin.user.index')->with('alert', 'The user not found');
         }
 
         return view('admin.user.show', ['user' => $user]);
@@ -97,59 +56,22 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        if(empty($user)) {
-            return redirect()->route('admin.user.index')->with('alert', 'The user no finded');
+        if (empty($user)) {
+            return redirect()->route('admin.user.index')->with('alert', 'The user not found');
         }
 
         return view('admin.user.edit', ['user' => $user]);
     }
 
-    public function update(Request $request, string $id)
-    { 
-        $request->validate([
-            'firstname' => ['required', 'string', 'max:32'],
-            'lastname' => ['required', 'string', 'max:32'],
-            'viber' => ['max:36'],
-            'whatsapp' => ['max:36'],
-            'telegram' => ['max:36'],
-            'instagram' => ['max:36'],
-            'vkontakte' => ['max:36'],
-            'image' => ['image'],
-        ]);
-    
+    public function update(UpdateUserRequest $request, string $id)
+    {
         $user = User::find($id);
 
-        if(empty($user)) {
-            return redirect()->route('admin.user.index')->with('alert', 'The user no finded');
+        if (empty($user)) {
+            return redirect()->route('admin.user.index')->with('alert', 'The user not found');
         }
 
-        $city = City::with('region')->find($request->city);
-
-        if (empty($city)) {
-            $city = City::find(1);
-        }
-
-        if ($request->image) {
-            Storage::delete('public/'.$user->image);
-            $user->image = $request->file('image')->store('users', 'public');
-            Image::make('storage/'.$user->image)->resize(200, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->phone = $request->phone;
-        $user->email = $request->email;
-        $user->city_id = $request->city;
-        $user->region_id = $city->region->id;
-        $user->viber = $request->viber;
-        $user->whatsapp = $request->whatsapp;
-        $user->telegram = $request->telegram;
-        $user->instagram = $request->instagram;
-        $user->vkontakte = $request->vkontakte;
-
-        $user->update();
+        $user = $this->userService->update($request, $user);
 
         return redirect()->route('admin.user.show', ['user' => $user->id])
             ->with('success', "The user updated");
@@ -157,18 +79,97 @@ class UserController extends Controller
 
     public function destroy(string $id)
     {
-        $user = User::with('inGroups')->find($id);
+        $user = User::with(
+            'inGroups',
+            'events',
+            'news',
+            'groups',
+            'companies',
+            'resumes',
+            'projects',
+            'vacancies'
+        )->find($id);
 
-        if(empty($user)) {
-            return redirect()->route('admin.user.index')->with('alert', 'The user no finded');
+        if (empty($user)) {
+            return redirect()->route('admin.user.index')->with('alert', 'The user not found');
         }
 
-        foreach($user->inGroups as $group) {
+        foreach ($user->inGroups as $group) {
             $user->inGroups()->detach($group->id);
         }
 
-        if($user->image !== null) {
-            Storage::delete('public/'.$user->image);
+        foreach ($user->groups as $group) {
+            if ($group->image) {
+                Storage::delete('public/' . $group->image);
+            }
+            if ($group->image1) {
+                Storage::delete('public/' . $group->image1);
+            }
+            if ($group->image2) {
+                Storage::delete('public/' . $group->image2);
+            }
+            if ($group->image2) {
+                Storage::delete('public/' . $group->image3);
+            }
+            if ($group->image4) {
+                Storage::delete('public/' . $group->image4);
+            }
+            $group->delete();
+        }
+
+        foreach ($user->companies as $company) {
+            if ($company->image) {
+                Storage::delete('public/' . $company->image);
+            }
+            $group->delete();
+        }
+
+        foreach ($user->events as $event) {
+            if ($event->image) {
+                Storage::delete('public/' . $event->image);
+            }
+            $event->delete();
+        }
+
+        foreach ($user->news as $news) {
+            if ($news->image) {
+                Storage::delete('public/' . $news->image);
+            }
+            if ($news->image1) {
+                Storage::delete('public/' . $news->image1);
+            }
+            if ($news->image2) {
+                Storage::delete('public/' . $news->image2);
+            }
+            if ($news->image3) {
+                Storage::delete('public/' . $news->image3);
+            }
+            if ($news->image4) {
+                Storage::delete('public/' . $news->image4);
+            }
+            $news->delete();
+        }
+
+        foreach ($user->projects as $project) {
+            if ($project->image !== null) {
+                Storage::delete('public/' . $project->image);
+            }
+            $project->delete();
+        }
+
+        foreach ($user->resumes as $resume) {
+            if ($resume->image !== null) {
+                Storage::delete('public/' . $resume->image);
+            }
+            $project->delete();
+        }
+
+        foreach ($user->vacancies as $vacancy) {
+            $vacancy->delete();
+        }
+
+        if ($user->image !== null) {
+            Storage::delete('public/' . $user->image);
         }
 
         $user->delete();

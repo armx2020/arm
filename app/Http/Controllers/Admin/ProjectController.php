@@ -81,7 +81,7 @@ class ProjectController extends Controller
             return redirect()->route('admin.project.index')->with('alert', 'The event not found');
         }
 
-        $this->projectService->update($request, $project);
+        $project = $this->projectService->update($request, $project);
 
         return redirect()->route('admin.project.index')->with('success', 'The project updated');
     }

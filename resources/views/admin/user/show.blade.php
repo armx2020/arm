@@ -4,31 +4,31 @@
     <div class="overflow-x-auto">
         <div class="align-middle inline-block min-w-full">
             <div class="shadow overflow-hidden">
-                <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+                <div class="bg-white shadow rounded-lg mb-4 py-4 sm:py-6 h-full">
                     @if (session('success'))
                     <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
                         {{ session('success')}}
                     </div>
                     @endif
-                    <div class="flex items-center mb-4">
+                    <div class="flex items-center mb-4 mx-6">
                         @if( $user->image == null)
-                        <img class="h-10 w-10 rounded-full m-4" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                        <img class="h-10 w-10 rounded-full m-4 object-cover" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
                         @else
-                        <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
+                        <img class="h-10 w-10 rounded-full m-4  object-cover" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
                         @endif
-                        <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $user->firstname }} {{ $user->lastname }}</h3>
+                        <h3 class="text-2xl leading-none text-gray-900">{{ $user->firstname }} {{ $user->lastname }}</h3>
                     </div>
                     <div class="flow-root">
                         <table class="table-fixed min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-100">
                                 <tr>
-                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                    <th scope="col" class="p-4 text-center text-xs font-medium text-gray-500 uppercase">
                                         Email
                                     </th>
-                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                    <th scope="col" class="p-4 text-center text-xs font-medium text-gray-500 uppercase">
                                         Phone
                                     </th>
-                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                    <th scope="col" class="p-4 text-center text-xs font-medium text-gray-500 uppercase">
                                         City
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium text-gray-500 uppercase">
@@ -40,20 +40,20 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr class="">
-                                    <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
+                                    <td class="p-4 whitespace-nowrap font-medium text-gray-900 break-all text-center">
                                         {{ $user->email}}
                                     </td>
-                                    <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
+                                    <td class="p-4 whitespace-nowrap font-medium text-gray-900 break-all text-center">
                                         @if( $user->phone == null)
                                         no phone
                                         @else
                                         {{ $user->phone }}
                                         @endif
                                     </td>
-                                    <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
+                                    <td class="p-4 whitespace-nowrap font-medium text-gray-900 break-all text-center">
                                         {{ $user->city->name }}
                                     </td>
-                                    <td class="p-4 whitespace-nowrap text-base font-normal text-gray-900">
+                                    <td class="p-4 whitespace-nowrap font-normal text-gray-900">
                                         <div class="flex items-center">
                                             @if($user->activity == 1)
                                             <div class="h-2.5 w-2.5 mx-auto rounded-full bg-green-400"></div>
