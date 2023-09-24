@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller
 
         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-        //$code = substr(str_shuffle($permitted_chars), 0, 8);
+        //  $code = substr(str_shuffle($permitted_chars), 0, 8);
         $code = '12345678';
 
         $json = SmsService::sendTo($request->phone, 'Ваш пароль для входа (не передавайте ни кому) ' . $code);
@@ -40,23 +40,28 @@ class RegisteredUserController extends Controller
         if ($json) {
 
             if ($json->status == "OK") {
+                foreach ($json->sms as $data) { // Перебираем массив СМС сообщений
+   //                 if ($data->status == "OK") { // Сообщение отправлено
 
-                $user = User::create([
-                    'firstname' => $request->firstname,
-                    'lastname' => $request->lastname,
-                    'phone' => $request->phone,
-                    'email' => $request->email,
-                    'password' => Hash::make($code),
-                ]);
+                        $user = User::create([
+                            'firstname' => $request->firstname,
+                            'lastname' => $request->lastname,
+                            'phone' => $request->phone,
+                            'email' => $request->email,
+                            'password' => Hash::make($code),
+                        ]);
 
-                event(new Registered($user));
+                        event(new Registered($user));
 
-                Auth::login($user);
+                        Auth::login($user);
 
-                return redirect(RouteServiceProvider::HOME);
-
+                        return redirect(RouteServiceProvider::HOME);
+    //                } else { // Ошибка в отправке
+     //                   return redirect()->route('register')->with('error',  "Код ошибки: $data->status_code. ");
+     //               }
+                }
             } else {
-                return redirect()->route('register')->with('error',  'У вас слишком много попыток. Попробуйте позже');
+                return redirect()->route('register')->with('error',  'Запрос не выполнился. Попробуйте позже');
             }
         } else {
             return redirect()->route('register')->with('error',  "Запрос не выполнился. Не удалось установить связь с сервером. ");
