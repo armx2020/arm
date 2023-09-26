@@ -167,7 +167,9 @@
                                     @endif
                                 </div>
                                 <p class="text-right align-middle pb-0 h-5 relative text-md hidden lg:block">
+                                    @if (count($group->users) > 3)
                                     @foreach($group->users as $user)
+                                    
                                     @if($loop->index == 0)
                                         @if( $user->image == null)
                                         <img class="w-6 h-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
@@ -200,8 +202,9 @@
                                             </p>
                                         @endif
                                     @endif
+                                    
                                     @endforeach
-
+                                    @endif
                                 </p>
                             </div>
                         </div>
@@ -380,8 +383,8 @@
                 @if($view == 1)
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($recommendations as $group)
-                    <div class="block rounded-lg bg-white h-80">
-                        <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="block h-52">
+                    <div class="flex flex-col rounded-lg bg-white h-80">
+                        <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="flex">
                             @if( $group->image == null )
                             <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -390,7 +393,7 @@
                         </a>
                         <div class="px-6">
                             <div class="h-12">
-                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                <h5 class="mb-3 break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800">
                                     {{ $group->name }}
                                 </h5>
                             </div>
@@ -489,7 +492,9 @@
                                     @endif
                                 </div>
                                 <p class="text-right align-middle pb-0 h-5 relative text-md hidden lg:block">
+                                    @if (count($group->users) > 3)
                                     @foreach($group->users as $user)
+                                    
                                     @if($loop->index == 0)
                                         @if( $user->image == null)
                                         <img class="w-6 h-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
@@ -522,8 +527,9 @@
                                             </p>
                                         @endif
                                     @endif
+                                    
                                     @endforeach
-
+                                    @endif
                                 </p>
                             </div>
                         </div>
@@ -533,7 +539,7 @@
                 @else
                 <div class="grid grid-cols-1 gap-3 lg:gap-5">
                     @foreach($recommendations as $group)
-                    <div class="flex flex-row rounded-lg bg-white h-64">
+                    <div class="flex flex-row rounded-lg bg-white h-80">
                         <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="flex basis-1/3">
                             @if( $group->image == null )
                             <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
