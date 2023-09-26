@@ -13,7 +13,7 @@ use App\Models\Traits\HasRegion;
 use App\Models\Traits\HasResumes;
 use App\Models\Traits\HasVacancies;
 use App\Models\Traits\Search;
-Use App\Models\Traits\HasNews;
+use App\Models\Traits\HasNews;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,6 +46,11 @@ class User extends Authenticatable
     public function inGroups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class);
+    }
+
+    public function isOfThe($group)
+    {
+        return $this->inGroups()->where('group_id', $group->id)->exists();
     }
 
 

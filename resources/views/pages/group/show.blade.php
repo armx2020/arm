@@ -22,6 +22,19 @@
 </nav>
 <section>
     <div class="flex flex-col w-11/12 mx-auto my-6 lg:my-8">
+
+        @if(session('alert'))
+        <div class="mb-4 flex basis-full bg-yellow-100 rounded-lg px-6 py-5 text-base text-yellow-700" role="alert" style="max-height:64px;">
+            {{ session('alert')}}
+        </div>
+        @endif
+
+        @if(session('success'))
+        <div class="mb-4 flex basis-full bg-green-100 rounded-lg px-6 py-5 text-base text-green-700" role="alert" style="max-height:64px;">
+            {{ session('success')}}
+        </div>
+        @endif
+
         <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10">
             <div class="flex flex-col basis-1/5" @if( $group->image !== null && $group->image1 !== null)
                 id="slider"
@@ -51,13 +64,16 @@
                     @endif
                 </ul>
 
-                <div class="m-5">
-                    <div class="my-2 flex flex-row">
-                        <div class="basis-1/2 text-right">{{ $fullness }} %</div>
-                    </div>
-                    <div class="w-full bg-gray-200">
-                        <div class="bg-green-500 h-5 text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100" style='width: {{ $fullness }}%'></div>
-                    </div>
+                <div class="">
+                    @if( $subscribe == false )
+                    <a class="inline-block w-full text-center border border-orange-600 rounded-lg px-6 pb-2 pt-2.5 text-orange-600 hover:bg-orange-600 hover:text-white" href="{{ route('group.subscribe', ['id' => $group->id])}}">
+                        подписаться
+                    </a>
+                    @else
+                    <a class="inline-block w-full text-center border border-orange-600 rounded-lg px-6 pb-2 pt-2.5 hover:text-orange-600 hover:bg-white bg-orange-600 text-white" href="{{ route('group.unsubscribe', ['id' => $group->id])}}">
+                        отписаться
+                    </a>
+                    @endif
                 </div>
 
             </div>

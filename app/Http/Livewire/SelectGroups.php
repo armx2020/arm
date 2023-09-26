@@ -15,7 +15,7 @@ class SelectGroups extends Component
     use WithPagination;
 
     public $term = 0;
-    public $sort = "created_at|asc";
+    public $sort = "updated_at|asc";
     public $view = 1;
     public $region;
 

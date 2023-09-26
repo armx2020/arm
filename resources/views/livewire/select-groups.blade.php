@@ -39,7 +39,6 @@
         </div>
         <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
             <div wire:loading class="w-full">
-                <x-sort />
                 <div class="p-4">
                     <div class="text-2xl items-center text-center justify-center">
                         <img class="h-5 w-5 rounded-full m-4 inline" src="{{ url('/image/loading.gif')}}">
@@ -55,8 +54,6 @@
                     </div>
                 </div>
                 @else
-
-                <x-sort />
 
                 @if($view == 1)
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
@@ -332,25 +329,25 @@
                                     @foreach($group->users as $user)
                                     @if($loop->index == 1)
                                     @if( $user->image == null)
-                                    <img class="w-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                    <img class="w-6 h-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
                                     @else
-                                    <img class="w-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                    <img class="w-6 h-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
                                     @endif
                                     @continue
                                     @endif
                                     @if($loop->index == 2)
                                     @if( $user->image == null)
-                                    <img class="w-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                    <img class="w-6 h-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
                                     @else
-                                    <img class="w-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                    <img class="w-6 h-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
                                     @endif
                                     @continue
                                     @endif
                                     @if($loop->index == 3)
                                     @if( $user->image == null)
-                                    <img class="w-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                    <img class="w-6 h-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
                                     @else
-                                    <img class="w-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                    <img class="w-6 h-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
                                     @endif
                                     @continue
                                     @endif

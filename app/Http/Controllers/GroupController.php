@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\City;
 use App\Models\Group;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -15,7 +17,7 @@ class GroupController extends Controller
                 return mb_substr($item->name, 0, 1);
             });
 
-        return view('pages.group.groups', [
+        return view('pages.group.index', [
             'city'   => $request->session()->get('city'),
             'cities' => $cities,
         ]);
@@ -28,29 +30,25 @@ class GroupController extends Controller
                 return mb_substr($item->name, 0, 1);
             });
 
-        $group = Group::with('events', 'projects', 'vacancies', 'news')->find($id);
+        $group = Group::with('events', 'projects', 'vacancies', 'news', 'users')->find($id);
 
         if (empty($group)) {
             return redirect()->route('groups.index')->with('alert', 'Группа не найдена');
         }
 
-        $sum =  ($group->address ? 10 : 0) +
-            ($group->description ? 10 : 0) +
-            ($group->image ? 10 : 0) +
-            ($group->phone ? 5 : 0) +
-            ($group->web ? 5 : 0) +
-            ($group->viber ? 5 : 0) +
-            ($group->whatsapp ? 5 : 0) +
-            ($group->instagram ? 5 : 0) +
-            ($group->vkontakte ? 5 : 0) +
-            ($group->telegram ? 5 : 0);
 
-        $fullness = (round(($sum / 65) * 100));
+        $subscribe = false;
 
-        return view('pages.group.group', [
+        if (Auth::check()) {
+            if ($group->isOfThe(Auth::user())) {
+                $subscribe = true;
+            }
+        }
+
+        return view('pages.group.show', [
             'city'   => $request->session()->get('city'),
             'group' => $group,
-            'fullness' => $fullness,
+            'subscribe' => $subscribe,
             'cities' => $cities
         ]);
     }
@@ -65,5 +63,40 @@ class GroupController extends Controller
     {
         $request->session()->put('filter', 'religion');
         return redirect()->route('group.index');
+    }
+
+    public function subscribe($id)
+    {
+        $group = Group::find($id);
+
+        if (empty($group)) {
+            return redirect()->route('groups.index')->with('alert', 'Группа не найдена');
+        }
+
+        if (!Auth::check()) {
+            return redirect()->route('group.show', ['id' => $group->id])->with('alert', 'Необходимо войти');
+        }
+
+        if ($group->isOfThe(Auth::user())) {
+            return redirect()->route('group.show', ['id' => $group->id])->with('alert', 'Вы уже подписаны');
+        }
+
+        $group->users()->attach(Auth::user()->id);
+
+        return redirect()->route('group.show', ['id' => $group->id])->with('success', 'Вы успешно подписались');
+    }
+
+    public function unsubscribe($id)
+    {
+        
+        $group = Group::find($id);
+
+        if (empty($group)) {
+            return redirect()->route('groups.index')->with('alert', 'Группа не найдена');
+        }
+
+        $group->users()->detach(Auth::user()->id);
+
+        return redirect()->route('group.show', ['id' => $group->id])->with('success', 'Вы успешно отписались');
     }
 }

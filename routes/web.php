@@ -21,7 +21,6 @@ use App\Http\Controllers\Profile\MyVacancyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\VacancyController;
-use App\Http\Middleware\FromLocation;
 use Illuminate\Support\Facades\Route;
 
 
@@ -53,6 +52,7 @@ Route::get('/groups', [GroupController::class, 'index'])->name('group.index');
 Route::get('/group/{id}', [GroupController::class, 'show'])->name('group.show');
 Route::get('/groups/places', [GroupController::class, 'places'])->name('group.places');
 Route::get('/groups/religion', [GroupController::class, 'religion'])->name('group.religion');
+
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
 Route::get('/project/{id}', [ProjectController::class, 'show'])->name('project.show');
@@ -90,6 +90,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/group/{id}/subscribe', [GroupController::class, 'subscribe'])->name('group.subscribe');
+    Route::get('/group/{id}/unsubscribe', [GroupController::class, 'unsubscribe'])->name('group.unsubscribe');
 
     Route::resources([
         'mygroups'      =>  MyGroupController::class,

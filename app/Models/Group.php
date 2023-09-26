@@ -37,6 +37,11 @@ class Group extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function isOfThe($user)
+    {
+        return $this->users()->where('user_id', $user->id)->exists();
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(GroupCategory::class, 'group_category_id');
