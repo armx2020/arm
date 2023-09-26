@@ -48,15 +48,15 @@
             </div>
             <div wire:loading.remove class="w-full">
                 @if ($groups->isEmpty())
-                <div class="w-full text-center p-4">
-                    <div class="flex items-center text-center justify-center">
-                        <h3 class="text-2xl font-normal mx-auto">В КАТЕГОРИИ НЕТ ГРУПП</h3>
+                <div class="w-full text-center">
+                    <div class="mb-4 flex basis-full bg-green-100 rounded-lg px-6 py-5 text-base text-green-700" role="alert" style="max-height:64px;">
+                        К сожалению, в этом регионе нет проектов данной категории
                     </div>
                 </div>
                 @else
 
                 @if($view == 1)
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($groups as $group)
                     <div class="flex flex-col rounded-lg bg-white h-80">
                         <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="flex">
@@ -68,13 +68,13 @@
                         </a>
                         <div class="px-6">
                             <div class="h-12">
-                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                <h5 class="mb-3 break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800">
                                     {{ $group->name }}
                                 </h5>
                             </div>
                             <hr class="my-3">
-                            <div>
-                                <p class="text-left pb-0">
+                            <div class="relative">
+                                <div class="text-left pb-0 block">
                                     @if( $group->viber )
                                     <a href="{{ $group->viber }}" class="inline">
                                         <svg class="w-5 h-5 inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 192 210.0428" id="viber" version="1.1" viewBox="0 0 192 210.0428" xml:space="preserve">
@@ -132,7 +132,7 @@
                                     </a>
                                     @endif
 
-                                    @if($group -> instagram)
+                                    @if($group->instagram)
                                     <a href="{{ $group->instagram }}">
                                         <svg class="w-5 h-5 inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 56.7 56.7" enable-background="new 0 0 56.7 56.7" xml:space="preserve">
                                             <g>
@@ -144,7 +144,7 @@
                                     </a>
                                     @endif
 
-                                    @if($group -> vkontakte)
+                                    @if($group->vkontakte)
                                     <a href="{{ $group->vkontakte }}">
                                         <svg class="w-6 h-6 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                                             <title />
@@ -155,7 +155,7 @@
                                     </a>
                                     @endif
 
-                                    @if( $group->telegram)
+                                    @if($group->telegram)
                                     <a href="{{ $group->telegram }}">
                                         <svg class="w-6 h-6 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                             <g>
@@ -165,43 +165,42 @@
                                         </svg>
                                     </a>
                                     @endif
-                                </p>
-
-                                <p class="text-right align-middle pb-0 h-5 relative text-md">
+                                </div>
+                                <p class="text-right align-middle pb-0 h-5 relative text-md hidden lg:block">
                                     @foreach($group->users as $user)
-                                    @if($loop->index == 1)
-                                    @if( $user->image == null)
-                                    <img class="w-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
-                                    @else
-                                    <img class="w-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                    @if($loop->index == 0)
+                                        @if( $user->image == null)
+                                        <img class="w-6 h-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                        @else
+                                        <img class="w-6 h-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                        @endif
+                                    @continue
                                     @endif
+                                    @if($loop->index == 1)
+                                        @if( $user->image == null)
+                                        <img class="w-6 h-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                        @else
+                                        <img class="w-6 h-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                        @endif
                                     @continue
                                     @endif
                                     @if($loop->index == 2)
-                                    @if( $user->image == null)
-                                    <img class="w-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
-                                    @else
-                                    <img class="w-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
-                                    @endif
+                                        @if( $user->image == null)
+                                        <img class="w-6 h-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                        @else
+                                        <img class="w-6 h-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                        @endif
                                     @continue
                                     @endif
-                                    @if($loop->index == 3)
-                                    @if( $user->image == null)
-                                    <img class="w-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
-                                    @else
-                                    <img class="w-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
-                                    @endif
-                                    @continue
-                                    @endif
-                                    @if($loop->last)
+                                        @if($loop->last)
 
-                                    @if( $loop->index > 3)
-                                    +{{ $loop->index - 3}}
-                                    @endif
-
+                                            @if( $loop->index > 2)
+                                            <p class="absolute right-1 bottom-0 hidden lg:block">
+                                                +{{ $loop->index - 2}}
+                                            </p>
+                                        @endif
                                     @endif
                                     @endforeach
-
 
                                 </p>
                             </div>
@@ -396,8 +395,8 @@
                                 </h5>
                             </div>
                             <hr class="my-3">
-                            <div>
-                                <p class="text-left pb-0">
+                            <div class="relative">
+                                <div class="text-left pb-0 block">
                                     @if( $group->viber )
                                     <a href="{{ $group->viber }}" class="inline">
                                         <svg class="w-5 h-5 inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 192 210.0428" id="viber" version="1.1" viewBox="0 0 192 210.0428" xml:space="preserve">
@@ -455,7 +454,7 @@
                                     </a>
                                     @endif
 
-                                    @if($group -> instagram)
+                                    @if($group->instagram)
                                     <a href="{{ $group->instagram }}">
                                         <svg class="w-5 h-5 inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 56.7 56.7" enable-background="new 0 0 56.7 56.7" xml:space="preserve">
                                             <g>
@@ -467,7 +466,7 @@
                                     </a>
                                     @endif
 
-                                    @if($group -> vkontakte)
+                                    @if($group->vkontakte)
                                     <a href="{{ $group->vkontakte }}">
                                         <svg class="w-6 h-6 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                                             <title />
@@ -478,7 +477,7 @@
                                     </a>
                                     @endif
 
-                                    @if( $group->telegram)
+                                    @if($group->telegram)
                                     <a href="{{ $group->telegram }}">
                                         <svg class="w-6 h-6 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                             <g>
@@ -488,43 +487,42 @@
                                         </svg>
                                     </a>
                                     @endif
-                                </p>
-
-                                <p class="text-right align-middle pb-0 h-5 relative text-md">
+                                </div>
+                                <p class="text-right align-middle pb-0 h-5 relative text-md hidden lg:block">
                                     @foreach($group->users as $user)
-                                    @if($loop->index == 1)
-                                    @if( $user->image == null)
-                                    <img class="w-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
-                                    @else
-                                    <img class="w-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                    @if($loop->index == 0)
+                                        @if( $user->image == null)
+                                        <img class="w-6 h-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                        @else
+                                        <img class="w-6 h-6 bottom-0 right-16  rounded-full absolute z-0" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                        @endif
+                                    @continue
                                     @endif
+                                    @if($loop->index == 1)
+                                        @if( $user->image == null)
+                                        <img class="w-6 h-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                        @else
+                                        <img class="w-6 h-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                        @endif
                                     @continue
                                     @endif
                                     @if($loop->index == 2)
-                                    @if( $user->image == null)
-                                    <img class="w-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
-                                    @else
-                                    <img class="w-6 bottom-0 right-12 rounded-full absolute z-10" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
-                                    @endif
+                                        @if( $user->image == null)
+                                        <img class="w-6 h-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                        @else
+                                        <img class="w-6 h-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
+                                        @endif
                                     @continue
                                     @endif
-                                    @if($loop->index == 3)
-                                    @if( $user->image == null)
-                                    <img class="w-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
-                                    @else
-                                    <img class="w-6 bottom-0 right-8 rounded-full absolute z-20" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
-                                    @endif
-                                    @continue
-                                    @endif
-                                    @if($loop->last)
+                                        @if($loop->last)
 
-                                    @if( $loop->index > 3)
-                                    +{{ $loop->index - 3}}
-                                    @endif
-
+                                            @if( $loop->index > 2)
+                                            <p class="absolute right-1 bottom-0 hidden lg:block">
+                                                +{{ $loop->index - 2}}
+                                            </p>
+                                        @endif
                                     @endif
                                     @endforeach
-
 
                                 </p>
                             </div>

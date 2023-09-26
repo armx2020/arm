@@ -17,27 +17,11 @@ use App\Http\Controllers\Profile\MyProjectController;
 use App\Http\Controllers\Profile\MyResumeController;
 use App\Http\Controllers\Profile\MyOfferController;
 use App\Http\Controllers\Profile\MyVacancyController;
-//use App\Http\Controllers\Profile\MyWorkController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\VacancyController;
 use Illuminate\Support\Facades\Route;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-//  Route::get('/', function () {
-//     return redirect()->route('main');
-//  })->name('welcome')->middleware(FromLocation::class);
 
 Route::get('/admin', function () {
     return redirect()->route('admin.dashboard');
@@ -52,7 +36,6 @@ Route::get('/groups', [GroupController::class, 'index'])->name('group.index');
 Route::get('/group/{id}', [GroupController::class, 'show'])->name('group.show');
 Route::get('/groups/places', [GroupController::class, 'places'])->name('group.places');
 Route::get('/groups/religion', [GroupController::class, 'religion'])->name('group.religion');
-
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
 Route::get('/project/{id}', [ProjectController::class, 'show'])->name('project.show');
@@ -79,8 +62,6 @@ Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('p
 Route::get('/condition-of-use', [HomeController::class, 'conditionOfUse'])->name('condition-of-use');
 
 
-
-
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -91,6 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // Subscride for group
     Route::get('/group/{id}/subscribe', [GroupController::class, 'subscribe'])->name('group.subscribe');
     Route::get('/group/{id}/unsubscribe', [GroupController::class, 'unsubscribe'])->name('group.unsubscribe');
 
