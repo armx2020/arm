@@ -50,7 +50,7 @@
                 @if ($groups->isEmpty())
                 <div class="w-full text-center">
                     <div class="mb-4 flex basis-full bg-green-100 rounded-lg px-6 py-5 text-base text-green-700" role="alert" style="max-height:64px;">
-                        К сожалению, в этом регионе нет проектов данной категории
+                        К сожалению, в этом регионе нет сообществ данной категории
                     </div>
                 </div>
                 @else

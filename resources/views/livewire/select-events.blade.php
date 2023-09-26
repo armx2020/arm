@@ -40,7 +40,6 @@
             </div>
             <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
                 <div wire:loading class="w-full">
-                    <x-sort />
                     <div class="p-4">
                         <div class="text-2xl items-center text-center justify-center">
                             <img class="h-5 w-5 rounded-full m-4 inline" src="{{ url('/image/loading.gif')}}">
@@ -50,17 +49,15 @@
                 </div>
                 <div wire:loading.remove class="w-full">
                     @if ($events->isEmpty())
-                    <div class="w-full text-center p-4">
-                        <div class="flex items-center text-center justify-center">
-                            <h3 class="text-2xl font-normal mx-auto">В РЕГИОНЕ НЕТ СОБЫТИЙ</h3>
+                    <div class="w-full text-center">
+                        <div class="mb-4 flex basis-full bg-green-100 rounded-lg px-6 py-5 text-base text-green-700" role="alert" style="max-height:64px;">
+                            К сожалению, в этом регионе нет мероприятий
                         </div>
                     </div>
                     @else
 
-                    <x-sort />
-
                     @if($view == 1)
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                    <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                         @foreach($events as $event)
                         <div class="block rounded-lg bg-white h-80">
                             <a href="{{ route('event.show', ['id' => $event->id ]) }}" class="block h-52">
@@ -72,7 +69,7 @@
                             </a>
                             <div class="px-6">
                                 <div class="h-12">
-                                    <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                    <h5 class="mb-3 break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800">
                                         {{ $event->name }}
                                     </h5>
                                 </div>
@@ -121,7 +118,7 @@
                     </div>
                     <hr class="w-full mb-4">
                     @if($view == 1)
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                    <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                         @foreach($recommendations as $event)
                         <div class="block rounded-lg bg-white h-80">
                             <a href="{{ route('event.show', ['id' => $event->id ]) }}" class="block h-52">
@@ -133,7 +130,7 @@
                             </a>
                             <div class="px-6">
                                 <div class="h-12">
-                                    <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                    <h5 class="mb-3 break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800">
                                         {{ $event->name }}
                                     </h5>
                                 </div>

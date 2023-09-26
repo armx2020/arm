@@ -15,7 +15,7 @@ class SelectVacancies extends Component
 
     public $region;
     public $type = 0;
-    public $sort = "created_at|asc";
+    public $sort = "updated_at|asc";
     public $view = 1;
 
     public function mount(Request $request)
@@ -34,7 +34,7 @@ class SelectVacancies extends Component
         $exp = explode('|', $this->sort);
 
         if ($this->type == 0) {
-                $typeName = 'ВАКАНСИЙ';
+                $typeName = 'вакансий';
             if ($this->region == 1) {
                 $works = Vacancy::orderBy($exp[0], $exp[1])->paginate(12);
                 $recommendations = [];
@@ -49,7 +49,7 @@ class SelectVacancies extends Component
                     })->limit(3)->get();
             }
         } else {
-                $typeName = 'РЕЗЮМЕ';
+                $typeName = 'резюме';
             if ($this->region == 1) {
                 $works = Resume::with('user')->orderBy($exp[0], $exp[1])->paginate(12);
                 $recommendations = []; 

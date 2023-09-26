@@ -37,7 +37,6 @@
             </div>
             <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
                 <div wire:loading class="w-full">
-                    <x-sort />
                     <div class="p-4">
                         <div class="text-2xl items-center text-center justify-center">
                             <img class="h-5 w-5 rounded-full m-4 inline" src="{{ url('/image/loading.gif')}}">
@@ -47,19 +46,18 @@
                 </div>
                 <div wire:loading.remove class="w-full">
                     @if ($works->isEmpty())
-                    <div class="w-full text-center p-4">
-                        <div class="flex items-center text-center justify-center">
-                            <h3 class="text-2xl font-normal mx-auto">В РЕГИОНЕ НЕТ {{ $typeName }}</h3>
+                    <div class="w-full text-center">
+                        <div class="mb-4 flex basis-full bg-green-100 rounded-lg px-6 py-5 text-base text-green-700" role="alert" style="max-height:64px;">
+                            К сожалению, в этом регионе нет {{ $typeName }}
                         </div>
                     </div>
                     @else
 
-                    <x-sort />
 
                     @if($view == 1)
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                    <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                         @foreach($works as $work)
-                        @if($typeName == 'ВАКАНСИЙ')
+                        @if($typeName == 'вакансий')
                         <div class="block rounded-lg bg-white h-80">
                             <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="block h-52">
                                 @if( $work->parent == null )
@@ -73,7 +71,7 @@
                                 @endif
                             </a>
                             <div class="px-6">
-                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                <h5 class="mb-3 break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800">
                                     {{$work->name }}
                                 </h5>
                                 <hr class="my-2">
@@ -119,7 +117,7 @@
                     @else
                     <div class="grid grid-cols-1 gap-3 lg:gap-5">
                         @foreach($works as $work)
-                        @if($typeName == 'ВАКАНСИЙ')
+                        @if($typeName == 'вакансий')
                         <div class="flex flex-row rounded-lg bg-white h-64">
                             <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="basis-1/2">
                                 @if( $work->parent == null )
@@ -187,7 +185,7 @@
                     </div>
                     <hr class="w-full mb-4">
                     @if($view == 1)
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                    <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                         @foreach($recommendations as $work)
                         @if($typeName == 'ВАКАНСИЙ')
                         <div class="block rounded-lg bg-white h-80">
@@ -203,7 +201,7 @@
                                 @endif
                             </a>
                             <div class="px-6">
-                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                <h5 class="mb-3 break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800">
                                     {{$work->name }}
                                 </h5>
                                 <hr class="my-2">

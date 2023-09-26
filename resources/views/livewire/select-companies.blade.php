@@ -32,17 +32,15 @@
             </div>
             <div wire:loading.remove class="w-full">
                 @if ($companies->isEmpty())
-                <div class="w-full text-center p-4">
-                    <div class="flex items-center text-center justify-center">
-                        <h3 class="text-2xl font-normal mx-auto">В РЕГИОНЕ НЕТ КОМПАНИЙ</h3>
+                <div class="w-full text-center">
+                    <div class="mb-4 flex basis-full bg-green-100 rounded-lg px-6 py-5 text-base text-green-700" role="alert" style="max-height:64px;">
+                        К сожалению, в этом регионе нет компаний
                     </div>
                 </div>
                 @else
 
-                <x-sort />
-
                 @if($view == 1)
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($companies as $company)
                     <div class="flex flex-col rounded-lg bg-white h-80">
                         <a href="{{ route('company.show', ['id' => $company->id ]) }}" class="flex">
@@ -54,7 +52,7 @@
                         </a>
                         <div class="px-6">
                             <div class="h-12">
-                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                <h5 class="mb-3 break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800">
                                     {{ $company->name }}
                                 </h5>
                             </div>
@@ -289,7 +287,7 @@
                 </div>
                 <hr class="w-full mb-4">
                 @if($view == 1)
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($recommendations as $company)
                     <div class="block rounded-lg bg-white h-80">
                         <a href="{{ route('company.show', ['id' => $company->id ]) }}" class="block h-52">
@@ -301,7 +299,7 @@
                         </a>
                         <div class="px-6">
                             <div class="h-12">
-                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                <h5 class="mb-3 break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800">
                                     {{ $company->name }}
                                 </h5>
                             </div>

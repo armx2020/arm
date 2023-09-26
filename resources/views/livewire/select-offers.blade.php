@@ -39,7 +39,6 @@
         </div>
         <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
             <div wire:loading class="w-full">
-                <x-sort />
                 <div class="p-4">
                     <div class="text-2xl items-center text-center justify-center">
                         <img class="h-5 w-5 rounded-full m-4 inline" src="{{ url('/image/loading.gif')}}">
@@ -48,18 +47,17 @@
                 </div>
             </div>
             <div wire:loading.remove class="w-full">
-                <x-sort />
                 @if ($offers->isEmpty())
-                <div class="w-full text-center p-4">
-                    <div class="flex items-center text-center justify-center">
-                        <h3 class="text-2xl font-normal mx-auto">В КАТЕГОРИИ НЕТ ПРЕДЛОЖЕНИЙ</h3>
+                <div class="w-full text-center">
+                    <div class="mb-4 flex basis-full bg-green-100 rounded-lg px-6 py-5 text-base text-green-700" role="alert" style="max-height:64px;">
+                        К сожалению, в этом регионе нет предложений данной категории
                     </div>
                 </div>
                 @else
 
 
                 @if($view == 1)
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($offers as $offer)
                     <div class="block rounded-lg bg-white h-96">
                         <a href="{{ route('offer.show', ['id' => $offer->id ]) }}" class="block h-52">
@@ -71,7 +69,7 @@
                         </a>
                         <div class="px-6">
                             <div class="h-24">
-                                <h5 class="break-words text-lg font-medium leading-tight text-neutral-800">
+                                <h5 class="break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800">
                                     {{ $offer->name }}
                                 </h5>
                                 <p class="inline text-neutral-400">
@@ -127,7 +125,7 @@
                 </div>
                 <hr class="w-full mb-4">
                 @if($view == 1)
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($recommendations as $offer)
                     <div class="block rounded-lg bg-white h-80">
                         <a href="{{ route('offer.show', ['id' => $offer->id ]) }}" class="block h-52">
@@ -139,7 +137,7 @@
                         </a>
                         <div class="px-6">
                             <div class="h-12">
-                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
+                                <h5 class="mb-3 break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800">
                                     {{ $offer->name }}
                                 </h5>
                                 <p class="inline text-neutral-400">
@@ -172,8 +170,8 @@
                                 {{ $offer->name }}
                             </h5>
                             <p class="inline text-neutral-400">
-                                    {{ $offer->company->name}}
-                                </p>
+                                {{ $offer->company->name}}
+                            </p>
                             <hr class="my-3">
                             <div>
                                 <p class="text-right font-bold pb-0">
