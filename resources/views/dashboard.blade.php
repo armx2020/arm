@@ -30,7 +30,7 @@
                     <hr class="mt-3 mb-3">
 
                     <div class="flow-root my-6 mx-3 text-center">
-                        <ul class="flex flex-wrap justify-center">
+                        <ul class="flex flex-wrap">
 
                             @if( Auth::user()->phone)
                             <li class="text-lg p-1 m-1  rounded-md mx-3">
