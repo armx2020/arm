@@ -47,7 +47,7 @@
                 <div wire:loading.remove class="w-full">
                     @if ($works->isEmpty())
                     <div class="w-full text-center">
-                        <div class="mb-4 flex basis-full bg-green-100 rounded-lg px-6 py-5 text-base text-green-700" role="alert" style="max-height:64px;">
+                        <div class="mb-4 flex basis-full bg-green-100 rounded-lg px-6 py-2 md:py-5 text-base text-green-700" role="alert" style="max-height:64px;">
                             К сожалению, в этом регионе нет {{ $typeName }}
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                                 <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="image">
                                 @endif
                             </a>
-                            <div class="px-6">
+                            <div class="px-3 md:px-6">
                                 <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
                                     {{ $work->name }}
                                 </h5>
@@ -149,13 +149,17 @@
                         @else
                         <div class="block rounded-lg bg-white h-80">
                             <a href="{{ route('resume.show', ['id' => $work->id ]) }}" class="block h-52">
+                                @if( $work->user)
                                 @if( $work->user->image == null )
                                 <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/user.png')}}" alt="image" />
                                 @else
                                 <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="image">
                                 @endif
+                                @else
+                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/user.png')}}" alt="image" />
+                                @endif
                             </a>
-                            <div class="px-6">
+                            <div class="px-3 md:px-6">
                                 <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
                                     {{ $work->name }}
                                 </h5>
@@ -200,7 +204,7 @@
                                 @endif
                                 @endif
                             </a>
-                            <div class="px-6">
+                            <div class="px-3 md:px-6">
                                 <h5 class="mb-3 break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800">
                                     {{$work->name }}
                                 </h5>
@@ -225,7 +229,7 @@
                                 <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="image">
                                 @endif
                             </a>
-                            <div class="px-6">
+                            <div class="px-3 md:px-6">
                                 <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
                                     {{ $work->name }}
                                 </h5>

@@ -52,7 +52,7 @@
             <div wire:loading.remove class="w-full">
                 @if ($projects->isEmpty())
                 <div class="w-full text-center">
-                <div class="mb-4 flex basis-full bg-green-100 rounded-lg px-6 py-5 text-base text-green-700" role="alert" style="max-height:64px;">
+                <div class="mb-4 flex basis-full bg-green-100 rounded-lg px-6 py-2 md:py-5 text-base text-green-700" role="alert" style="max-height:64px;">
                         К сожалению, в этом регионе нет проектов
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                             <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$project->image) }}" alt="image">
                             @endif
                         </a>
-                        <div class="px-6">
+                        <div class="px-3 md:px-6">
                             <h5 class="mb-3 break-words text-sm lg:text-lg font-medium leading-tight text-neutral-800 h-20">
                                 {{ $project->name }}
                             </h5>
@@ -144,8 +144,8 @@
                             <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$project->image) }}" alt="image">
                             @endif
                         </a>
-                        <div class="px-6">
-                            <h5 class="mb-3 text-sm lg:text-lg break-words text-lg font-medium leading-tight text-neutral-800 h-20">
+                        <div class="px-3 md:px-6">
+                            <h5 class="mb-3 text-sm lg:text-lg break-words font-medium leading-tight text-neutral-800 h-20">
                                 {{ $project->name }}
                             </h5>
                             <hr class="my-2">
