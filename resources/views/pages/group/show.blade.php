@@ -64,7 +64,7 @@
                     @endif
                 </ul>
 
-                <div class="">
+                <div class="p-2 my-2">
                     @if( $subscribe == false )
                     <a class="inline-block w-full text-center border border-orange-600 rounded-lg px-6 pb-2 pt-2.5 text-orange-600 hover:bg-orange-600 hover:text-white" href="{{ route('group.subscribe', ['id' => $group->id])}}">
                         подписаться
@@ -77,7 +77,7 @@
                 </div>
 
             </div>
-            <div class="flex flex-col px-3 lg:px-10">
+            <div class="flex flex-col px-1 lg:px-10">
                 <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $group->name }}</h3>
                 <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $group->city->name }} {{ $group->address }}
                 </p>
