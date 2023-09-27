@@ -31,7 +31,7 @@
                     @else
 
                     @if($view == 1)
-                    <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                         @foreach($news as $new)
                         <div class="block rounded-lg bg-white h-80">
                             <a href="{{ route('news.show', ['id' => $new->id ]) }}" class="block h-52">
@@ -93,7 +93,7 @@
                     </div>
                     <hr class="w-full mb-4">
                     @if($view == 1)
-                    <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                         @foreach($recommendations as $new)
                         <div class="block rounded-lg bg-white h-80">
                             <a href="{{ route('news.show', ['id' => $new->id ]) }}" class="block h-52">

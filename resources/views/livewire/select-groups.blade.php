@@ -56,7 +56,7 @@
                 @else
 
                 @if($view == 1)
-                <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($groups as $group)
                     <div class="flex flex-col rounded-lg bg-white h-80">
                         <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="flex">
