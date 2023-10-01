@@ -3,7 +3,7 @@
         <div class="flex flex-col basis-full lg:basis-1/5 ">
             <div class="flex flex-row gap-3">
                 <div class="bg-white rounded-md mt-3 basis-full">
-                    <select name="region" class="w-full border-0" wire:model="region">
+                    <select name="region" class="w-full border-0" wire:model="region" autocomplete="off">
                         @foreach($regions as $region)
                         <option value='{{ $region->id }}'>{{ $region->name}}</option>
                         @endforeach
@@ -14,44 +14,44 @@
         <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
 
             <div class="flex flex-nowrap gap-x-2 mb-3 overflow-x-scroll scrollhidden">
-                <div class="flex-none bg-white py-2 px-3 rounded-md" id="select-area" 
-                    @if($term == 0) 
-                    style="background-color: rgb(234 88 12);" 
-                    @else style="background-color: white;color:black;" 
-                    @endif
-                >
-                    <input class="float-left ml-2 mr-4 mt-1 appearance-none rounded-sm hidden" type="radio" wire:model="term" value="0" name="select" />
-                    <label class="inline-block " for="checkboxDefault">
+                <div class="flex-none py-2 px-3 rounded-md" id="select-area" @if($term==0) style="background-color: rgb(234 88 12);" @else style="background-color: white;color:black;" @endif>
+                    <input class="hidden" type="radio" wire:model="term" value="0" name="select" />
+                    <p class="inline-block " for="checkboxDefault">
                         Все группы
-                    </label>
+                    </p>
                 </div>
                 <script type='text/javascript'>
                     document.addEventListener('DOMContentLoaded', function() {
                         document.getElementById("select-area").onclick = function() {
                             document.querySelector('input[name="select"][value="0"]').click();
                             document.getElementById("select-area").style.backgroundColor = 'rgb(234 88 12)';
-                            document.getElementById("select-area").scrollIntoView({block: 'nearest', inline: "center"});
+                            document.getElementById("select-area").scrollIntoView({
+                                block: 'nearest',
+                                inline: "center"
+                            });
                         };
                     });
                 </script>
                 @foreach($categories as $category)
-                <div class="flex-none bg-white py-2 px-3 rounded-md" id="select-area_{{ $category->id }}" 
-                    @if($term == $category->id)
+                <div class="flex-none py-2 px-3 rounded-md" id="select-area_{{ $category->id }}" @if($term==$category->id)
                     style="background-color: rgb(234 88 12);"
                     @else
                     style="background-color: white;color:black;"
                     @endif
                     >
-                    <input class="float-left ml-2 mr-4 mt-1 appearance-none rounded-sm hidden" type="radio" wire:model="term" value="{{ $category->id }}" name="select" />
-                    <label class="inline-block " for="checkboxDefault">
+                    <input class="hidden" type="radio" wire:model="term" value="{{ $category->id }}" name="select" />
+                    <p class="inline-block " for="checkboxDefault">
                         {{ $category->name }}
-                    </label>
+                    </p>
                 </div>
                 <script type='text/javascript'>
                     document.addEventListener('DOMContentLoaded', function() {
                         document.getElementById("select-area_{{ $category->id }}").onclick = function() {
                             document.querySelector('input[name="select"][value="{{ $category->id }}"]').click();
-                            document.getElementById("select-area_{{ $category->id }}").scrollIntoView({block: 'nearest', inline: "center"});
+                            document.getElementById("select-area_{{ $category->id }}").scrollIntoView({
+                                block: 'nearest',
+                                inline: "center"
+                            });
                         };
                     });
                 </script>
