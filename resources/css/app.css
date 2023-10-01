@@ -11,6 +11,16 @@ body {
     color: #111928;
 }
 
+.scrollhidden {
+	-ms-overflow-style: none;
+
+}
+
+.scrollhidden::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+}
+
 #slider {
 	overflow: hidden;
 }
