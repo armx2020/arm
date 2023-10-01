@@ -17,7 +17,7 @@
                 <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_2" @if($term==2) style="background-color: rgb(234 88 12);" @else style="background-color: white;color:black;" @endif>
                     <input class="hidden" type="radio" wire:model="term" value="2" name="select" />
                     <p class="inline-block ">
-                        Все
+                        Все проекты
                     </p>
                 </div>
                 <script type='text/javascript'>
