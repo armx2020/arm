@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="basis-1/3 lg:basis-1/2">
-                    <img class="h-5/6 lg:h-full float-right" src="{{ url('/image/banner1.png')}}" alt="banner">
+                    <img class="h-28 md:h-38 lg:h-64  float-right object-cover" src="{{ url('/image/banner1.png')}}" alt="banner">
                 </div>
             </div>
 
@@ -32,7 +32,7 @@
                         <div class="mx-1 lg:mx-2 text-sm font-light text-slate-500">Календарь событий и мероприятий</div>
                     </div>
                     <div class="basis-1/2">
-                        <img class="lg:h-full float-right" src="{{ url('/image/banner2.png') }}" alt="banner">
+                        <img class="h-28 md:h-38 lg:h-full float-right" src="{{ url('/image/banner2.png') }}" alt="banner">
                     </div>
                 </div>
             </a>
@@ -45,7 +45,7 @@
                         <div class="mx-1 lg:mx-2 text-sm font-light text-slate-500">Сообщества по интересам</div>
                     </div>
                     <div class="basis-1/2">
-                        <img class="float-right h-5/6 md:h-4/6 m-2" src="{{ url('/image/banner3.png') }}" alt="banner">
+                        <img class="float-right h-28 md:h-38 m-2" src="{{ url('/image/banner3.png') }}" alt="banner">
                     </div>
 
                 </div>
@@ -59,7 +59,7 @@
                         <div class="mx-1 lg:mx-2 text-sm font-light text-slate-500">Найти работу или разместить вакансию</div>
                     </div>
                     <div class="basis-1/2">
-                        <img class="float-right m-2" src="{{ url('/image/banner5.png') }}" alt="banner">
+                        <img class="float-right m-2 h-28 md:h-38" src="{{ url('/image/banner5.png') }}" alt="banner">
                     </div>
                 </div>
             </a>
@@ -72,7 +72,7 @@
                     <div class="mx-1 lg:mx-2 text-sm font-light text-slate-500">Сделанные проекты<br>Достижения, план работ</div>
                 </div>
                 <div class="basis-1/2">
-                    <img class="float-right h-5/6 m-2" src="{{ url('/image/banner7.png')}}" alt="banner">
+                    <img class="float-right h-28 md:h-38 m-2" src="{{ url('/image/banner7.png')}}" alt="banner">
                 </div>
             </div>
         </a>
@@ -85,7 +85,7 @@
                         <div class="mx-2 text-sm font-light text-slate-500">Каталог товаров и услуг армянской общины</div>
                     </div>
                     <div class="basis-1/2">
-                        <img class="float-right h-5/6 m-1" src="{{ url('/image/banner6.png') }}" alt="banner">
+                        <img class="float-right h-28 md:h-38 m-1" src="{{ url('/image/banner6.png') }}" alt="banner">
                     </div>
                 </div>
             </a>
