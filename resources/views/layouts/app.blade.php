@@ -30,11 +30,11 @@
         @include('layouts.nav')
         @yield('content')
     </div>
-    <div id="warning_cookie" class=" hidden bg-orange-100 px-1 lg:px-6 py-2 lg:py-5 text-xs md:text-sm lg:text-base text-orange-800 fixed bottom-0 w-full opacity-100">
+    <div id="warning_cookie" class=" hidden bg-orange-100 px-1 py-2 text-xs md:text-sm lg:text-base text-orange-800 fixed bottom-0 w-full opacity-100">
         <div class="w-full md:w-10/12 mx-auto flex justify-between p-1">
             <div class="flex basis-full">Мы используем cookie. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie.</div>
             <div class="flex h-10 md:h-12">
-            <button type="button" id="warning_button_cookie" class="flex basis-full bg-orange-600 rounded-lg p-3 px-auto text-white" href="http://armo/register">
+            <button type="button" id="warning_button_cookie" class="flex basis-full bg-orange-600 rounded-lg p-3 px-auto text-white">
                 Принять
             </button>
             </div>

@@ -35,6 +35,6 @@ $(document).ready(function () {
         document.cookie = "cooking=true; max-age=2592000; path=/";
     });
     if (document.cookie.indexOf("cooking") != 0) {
-		$("#warning_cookie").toggle();
+		$("#warning_cookie").css({ 'display': 'block' });
 	}
 })
