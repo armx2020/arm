@@ -1,5 +1,5 @@
 <nav class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-wrap lg:justify-start p-2 lg:py-5">
-    <div class="flex w-11/12 flex-wrap items-center justify-between mx-auto">
+    <div class="flex w-10/12 flex-wrap items-center justify-between mx-auto">
         <div class="block px-2 xl:hidden">
             <a class="" href="{{ route('home') }}">
                 <img src="{{ url('/image/logo.png')}}" class="w-21 h-7" alt="logo" />
@@ -35,7 +35,7 @@
                         <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->email }}</a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="inline-block bg-orange-600 rounded-lg px-6 pb-2 pt-2.5 text-white" href="{{ route('register') }}">
+                            <button type="submit" class="inline-block bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 text-white" href="{{ route('register') }}">
                                 Выход
                             </button>
                         </form>
@@ -115,7 +115,7 @@
                 <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->email }}</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="inline-block bg-orange-600 rounded-lg px-6 pb-2 pt-2.5 text-white" href="{{ route('register') }}">
+                    <button type="submit" class="inline-block bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 text-white" href="{{ route('register') }}">
                         Выход
                     </button>
                 </form>
@@ -125,7 +125,7 @@
             @guest
             <div class="flex flex-row items-center">
                 <a class="mx-4" href="{{ route('login') }}">Войти</a>
-                <a class="inline-block bg-orange-600 rounded-lg px-6 pb-2 pt-2.5 text-white" href="{{ route('register') }}">
+                <a class="inline-block bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 text-white" href="{{ route('register') }}">
                     Регистрация
                 </a>
             </div>
