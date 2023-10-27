@@ -2,7 +2,7 @@
 @section('content')
 
 <section>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-10 lg:grid-rows-3 gap-4 w-full lg:w-10/12 p-2 md:p-0 mx-auto py-5 lg:py-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-10 lg:grid-rows-3 gap-4 w-11/12 lg:w-10/12 md:p-0 mx-auto py-5 lg:py-10">
         <div class="bg-white rounded-xl h-32 md:h-42 lg:h-72 col-span-1 lg:col-span-2 row-span-1 lg:row-span-2">
             <div class="flex flex-row">
                 <div class="flex flex-col text-left basis-2/3 lg:basis-1/2 p-3 lg:p-5">
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="basis-1/3 lg:basis-1/2">
-                    <img class="h-28 md:h-38 lg:h-64  float-right object-cover" src="{{ url('/image/banner1.png')}}" alt="banner">
+                    <img class="h-28 md:h-38 lg:h-64  float-right object-cover rounded-xl" src="{{ url('/image/banner1.png')}}" alt="banner">
                 </div>
             </div>
 
@@ -32,7 +32,7 @@
                         <div class="mx-1 lg:mx-2 text-xs lg:text-sm font-light text-slate-500">Календарь событий и мероприятий</div>
                     </div>
                     <div class="basis-1/2">
-                        <img class="h-28 md:h-38 lg:h-full float-right" src="{{ url('/image/banner2.png') }}" alt="banner">
+                        <img class="h-28 md:h-38 lg:h-full float-right rounded-xl" src="{{ url('/image/banner2.png') }}" alt="banner">
                     </div>
                 </div>
             </a>
@@ -45,7 +45,7 @@
                         <div class="mx-1 lg:mx-2 text-xs lg:text-sm font-light text-slate-500">Сообщества по интересам</div>
                     </div>
                     <div class="basis-1/2">
-                        <img class="float-right h-28 md:h-38 m-2" src="{{ url('/image/banner3.png') }}" alt="banner">
+                        <img class="float-right h-28 md:h-38 m-2 rounded-xl" src="{{ url('/image/banner3.png') }}" alt="banner">
                     </div>
 
                 </div>
@@ -59,7 +59,7 @@
                         <div class="mx-1 lg:mx-2 text-xs lg:text-sm font-light text-slate-500">Найти работу или разместить вакансию</div>
                     </div>
                     <div class="basis-1/2">
-                        <img class="float-right m-2 h-28 md:h-38" src="{{ url('/image/banner5.png') }}" alt="banner">
+                        <img class="float-right m-2 h-28 md:h-38 rounded-xl" src="{{ url('/image/banner5.png') }}" alt="banner">
                     </div>
                 </div>
             </a>
@@ -72,7 +72,7 @@
                     <div class="mx-1 lg:mx-2 text-xs lg:text-sm font-light text-slate-500">Сделанные проекты<br>Достижения, план работ</div>
                 </div>
                 <div class="basis-1/2">
-                    <img class="float-right h-28 md:h-38 m-2" src="{{ url('/image/banner7.png')}}" alt="banner">
+                    <img class="float-right h-28 md:h-38 m-2 rounded-xl" src="{{ url('/image/banner7.png')}}" alt="banner">
                 </div>
             </div>
         </a>
@@ -85,7 +85,7 @@
                         <div class="mx-2 text-xs lg:text-sm font-light text-slate-500">Каталог товаров и услуг армянской общины</div>
                     </div>
                     <div class="basis-1/3">
-                        <img class="float-right h-24 md:h-38 m-1" src="{{ url('/image/banner6.png') }}" alt="banner">
+                        <img class="float-right h-24 md:h-38 m-1 rounded-xl" src="{{ url('/image/banner6.png') }}" alt="banner">
                     </div>
                 </div>
             </a>
