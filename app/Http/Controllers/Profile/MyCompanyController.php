@@ -3,15 +3,23 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CompanyRequest;
 use App\Models\City;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\CompanyService;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
 class MyCompanyController extends Controller
 {
+    public function __construct(private CompanyService $companyService)
+    {
+        $this->companyService = $companyService;
+    }
+
+
     public function index(Request $request)
     {
         $cities = City::all()->sortBy('name')
@@ -41,7 +49,7 @@ class MyCompanyController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
