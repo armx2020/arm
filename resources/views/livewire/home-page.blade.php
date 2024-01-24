@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="px-4 py-3">
-                                <div class="h-12 w-44 lg:w-48">
+                                <div class="h-12 w-44 lg:w-[17rem]">
                                     <h5 class="break-words text-sm lg:text-lg font-semibold animate-pulse">
                                         <span
                                             class="rounded-md inline-block min-h-[1em] w-full flex-auto cursor-wait bg-current align-middle text-base text-neutral-800 opacity-50 dark:text-neutral-50"></span>
@@ -116,7 +116,7 @@
                                 </div>
                             </div>
                             <div class="px-4 py-3">
-                                <div class="h-12 w-44 lg:w-48">
+                                <div class="h-12 w-44 lg:w-[17rem]">
                                     <h5 class="break-words text-sm lg:text-lg font-semibold animate-pulse">
                                         <span
                                             class="rounded-md inline-block min-h-[1em] w-full flex-auto cursor-wait bg-current align-middle text-base text-neutral-800 opacity-50 dark:text-neutral-50"></span>
@@ -148,7 +148,7 @@
                                 </div>
                             </div>
                             <div class="px-4 py-3">
-                                <div class="h-12 w-44 lg:w-48">
+                                <div class="h-12 w-44 lg:w-[17rem]">
                                     <h5 class="break-words text-sm lg:text-lg font-semibold animate-pulse">
                                         <span
                                             class="rounded-md inline-block min-h-[1em] w-full flex-auto cursor-wait bg-current align-middle text-base text-neutral-800 opacity-50 dark:text-neutral-50"></span>
@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                             <div class="px-4 py-3">
-                                <div class="h-12 w-44 lg:w-48">
+                                <div class="h-12 w-44 lg:w-[17rem]">
                                     <h5 class="break-words text-sm lg:text-lg font-semibold animate-pulse">
                                         <span
                                             class="rounded-md inline-block min-h-[1em] w-full flex-auto cursor-wait bg-current align-middle text-base text-neutral-800 opacity-50 dark:text-neutral-50"></span>
@@ -246,7 +246,6 @@
                                         </li>
                                     </ul>
                                 </div>
-
                             </div>
                         </div>
                     @endforeach
