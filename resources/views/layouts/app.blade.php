@@ -31,6 +31,7 @@
     <div class="min-h-screen bg-neutral-100">
         @include('layouts.nav')
         @yield('content')
+        @include('layouts.footer')
     </div>
     <div id="warning_cookie"
         class="hidden bg-orange-100 px-1 py-2 text-xs md:text-sm lg:text-base text-orange-800 fixed bottom-0 w-full opacity-100">
