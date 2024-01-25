@@ -75,7 +75,7 @@
         <div wire:loading class="">
             <div>
                 <div
-                    class="flex flex-nowrap lg:flex-none lg:grid lg:grid-cols-4 gap-2 lg:gap-5 overflow-x-scroll scrollhidden">
+                    class="flex flex-nowrap lg:flex-none lg:grid lg:grid-cols-4 gap-3 lg:gap-5 overflow-x-scroll scrollhidden">
                     <div class="block lg:col-span-1">
                         <div class="flex flex-col rounded-2xl bg-white h-[26rem]">
                             <div class="flex">
@@ -212,7 +212,7 @@
         <div wire:loading.remove class="">
             <div x-data>
                 <div x-ref="categories"
-                    class="flex flex-nowrap lg:flex-none lg:grid lg:grid-cols-4 gap-2 lg:gap-5 overflow-x-scroll scrollhidden">
+                    class="flex flex-nowrap lg:flex-none lg:grid lg:grid-cols-4 gap-3 lg:gap-5 overflow-x-scroll scrollhidden">
                     @foreach ($groups as $group)
                         <div class="block lg:col-span-1">
                             <div class="flex flex-col rounded-2xl bg-white h-[26rem]">

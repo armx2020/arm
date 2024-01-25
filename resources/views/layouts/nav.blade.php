@@ -1,6 +1,6 @@
 <nav
     class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-wrap lg:justify-start p-2 lg:py-5">
-    <div class="flex w-11/12 lg:w-10/12 flex-wrap items-center justify-between mx-auto  text-sm font-medium">
+    <div class="flex w-11/12 lg:w-10/12 max-w-7xl flex-wrap items-center justify-between mx-auto  text-sm font-medium">
         <div class="block px-2 xl:hidden">
             <a class="" href="{{ route('home') }}">
                 <img src="{{ url('/image/logo.png')}}" class="w-21 h-7" alt="logo" />
