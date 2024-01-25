@@ -7,7 +7,7 @@
                     <div class="flex flex-col text-left basis-2/3 lg:basis-1/2 p-5 xl:p-8">
                         <div class="my-1 lg:my-2 text-md md:text-lg lg:text-2xl font-extrabold uppercase">{{ $group->name }}
                         </div>
-                        <div class="my-1 text-sm md:text-md lg:text-lg xl:text-xl font-normal">
+                        <div class="my-1 text-sm md:text-md xl:text-lg font-normal">
                             Информационный справочник для армян России и мира</div>
                         <div class="text-gray-600 hidden md:block text-sm lg:text-md xl:text-lg font-light">
                             - Новости, сообщества, товары, проекты в одном месте
@@ -32,9 +32,9 @@
         <div x-data>
             <div x-ref="banners"
                 class="flex flex-nowrap lg:flex-none lg:grid lg:grid-cols-5 gap-2 lg:gap-5 overflow-x-scroll scrollhidden w-11/12 lg:w-10/12 max-w-7xl mx-auto pt-5 lg:pt-10">
-                <div class="bg-orange-100 rounded-xl block lg:col-span-1 p-2 lg:p-4">
+                <div class="bg-orange-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
                     <a href="{{ route('vacancy.index') }}">
-                        <div class="flex flex-col h-full w-32 lg:w-48 relative">
+                        <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Поиск работы</p>
                             <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Найти работу или
                                 разместить вакансию</p>
@@ -43,15 +43,15 @@
                                     alt="banner">
                             </div>
                             <div
-                                class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-bold">
+                                class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
                                 Подробнее &rarr;
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="bg-blue-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 ">
+                <div class="bg-blue-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
                     <a href="{{ route('vacancy.index') }}">
-                        <div class="flex flex-col h-full w-32 lg:w-48 relative">
+                        <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Бизнес
                                 справочник</p>
                             <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Каталог товаров/услуг армянской общины</p>
@@ -59,30 +59,30 @@
                                 <img class="flex self-center rounded-xl" src="{{ url('/image/www.png') }}" alt="banner">
                             </div>
                             <div
-                                class="absolute inset-x-0 bottom-0 text-blue-600 text-sm md:text-md lg:text-lg text-center font-bold">
+                                class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
                                 Подробнее &rarr;
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="bg-red-200 rounded-xl block lg:col-span-1 p-2 lg:p-4 ">
+                <div class="bg-red-200 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
                     <a href="{{ route('project.index') }}">
-                        <div class="flex flex-col h-full w-32 lg:w-48 relative">
+                        <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Наши проекты</p>
                             <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Сделанные проекты, достижения</p>
                             <div class="flex place-content-center">
-                                <img class="flex self-center rounded-xl" src="{{ url('/image/like.png') }}" alt="like">
+                                <img class="flex self-center rounded-xl h-20 md:h-28 lg:40 my-2" src="{{ url('/image/like.png') }}" alt="like">
                             </div>
                             <div
-                                class="absolute inset-x-0 bottom-0 text-blue-600 text-sm md:text-md lg:text-lg text-center font-bold">
+                                class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
                                 Подробнее &rarr;
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="bg-emerald-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 ">
+                <div class="bg-emerald-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
                     <a href="{{ route('group.index') }}">
-                        <div class="flex flex-col h-full w-32 lg:w-48 relative">
+                        <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Кружки,
                                 сообщества</p>
                             <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Сообщества, группы по интересам</p>
@@ -91,24 +91,24 @@
                                     alt="friends">
                             </div>
                             <div
-                                class="absolute inset-x-0 bottom-0 text-blue-600 text-sm md:text-md lg:text-lg text-center font-bold">
+                                class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
                                 Подробнее &rarr;
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="bg-orange-200 rounded-xl block lg:col-span-1 p-2 lg:p-4 ">
+                <div class="bg-orange-200 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
                     <a href="{{ route('event.index') }}">
-                        <div class="flex flex-col h-full w-32 lg:w-48 relative">
+                        <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Афиша событий
                             </p>
                             <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Новости, календарь мероприятий</p>
                             <div class="flex place-content-center">
-                                <img class="flex self-center rounded-xl" src="{{ url('/image/alerts.png') }}"
+                                <img class="flex self-center rounded-xl h-20 md:h-28 lg:40" src="{{ url('/image/alerts.png') }}"
                                     alt="alerts">
                             </div>
                             <div
-                                class="absolute inset-x-0 bottom-0 text-blue-600 text-sm md:text-md lg:text-lg text-center font-bold">
+                                class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
                                 Подробнее &rarr;
                             </div>
                         </div>
