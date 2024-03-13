@@ -1,5 +1,5 @@
 <div>
-    <div class="flex flex-col lg:flex-row w-11/12 mx-auto">
+    <div class="flex flex-col lg:flex-row mx-auto">
         <div class="flex flex-col basis-full lg:basis-1/5 ">
             <div class="flex flex-row gap-3">
                 <div class="bg-white rounded-md my-3 basis-11/12 lg:basis-full">

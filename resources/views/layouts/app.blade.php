@@ -30,12 +30,14 @@
 <body class="antialiased w-full">
     <div class="min-h-screen bg-neutral-100">
         @include('layouts.nav')
+        <div class="w-11/12 lg:w-10/12 max-w-7xl mx-auto">
         @yield('content')
+    </div>
         @include('layouts.footer')
     </div>
     <div id="warning_cookie"
         class="hidden bg-orange-100 px-1 py-2 text-xs md:text-sm lg:text-base text-orange-800 fixed bottom-0 w-full opacity-100">
-        <div class="w-full md:w-10/12 mx-auto flex justify-between p-1">
+        <div class="w-11/12 lg:w-10/12 max-w-7xl mx-auto flex justify-between p-1">
             <div class="flex basis-full">Мы используем cookie. Продолжая пользоваться сайтом, вы соглашаетесь с
                 использованием файлов cookie.</div>
             <div class="flex h-10 md:h-12">

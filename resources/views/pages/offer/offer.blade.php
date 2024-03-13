@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<nav class="w-11/12 mb-2 mt-5 rounded-md mx-auto px-3 lg:px-2 text-sm md:text-md">
+<nav class="mb-2 mt-5 rounded-md mx-auto px-3 lg:px-2 text-sm md:text-md">
     <ol class="list-reset flex">
         <li>
             <a href="{{ route('home') }}" class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600">Главная</a>
@@ -21,7 +21,7 @@
     </ol>
 </nav>
 <section>
-    <div class="flex flex-col w-11/12 mx-auto my-6 lg:my-8">
+    <div class="flex flex-col mx-auto my-6 lg:my-8">
         <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
             <div class="flex flex-col basis-1/5" @if( $offer->image !== null && $offer->image1 !== null)
                 id="slider"

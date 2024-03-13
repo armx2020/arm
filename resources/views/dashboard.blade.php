@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="flex flex-col lg:flex-row w-11/12 mx-auto my-10">
+<div class="flex flex-col lg:flex-row mx-auto my-10">
 
     <x-nav-profile page="main"></x-nav-profile>
 
