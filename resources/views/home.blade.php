@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <section>
-        <div class="w-11/12 lg:w-10/12 max-w-7xl mx-auto pt-5 lg:pt-10">
+        <div class="mx-auto pt-5 lg:pt-10">
             <div class="bg-white rounded-xl row-span-1 lg:row-span-1">
                 <div class="flex flex-col md:flex-row">
                     <div class="flex flex-col text-left basis-2/3 lg:basis-1/2 p-5 xl:p-8">
@@ -31,7 +31,7 @@
 
         <div x-data>
             <div x-ref="banners"
-                class="flex flex-nowrap lg:flex-none lg:grid lg:grid-cols-5 gap-2 lg:gap-5 overflow-x-scroll scrollhidden w-11/12 lg:w-10/12 max-w-7xl mx-auto pt-5 lg:pt-10">
+                class="flex flex-nowrap lg:flex-none lg:grid lg:grid-cols-5 gap-2 lg:gap-5 overflow-x-scroll scrollhidden mx-auto pt-5 lg:pt-10">
                 <div class="bg-orange-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
                     <a href="{{ route('vacancy.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
@@ -116,7 +116,7 @@
                 </div>
             </div>
 
-            <div class="block lg:hidden text-right text-blue-600 w-11/12 lg:w-10/12 max-w-7xl mx-auto mt-2">
+            <div class="block lg:hidden text-right text-blue-600 mx-auto mt-2">
                 <button x-on:click="$refs.banners.scrollLeft -= 140" class="font-extrabold text-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg"width="25" height="23" viewBox="0 0 25 23"
                         fill="none">
@@ -132,7 +132,7 @@
             </div>
         </div>
 
-        <div class="w-11/12 lg:w-10/12 max-w-7xl mx-auto py-5 lg:pt-10">
+        <div class="mx-auto py-5 lg:pt-10">
             <div class="bg-orange-300 rounded-xl row-span-1">
                 <div class="flex flex-col lg:flex-row">
                     <div class="flex flex-col text-left basis-2/3 lg:basis-1/2 p-3 lg:p-5 xl:p-8">

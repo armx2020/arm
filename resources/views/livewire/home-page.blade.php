@@ -1,6 +1,6 @@
 <div>
     {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
-    <div class="grid grid-rows-3 lg:grid-rows-2 w-11/12 lg:w-10/12 gap-2 max-w-7xl mx-auto my-5">
+    <div class="grid grid-rows-3 lg:grid-rows-2 gap-2 mx-auto my-5">
         <div class="row-span-2 lg:row-span-1 grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3">
             <div>
                 <div class="flex items-center sm:divide-x sm:divide-gray-100 sm:mb-0">
@@ -70,7 +70,7 @@
         </div>
     </div>
 
-    <div class="w-11/12 lg:w-10/12 max-w-7xl mx-auto pb-5">
+    <div class="mx-auto pb-5">
 
         <div wire:loading class="">
             <div>
@@ -268,13 +268,13 @@
             </div>
         </div>
     </div>
-    <div class="flex justify-center w-11/12 lg:w-10/12 max-w-7xl mx-auto pb-5 lg:pb-10">
+    <div class="flex justify-center mx-auto pb-5 lg:pb-10">
         <a class="my-2 lg:my-4 rounded-md bg-blue-500 text-white text-center w-64 p-2 items-center font-normal"
             href="{{ route('group.index') }}">
             Загрузить больше
         </a>
     </div>
-    <div class="flex justify-center w-11/12 lg:w-10/12 max-w-7xl mx-auto pb-5 lg:pb-20">
+    <div class="flex justify-center mx-auto pb-5 lg:pb-20">
         <div class="flex basis-full">
             <div class="flex flex-col basis-full bg-white rounded-md p-4 lg:p-10">
                 <div class="w-full my-1 lg:mb-4 text-md md:text-2xl lg:text-4xl font-extrabold uppercase">Часто
