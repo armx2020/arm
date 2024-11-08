@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
-use App\Http\Controllers\Admin\ExperienceController;
 use App\Http\Controllers\Admin\GroupCategoryController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\NewsController;
@@ -32,7 +31,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
             'offerCategory' =>  OfferCategoryController::class,
             'offer'         =>  OfferController::class,
             'resume'        =>  ResumeController::class,
-            'experience'    =>  ExperienceController::class,
             'vacancy'       =>  VacancyController::class,
             'event'         =>  EventController::class,
             'news'          =>  NewsController::class,

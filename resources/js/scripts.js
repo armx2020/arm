@@ -30,11 +30,4 @@ $(document).ready(function () {
         $("#dropdown_ul").toggle();
         document.body.style.position = '';
     });
-    $("#warning_button_cookie").click(function() {
-        $("#warning_cookie").remove();
-        document.cookie = "cooking=true; max-age=2592000; path=/";
-    });
-    if (document.cookie.indexOf("cooking") != 0) {
-		$("#warning_cookie").css({ 'display': 'block' });
-	}
 })
