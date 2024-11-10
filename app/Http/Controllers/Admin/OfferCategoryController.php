@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\OfferCategoryRequest;
 use App\Models\OfferCategory;
 use App\Services\OfferCategoryService;
 
-class OfferCategoryController extends Controller
+class OfferCategoryController extends BaseAdminController
 {
     public function __construct(private OfferCategoryService $offerCategoryService)
     {
+        parent::__construct();
         $this->offerCategoryService = $offerCategoryService;
     }
 
     public function index()
     {
-        return view('admin.offercategory.index');
+        return view('admin.offercategory.index', ['menu' => $this->menu]);
     }
 
     public function create()
     {
-        return view('admin.offercategory.create');
+        return view('admin.offercategory.create', ['menu' => $this->menu]);
     }
 
     public function store(OfferCategoryRequest$request)
@@ -39,7 +40,7 @@ class OfferCategoryController extends Controller
             return redirect()->route('admin.offercategory.index')->with('alert', 'The category not found');
         }
 
-        return view('admin.offercategory.show', ['category' => $category]);
+        return view('admin.offercategory.show', ['category' => $category, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -50,7 +51,7 @@ class OfferCategoryController extends Controller
             return redirect()->route('admin.offercategory.index')->with('alert', 'The category not found');
         }
 
-        return view('admin.offercategory.edit', ['category' => $category]);
+        return view('admin.offercategory.edit', ['category' => $category, 'menu' => $this->menu]);
     }
 
     public function update(OfferCategoryRequest $request, string $id)

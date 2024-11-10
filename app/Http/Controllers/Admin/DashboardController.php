@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Company;
 use App\Models\Event;
 use App\Models\Group;
 use App\Models\User;
 
 
-class DashboardController extends Controller
+class DashboardController extends BaseAdminController
 {
     public function index()
     {
@@ -34,7 +34,8 @@ class DashboardController extends Controller
             'countGroupsAll' => $countGroupsAll,
             'countGroupsToday' => $countGroupsToday,
             'events' => $events,
-            'users' => $users
+            'users' => $users,
+            'menu' => $this->menu
         ]);
     }
 }

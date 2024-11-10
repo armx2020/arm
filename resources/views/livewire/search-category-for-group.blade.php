@@ -1,4 +1,4 @@
-<div>
+<div  class="py-6 px-4 max-w-7xl mx-auto rounded-t-lg">
     <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200">
         <div class="mb-3 w-full">
             @if (session('success'))

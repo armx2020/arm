@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\EventRequest;
 use App\Models\Company;
 use App\Models\Event;
@@ -10,16 +10,17 @@ use App\Models\Group;
 use App\Models\User;
 use App\Services\EventService;
 
-class EventController extends Controller
+class EventController extends BaseAdminController
 {
     public function __construct(private EventService $eventService)
     {
+        parent::__construct();
         $this->eventService = $eventService;
     }
 
     public function index()
     {
-        return view('admin.event.index');
+        return view('admin.event.index', ['menu' => $this->menu]);
     }
 
     public function create()
@@ -31,7 +32,8 @@ class EventController extends Controller
         return view('admin.event.create', [
             'users' => $users,
             'companies' => $companies,
-            'groups' => $groups
+            'groups' => $groups,
+            'menu' => $this->menu
         ]);
     }
 
@@ -50,7 +52,7 @@ class EventController extends Controller
             return redirect()->route('admin.event.index')->with('alert', 'The event not found');
         }
 
-        return view('admin.event.show', ['event' => $event]);
+        return view('admin.event.show', ['event' => $event, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -69,7 +71,8 @@ class EventController extends Controller
             'event' => $event,
             'users' => $users,
             'companies' => $companies,
-            'groups' => $groups
+            'groups' => $groups,
+            'menu' => $this->menu
         ]);
     }
 

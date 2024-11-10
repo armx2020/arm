@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\ResumeRequest;
 use App\Models\Resume;
 use App\Models\User;
 use App\Services\ResumeService;
 
-class ResumeController extends Controller
+class ResumeController extends BaseAdminController
 {
     public function __construct(private ResumeService $resumeService)
     {
+        parent::__construct();
         $this->resumeService = $resumeService;
     }
 
     public function index()
     {
-        return view('admin.resume.index');
+        return view('admin.resume.index', ['menu' => $this->menu]);
     }
 
     public function create()
     {
         $users = User::all();
-        return view('admin.resume.create', ['users' => $users]);
+        return view('admin.resume.create', ['users' => $users, 'menu' => $this->menu]);
     }
 
     public function store(ResumeRequest $request)
@@ -41,7 +42,7 @@ class ResumeController extends Controller
             return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
         }
 
-        return view('admin.resume.show', ['resume' => $resume]);
+        return view('admin.resume.show', ['resume' => $resume, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -54,7 +55,7 @@ class ResumeController extends Controller
 
         $users = User::all();
         
-        return view('admin.resume.edit', ['resume' => $resume, 'users' => $users]);
+        return view('admin.resume.edit', ['resume' => $resume, 'users' => $users, 'menu' => $this->menu]);
     }
 
     public function update(ResumeRequest $request, string $id)

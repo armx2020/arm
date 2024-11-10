@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\VacancyRequest;
 use App\Models\Company;
 use App\Models\Group;
@@ -10,17 +10,19 @@ use App\Models\User;
 use App\Models\Vacancy;
 use App\Services\VacancyService;
 
-class VacancyController extends Controller
+class VacancyController extends BaseAdminController
 {
     public function __construct(private VacancyService $vacancyService)
     {
+        parent::__construct();
         $this->vacancyService = $vacancyService;
     }
 
     public function index()
     {
         $vacancies = Vacancy::with('parent')->latest()->paginate(20);
-        return view('admin.vacancy.index', ['vacancies' => $vacancies]);
+
+        return view('admin.vacancy.index', ['vacancies' => $vacancies, 'menu' => $this->menu]);
     }
 
     public function create()
@@ -30,9 +32,10 @@ class VacancyController extends Controller
         $groups = Group::all();
 
         return view('admin.vacancy.create', [
-                                        'users' => $users,
-                                        'companies' => $companies,
-                                        'groups' => $groups
+            'users' => $users,
+            'companies' => $companies,
+            'groups' => $groups,
+            'menu' => $this->menu
         ]);
     }
 
@@ -47,18 +50,18 @@ class VacancyController extends Controller
     {
         $vacancy = Vacancy::with('parent')->find($id);
 
-        if(empty($vacancy)) {
+        if (empty($vacancy)) {
             return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
         }
 
-        return view('admin.vacancy.show', ['vacancy' => $vacancy]);
+        return view('admin.vacancy.show', ['vacancy' => $vacancy, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
     {
         $vacancy = Vacancy::find($id);
 
-        if(empty($vacancy)) {
+        if (empty($vacancy)) {
             return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
         }
 
@@ -67,22 +70,23 @@ class VacancyController extends Controller
         $groups = Group::all();
 
         return view('admin.vacancy.edit', [
-                        'vacancy' => $vacancy,
-                        'users' => $users,
-                        'companies' => $companies,
-                        'groups' => $groups
-                        ]);
+            'vacancy' => $vacancy,
+            'users' => $users,
+            'companies' => $companies,
+            'groups' => $groups,
+            'menu' => $this->menu
+        ]);
     }
 
     public function update(VacancyRequest $request, string $id)
     {
         $vacancy = Vacancy::find($id);
 
-        if(empty($vacancy)) {
+        if (empty($vacancy)) {
             return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
         }
 
-        $vacancy = $this->vacancyService->update($request, $vacancy);       
+        $vacancy = $this->vacancyService->update($request, $vacancy);
 
         return redirect()->route('admin.vacancy.index')->with('success', 'The vacancy updated');
     }
@@ -91,7 +95,7 @@ class VacancyController extends Controller
     {
         $vacancy = Vacancy::find($id);
 
-        if(empty($vacancy)) {
+        if (empty($vacancy)) {
             return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
         }
 

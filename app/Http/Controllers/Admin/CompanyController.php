@@ -2,30 +2,31 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use App\Models\User;
 use App\Services\CompanyService;
 use Illuminate\Support\Facades\Storage;
 
-class CompanyController extends Controller
+class CompanyController extends BaseAdminController
 {
     public function __construct(private CompanyService $companyService)
     {
+        parent::__construct();
         $this->companyService = $companyService;
     }
 
     public function index()
     {
-        return view('admin.company.index');
+        return view('admin.company.index', ['menu' => $this->menu]);
     }
 
     public function create()
     {
         $users = User::all();
 
-        return view('admin.company.create', ['users' => $users]);
+        return view('admin.company.create', ['users' => $users, 'menu' => $this->menu]);
     }
 
     public function store(CompanyRequest $request)
@@ -42,7 +43,7 @@ class CompanyController extends Controller
         if (empty($company)) {
             return redirect()->route('admin.company.index')->with('alert', 'The company not found');
         }
-        return view('admin.company.show', ['company' => $company]);
+        return view('admin.company.show', ['company' => $company, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -55,7 +56,7 @@ class CompanyController extends Controller
 
         $users = User::all();
 
-        return view('admin.company.edit', ['company' => $company, 'users' => $users]);
+        return view('admin.company.edit', ['company' => $company, 'users' => $users, 'menu' => $this->menu]);
     }
 
     public function update(CompanyRequest $request, string $id)

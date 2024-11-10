@@ -11,7 +11,7 @@
                     </svg>
                 </button>
                 <a href="{{ route('admin.dashboard') }}" class="text-xl font-bold flex items-center lg:ml-2.5">
-                    <!-- <img src="https://demo.themesberg.com/windster/images/logo.svg" class="h-6 mr-2" alt="Windster Logo"> -->
+
                     <span class="hidden sm:inline-flex self-center whitespace-nowrap">ADMINISTRATOR</span>
                 </a>
             </div>
