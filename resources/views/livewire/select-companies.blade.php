@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
+        <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen" style="max-width: 80%">
             <div wire:loading class="w-full">
                 <x-sort />
                 <div class="p-4">
