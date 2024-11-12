@@ -17,7 +17,7 @@
 
             <!-- confirm_phone -->
             <div>
-                <x-input-label for="code" :value="__('Введите последние 4 цифры номера с которого мы звоним  (для теста 0000)')" />
+                <x-input-label for="code" :value="__('Введите последние 4 цифры номера с которого мы звоним')" />
                 <x-text-input id="code" class="block my-2 w-full" placeholder="последние 4 цифры" type="number" name="code" max=9999 min=0000 :value="old('code')" require autofocus />
                 @if($message)
                 <p class="text-sm text-red-600 my-1">{{ $message }}</p>
