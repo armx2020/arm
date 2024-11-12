@@ -76,7 +76,7 @@ class SelectGroups extends Component
                 })->limit(3)->get();
         }
 
-        $categories = GroupCategory::orderBy('sort_id', 'asc')->get();
+        $categories = GroupCategory::where('activity', 1)->orderBy('sort_id', 'asc')->get();
         $regions = Region::all();
 
         return view('livewire.select-groups', [

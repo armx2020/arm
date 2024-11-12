@@ -64,7 +64,7 @@ class SelectOffers extends Component
                 })->limit(3)->get();
         }
 
-        $categories = OfferCategory::orderBy('sort_id', 'asc')->get();
+        $categories = OfferCategory::where('activity', 1)->orderBy('sort_id', 'asc')->get();
         $regions = Region::all();
 
         return view('livewire.select-offers', [
