@@ -16,7 +16,7 @@
             <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
 
                 <div class="flex flex-nowrap gap-x-2 mb-3 overflow-x-scroll scrollhidden">
-                    <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area" @if($term==0) style="background-color: rgb(59 130 246);" @else style="background-color: white;color:black;" @endif>
+                    <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area" @if($term==0) style="background-color: rgb(59 130 246);color:white" @else style="background-color: white;color:black;" @endif>
                         <input class="hidden" type="radio" wire:model="term" value="0" name="select" />
                         <p class="inline-block " for="checkboxDefault">
                             Все события
@@ -36,7 +36,7 @@
                     </script>
                     @foreach($categories as $category)
                     <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_{{ $category->id }}" @if($term==$category->id)
-                        style="background-color: rgb(59 130 246);"
+                        style="background-color: rgb(59 130 246);color:white"
                         @else
                         style="background-color: white;color:black;"
                         @endif
