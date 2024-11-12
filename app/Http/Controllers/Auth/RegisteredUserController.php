@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Services\SmsService;
+use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
@@ -25,18 +26,15 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'firstname' => ['required', 'string', 'max:32'],
-            'lastname' => ['required', 'string', 'max:32'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'phone' => ['required', 'max:32', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults(), Rules\Password::min(6)],
         ]);
 
         $request->session()->put('firstname', $request->firstname);
-        $request->session()->put('lastname', $request->lastname);
-        $request->session()->put('email', $request->email);
         $request->session()->put('phone', $request->phone);
         $request->session()->put('password', $request->password);
 
-        $json = SmsService::callTo($request->phone, $_SERVER["REMOTE_ADDR"]);
+        $json = SmsService::callTo($request->phone, $_SERVER["REMOTE_ADDR"], true);
 
         if ($json) {
             if ($json->status == "OK") {
@@ -66,9 +64,7 @@ class RegisteredUserController extends Controller
 
             $user = User::create([
                 'firstname' => $request->session()->get('firstname'),
-                'lastname' => $request->session()->get('lastname'),
                 'phone' => $request->session()->get('phone'),
-                'email' => $request->session()->get('email'),
                 'password' => Hash::make($request->session()->get('password')),
             ]);
 

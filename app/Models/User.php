@@ -39,7 +39,6 @@ class User extends Authenticatable
 
     protected $searchable = [
         'firstname',
-        'lastname',
         'email'
     ];
 
@@ -61,7 +60,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'firstname',
-        'lastname',
         'phone',
         'email',
         'password',

@@ -37,7 +37,7 @@
                 <li class="mb-4 my-2 p-4 flex border justify-center">
                     @auth
                         <div class="flex flex-row items-center">
-                            <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->email }}</a>
+                            <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->firstname }}</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
@@ -119,7 +119,7 @@
 
             @auth
                 <div class="flex flex-row items-center">
-                    <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->email }}</a>
+                    <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->firstname }}</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="inline-block bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 text-white"
