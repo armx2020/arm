@@ -2,32 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
-class EventController extends Controller
+class EventController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         return view('pages.event.events', [
-            'city'   => $request->session()->get('city'),
-            'cities' => $cities
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
         ]);
     }
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $event = Event::with('parent')->find($id);
 
         if (empty($event)) {
@@ -35,9 +29,9 @@ class EventController extends Controller
         }
 
         return view('pages.event.event', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'event'   => $event,
-            'cities' => $cities
         ]);
     }
 }

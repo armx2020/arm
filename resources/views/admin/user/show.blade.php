@@ -224,7 +224,7 @@
             <ul class="flex flex-wrap">
                 @foreach ($user->groups as $group)
                 <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                    <a href="{{ route('admin.group.show' , ['group' => $group->id]) }}">
+                    <a href="{{ route('admin.groups.show' , ['group' => $group->id]) }}">
                         {{ $group->name }}
                     </a>
                 </li>

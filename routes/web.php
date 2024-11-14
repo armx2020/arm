@@ -21,40 +21,55 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\VacancyController;
 use Illuminate\Support\Facades\Route;
-
+use Stevebauman\Location\Facades\Location;
 
 Route::get('/admin', function () {
     return redirect()->route('admin.dashboard');
 });
 
-Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
-Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::get('ip', function () {
+    $ip = '109.234.28.90';
+    $data = Location::get($ip);
+    dd($data);
+});
 
-Route::get('/city/{id}', [HomeController::class, 'changeCity'])->name('changeCity');
+Route::get('/{regionCode?}', [HomeController::class, 'home'])->where('regionCode', '[0-9]+|null')->name('home');
 
-Route::get('/groups', [GroupController::class, 'index'])->name('group.index');
-Route::get('/group/{id}', [GroupController::class, 'show'])->name('group.show');
-Route::get('/groups/places', [GroupController::class, 'places'])->name('group.places');
-Route::get('/groups/religion', [GroupController::class, 'religion'])->name('group.religion');
+Route::name('groups.')->prefix('/groups')->group(function () {
+    Route::get('/', [GroupController::class, 'index'])->name('index');
+    Route::get('/{id}', [GroupController::class, 'show'])->name('show');
+    Route::get('/places', [GroupController::class, 'places'])->name('places');
+    Route::get('/religion', [GroupController::class, 'religion'])->name('religion');
+});
 
-Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
-Route::get('/project/{id}', [ProjectController::class, 'show'])->name('project.show');
+Route::name('projects.')->prefix('/projects')->group(function () {
+    Route::get('/', [ProjectController::class, 'index'])->name('index');
+    Route::get('/{id}', [ProjectController::class, 'show'])->name('show');
+});
 
-Route::get('/companies', [CompanyController::class, 'index'])->name('company.index');
-Route::get('/company/{id}', [CompanyController::class, 'show'])->name('company.show');
+Route::name('events.')->prefix('/events')->group(function () {
+    Route::get('/', [EventController::class, 'index'])->name('index');
+    Route::get('/{id}', [EventController::class, 'show'])->name('show');
+});
 
-Route::get('/offers', [OfferController::class, 'index'])->name('offer.index');
-Route::get('/offer/{id}', [OfferController::class, 'show'])->name('offer.show');
+Route::name('news.')->prefix('/news')->group(function () {
+    Route::get('/', [NewsController::class, 'index'])->name('index');
+    Route::get('/{id}', [NewsController::class, 'show'])->name('show');
+});
+
+Route::name('companies.')->prefix('/companies')->group(function () {
+    Route::get('/', [CompanyController::class, 'index'])->name('index');
+    Route::get('/{id}', [CompanyController::class, 'show'])->name('show');
+});
+
+Route::name('offers.')->prefix('/offers')->group(function () {
+    Route::get('/', [OfferController::class, 'index'])->name('index');
+    Route::get('/{id}', [OfferController::class, 'show'])->name('show');
+});
 
 Route::get('/vacancies', [VacancyController::class, 'index'])->name('vacancy.index');
 Route::get('/vacancy/{id}', [VacancyController::class, 'show_vacancy'])->name('vacancy.show');
 Route::get('/resume/{id}', [VacancyController::class, 'show_resume'])->name('resume.show');
-
-Route::get('/events', [EventController::class, 'index'])->name('event.index');
-Route::get('/event/{id}', [EventController::class, 'show'])->name('event.show');
-
-Route::get('/news', [NewsController::class, 'index'])->name('news.index');
-Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
 
 Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show');
 

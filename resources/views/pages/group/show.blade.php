@@ -15,7 +15,7 @@
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li class="text-neutral-500 dark:text-neutral-400">
-            <a href="{{ route('group.show', ['id' => $group->id]) }}">
+            <a href="{{ route('groups.show', ['id' => $group->id]) }}">
                 {{ $group->name }}</a>
         </li>
     </ol>
@@ -231,7 +231,7 @@
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                 @foreach($group->events as $event)
                 <div class="block rounded-lg bg-white h-80">
-                    <a href="{{ route('event.show', ['id' => $event->id ]) }}" class="block h-52">
+                    <a href="{{ route('events.show', ['id' => $event->id ]) }}" class="block h-52">
                         @if( $event->image == null )
                         <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                         @else
@@ -265,7 +265,7 @@
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                 @foreach($group->projects as $project)
                 <div class="block rounded-lg bg-white h-96">
-                    <a href="{{ route('project.show', ['id' => $project->id ]) }}" class="block h-52">
+                    <a href="{{ route('projects.show', ['id' => $project->id ]) }}" class="block h-52">
                         @if( $project->image == null )
                         <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                         @else

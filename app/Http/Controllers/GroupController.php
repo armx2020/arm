@@ -3,32 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\City;
 use App\Models\Group;
 use Illuminate\Support\Facades\Auth;
 
-class GroupController extends Controller
+class GroupController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         return view('pages.group.index', [
-            'city'   => $request->session()->get('city'),
-            'cities' => $cities,
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
         ]);
     }
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $group = Group::with('events', 'projects', 'vacancies', 'news', 'users')->find($id);
 
         if (empty($group)) {
@@ -38,16 +32,16 @@ class GroupController extends Controller
         $subscribe = false;
 
         if (Auth::check()) {
-            if ($group->isOfThe(Auth::user())) {
+            if ($group->signed(Auth::user())) {
                 $subscribe = true;
             }
         }
 
-        return view('pages.group.show', [
-            'city'   => $request->session()->get('city'),
+        return view('pages.groups.show', [
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'group' => $group,
             'subscribe' => $subscribe,
-            'cities' => $cities
         ]);
     }
 
@@ -72,20 +66,20 @@ class GroupController extends Controller
         }
 
         if (!Auth::check()) {
-            return redirect()->route('group.show', ['id' => $group->id])->with('alert', 'Необходимо войти');
+            return redirect()->route('groups.show', ['id' => $group->id])->with('alert', 'Необходимо войти');
         }
 
         if ($group->isOfThe(Auth::user())) {
-            return redirect()->route('group.show', ['id' => $group->id])->with('alert', 'Вы уже подписаны');
+            return redirect()->route('groups.show', ['id' => $group->id])->with('alert', 'Вы уже подписаны');
         }
 
         $group->users()->attach(Auth::user()->id);
 
-        return redirect()->route('group.show', ['id' => $group->id])->with('success', 'Вы успешно подписались');
+        return redirect()->route('groups.show', ['id' => $group->id])->with('success', 'Вы успешно подписались');
     }
 
     public function unsubscribe($id)
-    {      
+    {
         $group = Group::find($id);
 
         if (empty($group)) {
@@ -93,15 +87,15 @@ class GroupController extends Controller
         }
 
         if (!Auth::check()) {
-            return redirect()->route('group.show', ['id' => $group->id])->with('alert', 'Необходимо войти');
+            return redirect()->route('groups.show', ['id' => $group->id])->with('alert', 'Необходимо войти');
         }
 
         if (!$group->isOfThe(Auth::user())) {
-            return redirect()->route('group.show', ['id' => $group->id])->with('alert', 'Вы уже подписаны');
+            return redirect()->route('groups.show', ['id' => $group->id])->with('alert', 'Вы уже подписаны');
         }
 
         $group->users()->detach(Auth::user()->id);
 
-        return redirect()->route('group.show', ['id' => $group->id])->with('success', 'Вы успешно отписались');
+        return redirect()->route('groups.show', ['id' => $group->id])->with('success', 'Вы успешно отписались');
     }
 }

@@ -236,7 +236,7 @@
                                             {{ $group->description }}
                                         </h5>
                                     </div>
-                                    <a href="{{ route('group.show', ['id' => $group->id]) }}"
+                                    <a href="{{ route('groups.show', ['id' => $group->id]) }}"
                                         class="text-blue-600 text-xs md:text-md text-center font-semibold">
                                         Подробнее →
                                     </a>
@@ -270,7 +270,7 @@
     </div>
     <div class="flex justify-center mx-auto pb-5 lg:pb-10">
         <a class="my-2 lg:my-4 rounded-md bg-blue-500 text-white text-center w-64 p-2 items-center font-normal"
-            href="{{ route('group.index') }}">
+            href="{{ route('groups.index') }}">
             Загрузить больше
         </a>
     </div>

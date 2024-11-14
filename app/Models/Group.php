@@ -37,7 +37,7 @@ class Group extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function isOfThe($user)
+    public function signed($user)
     {
         return $this->users()->where('user_id', $user->id)->exists();
     }

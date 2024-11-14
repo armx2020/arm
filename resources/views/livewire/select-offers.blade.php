@@ -80,7 +80,7 @@
                 <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($offers as $offer)
                     <div class="block rounded-lg bg-white h-60 lg:h-80">
-                        <a href="{{ route('offer.show', ['id' => $offer->id ]) }}" class="block h-32 lg:h-52">
+                        <a href="{{ route('offers.show', ['id' => $offer->id ]) }}" class="block h-32 lg:h-52">
                             @if( $offer->image == null )
                             <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -110,7 +110,7 @@
                 <div class="grid grid-cols-1 gap-3 lg:gap-5">
                     @foreach($offers as $offer)
                     <div class="flex flex-row rounded-lg bg-white h-64">
-                        <a href="{{ route('offer.show', ['id' => $offer->id ]) }}" class="basis-1/3">
+                        <a href="{{ route('offers.show', ['id' => $offer->id ]) }}" class="basis-1/3">
                             @if( $offer->image == null )
                             <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -148,7 +148,7 @@
                 <div class="grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($recommendations as $offer)
                     <div class="block rounded-lg bg-white h-60 lg:h-80">
-                        <a href="{{ route('offer.show', ['id' => $offer->id ]) }}" class="block h-32 lg:h-52">
+                        <a href="{{ route('offers.show', ['id' => $offer->id ]) }}" class="block h-32 lg:h-52">
                             @if( $offer->image == null )
                             <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -178,7 +178,7 @@
                 <div class="grid grid-cols-1 gap-3 lg:gap-5">
                     @foreach($recommendations as $offer)
                     <div class="flex flex-row rounded-lg bg-white h-64">
-                        <a href="{{ route('offer.show', ['id' => $offer->id ]) }}" class="basis-1/3">
+                        <a href="{{ route('offers.show', ['id' => $offer->id ]) }}" class="basis-1/3">
                             @if( $offer->image == null )
                             <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else

@@ -41,7 +41,7 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                                        <a href="{{ route('admin.project.show', [ 'project' => $project->id ]) }}">
+                                        <a href="{{ route('admin.projects.show', [ 'project' => $project->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $project->name }}</div>
                                                 <div class="text-sm font-normal text-gray-500">
@@ -130,7 +130,7 @@
             <div class="flex-shrink-0 m-1">
                 <span class="text-xl leading-none font-bold text-gray-900">Parent group </span>
             </div>
-            <a href="{{ route('admin.group.show', ['group' => $project->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+            <a href="{{ route('admin.groups.show', ['group' => $project->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                 {{ $project->parent->name }}
             </a>
         </div>

@@ -96,7 +96,7 @@
                     <ul class="flex flex-wrap">
                         @foreach($category->groups as $group)
                         <li class="my-2">
-                            <a href="{{ route('admin.group.show', ['group' => $group->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                            <a href="{{ route('admin.groups.show', ['group' => $group->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                                 {{ $group->name }}
                             </a>
                         </li>

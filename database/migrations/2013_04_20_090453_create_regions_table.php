@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('regions', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
+            $table->unsignedInteger('code')->default(0);
             $table->string('InEnglish', 255);
         });
     }

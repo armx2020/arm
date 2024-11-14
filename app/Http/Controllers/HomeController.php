@@ -2,76 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
 use App\Models\Group;
 use App\Models\Region;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class HomeController extends BaseController
 {
-    public function welcome()
+    public function __construct()
     {
-        return redirect()->route('home');
+        parent::__construct();
     }
 
-
-    public function home(Request $request)
+    public function home(Request $request, $regionCode = null)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
-        $region = Region::where('name', 'like', $request->session()->get('region'))->First();
-
-        if (empty($region)) {
-            $region = Region::find(1);
-        }
-
-        $group = Group::find($region->id);
+        $group = Group::find($this->getRegionId($request, $regionCode));
 
         return view('home', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
             'group' => $group,
-            'cities' => $cities,
+            'regions' => $this->regions,
         ]);
-    }
-
-    public function changeCity(Request $request, $id)
-    {
-        $city = City::with('region')->find($id);
-
-        $request->session()->put('city', $city->name);
-        $request->session()->put('region', $city->region->name);
-
-        return redirect()->back();
     }
 
     public function privacyPolicy(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-            
-
         return view('pages.privacy-policy', [
-            'city'   => $request->session()->get('city'),
-            'cities' => $cities,
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
         ]);
     }
 
     public function conditionOfUse(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-            
-
         return view('pages.condition-of-use', [
-            'city'   => $request->session()->get('city'),
-            'cities' => $cities,
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
         ]);
+    }
+
+    public function getRegionId(Request $request, $regionCode = null)
+    {
+        $region = Region::where('code', $regionCode)->First();
+
+        if (empty($region)) {
+            return redirect()->route('home');
+        }
+
+        $request->session()->put('region', $region->name);
+        $request->session()->put('regionId', $region->code);
+
+        return $region->id;
     }
 }

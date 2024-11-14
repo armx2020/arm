@@ -19,8 +19,8 @@
             <div class="my-2">
                 <button class="text-blue-600 text-sm lg:text-md hover:text-blue-400 locationButton" id="locationButton">
                     <img src="{{ url('/image/location-marker.png') }}" class="w-4 h-4 inline" />
-                    @if ($city)
-                        {{ preg_replace('/\([^)]+\)/', '', $city) }}
+                    @if ($region)
+                        {{ preg_replace('/\([^)]+\)/', '', $region) }}
                     @else
                         Вся Россия
                     @endif
@@ -33,19 +33,19 @@
         <div class="flex basis-1/3">
             <ul class="list-style-none flex flex-wrap lg:flex-col justify-center text-md lg:text-lg font-medium mx-auto py-10">
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('project.index') }}">Проекты</a>
+                    <a class="mx-2" href="{{ route('projects.index') }}">Проекты</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('offer.index') }}">Маркет</a>
+                    <a class="mx-2" href="{{ route('offers.index') }}">Маркет</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('event.index') }}">Афиша</a>
+                    <a class="mx-2" href="{{ route('events.index') }}">Афиша</a>
                 </li>
                 <li class="mb-2 text-center">
                     <a class="mx-2" href="{{ route('news.index') }}">Новости</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('group.index') }}">Группы</a>
+                    <a class="mx-2" href="{{ route('groups.index') }}">Группы</a>
                 </li>
                 <li class="mb-2 text-center">
                     <a class="mx-2" href="{{ route('vacancy.index') }}">Работа</a>

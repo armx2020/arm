@@ -125,7 +125,7 @@
             <div class="flex-shrink-0 m-1">
                 <span class="text-xl leading-none font-bold text-gray-900">Parent group </span>
             </div>
-            <a href="{{ route('admin.group.show', ['group' => $event->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+            <a href="{{ route('admin.groups.show', ['group' => $event->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                 {{ $event->parent->name }}
             </a>
         </div>

@@ -16,7 +16,7 @@
                             - Помощь по поиску работы и размещение ваших вакансий
                         </div>
                         <a class="my-2 lg:my-4 rounded-md bg-blue-500 text-white text-center w-4/5 xl:w-1/2 h-9 py-2 items-center font-normal"
-                            href="{{ route('group.show', ['id' => $group->id]) }}">
+                            href="{{ route('groups.show', ['id' => $group->id]) }}">
                             Подробнее
                         </a>
                     </div>
@@ -66,7 +66,7 @@
                     </a>
                 </div>
                 <div class="bg-red-200 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
-                    <a href="{{ route('project.index') }}">
+                    <a href="{{ route('projects.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Наши проекты</p>
                             <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Сделанные проекты, достижения</p>
@@ -81,7 +81,7 @@
                     </a>
                 </div>
                 <div class="bg-emerald-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
-                    <a href="{{ route('group.index') }}">
+                    <a href="{{ route('groups.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Кружки,
                                 сообщества</p>
@@ -98,7 +98,7 @@
                     </a>
                 </div>
                 <div class="bg-orange-200 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
-                    <a href="{{ route('event.index') }}">
+                    <a href="{{ route('events.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Афиша событий
                             </p>

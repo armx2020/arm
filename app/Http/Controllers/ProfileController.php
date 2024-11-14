@@ -12,32 +12,24 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Intervention\Image\Facades\Image as Image;
 
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
-    /**
-     * Display the user's profile form.
-     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    
     public function edit(Request $request): View
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         return view('profile.edit', [
             'user' => $request->user(),
-            'city'   => $request->session()->get('city'),
-            'cities' => $cities
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
         ]);
     }
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $user = User::find($id);
 
         if (empty($user)) {
@@ -55,16 +47,13 @@ class ProfileController extends Controller
         $fullness = (round(($sum / 45) * 100));
 
         return view('pages.user.user', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'user' => $user,
             'fullness' => $fullness,
-            'cities' => $cities
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(Request $request)
     {
         $request->validate([
@@ -112,9 +101,6 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [

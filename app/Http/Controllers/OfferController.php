@@ -2,32 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
 use App\Models\CompanyOffer;
 use Illuminate\Http\Request;
 
-class OfferController extends Controller
+class OfferController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         return view('pages.offer.offers', [
-            'city'   => $request->session()->get('city'),
-            'cities' => $cities
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
         ]);
     }
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $offer = CompanyOffer::with('company')->find($id);
 
         if (empty($offer)) {
@@ -40,10 +34,10 @@ class OfferController extends Controller
             })->paginate(12);
 
         return view('pages.offer.offer', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'offer' => $offer,
             'recommendations' => $recommendations,
-            'cities' => $cities
         ]);
     }
 }

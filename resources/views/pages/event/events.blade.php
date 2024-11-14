@@ -9,7 +9,7 @@
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li class="text-neutral-500 dark:text-neutral-400">
-            <a href="{{ route('event.index') }}">
+            <a href="{{ route('events.index') }}">
                 События</a>
         </li>
     </ol>

@@ -9,7 +9,7 @@
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li class="text-neutral-500 dark:text-neutral-400">
-            <a href="{{ route('offer.index') }}">
+            <a href="{{ route('offers.index') }}">
                 Предложения</a>
         </li>
     </ol>
