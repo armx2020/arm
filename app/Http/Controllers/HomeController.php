@@ -15,7 +15,22 @@ class HomeController extends BaseController
 
     public function home(Request $request, $regionCode = null)
     {
-        $group = Group::find($this->getRegionId($request, $regionCode));
+        if (!$regionCode) {
+            $region = Region::find(1);
+            $request->session()->put('region', $region->name);
+            $request->session()->put('regionId', $region->code);
+        } else {
+            $region = Region::where('code', 'like', $regionCode)->First();
+
+            if($region) {
+                $request->session()->put('region', $region->name);
+                $request->session()->put('regionId', $region->code);
+            } else {
+                return redirect()->route('home');
+            }
+        }
+
+        $group = Group::find($region->id);
 
         return view('home', [
             'region'   => $request->session()->get('region'),
@@ -38,19 +53,5 @@ class HomeController extends BaseController
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
         ]);
-    }
-
-    public function getRegionId(Request $request, $regionCode = null)
-    {
-        $region = Region::where('code', $regionCode)->First();
-
-        if (empty($region)) {
-            return redirect()->route('home');
-        }
-
-        $request->session()->put('region', $region->name);
-        $request->session()->put('regionId', $region->code);
-
-        return $region->id;
     }
 }
