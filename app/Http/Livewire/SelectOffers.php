@@ -51,6 +51,7 @@ class SelectOffers extends Component
                 ->paginate(12);
             $recommendations = CompanyOffer::with('company', 'region')
                 ->where('activity', 1)
+                ->orderBy($exp[0], $exp[1])
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })->limit(3)->get();
@@ -64,6 +65,7 @@ class SelectOffers extends Component
             $recommendations = CompanyOffer::with('company', 'region')
                 ->where('activity', 1)
                 ->where('offer_category_id', '=', $this->term)
+                ->orderBy($exp[0], $exp[1])
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })->limit(3)->get();
