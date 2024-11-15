@@ -15,7 +15,7 @@ class SelectOffers extends Component
 
     public $term = 0;
     public $region;
-    public $sort = "updated_at|asc";
+    public $sort = "updated_at|desc";
     public $view = 1;
 
     public function mount(Request $request)
