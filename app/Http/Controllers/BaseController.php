@@ -11,7 +11,7 @@ abstract class BaseController extends Controller
 
     public function __construct()
     {
-        $this->regions = Region::all()->sortBy('name')
+        $this->regions = Region::whereNot('code', 0)->get()->sortBy('name')
             ->groupBy(function ($item) {
                 return mb_substr($item->name, 0, 1);
             });

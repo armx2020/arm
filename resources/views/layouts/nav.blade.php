@@ -154,6 +154,14 @@
             <x-secondary-button class="location-close absolute right-4 top-4">
                 {{ __('Закрыть') }}
             </x-secondary-button>
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div class="px-1 hover:text-gray-500">
+                    <a href="{{ route('home') }}">
+                        Вся Россия
+                    </a>
+                </div>
+            </div>
+            <hr class="my-4">
             @foreach ($regions as $letter => $letterCities)
                 <h3 class="text-xl font-bold my-2">{{ $letter }}</h3>
                 <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
