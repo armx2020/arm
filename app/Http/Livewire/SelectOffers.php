@@ -34,30 +34,35 @@ class SelectOffers extends Component
         $exp = explode('|', $this->sort);
 
         if ($this->term == 0 && $this->region == 1) {
-            $offers = CompanyOffer::with('company')->orderBy($exp[0], $exp[1])->paginate(12);
+            $offers = CompanyOffer::with('company')->orderBy($exp[0], $exp[1])->where('activity', 1)->paginate(12);
             $recommendations = [];
         } elseif ($this->term !== 0 && $this->region == 1) {
             $offers = CompanyOffer::with('company', 'region')
+                ->where('activity', 1)
                 ->where('offer_category_id', '=', $this->term)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = [];
         } elseif ($this->term == 0 && $this->region !== 1) {
             $offers = CompanyOffer::with('company', 'region')
+                ->where('activity', 1)
                 ->where('region_id', '=', $this->region)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = CompanyOffer::with('company', 'region')
+                ->where('activity', 1)
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })->limit(3)->get();
         } else {
             $offers = CompanyOffer::with('company', 'region')
+                ->where('activity', 1)
                 ->where('offer_category_id', '=', $this->term)
                 ->where('region_id', '=', $this->region)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = CompanyOffer::with('company', 'region')
+                ->where('activity', 1)
                 ->where('offer_category_id', '=', $this->term)
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);

@@ -44,32 +44,37 @@ class SelectGroups extends Component
         $exp = explode('|', $this->sort);
 
         if ($this->term == 0 && $this->region == 1) {
-            $groups = Group::with('users')->orderBy($exp[0], $exp[1])->paginate(12);
+            $groups = Group::with('users')->where('activity', 1)->orderBy($exp[0], $exp[1])->paginate(12);
             $recommendations = [];
         } elseif ($this->term !== 0 && $this->region == 1) {
             $groups = Group::with('users', 'region')
+                ->where('activity', 1)
                 ->where('group_category_id', '=', $this->term)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = [];
         } elseif ($this->term == 0 && $this->region !== 1) {
             $groups = Group::with('users', 'region')
+                ->where('activity', 1)
                 ->where('region_id', '=', $this->region)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
 
             $recommendations = Group::with('user', 'region')
+                ->where('activity', 1)
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })->limit(3)->get();
         } else {
             $groups = Group::with('users', 'region')
+                ->where('activity', 1)
                 ->where('group_category_id', '=', $this->term)
                 ->where('region_id', '=', $this->region)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
 
             $recommendations = Group::with('user', 'region')
+                ->where('activity', 1)
                 ->where('group_category_id', '=', $this->term)
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);

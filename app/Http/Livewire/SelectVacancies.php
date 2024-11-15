@@ -34,31 +34,35 @@ class SelectVacancies extends Component
         $exp = explode('|', $this->sort);
 
         if ($this->type == 0) {
-                $typeName = 'вакансий';
+            $typeName = 'вакансий';
             if ($this->region == 1) {
-                $works = Vacancy::orderBy($exp[0], $exp[1])->paginate(12);
+                $works = Vacancy::orderBy($exp[0], $exp[1])->where('activity', 1)->paginate(12);
                 $recommendations = [];
             } else {
                 $works = Vacancy::with('region', 'parent')
+                    ->where('activity', 1)
                     ->where('region_id', '=', $this->region)
                     ->orderBy($exp[0], $exp[1])
                     ->paginate(12);
                 $recommendations = Vacancy::with('region', 'parent')
+                    ->where('activity', 1)
                     ->whereNot(function ($query) {
                         $query->where('region_id', '=', $this->region);
                     })->limit(3)->get();
             }
         } else {
-                $typeName = 'резюме';
+            $typeName = 'резюме';
             if ($this->region == 1) {
-                $works = Resume::with('user')->orderBy($exp[0], $exp[1])->paginate(12);
-                $recommendations = []; 
+                $works = Resume::with('user')->where('activity', 1)->orderBy($exp[0], $exp[1])->paginate(12);
+                $recommendations = [];
             } else {
                 $works = Resume::with('user', 'region')
+                    ->where('activity', 1)
                     ->where('region_id', '=', $this->region)
                     ->orderBy($exp[0], $exp[1])
                     ->paginate(12);
                 $recommendations = Resume::with('user', 'region')
+                    ->where('activity', 1)
                     ->whereNot(function ($query) {
                         $query->where('region_id', '=', $this->region);
                     })->limit(3)->get();

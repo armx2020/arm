@@ -33,32 +33,37 @@ class SelectEvents extends Component
         $exp = explode('|', $this->sort);
 
         if ($this->term == 0 && $this->region == 1) {
-            $events = Event::orderBy($exp[0], $exp[1])->paginate(12);
+            $events = Event::orderBy($exp[0], $exp[1])->where('activity', 1)->paginate(12);
             $recommendations = [];
         } elseif ($this->term !== 0 && $this->region == 1) {
             $events = Event::with('region')
+                ->where('activity', 1)
                 ->where('event_category_id', '=', $this->term)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = [];
         } elseif ($this->term == 0 && $this->region !== 1) {
             $events = Event::with('region')
+                ->where('activity', 1)
                 ->where('region_id', '=', $this->region)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
 
             $recommendations = Event::with('region')
+                ->where('activity', 1)
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })->limit(3)->get();
         } else {
             $events = Event::with('region')
+                ->where('activity', 1)
                 ->where('event_category_id', '=', $this->term)
                 ->where('region_id', '=', $this->region)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
 
             $recommendations = Event::with('region')
+                ->where('activity', 1)
                 ->where('event_category_id', '=', $this->term)
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
