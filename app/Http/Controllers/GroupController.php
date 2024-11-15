@@ -37,7 +37,7 @@ class GroupController extends BaseController
             }
         }
 
-        return view('pages.groups.show', [
+        return view('pages.group.show', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'group' => $group,
