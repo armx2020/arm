@@ -24,31 +24,34 @@ class HomePage extends Component
             sleep(1);
 
             if ($this->term == 0 && $this->region == 1) {
-                $groups = Group::with('users', 'category')->paginate(4);
+                $groups = Group::with('users', 'category')->where('activity', 1)->paginate(4);
             } elseif ($this->term !== 0 && $this->region == 1) {
                 $groups = Group::with('users', 'region', 'category')
+                    ->where('activity', 1)
                     ->where('group_category_id', '=', $this->term)
                     ->paginate(4);
             } elseif ($this->term == 0 && $this->region !== 1) {
                 $groups = Group::with('users', 'region', 'category')
+                    ->where('activity', 1)
                     ->where('region_id', '=', $this->region)
                     ->paginate(4);
             } else {
                 $groups = Group::with('users', 'region', 'category')
+                    ->where('activity', 1)
                     ->where('group_category_id', '=', $this->term)
                     ->where('region_id', '=', $this->region)
                     ->paginate(4);
             }
         } else {
             sleep(1);
-            $groups = Group::search($this->search)->with('users', 'region', 'category')->paginate(4);
+            $groups = Group::search($this->search)->with('users', 'region', 'category')->where('activity', 1)->paginate(4);
         }
 
-        if(count($groups) < 4) {
-            $groups = Group::with('users', 'category')->paginate(4);
+        if (count($groups) < 4) {
+            $groups = Group::with('users', 'category')->where('activity', 1)->paginate(4);
         }
 
-        $categories = GroupCategory::orderBy('sort_id', 'asc')->get();
+        $categories = GroupCategory::orderBy('sort_id', 'asc')->where('activity', 1)->get();
         $regions = Region::all();
 
         return view('livewire.home-page', [
