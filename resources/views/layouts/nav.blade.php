@@ -86,7 +86,7 @@
         </div>
         <div class="visible hidden flex-grow basis-full items-center xl:!flex xl:basis-auto">
             <ul class="list-style-none mr-5 flex flex-col pl-0 lg:flex-row">
-                @isset($regionCode)
+                @if(isset($regionCode) && $regionCode !== 0)
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('region.projects', ['regionCode' => $regionCode]) }}">Проекты</a>
                     </li>
@@ -124,7 +124,7 @@
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('works.index') }}">Работа</a>
                     </li>
-                @endisset
+                @endif
             </ul>
         </div>
         <div class="hidden lg:basis-1/3 xl:flex basis-1/4 items-center justify-between">

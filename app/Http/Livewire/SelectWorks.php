@@ -6,8 +6,6 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Http\Request;
 use App\Models\Region;
-use App\Models\Resume;
-use App\Models\Vacancy;
 use App\Models\Work;
 
 class SelectWorks extends Component
@@ -16,7 +14,7 @@ class SelectWorks extends Component
 
     public $region;
     public $type = 0;
-    public $sort = "updated_at|asc";
+    public $sort = "updated_at|desc";
     public $view = 1;
 
     public function mount(Request $request, $regionCode = null)

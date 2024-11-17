@@ -301,9 +301,9 @@
             </div>
             @else
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
-                @foreach($group->vacancies as $work)
+                @foreach($group->works as $work)
                 <div class="block rounded-lg bg-white h-80">
-                    <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="block h-52">
+                    <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="block h-52">
                         @if( $work->parent == null )
                         <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                         @else

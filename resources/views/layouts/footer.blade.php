@@ -27,7 +27,7 @@
                 </button>
             </div>
             <div class="my-2 lg:my-5">
-                <a href="{{ route('privacy-policy') }}" target="_blank" class="text-sm lg:text-md font-bold">Политикой конфиденциальности</a>
+                <a href="{{ route('privacy-policy') }}" target="_blank" class="text-sm lg:text-md font-bold">Политика конфиденциальности</a>
             </div>
         </div>
         <div class="flex basis-1/3">

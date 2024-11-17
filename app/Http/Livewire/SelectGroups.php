@@ -9,13 +9,12 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Http\Request;
 
-
 class SelectGroups extends Component
 {
     use WithPagination;
 
     public $term = 0;
-    public $sort = "updated_at|asc";
+    public $sort = "updated_at|desc";
     public $view = 1;
     public $region;
 

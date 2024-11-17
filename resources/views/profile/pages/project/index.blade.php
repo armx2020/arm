@@ -105,8 +105,7 @@
             <a href="{{ route('myprojects.create') }}" class="h-80 items-center justify-center flex rounded-lg border-dashed border-2 border-indigo-600 hover:bg-white">
                 <div class="flex flex-col w-full items-center">
                     <div class="text-9xl text-indigo-600 flex mx-auto leading-none">+</div>
-                    <div class="text-xl text-indigo-600 flex mx-auto uppercase">Добавить проект</div>
-                </div>
+                  </div>
             </a>
         </div>
     </div>
