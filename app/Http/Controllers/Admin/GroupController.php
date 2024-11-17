@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\GroupRequest;
+use App\Models\Category;
 use App\Models\Group;
-use App\Models\GroupCategory;
 use App\Models\User;
 use App\Services\GroupService;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +26,7 @@ class GroupController extends BaseAdminController
 
     public function create()
     {
-        $categories = GroupCategory::all();
+        $categories = Category::all();
         $users = User::all();
 
         return view('admin.group.create', ['categories' => $categories, 'users' => $users, 'menu' => $this->menu]);
@@ -58,7 +58,7 @@ class GroupController extends BaseAdminController
             return redirect()->route('admin.group.index')->with('alert', 'The group not found');
         }
 
-        $categories = GroupCategory::all();
+        $categories = Category::group()->all();
         $users = User::all();
         $user = $group->user;
         $category = $group->category;

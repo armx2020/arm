@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 @section('content')
 <div class="pt-6 px-4 max-w-7xl mx-auto mb-4 flex flex-col">
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto w-full">
         <div class="align-middle inline-block min-w-full">
             <div class="shadow overflow-hidden">
                 <div class="relative w-full h-full md:h-auto">

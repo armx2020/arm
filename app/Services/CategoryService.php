@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Models\GroupCategory;
+use App\Models\Category;
 
-class GroupCategoryService
+class CategoryService
 {
-    public function store($request): GroupCategory
+    public function store($request): Category
     {
-        $category = new GroupCategory();
+        $category = new Category();
 
         $category->name = $request->name;
         $category->sort_id = $request->sort_id;
@@ -18,7 +18,7 @@ class GroupCategoryService
         return $category;
     }
 
-    public function update($request, $category): GroupCategory
+    public function update($request, $category): Category
     {
         $category->name = $request->name;
         $category->sort_id = $request->sort_id;

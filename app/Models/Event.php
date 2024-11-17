@@ -12,15 +12,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Event extends Model
 {
-    use HasFactory, HasCity, HasParent, HasRegion;
-    use Search;
+    use HasFactory,
+        HasCity,
+        HasParent,
+        HasRegion,
+        Search;
+
+    protected $searchable = [
+        'name',
+        'description'
+    ];
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(EventCategory::class, 'event_category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
-
-    protected $searchable = [
-        'name', 'description'
-    ];    
 }

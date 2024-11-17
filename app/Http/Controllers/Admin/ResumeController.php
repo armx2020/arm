@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\ResumeRequest;
 use App\Models\Resume;
 use App\Models\User;
+use App\Models\Work;
 use App\Services\ResumeService;
 
 class ResumeController extends BaseAdminController
@@ -36,7 +37,7 @@ class ResumeController extends BaseAdminController
 
     public function show(string $id)
     {
-        $resume = Resume::with('user')->find($id);
+        $resume = Work::resume()->with('parent')->find($id);
 
         if(empty($resume)) {
             return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
@@ -47,7 +48,7 @@ class ResumeController extends BaseAdminController
 
     public function edit(string $id)
     {
-        $resume = Resume::find($id);
+        $resume = Work::find($id);
 
         if(empty($resume)) {
             return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
@@ -60,7 +61,7 @@ class ResumeController extends BaseAdminController
 
     public function update(ResumeRequest $request, string $id)
     {
-        $resume = Resume::find($id);
+        $resume = Work::find($id);
 
         if(empty($resume)) {
             return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
@@ -73,7 +74,7 @@ class ResumeController extends BaseAdminController
 
     public function destroy(string $id)
     {
-        $resume = Resume::find($id);
+        $resume = Work::find($id);
 
         if(empty($resume)) {
             return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');

@@ -33,7 +33,7 @@
             <div x-ref="banners"
                 class="flex flex-nowrap lg:flex-none lg:grid lg:grid-cols-5 gap-2 lg:gap-5 overflow-x-scroll scrollhidden mx-auto pt-5 lg:pt-10">
                 <div class="bg-orange-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
-                    <a href="{{ route('vacancy.index') }}">
+                    <a href="{{ route('works.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Поиск работы</p>
                             <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Найти работу или
@@ -50,7 +50,7 @@
                     </a>
                 </div>
                 <div class="bg-blue-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
-                    <a href="{{ route('vacancy.index') }}">
+                    <a href="{{ route('works.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Бизнес
                                 справочник</p>

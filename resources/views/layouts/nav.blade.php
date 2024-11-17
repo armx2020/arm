@@ -74,7 +74,7 @@
                     <a class="" href="{{ route('groups.index') }}">Группы</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('vacancy.index') }}">Работа</a>
+                    <a class="" href="{{ route('works.index') }}">Работа</a>
                 </li>
             </ul>
         </div>
@@ -101,7 +101,7 @@
                     <a class="" href="{{ route('groups.index') }}">Группы</a>
                 </li>
                 <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('vacancy.index') }}">Работа</a>
+                    <a class="" href="{{ route('works.index') }}">Работа</a>
                 </li>
             </ul>
         </div>

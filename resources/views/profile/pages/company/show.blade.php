@@ -258,7 +258,7 @@
                 @endif
             </div>
             <div class="basis-full mt-3 mb-16 hidden" id="vacancies">
-                @if($company->vacancies->isEmpty())
+                @if($company->works->isEmpty())
                 <div class="w-full text-center p-4">
                     <div class="flex items-center text-center justify-center">
                         <h3 class="text-2xl font-normal mx-auto">У КОМПАНИИ НЕТ ВАКАНСИЙ</h3>

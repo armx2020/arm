@@ -6,10 +6,9 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
-use App\Http\Controllers\Admin\GroupCategoryController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\NewsController;
-use App\Http\Controllers\Admin\OfferCategoryController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ResumeController;
@@ -26,9 +25,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resources([
             'user'          =>  UserController::class,
             'company'       =>  CompanyController::class,
-            'groupCategory' =>  GroupCategoryController::class,
+            'category'      =>  CategoryController::class,
             'group'         =>  GroupController::class,
-            'offerCategory' =>  OfferCategoryController::class,
             'offer'         =>  OfferController::class,
             'resume'        =>  ResumeController::class,
             'vacancy'       =>  VacancyController::class,

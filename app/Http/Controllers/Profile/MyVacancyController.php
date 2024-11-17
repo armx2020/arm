@@ -2,51 +2,46 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Group;
-use App\Models\Vacancy;
+use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MyVacancyController extends Controller
+class MyVacancyController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
-        $vacancies = Auth::user()->vacancies;
-        $groups = Group::where('user_id', '=', Auth::user()->id)->with('vacancies')->get();
-        $companies = Company::where('user_id', '=', Auth::user()->id)->with('vacancies')->get();
+        $vacancies = Auth::user()->works->where('type', 'vacancy');
+        $groups = Group::where('user_id', '=', Auth::user()->id)->with('works')->get();
+        $companies = Company::where('user_id', '=', Auth::user()->id)->with('works')->get();
 
         return view('profile.pages.vacancy.index', [
-            'city'      => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'vacancies' => $vacancies,
             'groups'    => $groups,
             'companies' => $companies,
-            'cities'    => $cities
         ]);
     }
 
     public function create(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $companies = Company::where('user_id', '=', Auth::user()->id)->get();
         $groups = Group::where('user_id', '=', Auth::user()->id)->get();
 
         return view('profile.pages.vacancy.create', [
-            'city'      => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'companies' => $companies,
             'groups'    => $groups,
-            'cities'    => $cities
         ]);
     }
 
@@ -63,15 +58,14 @@ class MyVacancyController extends Controller
             $city = City::find(1);
         }
 
-        $vacancy = new Vacancy();
+        $vacancy = new Work();
 
         $vacancy->name = $request->name;
         $vacancy->address = $request->address;
         $vacancy->description = $request->description;
-        $vacancy->price = $request->price;
-
         $vacancy->city_id = $request->vacancy_city;
         $vacancy->region_id = $city->region->id;
+        $vacancy->type = 'vacancy';
 
         $parent = $request->parent;
         $parent_explode = explode('|', $parent);
@@ -97,12 +91,7 @@ class MyVacancyController extends Controller
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
-        $vacancy = Vacancy::with('parent')->find($id);
+        $vacancy = Work::vacancy()->with('parent')->find($id);
 
         if (empty($vacancy)) {
             return redirect()->route('myvacancies.index')->with('alert', 'Вакансия не найдена');
@@ -113,9 +102,9 @@ class MyVacancyController extends Controller
                 ($vacancy->parent_type == 'App\Models\Group'    && $vacancy->parent->user_id == Auth::user()->id)
             ) {
                 return view('profile.pages.vacancy.show', [
-                    'city'   => $request->session()->get('city'),
+                    'region'   => $request->session()->get('region'),
+                    'regions' => $this->regions,
                     'vacancy' => $vacancy,
-                    'cities' => $cities
                 ]);
             } else {
                 return redirect()->route('myvacancies.index')->with('alert', 'Вакансия не найдена');
@@ -125,12 +114,7 @@ class MyVacancyController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
-        $vacancy = Vacancy::with('parent')->find($id);
+        $vacancy = Work::vacancy()->with('parent')->find($id);
 
         if (empty($vacancy)) {
             return redirect()->route('myvacancy.index')->with('alert', 'Вакансия не найдена');
@@ -140,13 +124,13 @@ class MyVacancyController extends Controller
                 ($vacancy->parent_type == 'App\Models\Company'  && $vacancy->parent->user_id == Auth::user()->id) ||
                 ($vacancy->parent_type == 'App\Models\Group'    && $vacancy->parent->user_id == Auth::user()->id)
             ) {
-                $groups = Group::where('user_id', '=', Auth::user()->id)->with('vacancies')->get();
-                $companies = Company::where('user_id', '=', Auth::user()->id)->with('vacancies')->get();
+                $groups = Group::where('user_id', '=', Auth::user()->id)->with('works')->get();
+                $companies = Company::where('user_id', '=', Auth::user()->id)->with('works')->get();
 
                 return view('profile.pages.vacancy.edit', [
-                    'city'   => $request->session()->get('city'),
+                    'region'   => $request->session()->get('region'),
+                    'regions' => $this->regions,
                     'vacancy' => $vacancy,
-                    'cities' => $cities,
                     'groups'    => $groups,
                     'companies' => $companies,
                 ]);
@@ -169,7 +153,7 @@ class MyVacancyController extends Controller
             $city = City::find(1);
         }
 
-        $vacancy = Vacancy::with('parent')->find($id);
+        $vacancy = Work::vacancy()->with('parent')->find($id);
 
         if (empty($vacancy)) {
             return redirect()->route('myvacancies.index')->with('alert', 'Вакансия не найдена');
@@ -182,7 +166,6 @@ class MyVacancyController extends Controller
                 $vacancy->name = $request->name;
                 $vacancy->address = $request->address;
                 $vacancy->description = $request->description;
-                $vacancy->price = $request->price;
 
                 $vacancy->city_id = $request->vacancy_city;
                 $vacancy->region_id = $city->region->id;
@@ -215,7 +198,7 @@ class MyVacancyController extends Controller
 
     public function destroy($id)
     {
-        $vacancy = Vacancy::with('parent')->find($id);
+        $vacancy = Work::vacancy()->with('parent')->find($id);
 
         if (empty($vacancy)) {
             return redirect()->route('myvacancies.index')->with('alert', 'Вакансия не найдена');

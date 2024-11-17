@@ -39,14 +39,9 @@ class City extends Model
         return $this->hasMany(CompanyOffer::class);
     }
 
-    public function vacancies() : HasMany
+    public function works() : HasMany
     {
-        return $this->hasMany(Vacancy::class);
-    }
-
-    public function resumies() : HasMany
-    {
-        return $this->hasMany(Resume::class);
+        return $this->hasMany(Work::class);
     }
 
     public function news() : HasMany

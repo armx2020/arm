@@ -12,7 +12,7 @@
                                     </div>
                                 </div>
                                 <div class="p-6 space-y-6">
-                                    <form method="POST" enctype="multipart/form-data" action="{{ route('admin.groupCategory.update', ['groupCategory'=> $category->id]) }}">
+                                    <form method="POST" enctype="multipart/form-data" action="{{ route('admin.category.update', ['category'=> $category->id]) }}">
                                         @csrf
                                         @method('PUT')
                                         <div class="grid grid-cols-6 gap-6">

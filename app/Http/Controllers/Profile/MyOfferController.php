@@ -2,38 +2,38 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\CompanyOffer;
-use App\Models\OfferCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
-class MyOfferController extends Controller
+class MyOfferController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $companies = Company::with('offers')->where('user_id', '=', Auth::user()->id)->get();
 
         if (count($companies) == 0) {
             return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте вашу компанию.');
         }
 
-        $categories = OfferCategory::orderBy('sort_id', 'asc')->get();
+        $categories = Category::offer()->orderBy('sort_id', 'asc')->get();
 
         return view('profile.pages.offer.index', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'companies' => $companies,
             'categories' => $categories,
-            'cities' => $cities
         ]);
     }
 
@@ -47,7 +47,6 @@ class MyOfferController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['max:128'],
-            'price' => ['numeric'],
             'image' => ['image'],
             'image1' => ['image'],
             'image2' => ['image'],
@@ -66,8 +65,7 @@ class MyOfferController extends Controller
         $offer->name = $request->name;
         $offer->address = $request->address;
         $offer->description = $request->description;
-        $offer->price = $request->price;
-        $offer->offer_category_id = $request->category;
+        $offer->category_id = $request->category;
         $offer->company_id = $company->id;
         $offer->city_id = $company->city_id;
         $offer->region_id = $company->region->id;
@@ -78,35 +76,36 @@ class MyOfferController extends Controller
         $offer->telegram = $company->telegram;
         $offer->instagram = $company->instagram;
         $offer->vkontakte = $company->vkontakte;
-        
+        $offer->user_id = Auth::user()->id;
+
 
         if ($request->image) {
             $offer->image = $request->file('image')->store('offers', 'public');
-            Image::make('storage/'.$offer->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image1) {
             $offer->image1 = $request->file('image1')->store('offers', 'public');
-            Image::make('storage/'.$offer->image1)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image1)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image2) {
             $offer->image2 = $request->file('image2')->store('offers', 'public');
-            Image::make('storage/'.$offer->image2)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image2)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image3) {
             $offer->image3 = $request->file('image3')->store('offers', 'public');
-            Image::make('storage/'.$offer->image3)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image3)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image4) {
             $offer->image4 = $request->file('image4')->store('offers', 'public');
-            Image::make('storage/'.$offer->image4)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image4)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -118,11 +117,6 @@ class MyOfferController extends Controller
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $offer = CompanyOffer::with('company')->find($id);
 
         if (empty($offer)) {
@@ -134,19 +128,14 @@ class MyOfferController extends Controller
         }
 
         return view('profile.pages.offer.show', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'offer' => $offer,
-            'cities' => $cities
         ]);
     }
 
     public function edit(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $offer = CompanyOffer::with('company')->find($id);
 
         if (empty($offer)) {
@@ -157,15 +146,15 @@ class MyOfferController extends Controller
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
-        $categories = OfferCategory::orderBy('sort_id', 'asc')->get();
+        $categories = Category::offer()->orderBy('sort_id', 'asc')->get();
         $companies = Company::with('offers')->where('user_id', '=', Auth::user()->id)->get();
 
         return view('profile.pages.offer.edit', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'offer' => $offer,
             'categories' => $categories,
             'companies' => $companies,
-            'cities' => $cities
         ]);
     }
 
@@ -174,7 +163,6 @@ class MyOfferController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:40'],
             'address' => ['max:128'],
-            'price' => ['numeric'],
             'image' => ['image'],
             'image1' => ['image'],
             'image2' => ['image'],
@@ -203,8 +191,7 @@ class MyOfferController extends Controller
         $offer->name = $request->name;
         $offer->address = $request->address;
         $offer->description = $request->description;
-        $offer->price = $request->price;
-        $offer->offer_category_id = $request->category;
+        $offer->category_id = $request->category;
         $offer->company_id = $company->id;
         $offer->city_id = $company->city_id;
         $offer->region_id = $company->region->id;
@@ -218,61 +205,61 @@ class MyOfferController extends Controller
 
         if ($request->image_r == 'delete') {
             Storage::delete('public/' . $offer->image);
-            $offer->image = null;            
+            $offer->image = null;
         }
 
         if ($request->image_r1 == 'delete') {
             Storage::delete('public/' . $offer->image1);
-            $offer->image1 = null;            
+            $offer->image1 = null;
         }
 
         if ($request->image_r2 == 'delete') {
             Storage::delete('public/' . $offer->image2);
-            $offer->image2 = null;            
+            $offer->image2 = null;
         }
 
         if ($request->image_r3 == 'delete') {
             Storage::delete('public/' . $offer->image3);
-            $offer->image3 = null;            
+            $offer->image3 = null;
         }
 
         if ($request->image_r4 == 'delete') {
             Storage::delete('public/' . $offer->image4);
-            $offer->image4 = null;            
+            $offer->image4 = null;
         }
 
         if ($request->image) {
             Storage::delete('public/' . $offer->image);
             $offer->image = $request->file('image')->store('offers', 'public');
-            Image::make('storage/'.$offer->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image1) {
             Storage::delete('public/' . $offer->image1);
             $offer->image1 = $request->file('image1')->store('offers', 'public');
-            Image::make('storage/'.$offer->image1)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image1)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image2) {
             Storage::delete('public/' . $offer->image2);
             $offer->image2 = $request->file('image2')->store('offers', 'public');
-            Image::make('storage/'.$offer->image2)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image2)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image3) {
             Storage::delete('public/' . $offer->image3);
             $offer->image3 = $request->file('image3')->store('offers', 'public');
-            Image::make('storage/'.$offer->image3)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image3)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image4) {
             Storage::delete('public/' . $offer->image4);
             $offer->image4 = $request->file('image4')->store('offers', 'public');
-            Image::make('storage/'.$offer->image4)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image4)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }

@@ -20,6 +20,7 @@ use App\Http\Controllers\Profile\MyVacancyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\VacancyController;
+use App\Http\Controllers\WorkController;
 use Illuminate\Support\Facades\Route;
 use Stevebauman\Location\Facades\Location;
 
@@ -67,9 +68,10 @@ Route::name('offers.')->prefix('/offers')->group(function () {
     Route::get('/{id}', [OfferController::class, 'show'])->name('show');
 });
 
-Route::get('/vacancies', [VacancyController::class, 'index'])->name('vacancy.index');
-Route::get('/vacancy/{id}', [VacancyController::class, 'show_vacancy'])->name('vacancy.show');
-Route::get('/resume/{id}', [VacancyController::class, 'show_resume'])->name('resume.show');
+Route::name('works.')->prefix('/works')->group(function () {
+    Route::get('/', [WorkController::class, 'index'])->name('index');
+    Route::get('/{id}', [WorkController::class, 'show'])->name('show');
+});
 
 Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show');
 

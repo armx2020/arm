@@ -23,7 +23,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5 w-full">
 
             @foreach($companies as $company)
-            @foreach($company->vacancies as $vacancy)
+            @foreach($company->works as $vacancy)
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('myvacancies.show', ['myvacancy' => $vacancy->id ]) }}" class="block h-52">
                     @if( $vacancy->parent->image == null )
@@ -59,7 +59,7 @@
             @endforeach
 
             @foreach($groups as $group)
-            @foreach($group->vacancies as $vacancy)
+            @foreach($group->works as $vacancy)
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('myvacancies.show', ['myvacancy' => $vacancy->id ]) }}" class="block h-52">
                     @if( $vacancy->parent->image == null )

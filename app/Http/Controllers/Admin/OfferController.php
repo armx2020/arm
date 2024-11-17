@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\OfferRequest;
+use App\Models\Category;
 use App\Models\Company;
 use App\Models\CompanyOffer;
-use App\Models\OfferCategory;
 use App\Services\OfferService;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,7 +26,7 @@ class OfferController extends BaseAdminController
     public function create()
     {
         $companies = Company::all();
-        $categories = OfferCategory::all();
+        $categories = Category::offer()->get();
 
         return view('admin.offer.create', ['companies' => $companies, 'categories' => $categories, 'menu' => $this->menu]);
     }
@@ -57,7 +57,7 @@ class OfferController extends BaseAdminController
             return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
         }
 
-        $categories = OfferCategory::all();
+        $categories = Category::offer()->get();
         $companies = Company::all();
         $company = $offer->company;
         $category = $offer->category;

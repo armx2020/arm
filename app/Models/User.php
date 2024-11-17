@@ -11,9 +11,9 @@ use App\Models\Traits\HasGroups;
 use App\Models\Traits\HasProjects;
 use App\Models\Traits\HasRegion;
 use App\Models\Traits\HasResumes;
-use App\Models\Traits\HasVacancies;
 use App\Models\Traits\Search;
 use App\Models\Traits\HasNews;
+use App\Models\Traits\HasWorks;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -29,12 +29,11 @@ class User extends Authenticatable
         HasRegion,
         HasCompanies,
         HasGroups,
-        HasResumes,
         HasProjects,
         HasEvents,
-        HasVacancies,
-        HasNews;
-    use Search;
+        HasWorks,
+        HasNews,
+        Search;
 
 
     protected $searchable = [

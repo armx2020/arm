@@ -42,9 +42,8 @@ class UserController extends BaseAdminController
             'events',
             'groups',
             'companies',
-            'resumes',
+            'works',
             'projects',
-            'vacancies'
         )
             ->find($id);
 
@@ -88,9 +87,8 @@ class UserController extends BaseAdminController
             'news',
             'groups',
             'companies',
-            'resumes',
+            'works',
             'projects',
-            'vacancies'
         )->find($id);
 
         if (empty($user)) {

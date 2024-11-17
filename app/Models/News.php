@@ -12,10 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
-    use HasFactory, HasCity, HasRegion, HasParent;
-    use Search;
+    use HasFactory,
+        HasCity,
+        HasRegion,
+        HasParent,
+        Search;
 
     protected $searchable = [
-        'name', 'description'
-    ]; 
+        'name',
+        'description'
+    ];
 }

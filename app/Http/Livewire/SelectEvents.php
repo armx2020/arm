@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\Event;
-use App\Models\EventCategory;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Http\Request;
@@ -38,7 +38,7 @@ class SelectEvents extends Component
         } elseif ($this->term !== 0 && $this->region == 1) {
             $events = Event::with('region')
                 ->where('activity', 1)
-                ->where('event_category_id', '=', $this->term)
+                ->where('category_id', '=', $this->term)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = [];
@@ -57,20 +57,20 @@ class SelectEvents extends Component
         } else {
             $events = Event::with('region')
                 ->where('activity', 1)
-                ->where('event_category_id', '=', $this->term)
+                ->where('category_id', '=', $this->term)
                 ->where('region_id', '=', $this->region)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
 
             $recommendations = Event::with('region')
                 ->where('activity', 1)
-                ->where('event_category_id', '=', $this->term)
+                ->where('category_id', '=', $this->term)
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })->limit(3)->get();
         }
 
-        $categories = EventCategory::where('activity', 1)->orderBy('sort_id', 'asc')->get();
+        $categories = Category::active()->event()->orderBy('sort_id', 'asc')->get();
         $regions = Region::all();
 
         return view('livewire.select-events', [

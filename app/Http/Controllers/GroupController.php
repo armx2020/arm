@@ -23,7 +23,7 @@ class GroupController extends BaseController
 
     public function show(Request $request, $id)
     {
-        $group = Group::with('events', 'projects', 'vacancies', 'news', 'users')->find($id);
+        $group = Group::with('events', 'projects', 'works', 'news', 'users')->find($id);
 
         if (empty($group)) {
             return redirect()->route('groups.index')->with('alert', 'Группа не найдена');

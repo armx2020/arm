@@ -7,18 +7,16 @@ use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name', 60);
-            $table->boolean('activity')->default(true);
+            $table->string('name', 60)->fulltext();
+            $table->boolean('activity')->default(true)->index();
             $table->string('address', 128)->nullable();
-            $table->text('description')->nullable();
+            $table->text('description')->nullable()->fulltext();
+            $table->smallInteger('rating', false, true)->default(0);
             $table->string('phone', 36)->nullable()->unique();
             $table->string('web', 255)->nullable()->unique();
             $table->string('viber', 36)->nullable()->unique();
@@ -31,28 +29,14 @@ return new class extends Migration
             $table->string('image2', 255)->nullable();
             $table->string('image3', 255)->nullable();
             $table->string('image4', 255)->nullable();
-
-            $table->unsignedBigInteger('city_id')->default(1);
-            $table->foreign('city_id')->references('id')->on('cities');
-
-            $table->unsignedBigInteger('region_id')->default(1);
-            $table->foreign('region_id')->references('id')->on('regions');
-
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-
-            $table->unsignedBigInteger('group_category_id')->default(1);
-            $table->foreign('group_category_id')->references('id')->on('group_categories')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('city_id')->default(1)->constrained();
+            $table->foreignId('region_id')->default(1)->constrained();
+            $table->foreignId('category_id')->default(1)->constrained()->cascadeOnDelete();
+            $table->softDeletes('deleted_at', 0);
         });
-
-        DB::statement(
-                'ALTER TABLE `groups` ADD FULLTEXT fulltext_index(name, description)'
-        );
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('groups');

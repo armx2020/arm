@@ -30,7 +30,7 @@ class GroupFactory extends Factory
             'instagram' => Str::random(36),
             'vkontakte'=> Str::random(36),
             'telegram' => Str::random(36),
-            'group_category_id' => rand(1, 10)
+            'category_id' => rand(1, 10)
         ];
     }
 }

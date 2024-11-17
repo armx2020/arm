@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\CompanyOffer;
-use App\Models\OfferCategory;
 use App\Models\Region;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -39,7 +39,7 @@ class SelectOffers extends Component
         } elseif ($this->term !== 0 && $this->region == 1) {
             $offers = CompanyOffer::with('company', 'region')
                 ->where('activity', 1)
-                ->where('offer_category_id', '=', $this->term)
+                ->where('category_id', '=', $this->term)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = [];
@@ -58,20 +58,20 @@ class SelectOffers extends Component
         } else {
             $offers = CompanyOffer::with('company', 'region')
                 ->where('activity', 1)
-                ->where('offer_category_id', '=', $this->term)
+                ->where('category_id', '=', $this->term)
                 ->where('region_id', '=', $this->region)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
             $recommendations = CompanyOffer::with('company', 'region')
                 ->where('activity', 1)
-                ->where('offer_category_id', '=', $this->term)
+                ->where('category_id', '=', $this->term)
                 ->orderBy($exp[0], $exp[1])
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })->limit(3)->get();
         }
 
-        $categories = OfferCategory::where('activity', 1)->orderBy('sort_id', 'asc')->get();
+        $categories = Category::active()->offer()->orderBy('sort_id', 'asc')->get();
         $regions = Region::all();
 
         return view('livewire.select-offers', [

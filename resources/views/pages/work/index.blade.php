@@ -10,7 +10,7 @@
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li class="text-neutral-500 dark:text-neutral-400">
-            <a href="{{ route('vacancy.index') }}">
+            <a href="{{ route('works.index') }}">
                 Вакансии</a>
         </li>
     </ol>
@@ -18,7 +18,7 @@
 
 <section>
 
-    @livewire('select-vacancies')
+    @livewire('select-works')
 
 </section>
 

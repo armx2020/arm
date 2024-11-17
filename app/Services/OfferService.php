@@ -35,7 +35,7 @@ class OfferService
         $offer->instagram = $request->instagram;
         $offer->vkontakte = $request->vkontakte;
         $offer->company_id = $request->company;
-        $offer->offer_category_id = $request->category;
+        $offer->category_id = $request->category;
 
         if ($request->image) {
             $offer->image = $request->file('image')->store('offers', 'public');
@@ -152,7 +152,7 @@ class OfferService
         $offer->address = $request->address;
         $offer->description = $request->description;
         $offer->price = $request->price;
-        $offer->offer_category_id = $request->category;
+        $offer->category_id = $request->category;
         $offer->company_id = $company->id;
         $offer->city_id = $company->city_id;
         $offer->region_id = $company->region->id;

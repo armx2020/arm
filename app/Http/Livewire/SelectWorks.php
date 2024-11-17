@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\Region;
 use App\Models\Resume;
 use App\Models\Vacancy;
+use App\Models\Work;
 
-class SelectVacancies extends Component
+class SelectWorks extends Component
 {
     use WithPagination;
 
@@ -36,15 +37,15 @@ class SelectVacancies extends Component
         if ($this->type == 0) {
             $typeName = 'вакансий';
             if ($this->region == 1) {
-                $works = Vacancy::orderBy($exp[0], $exp[1])->where('activity', 1)->paginate(12);
+                $works = Work::vacancy()->orderBy($exp[0], $exp[1])->where('activity', 1)->paginate(12);
                 $recommendations = [];
             } else {
-                $works = Vacancy::with('region', 'parent')
+                $works = Work::vacancy()->with('region', 'parent')
                     ->where('activity', 1)
                     ->where('region_id', '=', $this->region)
                     ->orderBy($exp[0], $exp[1])
                     ->paginate(12);
-                $recommendations = Vacancy::with('region', 'parent')
+                $recommendations = Work::vacancy()->with('region', 'parent')
                     ->where('activity', 1)
                     ->whereNot(function ($query) {
                         $query->where('region_id', '=', $this->region);
@@ -53,15 +54,15 @@ class SelectVacancies extends Component
         } else {
             $typeName = 'резюме';
             if ($this->region == 1) {
-                $works = Resume::with('user')->where('activity', 1)->orderBy($exp[0], $exp[1])->paginate(12);
+                $works = Work::resume()->with('parent')->where('activity', 1)->orderBy($exp[0], $exp[1])->paginate(12);
                 $recommendations = [];
             } else {
-                $works = Resume::with('user', 'region')
+                $works = Work::resume()->with('parent', 'region')
                     ->where('activity', 1)
                     ->where('region_id', '=', $this->region)
                     ->orderBy($exp[0], $exp[1])
                     ->paginate(12);
-                $recommendations = Resume::with('user', 'region')
+                $recommendations = Work::resume()->with('user', 'region')
                     ->where('activity', 1)
                     ->whereNot(function ($query) {
                         $query->where('region_id', '=', $this->region);
@@ -70,7 +71,7 @@ class SelectVacancies extends Component
         }
         $regions = Region::all();
 
-        return view('livewire.select-vacancies', [
+        return view('livewire.select-works', [
             'works' => $works,
             'regions' => $regions,
             'region' => $this->region,

@@ -7,7 +7,7 @@ use App\Http\Requests\VacancyRequest;
 use App\Models\Company;
 use App\Models\Group;
 use App\Models\User;
-use App\Models\Vacancy;
+use App\Models\Work;
 use App\Services\VacancyService;
 
 class VacancyController extends BaseAdminController
@@ -20,7 +20,7 @@ class VacancyController extends BaseAdminController
 
     public function index()
     {
-        $vacancies = Vacancy::with('parent')->latest()->paginate(20);
+        $vacancies = Work::vacancy()->with('parent')->latest()->paginate(20);
 
         return view('admin.vacancy.index', ['vacancies' => $vacancies, 'menu' => $this->menu]);
     }
@@ -48,7 +48,7 @@ class VacancyController extends BaseAdminController
 
     public function show(string $id)
     {
-        $vacancy = Vacancy::with('parent')->find($id);
+        $vacancy = Work::vacancy()->with('parent')->find($id);
 
         if (empty($vacancy)) {
             return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
@@ -59,7 +59,7 @@ class VacancyController extends BaseAdminController
 
     public function edit(string $id)
     {
-        $vacancy = Vacancy::find($id);
+        $vacancy = Work::find($id);
 
         if (empty($vacancy)) {
             return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
@@ -80,7 +80,7 @@ class VacancyController extends BaseAdminController
 
     public function update(VacancyRequest $request, string $id)
     {
-        $vacancy = Vacancy::find($id);
+        $vacancy = Work::find($id);
 
         if (empty($vacancy)) {
             return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
@@ -93,7 +93,7 @@ class VacancyController extends BaseAdminController
 
     public function destroy(string $id)
     {
-        $vacancy = Vacancy::find($id);
+        $vacancy = Work::find($id);
 
         if (empty($vacancy)) {
             return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');

@@ -3,17 +3,18 @@
 namespace App\Models;
 
 use App\Models\Traits\HasCity;
+use App\Models\Traits\HasParent;
 use App\Models\Traits\HasRegion;
 use App\Models\Traits\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CompanyOffer extends Model
+class Work extends Model
 {
     use HasFactory,
         HasCity,
         HasRegion,
+        HasParent,
         Search;
 
     protected $searchable = [
@@ -21,14 +22,13 @@ class CompanyOffer extends Model
         'description'
     ];
 
-    public function company(): BelongsTo
+    public function scopeVacancy($query)
     {
-        return $this->belongsTo(Company::class);
+        return $query->where('type', 'vacancy');
     }
 
-
-    public function category(): BelongsTo
+    public function scopeResume($query)
     {
-        return $this->belongsTo(Category::class,  'category_id');
+        return $query->where('type', 'resume');
     }
 }

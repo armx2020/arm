@@ -48,7 +48,7 @@
                     <a class="mx-2" href="{{ route('groups.index') }}">Группы</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('vacancy.index') }}">Работа</a>
+                    <a class="mx-2" href="{{ route('works.index') }}">Работа</a>
                 </li>
             </ul>
         </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Group;
@@ -12,43 +12,38 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
-class MyNewsController extends Controller
+class MyNewsController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $groups = Group::where('user_id', '=', Auth::user()->id)->with('news')->get();
         $companies = Company::where('user_id', '=', Auth::user()->id)->with('news')->get();
         $news = Auth::user()->news;
 
         return view('profile.pages.news.index', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'groups' => $groups,
             'companies' => $companies,
             'newsFromUser' => $news,
-            'cities' => $cities
         ]);
     }
 
     public function create(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $companies = Company::where('user_id', '=', Auth::user()->id)->get();
         $groups = Group::where('user_id', '=', Auth::user()->id)->get();
 
         return view('profile.pages.news.create', [
-            'city'      => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'companies' => $companies,
             'groups'    => $groups,
-            'cities'    => $cities
         ]);
     }
 
@@ -96,31 +91,31 @@ class MyNewsController extends Controller
 
         if ($request->image) {
             $news->image = $request->file('image')->store('news', 'public');
-            Image::make('storage/'.$news->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $news->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image1) {
             $news->image1 = $request->file('image1')->store('news', 'public');
-            Image::make('storage/'.$news->image1)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $news->image1)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image2) {
             $news->image2 = $request->file('image2')->store('news', 'public');
-            Image::make('storage/'.$news->image2)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $news->image2)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image3) {
             $news->image3 = $request->file('image3')->store('news', 'public');
-            Image::make('storage/'.$news->image3)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $news->image3)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image4) {
             $news->image4 = $request->file('image4')->store('news', 'public');
-            Image::make('storage/'.$news->image4)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $news->image4)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -132,11 +127,6 @@ class MyNewsController extends Controller
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $news = News::with('parent')->find($id);
 
         if (empty($news)) {
@@ -148,9 +138,9 @@ class MyNewsController extends Controller
                 ($news->parent_type == 'App\Models\Group' && $news->parent->user_id == Auth::user()->id)
             ) {
                 return view('profile.pages.news.show', [
-                    'city'   => $request->session()->get('city'),
+                    'region'   => $request->session()->get('region'),
+                    'regions' => $this->regions,
                     'news'   => $news,
-                    'cities' => $cities
                 ]);
             } else {
                 return redirect()->route('mynews.index')->with('alert', 'Новость не найдена');
@@ -160,11 +150,6 @@ class MyNewsController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $news = News::with('parent')->find($id);
 
         if (empty($news)) {
@@ -179,9 +164,9 @@ class MyNewsController extends Controller
                 $groups = Group::where('user_id', '=', Auth::user()->id)->get();
 
                 return view('profile.pages.news.edit', [
-                    'city'   => $request->session()->get('city'),
+                    'region'   => $request->session()->get('region'),
+                    'regions' => $this->regions,
                     'news'  => $news,
-                    'cities' => $cities,
                     'companies' => $companies,
                     'groups'    => $groups,
                 ]);
@@ -269,35 +254,35 @@ class MyNewsController extends Controller
                 if ($request->image) {
                     Storage::delete('public/' . $news->image);
                     $news->image = $request->file('image')->store('news', 'public');
-                    Image::make('storage/'.$news->image)->resize(400, null, function ($constraint) {
+                    Image::make('storage/' . $news->image)->resize(400, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save();
                 }
                 if ($request->image1) {
                     Storage::delete('public/' . $news->image1);
                     $news->image1 = $request->file('image1')->store('news', 'public');
-                    Image::make('storage/'.$news->image1)->resize(400, null, function ($constraint) {
+                    Image::make('storage/' . $news->image1)->resize(400, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save();
                 }
                 if ($request->image2) {
                     Storage::delete('public/' . $news->image2);
                     $news->image2 = $request->file('image2')->store('news', 'public');
-                    Image::make('storage/'.$news->image2)->resize(400, null, function ($constraint) {
+                    Image::make('storage/' . $news->image2)->resize(400, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save();
                 }
                 if ($request->image3) {
                     Storage::delete('public/' . $news->image3);
                     $news->image3 = $request->file('image3')->store('news', 'public');
-                    Image::make('storage/'.$news->image3)->resize(400, null, function ($constraint) {
+                    Image::make('storage/' . $news->image3)->resize(400, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save();
                 }
                 if ($request->image4) {
                     Storage::delete('public/' . $news->image4);
                     $news->image4 = $request->file('image4')->store('news', 'public');
-                    Image::make('storage/'.$news->image4)->resize(400, null, function ($constraint) {
+                    Image::make('storage/' . $news->image4)->resize(400, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save();
                 }

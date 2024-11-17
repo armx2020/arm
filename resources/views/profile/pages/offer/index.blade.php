@@ -34,7 +34,6 @@
                     </h5>
                     <hr class="my-2">
                     <div class="my-4 break-all text-base text-right">
-                        <p class="mx-3 inline">{{ $offer->price }} {{ $offer->unit_of_price }}</p>
                         <a href="{{ route('myoffers.edit', ['myoffer' => $offer->id]) }}" class="inline border-2 hover:border-yellow-400 border-yellow-100 bg-yellow-100 hover:bg-yellow-400 rounded-md py-2 pl-2 pr-1 my-1" title="редактировать">
                             <svg class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="22" height="22" viewBox="0 0 485.219 485.22" style="enable-background:new 0 0 485.219 485.22;" xml:space="preserve">
                                 <g>
@@ -159,12 +158,6 @@
                     <x-input-label for="description" :value="__('Описание')" />
                     <x-text-input id="description" name="description" type="text" class="mt-1 block w-full" :value="old('description')" autofocus />
                     <x-input-error class="mt-2" :messages="$errors->get('description')" />
-                </div>
-
-                <div class="my-3">
-                    <x-input-label for="price" :value="__('Цена')" />
-                    <x-text-input id="price" name="price" type="number" class="mt-1 block w-full" :value="old('price') ? old('price') : 0" min="0" max="999999999" autofocus />
-                    <x-input-error class="mt-2" :messages="$errors->get('price')" />
                 </div>
 
                 <div class="my-3">

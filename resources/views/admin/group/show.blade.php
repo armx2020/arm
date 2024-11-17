@@ -137,7 +137,7 @@
         </div>
     </div>
 </div>
-<div class="my-4 w-full grid grid-cols-1 gap-4">
+<div class="my-4 max-w-7xl mx-auto px-4 grid grid-cols-1 gap-4">
     @if($group->user)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
@@ -155,7 +155,7 @@
             <div class="flex-shrink-0 m-1">
                 <span class="text-xl leading-none font-bold text-gray-900">Category's </span>
             </div>
-            <a href="{{ route('admin.groupCategory.show', ['groupCategory' => $group->category->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+            <a href="{{ route('admin.category.show', ['category' => $group->category->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                 {{ $group->category->name }}
             </a>
         </div>

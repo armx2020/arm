@@ -2,10 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\Group;
-use App\Models\GroupCategory;
 use App\Models\Region;
-use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -28,7 +27,7 @@ class HomePage extends Component
             } elseif ($this->term !== 0 && $this->region == 1) {
                 $groups = Group::with('users', 'region', 'category')
                     ->where('activity', 1)
-                    ->where('group_category_id', '=', $this->term)
+                    ->where('category_id', '=', $this->term)
                     ->paginate(4);
             } elseif ($this->term == 0 && $this->region !== 1) {
                 $groups = Group::with('users', 'region', 'category')
@@ -38,7 +37,7 @@ class HomePage extends Component
             } else {
                 $groups = Group::with('users', 'region', 'category')
                     ->where('activity', 1)
-                    ->where('group_category_id', '=', $this->term)
+                    ->where('category_id', '=', $this->term)
                     ->where('region_id', '=', $this->region)
                     ->paginate(4);
             }
@@ -51,7 +50,7 @@ class HomePage extends Component
             $groups = Group::with('users', 'category')->where('activity', 1)->paginate(4);
         }
 
-        $categories = GroupCategory::orderBy('sort_id', 'asc')->where('activity', 1)->get();
+        $categories = Category::orderBy('sort_id', 'asc')->active()->group()->get();
         $regions = Region::all();
 
         return view('livewire.home-page', [

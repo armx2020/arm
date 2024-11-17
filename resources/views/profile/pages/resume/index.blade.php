@@ -26,7 +26,7 @@
             @foreach($resumes as $resume)
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('myresumes.show', ['myresume' => $resume->id ]) }}" class="block h-52">
-                    @if( $resume->user->image == null )
+                    @if( $resume->user == null )
                     <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
                     <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$resume->user->image) }}" alt="image">
@@ -38,13 +38,6 @@
                     </h5>
                     <hr class="my-2">
                     <div class="my-4 break-all text-base text-right">
-                        <p class="mx-3 inline text-md font-bold">
-                            @if($resume->price !== 0)
-                            {{ $resume->price }} RUB.
-                            @else
-                            no price
-                            @endif
-                        </p>
                         <a href="{{ route('myresumes.edit', ['myresume' => $resume->id ]) }}" class="inline border-2 hover:border-yellow-400 border-yellow-100 bg-yellow-100 hover:bg-yellow-400 rounded-md py-2 pl-2 pr-1 my-1" title="редактировать">
                             <svg class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="22" height="22" viewBox="0 0 485.219 485.22" style="enable-background:new 0 0 485.219 485.22;" xml:space="preserve">
                                 <g>

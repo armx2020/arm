@@ -32,7 +32,7 @@ class GroupService
         $group->instagram = $request->instagram;
         $group->vkontakte = $request->vkontakte;
         $group->user_id = $request->user;
-        $group->group_category_id = $request->category;
+        $group->category_id = $request->category;
      
         if ($request->image) {
             $group->image = $request->file('image')->store('groups', 'public');
@@ -156,7 +156,7 @@ class GroupService
         $group->instagram = $request->instagram;
         $group->vkontakte = $request->vkontakte;
         $group->user_id = $request->user;
-        $group->group_category_id = $request->category;
+        $group->category_id = $request->category;
 
         $group->update();
 

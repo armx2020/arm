@@ -2,56 +2,51 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Event;
-use App\Models\EventCategory;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
-class MyEventController extends Controller
+class MyEventController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $groups = Group::where('user_id', '=', Auth::user()->id)->with('events')->get();
         $companies = Company::where('user_id', '=', Auth::user()->id)->with('events')->get();
         $events = Auth::user()->events;
 
         return view('profile.pages.event.index', [
-            'city'      => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'groups'    => $groups,
             'companies' => $companies,
             'events'    => $events,
-            'cities'    => $cities
         ]);
     }
 
     public function create(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $companies = Company::where('user_id', '=', Auth::user()->id)->get();
         $groups = Group::where('user_id', '=', Auth::user()->id)->get();
-        $categories = EventCategory::orderBy('sort_id', 'asc')->get();
+        $categories = Category::event()->orderBy('sort_id', 'asc')->get();
 
         return view('profile.pages.event.create', [
-            'city'      => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'companies' => $companies,
             'categories' => $categories,
             'groups'    => $groups,
-            'cities'    => $cities
         ]);
     }
 
@@ -77,7 +72,7 @@ class MyEventController extends Controller
         $event->date_to_start = $request->date_to_start;
         $event->city_id = $request->event_city;
         $event->region_id = $city->region->id;
-        $event->event_category_id = $request->category;
+        $event->category_id = $request->category;
 
         $parent = $request->parent;
         $parent_explode = explode('|', $parent);
@@ -99,7 +94,7 @@ class MyEventController extends Controller
 
         if ($request->image) {
             $event->image = $request->file('image')->store('events', 'public');
-            Image::make('storage/'.$event->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $event->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -111,11 +106,6 @@ class MyEventController extends Controller
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $event = Event::with('parent')->find($id);
 
         if (empty($event)) {
@@ -127,9 +117,9 @@ class MyEventController extends Controller
                 ($event->parent_type == 'App\Models\Group' && $event->parent->user_id == Auth::user()->id)
             ) {
                 return view('profile.pages.event.show', [
-                    'city'   => $request->session()->get('city'),
+                    'region'   => $request->session()->get('region'),
+                    'regions' => $this->regions,
                     'event'   => $event,
-                    'cities' => $cities
                 ]);
             } else {
                 return redirect()->route('myevents.index')->with('alert', 'Мероприятие не найдено');
@@ -139,11 +129,6 @@ class MyEventController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $event = Event::with('parent')->find($id);
 
         if (empty($event)) {
@@ -156,12 +141,12 @@ class MyEventController extends Controller
             ) {
                 $companies = Company::where('user_id', '=', Auth::user()->id)->get();
                 $groups = Group::where('user_id', '=', Auth::user()->id)->get();
-                $categories = EventCategory::orderBy('sort_id', 'asc')->get();
+                $categories = Category::event()->orderBy('sort_id', 'asc')->get();
 
                 return view('profile.pages.event.edit', [
-                    'city'   => $request->session()->get('city'),
+                    'region'   => $request->session()->get('region'),
+                    'regions' => $this->regions,
                     'event'  => $event,
-                    'cities' => $cities,
                     'companies' => $companies,
                     'categories' => $categories,
                     'groups'    => $groups,
@@ -201,7 +186,7 @@ class MyEventController extends Controller
                 $event->date_to_start = $request->date_to_start;
                 $event->city_id = $request->event_city;
                 $event->region_id = $city->region->id;
-                $event->event_category_id = $request->category;
+                $event->category_id = $request->category;
 
                 $parent = $request->parent;
                 $parent_explode = explode('|', $parent);
@@ -227,7 +212,7 @@ class MyEventController extends Controller
                 if ($request->image) {
                     Storage::delete('public/' . $event->image);
                     $event->image = $request->file('image')->store('events', 'public');
-                    Image::make('storage/'.$event->image)->resize(400, null, function ($constraint) {
+                    Image::make('storage/' . $event->image)->resize(400, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save();
                 }

@@ -178,7 +178,7 @@
         </div>
     </div>
 </div>
-<div class="my-4 px-4 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="my-4 max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
     @if (count($user->companies) > 0)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
@@ -197,14 +197,14 @@
         </div>
     </div>
     @endif
-    @if (count($user->vacancies) > 0)
+    @if (count($user->works) > 0)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
             <div class="flex-shrink-0 m-1">
                 <span class="text-xl leading-none font-bold text-gray-900">Vacancies</span>
             </div>
             <ul class="flex flex-wrap">
-                @foreach ($user->vacancies as $vacancy)
+                @foreach ($user->works as $vacancy)
                 <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                     <a href="{{ route('admin.vacancy.show', ['vacancy' => $vacancy->id]) }}">
                         {{ $vacancy->name }}
@@ -224,7 +224,7 @@
             <ul class="flex flex-wrap">
                 @foreach ($user->groups as $group)
                 <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                    <a href="{{ route('admin.groups.show' , ['group' => $group->id]) }}">
+                    <a href="{{ route('admin.group.show' , ['group' => $group->id]) }}">
                         {{ $group->name }}
                     </a>
                 </li>
@@ -233,14 +233,14 @@
         </div>
     </div>
     @endif
-    @if (count($user->resumes) > 0)
+    @if (count($user->works) > 0)
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
             <div class="flex-shrink-0 m-1">
                 <span class="text-xl leading-none font-bold text-gray-900">Resumes</span>
             </div>
             <ul class="flex flex-wrap">
-                @foreach ($user->resumes as $resume)
+                @foreach ($user->works as $resume)
                 <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                     <a href="{{ route('admin.resume.show', ['resume' => $resume->id]) }}">
                         {{ $resume->name }}

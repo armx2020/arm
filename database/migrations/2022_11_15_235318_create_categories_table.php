@@ -6,25 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('event_categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name', 40);
-            $table->integer('sort_id');
+            $table->string('name', 40)->fulltext();
+            $table->integer('sort_id')->index();
             $table->boolean('activity')->default(true);
+            $table->enum('type', ['group', 'offer', 'event']);
+            $table->softDeletes('deleted_at', 0);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('event_categories');
+        Schema::dropIfExists('categories');
     }
 };

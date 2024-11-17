@@ -34,12 +34,6 @@
                         <x-input-error class="mt-2" :messages="$errors->get('description')" />
                     </div>
 
-                    <div class="my-2">
-                        <x-input-label for="price" :value="__('Ожидаемая зарплата')" />
-                        <x-text-input id="price" name="price" type="number" class="mt-1 block w-full" :value="old('price', $resume->price, 0)" min=0 autofocus />
-                        <x-input-error class="mt-2" :messages="$errors->get('price')" />
-                    </div>
-
                     <div class="my-3">
                         <label for="resume_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
                         <select name="resume_city" class="w-full" style="border-color: rgb(209 213 219)" id="resume_city">

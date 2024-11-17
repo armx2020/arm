@@ -32,13 +32,6 @@
                         <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" :value="old('description')" autofocus />
                         <x-input-error class="mt-2" :messages="$errors->get('address')" />
                     </div>
-
-                    <div class="my-2">
-                        <x-input-label for="price" :value="__('Зарплата')" />
-                        <x-text-input id="price" name="price" min="0" type="number" class="mt-1 block w-full" :value="old('price', 0)" autofocus />
-                        <x-input-error class="mt-2" :messages="$errors->get('price')" />
-                    </div>
-
                     
                     <div class="my-2">
                         <label for="parent" class="text-sm font-medium text-gray-900 block mb-2">Инициатор</label>
