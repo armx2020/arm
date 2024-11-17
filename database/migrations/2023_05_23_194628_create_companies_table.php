@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('address', 128)->nullable()->index();
             $table->string('image', 255)->nullable();
             $table->text('description')->nullable()->fulltext();
-            $table->smallInteger('rating', false, true)->default(0);
             $table->string('phone', 36)->nullable()->unique();
             $table->string('web', 255)->nullable()->unique();
             $table->string('viber', 36)->nullable()->unique();

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
- 
     public function up(): void
     {
         Schema::create('company_offers', function (Blueprint $table) {
@@ -17,7 +16,6 @@ return new class extends Migration
             $table->boolean('activity')->default(true)->index();
             $table->string('address', 128)->nullable();
             $table->text('description')->nullable()->fulltext();
-            $table->smallInteger('rating', false, true)->default(0);
             $table->string('image', 255)->nullable();
             $table->string('image1', 255)->nullable();
             $table->string('image2', 255)->nullable();
