@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Category;
-use App\Models\City;
 use App\Models\Company;
 use App\Models\CompanyOffer;
 use Illuminate\Http\Request;
@@ -34,6 +33,7 @@ class MyOfferController extends BaseController
             'regions' => $this->regions,
             'companies' => $companies,
             'categories' => $categories,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -155,6 +155,7 @@ class MyOfferController extends BaseController
             'offer' => $offer,
             'categories' => $categories,
             'companies' => $companies,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 

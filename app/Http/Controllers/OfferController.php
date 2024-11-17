@@ -12,11 +12,12 @@ class OfferController extends BaseController
         parent::__construct();
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $regionCode = null)
     {
         return view('pages.offer.offers', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $regionCode
         ]);
     }
 
@@ -38,6 +39,7 @@ class OfferController extends BaseController
             'regions' => $this->regions,
             'offer' => $offer,
             'recommendations' => $recommendations,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 }

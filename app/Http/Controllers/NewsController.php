@@ -13,11 +13,12 @@ class NewsController extends BaseController
         parent::__construct();
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $regionCode = null)
     {
         return view('pages.news.news', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $regionCode
         ]);
     }
 
@@ -32,6 +33,7 @@ class NewsController extends BaseController
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'news'   => $news,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 }

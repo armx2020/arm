@@ -12,11 +12,12 @@ class WorkController extends BaseController
         parent::__construct();
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $regionCode = null)
     {
         return view('pages.work.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $regionCode
         ]);
     }
 
@@ -32,6 +33,7 @@ class WorkController extends BaseController
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'work' => $work,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 }

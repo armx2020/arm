@@ -13,11 +13,12 @@ class CompanyController extends BaseController
         parent::__construct();
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $regionCode = null)
     {
         return view('pages.company.companies', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $regionCode
         ]);
     }
 
@@ -33,6 +34,7 @@ class CompanyController extends BaseController
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'company' => $company,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 }

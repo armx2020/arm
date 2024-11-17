@@ -32,6 +32,7 @@ class MyEventController extends BaseController
             'groups'    => $groups,
             'companies' => $companies,
             'events'    => $events,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -47,6 +48,7 @@ class MyEventController extends BaseController
             'companies' => $companies,
             'categories' => $categories,
             'groups'    => $groups,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -120,6 +122,7 @@ class MyEventController extends BaseController
                     'region'   => $request->session()->get('region'),
                     'regions' => $this->regions,
                     'event'   => $event,
+                    'regionCode' => $request->session()->get('regionId')
                 ]);
             } else {
                 return redirect()->route('myevents.index')->with('alert', 'Мероприятие не найдено');
@@ -150,6 +153,7 @@ class MyEventController extends BaseController
                     'companies' => $companies,
                     'categories' => $categories,
                     'groups'    => $groups,
+                    'regionCode' => $request->session()->get('regionId')
                 ]);
             } else {
                 return redirect()->route('mynevents.index')->with('alert', 'Мероприятие не найдено');

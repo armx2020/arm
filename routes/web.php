@@ -73,6 +73,16 @@ Route::name('works.')->prefix('/works')->group(function () {
     Route::get('/{id}', [WorkController::class, 'show'])->name('show');
 });
 
+Route::name('region.')->prefix('/{regionCode}')->group(function () {
+    Route::get('/groups', [GroupController::class, 'index'])->name('groups');
+    Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
+    Route::get('/events', [EventController::class, 'index'])->name('events');
+    Route::get('/news', [NewsController::class, 'index'])->name('news');
+    Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
+    Route::get('/offers', [OfferController::class, 'index'])->name('offers');
+    Route::get('/works', [WorkController::class, 'index'])->name('works');
+});
+
 Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show');
 
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');

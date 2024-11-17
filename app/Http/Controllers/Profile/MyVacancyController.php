@@ -29,6 +29,7 @@ class MyVacancyController extends BaseController
             'vacancies' => $vacancies,
             'groups'    => $groups,
             'companies' => $companies,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -42,6 +43,7 @@ class MyVacancyController extends BaseController
             'regions' => $this->regions,
             'companies' => $companies,
             'groups'    => $groups,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -133,6 +135,7 @@ class MyVacancyController extends BaseController
                     'vacancy' => $vacancy,
                     'groups'    => $groups,
                     'companies' => $companies,
+                    'regionCode' => $request->session()->get('regionId')
                 ]);
             } else {
                 return redirect()->route('myvacancy.index')->with('alert', 'Вакансия не найдена');

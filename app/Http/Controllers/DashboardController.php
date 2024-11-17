@@ -29,6 +29,7 @@ class DashboardController extends BaseController
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'fullness' => $fullness,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -37,6 +38,7 @@ class DashboardController extends BaseController
         return view('profile.pages.questions', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 }

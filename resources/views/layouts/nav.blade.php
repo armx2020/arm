@@ -58,6 +58,7 @@
                         </div>
                     @endguest
                 </li>
+
                 <li class="mb-2 block">
                     <a class="" href="{{ route('projects.index') }}">Проекты</a>
                 </li>
@@ -85,24 +86,45 @@
         </div>
         <div class="visible hidden flex-grow basis-full items-center xl:!flex xl:basis-auto">
             <ul class="list-style-none mr-5 flex flex-col pl-0 lg:flex-row">
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('projects.index') }}">Проекты</a>
-                </li>
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('offers.index') }}">Маркет</a>
-                </li>
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('events.index') }}">Афиша</a>
-                </li>
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('news.index') }}">Новости</a>
-                </li>
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('groups.index') }}">Группы</a>
-                </li>
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('works.index') }}">Работа</a>
-                </li>
+                @isset($regionCode)
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.projects', ['regionCode' => $regionCode]) }}">Проекты</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.offers', ['regionCode' => $regionCode]) }}">Маркет</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.events', ['regionCode' => $regionCode]) }}">Афиша</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.news', ['regionCode' => $regionCode]) }}">Новости</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.groups' , ['regionCode' => $regionCode]) }}">Группы</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.works', ['regionCode' => $regionCode]) }}">Работа</a>
+                    </li>
+                @else
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('projects.index') }}">Проекты</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('offers.index') }}">Маркет</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('events.index') }}">Афиша</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('news.index') }}">Новости</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('groups.index') }}">Группы</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('works.index') }}">Работа</a>
+                    </li>
+                @endisset
             </ul>
         </div>
         <div class="hidden lg:basis-1/3 xl:flex basis-1/4 items-center justify-between">

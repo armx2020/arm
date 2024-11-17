@@ -31,6 +31,7 @@ class MyNewsController extends BaseController
             'groups' => $groups,
             'companies' => $companies,
             'newsFromUser' => $news,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -44,6 +45,7 @@ class MyNewsController extends BaseController
             'regions' => $this->regions,
             'companies' => $companies,
             'groups'    => $groups,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -141,6 +143,7 @@ class MyNewsController extends BaseController
                     'region'   => $request->session()->get('region'),
                     'regions' => $this->regions,
                     'news'   => $news,
+                    'regionCode' => $request->session()->get('regionId')
                 ]);
             } else {
                 return redirect()->route('mynews.index')->with('alert', 'Новость не найдена');
@@ -169,6 +172,7 @@ class MyNewsController extends BaseController
                     'news'  => $news,
                     'companies' => $companies,
                     'groups'    => $groups,
+                    'regionCode' => $request->session()->get('regionId')
                 ]);
             } else {
                 return redirect()->route('mynews.index')->with('alert', 'Новость не найдена');

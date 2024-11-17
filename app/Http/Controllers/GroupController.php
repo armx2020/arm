@@ -13,11 +13,12 @@ class GroupController extends BaseController
         parent::__construct();
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $regionCode = null)
     {
         return view('pages.group.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $regionCode
         ]);
     }
 
@@ -42,6 +43,7 @@ class GroupController extends BaseController
             'regions' => $this->regions,
             'group' => $group,
             'subscribe' => $subscribe,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 

@@ -12,11 +12,12 @@ class EventController extends BaseController
         parent::__construct();
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $regionCode = null)
     {
         return view('pages.event.events', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $regionCode
         ]);
     }
 
@@ -32,6 +33,7 @@ class EventController extends BaseController
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'event'   => $event,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 }

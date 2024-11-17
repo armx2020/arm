@@ -16,7 +16,7 @@ class SelectCompanies extends Component
     public $sort = "updated_at|asc";
     public $view = 1;
 
-    public function mount(Request $request)
+    public function mount(Request $request, $regionCode = null)
     {
         $reg = Region::where('name', '=', $request->session()->get('region'))->First();
 

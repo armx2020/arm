@@ -12,11 +12,12 @@ class ProjectController extends BaseController
         parent::__construct();
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $regionCode = null)
     {
         return view('pages.project.projects', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $regionCode
         ]);
     }
 
@@ -39,6 +40,7 @@ class ProjectController extends BaseController
             'regions' => $this->regions,
             'project' => $project,
             'fullness' => $fullness,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 }

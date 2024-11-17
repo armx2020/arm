@@ -44,6 +44,7 @@ class MyProjectController extends BaseController
             'regions' => $this->regions,
             'companies' => $companies,
             'groups'    => $groups,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -124,6 +125,7 @@ class MyProjectController extends BaseController
                     'regions' => $this->regions,
                     'project' => $project,
                     'fullness' => $fullness,
+                    'regionCode' => $request->session()->get('regionId')
                 ]);
             } else {
                 return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
@@ -152,6 +154,7 @@ class MyProjectController extends BaseController
                     'project' => $project,
                     'companies' => $companies,
                     'groups'    => $groups,
+                    'regionCode' => $request->session()->get('regionId')
                 ]);
             } else {
                 return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');

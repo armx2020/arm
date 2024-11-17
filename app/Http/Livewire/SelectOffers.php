@@ -18,9 +18,13 @@ class SelectOffers extends Component
     public $sort = "updated_at|desc";
     public $view = 1;
 
-    public function mount(Request $request)
+    public function mount(Request $request, $regionCode = null)
     {
-        $reg = Region::where('name', '=', $request->session()->get('region'))->First();
+        if($regionCode) {
+            $reg = Region::where('code', '=', $regionCode)->First();
+        } else {
+            $reg = Region::where('name', '=', $request->session()->get('region'))->First();
+        }
 
         if (empty($reg)) {
             $this->region = 1;

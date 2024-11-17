@@ -28,6 +28,7 @@ class MyGroupController extends BaseController
             'regions' => $this->regions,
             'groups' => $groups,
             'categories' => $categories,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -39,6 +40,7 @@ class MyGroupController extends BaseController
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'categories' => $categories,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -148,6 +150,7 @@ class MyGroupController extends BaseController
             'regions' => $this->regions,
             'group' => $group,
             'fullness' => $fullness,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -166,6 +169,7 @@ class MyGroupController extends BaseController
             'regions' => $this->regions,
             'group' => $group,
             'categories' => $categories,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 

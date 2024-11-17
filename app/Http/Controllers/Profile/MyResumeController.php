@@ -24,6 +24,7 @@ class MyResumeController extends BaseController
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'resumes' => $resumes,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -32,6 +33,7 @@ class MyResumeController extends BaseController
         return view('profile.pages.resume.create', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -75,6 +77,7 @@ class MyResumeController extends BaseController
                 'region'   => $request->session()->get('region'),
                 'regions' => $this->regions,
                 'resume' => $resume,
+                'regionCode' => $request->session()->get('regionId')
             ]);
         }
     }
@@ -90,6 +93,7 @@ class MyResumeController extends BaseController
                 'region'   => $request->session()->get('region'),
                 'regions' => $this->regions,
                 'resume' => $resume,
+                'regionCode' => $request->session()->get('regionId')
             ]);
         }
     }

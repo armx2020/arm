@@ -19,9 +19,13 @@ class SelectWorks extends Component
     public $sort = "updated_at|asc";
     public $view = 1;
 
-    public function mount(Request $request)
+    public function mount(Request $request, $regionCode = null)
     {
-        $reg = Region::where('name', '=', $request->session()->get('region'))->First();
+        if($regionCode) {
+            $reg = Region::where('code', '=', $regionCode)->First();
+        } else {
+            $reg = Region::where('name', '=', $request->session()->get('region'))->First();
+        }
 
         if (empty($reg)) {
             $this->region = 1;
@@ -62,7 +66,7 @@ class SelectWorks extends Component
                     ->where('region_id', '=', $this->region)
                     ->orderBy($exp[0], $exp[1])
                     ->paginate(12);
-                $recommendations = Work::resume()->with('user', 'region')
+                $recommendations = Work::resume()->with('parent', 'region')
                     ->where('activity', 1)
                     ->whereNot(function ($query) {
                         $query->where('region_id', '=', $this->region);

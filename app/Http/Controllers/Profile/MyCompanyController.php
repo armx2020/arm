@@ -29,6 +29,7 @@ class MyCompanyController extends BaseController
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'companies' => $companies,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -37,6 +38,7 @@ class MyCompanyController extends BaseController
         return view('profile.pages.company.create', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -116,6 +118,7 @@ class MyCompanyController extends BaseController
             'regions' => $this->regions,
             'company' => $company,
             'fullness' => $fullness,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -131,6 +134,7 @@ class MyCompanyController extends BaseController
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'company' => $company,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 

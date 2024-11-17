@@ -18,7 +18,7 @@
 
 <section>
 
-    @livewire('select-works')
+    @livewire('select-works', ['regionCode' => $regionCode])
 
 </section>
 

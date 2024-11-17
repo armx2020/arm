@@ -36,6 +36,7 @@ class HomeController extends BaseController
             'region'   => $request->session()->get('region'),
             'group' => $group,
             'regions' => $this->regions,
+            'regionCode' => $regionCode
         ]);
     }
 
@@ -44,6 +45,7 @@ class HomeController extends BaseController
         return view('pages.privacy-policy', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -52,6 +54,7 @@ class HomeController extends BaseController
         return view('pages.condition-of-use', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 }

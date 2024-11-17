@@ -15,6 +15,6 @@
     </ol>
 </nav>
 <section>
-    @livewire('select-groups')
+    @livewire('select-groups', ['regionCode' => $regionCode])
 </section>
 @endsection
