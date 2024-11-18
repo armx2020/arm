@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
         $request->session()->put('phone', $request->phone);
         $request->session()->put('password', $request->password);
 
-        $json = SmsService::callTo($request->phone, $_SERVER["REMOTE_ADDR"], false);
+        $json = SmsService::callTo($request->phone, $_SERVER["REMOTE_ADDR"], true);
 
         if ($json) {
             if ($json->status == "OK") {
