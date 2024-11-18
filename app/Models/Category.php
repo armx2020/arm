@@ -15,6 +15,16 @@ class Category extends Model
         'name'
     ];
 
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function childrenCategories()
+{
+    return $this->hasMany(Category::class)->with('categories');
+}
+
     public function scopeActive($query)
     {
         return $query->where('activity', 1);

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('sort_id')->index();
             $table->boolean('activity')->default(true);
             $table->enum('type', ['group', 'offer', 'event']);
+            $table->foreignId('category_id')->nullable()->constrained();
             $table->softDeletes('deleted_at', 0);
         });
     }
