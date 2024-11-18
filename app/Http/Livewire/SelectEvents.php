@@ -74,7 +74,7 @@ class SelectEvents extends Component
                 })->limit(3)->get();
         }
 
-        $categories = Category::active()->event()->orderBy('sort_id', 'asc')->get();
+        $categories = Category::active()->event()->main()->orderBy('sort_id', 'asc')->get();
         $regions = Region::all();
 
         return view('livewire.select-events', [

@@ -15,15 +15,10 @@ class Category extends Model
         'name'
     ];
 
-    public function categories()
+    public function scopeMain($query)
     {
-        return $this->hasMany(Category::class);
+        return $query->where('category_id', null);
     }
-
-    public function childrenCategories()
-{
-    return $this->hasMany(Category::class)->with('categories');
-}
 
     public function scopeActive($query)
     {
@@ -55,8 +50,18 @@ class Category extends Model
         return $this->hasMany(Group::class);
     }
 
-    public function offers() : HasMany
+    public function offers(): HasMany
     {
         return $this->hasMany(CompanyOffer::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function childrenCategories()
+    {
+        return $this->hasMany(Category::class)->with('categories');
     }
 }
