@@ -24,7 +24,7 @@ class CompanyController extends BaseController
 
     public function show(Request $request, $id)
     {
-        $company = Company::with('events', 'projects', 'vacancies', 'news', 'offers')->find($id);
+        $company = Company::with('events', 'projects', 'works', 'news', 'offers')->find($id);
 
         if (empty($company)) {
             return redirect()->route('companies.index')->with('alert', 'Компания не найдена');

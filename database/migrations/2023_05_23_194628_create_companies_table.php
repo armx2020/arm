@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreignId('city_id')->default(1)->constrained();
             $table->foreignId('region_id')->default(1)->constrained();
             $table->softDeletes('deleted_at', 0);
+            $table->text('comment')->nullable();
         });
     }
 
