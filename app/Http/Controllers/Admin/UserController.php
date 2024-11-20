@@ -2,28 +2,31 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Storage;
 
-class UserController extends Controller
+class UserController extends BaseAdminController
 {
-    public function __construct(private UserService $userService)
+    private $userService;
+
+    public function __construct(UserService $userService)
     {
+        parent::__construct();
         $this->userService = $userService;
     }
 
     public function index()
     {
-        return view('admin.user.index');
+        return view('admin.user.index', ['menu' => $this->menu]);
     }
 
     public function create()
     {
-        return view('admin.user.create');
+        return view('admin.user.create', ['menu' => $this->menu]);
     }
 
     public function store(StoreUserRequest $request)
@@ -39,9 +42,8 @@ class UserController extends Controller
             'events',
             'groups',
             'companies',
-            'resumes',
+            'works',
             'projects',
-            'vacancies'
         )
             ->find($id);
 
@@ -49,7 +51,7 @@ class UserController extends Controller
             return redirect()->route('admin.user.index')->with('alert', 'The user not found');
         }
 
-        return view('admin.user.show', ['user' => $user]);
+        return view('admin.user.show', ['user' => $user, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -60,7 +62,7 @@ class UserController extends Controller
             return redirect()->route('admin.user.index')->with('alert', 'The user not found');
         }
 
-        return view('admin.user.edit', ['user' => $user]);
+        return view('admin.user.edit', ['user' => $user, 'menu' => $this->menu]);
     }
 
     public function update(UpdateUserRequest $request, string $id)
@@ -85,9 +87,8 @@ class UserController extends Controller
             'news',
             'groups',
             'companies',
-            'resumes',
+            'works',
             'projects',
-            'vacancies'
         )->find($id);
 
         if (empty($user)) {

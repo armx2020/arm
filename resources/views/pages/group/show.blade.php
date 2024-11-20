@@ -9,13 +9,13 @@
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li>
-            <a href="{{ route('group.index') }}" class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600">Группы</a>
+            <a href="{{ route('groups.index') }}" class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600">Группы</a>
         </li>
         <li>
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li class="text-neutral-500 dark:text-neutral-400">
-            <a href="{{ route('group.show', ['id' => $group->id]) }}">
+            <a href="{{ route('groups.show', ['id' => $group->id]) }}">
                 {{ $group->name }}</a>
         </li>
     </ol>
@@ -231,7 +231,7 @@
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                 @foreach($group->events as $event)
                 <div class="block rounded-lg bg-white h-80">
-                    <a href="{{ route('event.show', ['id' => $event->id ]) }}" class="block h-52">
+                    <a href="{{ route('events.show', ['id' => $event->id ]) }}" class="block h-52">
                         @if( $event->image == null )
                         <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                         @else
@@ -265,7 +265,7 @@
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                 @foreach($group->projects as $project)
                 <div class="block rounded-lg bg-white h-96">
-                    <a href="{{ route('project.show', ['id' => $project->id ]) }}" class="block h-52">
+                    <a href="{{ route('projects.show', ['id' => $project->id ]) }}" class="block h-52">
                         @if( $project->image == null )
                         <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                         @else
@@ -293,7 +293,7 @@
             @endif
         </div>
         <div class="basis-full mt-3 mb-16 hidden" id="vacancies">
-            @if($group->vacancies->isEmpty())
+            @if($group->works->isEmpty())
             <div class="w-full text-center p-4">
                 <div class="flex items-center text-center justify-center">
                     <h3 class="text-2xl font-normal mx-auto">У ГРУППЫ НЕТ ВАКАНСИЙ</h3>
@@ -301,9 +301,9 @@
             </div>
             @else
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
-                @foreach($group->vacancies as $work)
+                @foreach($group->works as $work)
                 <div class="block rounded-lg bg-white h-80">
-                    <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="block h-52">
+                    <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="block h-52">
                         @if( $work->parent == null )
                         <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                         @else

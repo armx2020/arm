@@ -18,15 +18,6 @@
                     @else
                     <img class="h-40 lg:h-48 rounded-lg mx-auto p-1 flex object-cover" src="{{ asset( 'storage/'.$vacancy->parent->image) }}" alt="image">
                     @endif
-                    <div class="m-5">
-                        <p class="text-center mx-4 my-1 text-gray-800 font-bold">
-                            @if($vacancy->price !== null && $vacancy->price !== 0)
-                            {{ $vacancy->price }} RUB.
-                            @else
-                            no price
-                            @endif
-                        </p>
-                    </div>
                 </div>
                 <div class="flex flex-col px-3 lg:px-10 basis-3/4">
                     <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $vacancy->name }}</h3>

@@ -3,14 +3,14 @@
     <div class="flex w-11/12 lg:w-10/12 max-w-7xl flex-wrap items-center justify-between mx-auto  text-sm font-medium">
         <div class="block px-2 xl:hidden">
             <a class="" href="{{ route('home') }}">
-                <img src="{{ url('/image/logo.png')}}" class="w-21 h-7" alt="logo" />
+                <img src="{{ url('/image/logo.png') }}" class="w-21 h-7" alt="logo" />
             </a>
         </div>
         <div class="block px-2 xl:hidden">
             <button class="text-blue-600 text-sm hover:text-blue-400 locationButton" id="locationButton">
                 <img src="{{ url('/image/location-marker.png') }}" class="w-4 h-4 inline" />
-                @if ($city)
-                    {{ preg_replace('/\([^)]+\)/', '', $city) }}
+                @if ($region)
+                    {{ preg_replace('/\([^)]+\)/', '', $region) }}
                 @else
                     Вся Россия
                 @endif
@@ -37,7 +37,7 @@
                 <li class="mb-4 my-2 p-4 flex border justify-center">
                     @auth
                         <div class="flex flex-row items-center">
-                            <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->email }}</a>
+                            <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->firstname }}</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
@@ -58,23 +58,24 @@
                         </div>
                     @endguest
                 </li>
+
                 <li class="mb-2 block">
-                    <a class="" href="{{ route('project.index') }}">Проекты</a>
+                    <a class="" href="{{ route('projects.index') }}">Проекты</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('offer.index') }}">Маркет</a>
+                    <a class="" href="{{ route('offers.index') }}">Маркет</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('event.index') }}">Афиша</a>
+                    <a class="" href="{{ route('events.index') }}">Афиша</a>
                 </li>
                 <li class="mb-2">
                     <a class="" href="{{ route('news.index') }}">Новости</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('group.index') }}">Группы</a>
+                    <a class="" href="{{ route('groups.index') }}">Группы</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('vacancy.index') }}">Работа</a>
+                    <a class="" href="{{ route('works.index') }}">Работа</a>
                 </li>
             </ul>
         </div>
@@ -85,32 +86,53 @@
         </div>
         <div class="visible hidden flex-grow basis-full items-center xl:!flex xl:basis-auto">
             <ul class="list-style-none mr-5 flex flex-col pl-0 lg:flex-row">
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('project.index') }}">Проекты</a>
-                </li>
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('offer.index') }}">Маркет</a>
-                </li>
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('event.index') }}">Афиша</a>
-                </li>
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('news.index') }}">Новости</a>
-                </li>
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('group.index') }}">Группы</a>
-                </li>
-                <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                    <a class="" href="{{ route('vacancy.index') }}">Работа</a>
-                </li>
+                @if(isset($regionCode) && $regionCode !== 0)
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.projects', ['regionCode' => $regionCode]) }}">Проекты</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.offers', ['regionCode' => $regionCode]) }}">Маркет</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.events', ['regionCode' => $regionCode]) }}">Афиша</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.news', ['regionCode' => $regionCode]) }}">Новости</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.groups' , ['regionCode' => $regionCode]) }}">Группы</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('region.works', ['regionCode' => $regionCode]) }}">Работа</a>
+                    </li>
+                @else
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('projects.index') }}">Проекты</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('offers.index') }}">Маркет</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('events.index') }}">Афиша</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('news.index') }}">Новости</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('groups.index') }}">Группы</a>
+                    </li>
+                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                        <a class="" href="{{ route('works.index') }}">Работа</a>
+                    </li>
+                @endif
             </ul>
         </div>
         <div class="hidden lg:basis-1/3 xl:flex basis-1/4 items-center justify-between">
             <div class="block">
                 <button class="text-blue-600 text-sm hover:text-blue-400 block locationButton" id="locationButton">
                     <img src="{{ url('/image/location-marker.png') }}" class="w-4 h-4 inline align-middle" />
-                    @isset($city)
-                        {{ preg_replace('/\([^)]+\)/', '', $city) }}
+                    @isset($region)
+                        {{ preg_replace('/\([^)]+\)/', '', $region) }}
                     @else
                         Вся Россия
                     @endisset
@@ -119,7 +141,7 @@
 
             @auth
                 <div class="flex flex-row items-center">
-                    <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->email }}</a>
+                    <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->firstname }}</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="inline-block bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 text-white"
@@ -154,13 +176,21 @@
             <x-secondary-button class="location-close absolute right-4 top-4">
                 {{ __('Закрыть') }}
             </x-secondary-button>
-            @foreach ($cities as $letter => $letterCities)
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div class="px-1 hover:text-gray-500">
+                    <a href="{{ route('home') }}">
+                        Вся Россия
+                    </a>
+                </div>
+            </div>
+            <hr class="my-4">
+            @foreach ($regions as $letter => $letterCities)
                 <h3 class="text-xl font-bold my-2">{{ $letter }}</h3>
                 <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    @foreach ($letterCities as $city)
+                    @foreach ($letterCities as $region)
                         <div class="px-1 hover:text-gray-500">
-                            <a href="{{ route('changeCity', ['id' => $city->id]) }}">
-                                {{ $city->name }}
+                            <a href="{{ route('home', ['regionCode' => $region->code]) }}">
+                                {{ $region->name }}
                             </a>
                         </div>
                     @endforeach

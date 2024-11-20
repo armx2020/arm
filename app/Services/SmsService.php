@@ -14,8 +14,8 @@ class SmsService
             curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
                 "phone" => $phone,
                 "ip" => $ip,
-                "api_id" => "AF091A73-77E1-9945-9455-280D8014D741",  // Ars
-            //    "api_id" => "30BDE851-15F1-8E98-00D5-2097A2054570",     // Sevak
+                //    "api_id" => "AF091A73-77E1-9945-9455-280D8014D741",  // Ars
+                "api_id" => "30BDE851-15F1-8E98-00D5-2097A2054570",     // Sevak
             )));
 
             $body = curl_exec($ch);
@@ -40,7 +40,7 @@ class SmsService
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
                 "api_id" => "AF091A73-77E1-9945-9455-280D8014D741",  // Ars
-            //    "api_id" => "30BDE851-15F1-8E98-00D5-2097A2054570",     // Sevak
+                //    "api_id" => "30BDE851-15F1-8E98-00D5-2097A2054570",     // Sevak
                 "to" => $phone,
                 "msg" => $message,
                 "json" => 1,
@@ -50,7 +50,6 @@ class SmsService
             curl_close($ch);
 
             $result = json_decode($body);
-
         } else {
             $sms = (object) array('status' => 'OK');
             $result = (object) array('status' => 'OK', 'sms' => $sms);

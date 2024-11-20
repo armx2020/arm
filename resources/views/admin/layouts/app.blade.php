@@ -19,14 +19,26 @@
 
 
 
-    <script src="{{ url('/jquery-3.7.0.min.js')}}"></script>
-    <script src="{{ url('/select2.min.js')}}"></script>
+    <script src="{{ url('/jquery-3.7.0.min.js') }}"></script>
+    <script src="{{ url('/select2.min.js') }}"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/select.css'])
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased min-h-screen bg-gray-100">
+<body class="font-sans antialiased">
+    @include('admin.layouts.navigation')
+
+    <!-- Page Content -->
+    <main class="bg-gray-100 w-full min-h-screen">
+        @yield('content')
+    </main>
+
+    @livewireScripts
+</body>
+
+
+{{-- <body class="font-sans antialiased min-h-screen bg-gray-100">
 
     @include('admin.layouts.head')
 
@@ -48,6 +60,6 @@
 
     </div>
     @livewireScripts
-</body>
+</body> --}}
 
 </html>

@@ -2,40 +2,38 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\City;
 use App\Models\Resume;
+use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MyResumeController extends Controller
+class MyResumeController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
-        $resumes = Auth::user()->resumes;
+        $resumes = Auth::user()->works->where('type', 'resume');
 
         return view('profile.pages.resume.index', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'resumes' => $resumes,
-            'cities' => $cities
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
     public function create(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         return view('profile.pages.resume.create', [
-            'city'      => $request->session()->get('city'),
-            'cities'    => $cities
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -52,17 +50,16 @@ class MyResumeController extends Controller
             $city = City::find(1);
         }
 
-        $resume = new Resume();
+        $resume = new Work();
 
         $resume->name = $request->name;
         $resume->address = $request->address;
         $resume->description = $request->description;
-        $resume->price = $request->price;
-
         $resume->city_id = $request->resume_city;
         $resume->region_id = $city->region->id;
-
-        $resume->user_id = Auth::user()->id;
+        $resume->type = 'resume';
+        $resume->parent_type = 'App\Models\User';
+        $resume->parent_id = Auth::user()->id;
 
         $resume->save();
 
@@ -71,42 +68,34 @@ class MyResumeController extends Controller
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
+        $resume = Work::resume()->with('parent')->where('parent_id', '=', Auth::user()->id)->find($id);
 
-            $resume = Resume::with('user')->where('user_id', '=', Auth::user()->id)->find($id);
-
-            if (empty($resume)) {
-                return redirect()->route('myresumes.index')->with('alert', 'Резюме не найдено');
-            } else {
-                return view('profile.pages.resume.show', [
-                    'city'   => $request->session()->get('city'),
-                    'resume' => $resume,
-                    'cities' => $cities
-                ]);
-            }
+        if (empty($resume)) {
+            return redirect()->route('myresumes.index')->with('alert', 'Резюме не найдено');
+        } else {
+            return view('profile.pages.resume.show', [
+                'region'   => $request->session()->get('region'),
+                'regions' => $this->regions,
+                'resume' => $resume,
+                'regionCode' => $request->session()->get('regionId')
+            ]);
+        }
     }
 
     public function edit(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
+        $resume = Work::resume()->with('parent')->where('parent_id', '=', Auth::user()->id)->find($id);
 
-            $resume = Resume::with('user')->where('user_id', '=', Auth::user()->id)->find($id);
-
-            if (empty($resume)) {
-                return redirect()->route('myresumes.index')->with('alert', 'Резюме не найдено');
-            } else {
-                return view('profile.pages.resume.edit', [
-                    'city'   => $request->session()->get('city'),
-                    'resume' => $resume,
-                    'cities' => $cities
-                ]);
-            }
+        if (empty($resume)) {
+            return redirect()->route('myresumes.index')->with('alert', 'Резюме не найдено');
+        } else {
+            return view('profile.pages.resume.edit', [
+                'region'   => $request->session()->get('region'),
+                'regions' => $this->regions,
+                'resume' => $resume,
+                'regionCode' => $request->session()->get('regionId')
+            ]);
+        }
     }
 
     public function update(Request $request, $id)
@@ -122,7 +111,7 @@ class MyResumeController extends Controller
             $city = City::find(1);
         }
 
-        $resume = Resume::with('user')->where('user_id', '=', Auth::user()->id)->find($id);
+        $resume = Work::resume()->with('parent')->where('parent_id', '=', Auth::user()->id)->find($id);
 
         if (empty($resume)) {
             return redirect()->route('myresumes.index')->with('alert', 'Резюме не найдено');
@@ -130,8 +119,6 @@ class MyResumeController extends Controller
             $resume->name = $request->name;
             $resume->address = $request->address;
             $resume->description = $request->description;
-            $resume->price = $request->price;
-
             $resume->city_id = $request->resume_city;
             $resume->region_id = $city->region->id;
 
@@ -143,7 +130,7 @@ class MyResumeController extends Controller
 
     public function destroy($id)
     {
-        $resume = Resume::with('user')->where('user_id', '=', Auth::user()->id)->find($id);
+        $resume = Work::resume()->with('parent')->where('parent_id', '=', Auth::user()->id)->find($id);
 
         if (empty($resume)) {
             return redirect()->route('myresumes.index')->with('alert', 'Резюме не найдено');

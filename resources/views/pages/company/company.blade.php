@@ -9,13 +9,13 @@
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li>
-            <a href="{{ route('company.index') }}" class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600">Компании</a>
+            <a href="{{ route('companies.index') }}" class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600">Компании</a>
         </li>
         <li>
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li class="text-neutral-500 dark:text-neutral-400">
-            <a href="{{ route('company.show', ['id' => $company->id]) }}">
+            <a href="{{ route('companies.show', ['id' => $company->id]) }}">
                 {{ $company->name }}</a>
         </li>
     </ol>
@@ -184,7 +184,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-3 lg:gap-5">
                 @foreach($company->offers as $offer)
                 <div class="block rounded-lg bg-white h-80">
-                    <a href="{{ route('offer.show', ['id' => $offer->id ]) }}" class="block h-52">
+                    <a href="{{ route('offers.show', ['id' => $offer->id ]) }}" class="block h-52">
                         @if( $offer->image == null )
                         <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                         @else
@@ -245,7 +245,7 @@
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                 @foreach($company->events as $event)
                 <div class="block rounded-lg bg-white h-80">
-                    <a href="{{ route('event.show', ['id' => $event->id ]) }}" class="block h-52">
+                    <a href="{{ route('events.show', ['id' => $event->id ]) }}" class="block h-52">
                         @if( $event->image == null )
                         <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                         @else
@@ -279,7 +279,7 @@
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                 @foreach($company->projects as $project)
                 <div class="block rounded-lg bg-white h-96">
-                    <a href="{{ route('project.show', ['id' => $project->id ]) }}" class="block h-52">
+                    <a href="{{ route('projects.show', ['id' => $project->id ]) }}" class="block h-52">
                         @if( $project->image == null )
                         <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                         @else

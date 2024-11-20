@@ -14,14 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        \App\Models\GroupCategory::factory(10)->create();
-        \App\Models\OfferCategory::factory(10)->create();
+        \App\Models\Category::factory(10)->create();
         \App\Models\News::factory(10)->create();
 
         \App\Models\User::factory(100)
             ->has(\App\Models\Company::factory()->count(2))
             ->has(\App\Models\Group::factory()->count(3))
-            ->has(\App\Models\Resume::factory()->count(4))
             ->create();     
 
         // \App\Models\User::factory()->create([
@@ -39,17 +37,9 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\CompanyOffer::factory()->count(30)
             ->sequence(
-                ['offer_category_id' => rand(1, 10), 'company_id' => rand(1, 20)],
-                ['offer_category_id' => rand(1, 10), 'company_id' => rand(1, 20)],
-                ['offer_category_id' => rand(1, 10), 'company_id' => rand(1, 20)],
-            )
-            ->create();
-
-        \App\Models\Vacancy::factory()->count(6)
-            ->sequence(
-                ['parent_type' => 'App\Models\Company'],
-                ['parent_type' => 'App\Models\Group'],
-                ['parent_type' => 'App\Models\User'],
+                ['category_id' => rand(1, 10), 'company_id' => rand(1, 20)],
+                ['category_id' => rand(1, 10), 'company_id' => rand(1, 20)],
+                ['category_id' => rand(1, 10), 'company_id' => rand(1, 20)],
             )
             ->create();
 

@@ -16,7 +16,7 @@
                             - Помощь по поиску работы и размещение ваших вакансий
                         </div>
                         <a class="my-2 lg:my-4 rounded-md bg-blue-500 text-white text-center w-4/5 xl:w-1/2 h-9 py-2 items-center font-normal"
-                            href="{{ route('group.show', ['id' => $group->id]) }}">
+                            href="{{ route('groups.show', ['id' => $group->id]) }}">
                             Подробнее
                         </a>
                     </div>
@@ -32,8 +32,8 @@
         <div x-data>
             <div x-ref="banners"
                 class="flex flex-nowrap lg:flex-none lg:grid lg:grid-cols-5 gap-2 lg:gap-5 overflow-x-scroll scrollhidden mx-auto pt-5 lg:pt-10">
-                <div class="bg-orange-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
-                    <a href="{{ route('vacancy.index') }}">
+                <div class="bg-[#feecdc] rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
+                    <a href="{{ route('works.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Поиск работы</p>
                             <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Найти работу или
@@ -49,8 +49,8 @@
                         </div>
                     </a>
                 </div>
-                <div class="bg-blue-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
-                    <a href="{{ route('vacancy.index') }}">
+                <div class="bg-[#dbe6fb] rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
+                    <a href="{{ route('works.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Бизнес
                                 справочник</p>
@@ -65,8 +65,8 @@
                         </div>
                     </a>
                 </div>
-                <div class="bg-red-200 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
-                    <a href="{{ route('project.index') }}">
+                <div class="bg-[#e6c6c9] rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
+                    <a href="{{ route('projects.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Наши проекты</p>
                             <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Сделанные проекты, достижения</p>
@@ -80,8 +80,8 @@
                         </div>
                     </a>
                 </div>
-                <div class="bg-emerald-100 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
-                    <a href="{{ route('group.index') }}">
+                <div class="bg-[#d7e6d8] rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
+                    <a href="{{ route('groups.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Кружки,
                                 сообщества</p>
@@ -97,8 +97,8 @@
                         </div>
                     </a>
                 </div>
-                <div class="bg-orange-200 rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
-                    <a href="{{ route('event.index') }}">
+                <div class="bg-[#f0e7ce] rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
+                    <a href="{{ route('events.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Афиша событий
                             </p>
@@ -133,7 +133,7 @@
         </div>
 
         <div class="mx-auto py-5 lg:pt-10">
-            <div class="bg-orange-300 rounded-xl row-span-1">
+            <div class="bg-[#dbe6fb] rounded-xl row-span-1">
                 <div class="flex flex-col lg:flex-row">
                     <div class="flex flex-col text-left basis-2/3 lg:basis-1/2 p-3 lg:p-5 xl:p-8">
                         <div class="my-1 lg:my-2 text-md md:text-lg lg:text-2xl font-extrabold uppercase">сообщить нам

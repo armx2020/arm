@@ -7,18 +7,15 @@ use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname', 32);
-            $table->string('lastname', 32);
+            $table->string('firstname', 32)->fulltext();
             $table->boolean('activity')->default(true);
-            $table->string('email', 96)->unique();
+            $table->string('email', 96)->unique()->nullable()->fulltext();
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('last_active_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -29,22 +26,12 @@ return new class extends Migration
             $table->string('vkontakte', 255)->nullable()->unique();
             $table->string('telegram', 255)->nullable()->unique();
             $table->string('image', 255)->nullable();
-
-            $table->unsignedBigInteger('city_id')->default(1);
-            $table->foreign('city_id')->references('id')->on('cities');
-
-            $table->unsignedBigInteger('region_id')->default(1);
-            $table->foreign('region_id')->references('id')->on('regions');
+            $table->foreignId('city_id')->default(1)->constrained();
+            $table->foreignId('region_id')->default(1)->constrained();
+            $table->softDeletes('deleted_at', 0);
         });
-
-        DB::statement(
-            'ALTER TABLE users ADD FULLTEXT fulltext_index(firstname, lastname, email)'
-        );
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users');

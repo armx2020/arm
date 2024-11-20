@@ -9,12 +9,12 @@
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li class="text-neutral-500 dark:text-neutral-400">
-            <a href="{{ route('company.index') }}">
+            <a href="{{ route('companies.index') }}">
                 Компании</a>
         </li>
     </ol>
 </nav>
 <section>
-    @livewire('select-companies')
+    @livewire('select-companies', ['regionCode' => $regionCode])
 </section>
 @endsection

@@ -9,13 +9,13 @@
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li>
-            <a href="{{ route('offer.index') }}" class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600">Маркет</a>
+            <a href="{{ route('offers.index') }}" class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600">Маркет</a>
         </li>
         <li>
             <span class="mx-2 text-neutral-500 dark:text-neutral-400">/</span>
         </li>
         <li class="text-neutral-500 dark:text-neutral-400">
-            <a href="{{ route('offer.show', ['id' => $offer->id]) }}">
+            <a href="{{ route('offers.show', ['id' => $offer->id]) }}">
                 {{ $offer->name }}</a>
         </li>
     </ol>
@@ -188,7 +188,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-3 lg:gap-5">
                 @foreach($recommendations as $offer)
                 <div class="block rounded-lg bg-white h-80">
-                    <a href="{{ route('offer.show', ['id' => $offer->id ]) }}" class="block h-52">
+                    <a href="{{ route('offers.show', ['id' => $offer->id ]) }}" class="block h-52">
                         @if( $offer->image == null )
                         <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                         @else

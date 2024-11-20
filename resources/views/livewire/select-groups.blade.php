@@ -14,7 +14,7 @@
         <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
 
             <div class="flex flex-nowrap gap-x-2 mb-3 overflow-x-scroll scrollhidden">
-                <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area" @if($term==0) style="background-color: rgb(59 130 246);" @else style="background-color: white;color:black;" @endif>
+                <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area" @if($term==0) style="background-color: rgb(59 130 246);color:white" @else style="background-color: white;color:black;" @endif>
                     <input class="hidden" type="radio" wire:model="term" value="0" name="select" />
                     <p class="inline-block " for="checkboxDefault">
                         Все группы
@@ -34,7 +34,7 @@
                 </script>
                 @foreach($categories as $category)
                 <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_{{ $category->id }}" @if($term==$category->id)
-                    style="background-color: rgb(59 130 246);"
+                    style="background-color: rgb(59 130 246);color:white"
                     @else
                     style="background-color: white;color:black;"
                     @endif
@@ -79,7 +79,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($groups as $group)
                     <div class="flex flex-col rounded-lg bg-white h-80">
-                        <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="flex">
+                        <a href="{{ route('groups.show', ['id' => $group->id ]) }}" class="flex">
                             @if( $group->image == null )
                             <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -235,7 +235,7 @@
                 <div class="grid grid-cols-1 gap-3 lg:gap-5">
                     @foreach($groups as $group)
                     <div class="flex flex-row rounded-lg bg-white h-64">
-                        <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="basis-1/3">
+                        <a href="{{ route('groups.show', ['id' => $group->id ]) }}" class="basis-1/3">
                             @if( $group->image == null )
                             <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -404,7 +404,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($recommendations as $group)
                     <div class="flex flex-col rounded-lg bg-white h-80">
-                        <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="flex">
+                        <a href="{{ route('groups.show', ['id' => $group->id ]) }}" class="flex">
                             @if( $group->image == null )
                             <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -560,7 +560,7 @@
                 <div class="grid grid-cols-1 gap-3 lg:gap-5">
                     @foreach($recommendations as $group)
                     <div class="flex flex-row rounded-lg bg-white h-80">
-                        <a href="{{ route('group.show', ['id' => $group->id ]) }}" class="flex basis-1/3">
+                        <a href="{{ route('groups.show', ['id' => $group->id ]) }}" class="flex basis-1/3">
                             @if( $group->image == null )
                             <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else

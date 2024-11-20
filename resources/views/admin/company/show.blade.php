@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class=" my-2 flex flex-col">
+<div class="pt-6 px-4 max-w-7xl mx-auto mb-4 flex flex-col">
     <div class="overflow-x-auto">
         <div class="align-middle inline-block min-w-full">
             <div class="shadow overflow-hidden">
@@ -145,7 +145,7 @@
     </div>
 </div>
 @if( $company->user )
-<div class="my-4 w-full grid grid-cols-1 gap-4">
+<div class="my-4 max-w-7xl mx-auto px-4 grid grid-cols-1 gap-4">
     <div class="bg-white shadow rounded-lg p-3">
         <div class="flex flex-col items-center">
             <div class="flex-shrink-0 m-1">

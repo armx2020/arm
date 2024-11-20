@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\CompanyRequest;
 use App\Models\City;
 use App\Models\Company;
@@ -12,40 +12,33 @@ use App\Services\CompanyService;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
-class MyCompanyController extends Controller
+class MyCompanyController extends BaseController
 {
     public function __construct(private CompanyService $companyService)
     {
+        parent::__construct();
         $this->companyService = $companyService;
     }
 
 
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $companies = Auth::user()->companies;
 
         return view('profile.pages.company.index', [
-            'city' => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'companies' => $companies,
-            'cities' => $cities
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
     public function create(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         return view('profile.pages.company.create', [
-            'city'   => $request->session()->get('city'),
-            'cities' => $cities
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -100,11 +93,6 @@ class MyCompanyController extends Controller
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
@@ -126,20 +114,16 @@ class MyCompanyController extends Controller
         $fullness = (round(($sum / 70) * 100));
 
         return view('profile.pages.company.show', [
-            'city' => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'company' => $company,
             'fullness' => $fullness,
-            'cities' => $cities
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
     public function edit(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
@@ -147,9 +131,10 @@ class MyCompanyController extends Controller
         }
 
         return view('profile.pages.company.edit', [
-            'city' => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'company' => $company,
-            'cities' => $cities
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 

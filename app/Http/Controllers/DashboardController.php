@@ -6,15 +6,15 @@ use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class DashboardController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-//dd(Auth::user());
         $sum =  (Auth::user()->city !== 1 ? 10 : 0) +
             (Auth::user()->image ? 10 : 0) +
             (Auth::user()->viber ? 5 : 0) +
@@ -26,24 +26,19 @@ class DashboardController extends Controller
         $fullness = (round(($sum / 45) * 100));
 
         return view('dashboard', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'fullness' => $fullness,
-            'cities' => $cities
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
     public function questions(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
-
-
         return view('profile.pages.questions', [
-            'city'   => $request->session()->get('city'),
-            'cities' => $cities
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 }

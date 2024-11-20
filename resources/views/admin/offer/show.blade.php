@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class="flex flex-col">
+<div class="pt-6 px-4 max-w-7xl mx-auto mb-4 flex flex-col">
     <div class="overflow-x-auto">
         <div class="align-middle inline-block min-w-full">
             <div class="shadow overflow-hidden">
@@ -168,7 +168,7 @@
             <div class="flex-shrink-0 m-1">
                 <span class="text-xl leading-none font-bold text-gray-900">Category's </span>
             </div>
-            <a href="{{ route('admin.offerCategory.show', ['offerCategory' => $offer->category->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+            <a href="{{ route('admin.category.show', ['category' => $offer->category->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                 {{ $offer->category->name }}
             </a>
         </div>

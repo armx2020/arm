@@ -2,28 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\ResumeRequest;
 use App\Models\Resume;
 use App\Models\User;
+use App\Models\Work;
 use App\Services\ResumeService;
 
-class ResumeController extends Controller
+class ResumeController extends BaseAdminController
 {
     public function __construct(private ResumeService $resumeService)
     {
+        parent::__construct();
         $this->resumeService = $resumeService;
     }
 
     public function index()
     {
-        return view('admin.resume.index');
+        return view('admin.resume.index', ['menu' => $this->menu]);
     }
 
     public function create()
     {
         $users = User::all();
-        return view('admin.resume.create', ['users' => $users]);
+        return view('admin.resume.create', ['users' => $users, 'menu' => $this->menu]);
     }
 
     public function store(ResumeRequest $request)
@@ -35,18 +37,18 @@ class ResumeController extends Controller
 
     public function show(string $id)
     {
-        $resume = Resume::with('user')->find($id);
+        $resume = Work::resume()->with('parent')->find($id);
 
         if(empty($resume)) {
             return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
         }
 
-        return view('admin.resume.show', ['resume' => $resume]);
+        return view('admin.resume.show', ['resume' => $resume, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
     {
-        $resume = Resume::find($id);
+        $resume = Work::find($id);
 
         if(empty($resume)) {
             return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
@@ -54,12 +56,12 @@ class ResumeController extends Controller
 
         $users = User::all();
         
-        return view('admin.resume.edit', ['resume' => $resume, 'users' => $users]);
+        return view('admin.resume.edit', ['resume' => $resume, 'users' => $users, 'menu' => $this->menu]);
     }
 
     public function update(ResumeRequest $request, string $id)
     {
-        $resume = Resume::find($id);
+        $resume = Work::find($id);
 
         if(empty($resume)) {
             return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
@@ -72,7 +74,7 @@ class ResumeController extends Controller
 
     public function destroy(string $id)
     {
-        $resume = Resume::find($id);
+        $resume = Work::find($id);
 
         if(empty($resume)) {
             return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');

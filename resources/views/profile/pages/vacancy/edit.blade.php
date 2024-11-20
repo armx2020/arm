@@ -34,12 +34,6 @@
                         <x-input-error class="mt-2" :messages="$errors->get('description')" />
                     </div>
 
-                    <div class="my-2">
-                        <x-input-label for="price" :value="__('Зарплата')" />
-                        <x-text-input id="price" name="price" type="number" class="mt-1 block w-full" :value="old('price', $vacancy->price ? $vacancy->price : 0)" min=0 autofocus />
-                        <x-input-error class="mt-2" :messages="$errors->get('price')" />
-                    </div>
-
                     <div class="my-3">
                         <label for="parent" class="text-sm font-medium text-gray-900 block mb-2">Инициатор</label>
                         <select name="parent" id="parent" class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>

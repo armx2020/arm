@@ -2,48 +2,45 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Group;
-use App\Models\GroupCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
-class MyGroupController extends Controller
+class MyGroupController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $groups = Auth::user()->groups;
-        $categories = GroupCategory::orderBy('sort_id', 'asc')->get();
+        $categories = Category::group()->orderBy('sort_id', 'asc')->get();
 
         return view('profile.pages.group.index', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'groups' => $groups,
             'categories' => $categories,
-            'cities' => $cities
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
     public function create(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
-        $categories = GroupCategory::orderBy('sort_id', 'asc')->get();
+        $categories = Category::group()->orderBy('sort_id', 'asc')->get();
 
         return view('profile.pages.group.create', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'categories' => $categories,
-            'cities' => $cities
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -87,7 +84,7 @@ class MyGroupController extends Controller
         $group->instagram = $request->instagram;
         $group->vkontakte = $request->vkontakte;
         $group->user_id = Auth::user()->id;
-        $group->group_category_id = $request->category;
+        $group->category_id = $request->category;
 
         if ($request->image) {
             $group->image = $request->file('image')->store('groups', 'public');
@@ -127,11 +124,6 @@ class MyGroupController extends Controller
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($group)) {
@@ -154,33 +146,30 @@ class MyGroupController extends Controller
 
 
         return view('profile.pages.group.show', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'group' => $group,
             'fullness' => $fullness,
-            'cities' => $cities
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
     public function edit(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $group = Group::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($group)) {
             return redirect()->route('mygroups.index')->with('alert', 'Группа не найдена');
         }
 
-        $categories = GroupCategory::orderBy('sort_id', 'asc')->get();
+        $categories = Category::group()->orderBy('sort_id', 'asc')->get();
 
         return view('profile.pages.group.edit', [
-            'city'   => $request->session()->get('city'),
+           'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'group' => $group,
             'categories' => $categories,
-            'cities' => $cities
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -228,7 +217,7 @@ class MyGroupController extends Controller
         $group->instagram = $request->instagram;
         $group->vkontakte = $request->vkontakte;
         $group->user_id = Auth::user()->id;
-        $group->group_category_id = $request->category;
+        $group->category_id = $request->category;
 
 
         if ($request->image_r == 'delete') {

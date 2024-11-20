@@ -13,12 +13,16 @@ class SelectNews extends Component
     use WithPagination;
 
     public $region;
-    public $sort = "updated_at|asc";
+    public $sort = "updated_at|desc";
     public $view = 1;
 
-    public function mount(Request $request)
+    public function mount(Request $request, $regionCode = null)
     {
-        $reg = Region::where('name', '=', $request->session()->get('region'))->First();
+        if($regionCode) {
+            $reg = Region::where('code', '=', $regionCode)->First();
+        } else {
+            $reg = Region::where('name', '=', $request->session()->get('region'))->First();
+        }
 
         if (empty($reg)) {
             $this->region = 1;
@@ -31,15 +35,17 @@ class SelectNews extends Component
         $exp = explode('|', $this->sort);
 
         if ($this->region == 1) {
-            $news = News::orderBy($exp[0], $exp[1])->paginate(12);
+            $news = News::orderBy($exp[0], $exp[1])->where('activity', 1)->paginate(12);
             $recommendations = [];
         } else {
             $news = News::with('region')
+                ->where('activity', 1)
                 ->where('region_id', '=', $this->region)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
 
             $recommendations = News::with('region')
+                ->where('activity', 1)
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })->limit(3)->get();

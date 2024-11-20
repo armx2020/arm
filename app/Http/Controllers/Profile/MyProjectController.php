@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Group;
@@ -12,43 +12,39 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
-class MyProjectController extends Controller
+class MyProjectController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $projects = Auth::user()->projects;
         $groups = Group::where('user_id', '=', Auth::user()->id)->with('news')->get();
         $companies = Company::where('user_id', '=', Auth::user()->id)->with('news')->get();
 
         return view('profile.pages.project.index', [
-            'city'   => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'projects' => $projects,
             'groups' => $groups,
             'companies' => $companies,
-            'cities' => $cities
         ]);
     }
 
     public function create(Request $request)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $companies = Company::where('user_id', '=', Auth::user()->id)->get();
         $groups = Group::where('user_id', '=', Auth::user()->id)->get();
 
         return view('profile.pages.project.create', [
-            'city'      => $request->session()->get('city'),
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
             'companies' => $companies,
             'groups'    => $groups,
-            'cities'    => $cities
+            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -96,7 +92,7 @@ class MyProjectController extends Controller
 
         if ($request->image) {
             $project->image = $request->file('image')->store('projects', 'public');
-            Image::make('storage/'.$project->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $project->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -108,11 +104,6 @@ class MyProjectController extends Controller
 
     public function show(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $project = Project::with('parent')->find($id);
 
         if (empty($project)) {
@@ -130,10 +121,11 @@ class MyProjectController extends Controller
                 }
 
                 return view('profile.pages.project.show', [
-                    'city'   => $request->session()->get('city'),
+                    'region'   => $request->session()->get('region'),
+                    'regions' => $this->regions,
                     'project' => $project,
                     'fullness' => $fullness,
-                    'cities' => $cities
+                    'regionCode' => $request->session()->get('regionId')
                 ]);
             } else {
                 return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
@@ -143,11 +135,6 @@ class MyProjectController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $cities = City::all()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
-
         $project = Project::with('parent')->find($id);
 
         if (empty($project)) {
@@ -162,11 +149,12 @@ class MyProjectController extends Controller
                 $groups = Group::where('user_id', '=', Auth::user()->id)->get();
 
                 return view('profile.pages.project.edit', [
-                    'city'   => $request->session()->get('city'),
+                    'region'   => $request->session()->get('region'),
+                    'regions' => $this->regions,
                     'project' => $project,
-                    'cities' => $cities,
                     'companies' => $companies,
                     'groups'    => $groups,
+                    'regionCode' => $request->session()->get('regionId')
                 ]);
             } else {
                 return redirect()->route('myprojects.index')->with('alert', 'Проект не найден');
@@ -230,7 +218,7 @@ class MyProjectController extends Controller
                 if ($request->image) {
                     Storage::delete('public/' . $project->image);
                     $project->image = $request->file('image')->store('projects', 'public');
-                    Image::make('storage/'.$project->image)->resize(400, null, function ($constraint) {
+                    Image::make('storage/' . $project->image)->resize(400, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save();
                 }

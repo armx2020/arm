@@ -13,10 +13,10 @@ class SelectCompanies extends Component
     use WithPagination;
 
     public $region;
-    public $sort = "updated_at|asc";
+    public $sort = "updated_at|desc";
     public $view = 1;
 
-    public function mount(Request $request)
+    public function mount(Request $request, $regionCode = null)
     {
         $reg = Region::where('name', '=', $request->session()->get('region'))->First();
 
@@ -32,15 +32,17 @@ class SelectCompanies extends Component
         $exp = explode('|', $this->sort);
 
         if ($this->region == 1) {
-            $companies = Company::orderBy($exp[0], $exp[1])->paginate(12);
+            $companies = Company::orderBy($exp[0], $exp[1])->where('activity', 1)->paginate(12);
             $recommendations = [];
         } else {
             $companies = Company::with('region')
+                ->where('activity', 1)
                 ->where('region_id', '=', $this->region)
                 ->orderBy($exp[0], $exp[1])
                 ->paginate(12);
 
             $recommendations = Company::with('region')
+                ->where('activity', 1)
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })->limit(3)->get();

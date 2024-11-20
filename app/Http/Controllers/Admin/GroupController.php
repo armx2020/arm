@@ -2,33 +2,34 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\GroupRequest;
+use App\Models\Category;
 use App\Models\Group;
-use App\Models\GroupCategory;
 use App\Models\User;
 use App\Services\GroupService;
 use Illuminate\Support\Facades\Storage;
 
-class GroupController extends Controller
+class GroupController extends BaseAdminController
 {
     public function __construct(private GroupService $groupService)
     {
+        parent::__construct();
         $this->groupService = $groupService;
     }
 
 
     public function index()
     {
-        return view('admin.group.index');
+        return view('admin.group.index', ['menu' => $this->menu]);
     }
 
     public function create()
     {
-        $categories = GroupCategory::all();
+        $categories = Category::all();
         $users = User::all();
 
-        return view('admin.group.create', ['categories' => $categories, 'users' => $users]);
+        return view('admin.group.create', ['categories' => $categories, 'users' => $users, 'menu' => $this->menu]);
     }
 
     public function store(GroupRequest $request)
@@ -46,7 +47,7 @@ class GroupController extends Controller
             return redirect()->route('admin.group.index')->with('alert', 'The group not found');
         }
 
-        return view('admin.group.show', ['group' => $group]);
+        return view('admin.group.show', ['group' => $group, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -57,7 +58,7 @@ class GroupController extends Controller
             return redirect()->route('admin.group.index')->with('alert', 'The group not found');
         }
 
-        $categories = GroupCategory::all();
+        $categories = Category::group()->all();
         $users = User::all();
         $user = $group->user;
         $category = $group->category;
@@ -67,7 +68,8 @@ class GroupController extends Controller
             'user' => $user,
             'category' => $category,
             'categories' => $categories,
-            'users' => $users
+            'users' => $users,
+            'menu' => $this->menu
         ]);
     }
 

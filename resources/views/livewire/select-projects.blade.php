@@ -11,10 +11,10 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
+        <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen" style="max-width: 80%">
 
             <div class="flex flex-nowrap gap-x-2 mb-3 overflow-x-scroll scrollhidden">
-                <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_2" @if($term==2) style="background-color: rgb(59 130 246);" @else style="background-color: white;color:black;" @endif>
+                <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_2" @if($term==2) style="background-color: rgb(59 130 246);color:white" @else style="background-color: white;color:black;" @endif>
                     <input class="hidden" type="radio" wire:model="term" value="2" name="select" />
                     <p class="inline-block ">
                         Все проекты
@@ -32,7 +32,7 @@
                         };
                     });
                 </script>
-                <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_0" @if($term==0) style="background-color: rgb(59 130 246);" @else style="background-color: white;color:black;" @endif>
+                <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_0" @if($term==0) style="background-color: rgb(59 130 246);color:white" @else style="background-color: white;color:black;" @endif>
                     <input class="hidden" type="radio" wire:model="term" value="0" name="select" />
                     <p class="inline-block">
                         Завершенные
@@ -50,7 +50,7 @@
                         };
                     });
                 </script>
-                <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_1" @if($term==1) style="background-color: rgb(59 130 246);" @else style="background-color: white;color:black;" @endif>
+                <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_1" @if($term==1) style="background-color: rgb(59 130 246);color:white" @else style="background-color: white;color:black;" @endif>
                     <input class="hidden" type="radio" wire:model="term" value="1" name="select" />
                     <p class="inline-block">
                         Открытые
@@ -91,7 +91,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($projects as $project)
                     <div class="block rounded-lg bg-white h-[22rem]">
-                        <a href="{{ route('project.show', ['id' => $project->id ]) }}" class="block h-52">
+                        <a href="{{ route('projects.show', ['id' => $project->id ]) }}" class="block h-52">
                             @if( $project->image == null )
                             <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -120,7 +120,7 @@
                 <div class="grid grid-cols-1 gap-3 lg:gap-5">
                     @foreach($projects as $project)
                     <div class="flex flex-row rounded-lg bg-white h-64">
-                        <a href="{{ route('project.show', ['id' => $project->id ]) }}" class="basis-1/3">
+                        <a href="{{ route('projects.show', ['id' => $project->id ]) }}" class="basis-1/3">
                             @if( $project->image == null )
                             <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -166,7 +166,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
                     @foreach($recommendations as $project)
                     <div class="block rounded-lg bg-white h-96">
-                        <a href="{{ route('project.show', ['id' => $project->id ]) }}" class="block h-52">
+                        <a href="{{ route('projects.show', ['id' => $project->id ]) }}" class="block h-52">
                             @if( $project->image == null )
                             <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
@@ -195,7 +195,7 @@
                 <div class="grid grid-cols-1 gap-3 lg:gap-5">
                     @foreach($recommendations as $project)
                     <div class="flex flex-row rounded-lg bg-white h-64">
-                        <a href="{{ route('project.show', ['id' => $project->id ]) }}" class="basis-1/3">
+                        <a href="{{ route('projects.show', ['id' => $project->id ]) }}" class="basis-1/3">
                             @if( $project->image == null )
                             <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else

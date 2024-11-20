@@ -14,12 +14,16 @@ class SelectProjects extends Component
 
     public $region;
     public $term = 2;
-    public $sort = "updated_at|asc";
+    public $sort = "updated_at|desc";
     public $view = 1;
 
-    public function mount(Request $request)
+    public function mount(Request $request, $regionCode = null)
     {
-        $reg = Region::where('name', '=', $request->session()->get('region'))->First();
+        if($regionCode) {
+            $reg = Region::where('code', '=', $regionCode)->First();
+        } else {
+            $reg = Region::where('name', '=', $request->session()->get('region'))->First();
+        }
 
         if (empty($reg)) {
             $this->region = 1;
@@ -39,28 +43,33 @@ class SelectProjects extends Component
                 $projects = Project::orderBy($exp[0], $exp[1])->paginate(12);
             } else {
                 $projects = Project::where('activity', '=', $this->term)
+                    ->where('activity', 1)
                     ->orderBy($exp[0], $exp[1])
                     ->paginate(12);
             }
         } else {
             if ($this->term == 2) {
                 $projects = Project::with('region')
+                    ->where('activity', 1)
                     ->where('region_id', '=', $this->region)
                     ->orderBy($exp[0], $exp[1])
                     ->paginate(12);
 
                 $recommendations = Project::with('region')
+                    ->where('activity', 1)
                     ->whereNot(function ($query) {
                         $query->where('region_id', '=', $this->region);
                     })->limit(3)->get();
             } else {
                 $projects = Project::with('region')
+                    ->where('activity', 1)
                     ->where('region_id', '=', $this->region)
                     ->where('activity', '=', $this->term)
                     ->orderBy($exp[0], $exp[1])
                     ->paginate(12);
 
                 $recommendations = Project::with('region')
+                    ->where('activity', 1)
                     ->where('activity', '=', $this->term)
                     ->whereNot(function ($query) {
                         $query->where('region_id', '=', $this->region);

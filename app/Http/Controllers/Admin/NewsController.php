@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\NewsRequest;
 use App\Models\Company;
 use App\Models\Group;
@@ -10,16 +10,17 @@ use App\Models\News;
 use App\Models\User;
 use App\Services\NewsService;
 
-class NewsController extends Controller
+class NewsController extends BaseAdminController
 {
     public function __construct(private NewsService $newsService)
     {
+        parent::__construct();
         $this->newsService = $newsService;
     }
 
     public function index()
     {
-        return view('admin.news.index');
+        return view('admin.news.index', ['menu' => $this->menu]);
     }
 
     public function create()
@@ -31,7 +32,8 @@ class NewsController extends Controller
         return view('admin.news.create', [
             'users' => $users,
             'companies' => $companies,
-            'groups' => $groups
+            'groups' => $groups,
+            'menu' => $this->menu
         ]);
     }
 
@@ -50,7 +52,7 @@ class NewsController extends Controller
             return redirect()->route('admin.news.index')->with('alert', 'The news not found');
         }
 
-        return view('admin.news.show', ['news' => $news]);
+        return view('admin.news.show', ['news' => $news, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -69,7 +71,8 @@ class NewsController extends Controller
             'news' => $news,
             'users' => $users,
             'companies' => $companies,
-            'groups' => $groups
+            'groups' => $groups,
+            'menu' => $this->menu
         ]);
     }
 

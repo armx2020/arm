@@ -11,7 +11,7 @@ use App\Models\Traits\HasNews;
 use App\Models\Traits\HasProjects;
 use App\Models\Traits\HasRegion;
 use App\Models\Traits\HasUser;
-use App\Models\Traits\HasVacancies;
+use App\Models\Traits\HasWorks;
 use App\Models\Traits\Search;
 
 class Company extends Model
@@ -21,13 +21,14 @@ class Company extends Model
         HasRegion,
         HasProjects,
         HasEvents,
-        HasVacancies,
+        HasWorks,
         HasUser,
-        HasNews;
-    use Search;
+        HasNews,
+        Search;
 
     protected $searchable = [
-        'name', 'description'
+        'name',
+        'description'
     ];
 
     public function offers(): HasMany

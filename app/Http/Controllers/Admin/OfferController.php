@@ -2,33 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\OfferRequest;
-use App\Models\City;
+use App\Models\Category;
 use App\Models\Company;
 use App\Models\CompanyOffer;
-use App\Models\OfferCategory;
 use App\Services\OfferService;
 use Illuminate\Support\Facades\Storage;
 
-class OfferController extends Controller
+class OfferController extends BaseAdminController
 {
     public function __construct(private OfferService $offerService)
     {
+        parent::__construct();
         $this->offerService = $offerService;
     }
 
     public function index()
     {
-        return view('admin.offer.index');
+        return view('admin.offer.index', ['menu' => $this->menu]);
     }
 
     public function create()
     {
         $companies = Company::all();
-        $categories = OfferCategory::all();
+        $categories = Category::offer()->get();
 
-        return view('admin.offer.create', ['companies' => $companies, 'categories' => $categories]);
+        return view('admin.offer.create', ['companies' => $companies, 'categories' => $categories, 'menu' => $this->menu]);
     }
 
     public function store(OfferRequest $request)
@@ -46,7 +46,7 @@ class OfferController extends Controller
             return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
         }
 
-        return view('admin.offer.show', ['offer' => $offer]);
+        return view('admin.offer.show', ['offer' => $offer, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -57,7 +57,7 @@ class OfferController extends Controller
             return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
         }
 
-        $categories = OfferCategory::all();
+        $categories = Category::offer()->get();
         $companies = Company::all();
         $company = $offer->company;
         $category = $offer->category;
@@ -67,7 +67,8 @@ class OfferController extends Controller
             'company' => $company,
             'category' => $category,
             'categories' => $categories,
-            'companies' => $companies
+            'companies' => $companies,
+            'menu' => $this->menu
         ]);
     }
 
