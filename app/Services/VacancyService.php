@@ -3,11 +3,11 @@
 namespace App\Services;
 
 use App\Models\City;
-use App\Models\Vacancy;
+use App\Models\Work;
 
 class VacancyService
 {
-    public function store($request): Vacancy
+    public function store($request): Work
     {
         $city = City::with('region')->find($request->city);
 
@@ -15,14 +15,14 @@ class VacancyService
             $city = City::find(1);
         }
 
-        $vacancy = new Vacancy();
+        $vacancy = new Work();
 
         $vacancy->name = $request->name;
         $vacancy->address = $request->address;
         $vacancy->description = $request->description;
-        $vacancy->price = $request->price;
         $vacancy->city_id = $request->city;
         $vacancy->region_id = $city->region->id;
+        $vacancy->type = 'vacancy';
 
         if ($request->parent == 'User') {
             $vacancy->parent_type = 'App\Models\User';
@@ -43,7 +43,7 @@ class VacancyService
         return $vacancy;
     }
 
-    public function update($request, $vacancy): Vacancy
+    public function update($request, $vacancy): Work
     {
         $city = City::with('region')->find($request->city);
 
@@ -54,7 +54,6 @@ class VacancyService
         $vacancy->name = $request->name;
         $vacancy->address = $request->address;
         $vacancy->description = $request->description;
-        $vacancy->price = $request->price;
         $vacancy->city_id = $request->city;
         $vacancy->region_id = $city->region->id;
 
@@ -72,6 +71,7 @@ class VacancyService
             $vacancy->parent_id = 1;
         }
 
+        $vacancy->type = 'vacancy';
         $vacancy->update();
 
         return $vacancy;

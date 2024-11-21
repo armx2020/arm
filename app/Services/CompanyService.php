@@ -22,7 +22,7 @@ class CompanyService
         $company->name = $request->name;
         $company->address = $request->address;
         $company->description = $request->description;
-        $company->city_id = $request->city;
+        $company->city_id = $city->id;
         $company->region_id = $city->region->id;
         $company->phone = $request->phone;
         $company->web = $request->web;
@@ -69,7 +69,7 @@ class CompanyService
         $company->name = $request->name;
         $company->address = $request->address;
         $company->description = $request->description;
-        $company->city_id = $request->city;
+        $company->city_id = $city->id;
         $company->region_id = $city->region->id;
         $company->phone = $request->phone;
         $company->web = $request->web;

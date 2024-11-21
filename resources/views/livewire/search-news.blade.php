@@ -12,23 +12,23 @@
             </div>
             @endif
             <div class="mb-4">
-                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All news</h1>
+                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Все новости</h1>
             </div>
             <div class="sm:flex">
                 <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
                     <form class="lg:pr-3" action="#" method="GET">
                         <label for="users-search" class="sr-only">Search</label>
                         <div class="mt-1 relative lg:w-64 xl:w-96">
-                            <input type="text" wire:model="term" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for news">
+                            <input type="text" wire:model="term" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Поиск">
                         </div>
                     </form>
                 </div>
                 <div class="flex items-center space-x-2 sm:space-x-3 ml-auto">
-                    <a href="{{ route('admin.news.create') }}" data-modal-toggle="add-user-modal" class="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+                    <a href="{{ route('admin.new.create') }}" data-modal-toggle="add-user-modal" class="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
                         <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                         </svg>
-                        Add news
+                        Добавить
                     </a>
                 </div>
             </div>
@@ -46,7 +46,7 @@
         @if ($news->isEmpty())
         <div class="bg-white shadow p-4">
             <div class="flex items-center text-center">
-                <h3 class="text-xl font-normal mx-auto">No news</h3>
+                <h3 class="text-xl font-normal mx-auto">Новостей нет</h3>
             </div>
         </div>
         @else
@@ -58,16 +58,16 @@
                             <thead class="bg-gray-100">
                                 <tr>
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                        Name
+                                        Название
                                     </th>
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                        Date
+                                        Дата
                                     </th>
                                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                        City
+                                        Город
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium text-gray-500 uppercase">
-                                        Activity
+                                        Активность
                                     </th>
                                     <th scope="col" class="p-4">
                                     </th>
@@ -85,7 +85,7 @@
                                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$new->image) }}" alt="{{ $new->name }} image">
                                         @endif
 
-                                        <a href="{{ route('admin.news.edit', [ 'news' => $new->id ]) }}">
+                                        <a href="{{ route('admin.new.edit', [ 'new' => $new->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $new->name }}</div>
                                             </div>
@@ -108,21 +108,14 @@
                                     </td>
                                     <td class="p-4 whitespace-nowrap space-x-2 text-right w-1/6">
                                         <div class="flex flex-row justify-end">
-                                            <a href="{{ route('admin.news.edit', ['news' => $new->id ]) }}" data-modal-toggle="user-modal" class="text-white mx-2 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
-                                                <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
-                                                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
-                                                </svg>
-                                                Edit news
-                                            </a>
-                                            <form action="{{ route('admin.news.destroy', ['news' => $new->id]) }}" method="post">
+                                            <form action="{{ route('admin.new.destroy', ['new' => $new->id]) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" data-modal-toggle="delete-user-modal" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                                     <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                                     </svg>
-                                                    Delete news
+                                                    Удалить
                                                 </button>
                                             </form>
                                         </div>

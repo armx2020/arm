@@ -29,7 +29,7 @@ class CategoryController extends BaseAdminController
     {
         $this->categoryService->store($request);
 
-        return redirect()->route('admin.Category.index')->with('success', 'The category added');
+        return redirect()->route('admin.category.index')->with('success', 'Категория добавлена');
     }
 
     public function show(string $id)
@@ -37,7 +37,7 @@ class CategoryController extends BaseAdminController
         $category = Category::withcount('groups')->find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.Category.index')->with('alert', 'The category not found');
+            return redirect()->route('admin.сategory.index')->with('alert', 'Категория не найдена');
         }
 
         return view('admin.category.edit', ['category' => $category, 'menu' => $this->menu]);
@@ -48,7 +48,7 @@ class CategoryController extends BaseAdminController
         $category = Category::find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.Category.index')->with('alert', 'The category not found');
+            return redirect()->route('admin.сategory.index')->with('alert', 'Категория не найдена');
         }
 
         return view('admin.category.edit', ['category' => $category, 'menu' => $this->menu]);
@@ -59,13 +59,13 @@ class CategoryController extends BaseAdminController
         $category = Category::find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.category.index')->with('alert', 'The category not found');
+            return redirect()->route('admin.category.index')->with('alert', 'Категория не найдена');
         }
 
         $category = $this->categoryService->update($request, $category);
 
         return redirect()->route('admin.category.edit', ['category'=> $category->id])
-                        ->with('success', 'The category updated');
+                        ->with('success', 'Категория сохранена');
     }
 
 
@@ -74,11 +74,11 @@ class CategoryController extends BaseAdminController
         $category = Category::find($id);
 
         if(empty($category)) {
-            return redirect()->route('admin.category.index')->with('alert', 'The category not found');
+            return redirect()->route('admin.category.index')->with('alert', 'Категория не найдена');
         }
 
         $category->delete();
 
-        return redirect()->route('admin.category.index')->with('success', 'The category deleted');
+        return redirect()->route('admin.category.index')->with('success', 'Категория удалена');
     }
 }

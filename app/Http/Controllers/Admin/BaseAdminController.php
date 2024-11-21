@@ -61,8 +61,8 @@ abstract class BaseAdminController extends Controller
             ],
             [
                 'name' => 'Новости',
-                'route' => 'admin.news.index',
-                'routeIs' => 'admin.news.*',
+                'route' => 'admin.new.index',
+                'routeIs' => 'admin.new.*',
                 'sub' => []
             ],
             [

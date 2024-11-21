@@ -5,6 +5,13 @@
         <div class="align-middle inline-block min-w-full">
             <div class="shadow overflow-hidden">
                 <div class="relative w-full h-full md:h-auto">
+
+                    @if (session('success'))
+                    <div class="my-4 bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
+                        {{ session('success')}}
+                    </div>
+                    @endif
+
                     <div class="bg-white rounded-lg relative">
                         <div class="flex items-start p-5 border-b rounded-t">
                             <div class="flex items-center mb-4">
@@ -13,35 +20,35 @@
                                 @else
                                 <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $news->image) }}" alt="{{ $news->image }}">
                                 @endif
-                                <h3 class="text-2xl font-bold leading-none text-gray-900">Edit {{ $news->name }}</h3>
+                                <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $news->name }}</h3>
                             </div>
                         </div>
                         <div class="p-6 space-y-6">
-                            <form method="POST" enctype="multipart/form-data" action="{{ route('admin.news.update', ['news' => $news->id]) }}">
+                            <form method="POST" enctype="multipart/form-data" action="{{ route('admin.new.update', ['new' => $news->id]) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Name*</label>
+                                        <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
                                         <input type="text" name="name" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required autofocus autocomplete="name" value="{{ $news->name }}">
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="description" class="text-sm font-medium text-gray-900 block mb-2">Description</label>
-                                        <input type="text" name="description" id="description" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $news->description }}" required autofocus autocomplete="description">
+                                        <label for="description" class="text-sm font-medium text-gray-900 block mb-2">Описание</label>
+                                        <input type="text" name="description" id="description" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $news->description }}">
                                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="date" class="text-sm font-medium text-gray-900 block mb-2">Date*</label>
+                                        <label for="date" class="text-sm font-medium text-gray-900 block mb-2">Дата *</label>
                                         <input type="date" name="date" id="date" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $news->date }}" required autofocus>
                                         <x-input-error :messages="$errors->get('date')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6">
-                                        <label for="parent" class="text-sm font-medium text-gray-900 block mb-2">Parent</label>
+                                        <label for="parent" class="text-sm font-medium text-gray-900 block mb-2">Инициатор</label>
                                         <select name="parent" id="parent" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" id="parent">
 
                                             @if($news->parent_type == 'App\Models\User')
-                                            <option selected="true" disabled="disabled">old: User ({{ $news->parent->firstname}} {{ $news->parent->lastname }})</option>
+                                            <option selected="true" disabled="disabled">old: User ({{ $news->parent->firstname}} {{ $news->parent->email }})</option>
                                             @elseif ($news->parent_type == 'App\Models\Group')
                                             <option selected="true" disabled="disabled">old: Group ({{ $news->parent->name}})</option>
                                             @elseif ($news->parent_type == 'App\Models\Company')
@@ -49,13 +56,13 @@
                                             @else
                                             @endif
 
-                                            <option value='User'>User</option>
-                                            <option value='Company'>Company</option>
-                                            <option value='Group'>Group</option>
+                                            <option value='User'>Пользователь</option>
+                                            <option value='Company'>Компания</option>
+                                            <option value='Group'>Группа</option>
                                         </select>
                                     </div>
                                     <div class="col-span-6 hidden" id="User">
-                                        <label for="user" class="text-sm font-medium text-gray-900 block mb-2">User</label>
+                                        <label for="user" class="text-sm font-medium text-gray-900 block mb-2">Пользователь</label>
                                         <select name="user" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                             @foreach( $users as $user)
                                             <option value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>
@@ -63,7 +70,7 @@
                                         </select>
                                     </div>
                                     <div class="col-span-6 hidden" id="Company">
-                                        <label for="company" class="text-sm font-medium text-gray-900 block mb-2">Company</label>
+                                        <label for="company" class="text-sm font-medium text-gray-900 block mb-2">Компания</label>
                                         <select name="company" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                             @foreach( $companies as $company)
                                             <option value="{{ $company->id }}">{{ $company->name }}</option>
@@ -71,7 +78,7 @@
                                         </select>
                                     </div>
                                     <div class="col-span-6 hidden" id="Group">
-                                        <label for="group" class="text-sm font-medium text-gray-900 block mb-2">Group</label>
+                                        <label for="group" class="text-sm font-medium text-gray-900 block mb-2">Группа</label>
                                         <select name="group" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                             @foreach( $groups as $group)
                                             <option value="{{ $group->id }}">{{ $group->name }}</option>
@@ -79,7 +86,7 @@
                                         </select>
                                     </div>
                                     <div class="col-span-6">
-                                        <label for="city" class="text-sm font-medium text-gray-900 block mb-2">City*</label>
+                                        <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город *</label>
                                         <select name="city" class="w-full" id="dd_city">
                                             <option value='{{ $news->city->id }}'>{{ $news->city->name }}</option>
                                         </select>
@@ -93,7 +100,7 @@
                                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                                 </div>
                                 <div class="items-center py-6 border-gray-200 rounded-b">
-                                    <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save news</button>
+                                    <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Сохранить</button>
                                 </div>
                             </form>
                         </div>

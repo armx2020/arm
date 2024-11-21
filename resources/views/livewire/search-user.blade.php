@@ -12,14 +12,14 @@
             </div>
             @endif
             <div class="mb-4">
-                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All users</h1>
+                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Все пользователи</h1>
             </div>
             <div class="sm:flex">
                 <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
                     <form class="lg:pr-3" method="get">
                         <label for="users-search" class="sr-only">Search</label>
                         <div class="mt-1 relative lg:w-64 xl:w-96">
-                            <input type="text" placeholder="Search Users" wire:model="term" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                            <input type="text" placeholder="Поиск" wire:model="term" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                         </div>
                     </form>
                 </div>
@@ -28,7 +28,7 @@
                         <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                         </svg>
-                        Add user
+                        Добавить
                     </a>
                 </div>
             </div>
@@ -46,7 +46,7 @@
         @if ($users->isEmpty())
         <div class="bg-white shadow p-4">
             <div class="flex items-center text-center">
-                <h3 class="text-xl font-normal mx-auto">No users</h3>
+                <h3 class="text-xl font-normal mx-auto">Пользователей нет</h3>
             </div>
         </div>
         @else
@@ -58,16 +58,16 @@
                             <thead class="bg-gray-100">
                                 <tr>
                                     <th scope="col" class="p-4 text-center text-xs font-medium text-gray-500 uppercase">
-                                        Name
+                                        Имя
                                     </th>
                                     <th scope="col" class="p-4 text-center text-xs font-medium text-gray-500 uppercase">
-                                        Phone
+                                        Телефон
                                     </th>
                                     <th scope="col" class="p-4 text-center text-xs font-medium text-gray-500 uppercase">
-                                        City
+                                        Город
                                     </th>
                                     <th scope="col" class="p-4 text-center text-xs font-medium text-gray-500 uppercase">
-                                        Activity
+                                        Активность
                                     </th>
                                     <th scope="col" class="p-4">
                                     </th>
@@ -94,7 +94,7 @@
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base text-center font-medium text-gray-900">
                                         @if( $user->phone == null)
-                                        no phone
+                                        нет телефона
                                         @else
                                         {{ $user->phone }}
                                         @endif
@@ -120,7 +120,7 @@
                                                     <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                                     </svg>
-                                                    Delete user
+                                                    удалить
                                                 </button>
                                             </form>
                                         </div>

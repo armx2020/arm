@@ -23,7 +23,6 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'firstname' => ['required', 'string', 'max:32'],
-            'lastname'  => ['required', 'string', 'max:32'],
             'viber'     => ['max:36'],
             'whatsapp'  => ['max:36'],
             'telegram'  => ['max:36'],

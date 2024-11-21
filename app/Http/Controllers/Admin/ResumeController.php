@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\ResumeRequest;
-use App\Models\Resume;
 use App\Models\User;
 use App\Models\Work;
 use App\Services\ResumeService;
@@ -32,7 +31,7 @@ class ResumeController extends BaseAdminController
     {
         $this->resumeService->store($request);
 
-        return redirect()->route('admin.resume.index')->with('success', 'The resume added');
+        return redirect()->route('admin.resume.index')->with('success', 'Резюме сохранено');
     }
 
     public function show(string $id)
@@ -40,7 +39,7 @@ class ResumeController extends BaseAdminController
         $resume = Work::resume()->with('parent')->find($id);
 
         if(empty($resume)) {
-            return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
+            return redirect()->route('admin.resume.index')->with('alert', 'Резюме не найдено');
         }
 
         return view('admin.resume.edit', ['resume' => $resume, 'menu' => $this->menu]);
@@ -51,7 +50,7 @@ class ResumeController extends BaseAdminController
         $resume = Work::find($id);
 
         if(empty($resume)) {
-            return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
+            return redirect()->route('admin.resume.index')->with('alert', 'Резюме не найдено');
         }
 
         $users = User::all();
@@ -64,12 +63,12 @@ class ResumeController extends BaseAdminController
         $resume = Work::find($id);
 
         if(empty($resume)) {
-            return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
+            return redirect()->route('admin.resume.index')->with('alert', 'Резюме не найдено');
         }
 
         $resume = $this->resumeService->update($request, $resume);
 
-        return redirect()->route('admin.resume.index')->with('success', 'The resume updated');
+        return redirect()->route('admin.resume.edit', ['resume' => $resume->id])->with('success', 'Резюме сохранено');
     }
 
     public function destroy(string $id)
@@ -77,11 +76,11 @@ class ResumeController extends BaseAdminController
         $resume = Work::find($id);
 
         if(empty($resume)) {
-            return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
+            return redirect()->route('admin.resume.index')->with('alert', 'Резюме не найдено');
         }
         
         $resume->delete();
 
-        return redirect()->route('admin.resume.index')->with('success', 'The resume deleted');
+        return redirect()->route('admin.resume.index')->with('success', 'Резюме удалено');
     }
 }

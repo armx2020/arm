@@ -5,8 +5,16 @@
         <div class="align-middle inline-block min-w-full">
             <div class="shadow overflow-hidden">
                 <div class="relative w-full h-full md:h-auto">
+
+                    @if (session('success'))
+                    <div class="my-4 bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
+                        {{ session('success')}}
+                    </div>
+                    @endif
+
                     <div class="bg-white rounded-lg relative">
-                        <div class="p-6 space-y-6">
+
+                        <div class="p-6 space-b-6">
                             <form method="POST" enctype="multipart/form-data" action="{{ route('admin.user.update', ['user' => $user->id]) }}">
                                 @csrf
                                 @method('PUT')
@@ -38,16 +46,16 @@
 
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6">
-                                        <label for="firstname" class="text-sm font-medium text-gray-900 block mb-2">First Name*</label>
+                                        <label for="firstname" class="text-sm font-medium text-gray-900 block mb-2">Имя *</label>
                                         <input type="text" name="firstname" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $user->firstname }}" required>
                                         <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6">
-                                        <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Email*</label>
+                                        <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Email *</label>
                                         <input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $user->email }}" required>
                                     </div>
                                     <div class="col-span-6">
-                                        <label for="city" class="text-sm font-medium text-gray-900 block mb-2">City*</label>
+                                        <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город *</label>
                                         <select name="city" class="w-full" id="dd_city">
                                             <option value='{{ $user->city->id }}'>{{ $user->city->name }}</option>
                                         </select>
@@ -56,7 +64,7 @@
                                 <hr class="my-3">
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number</label>
+                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
                                         <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $user->phone }}">
                                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                     </div>
@@ -87,7 +95,7 @@
                                     </div>
                                 </div>
                                 <div class="items-center py-6 border-gray-200 rounded-b">
-                                    <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Update user</button>
+                                    <button class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Сохранить</button>
                                 </div>
                             </form>
                         </div>

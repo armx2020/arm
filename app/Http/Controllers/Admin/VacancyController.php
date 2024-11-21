@@ -43,7 +43,7 @@ class VacancyController extends BaseAdminController
     {
         $this->vacancyService->store($request);
 
-        return redirect()->route('admin.vacancy.index')->with('success', 'The vacancy added');
+        return redirect()->route('admin.vacancy.index')->with('success', 'Вакансия добавлена');
     }
 
     public function show(string $id)
@@ -51,7 +51,7 @@ class VacancyController extends BaseAdminController
         $vacancy = Work::vacancy()->with('parent')->find($id);
 
         if (empty($vacancy)) {
-            return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
+            return redirect()->route('admin.vacancy.index')->with('alert', 'Вакансия не найдена');
         }
 
         return view('admin.vacancy.edit', ['vacancy' => $vacancy, 'menu' => $this->menu]);
@@ -62,7 +62,7 @@ class VacancyController extends BaseAdminController
         $vacancy = Work::find($id);
 
         if (empty($vacancy)) {
-            return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
+            return redirect()->route('admin.vacancy.index')->with('alert', 'Вакансия не найдена');
         }
 
         $users = User::all();
@@ -83,12 +83,12 @@ class VacancyController extends BaseAdminController
         $vacancy = Work::find($id);
 
         if (empty($vacancy)) {
-            return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
+            return redirect()->route('admin.vacancy.index')->with('alert', 'Вакансия не найдена');
         }
 
         $vacancy = $this->vacancyService->update($request, $vacancy);
 
-        return redirect()->route('admin.vacancy.index')->with('success', 'The vacancy updated');
+        return redirect()->route('admin.vacancy.edit', ['vacancy' => $vacancy->id])->with('success', 'Вакансия сохранена');
     }
 
     public function destroy(string $id)
@@ -96,11 +96,11 @@ class VacancyController extends BaseAdminController
         $vacancy = Work::find($id);
 
         if (empty($vacancy)) {
-            return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
+            return redirect()->route('admin.vacancy.index')->with('alert', 'Вакансия не найдена');
         }
 
         $vacancy->delete();
 
-        return redirect()->route('admin.vacancy.index')->with('success', 'The vacancy deleted');
+        return redirect()->route('admin.vacancy.index')->with('success', 'Вакансия удалена');
     }
 }

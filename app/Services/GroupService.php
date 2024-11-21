@@ -22,7 +22,7 @@ class GroupService
         $group->name = $request->name;
         $group->address = $request->address;
         $group->description = $request->description;
-        $group->city_id = $request->city;
+        $group->city_id = $city->id;
         $group->region_id = $city->region->id;
         $group->phone = $request->phone;
         $group->web = $request->web;

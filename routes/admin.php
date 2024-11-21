@@ -46,7 +46,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('event', EventController::class)->except([
             'show'
         ]);
-        Route::resource('news', NewsController::class)->except([
+        Route::resource('new', NewsController::class)->except([
             'show'
         ]);
         Route::resource('project', ProjectController::class)->except([

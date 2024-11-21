@@ -18,16 +18,16 @@ class OfferService
             $city = City::find(1);
         }
 
+        $company = Company::select('user_id')->find($request->company);
+
         $offer = New CompanyOffer();
 
         $offer->name = $request->name;
         $offer->address = $request->address;
         $offer->description = $request->description;
         $offer->phone = $request->phone;
-        $offer->price = $request->price;
-        $offer->city_id = $request->city;
+        $offer->city_id = $city->id;
         $offer->region_id = $city->region->id;
-        $offer->unit_of_price = $request->unit_of_price;
         $offer->web = $request->web;
         $offer->viber = $request->viber;
         $offer->whatsapp = $request->whatsapp;
@@ -35,6 +35,7 @@ class OfferService
         $offer->instagram = $request->instagram;
         $offer->vkontakte = $request->vkontakte;
         $offer->company_id = $request->company;
+        $offer->user_id = $company->user_id;
         $offer->category_id = $request->category;
 
         if ($request->image) {
@@ -151,7 +152,6 @@ class OfferService
         $offer->name = $request->name;
         $offer->address = $request->address;
         $offer->description = $request->description;
-        $offer->price = $request->price;
         $offer->category_id = $request->category;
         $offer->company_id = $company->id;
         $offer->city_id = $company->city_id;

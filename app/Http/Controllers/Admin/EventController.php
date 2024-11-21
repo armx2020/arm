@@ -41,7 +41,7 @@ class EventController extends BaseAdminController
     {
         $this->eventService->store($request);
 
-        return redirect()->route('admin.event.index')->with('success', 'The event added');
+        return redirect()->route('admin.event.index')->with('success', 'Событие добавлено');
     }
 
     public function show(string $id)
@@ -49,7 +49,7 @@ class EventController extends BaseAdminController
         $event = Event::with('parent')->find($id);
 
         if (empty($event)) {
-            return redirect()->route('admin.event.index')->with('alert', 'The event not found');
+            return redirect()->route('admin.event.index')->with('alert', 'Событие не найдено');
         }
 
         return view('admin.event.edit', ['event' => $event, 'menu' => $this->menu]);
@@ -60,7 +60,7 @@ class EventController extends BaseAdminController
         $event = Event::with('parent')->find($id);
 
         if (empty($event)) {
-            return redirect()->route('admin.event.index')->with('alert', 'The event not found');
+            return redirect()->route('admin.event.index')->with('alert', 'Событие не найдено');
         }
 
         $users = User::all();
@@ -81,12 +81,12 @@ class EventController extends BaseAdminController
         $event = Event::find($id);
 
         if (empty($event)) {
-            return redirect()->route('admin.event.index')->with('alert', 'The event not found');
+            return redirect()->route('admin.event.index')->with('alert', 'Событие не найдено');
         }
 
         $event = $this->eventService->update($request, $event);
 
-        return redirect()->route('admin.event.index')->with('success', 'The event updated');
+        return redirect()->route('admin.event.edit', ['event' => $event->id])->with('success', 'Событие сохранено');
     }
 
     public function destroy(string $id)
@@ -94,11 +94,11 @@ class EventController extends BaseAdminController
         $event = Event::find($id);
 
         if (empty($event)) {
-            return redirect()->route('admin.event.index')->with('alert', 'The event not found');
+            return redirect()->route('admin.event.index')->with('alert', 'Событие не найдено');
         }
 
         $event->delete();
 
-        return redirect()->route('admin.event.index')->with('succes', 'The event deleted');
+        return redirect()->route('admin.event.index')->with('succes', 'Событие удалено');
     }
 }

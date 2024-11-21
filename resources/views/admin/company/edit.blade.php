@@ -5,6 +5,13 @@
         <div class="align-middle inline-block min-w-full">
             <div class="shadow overflow-hidden">
                 <div class="relative w-full h-full md:h-auto">
+
+                    @if (session('success'))
+                    <div class="my-4 bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
+                        {{ session('success')}}
+                    </div>
+                    @endif
+
                     <div class="bg-white rounded-lg relative">
                         <div class="flex items-start p-5 border-b rounded-t">
                             <div class="flex items-center mb-4">
@@ -13,7 +20,7 @@
                                 @else
                                 <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/'. $company->image) }}" alt="{{ $company->name }} image">
                                 @endif
-                                <h3 class="text-2xl font-bold leading-none text-gray-900">Edit {{ $company->name }}</h3>
+                                <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $company->name }}</h3>
                             </div>
                         </div>
                         <div class="p-6 space-y-6">
@@ -22,29 +29,29 @@
                                 @method('PUT')
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Name*</label>
+                                        <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
                                         <input type="text" name="name" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required value="{{ $company->name }}">
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Address</label>
+                                        <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
                                         <input type="text" name="address" id="address" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $company->address }}">
                                         <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="description" class="text-sm font-medium text-gray-900 block mb-2">Description</label>
+                                        <label for="description" class="text-sm font-medium text-gray-900 block mb-2">Описание</label>
                                         <input type="text" name="description" id="description" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $company->description }}">
                                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number</label>
+                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
                                         <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $company->phone }}">
                                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="user" class="text-sm font-medium text-gray-900 block mb-2">User*</label>
+                                        <label for="user" class="text-sm font-medium text-gray-900 block mb-2">Пользователь *</label>
                                         <select name="user" id="user" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
-                                            <option selected value="">no user</option>    
+                                            <option selected value="">без пользователя</option>
                                             @if($company->user)
                                             <option selected value="{{ $company->user->id }}">{{ $company->user->firstname }} {{ $company->user->lastname }}</option>
                                             @endif
@@ -54,7 +61,7 @@
                                         </select>
                                     </div>
                                     <div class="col-span-6">
-                                        <label for="city" class="text-sm font-medium text-gray-900 block mb-2">City*</label>
+                                        <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город *</label>
                                         <select name="city" class="w-full" id="dd_city">
                                             <option value='{{ $company->city->id }}'>{{ $company->city->name }}</option>
                                         </select>
@@ -100,7 +107,7 @@
                                     </div>
                                 </div>
                                 <div class="items-center py-6 border-gray-200 rounded-b">
-                                    <button class="text-white w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save company</button>
+                                    <button class="text-white w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Сохранить</button>
                                 </div>
                             </form>
                         </div>

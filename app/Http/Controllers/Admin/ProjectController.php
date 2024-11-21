@@ -41,7 +41,7 @@ class ProjectController extends BaseAdminController
     {
         $this->projectService->store($request);
 
-        return redirect()->route('admin.project.index')->with('success', 'The project added');
+        return redirect()->route('admin.project.index')->with('success', 'Проект сохранен');
     }
 
     public function show(string $id)
@@ -49,7 +49,7 @@ class ProjectController extends BaseAdminController
         $project = Project::with('parent')->find($id);
 
         if (empty($project)) {
-            return redirect()->route('admin.project.index')->with('alert', 'The event not found');
+            return redirect()->route('admin.project.index')->with('alert', 'Проект не найден');
         }
 
         return view('admin.project.edit', ['project' => $project, 'menu' => $this->menu]);
@@ -60,7 +60,7 @@ class ProjectController extends BaseAdminController
         $project = Project::with('parent')->find($id);
 
         if (empty($project)) {
-            return redirect()->route('admin.project.index')->with('alert', 'The event not found');
+            return redirect()->route('admin.project.index')->with('alert', 'Проект не найден');
         }
 
         $users = User::all();
@@ -81,12 +81,12 @@ class ProjectController extends BaseAdminController
         $project = Project::find($id);
 
         if (empty($project)) {
-            return redirect()->route('admin.project.index')->with('alert', 'The event not found');
+            return redirect()->route('admin.project.index')->with('alert', 'Проект не найден');
         }
 
         $project = $this->projectService->update($request, $project);
 
-        return redirect()->route('admin.project.index')->with('success', 'The project updated');
+        return redirect()->route('admin.project.edit', ['project' => $project->id])->with('success', 'Проект сохранен');
     }
 
     public function destroy(string $id)
@@ -94,11 +94,11 @@ class ProjectController extends BaseAdminController
         $project = Project::with('parent')->find($id);
 
         if (empty($project)) {
-            return redirect()->route('admin.project.index')->with('alert', 'The event no found');
+            return redirect()->route('admin.project.index')->with('alert', 'Проект не найден');
         }
 
         $project->delete();
 
-        return redirect()->route('admin.project.index')->with('success', 'The project deleted');
+        return redirect()->route('admin.project.index')->with('success', 'Проект удален');
     }
 }

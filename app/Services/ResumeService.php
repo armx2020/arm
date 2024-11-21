@@ -3,11 +3,11 @@
 namespace App\Services;
 
 use App\Models\City;
-use App\Models\Resume;
+use App\Models\Work;
 
 class ResumeService
 {
-    public function store($request): Resume
+    public function store($request): Work
     {
         $city = City::with('region')->find($request->city);
 
@@ -15,22 +15,23 @@ class ResumeService
             $city = City::find(1);
         }
 
-        $resume = new Resume();
+        $resume = new Work();
 
         $resume->name = $request->name;
         $resume->address = $request->address;
         $resume->description = $request->description;
-        $resume->city_id = $request->city;
+        $resume->city_id = $city->id;
         $resume->region_id = $city->region->id;
-        $resume->price = $request->price;
-        $resume->user_id = $request->user;
+        $resume->parent_type = 'App\Models\User';
+        $resume->parent_id = $request->user;
+        $resume->type = 'resume';
 
         $resume->save();
 
         return $resume;
     }
 
-    public function update($request, $resume): Resume
+    public function update($request, $resume): Work
     {
         $city = City::with('region')->find($request->city);
 
@@ -41,10 +42,11 @@ class ResumeService
         $resume->name = $request->name;
         $resume->address = $request->address;
         $resume->description = $request->description;
-        $resume->city_id = $request->city;
+        $resume->city_id = $city->id;
         $resume->region_id = $city->region->id;
-        $resume->price = $request->price;
-        $resume->user_id = $request->user;
+        $resume->parent_type = 'App\Models\User';
+        $resume->parent_id = $request->user;
+        $resume->type = 'resume';
 
         $resume->update();
 

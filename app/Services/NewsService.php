@@ -21,7 +21,7 @@ class NewsService
 
         $news->name = $request->name;
         $news->date = $request->date;
-        $news->city_id = $request->city;
+        $news->city_id = $city->id;
         $news->region_id = $city->region->id;
         $news->description = $request->description;
 

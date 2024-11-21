@@ -36,7 +36,7 @@ class GroupController extends BaseAdminController
     {
         $this->groupService->store($request);
 
-        return redirect()->route('admin.group.index')->with('success', 'The group added');
+        return redirect()->route('admin.group.index')->with('success', 'Группа добавлена');
     }
 
     public function show(string $id)
@@ -44,7 +44,7 @@ class GroupController extends BaseAdminController
         $group = Group::with('user', 'category', 'users')->find($id);
 
         if (empty($group)) {
-            return redirect()->route('admin.group.index')->with('alert', 'The group not found');
+            return redirect()->route('admin.group.index')->with('alert', 'Группа не найдена');
         }
 
         return view('admin.group.edit', ['group' => $group, 'menu' => $this->menu]);
@@ -55,7 +55,7 @@ class GroupController extends BaseAdminController
         $group = Group::with('user', 'category')->find($id);
 
         if (empty($group)) {
-            return redirect()->route('admin.group.index')->with('alert', 'The group not found');
+            return redirect()->route('admin.group.index')->with('alert', 'Группа не найдена');
         }
 
         $categories = Category::group()->active()->get();
@@ -78,21 +78,21 @@ class GroupController extends BaseAdminController
         $group = Group::find($id);
 
         if (empty($group)) {
-            return redirect()->route('admin.group.index')->with('alert', 'The group not found');
+            return redirect()->route('admin.group.index')->with('alert', 'Группа не найдена');
         }
 
         $group = $this->groupService->update($request, $group);
 
         return redirect()->route('admin.group.edit', ['group' => $group->id])
-            ->with('success', 'The group updated');
+            ->with('success', 'Группа сохранена');
     }
 
     public function destroy(string $id)
     {
-        $group = Group::with('users', 'events', 'projects', 'vacancies', 'news')->find($id);
+        $group = Group::with('users', 'events', 'projects', 'works', 'news')->find($id);
 
         if (empty($group)) {
-            return redirect()->route('admin.group.index')->with('alert', 'The group not found');
+            return redirect()->route('admin.group.index')->with('alert', 'Группа не найдена');
         }
 
         foreach ($group->events as $event) {
@@ -116,8 +116,8 @@ class GroupController extends BaseAdminController
             $project->delete();
         }
 
-        foreach ($group->vacancies as $vacancy) {
-            $vacancy->delete();
+        foreach ($group->works as $work) {
+            $work->delete();
         }
 
         foreach ($group->users as $user) {
@@ -142,6 +142,6 @@ class GroupController extends BaseAdminController
 
         $group->delete();
 
-        return redirect()->route('admin.group.index')->with('success', 'The group deleted');
+        return redirect()->route('admin.group.index')->with('success', 'Группа удалена');
     }
 }

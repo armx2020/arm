@@ -10,10 +10,10 @@
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ $countUsersAll }}</span>
-                    <h3 class="text-base font-normal text-gray-500">Total users</h3>
+                    <h3 class="text-base font-normal text-gray-500">Всего пользователей</h3>
                 </div>
                 <div class="ml-5 w-0 flex flex-col items-end justify-end flex-1 text-green-500 text-base font-bold">
-                    <h3 class="text-base font-normal text-gray-500">today</h3>
+                    <h3 class="text-base font-normal text-gray-500">сегодня</h3>
                     {{ $countUsersToday }}
                 </div>
             </div>
@@ -23,10 +23,10 @@
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ $countCompaniesAll }}</span>
-                    <h3 class="text-base font-normal text-gray-500">Total companies</h3>
+                    <h3 class="text-base font-normal text-gray-500">Всего компаний</h3>
                 </div>
                 <div class="ml-5 w-0 flex flex-col items-end justify-end flex-1 text-green-500 text-base font-bold">
-                    <h3 class="text-base font-normal text-gray-500">today</h3>
+                    <h3 class="text-base font-normal text-gray-500">сегодня</h3>
                     {{ $countCompaniesToday }}
                 </div>
             </div>
@@ -36,10 +36,10 @@
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ $countGroupsAll }}</span>
-                    <h3 class="text-base font-normal text-gray-500">Total groups</h3>
+                    <h3 class="text-base font-normal text-gray-500">Всего групп</h3>
                 </div>
                 <div class="ml-5 w-0 flex flex-col items-end justify-end flex-1 text-green-500 text-base font-bold">
-                    <h3 class="text-base font-normal text-gray-500">today</h3>
+                    <h3 class="text-base font-normal text-gray-500">сегодня</h3>
                     {{ $countGroupsToday }}
                 </div>
             </div>
@@ -51,10 +51,10 @@
         <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
             <div class="mb-4 flex items-center justify-between">
                 <div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Latest events</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Последние события</h3>
                 </div>
                 <div class="flex-shrink-0">
-                    <a href="{{ route('admin.event.index') }}" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">view all</a>
+                    <a href="{{ route('admin.event.index') }}" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">посмотреть все</a>
                 </div>
             </div>
             <div class="flex flex-col mt-8">
@@ -65,13 +65,13 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            name
+                                            имя
                                         </th>
                                         <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            date
+                                            дата
                                         </th>
                                         <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            parent
+                                            инициатор
                                         </th>
                                     </tr>
                                 </thead>
@@ -79,7 +79,7 @@
 
                                     @if(count($events) == 0)
                                     <td colspan="3" class="text-center p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                        no events
+                                        событий нет
                                     </td>
                                     @else
                                     @foreach($events as $event)
@@ -117,16 +117,16 @@
 
         <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-bold leading-none text-gray-900">Latest users</h3>
+                <h3 class="text-xl font-bold leading-none text-gray-900">Новые пользователи</h3>
                 <a href="{{ route('admin.user.index') }}" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2">
-                    view all
+                    посмотреть все
                 </a>
             </div>
             <div class="flow-root">
                 <ul role="list" class="divide-y divide-gray-200">
                     @if(count($users) === 0)
                     <li class="text-center py-3 sm:py-4">
-                        no users
+                        нет пользователей
                     </li>
                     @else
                     @foreach($users as $user)

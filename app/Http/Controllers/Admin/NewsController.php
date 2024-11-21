@@ -41,7 +41,7 @@ class NewsController extends BaseAdminController
     {
         $this->newsService->store($request);        
 
-        return redirect()->route('admin.news.index')->with('success', 'The news added');
+        return redirect()->route('admin.new.index')->with('success', 'Новость сохранена');
     }
 
     public function show(string $id)
@@ -49,7 +49,7 @@ class NewsController extends BaseAdminController
         $news = News::find($id);
 
         if (empty($news)) {
-            return redirect()->route('admin.news.index')->with('alert', 'The news not found');
+            return redirect()->route('admin.news.index')->with('alert', 'Новость не найдена');
         }
 
         return view('admin.news.edit', ['news' => $news, 'menu' => $this->menu]);
@@ -60,7 +60,7 @@ class NewsController extends BaseAdminController
         $news = News::find($id);
 
         if (empty($news)) {
-            return redirect()->route('admin.news.index')->with('alert', 'The news not found');
+            return redirect()->route('admin.new.index')->with('alert', 'Новость не найдена');
         }
 
         $users = User::all();
@@ -81,12 +81,12 @@ class NewsController extends BaseAdminController
         $news = News::find($id);
 
         if (empty($news)) {
-            return redirect()->route('admin.news.index')->with('alert', 'The news not found');
+            return redirect()->route('admin.new.index')->with('alert', 'Новость не найдена');
         }
 
         $news = $this->newsService->update($request, $news);
 
-        return redirect()->route('admin.news.index')->with('success', 'The news updated');
+        return redirect()->route('admin.new.edit', ['new' => $news->id])->with('success', 'Новость сохранена');
     }
 
     public function destroy(string $id)
@@ -94,11 +94,11 @@ class NewsController extends BaseAdminController
         $news = News::find($id);
 
         if (empty($news)) {
-            return redirect()->route('admin.news.index')->with('alert', 'The news not found');
+            return redirect()->route('admin.new.index')->with('alert', 'Новость не найдена');
         }
 
         $news->delete();
 
-        return redirect()->route('admin.news.index')->with('success', 'The news deleted');
+        return redirect()->route('admin.new.index')->with('success', 'Новость удалена');
     }
 }

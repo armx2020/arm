@@ -23,7 +23,7 @@ class ProjectService
         $project->name = $request->name;
         $project->address = $request->address;
         $project->description = $request->description;
-        $project->city_id = $request->city;
+        $project->city_id = $city->id;
         $project->region_id = $city->region->id;
         $project->donations_need = $request->donations_need;
         $project->donations_have = $request->donations_have;

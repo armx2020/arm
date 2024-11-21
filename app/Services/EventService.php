@@ -22,7 +22,7 @@ class EventService
         $event->name = $request->name;
         $event->address = $request->address;
         $event->description = $request->description;
-        $event->city_id = $request->city;
+        $event->city_id = $city->id;
         $event->region_id = $city->region->id;
         $event->date_to_start = $request->date_to_start;
 

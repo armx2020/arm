@@ -33,7 +33,7 @@ class UserController extends BaseAdminController
     {
         $this->userService->store($request);
 
-        return redirect()->route('admin.user.index')->with('success', 'The user added');
+        return redirect()->route('admin.user.index')->with('success', 'Пользователь добавлен');
     }
 
     public function show(string $id)
@@ -48,7 +48,7 @@ class UserController extends BaseAdminController
             ->find($id);
 
         if (empty($user)) {
-            return redirect()->route('admin.user.index')->with('alert', 'The user not found');
+            return redirect()->route('admin.user.index')->with('alert', 'Пользователь не найден');
         }
 
         return view('admin.user.edit', ['user' => $user, 'menu' => $this->menu]);
@@ -59,7 +59,7 @@ class UserController extends BaseAdminController
         $user = User::find($id);
 
         if (empty($user)) {
-            return redirect()->route('admin.user.index')->with('alert', 'The user not found');
+            return redirect()->route('admin.user.index')->with('alert', 'Пользователь не найден');
         }
 
         return view('admin.user.edit', ['user' => $user, 'menu' => $this->menu]);
@@ -70,13 +70,13 @@ class UserController extends BaseAdminController
         $user = User::find($id);
 
         if (empty($user)) {
-            return redirect()->route('admin.user.index')->with('alert', 'The user not found');
+            return redirect()->route('admin.user.index')->with('alert', 'Пользователь не найден');
         }
 
         $user = $this->userService->update($request, $user);
 
         return redirect()->route('admin.user.edit', ['user' => $user->id])
-            ->with('success', "The user updated");
+            ->with('success', "Пользователь не найден");
     }
 
     public function destroy(string $id)
@@ -92,7 +92,7 @@ class UserController extends BaseAdminController
         )->find($id);
 
         if (empty($user)) {
-            return redirect()->route('admin.user.index')->with('alert', 'The user not found');
+            return redirect()->route('admin.user.index')->with('alert', 'Пользователь не найден');
         }
 
         foreach ($user->inGroups as $group) {
@@ -158,15 +158,8 @@ class UserController extends BaseAdminController
             $project->delete();
         }
 
-        foreach ($user->resumes as $resume) {
-            if ($resume->image !== null) {
-                Storage::delete('public/' . $resume->image);
-            }
-            $project->delete();
-        }
-
-        foreach ($user->vacancies as $vacancy) {
-            $vacancy->delete();
+        foreach ($user->works as $work) {
+            $work->delete();
         }
 
         if ($user->image !== null) {
@@ -175,6 +168,6 @@ class UserController extends BaseAdminController
 
         $user->delete();
 
-        return redirect()->route('admin.user.index')->with('success', 'The user deleted');
+        return redirect()->route('admin.user.index')->with('success', 'Пользователь удалён');
     }
 }

@@ -33,7 +33,7 @@ class CompanyController extends BaseAdminController
     {
         $this->companyService->store($request);
 
-        return redirect()->route('admin.company.index')->with('success', 'The company added');
+        return redirect()->route('admin.company.index')->with('success', 'Компания добавлена');
     }
 
     public function show(string $id)
@@ -41,7 +41,7 @@ class CompanyController extends BaseAdminController
         $company = Company::with('user')->find($id);
 
         if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'The company not found');
+            return redirect()->route('admin.company.index')->with('alert', 'Компания не найдена');
         }
         return view('admin.company.edit', ['company' => $company, 'menu' => $this->menu]);
     }
@@ -51,7 +51,7 @@ class CompanyController extends BaseAdminController
         $company = Company::find($id);
 
         if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'The company not found');
+            return redirect()->route('admin.company.index')->with('alert', 'Компания не найдена');
         }
 
         $users = User::all();
@@ -64,13 +64,13 @@ class CompanyController extends BaseAdminController
         $company = Company::find($id);
 
         if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'The company not found');
+            return redirect()->route('admin.company.index')->with('alert', 'Компания не найдена');
         }
 
         $company = $this->companyService->update($request, $company);
 
         return redirect()->route('admin.company.edit', ['company' => $company->id])
-            ->with('success', "The company updated");
+            ->with('success', "Компания сохранена");
     }
 
     public function destroy(string $id)
@@ -78,11 +78,11 @@ class CompanyController extends BaseAdminController
         $company = Company::find($id);
 
         if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'The company not found');
+            return redirect()->route('admin.company.index')->with('alert', 'Компания не найдена');
         }
 
         if (count($company->offers) > 0) {
-            return redirect()->route('admin.company.index')->with('alert', 'The company has products, you need to delete them first');
+            return redirect()->route('admin.company.index')->with('alert', 'У компании есть предложения, удалите сначала их');
         }
 
         foreach ($company->events as $event) {
@@ -106,8 +106,8 @@ class CompanyController extends BaseAdminController
            $project->delete();
         }
 
-        foreach ($company->vacancies as $vacancy) {
-            $vacancy->delete();
+        foreach ($company->works as $work) {
+            $work->delete();
         }
 
         if ($company->image !== null) {
@@ -116,6 +116,6 @@ class CompanyController extends BaseAdminController
 
         $company->delete();
 
-        return redirect()->route('admin.company.index')->with('success', 'The company deleted');
+        return redirect()->route('admin.company.index')->with('success', 'Компания удалена');
     }
 }

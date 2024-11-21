@@ -24,7 +24,6 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'firstname'    => ['required', 'string', 'max:32'],
-            'lastname'     => ['required', 'string', 'max:32'],
             'email'        => ['required', 'string', 'email', 'max:255', 'unique:App\Models\User'],
             'password'     => ['required', 'confirmed', Rules\Password::defaults()],
             'viber'        => ['max:36'],

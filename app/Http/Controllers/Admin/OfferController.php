@@ -35,7 +35,7 @@ class OfferController extends BaseAdminController
     {
         $this->offerService->store($request);
 
-        return redirect()->route('admin.offer.index')->with('success', 'The offer added');
+        return redirect()->route('admin.offer.index')->with('success', 'Предложение добавлено');
     }
 
     public function show(string $id)
@@ -43,7 +43,7 @@ class OfferController extends BaseAdminController
         $offer = CompanyOffer::with('company', 'category')->find($id);
 
         if (empty($offer)) {
-            return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
+            return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
         }
 
         return view('admin.offer.edit', ['offer' => $offer, 'menu' => $this->menu]);
@@ -54,7 +54,7 @@ class OfferController extends BaseAdminController
         $offer = CompanyOffer::with('company', 'category')->find($id);
 
         if (empty($offer)) {
-            return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
+            return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
         }
 
         $categories = Category::offer()->active()->get();
@@ -77,13 +77,13 @@ class OfferController extends BaseAdminController
         $offer = CompanyOffer::find($id);
 
         if (empty($offer)) {
-            return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
+            return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
         }
 
         $offer = $this->offerService->update($request, $offer);
 
         return redirect()->route('admin.offer.edit', ['offer' => $offer->id])
-            ->with('success', 'The offer updated');
+            ->with('success', 'Предожение сохранено');
     }
 
     public function destroy(string $id)
@@ -91,7 +91,7 @@ class OfferController extends BaseAdminController
         $offer = CompanyOffer::find($id);
 
         if (empty($offer)) {
-            return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
+            return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
         }
 
         if ($offer->image !== null) {
@@ -112,6 +112,6 @@ class OfferController extends BaseAdminController
 
         $offer->delete();
 
-        return redirect()->route('admin.offer.index')->with('success', 'The offer deleted');
+        return redirect()->route('admin.offer.index')->with('success', 'Предложение удалено');
     }
 }
