@@ -58,7 +58,7 @@ class GroupController extends BaseAdminController
             return redirect()->route('admin.group.index')->with('alert', 'The group not found');
         }
 
-        $categories = Category::group()->all();
+        $categories = Category::group()->get();
         $users = User::all();
         $user = $group->user;
         $category = $group->category;

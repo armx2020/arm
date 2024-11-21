@@ -65,7 +65,7 @@ class EventController extends BaseAdminController
 
         $users = User::all();
         $companies = Company::all();
-        $groups = Group::all();
+        $groups = Group::event()->get();
 
         return view('admin.event.edit', [
             'event' => $event,
