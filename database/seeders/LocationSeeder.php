@@ -1335,7 +1335,7 @@ class LocationSeeder extends Seeder
             }
         }
 
-        /* Add group for region */
+        /* Add group for region
         foreach ($regionsInRussia as $region) {
             foreach ($regionInRussia as $region) {
                 $i = 0;
@@ -1350,6 +1350,6 @@ class LocationSeeder extends Seeder
                     'category_id' => 1
                 ]);
             }
-        }
+        }  */
     }
 }
