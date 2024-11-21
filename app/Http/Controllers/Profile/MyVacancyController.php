@@ -82,7 +82,7 @@ class MyVacancyController extends BaseController
             $vacancy->parent_type = 'App\Models\Group';
             $vacancy->parent_id = $parent_explode[1];
         } else {
-            $vacancy->parent_type = 'App\Models\Admin';
+            $vacancy->parent_type = 'App\Models\User';
             $vacancy->parent_id = 1;
         }
 
@@ -186,7 +186,7 @@ class MyVacancyController extends BaseController
                     $vacancy->parent_type = 'App\Models\Group';
                     $vacancy->parent_id = $parent_explode[1];
                 } else {
-                    $vacancy->parent_type = 'App\Models\Admin';
+                    $vacancy->parent_type = 'App\Models\User';
                     $vacancy->parent_id = 1;
                 }
 

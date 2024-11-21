@@ -87,7 +87,7 @@ class MyNewsController extends BaseController
             $news->parent_type = 'App\Models\Group';
             $news->parent_id = $parent_explode[1];
         } else {
-            $news->parent_type = 'App\Models\Admin';
+            $news->parent_type = 'App\Models\User';
             $news->parent_id = 1;
         }
 
@@ -226,7 +226,7 @@ class MyNewsController extends BaseController
                     $news->parent_type = 'App\Models\Group';
                     $news->parent_id = $parent_explode[1];
                 } else {
-                    $news->parent_type = 'App\Models\Admin';
+                    $news->parent_type = 'App\Models\User';
                     $news->parent_id = 1;
                 }
 

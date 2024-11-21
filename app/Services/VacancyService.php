@@ -34,7 +34,7 @@ class VacancyService
             $vacancy->parent_type = 'App\Models\Group';
             $vacancy->parent_id = $request->group;
         } else {
-            $vacancy->parent_type = 'App\Models\Admin';
+            $vacancy->parent_type = 'App\Models\User';
             $vacancy->parent_id = 1;
         }
 
@@ -67,7 +67,7 @@ class VacancyService
             $vacancy->parent_type = 'App\Models\Group';
             $vacancy->parent_id = $request->group;
         } else {
-            $vacancy->parent_type = 'App\Models\Admin';
+            $vacancy->parent_type = 'App\Models\User';
             $vacancy->parent_id = 1;
         }
 

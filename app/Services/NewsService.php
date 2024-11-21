@@ -35,7 +35,7 @@ class NewsService
             $news->parent_type = 'App\Models\Group';
             $news->parent_id = $request->group;
         } else {
-            $news->parent_type = 'App\Models\Admin';
+            $news->parent_type = 'App\Models\User';
             $news->parent_id = 1;
         }
 
@@ -104,7 +104,7 @@ class NewsService
             $news->parent_type = 'App\Models\Group';
             $news->parent_id = $request->group;
         } else {
-            $news->parent_type = 'App\Models\Admin';
+            $news->parent_type = 'App\Models\User';
             $news->parent_id = 1;
         }
 

@@ -89,7 +89,7 @@ class MyEventController extends BaseController
             $event->parent_type = 'App\Models\Group';
             $event->parent_id = $parent_explode[1];
         } else {
-            $event->parent_type = 'App\Models\Admin';
+            $event->parent_type = 'App\Models\User';
             $event->parent_id = 1;
         }
 
@@ -205,7 +205,7 @@ class MyEventController extends BaseController
                     $event->parent_type = 'App\Models\Group';
                     $event->parent_id = $parent_explode[1];
                 } else {
-                    $event->parent_type = 'App\Models\Admin';
+                    $event->parent_type = 'App\Models\User';
                     $event->parent_id = 1;
                 }
 

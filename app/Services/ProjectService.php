@@ -38,7 +38,7 @@ class ProjectService
             $project->parent_type = 'App\Models\Group';
             $project->parent_id = $request->group;
         } else {
-            $project->parent_type = 'App\Models\Admin';
+            $project->parent_type = 'App\Models\User';
             $project->parent_id = 1;
         }
 
@@ -80,7 +80,7 @@ class ProjectService
             $project->parent_type = 'App\Models\Group';
             $project->parent_id = $request->group;
         } else {
-            $project->parent_type = 'App\Models\Admin';
+            $project->parent_type = 'App\Models\User';
             $project->parent_id = 1;
         }
 

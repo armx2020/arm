@@ -36,7 +36,7 @@ class EventService
             $event->parent_type = 'App\Models\Group';
             $event->parent_id = $request->group;
         } else {
-            $event->parent_type = 'App\Models\Admin';
+            $event->parent_type = 'App\Models\User';
             $event->parent_id = 1;
         }
 
@@ -77,7 +77,7 @@ class EventService
             $event->parent_type = 'App\Models\Group';
             $event->parent_id = $request->group;
         } else {
-            $event->parent_type = 'App\Models\Admin';
+            $event->parent_type = 'App\Models\User';
             $event->parent_id = 1;
         }
 
