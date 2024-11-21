@@ -26,7 +26,7 @@ class GroupController extends BaseAdminController
 
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::group()->active()->get();
         $users = User::all();
 
         return view('admin.group.create', ['categories' => $categories, 'users' => $users, 'menu' => $this->menu]);
@@ -58,7 +58,7 @@ class GroupController extends BaseAdminController
             return redirect()->route('admin.group.index')->with('alert', 'The group not found');
         }
 
-        $categories = Category::group()->get();
+        $categories = Category::group()->active()->get();
         $users = User::all();
         $user = $group->user;
         $category = $group->category;

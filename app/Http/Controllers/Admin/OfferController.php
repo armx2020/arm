@@ -26,7 +26,7 @@ class OfferController extends BaseAdminController
     public function create()
     {
         $companies = Company::all();
-        $categories = Category::offer()->get();
+        $categories = Category::offer()->active()->get();
 
         return view('admin.offer.create', ['companies' => $companies, 'categories' => $categories, 'menu' => $this->menu]);
     }
@@ -57,7 +57,7 @@ class OfferController extends BaseAdminController
             return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
         }
 
-        $categories = Category::offer()->get();
+        $categories = Category::offer()->active()->get();
         $companies = Company::all();
         $company = $offer->company;
         $category = $offer->category;
