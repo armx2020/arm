@@ -85,7 +85,7 @@
                                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$new->image) }}" alt="{{ $new->name }} image">
                                         @endif
 
-                                        <a href="{{ route('admin.news.show', [ 'news' => $new->id ]) }}">
+                                        <a href="{{ route('admin.news.edit', [ 'news' => $new->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $new->name }}</div>
                                             </div>

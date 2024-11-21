@@ -82,7 +82,7 @@
                                         @else
                                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$project->image) }}" alt="{{ $project->name }}">
                                         @endif
-                                        <a href="{{ route('admin.project.show', [ 'project' => $project->id ]) }}">
+                                        <a href="{{ route('admin.project.edit', [ 'project' => $project->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $project->name }}</div>
                                                 <div class="text-sm font-normal text-gray-500">{{ $project->address}}</div>

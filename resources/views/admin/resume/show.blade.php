@@ -99,7 +99,7 @@
                     <div class="flex-shrink-0 m-1">
                         <span class="text-xl leading-none font-bold text-gray-900">User's </span>
                     </div>
-                    <a href="{{ route('admin.user.show', ['user' => $resume->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                    <a href="{{ route('admin.user.edit', ['user' => $resume->parent->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                         {{ $resume->parent->firstname }}
                     </a>
                 </div>

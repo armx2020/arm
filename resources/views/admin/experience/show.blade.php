@@ -46,7 +46,7 @@
                                                 {{ $experience->start_worktime }} - {{ $experience->end_worktime }}
                                             </td>
                                             <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-                                                <a href="{{ route('admin.resume.show', ['resume' => $experience->resume->id]) }}">
+                                                <a href="{{ route('admin.resume.edit', ['resume' => $experience->resume->id]) }}">
                                                 {{ $experience->resume->name }}
                                                 </a>
                                             </td>

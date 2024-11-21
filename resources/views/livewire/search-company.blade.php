@@ -85,7 +85,7 @@
                                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$company->image) }}" alt="{{ $company->image }} avatar">
                                         @endif
 
-                                        <a href="{{ route('admin.company.show', [ 'company' => $company->id ]) }}">
+                                        <a href="{{ route('admin.company.edit', [ 'company' => $company->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $company->name }}</div>
                                                 <div class="text-sm font-normal text-gray-500">{{ $company->address}}</div>

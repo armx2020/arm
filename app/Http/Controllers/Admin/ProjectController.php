@@ -52,7 +52,7 @@ class ProjectController extends BaseAdminController
             return redirect()->route('admin.project.index')->with('alert', 'The event not found');
         }
 
-        return view('admin.project.show', ['project' => $project, 'menu' => $this->menu]);
+        return view('admin.project.edit', ['project' => $project, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)

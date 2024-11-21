@@ -59,7 +59,7 @@
                                 @foreach($experiences as $experience)
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                                        <a href="{{ route('admin.experience.show', [ 'experience' => $experience->id ]) }}">
+                                        <a href="{{ route('admin.experience.edit', [ 'experience' => $experience->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $experience->name }}</div>
                                             </div>

@@ -47,7 +47,7 @@ class GroupController extends BaseAdminController
             return redirect()->route('admin.group.index')->with('alert', 'The group not found');
         }
 
-        return view('admin.group.show', ['group' => $group, 'menu' => $this->menu]);
+        return view('admin.group.edit', ['group' => $group, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -83,7 +83,7 @@ class GroupController extends BaseAdminController
 
         $group = $this->groupService->update($request, $group);
 
-        return redirect()->route('admin.group.show', ['group' => $group->id])
+        return redirect()->route('admin.group.edit', ['group' => $group->id])
             ->with('success', 'The group updated');
     }
 

@@ -82,7 +82,7 @@
                                         @else
                                         <img class="h-10 w-10 rounded-lg object-cover m-4" src="{{ asset( 'storage/'.$group->image) }}" alt="{{ $group->image }}">
                                         @endif
-                                        <a href="{{ route('admin.group.show', [ 'group' => $group->id ]) }}">
+                                        <a href="{{ route('admin.group.edit', [ 'group' => $group->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $group->name }}</div>
                                                 <div class="text-sm font-normal text-gray-500">

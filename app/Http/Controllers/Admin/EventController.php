@@ -52,7 +52,7 @@ class EventController extends BaseAdminController
             return redirect()->route('admin.event.index')->with('alert', 'The event not found');
         }
 
-        return view('admin.event.show', ['event' => $event, 'menu' => $this->menu]);
+        return view('admin.event.edit', ['event' => $event, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)

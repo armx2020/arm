@@ -77,7 +77,7 @@
                                 @foreach($vacancies as $vacancy)
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                                        <a href="{{ route('admin.vacancy.show', [ 'vacancy' => $vacancy->id ]) }}">
+                                        <a href="{{ route('admin.vacancy.edit', [ 'vacancy' => $vacancy->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $vacancy->name }}</div>
                                                 <div class="text-sm font-normal text-gray-500">{{ $vacancy->address}}</div>

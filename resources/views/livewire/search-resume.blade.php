@@ -78,7 +78,7 @@
                                 @foreach($resumes as $resume)
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                                        <a href="{{ route('admin.resume.show', [ 'resume' => $resume->id ]) }}">
+                                        <a href="{{ route('admin.resume.edit', [ 'resume' => $resume->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $resume->name }}</div>
                                                 <div class="text-sm font-normal text-gray-500">{{ $resume->address}}</div>

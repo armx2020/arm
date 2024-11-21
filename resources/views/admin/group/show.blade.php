@@ -144,7 +144,7 @@
             <div class="flex-shrink-0 m-1">
                 <span class="text-xl leading-none font-bold text-gray-900">Administrator</span>
             </div>
-            <a href="{{ route('admin.user.show', ['user' => $group->user->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+            <a href="{{ route('admin.user.edit', ['user' => $group->user->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                 {{ $group->user->firstname }} {{ $group->user->lastname }}
             </a>
         </div>
@@ -155,7 +155,7 @@
             <div class="flex-shrink-0 m-1">
                 <span class="text-xl leading-none font-bold text-gray-900">Category's </span>
             </div>
-            <a href="{{ route('admin.category.show', ['category' => $group->category->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+            <a href="{{ route('admin.category.edit', ['category' => $group->category->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                 {{ $group->category->name }}
             </a>
         </div>
@@ -169,7 +169,7 @@
             <ul class="flex flex-wrap">
                 @foreach ($group->users as $group)
                 <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                    <a href="{{ route('admin.groups.show', ['group' => $group->id]) }}">
+                    <a href="{{ route('admin.groups.edit', ['group' => $group->id]) }}">
                         {{ $group->firstname }} {{ $group->lastname }}
                     </a>
                 </li>

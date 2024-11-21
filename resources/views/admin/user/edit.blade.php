@@ -37,15 +37,10 @@
 
 
                                 <div class="grid grid-cols-6 gap-6">
-                                    <div class="col-span-6 sm:col-span-3">
+                                    <div class="col-span-6">
                                         <label for="firstname" class="text-sm font-medium text-gray-900 block mb-2">First Name*</label>
                                         <input type="text" name="firstname" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $user->firstname }}" required>
                                         <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="lastname" class="text-sm font-medium text-gray-900 block mb-2">Last Name*</label>
-                                        <input type="text" name="lastname" id="lastname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" value="{{ $user->lastname }}" required>
-                                        <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6">
                                         <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Email*</label>

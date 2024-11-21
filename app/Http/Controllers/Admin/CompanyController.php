@@ -43,7 +43,7 @@ class CompanyController extends BaseAdminController
         if (empty($company)) {
             return redirect()->route('admin.company.index')->with('alert', 'The company not found');
         }
-        return view('admin.company.show', ['company' => $company, 'menu' => $this->menu]);
+        return view('admin.company.edit', ['company' => $company, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -69,7 +69,7 @@ class CompanyController extends BaseAdminController
 
         $company = $this->companyService->update($request, $company);
 
-        return redirect()->route('admin.company.show', ['company' => $company->id])
+        return redirect()->route('admin.company.edit', ['company' => $company->id])
             ->with('success', "The company updated");
     }
 

@@ -46,7 +46,7 @@ class OfferController extends BaseAdminController
             return redirect()->route('admin.offer.index')->with('alert', 'The offer not found');
         }
 
-        return view('admin.offer.show', ['offer' => $offer, 'menu' => $this->menu]);
+        return view('admin.offer.edit', ['offer' => $offer, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -82,7 +82,7 @@ class OfferController extends BaseAdminController
 
         $offer = $this->offerService->update($request, $offer);
 
-        return redirect()->route('admin.offer.show', ['offer' => $offer->id])
+        return redirect()->route('admin.offer.edit', ['offer' => $offer->id])
             ->with('success', 'The offer updated');
     }
 

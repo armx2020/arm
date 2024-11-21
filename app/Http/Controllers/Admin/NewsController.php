@@ -52,7 +52,7 @@ class NewsController extends BaseAdminController
             return redirect()->route('admin.news.index')->with('alert', 'The news not found');
         }
 
-        return view('admin.news.show', ['news' => $news, 'menu' => $this->menu]);
+        return view('admin.news.edit', ['news' => $news, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)

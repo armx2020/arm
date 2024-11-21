@@ -85,7 +85,7 @@
                                     @foreach($events as $event)
                                     <tr>
                                         <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                            <a href="{{ route('admin.event.show', [ 'event' => $event->id ]) }}">
+                                            <a href="{{ route('admin.event.edit', [ 'event' => $event->id ]) }}">
                                                 {{ $event->name }}
                                             </a>
                                         </td>
@@ -140,7 +140,7 @@
                                 @endif
                             </div>
                             <div class="flex-1 min-w-0">
-                                <a href="{{ route('admin.user.show', [ 'user' => $user->id ]) }}">
+                                <a href="{{ route('admin.user.edit', [ 'user' => $user->id ]) }}">
                                     <p class="text-sm font-medium text-gray-900 truncate">
                                         {{ $user -> firstname }} {{ $user -> lastname }}
                                     </p>

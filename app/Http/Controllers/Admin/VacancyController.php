@@ -54,7 +54,7 @@ class VacancyController extends BaseAdminController
             return redirect()->route('admin.vacancy.index')->with('alert', 'The vacancy not found');
         }
 
-        return view('admin.vacancy.show', ['vacancy' => $vacancy, 'menu' => $this->menu]);
+        return view('admin.vacancy.edit', ['vacancy' => $vacancy, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)

@@ -36,7 +36,7 @@
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         <tr class="hover:bg-gray-100">
                                             <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                                                <a href="{{ route('admin.groupCategory.show', [ 'groupCategory' => $category->id ]) }}">
+                                                <a href="{{ route('admin.category.edit', [ 'category' => $category->id ]) }}">
                                                     <div class="text-sm font-normal text-gray-500">
                                                         <div class="text-base font-semibold text-gray-900">{{ $category->name }}</div>
                                                     </div>
@@ -66,7 +66,7 @@
                                                         </svg>
                                                         Edit category
                                                     </a>
-                                                    <form action="{{ route('admin.groupCategory.destroy', ['groupCategory' => $category->id]) }}" method="post">
+                                                    <form action="{{ route('admin.category.destroy', ['category' => $category->id]) }}" method="post">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" data-modal-toggle="delete-user-modal" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
@@ -96,7 +96,7 @@
                     <ul class="flex flex-wrap">
                         @foreach($category->groups as $group)
                         <li class="my-2">
-                            <a href="{{ route('admin.groups.show', ['group' => $group->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                            <a href="{{ route('admin.groups.edit', ['group' => $group->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                                 {{ $group->name }}
                             </a>
                         </li>

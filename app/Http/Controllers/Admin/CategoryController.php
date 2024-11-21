@@ -40,7 +40,7 @@ class CategoryController extends BaseAdminController
             return redirect()->route('admin.Category.index')->with('alert', 'The category not found');
         }
 
-        return view('admin.category.show', ['category' => $category, 'menu' => $this->menu]);
+        return view('admin.category.edit', ['category' => $category, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -64,7 +64,7 @@ class CategoryController extends BaseAdminController
 
         $category = $this->categoryService->update($request, $category);
 
-        return redirect()->route('admin.category.show', ['category'=> $category->id])
+        return redirect()->route('admin.category.edit', ['category'=> $category->id])
                         ->with('success', 'The category updated');
     }
 

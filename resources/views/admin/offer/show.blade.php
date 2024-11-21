@@ -157,7 +157,7 @@
             <div class="flex-shrink-0 m-1">
                 <span class="text-xl leading-none font-bold text-gray-900">Company's </span>
             </div>
-            <a href="{{ route('admin.company.show', ['company' => $offer->company->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+            <a href="{{ route('admin.company.edit', ['company' => $offer->company->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                 {{ $offer->company->name }}
             </a>
         </div>
@@ -168,7 +168,7 @@
             <div class="flex-shrink-0 m-1">
                 <span class="text-xl leading-none font-bold text-gray-900">Category's </span>
             </div>
-            <a href="{{ route('admin.category.show', ['category' => $offer->category->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+            <a href="{{ route('admin.category.edit', ['category' => $offer->category->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                 {{ $offer->category->name }}
             </a>
         </div>

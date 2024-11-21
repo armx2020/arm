@@ -43,7 +43,7 @@ class ResumeController extends BaseAdminController
             return redirect()->route('admin.resume.index')->with('alert', 'The resume not found');
         }
 
-        return view('admin.resume.show', ['resume' => $resume, 'menu' => $this->menu]);
+        return view('admin.resume.edit', ['resume' => $resume, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)

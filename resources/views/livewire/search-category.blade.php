@@ -78,7 +78,7 @@
                                 @foreach($categories as $category)
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                                        <a href="{{ route('admin.category.show', [ 'category' => $category->id ]) }}">
+                                        <a href="{{ route('admin.category.edit', [ 'category' => $category->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $category->name }}</div>
                                             </div>

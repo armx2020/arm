@@ -36,7 +36,7 @@
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         <tr class="hover:bg-gray-100">
                                             <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                                                <a href="{{ route('admin.groupCategory.show', [ 'groupCategory' => $category->id ]) }}">
+                                                <a href="{{ route('admin.category.edit', [ 'category' => $category->id ]) }}">
                                                     <div class="text-sm font-normal text-gray-500">
                                                         <div class="text-base font-semibold text-gray-900">{{ $category->name }}</div>
                                                     </div>
@@ -98,7 +98,7 @@
                     <ul class="flex flex-wrap">
                         @foreach($category->offers as $offer)
                         <li class="my-2">
-                            <a href="{{ route('admin.offer.show', ['offer' => $offer->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
+                            <a href="{{ route('admin.offer.edit', ['offer' => $offer->id ]) }}" class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
                                 {{ $offer->name }}
                             </a>
                         </li>

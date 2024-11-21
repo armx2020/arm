@@ -85,7 +85,7 @@
                                         @else
                                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset( 'storage/'.$offer->image) }}" alt="{{ $offer->image }}">
                                         @endif
-                                        <a href="{{ route('admin.offer.show', [ 'offer' => $offer->id ]) }}">
+                                        <a href="{{ route('admin.offer.edit', [ 'offer' => $offer->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $offer->name }}</div>
                                                 <div class="text-sm font-normal text-gray-500">{{ $offer->address}}</div>

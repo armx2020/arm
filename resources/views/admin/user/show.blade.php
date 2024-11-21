@@ -188,7 +188,7 @@
             <ul class="flex flex-wrap">
                 @foreach ($user->companies as $company)
                 <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                    <a href="{{ route('admin.company.show', ['company' => $company->id]) }}">
+                    <a href="{{ route('admin.company.edit', ['company' => $company->id]) }}">
                         {{ $company->name }}
                     </a>
                 </li>
@@ -206,7 +206,7 @@
             <ul class="flex flex-wrap">
                 @foreach ($user->works as $vacancy)
                 <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                    <a href="{{ route('admin.vacancy.show', ['vacancy' => $vacancy->id]) }}">
+                    <a href="{{ route('admin.vacancy.edit', ['vacancy' => $vacancy->id]) }}">
                         {{ $vacancy->name }}
                     </a>
                 </li>
@@ -224,7 +224,7 @@
             <ul class="flex flex-wrap">
                 @foreach ($user->groups as $group)
                 <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                    <a href="{{ route('admin.group.show' , ['group' => $group->id]) }}">
+                    <a href="{{ route('admin.group.edit' , ['group' => $group->id]) }}">
                         {{ $group->name }}
                     </a>
                 </li>
@@ -242,7 +242,7 @@
             <ul class="flex flex-wrap">
                 @foreach ($user->works as $resume)
                 <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                    <a href="{{ route('admin.resume.show', ['resume' => $resume->id]) }}">
+                    <a href="{{ route('admin.resume.edit', ['resume' => $resume->id]) }}">
                         {{ $resume->name }}
                     </a>
                 </li>
@@ -260,7 +260,7 @@
             <ul class="flex flex-wrap">
                 @foreach ($user->projects as $project)
                 <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                    <a href="{{ route('admin.project.show', ['project' => $project->id]) }}">
+                    <a href="{{ route('admin.project.edit', ['project' => $project->id]) }}">
                         {{ $project->name }}
                     </a>
                 </li>
@@ -278,7 +278,7 @@
             <ul class="flex flex-wrap">
                 @foreach ($user->events as $event)
                 <li class=" text-lg p-1 m-1  rounded-md text-gray-500 bg-green-200">
-                    <a href="{{ route('admin.event.show', ['event' => $event->id]) }}">
+                    <a href="{{ route('admin.event.edit', ['event' => $event->id]) }}">
                         {{ $event->name }}
                     </a>
                 </li>

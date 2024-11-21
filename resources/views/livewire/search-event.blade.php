@@ -84,7 +84,7 @@
                                         <img class="h-10 w-10 object-cover rounded-lg m-4" src="{{ asset( 'storage/'.$event->image) }}" alt="{{ $event->name }}">
                                         @endif
 
-                                        <a href="{{ route('admin.event.show', [ 'event' => $event->id ]) }}">
+                                        <a href="{{ route('admin.event.edit', [ 'event' => $event->id ]) }}">
                                             <div class="text-sm font-normal text-gray-500">
                                                 <div class="text-base font-semibold text-gray-900">{{ $event->name }}</div>
                                             </div>

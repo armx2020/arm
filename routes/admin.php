@@ -21,20 +21,38 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::middleware(['auth:admin', 'verified'])->group(function () {
         
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        
-        Route::resources([
-            'user'          =>  UserController::class,
-            'company'       =>  CompanyController::class,
-            'category'      =>  CategoryController::class,
-            'group'         =>  GroupController::class,
-            'offer'         =>  OfferController::class,
-            'resume'        =>  ResumeController::class,
-            'vacancy'       =>  VacancyController::class,
-            'event'         =>  EventController::class,
-            'news'          =>  NewsController::class,
-            'project'       =>  ProjectController::class
+
+        Route::resource('user', UserController::class)->except([
+            'show'
         ]);
-        
+        Route::resource('company', CompanyController::class)->except([
+            'show'
+        ]);
+        Route::resource('category', CategoryController::class)->except([
+            'show'
+        ]);
+        Route::resource('group', GroupController::class)->except([
+            'show'
+        ]);
+        Route::resource('resume', ResumeController::class)->except([
+            'show'
+        ]);
+        Route::resource('offer', OfferController::class)->except([
+            'show'
+        ]);
+        Route::resource('vacancy', VacancyController::class)->except([
+            'show'
+        ]);
+        Route::resource('event', EventController::class)->except([
+            'show'
+        ]);
+        Route::resource('news', NewsController::class)->except([
+            'show'
+        ]);
+        Route::resource('project', ProjectController::class)->except([
+            'show'
+        ]);
+              
     });
 
 

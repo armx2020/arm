@@ -51,7 +51,7 @@ class UserController extends BaseAdminController
             return redirect()->route('admin.user.index')->with('alert', 'The user not found');
         }
 
-        return view('admin.user.show', ['user' => $user, 'menu' => $this->menu]);
+        return view('admin.user.edit', ['user' => $user, 'menu' => $this->menu]);
     }
 
     public function edit(string $id)
@@ -75,7 +75,7 @@ class UserController extends BaseAdminController
 
         $user = $this->userService->update($request, $user);
 
-        return redirect()->route('admin.user.show', ['user' => $user->id])
+        return redirect()->route('admin.user.edit', ['user' => $user->id])
             ->with('success', "The user updated");
     }
 
