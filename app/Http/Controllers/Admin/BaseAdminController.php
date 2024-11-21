@@ -42,16 +42,18 @@ abstract class BaseAdminController extends Controller
                 'sub' => []
             ],
             [
-                'name' => 'Резюме',
-                'route' => 'admin.resume.index',
-                'routeIs' => 'admin.resume.*',
-                'sub' => []
-            ],
-            [
-                'name' => 'Вакансии',
-                'route' => 'admin.vacancy.index',
-                'routeIs' => 'admin.vacancy.*',
-                'sub' => []
+                'name' => 'Работа',
+                'route' => '',
+                'sub' => [
+                    [
+                        'name' => 'Резюме',
+                        'route' => 'admin.resume.index'
+                    ],
+                    [
+                        'name' => 'Вакансии',
+                        'route' => 'admin.vacancy.index'
+                    ],
+                ]
             ],
             [
                 'name' => 'События',

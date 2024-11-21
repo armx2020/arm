@@ -50,7 +50,7 @@
                     </a>
                 </div>
                 <div class="bg-[#dbe6fb] rounded-xl block lg:col-span-1 p-2 lg:p-4 h-56 md:h-64 lg:h-72">
-                    <a href="{{ route('works.index') }}">
+                    <a href="{{ route('offers.index') }}">
                         <div class="flex flex-col h-full w-32 md:w-48 relative">
                             <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Бизнес
                                 справочник</p>

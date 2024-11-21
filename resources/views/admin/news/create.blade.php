@@ -72,9 +72,12 @@
                                     </div>
                                 </div>
                                 <hr class="my-5">
-                                <div class="flex flex-row ">
-                                    <label for="image" class="text-center text-sm font-medium text-gray-900 basis-1/6 my-2">image</label>
-                                    <input type="file" name="image" id="image" class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5">
+                                <div class="flex flex-row">
+                                    <label for="image" class="text-center text-sm font-medium text-gray-900 basis-1/6 my-2">Image</label>
+                                    <div id="dropzone" class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5 border-2 border-dashed border-gray-300 flex justify-center items-center cursor-pointer">
+                                        <p class="text-gray-500 text-sm text-center">Перетащите изображение сюда или нажмите, чтобы выбрать файл</p>
+                                        <input type="file" name="image" id="image" class="hidden" accept="image/*">
+                                    </div>
                                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                                 </div>
                                 <div class="items-center py-6 border-gray-200 rounded-b">
@@ -131,6 +134,45 @@
                 $('#User').hide();
                 $('#Company').hide();
                 $('#Group').hide();
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        let dropzone = $("#dropzone");
+        let fileInput = $("#image");
+
+        const dragOverClasses = "border-cyan-600 bg-cyan-50";
+
+        dropzone.on("click", function (e) {
+            fileInput[0].click();
+        });
+
+        dropzone.on("dragover", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.addClass(dragOverClasses);
+        });
+
+        dropzone.on("dragleave drop", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.removeClass(dragOverClasses);
+        });
+
+        dropzone.on("drop", function (e) {
+            let files = e.originalEvent.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput[0].files = files;
+                fileInput.trigger("change");
+            }
+        });
+
+        fileInput.on("change", function () {
+            if (fileInput[0].files.length > 0) {
+                let fileName = fileInput[0].files[0].name;
+                dropzone.find("p").text(fileName);
             }
         });
     });
