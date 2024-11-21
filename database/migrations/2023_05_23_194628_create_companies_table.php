@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name', 40)->fulltext();
+            $table->string('name', 255)->fulltext();
             $table->boolean('activity')->default(true);
             $table->string('address', 128)->nullable()->index();
             $table->string('image', 255)->nullable();

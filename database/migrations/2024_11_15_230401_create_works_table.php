@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('works', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name', 40)->fulltext();
+            $table->string('name', 255)->fulltext();
             $table->enum('type', ['resume', 'vacancy'])->default('resume')->index();
             $table->boolean('activity')->default(true);
             $table->string('address', 128)->nullable();

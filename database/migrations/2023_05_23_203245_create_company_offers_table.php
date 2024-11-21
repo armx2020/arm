@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('company_offers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name', 40)->fulltext();
+            $table->string('name', 255)->fulltext();
             $table->boolean('activity')->default(true)->index();
             $table->string('address', 128)->nullable();
             $table->text('description')->nullable()->fulltext();

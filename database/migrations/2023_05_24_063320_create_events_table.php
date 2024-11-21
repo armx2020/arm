@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->date('date_to_start')->index();
-            $table->string('name', 40)->index();
+            $table->string('name', 255)->index();
             $table->boolean('activity')->default(true)->index();
             $table->text('description')->nullable()->fulltext();
             $table->string('address', 128)->nullable();

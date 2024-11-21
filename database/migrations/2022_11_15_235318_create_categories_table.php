@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name', 40)->fulltext();
+            $table->string('name', 255)->fulltext();
             $table->integer('sort_id')->index();
             $table->boolean('activity')->default(true);
             $table->enum('type', ['group', 'offer', 'event']);

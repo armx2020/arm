@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name', 60)->fulltext();
+            $table->string('name', 255)->fulltext();
             $table->boolean('activity')->default(true)->index();
             $table->string('address', 128)->nullable();
             $table->text('description')->nullable()->fulltext();
