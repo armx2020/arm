@@ -9,7 +9,7 @@
                         <div class="flex items-start p-5 border-b rounded-t">
                             <div class="flex items-center mb-4">
                                 <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png')}}" alt="image">
-                                <h3 class="text-2xl font-bold leading-none text-gray-900">New company</h3>
+                                <h3 class="text-2xl font-bold leading-none text-gray-900">Новая компания</h3>
                             </div>
                         </div>
                         <div class="p-6 space-y-6">
@@ -17,27 +17,27 @@
                                 @csrf
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Name*</label>
+                                        <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
                                         <input type="text" name="name" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required :value="old('name')">
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Address</label>
+                                        <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
                                         <input type="text" name="address" id="address" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('address')">
                                         <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="description" class="text-sm font-medium text-gray-900 block mb-2">Description</label>
+                                        <label for="description" class="text-sm font-medium text-gray-900 block mb-2">Описание</label>
                                         <input type="text" name="description" id="description" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('description')">
                                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number</label>
+                                        <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
                                         <input type="tel" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('phone')">
                                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6">
-                                        <label for="user" class="text-sm font-medium text-gray-900 block mb-2">User</label>
+                                        <label for="user" class="text-sm font-medium text-gray-900 block mb-2">Пользователь</label>
                                         <select name="user" id="user" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                         <option selected value="">no user</option>
                                             @foreach( $users as $user)
@@ -48,13 +48,12 @@
                                     <div class="col-span-6">
                                         <label for="city" class="text-sm font-medium text-gray-900 block mb-2">City*</label>
                                         <select name="city" class="w-full" id="dd_city">
-                                            <option value='1'>-- select city --</option>
+                                            <option value='1'>-- выбор города --</option>
                                         </select>
                                     </div>
                                 </div>
                                 <hr class="my-5">
                                 <div class="flex flex-row">
-                                    <label for="image" class="text-center text-sm font-medium text-gray-900 basis-1/6 my-2">Image</label>
                                     <div id="dropzone" class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5 border-2 border-dashed border-gray-300 flex justify-center items-center cursor-pointer">
                                         <p class="text-gray-500 text-sm text-center">Перетащите изображение сюда или нажмите, чтобы выбрать файл</p>
                                         <input type="file" name="image" id="image" class="hidden" accept="image/*">
@@ -95,7 +94,7 @@
                                     </div>
                                 </div>
                                 <div class="items-center py-6 border-gray-200 rounded-b">
-                                    <button class="text-white w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add company</button>
+                                    <button class="text-white w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Добавить</button>
                                 </div>
                             </form>
                         </div>
