@@ -21,7 +21,6 @@ class UserService
         $user = new User();
 
         $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
@@ -54,7 +53,6 @@ class UserService
         }
 
         $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->city_id = $request->city;
