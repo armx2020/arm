@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\VacancyController;
 
 Route::name('admin.')->prefix('admin')->group(function () {
 
-    Route::middleware(['auth:admin', 'verified'])->group(function () {
+    Route::middleware(['verified', 'role:super-admin'])->group(function () {
         
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -53,15 +53,5 @@ Route::name('admin.')->prefix('admin')->group(function () {
             'show'
         ]);
               
-    });
-
-
-    Route::group(['middleware' => 'guest:admin'], function () {
-        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-        Route::post('/login', [LoginController::class, 'login']);
-    });
-
-    Route::group(['middleware' => 'auth:admin'], function () {
-        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     });
 });

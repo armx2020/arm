@@ -45,7 +45,7 @@
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('admin.logout') }}">
+                <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
                     <button type="submit" class="inline-block text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg px-6 pb-2 pt-2.5 text-white">

@@ -1331,16 +1331,6 @@ class DeploySeeder extends Seeder
             }
         }
 
-        /* Add admins */
-        DB::table('admins')->insert([
-            'login' => 'root',
-            'password' => Hash::make('root'),
-        ]);
-        DB::table('admins')->insert([
-            'login' => 'root1',
-            'password' => Hash::make('root'),
-        ]);
-
         /* Add categories for group*/
         DB::table('categories')->insert([
             'name' => 'Общины',
