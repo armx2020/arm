@@ -1,25 +1,25 @@
 <div class="py-6 px-4 max-w-7xl mx-auto rounded-t-lg">
+    @if (session('success'))
+    <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
+        {{ session('success')}}
+    </div>
+    @endif
+    @if (session('alert'))
+    <div class="mb-4 rounded-lg bg-yellow-100 px-6 py-5 text-base text-yellow-700" role="alert">
+        {{ session('alert')}}
+    </div>
+    @endif
     <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200">
         <div class="mb-3 w-full">
-            @if (session('success'))
-            <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
-                {{ session('success')}}
-            </div>
-            @endif
-            @if (session('alert'))
-            <div class="mb-4 rounded-lg bg-yellow-100 px-6 py-5 text-base text-yellow-700" role="alert">
-                {{ session('alert')}}
-            </div>
-            @endif
             <div class="mb-4">
                 <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Все новости</h1>
             </div>
             <div class="sm:flex">
                 <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
                     <form class="lg:pr-3" action="#" method="GET">
-                        <label for="users-search" class="sr-only">Search</label>
+                        <label for="search" class="sr-only">Search</label>
                         <div class="mt-1 relative lg:w-64 xl:w-96">
-                            <input type="text" wire:model="term" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Поиск">
+                            <input type="text" wire:model="term" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Поиск">
                         </div>
                     </form>
                 </div>
@@ -76,7 +76,7 @@
                             <tbody class="bg-white divide-y divide-gray-200">
 
                                 @foreach($news as $new)
-                                <tr class="hover:bg-gray-100">
+                                <tr class="hover:bg-gray-200">
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
 
                                         @if( $new->image == null)

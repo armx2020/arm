@@ -1,25 +1,25 @@
 <div class="py-6 px-4 max-w-7xl mx-auto rounded-t-lg">
+    @if (session('success'))
+    <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
+        {{ session('success')}}
+    </div>
+    @endif
+    @if (session('alert'))
+    <div class="mb-4 rounded-lg bg-yellow-100 px-6 py-5 text-base text-yellow-700" role="alert">
+        {{ session('alert')}}
+    </div>
+    @endif
     <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200">
         <div class="mb-3 w-full">
-            @if (session('success'))
-            <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
-                {{ session('success')}}
-            </div>
-            @endif
-            @if (session('alert'))
-            <div class="mb-4 rounded-lg bg-yellow-100 px-6 py-5 text-base text-yellow-700" role="alert">
-                {{ session('alert')}}
-            </div>
-            @endif
             <div class="mb-4">
                 <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Все вакансии</h1>
             </div>
             <div class="sm:flex">
                 <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
                     <form class="lg:pr-3" action="#" method="GET">
-                        <label for="users-search" class="sr-only">Search</label>
+                        <label for="search" class="sr-only">Search</label>
                         <div class="mt-1 relative lg:w-64 xl:w-96">
-                            <input type="text"  wire:model="term" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Поиск">
+                            <input type="text" wire:model="term" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Поиск">
                         </div>
                     </form>
                 </div>
@@ -55,7 +55,7 @@
                 <div class="align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden">
                         <table class="table-fixed min-w-full divide-y divide-gray-200 p-5">
-                            <thead class="bg-gray-100">
+                            <thead class="bg-gray-200">
                                 <tr>
                                     <th scope="col" class="w-1/3 p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                         Название

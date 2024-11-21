@@ -22,7 +22,7 @@ class GroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'          => ['required', 'string', 'max:40'],
+            'name'          => ['required', 'string', 'max:255'],
             'address'       => ['max:128'],
             'phone'         => ['max:36'],
             'web'           => ['max:250'],

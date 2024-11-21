@@ -1,25 +1,27 @@
-<div  class="py-6 px-4 max-w-7xl mx-auto rounded-t-lg">
+<div class="py-6 px-4 max-w-7xl mx-auto rounded-t-lg">
+
+    @if (session('success'))
+    <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
+        {{ session('success')}}
+    </div>
+    @endif
+    @if (session('alert'))
+    <div class="mb-4 rounded-lg bg-yellow-100 px-6 py-5 text-base text-yellow-700" role="alert">
+        {{ session('alert')}}
+    </div>
+    @endif
+
     <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200">
         <div class="mb-3 w-full">
-            @if (session('success'))
-            <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
-                {{ session('success')}}
-            </div>
-            @endif
-            @if (session('alert'))
-            <div class="mb-4 rounded-lg bg-yellow-100 px-6 py-5 text-base text-yellow-700" role="alert">
-                {{ session('alert')}}
-            </div>
-            @endif
             <div class="mb-4">
                 <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Все категории</h1>
             </div>
             <div class="sm:flex">
                 <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
                     <form class="lg:pr-3" action="#" method="GET">
-                        <label for="users-search" class="sr-only">Search</label>
+                        <label for="search" class="sr-only">Search</label>
                         <div class="mt-1 relative lg:w-64 xl:w-96">
-                            <input type="text" wire:model="term" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Поиск">
+                            <input type="text" wire:model="term" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Поиск">
                         </div>
                     </form>
                 </div>
@@ -55,18 +57,18 @@
                 <div class="align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden">
                         <table class="table-auto min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-100">
+                            <thead class="bg-gray-200">
                                 <tr>
-                                    <th scope="col" class="p-4 w-1/3 text-left text-xs font-medium text-gray-500 uppercase">
+                                    <th scope="col-3" class="p-4 w-1/3 text-left text-xs font-medium text-gray-500 uppercase">
                                         Имя
                                     </th>
-                                    <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                    <th scope="col-2" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                         Сортировка
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium text-gray-500 uppercase">
+                                    <th scope="col-2" class="p-4 text-xs font-medium text-gray-500 uppercase">
                                         Тип
                                     </th>
-                                    <th scope="col" class="p-4 text-xs font-medium text-gray-500 uppercase">
+                                    <th scope="col-2" class="p-4 text-xs font-medium text-gray-500 uppercase">
                                         Активность
                                     </th>
                                     <th scope="col" class="p-4">
@@ -88,7 +90,17 @@
                                         {{ $category->sort_id }}
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-center text-base font-medium text-gray-900">
-                                        {{ $category->type }}
+                                        @switch($category->type)
+                                        @case('event')
+                                        Событие
+                                        @break
+                                        @case('group')
+                                        Группа
+                                        @break
+                                        @case('offer')
+                                        Предложение
+                                        @break
+                                        @endswitch
                                     </td>
                                     <td class="p-4 whitespace-nowrap text-base font-normal text-gray-900">
                                         <div class="flex items-center">
@@ -108,7 +120,7 @@
                                                     <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                                     </svg>
-                                                    Delete category
+                                                    удалить
                                                 </button>
                                             </form>
                                         </div>
