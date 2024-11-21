@@ -36,16 +36,6 @@
                                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="price" class="text-sm font-medium text-gray-900 block mb-2">Price</label>
-                                        <input type="number" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('price')" required value="0">
-                                        <x-input-error :messages="$errors->get('price')" class="mt-2" />
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="unit_of_price" class="text-sm font-medium text-gray-900 block mb-2">Unit of price</label>
-                                        <input type="text" name="unit_of_price" id="unit_of_price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('unit_of_price')" value="RUB">
-                                        <x-input-error :messages="$errors->get('unit_of_price')" class="mt-2" />
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="company" class="text-sm font-medium text-gray-900 block mb-2">Company*</label>
                                         <select name="company" id="company" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                         <option value="">no company</option>
