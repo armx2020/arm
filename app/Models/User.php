@@ -10,7 +10,6 @@ use App\Models\Traits\HasEvents;
 use App\Models\Traits\HasGroups;
 use App\Models\Traits\HasProjects;
 use App\Models\Traits\HasRegion;
-use App\Models\Traits\HasResumes;
 use App\Models\Traits\Search;
 use App\Models\Traits\HasNews;
 use App\Models\Traits\HasWorks;
@@ -51,12 +50,6 @@ class User extends Authenticatable
         return $this->inGroups()->where('group_id', $group->id)->exists();
     }
 
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'firstname',
         'phone',
@@ -65,21 +58,11 @@ class User extends Authenticatable
         'last_active_at'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
