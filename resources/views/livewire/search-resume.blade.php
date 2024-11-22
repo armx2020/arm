@@ -1,4 +1,4 @@
-<div class="py-6 px-4 max-w-7xl mx-auto rounded-t-lg">
+<div class="py-6 pb-0 px-4 max-w-7xl mx-auto rounded-t-lg">
     @if (session('success'))
     <div class="mb-4 rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
         {{ session('success')}}

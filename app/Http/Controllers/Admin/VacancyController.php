@@ -20,9 +20,9 @@ class VacancyController extends BaseAdminController
 
     public function index()
     {
-        $vacancies = Work::vacancy()->with('parent')->latest()->paginate(20);
-
-        return view('admin.vacancy.index', ['vacancies' => $vacancies, 'menu' => $this->menu]);
+//        $vacancies = Work::vacancy()->with('parent')->latest()->paginate(20);
+//        return view('admin.vacancy.index', ['vacancies' => $vacancies, 'menu' => $this->menu]);
+        abort(404);
     }
 
     public function create()
