@@ -24,7 +24,7 @@
                                 @method('PUT')
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Имя *</label>
+                                        <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
                                         <input type="text" name="name" id="firstname" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required autofocus autocomplete="name" value="{{ $category->name }}">
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
@@ -53,7 +53,32 @@
                                             <option value="offer" selected>Для предложений</option>
                                             @break
                                             @endswitch
-
+                                            <option value="">Не выбрано</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-span-6" id="parent">
+                                        <label for="parent" class="text-sm font-medium text-gray-900 block mb-2">Родительская</label>
+                                        <select name="parent" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                            @if($category->category_id)
+                                            <option value="{{ $category->parent->id }}">{{ $category->parent->name }} @empty($category->parent->category_id) - ГЛАВНАЯ @endempty</option>
+                                            @else
+                                            <option value="">Не выбрано</option>
+                                            @endif
+                                            <optgroup label="категории событий" class="event">
+                                                @foreach($categoriesForEvents as $category)
+                                                <option value="{{ $category->id }}" class="event">{{ $category->name }} @empty($category->category_id) - ГЛАВНАЯ @endempty</option>
+                                                @endforeach
+                                            </optgroup>
+                                            <optgroup label="категории групп" class="group">
+                                                @foreach($categoriesForGroups as $category)
+                                                <option value="{{ $category->id }}" class="group">{{ $category->name }} @empty($category->category_id) - ГЛАВНАЯ @endempty</option>
+                                                @endforeach
+                                            </optgroup>
+                                            <optgroup label="категории предложений" class="offer">
+                                                @foreach($categoriesForOffers as $category)
+                                                <option value="{{ $category->id }}" class="offer">{{ $category->name }} @empty($category->category_id) - ГЛАВНАЯ @endempty</option>
+                                                @endforeach
+                                            </optgroup>
                                         </select>
                                     </div>
                                 </div>
@@ -68,4 +93,31 @@
         </div>
     </div>
 </div>
+<script type='text/javascript'>
+    $(document).ready(function() {
+        $('#type').on('change', function() {
+            if (this.value == 'event') {
+                $('.Event').show();
+                $('.Group').hide();
+                $('.Offer').hide();
+                $('.Categories').hide();
+            } else if (this.value == 'group') {
+                $('.Event').hide();
+                $('.Group').show();
+                $('.Offer').hide();
+                $('.Categories').hide();
+            } else if (this.value == 'offer') {
+                $('.Event').hide();
+                $('.Group').hide();
+                $('.Offer').show();
+                $('.Categories').hide();
+            } else {
+                $('.Event').hide();
+                $('.Group').hide();
+                $('.Offer').hide();
+                $('.Categories').show();
+            }
+        });
+    });
+</script>
 @endsection

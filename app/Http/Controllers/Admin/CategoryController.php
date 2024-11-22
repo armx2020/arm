@@ -22,7 +22,19 @@ class CategoryController extends BaseAdminController
 
     public function create()
     {
-        return view('admin.category.create', ['menu' => $this->menu]);
+        $categoriesForEvents = Category::event()->latest()->get();
+        $categoriesForGroups = Category::group()->latest()->get();
+        $categoriesForOffers = Category::offer()->latest()->get();
+
+        return view(
+            'admin.category.create',
+            [
+                'categoriesForEvents' => $categoriesForEvents,
+                'categoriesForGroups' => $categoriesForGroups,
+                'categoriesForOffers' => $categoriesForOffers,
+                'menu' => $this->menu
+            ]
+        );
     }
 
     public function store(CategoryRequest $request)
@@ -36,7 +48,7 @@ class CategoryController extends BaseAdminController
     {
         $category = Category::withcount('groups')->find($id);
 
-        if(empty($category)) {
+        if (empty($category)) {
             return redirect()->route('admin.сategory.index')->with('alert', 'Категория не найдена');
         }
 
@@ -47,25 +59,37 @@ class CategoryController extends BaseAdminController
     {
         $category = Category::find($id);
 
-        if(empty($category)) {
+        if (empty($category)) {
             return redirect()->route('admin.сategory.index')->with('alert', 'Категория не найдена');
         }
 
-        return view('admin.category.edit', ['category' => $category, 'menu' => $this->menu]);
+        $categories = Category::where('type', $category->type)->latest()->get();
+        $categoriesForEvents = Category::event()->latest()->get();
+        $categoriesForGroups = Category::group()->latest()->get();
+        $categoriesForOffers = Category::offer()->latest()->get();
+
+        return view('admin.category.edit', [
+            'category' => $category,
+            'categories' => $categories,
+            'categoriesForEvents' => $categoriesForEvents,
+            'categoriesForGroups' => $categoriesForGroups,
+            'categoriesForOffers' => $categoriesForOffers,
+            'menu' => $this->menu
+        ]);
     }
 
     public function update(CategoryRequest $request, string $id)
     {
         $category = Category::find($id);
 
-        if(empty($category)) {
+        if (empty($category)) {
             return redirect()->route('admin.category.index')->with('alert', 'Категория не найдена');
         }
 
         $category = $this->categoryService->update($request, $category);
 
-        return redirect()->route('admin.category.edit', ['category'=> $category->id])
-                        ->with('success', 'Категория сохранена');
+        return redirect()->route('admin.category.edit', ['category' => $category->id])
+            ->with('success', 'Категория сохранена');
     }
 
 
@@ -73,7 +97,7 @@ class CategoryController extends BaseAdminController
     {
         $category = Category::find($id);
 
-        if(empty($category)) {
+        if (empty($category)) {
             return redirect()->route('admin.category.index')->with('alert', 'Категория не найдена');
         }
 

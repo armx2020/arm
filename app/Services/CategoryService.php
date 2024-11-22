@@ -13,6 +13,7 @@ class CategoryService
         $category->name = $request->name;
         $category->sort_id = $request->sort_id;
         $category->type = $request->type;
+        $category->category_id = $request->parent;
 
         $category->save();
 
@@ -24,6 +25,7 @@ class CategoryService
         $category->name = $request->name;
         $category->sort_id = $request->sort_id;
         $category->type = $request->type;
+        $category->category_id = $request->parent;
 
         $category->update();
 
