@@ -20,7 +20,7 @@ class OfferService
 
         $company = Company::select('user_id')->find($request->company);
 
-        $offer = New CompanyOffer();
+        $offer = new CompanyOffer();
 
         $offer->name = $request->name;
         $offer->address = $request->address;
@@ -40,31 +40,33 @@ class OfferService
 
         if ($request->image) {
             $offer->image = $request->file('image')->store('offers', 'public');
-            Image::make('storage/'.$offer->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
+        } else {
+            $offer->image = 'group/groups.png';
         }
         if ($request->image1) {
             $offer->image1 = $request->file('image1')->store('offers', 'public');
-            Image::make('storage/'.$offer->image1)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image1)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image2) {
             $offer->image2 = $request->file('image2')->store('offers', 'public');
-            Image::make('storage/'.$offer->image2)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image2)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image3) {
             $offer->image3 = $request->file('image3')->store('offers', 'public');
-            Image::make('storage/'.$offer->image3)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image3)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image4) {
             $offer->image4 = $request->file('image4')->store('offers', 'public');
-            Image::make('storage/'.$offer->image4)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image4)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -90,61 +92,61 @@ class OfferService
 
         if ($request->image_r == 'delete') {
             Storage::delete('public/' . $offer->image);
-            $offer->image = null;            
+            $offer->image = null;
         }
 
         if ($request->image_r1 == 'delete') {
             Storage::delete('public/' . $offer->image1);
-            $offer->image1 = null;            
+            $offer->image1 = null;
         }
 
         if ($request->image_r2 == 'delete') {
             Storage::delete('public/' . $offer->image2);
-            $offer->image2 = null;            
+            $offer->image2 = null;
         }
 
         if ($request->image_r3 == 'delete') {
             Storage::delete('public/' . $offer->image3);
-            $offer->image3 = null;            
+            $offer->image3 = null;
         }
 
         if ($request->image_r4 == 'delete') {
             Storage::delete('public/' . $offer->image4);
-            $offer->image4 = null;            
+            $offer->image4 = null;
         }
 
         if ($request->image) {
             Storage::delete('public/' . $offer->image);
             $offer->image = $request->file('image')->store('offers', 'public');
-            Image::make('storage/'.$offer->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image1) {
             Storage::delete('public/' . $offer->image1);
             $offer->image1 = $request->file('image1')->store('offers', 'public');
-            Image::make('storage/'.$offer->image1)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image1)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image2) {
             Storage::delete('public/' . $offer->image2);
             $offer->image2 = $request->file('image2')->store('offers', 'public');
-            Image::make('storage/'.$offer->image2)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image2)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image3) {
             Storage::delete('public/' . $offer->image3);
             $offer->image3 = $request->file('image3')->store('offers', 'public');
-            Image::make('storage/'.$offer->image3)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image3)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image4) {
             Storage::delete('public/' . $offer->image4);
             $offer->image4 = $request->file('image4')->store('offers', 'public');
-            Image::make('storage/'.$offer->image4)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $offer->image4)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }

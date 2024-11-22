@@ -45,6 +45,8 @@ class EventService
             Image::make('storage/'.$event->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
+        } else {
+            $event->image = 'group/groups.png';
         }
 
         $event->save();

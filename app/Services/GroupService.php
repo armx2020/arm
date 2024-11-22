@@ -31,36 +31,38 @@ class GroupService
         $group->telegram = $request->telegram;
         $group->instagram = $request->instagram;
         $group->vkontakte = $request->vkontakte;
-        $group->user_id = $request->user;
+        $group->user_id = $request->user ? $request->user : 1;
         $group->category_id = $request->category;
-     
+
         if ($request->image) {
             $group->image = $request->file('image')->store('groups', 'public');
-            Image::make('storage/'.$group->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
+        } else {
+            $group->image = 'group/groups.png';
         }
         if ($request->image1) {
             $group->image1 = $request->file('image1')->store('groups', 'public');
-            Image::make('storage/'.$group->image1)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image1)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image2) {
             $group->image2 = $request->file('image2')->store('groups', 'public');
-            Image::make('storage/'.$group->image2)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image2)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image3) {
             $group->image3 = $request->file('image3')->store('groups', 'public');
-            Image::make('storage/'.$group->image3)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image3)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image4) {
             $group->image4 = $request->file('image4')->store('groups', 'public');
-            Image::make('storage/'.$group->image4)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image4)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -80,33 +82,33 @@ class GroupService
 
         if ($request->image_r == 'delete') {
             Storage::delete('public/' . $group->image);
-            $group->image = null;            
+            $group->image = null;
         }
 
         if ($request->image_r1 == 'delete') {
             Storage::delete('public/' . $group->image1);
-            $group->image1 = null;            
+            $group->image1 = null;
         }
 
         if ($request->image_r2 == 'delete') {
             Storage::delete('public/' . $group->image2);
-            $group->image2 = null;            
+            $group->image2 = null;
         }
 
         if ($request->image_r3 == 'delete') {
             Storage::delete('public/' . $group->image3);
-            $group->image3 = null;            
+            $group->image3 = null;
         }
 
         if ($request->image_r4 == 'delete') {
             Storage::delete('public/' . $group->image4);
-            $group->image4 = null;            
+            $group->image4 = null;
         }
 
         if ($request->image) {
-            Storage::delete('public/' . $group->image);            
+            Storage::delete('public/' . $group->image);
             $group->image = $request->file('image')->store('groups', 'public');
-            Image::make('storage/'.$group->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -114,7 +116,7 @@ class GroupService
         if ($request->image1) {
             Storage::delete('public/' . $group->image1);
             $group->image1 = $request->file('image1')->store('groups', 'public');
-            Image::make('storage/'.$group->image1)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image1)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -122,7 +124,7 @@ class GroupService
         if ($request->image2) {
             Storage::delete('public/' . $group->image2);
             $group->image2 = $request->file('image2')->store('groups', 'public');
-            Image::make('storage/'.$group->image2)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image2)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -130,7 +132,7 @@ class GroupService
         if ($request->image3) {
             Storage::delete('public/' . $group->image3);
             $group->image3 = $request->file('image3')->store('groups', 'public');
-            Image::make('storage/'.$group->image3)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image3)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -138,7 +140,7 @@ class GroupService
         if ($request->image4) {
             Storage::delete('public/' . $group->image4);
             $group->image4 = $request->file('image4')->store('groups', 'public');
-            Image::make('storage/'.$group->image4)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image4)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }

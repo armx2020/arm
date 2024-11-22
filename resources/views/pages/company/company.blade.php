@@ -307,7 +307,7 @@
             @endif
         </div>
         <div class="basis-full mt-3 mb-16 hidden" id="vacancies">
-            @if($company->vacancies->isEmpty())
+            @if($company->works->isEmpty())
             <div class="w-full text-center p-4">
                 <div class="flex items-center text-center justify-center">
                     <h3 class="text-2xl font-normal mx-auto">У КОМПАНИИ НЕТ ВАКАНСИЙ</h3>
@@ -315,7 +315,7 @@
             </div>
             @else
             <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-5">
-                @foreach($company->vacancies as $work)
+                @foreach($company->works as $work)
                 <div class="block rounded-lg bg-white h-80">
                     <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="block h-52">
                         @if( $work->parent == null )

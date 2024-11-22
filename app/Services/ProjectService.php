@@ -44,9 +44,11 @@ class ProjectService
 
         if ($request->image) {
             $project->image = $request->file('image')->store('projects', 'public');
-            Image::make('storage/'.$project->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $project->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
+        } else {
+            $project->image = 'group/groups.png';
         }
 
         $project->save();
@@ -92,7 +94,7 @@ class ProjectService
         if ($request->image) {
             Storage::delete('public/' . $project->image);
             $project->image = $request->file('image')->store('projects', 'public');
-            Image::make('storage/'.$project->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $project->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }

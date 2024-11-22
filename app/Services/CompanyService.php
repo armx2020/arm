@@ -31,13 +31,15 @@ class CompanyService
         $company->telegram = $request->telegram;
         $company->instagram = $request->instagram;
         $company->vkontakte = $request->vkontakte;
-        $company->user_id = $request->user;
-     
+        $company->user_id = $request->user ? $request->user : 1;
+
         if ($request->image) {
             $company->image = $request->file('image')->store('companies', 'public');
             Image::make('storage/' . $company->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
+        } else {
+            $company->image = 'group/groups.png';
         }
 
         $company->save();
@@ -64,6 +66,8 @@ class CompanyService
             Image::make('storage/' . $company->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
+        } else {
+            $company->image = 'group/groups.png';
         }
 
         $company->name = $request->name;
