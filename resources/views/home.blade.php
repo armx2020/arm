@@ -3,8 +3,8 @@
     <section>
         <div class="mx-auto pt-5 lg:pt-10">
             <div class="bg-white rounded-xl row-span-1 lg:row-span-1">
-                <div class="flex flex-col md:flex-row">
-                    <div class="flex flex-col text-left basis-2/3 lg:basis-1/2 p-5 xl:p-8">
+                <div class="flex sm:flex-row">
+                    <div class="flex flex-col text-left basis-3/4 lg:basis-1/2 p-5 xl:p-8">
                         <div class="my-1 lg:my-2 text-md md:text-lg lg:text-2xl font-extrabold uppercase">{{ $group->name }}
                         </div>
                         <div class="my-1 text-sm md:text-md xl:text-lg font-normal">
@@ -20,9 +20,9 @@
                             Подробнее
                         </a>
                     </div>
-                    <div class="flex basis-full lg:basis-1/2 place-content-center rounded-xl"
-                        style="background-size: 100% 100%;background-image:linear-gradient(to right,rgba(255, 255, 255, 99%), rgba(255, 255, 255, 70%)), url({{ url('/image/flag.png') }})">
-                        <img class="flex self-end h-32 md:h-40 lg:h-72 object-cover rounded-xl object-right-bottom"
+                    <div class="flex lg:basis-1/2 md:basis-1/3 basis-1/4 justify-end items-center sm:justify-center sm:items-center rounded-xl"
+                        style="background-size: 100% 100%;background-image:linear-gradient(to right,rgba(255, 255, 255, 99%), rgba(255, 255, 255, 70%)), url({{ url('/image/flag.png') }})" id="bg-flag">
+                        <img class="flex self-end sm:h-20 md:h-32 lg:h-72 h-20 object-cover rounded-xl object-right-bottom"
                             src="{{ url('/image/frame.png') }}" alt="banner">
                     </div>
                 </div>
@@ -149,4 +149,11 @@
         @livewire('home-page')
 
     </section>
+    <style>
+        @media (max-width: 767px) {
+            #bg-flag {
+                background-image: none !important;
+            }
+        }
+    </style>
 @endsection
