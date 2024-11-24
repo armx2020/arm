@@ -3,25 +3,39 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
-use Livewire\Component;
-use Livewire\WithPagination;
+use App\Entity\UserEntity;
 
-class SearchUser extends Component
+class SearchUser extends BaseSearch
 {
-    use WithPagination;
+    protected $entity;
 
-    public $term = "";
+    public function __construct()
+    {
+        $this->entity = new UserEntity;
+        parent::__construct($this->entity);
+    }
 
     public function render()
     {
-        if ($this->term == "") {
-            sleep(1);
-            $users = User::with('city')->latest()->paginate(20);
-        } else {
-            sleep(1);
-            $users = User::search($this->term)->paginate(20);
-        }
+        sleep(1);
+        $users = User::query()->with('city')->latest();
 
-        return view('livewire.search-user', ['users' => $users]);
+        foreach ($this->selectedFilters as $filterName => $filterValue) {
+            $operator = array_key_first($filterValue);
+            $callable = $filterValue[array_key_first($filterValue)];
+
+            $users = $users->where($filterName, $operator, $callable);
+        }
+        $users = $users->paginate(20);
+
+        return view(
+            'livewire.search-user',
+            [
+                'users' => $users,
+                'allColumns' => $this->allColumns,
+                'selectedColumns' => $this->selectedColumns,
+                'filters' => $this->filters,
+            ]
+        );
     }
 }

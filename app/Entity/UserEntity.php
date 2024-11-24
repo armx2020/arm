@@ -1,15 +1,82 @@
 <?php
 
-namespace App\Services;
+namespace App\Entity;
 
+use App\Contracts\EntityInterface;
 use App\Models\City;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
-class UserService
+class UserEntity implements EntityInterface
 {
+    protected $allColumns = [
+        'id',
+        'firstname',
+        'email',
+        'phone',
+        'last_active_at',
+        'activity',
+        'created_at',
+        'updated_at',
+        'viber',
+        'whatsapp',
+        'instagram',
+        'vkontakte',
+        'telegram',
+        'city_id',
+        'region_id',
+    ];
+
+    protected $selectedColumns = [
+        'id',
+        'firstname',
+        'email',
+        'phone',
+        'city_id',
+        'region_id',
+    ];
+
+    protected $filters = [
+        'activity' => [
+            'type' => 'bool'
+        ],
+        'created_at' =>
+        [
+            'type' => 'date',
+            'min' => '',
+            'max' => '',
+        ],
+        'updated_at' => [
+            'type' => 'date',
+            'min' => '',
+            'max' => '',
+        ],
+    ];
+
+    protected $selectedFilters = [];
+
+    public function getAllColumns(): array
+    {
+        return $this->allColumns;
+    }
+
+    public function getSelectedColumns(): array
+    {
+        return $this->selectedColumns;
+    }
+
+    public function getFilters(): array
+    {
+        return $this->filters;
+    }
+
+    public function getSelectedFilters(): array
+    {
+        return $this->selectedFilters;
+    }
+
     public function store($request): User
     {
         $city = City::with('region')->find($request->city);

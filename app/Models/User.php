@@ -5,9 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Traits\HasCity;
-use App\Models\Traits\HasCompanies;
 use App\Models\Traits\HasEvents;
-use App\Models\Traits\HasGroups;
 use App\Models\Traits\HasProjects;
 use App\Models\Traits\HasRegion;
 use App\Models\Traits\Search;
@@ -18,6 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -28,8 +27,6 @@ class User extends Authenticatable
         Notifiable,
         HasCity,
         HasRegion,
-        HasCompanies,
-        HasGroups,
         HasProjects,
         HasEvents,
         HasWorks,
@@ -41,6 +38,16 @@ class User extends Authenticatable
         'firstname',
         'email'
     ];
+
+    public function companies(): HasMany
+    {
+        return $this->hasMany(Company::class);
+    }
+
+    public function groups(): HasMany
+    {
+        return $this->hasMany(Group::class);
+    }
 
     public function inGroups(): BelongsToMany
     {
