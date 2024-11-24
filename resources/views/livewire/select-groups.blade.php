@@ -237,9 +237,9 @@
                     <div class="flex flex-row rounded-lg bg-white h-64">
                         <a href="{{ route('groups.show', ['id' => $group->id ]) }}" class="basis-1/3">
                             @if( $group->image == null )
-                            <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover h-[50%] md:h-[100%]" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
-                            <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$group->image) }}" alt="image">
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover h-[50%] md:h-[100%]" src="{{ asset( 'storage/'.$group->image) }}" alt="image">
                             @endif
                         </a>
                         <div class="p-6 flex flex-col basis-2/3">
@@ -248,7 +248,7 @@
                             </h5>
                             <hr class="my-3">
                             <div>
-                                <p class="mb-4 break-words font-medium leading-tight text-neutral-600">
+                                <p class="mb-4 break-words font-medium leading-tight text-neutral-600 line-clamp-3">
                                     {{ $group->description}}
                                 </p>
                             </div>

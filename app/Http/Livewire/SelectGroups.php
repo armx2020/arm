@@ -15,7 +15,7 @@ class SelectGroups extends Component
 
     public $term = 0;
     public $sort = "updated_at|desc";
-    public $view = 1;
+    public $view = 2;
     public $region;
 
     public function mount(Request $request, $regionCode = null)
