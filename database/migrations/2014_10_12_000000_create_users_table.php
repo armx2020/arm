@@ -32,7 +32,7 @@ return new class extends Migration
         });
 
         DB::statement(
-            'ALTER TABLE users ADD FULLTEXT fulltext_index(firstname, email)'
+            'ALTER TABLE users ADD FULLTEXT fulltext_index(firstname, email, phone)'
         );
     }
 

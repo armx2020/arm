@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
-use App\Contracts\EntityInterface;
+use App\Contracts\EntityColumnsInterface;
+use App\Contracts\EntityFiltersInterface;
 use App\Models\City;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
-class UserEntity implements EntityInterface
+class UserEntity implements EntityColumnsInterface, EntityFiltersInterface
 {
     protected $allColumns = [
         'id',
@@ -45,13 +46,12 @@ class UserEntity implements EntityInterface
         'created_at' =>
         [
             'type' => 'date',
-            'min' => '',
-            'max' => '',
         ],
         'updated_at' => [
             'type' => 'date',
-            'min' => '',
-            'max' => '',
+        ],
+        'last_active_at' => [
+            'type' => 'date',
         ],
     ];
 

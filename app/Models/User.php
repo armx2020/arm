@@ -36,7 +36,8 @@ class User extends Authenticatable
 
     protected $searchable = [
         'firstname',
-        'email'
+        'email',
+        'phone'
     ];
 
     public function companies(): HasMany
