@@ -1,6 +1,6 @@
 <div>
     <div class="flex flex-col lg:flex-row mx-auto">
-        <div class="flex flex-col basis-full lg:basis-1/5 ">
+        <div class="flex flex-col basis-full lg:basis-1/5 max-w-56">
             <div class="flex flex-row gap-3">
                 <div class="bg-white rounded-md mt-3 basis-full">
                     <select name="region" class="w-full border-0" wire:model="region" autocomplete="off">
@@ -11,7 +11,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen" style="max-width: 80%">
+        <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen max-w-5xl">
 
             <div class="flex flex-nowrap gap-x-2 mb-3 overflow-x-scroll scrollhidden">
                 <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_2" @if($term==2) style="background-color: rgb(59 130 246);color:white" @else style="background-color: white;color:black;" @endif>
