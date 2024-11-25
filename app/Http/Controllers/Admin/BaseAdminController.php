@@ -12,6 +12,12 @@ abstract class BaseAdminController extends Controller
     {
         $this->menu = [
             [
+                'name' => 'Сайт',
+                'route' => 'home',
+                'routeIs' => 'home',
+                'sub' => []
+            ],
+            [
                 'name' => 'Главная',
                 'route' => 'admin.dashboard',
                 'routeIs' => 'admin.dashboard',
