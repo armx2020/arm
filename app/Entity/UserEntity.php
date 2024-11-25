@@ -40,11 +40,7 @@ class UserEntity implements EntityColumnsInterface, EntityFiltersInterface
     ];
 
     protected $filters = [
-        'activity' => [
-            'type' => 'bool'
-        ],
-        'created_at' =>
-        [
+        'created_at' => [
             'type' => 'date',
         ],
         'updated_at' => [
@@ -52,6 +48,9 @@ class UserEntity implements EntityColumnsInterface, EntityFiltersInterface
         ],
         'last_active_at' => [
             'type' => 'date',
+        ],
+        'activity' => [
+            'type' => 'bool',
         ],
     ];
 
