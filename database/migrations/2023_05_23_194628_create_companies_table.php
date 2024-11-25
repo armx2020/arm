@@ -12,11 +12,11 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name', 255)->fulltext();
+            $table->string('name', 255);
             $table->boolean('activity')->default(true);
             $table->string('address', 128)->nullable()->index();
             $table->string('image', 255)->nullable();
-            $table->text('description')->nullable()->fulltext();
+            $table->text('description')->nullable();
             $table->string('phone', 36)->nullable()->unique();
             $table->string('web', 255)->nullable()->unique();
             $table->string('viber', 36)->nullable()->unique();
@@ -30,6 +30,10 @@ return new class extends Migration
             $table->softDeletes('deleted_at', 0);
             $table->text('comment')->nullable();
         });
+
+        DB::statement(
+            'ALTER TABLE companies ADD FULLTEXT fulltext_index(name, description, phone)'
+        );
     }
 
     public function down(): void

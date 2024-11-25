@@ -28,6 +28,7 @@ class Company extends Model
 
     protected $searchable = [
         'name',
+        'phone',
         'description'
     ];
 
