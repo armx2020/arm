@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomeController;
-
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GroupController;
@@ -112,6 +112,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'myvacancies'   =>  MyVacancyController::class
     ]);
 });
+
+Route::post('/cities', [CityController::class, 'getCities'])->name('cities');
 
 
 require __DIR__ . '/auth.php';
