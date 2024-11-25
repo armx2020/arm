@@ -18,9 +18,9 @@
         <x-slot name="content">
             <div class="flex flex-col gap-1 w-100 p-2">
 
-                @foreach ($filters as $name => $filter)
+                @foreach ($filters as $name => $type)
                     <div class="flex flex-row gap-2 ">
-                        @switch($filter['type'])
+                        @switch($type)
                             @case('date')
                                 <div class="basis-1/5 content-center self-center px-4">
                                     {{ $name }}
@@ -51,7 +51,41 @@
                                 </div>
                             @break
 
-                            @default
+                            @case('select')
+                                @if ($name == 'region_id')
+                                    <div class="basis-1/5 content-center self-center px-4">
+                                        {{ $name }}
+                                    </div>
+
+                                    <div class="flex basis-4/5">
+                                        <select
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
+                                            wire:model="selectedFilters.{{ $name }}.=">
+                                            <option disabled value="">Выберите регион...</option>
+                                            @foreach (\App\Models\Region::all() as $region)
+                                                <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+
+                                @if ($name == 'city_id')
+                                    <div class="basis-1/5 content-center self-center px-4">
+                                        {{ $name }}
+                                    </div>
+
+                                    <div class="flex basis-4/5">
+                                        <select
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
+                                            wire:model="selectedFilters.{{ $name }}.=">
+                                            <option disabled value="">Выберите регион...</option>
+                                            @foreach (\App\Models\City::all() as $city)
+                                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+                            @break
                         @endswitch
 
                     </div>

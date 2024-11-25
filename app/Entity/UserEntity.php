@@ -40,18 +40,12 @@ class UserEntity implements EntityColumnsInterface, EntityFiltersInterface
     ];
 
     protected $filters = [
-        'created_at' => [
-            'type' => 'date',
-        ],
-        'updated_at' => [
-            'type' => 'date',
-        ],
-        'last_active_at' => [
-            'type' => 'date',
-        ],
-        'activity' => [
-            'type' => 'bool',
-        ],
+        'created_at' => 'date',
+        'updated_at' => 'date',
+        'last_active_at' => 'date',
+        'activity' => 'bool',
+        'city_id' => 'select',
+        'region_id' => 'select',
     ];
 
     protected $selectedFilters = [];

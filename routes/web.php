@@ -3,7 +3,6 @@
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomeController;
 
-use App\Http\Controllers\CityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GroupController;
@@ -19,7 +18,6 @@ use App\Http\Controllers\Profile\MyOfferController;
 use App\Http\Controllers\Profile\MyVacancyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\WorkController;
 use Illuminate\Support\Facades\Route;
 use Stevebauman\Location\Facades\Location;
@@ -114,9 +112,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'myvacancies'   =>  MyVacancyController::class
     ]);
 });
-
-
-Route::post('/cities', [CityController::class, 'getCities'])->name('cities');
 
 
 require __DIR__ . '/auth.php';
