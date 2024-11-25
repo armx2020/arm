@@ -1,4 +1,4 @@
-<div class="flex items-center space-x-2 sm:space-x-3 ">
+<div class="flex items-center">
 
     <x-dropdown align="left" width="64" outside='false'>
         <x-slot name="trigger">
