@@ -12,10 +12,10 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->date('date_to_start')->index();
+            $table->date('date_to_start');
             $table->string('name', 255)->index();
             $table->boolean('activity')->default(true)->index();
-            $table->text('description')->nullable()->fulltext();
+            $table->text('description')->nullable();
             $table->string('address', 128)->nullable();
             $table->string('image', 255)->nullable();
             $table->foreignId('category_id')->default(1)->constrained()->cascadeOnDelete();
@@ -24,6 +24,10 @@ return new class extends Migration
             $table->morphs('parent');
             $table->text('comment')->nullable();
         });
+
+        DB::statement(
+            'ALTER TABLE events ADD FULLTEXT fulltext_index(name, description)'
+        );
     }
 
     public function down(): void

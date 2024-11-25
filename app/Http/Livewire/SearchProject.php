@@ -2,25 +2,50 @@
 
 namespace App\Http\Livewire;
 
+use App\Entity\ProjectEntity;
 use App\Models\Project;
-use Livewire\Component;
-use Livewire\WithPagination;
 
-class SearchProject extends Component
+class SearchProject extends BaseSearch
 {
-    use WithPagination;
+    protected $entity;
 
-    public $term = "";
+    public function __construct()
+    {
+        $this->entity = new ProjectEntity;
+        parent::__construct($this->entity);
+    }
+
 
     public function render()
     {
+        $title = 'Все проекты';
+        $emptyEntity = 'Проектов нет';
+        $entityName = 'project';
+
+        sleep(1);
         if ($this->term == "") {
-            sleep(1);
-            $projects = Project::with('city')->latest()->paginate(20);
+
+            $entities = Project::query()->with('city')->latest();
+
+            foreach ($this->selectedFilters as $filterName => $filterValue) {
+                $operator = array_key_first($filterValue);
+                $callable = $filterValue[array_key_first($filterValue)];
+
+                $entities = $entities->where($filterName, $operator, $callable);
+            }
+            $entities = $entities->paginate(20);
         } else {
-            sleep(1);
-            $projects = Project::search($this->term)->paginate(20);
+            $entities = Project::search($this->term)->with('city')->paginate(20);
         }
-        return view('livewire.search-project', ['projects' => $projects]);
+
+        return view('livewire.search-project', [
+            'entities' => $entities,
+            'allColumns' => $this->allColumns,
+            'selectedColumns' => $this->selectedColumns,
+            'filters' => $this->filters,
+            'title' => $title,
+            'emptyEntity' => $emptyEntity,
+            'entityName' => $entityName,
+        ]);
     }
 }

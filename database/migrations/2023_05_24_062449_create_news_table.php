@@ -13,9 +13,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->date('date')->index();
-            $table->string('name', 255)->fulltext();
+            $table->string('name', 255);
             $table->boolean('activity')->default(true)->index();
-            $table->text('description')->nullable()->fulltext();
+            $table->text('description')->nullable();
             $table->string('image', 255)->nullable();
             $table->string('image1', 255)->nullable();
             $table->string('image2', 255)->nullable();
@@ -26,6 +26,10 @@ return new class extends Migration
             $table->morphs('parent');
             $table->text('comment')->nullable();
         });
+
+        DB::statement(
+            'ALTER TABLE news ADD FULLTEXT fulltext_index(name, description)'
+        );
     }
 
     public function down(): void

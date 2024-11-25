@@ -2,26 +2,49 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Vacancy;
+use App\Entity\WorkEntity;
 use App\Models\Work;
-use Livewire\Component;
-use Livewire\WithPagination;
 
-class SearchVacancy extends Component
+class SearchVacancy extends BaseSearch
 {
-    use WithPagination;
+    protected $entity;
 
-    public $term = "";
+    public function __construct()
+    {
+        $this->entity = new WorkEntity;
+        parent::__construct($this->entity);
+    }
 
     public function render()
     {
+        $title = 'Все Вакансии';
+        $emptyEntity = 'Вакансий нет';
+        $entityName = 'vacancy';
+
+        sleep(1);
         if ($this->term == "") {
-            sleep(1);
-            $vacancies = Work::vacancy()->with('city')->latest()->paginate(20);
+
+            $entities = Work::vacancy()->with('city')->latest();
+
+            foreach ($this->selectedFilters as $filterName => $filterValue) {
+                $operator = array_key_first($filterValue);
+                $callable = $filterValue[array_key_first($filterValue)];
+
+                $entities = $entities->where($filterName, $operator, $callable);
+            }
+            $entities = $entities->paginate(20);
         } else {
-            sleep(1);
-            $vacancies = Work::vacancy()->search($this->term)->paginate(20);
+            $entities = Work::search($this->term)->vacancy()->with('city')->paginate(20);
         }
-        return view('livewire.search-vacancy', ['vacancies' => $vacancies]);
+
+        return view('livewire.search-resume', [
+            'entities' => $entities,
+            'allColumns' => $this->allColumns,
+            'selectedColumns' => $this->selectedColumns,
+            'filters' => $this->filters,
+            'title' => $title,
+            'emptyEntity' => $emptyEntity,
+            'entityName' => $entityName,
+        ]);
     }
 }

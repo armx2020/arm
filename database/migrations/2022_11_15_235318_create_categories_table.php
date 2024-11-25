@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -17,6 +18,10 @@ return new class extends Migration
             $table->enum('type', ['group', 'offer', 'event']);
             $table->foreignId('category_id')->nullable()->constrained();
         });
+
+        DB::statement(
+            'ALTER TABLE categories ADD FULLTEXT fulltext_index(name)'
+        );
     }
 
     public function down(): void

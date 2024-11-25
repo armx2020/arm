@@ -2,26 +2,49 @@
 
 namespace App\Http\Livewire;
 
+use App\Entity\EventEntity;
 use App\Models\Event;
-use Livewire\Component;
-use Livewire\WithPagination;
 
-class SearchEvent extends Component
+class SearchEvent extends BaseSearch
 {
-    use WithPagination;
+    protected $entity;
 
-    public $term = "";
+    public function __construct()
+    {
+        $this->entity = new EventEntity;
+        parent::__construct($this->entity);
+    }
 
     public function render()
     {
+        $title = 'Все события';
+        $emptyEntity = 'Событий нет';
+        $entityName = 'event';
+
+        sleep(1);
         if ($this->term == "") {
-            sleep(1);
-            $events = Event::with('city', 'parent')->latest()->paginate(20);
+
+            $entities = Event::query()->with('city', 'parent')->latest();
+
+            foreach ($this->selectedFilters as $filterName => $filterValue) {
+                $operator = array_key_first($filterValue);
+                $callable = $filterValue[array_key_first($filterValue)];
+
+                $entities = $entities->where($filterName, $operator, $callable);
+            }
+            $entities = $entities->paginate(20);
         } else {
-            sleep(1);
-            $events = Event::search($this->term)->paginate(20);
+            $entities = Event::search($this->term)->with('city', 'parent')->paginate(20);
         }
 
-        return view('livewire.search-event', ['events' => $events]);
+        return view('livewire.search-event', [
+            'entities' => $entities,
+            'allColumns' => $this->allColumns,
+            'selectedColumns' => $this->selectedColumns,
+            'filters' => $this->filters,
+            'title' => $title,
+            'emptyEntity' => $emptyEntity,
+            'entityName' => $entityName,
+        ]);
     }
 }

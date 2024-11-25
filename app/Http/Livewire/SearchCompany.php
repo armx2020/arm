@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Entity\CompanyEntity;
 use App\Models\Company;
-use Livewire\WithPagination;
 
 class SearchCompany extends BaseSearch
 {
@@ -18,29 +17,36 @@ class SearchCompany extends BaseSearch
 
     public function render()
     {
+        $title = 'Все компании';
+        $emptyEntity = 'Компаний нет';
+        $entityName = 'company';
+
         sleep(1);
         if ($this->term == "") {
 
-            $companies = Company::query()->with('city')->latest();
+            $entities = Company::query()->with('city')->latest();
 
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
                 $callable = $filterValue[array_key_first($filterValue)];
 
-                $companies = $companies->where($filterName, $operator, $callable);
+                $entities = $entities->where($filterName, $operator, $callable);
             }
-            $companies = $companies->paginate(20);
+            $entities = $entities->paginate(20);
         } else {
-            $companies = Company::search($this->term)->with('city')->paginate(20);
+            $entities = Company::search($this->term)->with('city')->paginate(20);
         }
 
         return view(
             'livewire.search-company',
             [
-                'companies' => $companies,
+                'entities' => $entities,
                 'allColumns' => $this->allColumns,
                 'selectedColumns' => $this->selectedColumns,
                 'filters' => $this->filters,
+                'title' => $title,
+                'emptyEntity' => $emptyEntity,
+                'entityName' => $entityName,
             ]
         );
     }

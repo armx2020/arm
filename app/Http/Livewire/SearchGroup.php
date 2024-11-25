@@ -2,26 +2,49 @@
 
 namespace App\Http\Livewire;
 
+use App\Entity\GroupEntity;
 use App\Models\Group;
-use Livewire\Component;
-use Livewire\WithPagination;
 
-class SearchGroup extends Component
+class SearchGroup extends BaseSearch
 {
-    use WithPagination;
+    protected $entity;
 
-    public $term = "";
+    public function __construct()
+    {
+        $this->entity = new GroupEntity;
+        parent::__construct($this->entity);
+    }
 
     public function render()
     {
+        $title = 'Все группы';
+        $emptyEntity = 'Групп нет';
+        $entityName = 'group';
+
+        sleep(1);
         if ($this->term == "") {
-            sleep(1);
-            $groups = Group::with('city')->latest()->paginate(20);
+
+            $entities = Group::query()->with('city')->latest();
+
+            foreach ($this->selectedFilters as $filterName => $filterValue) {
+                $operator = array_key_first($filterValue);
+                $callable = $filterValue[array_key_first($filterValue)];
+
+                $entities = $entities->where($filterName, $operator, $callable);
+            }
+            $entities = $entities->paginate(20);
         } else {
-            sleep(1);
-            $groups = Group::search($this->term)->paginate(20);
+            $entities = Group::search($this->term)->with('city')->paginate(20);
         }
 
-        return view('livewire.search-group', ['groups' => $groups]);
+        return view('livewire.search-group', [
+            'entities' => $entities,
+            'allColumns' => $this->allColumns,
+            'selectedColumns' => $this->selectedColumns,
+            'filters' => $this->filters,
+            'title' => $title,
+            'emptyEntity' => $emptyEntity,
+            'entityName' => $entityName,
+        ]);
     }
 }

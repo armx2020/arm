@@ -17,30 +17,36 @@ class SearchUser extends BaseSearch
 
     public function render()
     {
-        sleep(1);
+        $title = 'Все пользователи';
+        $emptyEntity = 'Пользователей нет';
+        $entityName = 'user';
 
+        sleep(1);
         if ($this->term == "") {
 
-            $users = User::query()->with('city')->latest();
+            $entities = User::query()->with('city')->latest();
 
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
                 $callable = $filterValue[array_key_first($filterValue)];
 
-                $users = $users->where($filterName, $operator, $callable);
+                $entities = $entities->where($filterName, $operator, $callable);
             }
-            $users = $users->paginate(20);
+            $entities = $entities->paginate(20);
         } else {
-            $users = User::search($this->term)->with('city')->paginate(20);
+            $entities = User::search($this->term)->with('city')->paginate(20);
         }
 
         return view(
             'livewire.search-user',
             [
-                'users' => $users,
+                'entities' => $entities,
                 'allColumns' => $this->allColumns,
                 'selectedColumns' => $this->selectedColumns,
                 'filters' => $this->filters,
+                'title' => $title,
+                'emptyEntity' => $emptyEntity,
+                'entityName' => $entityName,
             ]
         );
     }
