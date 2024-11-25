@@ -62,7 +62,7 @@
                     </div>
                 </div>
             @else
-                <div class=" mb-4 flex flex-col">
+                <div class="mb-4 flex flex-col">
                     <div class="overflow-x-auto">
                         <div class="align-middle inline-block min-w-full">
                             <div class="shadow overflow-hidden">
@@ -89,31 +89,51 @@
                                                     <td
                                                         class="p-4 whitespace-nowrap text-base text-center text-gray-900">
                                                         <a
-                                                            href="{{ route('admin.' .$entityName. '.edit', [$entityName => $entity->id]) }}">
+                                                            href="{{ route('admin.' . $entityName . '.edit', [$entityName => $entity->id]) }}">
                                                             {{ $entity->$column }}
                                                         </a>
                                                     </td>
                                                 @endforeach
-                                                <td class="p-4 whitespace-nowrap space-x-2 text-right w-1/6">
-                                                    <div class="flex flex-row justify-end">
-                                                        <form
-                                                            action="{{ route('admin.' . $entityName . '.destroy', [$entityName => $entity->id]) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                data-modal-toggle="delete-{{ $entityName }}-modal"
-                                                                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
-                                                                <svg class="h-5 w-5" fill="currentColor"
-                                                                    viewBox="0 0 20 20"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path fill-rule="evenodd"
-                                                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                                        clip-rule="evenodd"></path>
-                                                                </svg>
+
+                                                <td class="text-nowrap px-2 py-2 flex">
+
+                                                    <x-dropdown align="top" width="48">
+                                                        <x-slot name="trigger">
+                                                            <button
+                                                                class="inline-flex items-center px-2 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+
+                                                                <div class="ms-1">
+                                                                    <svg class="w-5 h-5" aria-hidden="true"
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        fill="currentColor" viewBox="0 0 4 15">
+                                                                        <path
+                                                                            d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z">
+                                                                        </path>
+                                                                    </svg>
+                                                                </div>
                                                             </button>
-                                                        </form>
-                                                    </div>
+                                                        </x-slot>
+                                                        <x-slot name="content">
+                                                            <form
+                                                                action="{{ route('admin.' . $entityName . '.destroy', [$entityName => $entity->id]) }}"
+                                                                method="post"
+                                                                class="block px-4 text-sm font-medium text-red-500 hover:bg-gray-100 cursor-pointer">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="w-full h-full py-2 flex items-center space-x-2">
+                                                                    <svg class="w-4 h-4 fill-red-500"
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 0 20 20" aria-hidden="true">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z"
+                                                                            clip-rule="evenodd"></path>
+                                                                    </svg>
+                                                                    <span class="text-red-500">Удалить</span>
+                                                                </button>
+                                                            </form>
+                                                        </x-slot>
+                                                    </x-dropdown>
                                                 </td>
                                             </tr>
                                         @endforeach
