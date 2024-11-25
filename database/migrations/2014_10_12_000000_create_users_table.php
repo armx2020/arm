@@ -11,9 +11,9 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname', 32)->fulltext();
+            $table->string('firstname', 32);
             $table->boolean('activity')->default(true);
-            $table->string('email', 96)->unique()->nullable()->fulltext();
+            $table->string('email', 96)->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_active_at')->nullable();
             $table->string('password');
@@ -30,6 +30,10 @@ return new class extends Migration
             $table->foreignId('region_id')->default(1)->constrained();
             $table->softDeletes('deleted_at', 0);
         });
+
+        DB::statement(
+            'ALTER TABLE users ADD FULLTEXT fulltext_index(firstname, email)'
+        );
     }
 
     public function down(): void

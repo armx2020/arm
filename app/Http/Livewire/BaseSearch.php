@@ -9,6 +9,7 @@ abstract class BaseSearch extends Component
 {
     use WithPagination;
 
+    public $term = "";
     public $allColumns = [];
     public $selectedColumns = [];
     public $filters = [];
