@@ -71,8 +71,8 @@
                                         <tr>
                                             @foreach ($selectedColumns as $column)
                                                 <th scope="col"
-                                                    class="p-4 text-center text-xs font-medium text-gray-500 uppercase">
-                                                    {{ $column }}
+                                                    class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                                    {{ __('column.' . $column) }}
                                                 </th>
                                             @endforeach
 
@@ -86,12 +86,44 @@
                                             <tr class="hover:bg-gray-100">
 
                                                 @foreach ($selectedColumns as $column)
-                                                    <td
-                                                        class="p-4 whitespace-nowrap text-base text-center text-gray-900">
-                                                        <a
-                                                            href="{{ route('admin.' . $entityName . '.edit', [$entityName => $entity->id]) }}">
-                                                            {{ $entity->$column }}
-                                                        </a>
+                                                    <td class="p-4 whitespace-nowrap text-base text-left text-gray-900">
+                                                        @switch($column)
+                                                            @case('city_id')
+                                                                {{ $entity->city->name }}
+                                                            @break
+
+                                                            @case('region_id')
+                                                                {{ $entity->region->name }}
+                                                            @break
+
+                                                            @case('user_id')
+                                                                {{ $entity->user ? $entity->user->firstname : '-' }}
+                                                            @break
+
+                                                            @case('category_id')
+                                                                {{ $entity->category ? $entity->category->name : '-' }}
+                                                            @break
+
+                                                            @case('parent_id')
+                                                                @isset($entity->parent)
+                                                                    @if (isset($entity->parent->name))
+                                                                        {{ $entity->parent->name }}
+                                                                    @else
+                                                                        <a class="text-blue-800 hover:text-blue-600"
+                                                                            href="{{ route('admin.user.edit', ['user' => $entity->parent_id]) }}">
+                                                                            {{ $entity->parent->firstname }}
+                                                                        </a>
+                                                                    @endif
+                                                                @endisset
+                                                            @break
+
+                                                            @default
+                                                                <a class="text-blue-800 hover:text-blue-600"
+                                                                    href="{{ route('admin.' . $entityName . '.edit', [$entityName => $entity->id]) }}">
+                                                                    {{ $entity->$column ?? '-' }}
+                                                                </a>
+                                                        @endswitch
+
                                                     </td>
                                                 @endforeach
 
