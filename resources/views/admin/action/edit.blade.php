@@ -18,7 +18,7 @@
                                 @csrf
                                 @method('PUT')
                                 <input name="image_r" type="text" id="image_r" class="hidden" style="z-index:-10;" />
-                                
+
                                 <div class="flex items-start p-5 border-b rounded-t">
                                     <div class="flex items-center m-2">
                                         <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $action->name }}</h3>
@@ -28,7 +28,7 @@
                                 <div class="flex flex-row border-b" id="upload_area">
                                     <div class="flex relative">
 
-                                        @if ($action->image == null)
+                                        @if ($action->image == null || $action->image == 'group/groups.png')
                                             <img class="h-10 w-10 rounded-lg m-4 object-cover" id="img"
                                                 src="{{ url('/image/no-image.png') }}" alt="image">
                                         @else
