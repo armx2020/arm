@@ -38,7 +38,7 @@ class CompanyController extends BaseAdminController
 
     public function show(string $id)
     {
-        $company = Company::with('user')->find($id);
+        $company = Company::with(['user', 'actions'])->find($id);
 
         if (empty($company)) {
             return redirect()->route('admin.company.index')->with('alert', 'Компания не найдена');
@@ -48,8 +48,8 @@ class CompanyController extends BaseAdminController
 
     public function edit(string $id)
     {
-        $company = Company::find($id);
-
+        $company = Company::with(['user', 'actions'])->find($id);
+//dd($company);
         if (empty($company)) {
             return redirect()->route('admin.company.index')->with('alert', 'Компания не найдена');
         }
@@ -103,7 +103,7 @@ class CompanyController extends BaseAdminController
             if ($project->image !== null) {
                 Storage::delete('public/' . $project->image);
             }
-           $project->delete();
+            $project->delete();
         }
 
         foreach ($company->works as $work) {

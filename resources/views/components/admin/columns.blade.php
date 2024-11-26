@@ -20,7 +20,7 @@
                 @foreach ($allColumns as $column)
                     <div class="flex basis-1/3">
                         <p>
-                            <input value="{{ $column }}" type="checkbox" wire:model="selectedColumns">
+                            <input name="{{ $column }}" value="{{ $column }}" type="checkbox" wire:model="selectedColumns">
                             {{ __('column.' . $column) }}
                         </p>
                     </div>

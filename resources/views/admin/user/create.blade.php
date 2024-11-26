@@ -52,7 +52,7 @@
                                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6">
-                                        <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город *</label>
+                                        <label for="dd_city" class="text-sm font-medium text-gray-900 block mb-2">Город *</label>
                                         <select name="city" class="w-full rounded-lg" id="dd_city">
                                             <option value='1'>-- выберите город --</option>
                                         </select>

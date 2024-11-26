@@ -31,7 +31,7 @@ class CompanyService
         $company->telegram = $request->telegram;
         $company->instagram = $request->instagram;
         $company->vkontakte = $request->vkontakte;
-        $company->user_id = $request->user ? $request->user : 1;
+        $company->user_id = $request->user ? $request->user : 1; 
 
         if ($request->image) {
             $company->image = $request->file('image')->store('companies', 'public');
@@ -43,6 +43,8 @@ class CompanyService
         }
 
         $company->save();
+
+        $company->actions()->attach($request->actions);
 
         return $company;
     }
@@ -83,6 +85,8 @@ class CompanyService
         $company->instagram = $request->instagram;
         $company->vkontakte = $request->vkontakte;
         $company->user_id = $request->user;
+
+        $company->actions()->sync($request->actions);
 
         $company->update();
 

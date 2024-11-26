@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\City;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
-    public function getCities(Request $request)
+    public function get(Request $request)
     {
         $input = $request->all();
 

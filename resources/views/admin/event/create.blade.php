@@ -20,7 +20,7 @@
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="name"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
-                                            <input type="text" name="name" id="firstname"
+                                            <input type="text" name="name" id="name"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                                 required :value="old('name')">
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -60,7 +60,7 @@
                                             </select>
                                         </div>
                                         <div class="col-span-6">
-                                            <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город
+                                            <label for="dd_city" class="text-sm font-medium text-gray-900 block mb-2">Город
                                                 *</label>
                                             <select name="city" class="w-full" id="dd_city">
                                                 <option value='1'>-- выбор города --</option>

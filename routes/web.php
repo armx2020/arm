@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\ActionController;
+use App\Http\Controllers\Api\CityController as ApiCityController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomeController;
@@ -113,8 +115,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ]);
 });
 
-Route::post('/cities', [CityController::class, 'getCities'])->name('cities');
-
+Route::post('/cities', [ApiCityController::class, 'get'])->name('cities');
+Route::post('/actions', [ActionController::class, 'get'])->name('actions');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

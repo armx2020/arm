@@ -34,7 +34,7 @@
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="name"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
-                                            <input type="text" name="name" id="firstname"
+                                            <input type="text" name="name" id="name"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                                 required value="{{ $event->name }}">
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="date_to_start"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Дата начала*</label>
+                                                class="text-sm font-medium text-gray-900 block mb-2">Дата начала *</label>
                                             <input type="date" name="date_to_start" id="date_to_start"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                                 value="{{ $event->date_to_start }}" required>
@@ -78,7 +78,7 @@
                                             </select>
                                         </div>
                                         <div class="col-span-6">
-                                            <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город
+                                            <label for="dd_city" class="text-sm font-medium text-gray-900 block mb-2">Город
                                                 *</label>
                                             <select name="city" class="w-full" id="dd_city">
                                                 <option value='{{ $event->city->id }}'>{{ $event->city->name }}</option>
