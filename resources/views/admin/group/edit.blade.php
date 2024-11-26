@@ -20,7 +20,7 @@
                                             alt="{{ $group->name }}">
                                     @else
                                         <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/' . $group->image) }}"
-                                            alt="{{ $group->image }}">
+                                            alt="{{ $group->name }}">
                                     @endif
                                     <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $group->name }}</h3>
                                 </div>
