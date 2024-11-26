@@ -13,6 +13,7 @@ use App\Models\Traits\HasRegion;
 use App\Models\Traits\HasUser;
 use App\Models\Traits\HasWorks;
 use App\Models\Traits\Search;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Company extends Model
 {
@@ -35,5 +36,10 @@ class Company extends Model
     public function offers(): HasMany
     {
         return $this->hasMany(CompanyOffer::class);
+    }
+
+    public function actions(): BelongsToMany
+    {
+        return $this->belongsToMany(Action::class);
     }
 }

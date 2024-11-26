@@ -27,7 +27,8 @@ class CompanyRequest extends FormRequest
             'image'         => ['image', 'max:20000'],
             'image_r'       => [],
             'city'          => [],
-            'user'          => []
+            'user'          => [],
+            'action'      => [],
         ];
     }
 }

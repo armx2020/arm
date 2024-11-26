@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ActionController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\Auth\LoginController;
@@ -50,6 +51,10 @@ Route::name('admin.')->prefix('admin')->group(function () {
             'show'
         ]);
         Route::resource('project', ProjectController::class)->except([
+            'show'
+        ]);
+
+        Route::resource('action', ActionController::class)->except([
             'show'
         ]);
               

@@ -31,5 +31,6 @@ return [
     'category_id' => 'Категория',
     'parent_type' => 'Тип инициатора',
     'parent_id' => 'Инициатор',
+    'price' => 'Цена',
 
 ];
