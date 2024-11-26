@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\EventRequest;
+use App\Models\Category;
 use App\Models\Company;
 use App\Models\Event;
 use App\Models\Group;
 use App\Models\User;
 use App\Services\EventService;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class EventController extends BaseAdminController
 {
@@ -28,8 +30,10 @@ class EventController extends BaseAdminController
         $users = User::all();
         $companies = Company::all();
         $groups = Group::all();
+        $categories = Category::event()->get();
 
         return view('admin.event.create', [
+            'categories' => $categories,
             'users' => $users,
             'companies' => $companies,
             'groups' => $groups,
@@ -57,7 +61,7 @@ class EventController extends BaseAdminController
 
     public function edit(string $id)
     {
-        $event = Event::with('parent')->find($id);
+        $event = Event::with(['parent', 'category'])->find($id);
 
         if (empty($event)) {
             return redirect()->route('admin.event.index')->with('alert', 'Событие не найдено');
@@ -66,12 +70,14 @@ class EventController extends BaseAdminController
         $users = User::all();
         $companies = Company::all();
         $groups = Group::all();
+        $categories = Category::event()->whereNot('id', $event->category_id)->get();
 
         return view('admin.event.edit', [
             'event' => $event,
             'users' => $users,
             'companies' => $companies,
             'groups' => $groups,
+            'categories' => $categories,
             'menu' => $this->menu
         ]);
     }

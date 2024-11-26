@@ -12,7 +12,7 @@ class CategoryEntity implements EntityColumnsInterface, EntityFiltersInterface
         'name',
         'sort_id',
         'type',
-        'category_id ',
+        'category_id',
         'activity',
         'created_at',
         'updated_at',
@@ -23,7 +23,7 @@ class CategoryEntity implements EntityColumnsInterface, EntityFiltersInterface
         'name',
         'sort_id',
         'type',
-        'category_id ',
+        'category_id',
         'activity',
     ];
 

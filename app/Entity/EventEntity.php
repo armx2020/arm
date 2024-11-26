@@ -13,7 +13,7 @@ class EventEntity implements EntityColumnsInterface, EntityFiltersInterface
         'date_to_start',
         'description',
         'address',
-        'category_id ',
+        'category_id',
         'activity',
         'created_at',
         'updated_at',
@@ -26,9 +26,9 @@ class EventEntity implements EntityColumnsInterface, EntityFiltersInterface
     protected $selectedColumns = [
         'id',
         'name',
-        'sort_id',
+        'date_to_start',
         'type',
-        'category_id ',
+        'category_id',
         'activity',
     ];
 

@@ -16,7 +16,7 @@ return [
     'date_to_start' => 'Дата начала',
     'date' => 'Дата',
     'created_at' => 'Дата создания',
-    'updated_at' => 'Дата обновления',
+    'updated_at' => 'Дата обновлени',
     'donations_need' => 'Нужно средств',
     'donations_have' => 'Собрано средств',
     'web' => 'Сайт',

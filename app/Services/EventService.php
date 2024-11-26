@@ -25,6 +25,7 @@ class EventService
         $event->city_id = $city->id;
         $event->region_id = $city->region->id;
         $event->date_to_start = $request->date_to_start;
+        $event->category_id = $request->category;
 
         if ($request->parent == 'User') {
             $event->parent_type = 'App\Models\User';
@@ -68,6 +69,7 @@ class EventService
         $event->city_id = $request->city;
         $event->region_id = $city->region->id;
         $event->date_to_start = $request->date_to_start;
+        $event->category_id = $request->category;
 
         if ($request->parent == 'User') {
             $event->parent_type = 'App\Models\User';

@@ -14,7 +14,7 @@ class NewsEntity implements EntityColumnsInterface, EntityFiltersInterface
         'date',
         'name',
         'description',
-        'category_id ',
+        'category_id',
         'activity',
         'created_at',
         'updated_at',
@@ -29,7 +29,7 @@ class NewsEntity implements EntityColumnsInterface, EntityFiltersInterface
         'name',
         'date',
         'description',
-        'category_id ',
+        'category_id',
         'activity',
     ];
 

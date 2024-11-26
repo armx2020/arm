@@ -27,7 +27,7 @@ class ProjectEntity implements EntityColumnsInterface, EntityFiltersInterface
         'id',
         'name',
         'description',
-        'donations_need ',
+        'donations_need',
         'donations_have',
         'activity',
     ];

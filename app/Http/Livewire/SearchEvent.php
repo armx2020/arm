@@ -24,7 +24,7 @@ class SearchEvent extends BaseSearch
         sleep(1);
         if ($this->term == "") {
 
-            $entities = Event::query()->with('city', 'parent')->latest();
+            $entities = Event::query()->with(['city', 'parent', 'category'])->latest();
 
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
@@ -34,7 +34,7 @@ class SearchEvent extends BaseSearch
             }
             $entities = $entities->paginate(20);
         } else {
-            $entities = Event::search($this->term)->with('city', 'parent')->paginate(20);
+            $entities = Event::search($this->term)->with(['city', 'parent', 'category'])->paginate(20);
         }
 
         return view('livewire.search-event', [

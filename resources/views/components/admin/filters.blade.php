@@ -23,7 +23,7 @@
                         @switch($type)
                             @case('date')
                                 <div class="basis-1/5 content-center self-center px-4">
-                                    {{ $name }}
+                                    {{ __('column.' . $name) }}
                                 </div>
 
                                 <div class="flex basis-2/5">
@@ -38,7 +38,7 @@
 
                             @case('bool')
                                 <div class="basis-1/5 content-center self-center px-4">
-                                    {{ $name }}
+                                    {{ __('column.' . $name) }}
                                 </div>
 
                                 <div class="flex basis-4/5">
@@ -54,7 +54,7 @@
                             @case('select')
                                 @if ($name == 'region_id')
                                     <div class="basis-1/5 content-center self-center px-4">
-                                        {{ $name }}
+                                        {{ __('column.' . $name) }}
                                     </div>
 
                                     <div class="flex basis-4/5">
@@ -71,7 +71,7 @@
 
                                 @if ($name == 'city_id')
                                     <div class="basis-1/5 content-center self-center px-4">
-                                        {{ $name }}
+                                        {{ __('column.' . $name) }}
                                     </div>
 
                                     <div class="flex basis-4/5">
