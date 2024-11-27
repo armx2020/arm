@@ -28,7 +28,7 @@ class CompanyRequest extends FormRequest
             'image_r'       => [],
             'city'          => [],
             'user'          => [],
-            'action'      => [],
+            'categories'      => [],
         ];
     }
 }

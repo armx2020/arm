@@ -17,6 +17,7 @@ return new class extends Migration
             $table->boolean('activity')->default(true);
             $table->enum('type', ['group', 'offer', 'event']);
             $table->foreignId('category_id')->nullable()->constrained();
+            $table->string('image', 255)->nullable();
         });
 
         DB::statement(

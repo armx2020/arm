@@ -19,6 +19,7 @@ class OfferService
         }
 
         $company = Company::select('user_id')->find($request->company);
+        $company->categories()->attach($request->categories);
 
         $offer = new CompanyOffer();
 

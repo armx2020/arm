@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Action;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class ActionController extends Controller
+class CategoryForOfferController extends Controller
 {
     public function get(Request $request)
     {
         $input = $request->all();
 
         if (!empty($input['query'])) {
-            $data = Action::where("name", "LIKE", "%{$input['query']}%")->get();
+            $data = Category::offer()->where("name", "LIKE", "%{$input['query']}%")->get();
         } else {
-            $data = Action::get();
+            $data = Category::offer()->get();
         }
 
         $actions = [];

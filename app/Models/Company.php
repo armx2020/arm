@@ -38,8 +38,8 @@ class Company extends Model
         return $this->hasMany(CompanyOffer::class);
     }
 
-    public function actions(): BelongsToMany
+    public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Action::class);
+        return $this->belongsToMany(Category::class);
     }
 }

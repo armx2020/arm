@@ -51,9 +51,9 @@
                                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                         </div>
                                         <div class="col-span-6">
-                                            <label for="dd_action"
+                                            <label for="dd_category"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Деятельность *</label>
-                                            <select name="actions[]" class="w-full" id="dd_action" multiple="multiple">
+                                            <select name="categories[]" class="w-full" id="dd_category" multiple="multiple">
                                             </select>
                                         </div>
                                         <div class="col-span-6">
@@ -176,8 +176,8 @@
                     }
                 });
             }
-            if ($("#dd_action").length > 0) {
-                $("#dd_action").select2({
+            if ($("#dd_category").length > 0) {
+                $("#dd_category").select2({
                     ajax: {
                         url: " {{ route('actions') }}",
                         type: "post",

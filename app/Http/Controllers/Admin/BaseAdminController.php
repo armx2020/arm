@@ -79,10 +79,6 @@ abstract class BaseAdminController extends Controller
                         'name' => 'Категории',
                         'route' => 'admin.category.index'
                     ],
-                    [
-                        'name' => 'Направления компаний',
-                        'route' => 'admin.action.index'
-                    ],
                 ]
             ]
         ];

@@ -13,24 +13,52 @@
                         @endif
 
                         <div class="bg-white rounded-lg relative">
-                            <div class="flex items-start p-5 border-b rounded-t">
-                                <div class="flex items-center mb-4">
-                                    @if ($company->image == null)
-                                        <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png') }}"
-                                            alt="{{ $company->name }} image">
-                                    @else
-                                        <img class="h-10 w-10 rounded-full m-4"
-                                            src="{{ asset('storage/' . $company->image) }}"
-                                            alt="{{ $company->name }} image">
-                                    @endif
-                                    <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $company->name }}</h3>
+
+                            <form method="POST" enctype="multipart/form-data"
+                                action="{{ route('admin.company.update', ['company' => $company->id]) }}">
+                                @csrf
+                                @method('PUT')
+                                <input name="image_r" type="text" id="image_r" class="hidden" style="z-index:-10;" />
+
+                                <div class="flex items-start p-5 border-b rounded-t">
+                                    <div class="flex items-center m-2">
+                                        <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $company->name }}</h3>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="p-6 space-y-6">
-                                <form method="POST" enctype="multipart/form-data"
-                                    action="{{ route('admin.company.update', ['company' => $company->id]) }}">
-                                    @csrf
-                                    @method('PUT')
+
+                                <div class="flex flex-row border-b" id="upload_area">
+                                    <div class="flex relative">
+
+                                        @if ($company->image == null || $company->image == 'group/groups.png')
+                                            <img class="h-10 w-10 rounded-lg m-4 object-cover" id="img"
+                                                src="{{ url('/image/no-image.png') }}" alt="image">
+                                        @else
+                                            <img class="h-10 w-10 rounded-lg m-4 object-cover" id="img"
+                                                src="{{ asset('storage/' . $company->image) }}" alt="image">
+                                        @endif
+
+                                        <button type="button" id="remove_image" class="absolute top-2 right-2 hidden"
+                                            @if ($company->image == null || $company->image == 'group/groups.png') style="display: none;" @else style="display: block;" @endif>
+                                            <img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                                style="cursor:pointer;"></button>
+                                    </div>
+
+                                    <div class="flex items-center">
+                                        <label class="input-file relative inline-block">
+                                            <input name="image" type="file" accept=".jpg,.jpeg,.png" id="image"
+                                                class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                            <span
+                                                class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600"
+                                                style="cursor:pointer;">Выберите файл или перетащите в эту область</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <x-input-error :messages="$errors->get('image')" />
+                                </div>
+
+                                <div class="p-6 space-y-6">
+
                                     <div class="grid grid-cols-6 gap-6">
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="name"
@@ -65,12 +93,12 @@
                                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                         </div>
                                         <div class="col-span-6">
-                                            <label for="dd_action"
+                                            <label for="dd_category"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Деятельность *</label>
-                                            <select name="actions[]" class="w-full" id="dd_action" multiple="multiple">
-                                                @foreach ($company->actions as $action)
-                                                    <option selected value="{{ $action->id }}">
-                                                        {{ $action->name }}
+                                            <select name="categories[]" class="w-full" id="dd_category" multiple="multiple">
+                                                @foreach ($company->categories as $category)
+                                                    <option selected value="{{ $category->id }}">
+                                                        {{ $category->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -93,7 +121,8 @@
                                             </select>
                                         </div>
                                         <div class="col-span-6">
-                                            <label for="dd_city" class="text-sm font-medium text-gray-900 block mb-2">Город
+                                            <label for="dd_city"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Город
                                                 *</label>
                                             <select name="city" class="w-full" id="dd_city">
                                                 <option value='{{ $company->city->id }}'>{{ $company->city->name }}
@@ -101,20 +130,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <hr class="my-5">
-                                    <div class="flex flex-row">
-                                        <label for="image"
-                                            class="text-center text-sm font-medium text-gray-900 basis-1/6 my-2">Image</label>
-                                        <div id="dropzone"
-                                            class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5 border-2 border-dashed border-gray-300 flex justify-center items-center cursor-pointer">
-                                            <p class="text-gray-500 text-sm text-center">Перетащите изображение сюда или
-                                                нажмите, чтобы выбрать файл</p>
-                                            <input type="file" name="image" id="image" class="hidden"
-                                                accept="image/*">
-                                        </div>
-                                        <x-input-error :messages="$errors->get('image')" class="mt-2" />
-                                    </div>
-                                    <hr class="my-3">
                                     <div class="grid grid-cols-6 gap-6">
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="web"
@@ -170,8 +185,9 @@
                                             class="text-white w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                             type="submit">Сохранить</button>
                                     </div>
-                                </form>
-                            </div>
+
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -202,8 +218,8 @@
                     }
                 });
             }
-            if ($("#dd_action").length > 0) {
-                $("#dd_action").select2({
+            if ($("#dd_category").length > 0) {
+                $("#dd_category").select2({
                     ajax: {
                         url: " {{ route('actions') }}",
                         type: "post",
@@ -224,43 +240,82 @@
                     }
                 });
             }
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            let dropzone = $("#dropzone");
-            let fileInput = $("#image");
 
-            const dragOverClasses = "border-cyan-600 bg-cyan-50";
+            function previewImage(file) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    $('#img').attr('src', event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
 
-            dropzone.on("click", function(e) {
-                fileInput[0].click();
-            });
+            function handleFile(file) {
+                var fileSize = file.size;
+                var maxSize = 2000000; // 2 MB
 
-            dropzone.on("dragover", function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                dropzone.addClass(dragOverClasses);
-            });
-
-            dropzone.on("dragleave drop", function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                dropzone.removeClass(dragOverClasses);
-            });
-
-            dropzone.on("drop", function(e) {
-                let files = e.originalEvent.dataTransfer.files;
-                if (files.length > 0) {
-                    fileInput[0].files = files;
-                    fileInput.trigger("change");
+                if (fileSize > maxSize) {
+                    $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
+                    $('.input-file input[type=file]').next().css({
+                        "color": "rgb(239 68 68)"
+                    });
+                    $('#img').attr('src', `{{ url('/image/no-image.png') }}`);
+                    $('#remove_image').css({
+                        "display": "none"
+                    });
+                } else {
+                    $('.input-file input[type=file]').next().html(file.name);
+                    $('.input-file input[type=file]').next().css({
+                        "color": "rgb(71 85 105)"
+                    });
+                    $('#remove_image').css({
+                        "display": "block"
+                    });
+                    previewImage(file);
                 }
+            }
+
+            $('#image').on('change', function(event) {
+                var selectedFile = event.target.files[0];
+                handleFile(selectedFile);
             });
 
-            fileInput.on("change", function() {
-                if (fileInput[0].files.length > 0) {
-                    let fileName = fileInput[0].files[0].name;
-                    dropzone.find("p").text(fileName);
+            $('#remove_image').on('click', function() {
+                $('#image').val('');
+                $('#image_r').val('delete');
+                $('#img').attr('src', `{{ url('/image/no-image.png') }}`);
+                $('.input-file input[type=file]').next().html('Выберите файл или перетащите сюда');
+                $('#remove_image').css({
+                    "display": "none"
+                });
+            });
+
+            var uploadArea = $('#upload_area');
+
+            uploadArea.on('dragover', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                uploadArea.addClass('bg-gray-200');
+            });
+
+            uploadArea.on('dragleave', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                uploadArea.removeClass('bg-gray-200');
+            });
+
+            uploadArea.on('drop', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                uploadArea.removeClass('bg-gray-200');
+
+                var files = event.originalEvent.dataTransfer.files;
+                if (files.length > 0) {
+                    var file = files[0];
+                    handleFile(file);
+
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    $('#image').prop('files', dataTransfer.files);
                 }
             });
         });

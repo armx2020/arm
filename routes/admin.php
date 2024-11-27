@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\ActionController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
@@ -52,11 +51,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
         ]);
         Route::resource('project', ProjectController::class)->except([
             'show'
-        ]);
-
-        Route::resource('action', ActionController::class)->except([
-            'show'
-        ]);
-              
+        ]);              
     });
 });

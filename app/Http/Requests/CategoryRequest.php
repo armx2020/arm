@@ -16,6 +16,9 @@ class CategoryRequest extends FormRequest
         return [
             'name'      => ['required', 'string', 'max:255'],
             'sort_id'   => ['required'],
+            'type'      => [],
+            'image'     => ['image', 'max:20000'],
+            'image_r'   => [],
         ];
     }
 }

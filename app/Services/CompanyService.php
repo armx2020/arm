@@ -44,7 +44,7 @@ class CompanyService
 
         $company->save();
 
-        $company->actions()->attach($request->actions);
+        $company->categories()->attach($request->categories);
 
         return $company;
     }
@@ -86,7 +86,7 @@ class CompanyService
         $company->vkontakte = $request->vkontakte;
         $company->user_id = $request->user;
 
-        $company->actions()->sync($request->actions);
+        $company->categories()->sync($request->categories);
 
         $company->update();
 
