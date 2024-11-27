@@ -24,7 +24,7 @@
                         <div class="flex items-center">
                             <label class="input-file relative inline-block">
                                 <input name="image" type="file" accept=".jpg,.jpeg,.png" id="image" class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                <span class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл</span>
+                                <span class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                             </label>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
         $('#remove_image').on('click', function() {
             $('#image').val('');
             $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
-            $('.input-file input[type=file]').next().html('Выберите файл');
+            $('.input-file input[type=file]').next().html('Выберите файл или перетащите сюда');
             $('#remove_image').css({ "display": "none" });
         });
 

@@ -26,7 +26,7 @@
                             <div class="flex items-center" id="title_image">
                                 <label class="relative inline-block">
                                     <input name="image" type="file" accept=".jpg,.jpeg,.png" id="image" class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                    <span id="image_span" class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл</span>
+                                    <span id="image_span" class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                                 </label>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                             <div class="flex items-center" id="title_image1">
                                 <label class="relative inline-block">
                                     <input name="image1" type="file" accept=".jpg,.jpeg,.png" id="image1" class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                    <span id="image_span1" class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл</span>
+                                    <span id="image_span1" class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                                 </label>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             <div class="flex items-center" id="title_image2">
                                 <label class="relative inline-block">
                                     <input name="image2" type="file" accept=".jpg,.jpeg,.png" id="image2" class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                    <span id="image_span2" class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл</span>
+                                    <span id="image_span2" class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                                 </label>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                             <div class="flex items-center" id="title_image3">
                                 <label class="relative inline-block">
                                     <input name="image3" type="file" accept=".jpg,.jpeg,.png" id="image3" class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                    <span id="image_span3" class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл</span>
+                                    <span id="image_span3" class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                                 </label>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                             <div class="flex items-center" id="title_image4">
                                 <label class="relative inline-block">
                                     <input name="image4" type="file" accept=".jpg,.jpeg,.png" id="image4" class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                    <span id="image_span4" class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл</span>
+                                    <span id="image_span4" class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                                 </label>
                             </div>
                         </div>
@@ -201,291 +201,125 @@
             });
         }
 
-        $('#image').on('change', function(event) {
-            var selectedFile = event.target.files[0];
-            var fileSize = selectedFile.size;
-            var maxSize = 2000000; // 2 mb
-            if (fileSize > maxSize) {
-                $('#image_span').html('максимальный размер 2 мб');
-                $('#image_span').css({
-                    "color": "rgb(239 68 68)"
-                });
-                $('#image').val('');
-                return;
-            } else {
-                let file = this.files[0];
-                $('#image_span').html(file.name);
-                $('#image_span').css({
-                    "color": "rgb(71 85 105)"
-                });
-                $('#image1-section').css({
-                    "display": "flex",
-                    "flex-direction": "row"
-                });
-                $('#remove_image').css({
-                    "display": "block"
-                });
-                $('#title_image').css({
-                    "display": "none"
-                });
+        const maxSize = 2000000; // Максимальный размер файла 2 MB
 
-                // Display file preview
-                var reader = new FileReader();
-                reader.onload = function(event) {
-                    $('#img').attr('src', event.target.result);
-                };
-                reader.readAsDataURL(selectedFile);
+        const sections = [
+            { input: '#image', img: '#img', span: '#image_span', remove: '#remove_image', section: '#image-section' },
+            { input: '#image1', img: '#img1', span: '#image_span1', remove: '#remove_image1', section: '#image1-section' },
+            { input: '#image2', img: '#img2', span: '#image_span2', remove: '#remove_image2', section: '#image2-section' },
+            { input: '#image3', img: '#img3', span: '#image_span3', remove: '#remove_image3', section: '#image3-section' },
+            { input: '#image4', img: '#img4', span: '#image_span4', remove: '#remove_image4', section: '#image4-section' },
+        ];
+
+        function handleFileInput(file, index) {
+            if (!file) return;
+
+            const fileSize = file.size;
+            const section = sections[index];
+            const nextSection = sections[index + 1];
+
+            if (fileSize > maxSize) {
+                $(section.span).html('Максимальный размер 2 МБ').css({ color: "rgb(239 68 68)" });
                 return;
             }
-        });
-        $('#remove_image').on('click', function() {
-            $('#image').val('');
-            $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
-            $('#image_span').html('Выберите файл');
-            $('#image1-section').css({
-                "display": "none"
-            });
-            $('#remove_image').css({
-                "display": "none"
-            });
-            $('#title_image').css({
-                "display": "flex"
-            });
-        })
-        $('#image1').on('change', function(event) {
-            var selectedFile = event.target.files[0];
-            var fileSize = selectedFile.size;
-            var maxSize = 2000000; // 2 mb
-            if (fileSize > maxSize) {
-                $('#image_span1').html('максимальный размер 2 мб');
-                $('#image_span1').css({
-                    "color": "rgb(239 68 68)"
-                });
-                $('#image1').val('');
-                return;
-            } else {
-                let file = this.files[0];
-                $('#image_span1').html(file.name);
-                $('#image_span1').css({
-                    "color": "rgb(71 85 105)"
-                });
-                $('#image2-section').css({
-                    "display": "flex",
-                    "flex-direction": "row"
-                });
-                $('#remove_image').css({
-                    "display": "none"
-                });
-                $('#remove_image1').css({
-                    "display": "block"
-                });
-                $('#title_image1').css({
-                    "display": "none"
-                });
 
-                // Display file preview
-                var reader = new FileReader();
-                reader.onload = function(event) {
-                    $('#img1').attr('src', event.target.result);
-                };
-                reader.readAsDataURL(selectedFile);
-                return;
-            }
-        });
-        $('#remove_image1').on('click', function() {
-            $('#image1').val('');
-            $('#img1').attr('src', `{{ url('/image/no-image.png')}}`);
-            $('#image_span1').html('Выберите файл');
-            $('#image2-section').css({
-                "display": "none"
-            });
-            $('#image1-section').css({
-                "display": "flex",
-                "flex-direction": "row"
-            });
-            $('#remove_image1').css({
-                "display": "none"
-            });
-            $('#remove_image').css({
-                "display": "block"
-            });
-            $('#title_image1').css({
-                "display": "flex"
-            });
-        })
-        $('#image2').on('change', function(event) {
-            var selectedFile = event.target.files[0];
-            var fileSize = selectedFile.size;
-            var maxSize = 2000000; // 2 mb
-            if (fileSize > maxSize) {
-                $('#image_span2').html('максимальный размер 2 мб');
-                $('#image_span2').css({
-                    "color": "rgb(239 68 68)"
-                });
-                $('#image2').val('');
-                return;
-            } else {
-                let file = this.files[0];
-                $('#image_span2').html(file.name);
-                $('#image_span2').css({
-                    "color": "rgb(71 85 105)"
-                });
-                $('#image3-section').css({
-                    "display": "flex",
-                    "flex-direction": "row"
-                });
-                $('#remove_image1').css({
-                    "display": "none"
-                });
-                $('#remove_image2').css({
-                    "display": "block"
-                });
-                $('#title_image2').css({
-                    "display": "none"
-                });
+            $(section.span).html(file.name).css({ color: "rgb(71 85 105)" });
+            $(section.section).find('.flex.items-center').hide();
 
-                // Display file preview
-                var reader = new FileReader();
-                reader.onload = function(event) {
-                    $('#img2').attr('src', event.target.result);
-                };
-                reader.readAsDataURL(selectedFile);
-                return;
-            }
-        });
-        $('#remove_image2').on('click', function() {
-            $('#image2').val('');
-            $('#img2').attr('src', `{{ url('/image/no-image.png')}}`);
-            $('#image_span2').html('Выберите файл');
-            $('#image3-section').css({
-                "display": "none"
+            // Скрыть кнопку "Удалить" на предыдущих секциях
+            sections.forEach((s, i) => {
+                if (i !== index) $(s.remove).hide();
             });
-            $('#image2-section').css({
-                "display": "flex",
-                "flex-direction": "row"
-            });
-            $('#remove_image2').css({
-                "display": "none"
-            });
-            $('#remove_image1').css({
-                "display": "block"
-            });
-            $('#title_image2').css({
-                "display": "flex"
-            });
-        })
-        $('#image3').on('change', function(event) {
-            var selectedFile = event.target.files[0];
-            var fileSize = selectedFile.size;
-            var maxSize = 2000000; // 2 mb
-            if (fileSize > maxSize) {
-                $('#image_span3').html('максимальный размер 2 мб');
-                $('#image_span3').css({
-                    "color": "rgb(239 68 68)"
-                });
-                $('#image3').val('');
-                return;
-            } else {
-                let file = this.files[0];
-                $('#image_span3').html(file.name);
-                $('#image_span3').css({
-                    "color": "rgb(71 85 105)"
-                });
-                $('#image4-section').css({
-                    "display": "flex",
-                    "flex-direction": "row"
-                });
-                $('#remove_image2').css({
-                    "display": "none"
-                });
-                $('#remove_image3').css({
-                    "display": "block"
-                });
-                $('#title_image3').css({
-                    "display": "none"
-                });
 
-                // Display file preview
-                var reader = new FileReader();
-                reader.onload = function(event) {
-                    $('#img3').attr('src', event.target.result);
-                };
-                reader.readAsDataURL(selectedFile);
-                return;
-            }
-        });
-        $('#remove_image3').on('click', function() {
-            $('#image3').val('');
-            $('#img3').attr('src', `{{ url('/image/no-image.png')}}`);
-            $('#image_span3').html('Выберите файл');
-            $('#image4-section').css({
-                "display": "none"
-            });
-            $('#image3-section').css({
-                "display": "flex",
-                "flex-direction": "row"
-            });
-            $('#remove_image3').css({
-                "display": "none"
-            });
-            $('#remove_image2').css({
-                "display": "block"
-            });
-            $('#title_image3').css({
-                "display": "flex"
-            });
-        })
-        $('#image4').on('change', function(event) {
-            var selectedFile = event.target.files[0];
-            var fileSize = selectedFile.size;
-            var maxSize = 2000000; // 2 mb
-            if (fileSize > maxSize) {
-                $('#image_span4').html('максимальный размер 2 мб');
-                $('#image_span4').css({
-                    "color": "rgb(239 68 68)"
-                });
-                $('#image4').val('');
-                return;
-            } else {
-                let file = this.files[0];
-                $('#image_span4').html(file.name);
-                $('#image_span4').css({
-                    "color": "rgb(71 85 105)"
-                });
-                $('#remove_image3').css({
-                    "display": "none"
-                });
-                $('#remove_image4').css({
-                    "display": "block"
-                });
+            // Показать кнопку "Удалить" только для текущей секции
+            $(section.remove).show();
 
-                // Display file preview
-                var reader = new FileReader();
-                reader.onload = function(event) {
-                    $('#img4').attr('src', event.target.result);
-                };
-                reader.readAsDataURL(selectedFile);
-                return;
+            // Показать следующую секцию
+            if (nextSection) {
+                $(nextSection.section).css({ display: "flex", "flex-direction": "row" });
             }
+
+            // Предварительный просмотр изображения
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                $(section.img).attr('src', event.target.result);
+            };
+            reader.readAsDataURL(file);
+
+            // Синхронизация файла с <input type="file">
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            $(section.input)[0].files = dataTransfer.files;
+        }
+
+        function resetFileInput(index) {
+            const section = sections[index];
+            const prevSection = sections[index - 1];
+            const nextSection = sections[index + 1];
+
+            $(section.input).val('');
+            $(section.img).attr('src', `{{ url('/image/no-image.png')}}`);
+            $(section.span).html('Выберите файл').css({ color: "rgb(71 85 105)" });
+            $(section.remove).hide();
+            $(section.section).find('.flex.items-center').show();
+
+            // Если удаляем последнее изображение, снова показываем эту секцию
+            $(section.section).css({ display: "flex", "flex-direction": "row" });
+
+            // Скрыть следующие секции
+            if (nextSection) {
+                for (let i = index + 1; i < sections.length; i++) {
+                    $(sections[i].section).hide();
+                    $(sections[i].input).val('');
+                    $(sections[i].img).attr('src', `{{ url('/image/no-image.png')}}`);
+                    $(sections[i].span).html('Выберите файл').css({ color: "rgb(71 85 105)" });
+                    $(sections[i].remove).hide();
+                }
+            }
+
+            // Показать кнопку "Удалить" в предыдущей секции
+            if (prevSection) {
+                $(prevSection.remove).show();
+            }
+        }
+
+        function enableDragAndDrop(index) {
+            const section = sections[index];
+
+            $(section.section).on('dragover', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).css('background-color', '#f1f5f9'); // Подсветка
+            });
+
+            $(section.section).on('dragleave', function () {
+                $(this).css('background-color', ''); // Убираем подсветку
+            });
+
+            $(section.section).on('drop', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).css('background-color', '');
+
+                const files = e.originalEvent?.dataTransfer?.files || [];
+                if (files.length > 0) {
+                    handleFileInput(files[0], index);
+                }
+            });
+        }
+
+// Привязка событий для всех секций
+        sections.forEach((section, index) => {
+            $(section.input).on('change', function () {
+                handleFileInput(this.files[0], index);
+            });
+
+            $(section.remove).on('click', function () {
+                resetFileInput(index);
+            });
+
+            enableDragAndDrop(index);
         });
-        $('#remove_image4').on('click', function() {
-            $('#image4').val('');
-            $('#img4').attr('src', `{{ url('/image/no-image.png')}}`);
-            $('#image_span4').html('Выберите файл');
-            $('#image4-section').css({
-                "display": "flex",
-                "flex-direction": "row"
-            });
-            $('#remove_image4').css({
-                "display": "none"
-            });
-            $('#remove_image3').css({
-                "display": "block"
-            });
-            $('#title_image4').css({
-                "display": "flex"
-            });
-        })
     });
 </script>
 @endsection
