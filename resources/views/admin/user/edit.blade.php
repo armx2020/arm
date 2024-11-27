@@ -20,7 +20,7 @@
                                 @method('PUT')
                                 <input name="image_r" type="text" id="image_r" class="hidden" style="z-index:-10;" />
 
-                                <div class="flex flex-row">
+                                <div class="flex flex-row" id="upload_area">
                                     <div class="flex relative mx-6 my-6">
                                         @if( $user->image == null)
                                         <img class="h-20 w-20 rounded-full m-4 object-cover" id="img" src="{{ url('/image/no-image.png')}}" alt="{{ $user->firstname }} avatar">
@@ -129,53 +129,74 @@
                 }
             });
         }
-        $('#image').on('change', function(event) {
-            var selectedFile = event.target.files[0];
+        function previewImage(file) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                $('#img').attr('src', event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
 
-            // Check file size (in bytes)
-            var fileSize = selectedFile.size;
-            var maxSize = 2000000; // 2 mb
+        function handleFile(file) {
+            var fileSize = file.size;
+            var maxSize = 2000000; // 2 MB
+
             if (fileSize > maxSize) {
                 $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
-                $('.input-file input[type=file]').next().css({
-                    "color": "rgb(239 68 68)"
-                });
-                $('.input-file input[type=file]').val('');
-                $('.input-file input[type=file]').next().html(file.name);
-                $('#image_r').val('');
-                $('#remove_image').css({
-                    "display": "none"
-                });
-                return;
+                $('.input-file input[type=file]').next().css({ "color": "rgb(239 68 68)" });
+                $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
+                $('#remove_image').css({ "display": "none" });
             } else {
-                let file = this.files[0];
-                $('#image_r').val('');
                 $('.input-file input[type=file]').next().html(file.name);
-                $(this).next().css({
-                    "color": "rgb(71 85 105)"
-                });
-                $('#remove_image').css({
-                    "display": "block"
-                });
-
-                // Display file preview
-                var reader = new FileReader();
-                reader.onload = function(event) {
-                    $('#img').attr('src', event.target.result);
-
-                };
-                reader.readAsDataURL(selectedFile);
-                return;
+                $('.input-file input[type=file]').next().css({ "color": "rgb(71 85 105)" });
+                $('#remove_image').css({ "display": "block" });
+                previewImage(file);
             }
+        }
+
+        $('#image').on('change', function(event) {
+            var selectedFile = event.target.files[0];
+            handleFile(selectedFile);
         });
+
         $('#remove_image').on('click', function() {
             $('#image').val('');
             $('#image_r').val('delete');
             $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
-            $('.input-file input[type=file]').next().html('Выберите файл');
+            $('.input-file input[type=file]').next().html('Выберите файл или перетащите сюда');
             $('#remove_image').css({
                 "display": "none"
             });
+        });
+
+        var uploadArea = $('#upload_area');
+
+        uploadArea.on('dragover', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            uploadArea.addClass('bg-gray-200');
+        });
+
+        uploadArea.on('dragleave', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            uploadArea.removeClass('bg-gray-200');
+        });
+
+        uploadArea.on('drop', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            uploadArea.removeClass('bg-gray-200');
+
+            var files = event.originalEvent.dataTransfer.files;
+            if (files.length > 0) {
+                var file = files[0];
+                handleFile(file);
+
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                $('#image').prop('files', dataTransfer.files);
+            }
         });
     });
 </script>
