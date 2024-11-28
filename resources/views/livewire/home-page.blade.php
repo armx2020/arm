@@ -215,7 +215,7 @@
                     class="flex flex-nowrap lg:flex-none lg:grid lg:grid-cols-4 gap-3 lg:gap-5 overflow-x-scroll scrollhidden">
                     @foreach ($groups as $group)
                         <div class="block lg:col-span-1">
-                            <div class="flex flex-col rounded-2xl bg-white h-[26rem]">
+                            <div class="flex flex-col rounded-2xl bg-white h-[20rem]">
                                 <div class="flex">
                                     @if ($group->image == null)
                                         <img class="h-36 w-full rounded-t-2xl flex object-cover"
@@ -240,11 +240,6 @@
                                         class="text-blue-600 text-xs md:text-md text-center font-semibold">
                                         Подробнее →
                                     </a>
-                                    <ul class="flex flex-wrap my-2 lowercase">
-                                        <li class="text-xs lg:text-sm px-2 m-1 rounded-2xl border border-black">
-                                            #{{ $group->category->name }}
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
