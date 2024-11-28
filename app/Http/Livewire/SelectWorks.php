@@ -15,7 +15,7 @@ class SelectWorks extends Component
     public $region;
     public $type = 0;
     public $sort = "updated_at|desc";
-    public $view = 1;
+    public $view = 2;
 
     public function mount(Request $request, $regionCode = null)
     {
