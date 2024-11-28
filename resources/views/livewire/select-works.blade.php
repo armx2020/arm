@@ -165,19 +165,19 @@
                             </div>
                         </div>
                         @else
-                        <div class="block rounded-lg bg-white h-80">
-                            <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="block h-52">
+                        <div class="flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64">
+                            <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="w-full sm:basis-1/3">
                                 @if( $work->user)
                                 @if( $work->user->image == null )
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @else
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="image">
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="image">
                                 @endif
                                 @else
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @endif
                             </a>
-                            <div class="px-3 md:px-6">
+                            <div class="p-6 flex flex-col w-full sm:basis-2/3">
                                 <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
                                     {{ $work->name }}
                                 </h5>
