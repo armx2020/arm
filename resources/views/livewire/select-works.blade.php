@@ -12,7 +12,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen"  style="max-width: 80%">
+            <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
 
                 <div class="flex flex-nowrap gap-x-2 mb-3 overflow-x-scroll scrollhidden">
                     <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_0" @if($type==0) style="background-color: rgb(59 130 246);color:white" @else style="background-color: white;color:black;" @endif>
@@ -136,19 +136,19 @@
                     <div class="grid grid-cols-1 gap-3 lg:gap-5">
                         @foreach($works as $work)
                         @if($typeName == 'вакансий')
-                        <div class="flex flex-row rounded-lg bg-white h-64">
-                            <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="basis-1/2">
+                        <div class="flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64">
+                            <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="w-full sm:basis-1/3">
                                 @if( $work->parent == null )
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @else
                                 @if( $work->parent->image == null )
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @else
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->parent->image) }}" alt="image">
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->parent->image) }}" alt="image">
                                 @endif
                                 @endif
                             </a>
-                            <div class="p-6 flex flex-col basis-2/3">
+                            <div class="p-6 flex flex-col w-full sm:basis-2/3">
                                 <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
                                     {{$work->name }}
                                 </h5>
@@ -165,19 +165,19 @@
                             </div>
                         </div>
                         @else
-                        <div class="block rounded-lg bg-white h-80">
-                            <a href="{{ route('resume.show', ['id' => $work->id ]) }}" class="block h-52">
+                        <div class="flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64">
+                            <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="w-full sm:basis-1/3">
                                 @if( $work->user)
                                 @if( $work->user->image == null )
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @else
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="image">
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->user->image) }}" alt="image">
                                 @endif
                                 @else
-                                <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @endif
                             </a>
-                            <div class="px-3 md:px-6">
+                            <div class="p-6 flex flex-col w-full sm:basis-2/3">
                                 <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
                                     {{ $work->name }}
                                 </h5>

@@ -234,15 +234,15 @@
                 @else
                 <div class="grid grid-cols-1 gap-3 lg:gap-5">
                     @foreach($groups as $group)
-                    <div class="flex flex-row rounded-lg bg-white h-64">
-                        <a href="{{ route('groups.show', ['id' => $group->id ]) }}" class="basis-1/3">
+                    <div class="flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64">
+                        <a href="{{ route('groups.show', ['id' => $group->id ]) }}" class="w-full sm:basis-1/3">
                             @if( $group->image == null )
-                                <img class="w-full rounded-2xl p-2 flex object-cover h-[50%] md:h-[100%]" src="{{ url('/image/no-image.png')}}" alt="image" />
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                             @else
-                                <img class="w-full rounded-2xl p-2 flex object-cover h-[50%] md:h-[100%]" src="{{ asset( 'storage/'.$group->image) }}" alt="image">
+                                <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$group->image) }}" alt="image">
                             @endif
                         </a>
-                        <div class="p-6 flex flex-col basis-2/3">
+                        <div class="p-6 flex flex-col w-full sm:basis-2/3">
                             <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
                                 {{ $group->name }}
                             </h5>

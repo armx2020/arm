@@ -12,7 +12,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen" style="max-width: 80%">
+            <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen">
                 <div wire:loading class="w-full">
                     <div class="p-4">
                         <div class="text-2xl items-center text-center justify-center">
@@ -58,23 +58,23 @@
                     @else
                     <div class="grid grid-cols-1 gap-3 lg:gap-5">
                         @foreach($news as $new)
-                        <div class="flex flex-row rounded-lg bg-white h-64">
-                            <a href="{{ route('news.show', ['id' => $new->id ]) }}" class="basis-1/3">
+                        <div class="flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64">
+                            <a href="{{ route('news.show', ['id' => $new->id ]) }}" class="w-full sm:basis-1/3">
                                 @if( $new->image == null )
                                 <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @else
                                 <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$new->image) }}" alt="image">
                                 @endif
                             </a>
-                            <div class="p-6 flex flex-col basis-2/3">
+                            <div class="p-6 flex flex-col w-full sm:basis-2/3">
                                 <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
                                     {{ $new->name }}
                                 </h5>
                                 <hr class="my-3">
                                 <div>
                                     <p class="text-right pb-0">{{ $new->date }}</p>
-                                    <p class="mb-4 break-words font-medium leading-tight text-neutral-600">
-                                        {{ $new->description}}
+                                    <p class="mb-4 break-words font-medium leading-tight text-neutral-600 line-clamp-3">
+                                        {{ $new->description }}
                                     </p>
                                 </div>
                             </div>

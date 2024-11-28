@@ -15,7 +15,7 @@ class SelectProjects extends Component
     public $region;
     public $term = 2;
     public $sort = "updated_at|desc";
-    public $view = 1;
+    public $view = 2;
 
     public function mount(Request $request, $regionCode = null)
     {
