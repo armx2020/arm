@@ -88,12 +88,14 @@ class MyCompanyController extends BaseController
 
         $company->save();
 
+        $company->categories()->attach($request->categories);
+
         return redirect()->route('mycompanies.index')->with('success', 'Компания "' . $company->name . '" добавлена');
     }
 
     public function show(Request $request, $id)
     {
-        $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
+        $company = Company::where('user_id', '=', Auth::user()->id)->with('categories')->find($id);
 
         if (empty($company)) {
             return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
@@ -124,7 +126,7 @@ class MyCompanyController extends BaseController
 
     public function edit(Request $request, $id)
     {
-        $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
+        $company = Company::where('user_id', '=', Auth::user()->id)->with('categories')->find($id);
 
         if (empty($company)) {
             return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
@@ -179,6 +181,8 @@ class MyCompanyController extends BaseController
         $company->vkontakte = $request->vkontakte;
         $company->user_id = Auth::user()->id;
 
+        $company->categories()->sync($request->categories);
+
 
         if ($request->image_r == 'delete') {
             Storage::delete('public/' . $company->image);
@@ -200,7 +204,9 @@ class MyCompanyController extends BaseController
 
     public function destroy($id)
     {
-        $company = Company::with('events', 'projects', 'vacancies', 'news', 'offers')->where('user_id', '=', Auth::user()->id)->find($id);
+        $company = Company::with('events', 'projects', 'news', 'offers')->where('user_id', '=', Auth::user()->id)->find($id);
+
+        $company->categories()->detach();
 
         if (empty($company)) {
             return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
@@ -228,11 +234,7 @@ class MyCompanyController extends BaseController
             if ($project->image !== null) {
                 Storage::delete('public/' . $project->image);
             }
-           $project->delete();
-        }
-
-        foreach ($company->vacancies as $vacancy) {
-            $vacancy->delete();
+            $project->delete();
         }
 
         if ($company->image !== null) {
