@@ -55,7 +55,8 @@ class MyOfferController extends BaseController
         ]);
 
         $company = Company::where('user_id', '=', Auth::user()->id)->find($request->company);
-
+        $company->categories()->attach($request->categories);
+        
         if (empty($company)) {
             return redirect()->route('myoffers.index');
         }
@@ -183,7 +184,8 @@ class MyOfferController extends BaseController
 
 
         $company = Company::where('user_id', '=', Auth::user()->id)->find($request->company);
-
+        $company->categories()->sync($request->categories);
+        
         if (empty($company)) {
             return redirect()->route('myoffers.index');
         }

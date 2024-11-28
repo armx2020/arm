@@ -86,7 +86,8 @@ class OfferService
         }
 
         $company = Company::find($request->company);
-
+        $company->categories()->sync($request->categories);
+        
         if (empty($company)) {
             return redirect()->route('myoffers.index');
         }
