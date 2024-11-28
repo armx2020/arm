@@ -19,7 +19,7 @@ class OfferService
         }
 
         $company = Company::select('user_id')->find($request->company);
-        $company->categories()->attach($request->categories);
+        $company->categories()->attach($request->category);
 
         $offer = new CompanyOffer();
 
@@ -86,7 +86,7 @@ class OfferService
         }
 
         $company = Company::find($request->company);
-        $company->categories()->sync($request->categories);
+        $company->categories()->sync($request->category);
         
         if (empty($company)) {
             return redirect()->route('myoffers.index');
