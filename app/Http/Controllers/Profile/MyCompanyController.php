@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\CompanyRequest;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Company;
 use Illuminate\Http\Request;
@@ -35,7 +36,10 @@ class MyCompanyController extends BaseController
 
     public function create(Request $request)
     {
+        $categories = Category::offer()->where('category_id', null)->with('categories')->get();
+
         return view('profile.pages.company.create', [
+            'categories' => $categories,
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'regionCode' => $request->session()->get('regionId')
@@ -88,7 +92,22 @@ class MyCompanyController extends BaseController
 
         $company->save();
 
-        $company->categories()->attach($request->categories);
+        if ($request->categories) {
+            foreach ($request->categories as $categoryID => $val) {
+                $categoryBD = Category::find($categoryID);
+
+                if ($categoryBD->category_id == null) {
+                    if ($company->category_id) {
+                        $company->category_id = $categoryID;
+                        $company->save();
+                    } else {
+                        $company->categories()->attach($categoryID);
+                    }
+                } else {
+                    $company->categories()->attach($categoryID);
+                }
+            }
+        }
 
         return redirect()->route('mycompanies.index')->with('success', 'Компания "' . $company->name . '" добавлена');
     }
@@ -132,7 +151,10 @@ class MyCompanyController extends BaseController
             return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
         }
 
+        $categories = Category::offer()->where('category_id', null)->with('categories')->get();
+
         return view('profile.pages.company.edit', [
+            'categories' => $categories,
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'company' => $company,
@@ -180,9 +202,28 @@ class MyCompanyController extends BaseController
         $company->instagram = $request->instagram;
         $company->vkontakte = $request->vkontakte;
         $company->user_id = Auth::user()->id;
+        $company->category_id = null;
 
-        $company->categories()->sync($request->categories);
+        $new_categories = [];
 
+        if ($request->categories) {
+            foreach ($request->categories as $categoryID => $val) {
+                $categoryBD = Category::find($categoryID);
+
+                if ($categoryBD->category_id == null) {
+                    if ($company->category_id == null) {
+                        $company->category_id = $categoryID;
+                        $company->update();
+                    } else {
+                        $new_categories[] = $categoryID;
+                    }
+                } else {
+                    $new_categories[] = $categoryID;
+                }
+            }
+        }
+
+        $company->categories()->sync($new_categories);
 
         if ($request->image_r == 'delete') {
             Storage::delete('public/' . $company->image);

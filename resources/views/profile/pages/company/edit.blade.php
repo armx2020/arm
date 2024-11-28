@@ -71,16 +71,35 @@
                         </div>
 
                         <div class="my-3">
-                            <label for="company_categories"
-                                class="text-sm font-medium text-gray-900 block mb-2">Деятельность *</label>
-                            <select name="categories[]" style="border-color: rgb(209 213 219); width: 100%"
-                                id="company_categories" multiple="multiple">
-                                @foreach ($company->categories as $category)
-                                    <option selected value="{{ $category->id }}">
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <label class="text-sm font-medium text-gray-900 block">Выберите
+                                деятельность</label>
+                            <div class="flex border-2 rounded-lg p-4 mt-1">
+                                <div class="grid grid-cols-3 gap-2 w-full">
+
+                                    @foreach ($categories as $item)
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex">
+                                                <input type="checkbox" name="categories[{{ $item->id }}]" @checked($company->category_id == $item->id || $company->categories->contains($item->id))
+                                                    class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                    id="hs-checkbox-group-1">
+                                                <label for="hs-checkbox-group-1"
+                                                    class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
+                                            </div>
+                                            @foreach ($item->categories as $child)
+                                                <div class="flex pl-4">
+                                                    <input type="checkbox" name="categories[{{ $child->id }}]" @checked($company->categories->contains($child->id))
+                                                        class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                        id="hs-checkbox-group-2">
+                                                    <label for="hs-checkbox-group-2"
+                                                        class="text-sm text-gray-400 ms-3 dark:text-neutral-400">{{ $child->name }}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="my-3">
