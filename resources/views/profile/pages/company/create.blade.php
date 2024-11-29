@@ -63,7 +63,7 @@
                             <label for="company_categories" class="text-sm font-medium text-gray-900 block">Выберите
                                 деятельность</label>
                             <div class="flex border-2 rounded-lg p-4  mt-1">
-                                <div class="grid grid-cols-3 gap-2 w-full">
+                                <div class="grid grid-cols-3 gap-3 w-full">
 
                                     @foreach ($categories as $item)
                                         <div class="flex flex-col gap-1">
