@@ -136,7 +136,7 @@
                     <div class="grid grid-cols-1 gap-3 lg:gap-5">
                         @foreach($works as $work)
                         @if($typeName == 'вакансий')
-                        <div class="flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64">
+                        <div class="flex flex-row rounded-lg bg-white h-80">
                             <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="w-full sm:basis-1/3">
                                 @if( $work->parent == null )
                                 <img class="h-full w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
@@ -165,7 +165,7 @@
                             </div>
                         </div>
                         @else
-                        <div class="flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64">
+                        <div class="flex-row rounded-lg bg-white h-80">
                             <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="w-full sm:basis-1/3">
                                 @if( $work->user)
                                 @if( $work->user->image == null )
@@ -274,7 +274,7 @@
                     <div class="grid grid-cols-1 gap-3 lg:gap-5">
                         @foreach($recommendations as $work)
                         @if($typeName == 'ВАКАНСИЙ')
-                        <div class="flex flex-row rounded-lg bg-white h-64">
+                        <div class="flex flex-row rounded-lg bg-white h-80">
                             <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="basis-1/2">
                                 @if( $work->parent == null )
                                 <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
@@ -303,7 +303,7 @@
                             </div>
                         </div>
                         @else
-                        <div class="block rounded-lg bg-white h-80">
+                        <div class="flex flex-row rounded-lg bg-white h-80">
                             <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="block h-52">
                                 @if( $work->user)
                                 @if( $work->user->image == null )
