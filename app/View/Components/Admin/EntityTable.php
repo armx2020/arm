@@ -8,9 +8,6 @@ use Illuminate\View\Component;
 
 class EntityTable extends Component
 {
-    /**
-     * Create a new component instance.
-     */
     public function __construct(
         public $entities,
         public array $allColumns,
@@ -23,9 +20,6 @@ class EntityTable extends Component
         //
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     */
     public function render(): View|Closure|string
     {
         return view('components.admin.entity-table');

@@ -60,8 +60,6 @@
                     @endforeach
                 </div>
 
-
-
                 <div wire:loading class="w-full">
                     <div class="p-4">
                         <div class="text-2xl items-center text-center justify-center">
