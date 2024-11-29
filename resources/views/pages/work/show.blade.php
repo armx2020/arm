@@ -30,10 +30,10 @@
     <div class="flex flex-col mx-auto my-6 lg:my-8">
         <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10 relative">
             <div class="flex flex-col basis-1/5">
-                @if( $work->parent->image == null )
+                @if( $work->image == null )
                 <img class="h-56 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                 @else
-                <img class="h-56 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->parent->image) }}" alt="image">
+                <img class="h-56 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$work->image) }}" alt="image">
                 @endif
 
             </div>
