@@ -70,10 +70,10 @@
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
-                        <div class="my-3">
-                            <label class="text-sm font-medium text-gray-900 block">Выберите
-                                деятельность</label>
-                            <div class="flex border-2 rounded-lg p-4 mt-1">
+                        <div class="my-3" x-data="{ open: false }">
+                            <label class="cursor-pointer text-sm font-medium text-blue-700 block" @click="open = !open">Нажмите, чтобы
+                                выбрать деятельность...</label>
+                            <div class="flex border-2 rounded-lg p-4 mt-1" x-show="open">
                                 <div class="grid grid-cols-3 gap-4 w-full">
 
                                     @foreach ($categories as $item)
@@ -97,26 +97,26 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                        
-                                    <script>
-                                        document.addEventListener("DOMContentLoaded", function(event) {
-                                            var checkboxAll = document.querySelector("#checkbox-group-{!! $loop->iteration !!}");
-                                            checkboxAll.addEventListener('change', function() {
-                                                let inputs = document.querySelectorAll(".checkbox-{!! $loop->iteration !!}")
 
-                                                if (this.checked) {
-                                                    inputs.forEach(element => {
-                                                        element.checked = true
-                                                    });
-                                                } else {
-                                                    inputs.forEach(element => {
-                                                        element.checked = false
-                                                    });
-                                                }
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function(event) {
+                                                var checkboxAll = document.querySelector("#checkbox-group-{!! $loop->iteration !!}");
+                                                checkboxAll.addEventListener('change', function() {
+                                                    let inputs = document.querySelectorAll(".checkbox-{!! $loop->iteration !!}")
+
+                                                    if (this.checked) {
+                                                        inputs.forEach(element => {
+                                                            element.checked = true
+                                                        });
+                                                    } else {
+                                                        inputs.forEach(element => {
+                                                            element.checked = false
+                                                        });
+                                                    }
+                                                });
+
                                             });
-
-                                        });
-                                    </script>
+                                        </script>
                                     @endforeach
 
                                 </div>
