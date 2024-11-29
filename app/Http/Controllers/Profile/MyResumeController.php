@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\BaseController;
 use App\Models\City;
-use App\Models\Resume;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image as Image;
 
 class MyResumeController extends BaseController
 {
@@ -60,6 +61,14 @@ class MyResumeController extends BaseController
         $resume->type = 'resume';
         $resume->parent_type = 'App\Models\User';
         $resume->parent_id = Auth::user()->id;
+
+        if ($request->image) {
+            $resume->image = $request->file('image')->store('companies', 'public');
+            Image::make('storage/' . $resume->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
+        }
+
 
         $resume->save();
 
@@ -122,6 +131,19 @@ class MyResumeController extends BaseController
             $resume->city_id = $request->resume_city;
             $resume->region_id = $city->region->id;
 
+            if ($request->image_r == 'delete') {
+                Storage::delete('public/' . $resume->image);
+                $resume->image = null;
+            }
+    
+            if ($request->image) {
+                Storage::delete('public/' . $resume->image);
+                $resume->image = $request->file('image')->store('companies', 'public');
+                Image::make('storage/' . $resume->image)->resize(400, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save();
+            }
+
             $resume->save();
 
             return redirect()->route('myresumes.index')->with('success', 'Резюме "' . $resume->name . '" обнавлено');
@@ -135,6 +157,9 @@ class MyResumeController extends BaseController
         if (empty($resume)) {
             return redirect()->route('myresumes.index')->with('alert', 'Резюме не найдено');
         } else {
+            if ($resume->image !== null) {
+                Storage::delete('public/' . $resume->image);
+            }
 
             $resume->delete();
 

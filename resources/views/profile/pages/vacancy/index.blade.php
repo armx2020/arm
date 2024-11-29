@@ -26,10 +26,10 @@
             @foreach($company->works as $vacancy)
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('myvacancies.show', ['myvacancy' => $vacancy->id ]) }}" class="block h-52">
-                    @if( $vacancy->parent->image == null )
+                    @if( $vacancy->image == null )
                     <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
-                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$vacancy->parent->image) }}" alt="image">
+                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$vacancy->image) }}" alt="image">
                     @endif
                 </a>
                 <div class="px-6">
@@ -62,10 +62,10 @@
             @foreach($group->works as $vacancy)
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('myvacancies.show', ['myvacancy' => $vacancy->id ]) }}" class="block h-52">
-                    @if( $vacancy->parent->image == null )
+                    @if( $vacancy->image == null )
                     <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
-                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$vacancy->parent->image) }}" alt="image">
+                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$vacancy->image) }}" alt="image">
                     @endif
                 </a>
                 <div class="px-6">
@@ -97,10 +97,10 @@
             @foreach($vacancies as $vacancy)
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('myvacancies.show', ['myvacancy' => $vacancy->id ]) }}" class="block h-52">
-                    @if( $vacancy->parent->image == null )
+                    @if( $vacancy->image == null )
                     <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
-                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$vacancy->parent->image) }}" alt="image">
+                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$vacancy->image) }}" alt="image">
                     @endif
                 </a>
                 <div class="px-6">

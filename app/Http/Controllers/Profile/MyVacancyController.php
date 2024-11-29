@@ -9,6 +9,8 @@ use App\Models\Group;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image as Image;
 
 class MyVacancyController extends BaseController
 {
@@ -84,6 +86,13 @@ class MyVacancyController extends BaseController
         } else {
             $vacancy->parent_type = 'App\Models\User';
             $vacancy->parent_id = 1;
+        }
+
+        if ($request->image) {
+            $vacancy->image = $request->file('image')->store('companies', 'public');
+            Image::make('storage/' . $vacancy->image)->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save();
         }
 
         $vacancy->save();
@@ -190,9 +199,22 @@ class MyVacancyController extends BaseController
                     $vacancy->parent_id = 1;
                 }
 
+                if ($request->image_r == 'delete') {
+                    Storage::delete('public/' . $vacancy->image);
+                    $vacancy->image = null;
+                }
+        
+                if ($request->image) {
+                    Storage::delete('public/' . $vacancy->image);
+                    $vacancy->image = $request->file('image')->store('companies', 'public');
+                    Image::make('storage/' . $vacancy->image)->resize(400, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save();
+                }
+
                 $vacancy->save();
 
-                return redirect()->route('myvacancies.index')->with('success', 'Резюме "' . $vacancy->name . '" обнавлено');
+                return redirect()->route('myvacancies.index')->with('success', 'Вакансия "' . $vacancy->name . '" обнавлена');
             } else {
                 return redirect()->route('myvacancies.index')->with('alert', 'Вакансия не найдена');
             }
@@ -211,9 +233,13 @@ class MyVacancyController extends BaseController
                 ($vacancy->parent_type == 'App\Models\Company'  && $vacancy->parent->user_id == Auth::user()->id) ||
                 ($vacancy->parent_type == 'App\Models\Group'    && $vacancy->parent->user_id == Auth::user()->id)
             ) {
+                if ($vacancy->image !== null) {
+                    Storage::delete('public/' . $vacancy->image);
+                }
+
                 $vacancy->delete();
 
-                return redirect()->route('myvacancies.index')->with('success', 'Резюме удалено');
+                return redirect()->route('myvacancies.index')->with('success', 'Вакансия удалена');
             } else {
                 return redirect()->route('myvacancies.index')->with('alert', 'Вакансия не найдена');
             }

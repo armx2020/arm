@@ -26,10 +26,10 @@
             @foreach($resumes as $resume)
             <div class="block rounded-lg bg-white h-80">
                 <a href="{{ route('myresumes.show', ['myresume' => $resume->id ]) }}" class="block h-52">
-                    @if( $resume->user == null )
+                    @if( $resume->image == null )
                     <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                     @else
-                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$resume->user->image) }}" alt="image">
+                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ asset( 'storage/'.$resume->image) }}" alt="image">
                     @endif
                 </a>
                 <div class="px-6">
