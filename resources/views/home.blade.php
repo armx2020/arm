@@ -5,10 +5,10 @@
             <div class="bg-white rounded-xl row-span-1 lg:row-span-1">
                 <div class="flex sm:flex-row">
                     <div class="flex flex-col text-left basis-3/4 lg:basis-1/2 p-5 xl:p-8">
-                        <div class="my-1 lg:my-2 text-md md:text-lg lg:text-2xl font-extrabold uppercase">{{ $group->name }}
+                        <div class="my-1 lg:my-2 text-md md:text-lg lg:text-2xl font-extrabold uppercase">Армянский справочник
                         </div>
                         <div class="my-1 text-sm md:text-md xl:text-lg font-normal">
-                            Информационный справочник для армян России и мира</div>
+                            Информационный справочник для армян - {{ $group->region->name }}</div>
                         <div class="text-gray-600 hidden md:block text-sm lg:text-md xl:text-lg font-light">
                             - Новости, сообщества, товары, проекты в одном месте
                         </div>
