@@ -1,13 +1,13 @@
 <nav
     class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-wrap lg:justify-start p-1 md:p-2 lg:py-5">
     <div class="flex w-full lg:w-10/12 max-w-7xl flex-wrap items-center justify-between mx-auto text-sm font-medium">
-        <div class="block px-2 xl:hidden">
+        <div class="block xl:hidden">
             <a class="" href="{{ route('home') }}">
-                <img src="{{ url('/image/logo.png') }}" class="w-21 h-7" alt="logo" />
+                <img src="{{ url('/image/logo.png') }}" class="w-18 h-6" alt="logo" />
             </a>
         </div>
-        <div class="block px-0 md:px-2 xl:hidden">
-            <button class="text-blue-600 text-xs md:text-sm hover:text-blue-400 locationButton overflow-hidden" id="locationButton">
+        <div class="block px-0 md:px-2 xl:hidden overflow-hidden">
+            <button class="text-blue-600 text-xs md:text-sm hover:text-blue-400 locationButton" id="locationButton">
                 <img src="{{ url('/image/location-marker.png') }}" class="w-4 h-4 inline" />
                 @if ($region)
                     {{ preg_replace('/\([^)]+\)/', '', $region) }}
@@ -18,7 +18,7 @@
         </div>
         <button class="block px-1 md:px-2 xl:hidden" type="button" id="openMenu">
             <span class="[&>svg]:w-7">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-7 w-7">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
                     <path fill-rule="evenodd"
                         d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
                         clip-rule="evenodd" />
