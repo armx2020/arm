@@ -17,7 +17,7 @@
                 <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area" @if($term==0) style="background-color: rgb(59 130 246);color:white" @else style="background-color: white;color:black;" @endif>
                     <input class="hidden" type="radio" wire:model="term" value="0" name="select" />
                     <p class="inline-block " for="checkboxDefault">
-                        Все группы
+                        Все предложения
                     </p>
                 </div>
                 <script type='text/javascript'>
