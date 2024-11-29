@@ -37,15 +37,29 @@ class MyOfferController extends BaseController
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return redirect()->route('myoffers.index');
+        $companies = Company::with('offers')->where('user_id', '=', Auth::user()->id)->get();
+
+        if (count($companies) == 0) {
+            return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте вашу компанию.');
+        }
+
+        $categories = Category::offer()->whereNotNull('category_id')->orderBy('sort_id')->get();
+
+        return view('profile.pages.offer.create', [
+            'companies' => $companies,
+            'categories' => $categories,
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
+            'regionCode' => $request->session()->get('regionId')
+        ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:40'],
+            'name' => ['required', 'string', 'max:255'],
             'address' => ['max:128'],
             'image' => ['image'],
             'image1' => ['image'],
@@ -150,7 +164,7 @@ class MyOfferController extends BaseController
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
-        $categories = Category::offer()->orderBy('sort_id', 'asc')->get();
+        $categories = Category::offer()->whereNotNull('category_id')->orderBy('sort_id')->get();
         $companies = Company::with('offers')->where('user_id', '=', Auth::user()->id)->get();
 
         return view('profile.pages.offer.edit', [
@@ -166,7 +180,7 @@ class MyOfferController extends BaseController
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:40'],
+            'name' => ['required', 'string', 'max:255'],
             'address' => ['max:128'],
             'image' => ['image'],
             'image1' => ['image'],
@@ -191,7 +205,7 @@ class MyOfferController extends BaseController
         if (!$company->categories->contains($request->category)) {
             $company->categories()->attach($request->category);
         }
-        
+
         $company->categories()->sync($request->category);
 
         if (empty($company)) {

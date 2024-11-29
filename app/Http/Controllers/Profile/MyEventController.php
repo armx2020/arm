@@ -55,7 +55,7 @@ class MyEventController extends BaseController
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:40'],
+            'name' => ['required', 'string', 'max:255'],
             'address' => ['max:128'],
             'image' => ['image'],
         ]);
@@ -164,7 +164,7 @@ class MyEventController extends BaseController
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:40'],
+            'name' => ['required', 'string', 'max:255'],
             'image' => ['image'],
         ]);
 
