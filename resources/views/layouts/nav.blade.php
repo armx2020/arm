@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class="block px-0 md:px-2 xl:hidden">
-            <button class="text-blue-600 text-sm hover:text-blue-400 locationButton" id="locationButton">
+            <button class="text-blue-600 text-xs md:text-sm hover:text-blue-400 locationButton overflow-hidden" id="locationButton">
                 <img src="{{ url('/image/location-marker.png') }}" class="w-4 h-4 inline" />
                 @if ($region)
                     {{ preg_replace('/\([^)]+\)/', '', $region) }}
