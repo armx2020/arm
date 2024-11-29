@@ -230,10 +230,11 @@
                             </select>
                         </div>
 
-                        <div class="my-3">
-                            <label for="company_categories" class="text-sm font-medium text-gray-900 block">Выберите
-                                деятельность</label>
-                            <div class="flex border-2 rounded-lg p-4  mt-1">
+                        <div class="my-3" x-data="{ open: false }">
+                            <label for="company_categories" class="cursor-pointer text-sm font-medium text-blue-700 block"
+                                @click="open = !open">Нажмите, чтобы выбрать деятельность...</label>
+                            <hr class="my-1">
+                            <div class="flex border-2 rounded-lg p-4 mt-1" x-show="open">
                                 <div class="grid grid-cols-3 gap-4 w-full">
 
                                     @foreach ($categories as $item)
