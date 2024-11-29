@@ -27,6 +27,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('city_id')->default(1)->constrained();
             $table->foreignId('region_id')->default(1)->constrained();
+            $table->foreignId('category_id')->nullable()->constrained();
             $table->softDeletes('deleted_at', 0);
             $table->text('comment')->nullable();
         });
