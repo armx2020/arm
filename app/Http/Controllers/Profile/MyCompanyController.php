@@ -36,7 +36,7 @@ class MyCompanyController extends BaseController
 
     public function create(Request $request)
     {
-        $categories = Category::offer()->where('category_id', null)->with('categories')->get();
+        $categories = Category::offer()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('profile.pages.company.create', [
             'categories' => $categories,
@@ -151,7 +151,7 @@ class MyCompanyController extends BaseController
             return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
         }
 
-        $categories = Category::offer()->where('category_id', null)->with('categories')->get();
+        $categories = Category::offer()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('profile.pages.company.edit', [
             'categories' => $categories,
