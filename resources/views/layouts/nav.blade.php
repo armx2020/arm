@@ -1,12 +1,12 @@
 <nav
-    class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-wrap lg:justify-start p-2 lg:py-5">
-    <div class="flex w-11/12 lg:w-10/12 max-w-7xl flex-wrap items-center justify-between mx-auto  text-sm font-medium">
+    class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-wrap lg:justify-start p-1 md:p-2 lg:py-5">
+    <div class="flex w-full lg:w-10/12 max-w-7xl flex-wrap items-center justify-between mx-auto text-sm font-medium">
         <div class="block px-2 xl:hidden">
             <a class="" href="{{ route('home') }}">
                 <img src="{{ url('/image/logo.png') }}" class="w-21 h-7" alt="logo" />
             </a>
         </div>
-        <div class="block px-2 xl:hidden">
+        <div class="block px-0 md:px-2 xl:hidden">
             <button class="text-blue-600 text-sm hover:text-blue-400 locationButton" id="locationButton">
                 <img src="{{ url('/image/location-marker.png') }}" class="w-4 h-4 inline" />
                 @if ($region)
@@ -16,7 +16,7 @@
                 @endif
             </button>
         </div>
-        <button class="block px-2 xl:hidden" type="button" id="openMenu">
+        <button class="block px-1 md:px-2 xl:hidden" type="button" id="openMenu">
             <span class="[&>svg]:w-7">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-7 w-7">
                     <path fill-rule="evenodd"
