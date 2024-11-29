@@ -79,22 +79,44 @@
                                     @foreach ($categories as $item)
                                         <div class="flex flex-col gap-1">
                                             <div class="flex">
-                                                <input type="checkbox" name="categories[{{ $item->id }}]" @checked($company->category_id == $item->id || $company->categories->contains($item->id))
+                                                <input type="checkbox" name="categories[{{ $item->id }}]"
+                                                    @checked($company->category_id == $item->id || $company->categories->contains($item->id))
                                                     class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                    id="hs-checkbox-group-1">
-                                                <label for="hs-checkbox-group-1"
+                                                    id="checkbox-group-{{ $loop->iteration }}">
+                                                <label for="checkbox-group-{{ $loop->iteration }}"
                                                     class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
                                             </div>
                                             @foreach ($item->categories as $child)
                                                 <div class="flex pl-4">
-                                                    <input type="checkbox" name="categories[{{ $child->id }}]" @checked($company->categories->contains($child->id))
-                                                        class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                        id="hs-checkbox-group-2">
-                                                    <label for="hs-checkbox-group-2"
+                                                    <input type="checkbox" name="categories[{{ $child->id }}]"
+                                                        @checked($company->categories->contains($child->id))
+                                                        class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                        id="checkbox-{{ $loop->iteration }}">
+                                                    <label for="checkbox-{{ $loop->iteration }}"
                                                         class="text-sm text-gray-400 ms-3 dark:text-neutral-400">{{ $child->name }}</label>
                                                 </div>
                                             @endforeach
                                         </div>
+                                        
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function(event) {
+                                            var checkboxAll = document.querySelector("#checkbox-group-{!! $loop->iteration !!}");
+                                            checkboxAll.addEventListener('change', function() {
+                                                let inputs = document.querySelectorAll(".checkbox-{!! $loop->iteration !!}")
+
+                                                if (this.checked) {
+                                                    inputs.forEach(element => {
+                                                        element.checked = true
+                                                    });
+                                                } else {
+                                                    inputs.forEach(element => {
+                                                        element.checked = false
+                                                    });
+                                                }
+                                            });
+
+                                        });
+                                    </script>
                                     @endforeach
 
                                 </div>
