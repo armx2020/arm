@@ -211,7 +211,7 @@
                         @foreach($recommendations as $work)
                         @if($typeName == 'ВАКАНСИЙ')
                         <div class="block rounded-lg bg-white h-80">
-                            <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="block h-52">
+                            <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="block h-52">
                                 @if( $work->parent == null )
                                 <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @else
@@ -275,7 +275,7 @@
                         @foreach($recommendations as $work)
                         @if($typeName == 'ВАКАНСИЙ')
                         <div class="flex flex-row rounded-lg bg-white h-64">
-                            <a href="{{ route('vacancy.show', ['id' => $work->id ]) }}" class="basis-1/2">
+                            <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="basis-1/2">
                                 @if( $work->parent == null )
                                 <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
                                 @else
@@ -304,7 +304,7 @@
                         </div>
                         @else
                         <div class="block rounded-lg bg-white h-80">
-                            <a href="{{ route('resume.show', ['id' => $work->id ]) }}" class="block h-52">
+                            <a href="{{ route('works.show', ['id' => $work->id ]) }}" class="block h-52">
                                 @if( $work->user)
                                 @if( $work->user->image == null )
                                 <img class="h-48 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png')}}" alt="image" />
