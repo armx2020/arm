@@ -4,19 +4,10 @@ use App\Http\Controllers\Api\CategoryForOfferController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OfferController;
-use App\Http\Controllers\Profile\MyCompanyController;
-use App\Http\Controllers\Profile\MyEventController;
-use App\Http\Controllers\Profile\MyGroupController;
-use App\Http\Controllers\Profile\MyNewsController;
-use App\Http\Controllers\Profile\MyProjectController;
-use App\Http\Controllers\Profile\MyResumeController;
-use App\Http\Controllers\Profile\MyOfferController;
-use App\Http\Controllers\Profile\MyVacancyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\WorkController;
@@ -31,7 +22,7 @@ Route::get('ip', function () {
     $ip = '109.234.28.90';
     $data = Location::get($ip);
     dd($data);
-});
+}); // TODO проверка ip пользователя (Удалить при запуски проекта)
 
 Route::get('/{regionCode?}', [HomeController::class, 'home'])->where('regionCode', '[0-9]+|null')->name('home');
 
@@ -87,35 +78,9 @@ Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/condition-of-use', [HomeController::class, 'conditionOfUse'])->name('condition-of-use');
 
-
-Route::middleware(['auth', 'verified'])->group(function () {
-
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/questions', [DashboardController::class, 'questions'])->name('questions');
-
-    // Profile
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    // Subscride for group
-    Route::get('/group/{id}/subscribe', [GroupController::class, 'subscribe'])->name('group.subscribe');
-    Route::get('/group/{id}/unsubscribe', [GroupController::class, 'unsubscribe'])->name('group.unsubscribe');
-
-    Route::resources([
-        'mygroups'      =>  MyGroupController::class,
-        'mycompanies'   =>  MyCompanyController::class,
-        'myprojects'    =>  MyProjectController::class,
-        'myoffers'      =>  MyOfferController::class,
-        'mynews'        =>  MyNewsController::class,
-        'myevents'      =>  MyEventController::class,
-        'myresumes'     =>  MyResumeController::class,
-        'myvacancies'   =>  MyVacancyController::class
-    ]);
-});
-
 Route::post('/cities', [CityController::class, 'get'])->name('cities');
 Route::post('/actions', [CategoryForOfferController::class, 'get'])->name('actions');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
+require __DIR__ . '/profile.php';

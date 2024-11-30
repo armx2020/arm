@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\ActionController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
