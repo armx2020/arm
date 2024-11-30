@@ -63,7 +63,7 @@
                     <a class="" href="{{ route('projects.index') }}">Проекты</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('offers.index') }}">Маркет</a>
+                    <a class="" href="{{ route('companies.index') }}">Маркет</a>
                 </li>
                 <li class="mb-2">
                     <a class="" href="{{ route('events.index') }}">Афиша</a>
@@ -91,7 +91,7 @@
                         <a class="" href="{{ route('region.projects', ['regionCode' => $regionCode]) }}">Проекты</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('region.offers', ['regionCode' => $regionCode]) }}">Маркет</a>
+                        <a class="" href="{{ route('region.companies', ['regionCode' => $regionCode]) }}">Маркет</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('region.events', ['regionCode' => $regionCode]) }}">Афиша</a>
@@ -110,7 +110,7 @@
                         <a class="" href="{{ route('projects.index') }}">Проекты</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('offers.index') }}">Маркет</a>
+                        <a class="" href="{{ route('companies.index') }}">Маркет</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('events.index') }}">Афиша</a>
