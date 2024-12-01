@@ -18,7 +18,7 @@
                             <form method="POST" enctype="multipart/form-data" action="{{ route('admin.user.update', ['user' => $user->id]) }}">
                                 @csrf
                                 @method('PUT')
-                                <input name="image_r" type="text" id="image_r" class="hidden" style="z-index:-10;" />
+                                <input name="image_remove" type="text" id="image_remove" class="hidden" style="z-index:-10;" />
 
                                 <div class="flex flex-row" id="upload_area">
                                     <div class="flex relative mx-6 my-6">
@@ -161,7 +161,7 @@
 
         $('#remove_image').on('click', function() {
             $('#image').val('');
-            $('#image_r').val('delete');
+            $('#image_remove').val('delete');
             $('#img').attr('src', `{{ url('/image/no-image.png')}}`);
             $('.input-file input[type=file]').next().html('Выберите файл или перетащите сюда');
             $('#remove_image').css({

@@ -63,7 +63,7 @@ class UserService
         $user->instagram = $request->instagram;
         $user->vkontakte = $request->vkontakte;
 
-        if ($request->image_r == 'delete') {
+        if ($request->image_remove == 'delete') {
             Storage::delete('public/' . $user->image);
             $user->image = null;
         }

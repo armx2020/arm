@@ -111,27 +111,27 @@ class NewsService
             $news->parent_id = 1;
         }
 
-        if ($request->image_r == 'delete') {
+        if ($request->image_remove == 'delete') {
             Storage::delete('public/' . $news->image);
             $news->image = null;
         }
 
-        if ($request->image_r1 == 'delete') {
+        if ($request->image_remove1 == 'delete') {
             Storage::delete('public/' . $news->image1);
             $news->image1 = null;
         }
 
-        if ($request->image_r2 == 'delete') {
+        if ($request->image_remove2 == 'delete') {
             Storage::delete('public/' . $news->image2);
             $news->image2 = null;
         }
 
-        if ($request->image_r3 == 'delete') {
+        if ($request->image_remove3 == 'delete') {
             Storage::delete('public/' . $news->image3);
             $news->image3 = null;
         }
 
-        if ($request->image_r4 == 'delete') {
+        if ($request->image_remove4 == 'delete') {
             Storage::delete('public/' . $news->image4);
             $news->image4 = null;
         }

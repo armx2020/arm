@@ -24,7 +24,7 @@ class StoreUserRequest extends FormRequest
             'instagram'    => ['max:36'],
             'vkontakte'    => ['max:36'],
             'image'        => ['image', 'max:20000'],
-            'image_r'      => []
+            'image_remove'      => []
         ];
     }
 }

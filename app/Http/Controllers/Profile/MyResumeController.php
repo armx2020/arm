@@ -131,7 +131,7 @@ class MyResumeController extends BaseController
             $resume->city_id = $request->resume_city;
             $resume->region_id = $city->region->id;
 
-            if ($request->image_r == 'delete') {
+            if ($request->image_remove == 'delete') {
                 Storage::delete('public/' . $resume->image);
                 $resume->image = null;
             }

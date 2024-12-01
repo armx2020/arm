@@ -12,7 +12,7 @@
     <form method="post" action="{{ route('profile.update') }}" class="space-y-6 w-full" enctype="multipart/form-data">
         @csrf
         @method('patch')
-        <input name="image_r" type="text" id="image_r" class="hidden" style="z-index:-10;" />
+        <input name="image_remove" type="text" id="image_remove" class="hidden" style="z-index:-10;" />
 
 
         <div class="flex flex-row" id="upload_area">

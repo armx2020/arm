@@ -199,7 +199,7 @@ class MyVacancyController extends BaseController
                     $vacancy->parent_id = 1;
                 }
 
-                if ($request->image_r == 'delete') {
+                if ($request->image_remove == 'delete') {
                     Storage::delete('public/' . $vacancy->image);
                     $vacancy->image = null;
                 }

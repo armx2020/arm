@@ -17,7 +17,7 @@ class ProjectRequest extends FormRequest
             'name'              => ['required', 'string', 'max:255'],
             'address'           => ['max:128'],
             'image'             => ['image', 'max:20000'],
-            'image_r'           => [],
+            'image_remove'           => [],
             'description'       => [],
             'city'              => [],
             'donations_need'    => [],

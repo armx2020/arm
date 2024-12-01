@@ -92,27 +92,27 @@ class OfferService
             return redirect()->route('myoffers.index');
         }
 
-        if ($request->image_r == 'delete') {
+        if ($request->image_remove == 'delete') {
             Storage::delete('public/' . $offer->image);
             $offer->image = null;
         }
 
-        if ($request->image_r1 == 'delete') {
+        if ($request->image_remove1 == 'delete') {
             Storage::delete('public/' . $offer->image1);
             $offer->image1 = null;
         }
 
-        if ($request->image_r2 == 'delete') {
+        if ($request->image_remove2 == 'delete') {
             Storage::delete('public/' . $offer->image2);
             $offer->image2 = null;
         }
 
-        if ($request->image_r3 == 'delete') {
+        if ($request->image_remove3 == 'delete') {
             Storage::delete('public/' . $offer->image3);
             $offer->image3 = null;
         }
 
-        if ($request->image_r4 == 'delete') {
+        if ($request->image_remove4 == 'delete') {
             Storage::delete('public/' . $offer->image4);
             $offer->image4 = null;
         }

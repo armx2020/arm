@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\Category\StoreCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Services\CategoryService;
 
@@ -37,32 +38,15 @@ class CategoryController extends BaseAdminController
         );
     }
 
-    public function store(CategoryRequest $request)
+    public function store(StoreCategoryRequest $request)
     {
         $this->categoryService->store($request);
 
         return redirect()->route('admin.category.index')->with('success', 'Категория добавлена');
     }
 
-    public function show(string $id)
+    public function edit(Category $category)
     {
-        $category = Category::withcount('groups')->find($id);
-
-        if (empty($category)) {
-            return redirect()->route('admin.сategory.index')->with('alert', 'Категория не найдена');
-        }
-
-        return view('admin.category.edit', ['category' => $category, 'menu' => $this->menu]);
-    }
-
-    public function edit(string $id)
-    {
-        $category = Category::find($id);
-
-        if (empty($category)) {
-            return redirect()->route('admin.сategory.index')->with('alert', 'Категория не найдена');
-        }
-
         $categories = Category::where('type', $category->type)->latest()->get();
         $categoriesForEvents = Category::event()->latest()->get();
         $categoriesForGroups = Category::group()->latest()->get();
@@ -78,14 +62,8 @@ class CategoryController extends BaseAdminController
         ]);
     }
 
-    public function update(CategoryRequest $request, string $id)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category = Category::find($id);
-
-        if (empty($category)) {
-            return redirect()->route('admin.category.index')->with('alert', 'Категория не найдена');
-        }
-
         $category = $this->categoryService->update($request, $category);
 
         return redirect()->route('admin.category.edit', ['category' => $category->id])
@@ -93,14 +71,8 @@ class CategoryController extends BaseAdminController
     }
 
 
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        $category = Category::find($id);
-
-        if (empty($category)) {
-            return redirect()->route('admin.category.index')->with('alert', 'Категория не найдена');
-        }
-
         $category->delete();
 
         return redirect()->route('admin.category.index')->with('success', 'Категория удалена');

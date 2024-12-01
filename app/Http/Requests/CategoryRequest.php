@@ -18,7 +18,7 @@ class CategoryRequest extends FormRequest
             'sort_id'   => ['required'],
             'type'      => [],
             'image'     => ['image', 'max:20000'],
-            'image_r'   => [],
+            'image_remove'   => [],
         ];
     }
 }

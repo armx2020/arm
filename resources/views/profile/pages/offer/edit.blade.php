@@ -11,11 +11,11 @@
                         enctype="multipart/form-data">
                         @csrf
                         @method('patch')
-                        <input name="image_r" type="text" id="image_r" class="hidden" style="z-index:-10;" />
-                        <input name="image_r1" type="text" id="image_r1" class="hidden" style="z-index:-10;" />
-                        <input name="image_r2" type="text" id="image_r2" class="hidden" style="z-index:-10;" />
-                        <input name="image_r3" type="text" id="image_r3" class="hidden" style="z-index:-10;" />
-                        <input name="image_r4" type="text" id="image_r4" class="hidden" style="z-index:-10;" />
+                        <input name="image_remove" type="text" id="image_remove" class="hidden" style="z-index:-10;" />
+                        <input name="image_remove1" type="text" id="image_remove1" class="hidden" style="z-index:-10;" />
+                        <input name="image_remove2" type="text" id="image_remove2" class="hidden" style="z-index:-10;" />
+                        <input name="image_remove3" type="text" id="image_remove3" class="hidden" style="z-index:-10;" />
+                        <input name="image_remove4" type="text" id="image_remove4" class="hidden" style="z-index:-10;" />
 
                         <div class="w-full">
                             <h2 class="text-xl">Редактировать товар</h2>
@@ -338,7 +338,7 @@
 
             $('#remove_image').on('click', function() {
                 removeFile('#image', '#img', '#image_span', '#image1-section', null, '#remove_image',
-                    '#image-section, #title_image', '#image_r');
+                    '#image-section, #title_image', '#image_remove');
             });
 
             $('#image1').on('change', function() {
@@ -347,7 +347,7 @@
             });
             $('#remove_image1').on('click', function() {
                 removeFile('#image1', '#img1', '#image_span1', '#image2-section', '#remove_image',
-                    '#remove_image1', '#image1-section, #title_image1', '#image_r1');
+                    '#remove_image1', '#image1-section, #title_image1', '#image_remove1');
             });
 
             $('#image2').on('change', function() {
@@ -356,7 +356,7 @@
             });
             $('#remove_image2').on('click', function() {
                 removeFile('#image2', '#img2', '#image_span2', '#image3-section', '#remove_image1',
-                    '#remove_image2', '#image2-section, #title_image2', '#image_r2');
+                    '#remove_image2', '#image2-section, #title_image2', '#image_remove2');
             });
 
             $('#image3').on('change', function() {
@@ -365,7 +365,7 @@
             });
             $('#remove_image3').on('click', function() {
                 removeFile('#image3', '#img3', '#image_span3', '#image4-section', '#remove_image2',
-                    '#remove_image3', '#image3-section, #title_image3', '#image_r3');
+                    '#remove_image3', '#image3-section, #title_image3', '#image_remove3');
             });
 
             $('#image4').on('change', function() {
@@ -374,7 +374,7 @@
             });
             $('#remove_image4').on('click', function() {
                 removeFile('#image4', '#img4', '#image_span4', null, '#remove_image3', '#remove_image4',
-                    '#image4-section, #title_image4', '#image_r4');
+                    '#image4-section, #title_image4', '#image_remove4');
             });
 
 

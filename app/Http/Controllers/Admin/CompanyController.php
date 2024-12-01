@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\Company\StoreCompanyRequest;
+use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Models\Company;
 use App\Models\User;
 use App\Services\CompanyService;
@@ -29,58 +30,30 @@ class CompanyController extends BaseAdminController
         return view('admin.company.create', ['users' => $users, 'menu' => $this->menu]);
     }
 
-    public function store(CompanyRequest $request)
+    public function store(StoreCompanyRequest $request)
     {
         $this->companyService->store($request);
 
         return redirect()->route('admin.company.index')->with('success', 'Компания добавлена');
     }
 
-    public function show(string $id)
+    public function edit(Company $company)
     {
-        $company = Company::with(['user', 'categories'])->find($id);
-
-        if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'Компания не найдена');
-        }
-        return view('admin.company.edit', ['company' => $company, 'menu' => $this->menu]);
-    }
-
-    public function edit(string $id)
-    {
-        $company = Company::with(['user', 'categories'])->find($id);
-
-        if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'Компания не найдена');
-        }
-
         $users = User::all();
 
         return view('admin.company.edit', ['company' => $company, 'users' => $users, 'menu' => $this->menu]);
     }
 
-    public function update(CompanyRequest $request, string $id)
+    public function update(UpdateCompanyRequest $request, Company $company)
     {
-        $company = Company::find($id);
-
-        if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'Компания не найдена');
-        }
-
         $company = $this->companyService->update($request, $company);
 
         return redirect()->route('admin.company.edit', ['company' => $company->id])
             ->with('success', "Компания сохранена");
     }
 
-    public function destroy(string $id)
+    public function destroy(Company $company)
     {
-        $company = Company::find($id);
-
-        if (empty($company)) {
-            return redirect()->route('admin.company.index')->with('alert', 'Компания не найдена');
-        }
-
         if (count($company->offers) > 0) {
             return redirect()->route('admin.company.index')->with('alert', 'У компании есть предложения, удалите сначала их');
         }

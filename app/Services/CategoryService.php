@@ -38,7 +38,7 @@ class CategoryService
         $category->type = $request->type;
         $category->category_id = $request->parent;
 
-        if ($request->image_r == 'delete') {
+        if ($request->image_remove == 'delete') {
             Storage::delete('public/' . $category->image);
             $category->image = null;
         }

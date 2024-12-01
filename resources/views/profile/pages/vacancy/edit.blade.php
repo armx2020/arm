@@ -11,7 +11,7 @@
                         class="w-full" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
-                        <input name="image_r" type="text" id="image_r" class="hidden" style="z-index:-10;" />
+                        <input name="image_remove" type="text" id="image_remove" class="hidden" style="z-index:-10;" />
 
                         <div class="w-full mb-3">
                             <h2 class="text-xl">Редактировать вакансию</h2>
@@ -195,7 +195,7 @@
 
             $('#remove_image').on('click', function() {
                 $('#image').val('');
-                $('#image_r').val('delete');
+                $('#image_remove').val('delete');
                 $('#img').attr('src', `{{ url('/image/no-image.png') }}`);
                 $('.input-file input[type=file]').next().html('Выберите файл или перетащите сюда');
                 $('#remove_image').css({

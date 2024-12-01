@@ -85,7 +85,7 @@ class EventService
             $event->parent_id = 1;
         }
 
-        if ($request->image_r == 'delete') {
+        if ($request->image_remove == 'delete') {
             Storage::delete('public/' . $event->image);
             $event->image = null;
         }

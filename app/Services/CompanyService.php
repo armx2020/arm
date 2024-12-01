@@ -57,7 +57,7 @@ class CompanyService
             $city = City::find(1);
         }
 
-        if ($request->image_r == 'delete') {
+        if ($request->image_remove == 'delete') {
             Storage::delete('public/' . $company->image);
             $company->image = null;
         }

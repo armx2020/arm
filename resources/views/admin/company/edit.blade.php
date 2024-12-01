@@ -18,7 +18,7 @@
                                 action="{{ route('admin.company.update', ['company' => $company->id]) }}">
                                 @csrf
                                 @method('PUT')
-                                <input name="image_r" type="text" id="image_r" class="hidden" style="z-index:-10;" />
+                                <input name="image_remove" type="text" id="image_remove" class="hidden" style="z-index:-10;" />
 
                                 <div class="flex items-start p-5 border-b rounded-t">
                                     <div class="flex items-center m-2">
@@ -281,7 +281,7 @@
 
             $('#remove_image').on('click', function() {
                 $('#image').val('');
-                $('#image_r').val('delete');
+                $('#image_remove').val('delete');
                 $('#img').attr('src', `{{ url('/image/no-image.png') }}`);
                 $('.input-file input[type=file]').next().html('Выберите файл или перетащите сюда');
                 $('#remove_image').css({

@@ -220,27 +220,27 @@ class MyGroupController extends BaseController
         $group->category_id = $request->category;
 
 
-        if ($request->image_r == 'delete') {
+        if ($request->image_remove == 'delete') {
             Storage::delete('public/' . $group->image);
             $group->image = null;            
         }
 
-        if ($request->image_r1 == 'delete') {
+        if ($request->image_remove1 == 'delete') {
             Storage::delete('public/' . $group->image1);
             $group->image1 = null;            
         }
 
-        if ($request->image_r2 == 'delete') {
+        if ($request->image_remove2 == 'delete') {
             Storage::delete('public/' . $group->image2);
             $group->image2 = null;            
         }
 
-        if ($request->image_r3 == 'delete') {
+        if ($request->image_remove3 == 'delete') {
             Storage::delete('public/' . $group->image3);
             $group->image3 = null;            
         }
 
-        if ($request->image_r4 == 'delete') {
+        if ($request->image_remove4 == 'delete') {
             Storage::delete('public/' . $group->image4);
             $group->image4 = null;            
         }

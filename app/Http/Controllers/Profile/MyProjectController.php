@@ -210,7 +210,7 @@ class MyProjectController extends BaseController
                     $project->parent_id = 1;
                 }
 
-                if ($request->image_r == 'delete') {
+                if ($request->image_remove == 'delete') {
                     Storage::delete('public/' . $project->image);
                     $project->image = null;
                 }
