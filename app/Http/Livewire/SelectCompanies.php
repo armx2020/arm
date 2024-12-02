@@ -45,7 +45,7 @@ class SelectCompanies extends BaseSelect
 
 
 
-        $companyCategories = Category::query()->offer()->main()->orderBy('sort_id')->get();
+        $companyCategories = Category::query()->offer()->main()->active()->orderBy('sort_id')->get();
 
         if ($this->category == 'Все категории') {
 
@@ -61,7 +61,7 @@ class SelectCompanies extends BaseSelect
             }
 
             $companies = $companies->paginate(12);
-            $subCompanyCategories = Category::query()->where('category_id', $this->category)->orderBy('sort_id')->get();
+            $subCompanyCategories = Category::query()->where('category_id', $this->category)->active()->orderBy('sort_id')->get();
         }
 
         $regions = Region::all();
