@@ -22,7 +22,7 @@
 
                 @foreach ($companies as $company)
                     @foreach ($company->offers as $offer)
-                        <div class="block rounded-lg bg-white h-80">
+                        <div class="block rounded-lg bg-white h-80 relative">
                             <a href="{{ route('myoffers.show', ['myoffer' => $offer->id]) }}" class="block h-52">
                                 @if ($offer->image == null)
                                     <img class="h-48 w-full rounded-2xl p-2 flex object-cover"
@@ -32,18 +32,27 @@
                                         src="{{ asset('storage/' . $offer->image) }}" alt="image">
                                 @endif
                             </a>
-                            <div class="px-6">
-                                <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
-                                    {{ $offer->name }} ({{ $company->name }})
-                                </h5>
-                                <hr class="my-2">
-                                <div class="my-4 break-all text-base text-right">
+                            <div class="px-2">
+                                <a href="{{ route('myoffers.show', ['myoffer' => $offer->id]) }}">
+                                    <h5
+                                        class="mb-3 break-words text-base font-medium leading-tight text-neutral-800 text-ellipsis overflow-hidden text-nowrap">
+                                        {{ mb_substr($offer->name, 0, 50, 'UTF-8') }}
+                                        @if (mb_strlen($offer->name) > 50)
+                                            ...
+                                        @endif
+
+                                        ({{ mb_substr($company->name, 0, 50, 'UTF-8') }}
+                                        @if (mb_strlen($company->name) > 50)
+                                            ...
+                                        @endif)
+                                    </h5>
+                                </a>
+                                <div class="absolute top-[18rem] right-[0.3rem]">
                                     <a href="{{ route('myoffers.edit', ['myoffer' => $offer->id]) }}"
-                                        class="inline border-2 hover:border-yellow-400 border-yellow-100 bg-yellow-100 hover:bg-yellow-400 rounded-md py-2 pl-2 pr-1 my-1"
-                                        title="редактировать">
+                                        class="inline rounded-md p-1 my-1" title="редактировать">
                                         <svg class="inline" xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px"
-                                            y="0px" width="22" height="22" viewBox="0 0 485.219 485.22"
+                                            y="0px" width="16" height="16" viewBox="0 0 485.219 485.22"
                                             style="enable-background:new 0 0 485.219 485.22;" xml:space="preserve">
                                             <g>
                                                 <path

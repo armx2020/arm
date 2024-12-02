@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\Company;
 use App\Models\CompanyOffer;
 use App\Services\OfferService;
-use Illuminate\Support\Facades\Storage;
 
 class OfferController extends BaseAdminController
 {
@@ -94,23 +93,7 @@ class OfferController extends BaseAdminController
             return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
         }
 
-        if ($offer->image !== null) {
-            Storage::delete('public/' . $offer->image);
-        }
-        if ($offer->image1 !== null) {
-            Storage::delete('public/' . $offer->image1);
-        }
-        if ($offer->image2 !== null) {
-            Storage::delete('public/' . $offer->image2);
-        }
-        if ($offer->image3 !== null) {
-            Storage::delete('public/' . $offer->image3);
-        }
-        if ($offer->image4 !== null) {
-            Storage::delete('public/' . $offer->image4);
-        }
-
-        $offer->delete();
+        $this->offerService->destroy($offer);
 
         return redirect()->route('admin.offer.index')->with('success', 'Предложение удалено');
     }

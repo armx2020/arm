@@ -28,13 +28,13 @@
                             <div class="flex flex-row" id="image-section">
                                 <div class="flex relative">
                                     @if ($offer->image == null)
-                                        <img class="h-10 w-10 rounded-lg m-1 object-cover" id="img"
+                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img"
                                             src="{{ url('/image/no-image.png') }}" alt="image">
                                     @else
-                                        <img class="h-10 w-10 rounded-lg m-1 object-cover" id="img"
+                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img"
                                             src="{{ asset('storage/' . $offer->image) }}" alt="image">
                                     @endif
-                                    <button type="button" id="remove_image" class="absolute top-5 right-5"
+                                    <button type="button" id="remove_image" class="absolute right-0"
                                         @if ($offer->image !== null && $offer->image1 == null) style="display: block;"
                                     @else
                                     style="display: none;" @endif><img
@@ -62,13 +62,13 @@
                             style="display: flex;" @endif>
                                 <div class="flex relative">
                                     @if ($offer->image1 == null)
-                                        <img class="h-10 w-10 rounded-lg m-1 object-cover" id="img1"
+                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img1"
                                             src="{{ url('/image/no-image.png') }}" alt="image">
                                     @else
-                                        <img class="h-10 w-10 rounded-lg m-1 object-cover" id="img1"
+                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img1"
                                             src="{{ asset('storage/' . $offer->image1) }}" alt="image">
                                     @endif
-                                    <button type="button" id="remove_image1" class="absolute top-5 right-5"
+                                    <button type="button" id="remove_image1" class="absolute right-0"
                                         @if ($offer->image1 !== null && $offer->image2 == null) style="display: block;"
                                     @else
                                     style="display: none;" @endif><img
@@ -96,13 +96,13 @@
                             style="display: flex;" @endif>
                                 <div class="flex relative">
                                     @if ($offer->image2 == null)
-                                        <img class="h-10 w-10 rounded-lg m-1 object-cover" id="img2"
+                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img2"
                                             src="{{ url('/image/no-image.png') }}" alt="image">
                                     @else
-                                        <img class="h-10 w-10 rounded-lg m-1 object-cover" id="img2"
+                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img2"
                                             src="{{ asset('storage/' . $offer->image2) }}" alt="image">
                                     @endif
-                                    <button type="button" id="remove_image2" class="absolute top-5 right-5"
+                                    <button type="button" id="remove_image2" class="absolute right-0"
                                         @if ($offer->image2 !== null && $offer->image3 == null) style="display: block;"
                                     @else
                                     style="display: none;" @endif><img
@@ -130,13 +130,13 @@
                             style="display: flex;" @endif>
                                 <div class="flex relative">
                                     @if ($offer->image3 == null)
-                                        <img class="h-10 w-10 rounded-lg m-1 object-cover" id="img3"
+                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img3"
                                             src="{{ url('/image/no-image.png') }}" alt="image">
                                     @else
-                                        <img class="h-10 w-10 rounded-lg m-1 object-cover" id="img3"
+                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img3"
                                             src="{{ asset('storage/' . $offer->image3) }}" alt="image">
                                     @endif
-                                    <button type="button" id="remove_image3" class="absolute top-5 right-5"
+                                    <button type="button" id="remove_image3" class="absolute right-0"
                                         @if ($offer->image3 !== null && $offer->image4 == null) style="display: block;"
                                     @else
                                     style="display: none;" @endif><img
@@ -164,13 +164,13 @@
                             style="display: flex;" @endif>
                                 <div class="flex relative">
                                     @if ($offer->image4 == null)
-                                        <img class="h-10 w-10 rounded-lg m-1 object-cover" id="img4"
+                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img4"
                                             src="{{ url('/image/no-image.png') }}" alt="image">
                                     @else
-                                        <img class="h-10 w-10 rounded-lg m-1 object-cover" id="img4"
+                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img4"
                                             src="{{ asset('storage/' . $offer->image4) }}" alt="image">
                                     @endif
-                                    <button type="button" id="remove_image4" class="absolute top-5 right-5"
+                                    <button type="button" id="remove_image4" class="absolute right-0"
                                         @if ($offer->image4 !== null) style="display: block;"
                                     @else
                                     style="display: none;" @endif><img
@@ -191,7 +191,7 @@
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="name" :value="__('Название*')" />
+                            <x-input-label for="name" :value="__('Название *')" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                 :value="old('name', $offer->name)" required autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
@@ -212,42 +212,57 @@
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="price" :value="__('Цена')" />
-                            <x-text-input id="price" name="price" type="number" class="mt-1 block w-full"
-                                :value="old('price', $offer->price)" autofocus />
-                            <x-input-error class="mt-2" :messages="$errors->get('price')" />
-                        </div>
-
-                        <div class="my-3">
                             <label for="company" class="text-sm font-medium text-gray-900 block mb-2">Компания</label>
                             <select name="company" id="company"
                                 class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                                 required>
-                                <option value="{{ $offer->company->id }}"> {{ $offer->company->name }}
-                                    @foreach ($companies as $company)
-                                <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                <option value="{{ $offer->company->id }}">
+                                    {{ mb_substr($offer->company->name, 0, 80, 'UTF-8') }}
+                                    @if (mb_strlen($offer->company->name) > 80)
+                                        ...
+                                    @endif
+                                </option>
+                                @foreach ($companies as $company)
+                                    <option value="{{ $company->id }}"
+                                        class="text-ellipsis overflow-hidden text-nowrap">
+                                        {{ mb_substr($company->name, 0, 80, 'UTF-8') }}
+                                        @if (mb_strlen($company->name) > 80)
+                                            ...
+                                        @endif
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <div class="my-3" x-data="{ open: false }">
-                            <label for="company_categories" class="cursor-pointer text-sm font-medium text-blue-700 block"
-                                @click="open = !open">Нажмите, чтобы выбрать деятельность...</label>
-                            <hr class="my-1">
-                            <div class="flex border-2 rounded-lg p-4 mt-1" x-show="open">
-                                <div class="grid grid-cols-3 gap-4 w-full">
+                        <div class="my-3">
+                            <label for="radio-group" class="text-sm font-medium text-gray-900 block mb-2">Категория
+                                *</label>
+                            <div class="flex border-2 rounded-lg p-3  mt-1">
+                                <div class="flex flex-col gap-1 w-full">
 
-                                    @foreach ($categories as $item)
+                                    @foreach ($categories as $category)
                                         <div class="flex flex-col gap-1">
                                             <div class="flex">
-                                                <input type="radio" name="category" value="{{ $item->id }}"
-                                                    @checked($offer->category_id == $item->id) required
+                                                <input type="radio" name="category" value="{{ $category->id }}"
+                                                    required @disabled(count($category->childrenCategories) > 0) @checked($offer->category_id == $category->id)
                                                     class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                    id="radio-group-{{ $loop->iteration }}">
-                                                <label for="radio-group-{{ $loop->iteration }}"
-                                                    class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
+                                                    id="radio-group-{{ $category->id }}">
+                                                <label for="radio-group-{{ $category->id }}"
+                                                    class="text-base @if (count($category->childrenCategories) > 0) text-gray-400 @else text-black @endif ms-3 dark:text-neutral-400">{{ $category->name }}</label>
                                             </div>
                                         </div>
+                                        @foreach ($category->childrenCategories as $item)
+                                            <div class="ml-3 flex flex-col gap-1">
+                                                <div class="flex">
+                                                    <input type="radio" name="category" value="{{ $item->id }}"
+                                                        required @checked($offer->category_id == $item->id)
+                                                        class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                        id="radio-group-{{ $item->id }}">
+                                                    <label for="radio-group-{{ $item->id }}"
+                                                        class="text-sm text-gray-700 ms-3 dark:text-neutral-400">{{ $item->name }}</label>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     @endforeach
 
                                 </div>

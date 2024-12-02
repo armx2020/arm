@@ -8,9 +8,10 @@ use App\Models\CompanyOffer;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
+
 class OfferService
 {
-    public function store($request): CompanyOffer
+    public function store($request, $user_id = null): CompanyOffer
     {
         $city = City::with('region')->find($request->city);
 
@@ -18,8 +19,15 @@ class OfferService
             $city = City::find(1);
         }
 
-        $company = Company::select('user_id')->find($request->company);
-        $company->categories()->attach($request->category);
+        $company = Company::query()->select('id', 'user_id');
+
+        if ($user_id) {
+            $company = $company->where('user_id', '=', $user_id);
+        }
+
+        $company = $company->find($request->company);
+
+        $company->categories()->syncWithoutDetaching($request->category);
 
         $offer = new CompanyOffer();
 
@@ -36,7 +44,7 @@ class OfferService
         $offer->instagram = $request->instagram;
         $offer->vkontakte = $request->vkontakte;
         $offer->company_id = $request->company;
-        $offer->user_id = $company->user_id;
+        $offer->user_id = $user_id ?: $company->user_id;
         $offer->category_id = $request->category;
 
         if ($request->image) {
@@ -77,7 +85,7 @@ class OfferService
         return $offer;
     }
 
-    public function update($request, $offer): CompanyOffer
+    public function update($request, $offer, $user_id = null): CompanyOffer
     {
         $city = City::with('region')->find($request->city);
 
@@ -85,9 +93,16 @@ class OfferService
             $city = City::find(1);
         }
 
-        $company = Company::find($request->company);
-        $company->categories()->sync($request->category);
-        
+        $company = Company::query();
+
+        if ($user_id) {
+            $company = $company->where('user_id', '=', $user_id);
+        }
+
+        $company = $company->find($request->company);
+
+        $company->categories()->syncWithoutDetaching($request->category);
+
         if (empty($company)) {
             return redirect()->route('myoffers.index');
         }
@@ -171,5 +186,26 @@ class OfferService
         $offer->update();
 
         return $offer;
+    }
+
+    public function destroy($offer): void
+    {
+        if ($offer->image !== null) {
+            Storage::delete('public/' . $offer->image);
+        }
+        if ($offer->image1 !== null) {
+            Storage::delete('public/' . $offer->image1);
+        }
+        if ($offer->image2 !== null) {
+            Storage::delete('public/' . $offer->image2);
+        }
+        if ($offer->image3 !== null) {
+            Storage::delete('public/' . $offer->image3);
+        }
+        if ($offer->image4 !== null) {
+            Storage::delete('public/' . $offer->image4);
+        }
+
+        $offer->delete();
     }
 }

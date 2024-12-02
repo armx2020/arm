@@ -12,7 +12,7 @@ class UpdateCategoryRequest extends FormRequest
             'name'           => ['required', 'string', 'max:255'],
             'sort_id'        => ['required'],
             'type'           => ['in:group,event,offer'],
-            'image'          => ['image', 'mimes:jpg,bmp,png', 'max:20000'],
+            'image'          => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
             'image_remove'   => ['nullable', 'in:delete'],
         ];
     }
