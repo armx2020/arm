@@ -15,7 +15,7 @@ class CompanyController extends BaseController
 
     public function index(Request $request, $regionCode = null)
     {
-        return view('pages.company.companies', [
+        return view('pages.company.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'regionCode' => $regionCode
@@ -30,7 +30,7 @@ class CompanyController extends BaseController
             return redirect()->route('companies.index')->with('alert', 'Компания не найдена');
         }
 
-        return view('pages.company.company', [
+        return view('pages.company.show', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'company' => $company,

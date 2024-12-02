@@ -3,25 +3,28 @@
         case 1:
             $flex = 'flex flex-col rounded-lg bg-white h-80';
             $aClass = 'flex';
-            $imageClass = 'h-48 w-full rounded-2xl p-2 flex object-cover';
+            $imageClass = 'h-48 w-full rounded-2xl flex object-cover';
             $bodyClass = 'px-3 md:px-6';
+            $infoClass = '';
             break;
         case 2:
             $flex = 'flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64';
-            $aClass = 'w-full sm:basis-1/3';
-            $imageClass = 'h-full w-full rounded-2xl p-2 flex object-cover';
-            $bodyClass = 'p-6 flex flex-col w-full sm:basis-2/3';
+            $aClass = 'sm:basis-1/4 flex-none';
+            $imageClass = 'h-full w-full rounded-2xl flex object-cover';
+            $bodyClass = 'px-3 flex flex-col sm:basis-1/2';
+            $infoClass = 'sm:basis-1/4 flex-none';
             break;
         default:
             $flex = 'flex flex-col rounded-lg bg-white h-80';
             $aClass = 'flex';
-            $imageClass = 'h-48 w-full rounded-2xl p-2 flex object-cover';
+            $imageClass = 'h-48 w-full rounded-2xl flex object-cover';
             $bodyClass = 'px-3 md:px-6';
+            $infoClass = '';
             break;
     }
 @endphp
 
-<div class="{{ $flex }}">
+<div class="{{ $flex }} p-4">
     <a href="{{ route($entityShowRout, ['id' => $entity->id]) }}" class="{{ $aClass }}">
         <img class="{{ $imageClass }} w-full rounded-2xl p-2 flex object-cover"
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/no-image.png') }}
@@ -48,9 +51,26 @@
                     <p class="break-words text-sm leading-tight text-neutral-600 line-clamp-3">
                         {{ $categories->name }}
                     </p>
-                @endforeach
-            </div>
-        @endif
 
-    </div>
+                    @if ($loop->iteration == 3)
+                    @break
+                @endif
+            @endforeach
+        </div>
+    @endif
+
+</div>
+<div class="{{ $infoClass }} flex flex-col">
+    <p class="text-xs mb-1">
+        @isset($entity->phone)
+            {{ $entity->phone }}
+        @endisset
+    </p>
+    <p class="text-xs">
+        @if ($entity->city_id !== 1 && $entity->city)
+            {{ $entity->city->name }}
+        @endif
+    </p>
+
+</div>
 </div>
