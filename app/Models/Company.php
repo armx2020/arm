@@ -48,4 +48,9 @@ class Company extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('activity', 1);
+    }
 }

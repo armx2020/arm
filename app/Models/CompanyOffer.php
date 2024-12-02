@@ -31,4 +31,9 @@ class CompanyOffer extends Model
     {
         return $this->belongsTo(Category::class,  'category_id');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('activity', 1);
+    }
 }

@@ -21,4 +21,9 @@ class Project extends Model
         'name',
         'description'
     ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('activity', 1);
+    }
 }

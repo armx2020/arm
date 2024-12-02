@@ -21,9 +21,8 @@ class SelectCompanies extends BaseSelect
         $entityShowRout = 'companies.show';
         $exp = explode('|', $this->sort);
 
-        $companies = Company::query()
+        $companies = Company::query()->active()
             ->orderBy($exp[0], $exp[1])
-            ->where('activity', 1)
             ->with(['categories', 'region']);
 
         $recommendations = [];
@@ -32,9 +31,8 @@ class SelectCompanies extends BaseSelect
             $companies = $companies
                 ->where('region_id', '=', $this->region);
 
-            $recommendations = $recommendations = Company::query()
+            $recommendations = $recommendations = Company::query()->active()
                 ->orderBy($exp[0], $exp[1])
-                ->where('activity', 1)
                 ->with(['categories', 'region'])
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);

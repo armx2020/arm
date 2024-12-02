@@ -31,4 +31,9 @@ class Work extends Model
     {
         return $query->where('type', 'resume');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('activity', 1);
+    }
 }

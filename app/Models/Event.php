@@ -27,4 +27,9 @@ class Event extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('activity', 1);
+    }
 }
