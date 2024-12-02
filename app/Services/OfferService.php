@@ -101,11 +101,11 @@ class OfferService
 
         $company = $company->find($request->company);
 
-        $company->categories()->syncWithoutDetaching($request->category);
-
         if (empty($company)) {
             return redirect()->route('myoffers.index');
         }
+
+        $company->categories()->syncWithoutDetaching($request->category);
 
         if ($request->image_remove == 'delete') {
             Storage::delete('public/' . $offer->image);

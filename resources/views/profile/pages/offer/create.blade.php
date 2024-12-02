@@ -146,7 +146,7 @@
                             <select name="company" id="company"
                                 class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                                 required>
-                                <option value="" cheched> -- Выберите компанию -- </option>
+                                <option value="" checked> -- Выберите компанию -- </option>
                                 @foreach ($companies as $company)
                                     <option value="{{ $company->id }}"
                                         class="text-ellipsis overflow-hidden text-nowrap">
@@ -160,38 +160,32 @@
                         </div>
 
                         <div class="my-3">
-                            <label for="radio-group" class="text-sm font-medium text-gray-900 block mb-2">Категория *</label>
-                            <div class="flex border-2 rounded-lg p-3  mt-1">
-                                <div class="flex flex-col gap-1 w-full">
+                            <label for="category" class="text-sm font-medium text-gray-900 block mb-2">Категория *</label>
+                            <select name="category" id="category"
+                                class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                                required>
+                                <option value="" checked> -- Выберите категорию -- </option>
 
-                                    @foreach ($categories as $category)
-                                        <div class="flex flex-col gap-1">
-                                            <div class="flex">
-                                                <input type="radio" name="category" value="{{ $category->id }}"
-                                                    required @disabled(count($category->childrenCategories) > 0)
-                                                    class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                    id="radio-group-{{ $category->id }}">
-                                                <label for="radio-group-{{ $category->id }}" 
-                                                    class="text-base @if(count($category->childrenCategories) > 0) text-gray-400 @else text-black @endif ms-3 dark:text-neutral-400">{{ $category->name }}</label>
-                                            </div>
-                                        </div>
-                                        @foreach ($category->childrenCategories as $item)
-                                            <div class="ml-3 flex flex-col gap-1">
-                                                <div class="flex">
-                                                    <input type="radio" name="category" value="{{ $item->id }}"
-                                                        required
-                                                        class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                        id="radio-group-{{ $item->id }}">
-                                                    <label for="radio-group-{{ $item->id }}"
-                                                        class="text-sm text-gray-700 ms-3 dark:text-neutral-400">{{ $item->name }}</label>
-                                                </div>
-                                            </div>
-                                        @endforeach
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" @disabled(count($category->childrenCategories) > 0)
+                                        class="font-semibold text-ellipsis overflow-hidden text-nowrap">
+                                        {{ mb_substr($category->name, 0, 80, 'UTF-8') }}
+                                        @if (mb_strlen($category->name) > 80)
+                                            ...
+                                        @endif
+                                    </option>
+                                    @foreach ($category->childrenCategories as $item)
+                                        <option value="{{ $item->id }}"
+                                            class="pl-6 text-ellipsis overflow-hidden text-nowrap">
+                                            {{ mb_substr($item->name, 0, 80, 'UTF-8') }}
+                                            @if (mb_strlen($item->name) > 80)
+                                                ...
+                                            @endif
+                                        </option>
                                     @endforeach
+                                @endforeach
 
-                                </div>
-                            </div>
-
+                            </select>
                         </div>
 
                         <div class="my-5">
