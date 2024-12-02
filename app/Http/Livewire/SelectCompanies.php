@@ -5,12 +5,11 @@ namespace App\Http\Livewire;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Region;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class SelectCompanies extends BaseSelect
 {
-    public $category = '';
-    public $subcategory = '';
+    public $category = 'Все категории';
+    public $subcategory = null;
 
     public function __construct()
     {
@@ -48,8 +47,11 @@ class SelectCompanies extends BaseSelect
 
         $companyCategories = Category::query()->offer()->main()->orderBy('sort_id')->get();
 
-        if ($this->category) {
+        if ($this->category == 'Все категории') {
 
+            $companies = $companies->paginate(12);
+            $subCompanyCategories = null;
+        } else {
             if ($this->subcategory) {
                 $companies = $companies->whereHas('categories', function ($query) {
                     $query->where('category_company.category_id', $this->subcategory);
@@ -60,9 +62,6 @@ class SelectCompanies extends BaseSelect
 
             $companies = $companies->paginate(12);
             $subCompanyCategories = Category::query()->where('category_id', $this->category)->orderBy('sort_id')->get();
-        } else {
-            $companies = $companies->paginate(12);
-            $subCompanyCategories = null;
         }
 
         $regions = Region::all();
