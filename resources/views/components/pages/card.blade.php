@@ -11,8 +11,8 @@
             $flex = 'flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64';
             $aClass = 'sm:basis-1/4 flex-none';
             $imageClass = 'h-full w-full rounded-2xl flex object-cover';
-            $bodyClass = 'px-3 flex flex-col sm:basis-1/2';
-            $infoClass = 'sm:basis-1/4 flex-none';
+            $bodyClass = 'px-3 flex flex-col sm:basis-full';
+            $infoClass = 'sm:basis-1/4 flex-initial text-right';
             break;
         default:
             $flex = 'flex flex-col rounded-lg bg-white h-80';
@@ -31,25 +31,26 @@
             alt="image" />
     </a>
     <div class="{{ $bodyClass }}">
-        <div class="">
-            <h5 class="mb-2 break-words text-lg font-medium leading-tight text-neutral-800">
+        <div class="flex max-h-14">
+            <p class="mb-2 break-words text-lg font-medium leading-tight text-neutral-800 text-ellipsis overflow-hidden">
                 {{ $entity->name }}
-            </h5>
+            </p>
         </div>
 
         @isset($entity->description)
-            <div>
-                <p class="mb-2 break-words text-xs  font-medium leading-tight text-neutral-600 line-clamp-3">
+            <div class="flex max-h-14">
+                <p
+                    class="mb-2 break-words text-xs font-medium leading-tight text-neutral-600 line-clamp-3 text-ellipsis overflow-hidden">
                     {{ $entity->description }}
                 </p>
             </div>
         @endisset
 
-        @if ($position == 2 && isset($entity->categories))
+        @if ($position == 2 && isset($entity->offers))
             <div class="my-2">
-                @foreach ($entity->categories as $categories)
+                @foreach ($entity->offers as $offers)
                     <p class="break-words text-sm leading-tight text-neutral-600 line-clamp-3">
-                        {{ $categories->name }}
+                        {{ $offers->name }}
                     </p>
 
                     @if ($loop->iteration == 3)
