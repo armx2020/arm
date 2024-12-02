@@ -26,13 +26,13 @@
 
 <div class="{{ $flex }} p-4">
     <a href="{{ route($entityShowRout, ['id' => $entity->id]) }}" class="{{ $aClass }}">
-        <img class="{{ $imageClass }} w-full rounded-2xl p-2 flex object-cover"
+        <img class="{{ $imageClass }} w-full rounded-2xl flex object-cover"
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/no-image.png') }}
             alt="image" />
     </a>
     <div class="{{ $bodyClass }}">
         <div class="flex max-h-14">
-            <p class="mb-2 break-words text-lg font-medium leading-tight text-neutral-800 text-ellipsis overflow-hidden">
+            <p class="mb-2 mt-2 sm:mt-0 break-words text-lg font-medium leading-tight text-neutral-800 text-ellipsis overflow-hidden">
                 {{ $entity->name }}
             </p>
         </div>
@@ -64,7 +64,9 @@
 <div class="{{ $infoClass }} flex flex-col">
     <p class="text-xs mb-1">
         @isset($entity->phone)
-            {{ $entity->phone }}
+            <a href="tel:{{ $entity->phone }}" class="text-blue-600">
+                {{ $entity->phone }}
+            </a>
         @endisset
     </p>
     <p class="text-xs">
