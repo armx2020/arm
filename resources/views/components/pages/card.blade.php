@@ -27,12 +27,13 @@
 <div class="{{ $flex }} p-4">
     <a href="{{ route($entityShowRout, ['id' => $entity->id]) }}" class="{{ $aClass }}">
         <img class="{{ $imageClass }} w-full rounded-2xl flex object-cover"
-            src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/no-image.png') }}
-            alt="image" />
+            src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}
+            alt="{{ $entity->name }}" />
     </a>
     <div class="{{ $bodyClass }}">
         <div class="flex max-h-14">
-            <p class="mb-2 mt-2 sm:mt-0 break-words text-lg font-medium leading-tight text-neutral-800 text-ellipsis overflow-hidden">
+            <p
+                class="mb-2 mt-2 sm:mt-0 break-words text-lg font-medium leading-tight text-neutral-800 text-ellipsis overflow-hidden">
                 {{ $entity->name }}
             </p>
         </div>

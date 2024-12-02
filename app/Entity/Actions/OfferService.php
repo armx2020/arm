@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services;
+namespace App\Entity\Actions;
 
 use App\Models\Company;
 use App\Models\CompanyOffer;
-use App\Services\Traits\GetCity;
+use App\Entity\Actions\Traits\GetCity;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
-
+// TODO переместить сервисы сущностей в актион
 class OfferService
 {
     use GetCity;

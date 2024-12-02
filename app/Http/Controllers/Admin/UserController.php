@@ -36,47 +36,17 @@ class UserController extends BaseAdminController
         return redirect()->route('admin.user.index')->with('success', 'Пользователь добавлен');
     }
 
-    public function show(string $id)
+    public function edit(User $user)
     {
-        $user = User::with(
-            'events',
-            'groups',
-            'companies',
-            'works',
-            'projects',
-        )
-            ->find($id);
-
-        if (empty($user)) {
-            return redirect()->route('admin.user.index')->with('alert', 'Пользователь не найден');
-        }
-
         return view('admin.user.edit', ['user' => $user, 'menu' => $this->menu]);
     }
 
-    public function edit(string $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $user = User::find($id);
-
-        if (empty($user)) {
-            return redirect()->route('admin.user.index')->with('alert', 'Пользователь не найден');
-        }
-
-        return view('admin.user.edit', ['user' => $user, 'menu' => $this->menu]);
-    }
-
-    public function update(UpdateUserRequest $request, string $id)
-    {
-        $user = User::find($id);
-
-        if (empty($user)) {
-            return redirect()->route('admin.user.index')->with('alert', 'Пользователь не найден');
-        }
-
         $user = $this->userService->update($request, $user);
 
         return redirect()->route('admin.user.edit', ['user' => $user->id])
-            ->with('success', "Пользователь не найден");
+            ->with('success', "Пользователь обнавлён");
     }
 
     public function destroy(string $id)

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services;
+namespace App\Entity\Actions;
 
-use App\Services\Traits\GetCity;
+use App\Entity\Actions\Traits\GetCity;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
-
+// TODO переместить сервисы сущностей в актион
 class UserService
 {
     use GetCity;
