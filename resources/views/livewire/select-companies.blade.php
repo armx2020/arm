@@ -70,7 +70,6 @@
                 @endif
 
                 @if (count($recommendations) > 0)
-                    <x-pages.recommendation />
                     <x-pages.grid :entities="$recommendations" :$position :$entityShowRout />
                 @endif
             </div>
