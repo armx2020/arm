@@ -69,6 +69,8 @@
                     <x-pages.grid :entities="$entities" :$position :$entityShowRout />
                 @endif
 
+                <x-pages.recommendation />
+
                 @if (count($recommendations) > 0)
                     <x-pages.grid :entities="$recommendations" :$position :$entityShowRout />
                 @endif
