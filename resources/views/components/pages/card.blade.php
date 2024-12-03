@@ -47,34 +47,46 @@
             </div>
         @endisset
 
-        @if ($position == 2 && isset($entity->offers))
+        @if ($position == 2)
+            @if (isset($entity->offers))
+                <div class="my-2">
+                    @foreach ($entity->offers as $offers)
+                        <p class="break-words text-sm leading-tight text-neutral-600 line-clamp-3">
+                            {{ $offers->name }}
+                        </p>
+                        @if ($loop->iteration == 3)
+                        @break
+                    @endif
+                @endforeach
+            </div>
+        @elseif(isset($entity->categories))
             <div class="my-2">
-                @foreach ($entity->offers as $offers)
+                @foreach ($entity->categories as $category)
                     <p class="break-words text-sm leading-tight text-neutral-600 line-clamp-3">
-                        {{ $offers->name }}
+                        {{ $category->name }}
                     </p>
-
                     @if ($loop->iteration == 3)
                     @break
                 @endif
             @endforeach
         </div>
     @endif
+@endif
 
 </div>
 <div class="{{ $infoClass }} flex flex-col">
-    <p class="text-xs mb-1">
-        @isset($entity->phone)
-            <a href="tel:{{ $entity->phone }}" class="text-blue-600">
-                {{ $entity->phone }}
-            </a>
-        @endisset
-    </p>
-    <p class="text-xs">
-        @if ($entity->city_id !== 1 && $entity->city)
-            {{ $entity->city->name }}
-        @endif
-    </p>
+<p class="text-xs mb-1">
+    @isset($entity->phone)
+        <a href="tel:{{ $entity->phone }}" class="text-blue-600">
+            {{ $entity->phone }}
+        </a>
+    @endisset
+</p>
+<p class="text-xs">
+    @if ($entity->city_id !== 1 && $entity->city)
+        {{ $entity->city->name }}
+    @endif
+</p>
 
 </div>
 </div>
