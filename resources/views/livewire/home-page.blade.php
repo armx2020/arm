@@ -1,13 +1,12 @@
 <div>
-    {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
     <div class="grid grid-rows-3 lg:grid-rows-2 gap-2 mx-auto my-5">
         <div class="row-span-2 lg:row-span-1 grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3">
             <div>
                 <div class="flex items-center sm:divide-x sm:divide-gray-100 sm:mb-0">
                     <form class="w-full" method="get">
-                        <label for="users-search" class="sr-only">Search</label>
+                        <label for="search" class="sr-only">Search</label>
                         <div class="w-full">
-                            <input type="text" placeholder="поиск по названию, описанию" wire:model="search"
+                            <input type="text" placeholder="поиск по названию, описанию" wire:model="search" id="search"
                                 class="bg-white border-0 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                         </div>
                     </form>
