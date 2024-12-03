@@ -4,8 +4,8 @@ namespace App\Entity\Actions\Traits;
 
 trait LoadingImage
 {
-    public function getCity($request)
+    public function loadImage($request)
     {
-        // TODO переместить сервисы сущностей в актион
+        // TODO добавить загрузку изображений
     }
 }

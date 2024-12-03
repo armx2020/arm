@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entity\Actions\ResumeAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\ResumeRequest;
 use App\Models\User;
 use App\Models\Work;
-use App\Services\ResumeService;
+
 
 class ResumeController extends BaseAdminController
 {
-    public function __construct(private ResumeService $resumeService)
+    public function __construct(private ResumeAction $resumeAction)
     {
         parent::__construct();
-        $this->resumeService = $resumeService;
+        $this->resumeAction = $resumeAction;
     }
 
     public function index()
@@ -29,7 +30,7 @@ class ResumeController extends BaseAdminController
 
     public function store(ResumeRequest $request)
     {
-        $this->resumeService->store($request);
+        $this->resumeAction->store($request);
 
         return redirect()->route('admin.resume.index')->with('success', 'Резюме сохранено');
     }
@@ -66,7 +67,7 @@ class ResumeController extends BaseAdminController
             return redirect()->route('admin.resume.index')->with('alert', 'Резюме не найдено');
         }
 
-        $resume = $this->resumeService->update($request, $resume);
+        $resume = $this->resumeAction->update($request, $resume);
 
         return redirect()->route('admin.resume.edit', ['resume' => $resume->id])->with('success', 'Резюме сохранено');
     }

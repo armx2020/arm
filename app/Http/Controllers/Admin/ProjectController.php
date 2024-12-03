@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entity\Actions\ProjectAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Company;
 use App\Models\Group;
 use App\Models\Project;
 use App\Models\User;
-use App\Services\ProjectService;
 
 class ProjectController extends BaseAdminController
 {
-    public function __construct(private ProjectService $projectService)
+    public function __construct(private ProjectAction $projectAction)
     {
         parent::__construct();
-        $this->projectService = $projectService;
+        $this->projectAction = $projectAction;
     }
 
     public function index()
@@ -39,7 +39,7 @@ class ProjectController extends BaseAdminController
 
     public function store(ProjectRequest $request)
     {
-        $this->projectService->store($request);
+        $this->projectAction->store($request);
 
         return redirect()->route('admin.project.index')->with('success', 'Проект сохранен');
     }
@@ -84,7 +84,7 @@ class ProjectController extends BaseAdminController
             return redirect()->route('admin.project.index')->with('alert', 'Проект не найден');
         }
 
-        $project = $this->projectService->update($request, $project);
+        $project = $this->projectAction->update($request, $project);
 
         return redirect()->route('admin.project.edit', ['project' => $project->id])->with('success', 'Проект сохранен');
     }

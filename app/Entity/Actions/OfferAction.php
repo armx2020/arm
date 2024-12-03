@@ -7,8 +7,8 @@ use App\Models\CompanyOffer;
 use App\Entity\Actions\Traits\GetCity;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
-// TODO переместить сервисы сущностей в актион
-class OfferService
+
+class OfferAction
 {
     use GetCity;
 

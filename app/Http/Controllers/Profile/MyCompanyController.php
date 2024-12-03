@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Entity\Actions\CompanyAction;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Category;
@@ -9,16 +10,15 @@ use App\Models\City;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Services\CompanyService;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
 class MyCompanyController extends BaseController
 {
-    public function __construct(private CompanyService $companyService)
+    public function __construct(private CompanyAction $companyAction)
     {
         parent::__construct();
-        $this->companyService = $companyService;
+        $this->companyAction = $companyAction;
     }
 
 

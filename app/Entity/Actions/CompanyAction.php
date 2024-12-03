@@ -6,8 +6,8 @@ use App\Entity\Actions\Traits\GetCity;
 use App\Models\Company;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
-// TODO переместить сервисы сущностей в актион
-class CompanyService
+
+class CompanyAction
 {
     use GetCity;
 

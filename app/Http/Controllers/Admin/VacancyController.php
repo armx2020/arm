@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entity\Actions\VacancyAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\VacancyRequest;
 use App\Models\Company;
@@ -12,16 +13,16 @@ use App\Services\VacancyService;
 
 class VacancyController extends BaseAdminController
 {
-    public function __construct(private VacancyService $vacancyService)
+    public function __construct(private VacancyAction $vacancyAction)
     {
         parent::__construct();
-        $this->vacancyService = $vacancyService;
+        $this->vacancyAction = $vacancyAction;
     }
 
     public function index()
     {
-//        $vacancies = Work::vacancy()->with('parent')->latest()->paginate(20);
-//        return view('admin.vacancy.index', ['vacancies' => $vacancies, 'menu' => $this->menu]);
+        //        $vacancies = Work::vacancy()->with('parent')->latest()->paginate(20);
+        //        return view('admin.vacancy.index', ['vacancies' => $vacancies, 'menu' => $this->menu]);
         abort(404);
     }
 
@@ -41,7 +42,7 @@ class VacancyController extends BaseAdminController
 
     public function store(VacancyRequest $request)
     {
-        $this->vacancyService->store($request);
+        $this->vacancyAction->store($request);
 
         return redirect()->route('admin.vacancy.index')->with('success', 'Вакансия добавлена');
     }
@@ -86,7 +87,7 @@ class VacancyController extends BaseAdminController
             return redirect()->route('admin.vacancy.index')->with('alert', 'Вакансия не найдена');
         }
 
-        $vacancy = $this->vacancyService->update($request, $vacancy);
+        $vacancy = $this->vacancyAction->update($request, $vacancy);
 
         return redirect()->route('admin.vacancy.edit', ['vacancy' => $vacancy->id])->with('success', 'Вакансия сохранена');
     }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Entity\Actions;
 
-use App\Services\Traits\GetCity;
+use App\Entity\Actions\Traits\GetCity;
 use App\Models\Work;
 
-class VacancyService
+class VacancyAction
 {
     use GetCity;
 

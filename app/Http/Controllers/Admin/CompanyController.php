@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entity\Actions\CompanyAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Models\Company;
 use App\Models\User;
-use App\Services\CompanyService;
 use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends BaseAdminController
 {
-    public function __construct(private CompanyService $companyService)
+    public function __construct(private CompanyAction $companyAction)
     {
         parent::__construct();
-        $this->companyService = $companyService;
+        $this->companyAction = $companyAction;
     }
 
     public function index()
@@ -32,7 +32,7 @@ class CompanyController extends BaseAdminController
 
     public function store(StoreCompanyRequest $request)
     {
-        $this->companyService->store($request);
+        $this->companyAction->store($request);
 
         return redirect()->route('admin.company.index')->with('success', 'Компания добавлена');
     }
@@ -46,7 +46,7 @@ class CompanyController extends BaseAdminController
 
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        $company = $this->companyService->update($request, $company);
+        $company = $this->companyAction->update($request, $company);
 
         return redirect()->route('admin.company.edit', ['company' => $company->id])
             ->with('success', "Компания сохранена");

@@ -4,8 +4,8 @@ namespace App\Entity\Actions;
 
 use App\Entity\Actions\Traits\GetCity;
 use App\Models\Work;
-// TODO переместить сервисы сущностей в актион
-class ResumeService
+
+class ResumeAction
 {
     use GetCity;
 

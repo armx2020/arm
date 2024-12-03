@@ -6,8 +6,8 @@ use App\Models\Project;
 use App\Entity\Actions\Traits\GetCity;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
-// TODO переместить сервисы сущностей в актион
-class ProjectService
+
+class ProjectAction
 {
     use GetCity;
 

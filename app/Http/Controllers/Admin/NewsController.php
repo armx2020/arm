@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entity\Actions\NewsAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\NewsRequest;
 use App\Models\Company;
 use App\Models\Group;
 use App\Models\News;
 use App\Models\User;
-use App\Services\NewsService;
 
 class NewsController extends BaseAdminController
 {
-    public function __construct(private NewsService $newsService)
+    public function __construct(private NewsAction $newsAction)
     {
         parent::__construct();
-        $this->newsService = $newsService;
+        $this->newsAction = $newsAction;
     }
 
     public function index()
@@ -39,7 +39,7 @@ class NewsController extends BaseAdminController
 
     public function store(NewsRequest $request)
     {
-        $this->newsService->store($request);        
+        $this->newsAction->store($request);        
 
         return redirect()->route('admin.new.index')->with('success', 'Новость сохранена');
     }
@@ -84,7 +84,7 @@ class NewsController extends BaseAdminController
             return redirect()->route('admin.new.index')->with('alert', 'Новость не найдена');
         }
 
-        $news = $this->newsService->update($request, $news);
+        $news = $this->newsAction->update($request, $news);
 
         return redirect()->route('admin.new.edit', ['new' => $news->id])->with('success', 'Новость сохранена');
     }

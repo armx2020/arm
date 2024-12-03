@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entity\Actions\CategoryAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
-use App\Services\CategoryService;
 
 class CategoryController extends BaseAdminController
 {
-    public function __construct(private CategoryService $categoryService)
+    public function __construct(private CategoryAction $categoryAction)
     {
         parent::__construct();
-        $this->categoryService = $categoryService;
+        $this->categoryAction = $categoryAction;
     }
 
     public function index()
@@ -40,7 +40,7 @@ class CategoryController extends BaseAdminController
 
     public function store(StoreCategoryRequest $request)
     {
-        $this->categoryService->store($request);
+        $this->categoryAction->store($request);
 
         return redirect()->route('admin.category.index')->with('success', 'Категория добавлена');
     }
@@ -64,7 +64,7 @@ class CategoryController extends BaseAdminController
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category = $this->categoryService->update($request, $category);
+        $category = $this->categoryAction->update($request, $category);
 
         return redirect()->route('admin.category.edit', ['category' => $category->id])
             ->with('success', 'Категория сохранена');

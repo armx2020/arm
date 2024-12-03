@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entity\Actions\EventAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\EventRequest;
 use App\Models\Category;
@@ -9,15 +10,14 @@ use App\Models\Company;
 use App\Models\Event;
 use App\Models\Group;
 use App\Models\User;
-use App\Services\EventService;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+
 
 class EventController extends BaseAdminController
 {
-    public function __construct(private EventService $eventService)
+    public function __construct(private EventAction $eventAction)
     {
         parent::__construct();
-        $this->eventService = $eventService;
+        $this->eventAction = $eventAction;
     }
 
     public function index()
@@ -43,7 +43,7 @@ class EventController extends BaseAdminController
 
     public function store(EventRequest $request)
     {
-        $this->eventService->store($request);
+        $this->eventAction->store($request);
 
         return redirect()->route('admin.event.index')->with('success', 'Событие добавлено');
     }
@@ -90,7 +90,7 @@ class EventController extends BaseAdminController
             return redirect()->route('admin.event.index')->with('alert', 'Событие не найдено');
         }
 
-        $event = $this->eventService->update($request, $event);
+        $event = $this->eventAction->update($request, $event);
 
         return redirect()->route('admin.event.edit', ['event' => $event->id])->with('success', 'Событие сохранено');
     }

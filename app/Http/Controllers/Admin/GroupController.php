@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entity\Actions\GroupAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\GroupRequest;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\User;
-use App\Services\GroupService;
 use Illuminate\Support\Facades\Storage;
 
 class GroupController extends BaseAdminController
 {
-    public function __construct(private GroupService $groupService)
+    public function __construct(private GroupAction $groupAction)
     {
         parent::__construct();
-        $this->groupService = $groupService;
+        $this->groupAction = $groupAction;
     }
 
 
@@ -34,7 +34,7 @@ class GroupController extends BaseAdminController
 
     public function store(GroupRequest $request)
     {
-        $this->groupService->store($request);
+        $this->groupAction->store($request);
 
         return redirect()->route('admin.group.index')->with('success', 'Группа добавлена');
     }
@@ -81,7 +81,7 @@ class GroupController extends BaseAdminController
             return redirect()->route('admin.group.index')->with('alert', 'Группа не найдена');
         }
 
-        $group = $this->groupService->update($request, $group);
+        $group = $this->groupAction->update($request, $group);
 
         return redirect()->route('admin.group.edit', ['group' => $group->id])
             ->with('success', 'Группа сохранена');

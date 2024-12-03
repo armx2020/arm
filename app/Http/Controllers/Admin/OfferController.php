@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entity\Actions\OfferAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\OfferRequest;
 use App\Models\Category;
@@ -11,10 +12,10 @@ use App\Services\OfferService;
 
 class OfferController extends BaseAdminController
 {
-    public function __construct(private OfferService $offerService)
+    public function __construct(private OfferAction $offerAction)
     {
         parent::__construct();
-        $this->offerService = $offerService;
+        $this->offerAction = $offerAction;
     }
 
     public function index()
@@ -32,7 +33,7 @@ class OfferController extends BaseAdminController
 
     public function store(OfferRequest $request)
     {
-        $this->offerService->store($request);
+        $this->offerAction->store($request);
 
         return redirect()->route('admin.offer.index')->with('success', 'Предложение добавлено');
     }
@@ -79,7 +80,7 @@ class OfferController extends BaseAdminController
             return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
         }
 
-        $offer = $this->offerService->update($request, $offer);
+        $offer = $this->offerAction->update($request, $offer);
 
         return redirect()->route('admin.offer.edit', ['offer' => $offer->id])
             ->with('success', 'Предожение сохранено');
@@ -93,7 +94,7 @@ class OfferController extends BaseAdminController
             return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
         }
 
-        $this->offerService->destroy($offer);
+        $this->offerAction->destroy($offer);
 
         return redirect()->route('admin.offer.index')->with('success', 'Предложение удалено');
     }

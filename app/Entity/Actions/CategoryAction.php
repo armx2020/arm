@@ -5,8 +5,8 @@ namespace App\Entity\Actions;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
-// TODO переместить сервисы сущностей в актион
-class CategoryService
+
+class CategoryAction
 {
     public function store($request): Category
     {

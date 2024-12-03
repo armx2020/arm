@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Entity\Actions\OfferAction;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Offer\StoreOfferRequest;
 use App\Http\Requests\Offer\UpdateOfferRequest;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\CompanyOffer;
-use App\Services\OfferService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class MyOfferController extends BaseController
 {
-    public function __construct(private OfferService $offerService)
+    public function __construct(private OfferAction $offerAction)
     {
         parent::__construct();
-        $this->offerService = $offerService;
+        $this->offerAction = $offerAction;
     }
 
     public function index(Request $request)
@@ -58,7 +57,7 @@ class MyOfferController extends BaseController
 
     public function store(StoreOfferRequest $request)
     {
-        $offer = $this->offerService->store($request, Auth::user()->id);
+        $offer = $this->offerAction->store($request, Auth::user()->id);
 
         return redirect()->route('myoffers.index')->with('success', 'Товар "' . $offer->name . '" добавлен');
     }
@@ -111,7 +110,7 @@ class MyOfferController extends BaseController
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
-        $offer = $this->offerService->update($request, $offer, Auth::user()->id);
+        $offer = $this->offerAction->update($request, $offer, Auth::user()->id);
 
         return redirect()->route('myoffers.show', ['myoffer' => $offer->id])->with('success', 'Товар "' . $offer->name . '" обнавлен');
     }
@@ -124,7 +123,7 @@ class MyOfferController extends BaseController
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
-        $this->offerService->destroy($offer);
+        $this->offerAction->destroy($offer);
 
         return redirect()->route('myoffers.index')->with('success', 'Товар удалён');
     }

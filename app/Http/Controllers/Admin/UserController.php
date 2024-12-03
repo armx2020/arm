@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entity\Actions\UserAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -11,12 +12,10 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends BaseAdminController
 {
-    private $userService;
-
-    public function __construct(UserService $userService)
+    public function __construct(private UserAction $userAction)
     {
         parent::__construct();
-        $this->userService = $userService;
+        $this->userAction = $userAction;
     }
 
     public function index()
@@ -31,7 +30,7 @@ class UserController extends BaseAdminController
 
     public function store(StoreUserRequest $request)
     {
-        $this->userService->store($request);
+        $this->userAction->store($request);
 
         return redirect()->route('admin.user.index')->with('success', 'Пользователь добавлен');
     }
@@ -43,7 +42,7 @@ class UserController extends BaseAdminController
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user = $this->userService->update($request, $user);
+        $user = $this->userAction->update($request, $user);
 
         return redirect()->route('admin.user.edit', ['user' => $user->id])
             ->with('success', "Пользователь обнавлён");
