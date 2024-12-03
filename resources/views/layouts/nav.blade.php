@@ -41,7 +41,7 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
-                                    class="inline-block bg-blue-500 rounded-lg px-3 pb-1 pt-2 text-white"
+                                    class="inline-block bg-blue-500 rounded-lg px-3 pb-1 pt-[0.3rem] text-white"
                                     href="{{ route('register') }}">
                                     Выход
                                 </button>
