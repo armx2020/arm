@@ -1,5 +1,5 @@
 <nav
-    class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-wrap lg:justify-start p-1 md:p-2 lg:py-5">
+    class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-wrap lg:justify-start p-2 md:p-3 lg:py-5">
     <div class="flex w-full lg:w-10/12 max-w-7xl flex-wrap items-center justify-between mx-auto text-sm font-medium">
         <div class="block xl:hidden">
             <a class="" href="{{ route('home') }}">
@@ -33,15 +33,15 @@
                         stroke-linecap="round" stroke-linejoin="round" />
                 </g>
             </svg>
-            <ul class="list-style-none mx-auto flex flex-col pl-0 text-center text-xl mt-10">
-                <li class="mb-4 my-2 p-4 flex border justify-center">
+            <ul class="list-style-none mx-auto flex flex-col pl-0 text-center text-lg mt-10">
+                <li class="mb-4 my-2 p-1 flex border justify-center">
                     @auth
                         <div class="flex flex-row items-center">
                             <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->firstname }}</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
-                                    class="inline-block bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 text-white"
+                                    class="inline-block bg-blue-500 rounded-lg px-3 pb-1 pt-2 text-white"
                                     href="{{ route('register') }}">
                                     Выход
                                 </button>

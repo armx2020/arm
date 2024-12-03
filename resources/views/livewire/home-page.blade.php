@@ -272,7 +272,7 @@
     <div class="flex justify-center mx-auto pb-5 lg:pb-20">
         <div class="flex basis-full">
             <div class="flex flex-col basis-full bg-white rounded-md p-4 lg:p-10">
-                <div class="w-full my-1 lg:mb-4 text-md md:text-2xl lg:text-4xl font-extrabold uppercase">Часто
+                <div class="w-full mt-1 mb-4 text-md md:text-2xl lg:text-4xl font-extrabold uppercase">Часто
                     задаваемые вопросы
                 </div>
                 <ul class="accordion-list">

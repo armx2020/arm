@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', '- МАРКЕТ')
 @section('content')
     <x-pages.breadcrumbs secondPositionUrl="{{ route('companies.index') }}" secondPositionName='Компании' />
         <section>

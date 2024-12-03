@@ -24,7 +24,7 @@
     }
 @endphp
 
-<div class="{{ $flex }} p-4">
+<div class="{{ $flex }} p-2">
     <a href="{{ route($entityShowRout, ['id' => $entity->id]) }}" class="{{ $aClass }}">
         <img class="{{ $imageClass }} w-full rounded-2xl flex object-cover"
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}
