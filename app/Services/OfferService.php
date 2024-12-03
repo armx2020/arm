@@ -99,6 +99,7 @@ class OfferService
             return redirect()->route('myoffers.index');
         }
 
+        $company->categories()->detach($offer->category_id);
         $company->categories()->syncWithoutDetaching($request->category);
 
         if ($request->image_remove == 'delete') {
