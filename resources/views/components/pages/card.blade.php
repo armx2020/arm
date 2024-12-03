@@ -32,10 +32,12 @@
     </a>
     <div class="{{ $bodyClass }}">
         <div class="flex max-h-14">
-            <p
-                class="mb-2 mt-2 sm:mt-0 break-words text-lg font-medium leading-tight text-neutral-800 text-ellipsis overflow-hidden">
-                {{ $entity->name }}
-            </p>
+            <a href="{{ route($entityShowRout, ['id' => $entity->id]) }}">
+                <p
+                    class="mb-2 mt-2 sm:mt-0 break-words text-lg font-medium leading-tight text-neutral-800 text-ellipsis overflow-hidden">
+                    {{ $entity->name }}
+                </p>
+            </a>
         </div>
 
         @isset($entity->description)
