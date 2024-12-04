@@ -2,83 +2,60 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Http\Request;
 use App\Models\Region;
 use App\Models\Work;
 
-class SelectWorks extends Component
+class SelectWorks extends BaseSelect
 {
     use WithPagination;
 
-    public $region;
-    public $type = 0;
-    public $sort = "updated_at|desc";
-    public $view = 2;
+    public $category = 'Вакансии';
 
-    public function mount(Request $request, $regionCode = null)
+    public function __construct()
     {
-        if($regionCode) {
-            $reg = Region::where('code', '=', $regionCode)->First();
-        } else {
-            $reg = Region::where('name', '=', $request->session()->get('region'))->First();
-        }
-
-        if (empty($reg)) {
-            $this->region = 1;
-        } else {
-            $this->region = $reg->id;
-        }
+        parent::__construct();
     }
 
     public function render()
     {
+        $entityShowRout = 'works.show';
         $exp = explode('|', $this->sort);
 
-        if ($this->type == 0) {
-            $typeName = 'вакансий';
-            if ($this->region == 1) {
-                $works = Work::vacancy()->orderBy($exp[0], $exp[1])->where('activity', 1)->paginate(12);
-                $recommendations = [];
-            } else {
-                $works = Work::vacancy()->with('region', 'parent')
-                    ->where('activity', 1)
-                    ->where('region_id', '=', $this->region)
-                    ->orderBy($exp[0], $exp[1])
-                    ->paginate(12);
-                $recommendations = Work::vacancy()->with('region', 'parent')
-                    ->where('activity', 1)
-                    ->whereNot(function ($query) {
-                        $query->where('region_id', '=', $this->region);
-                    })->limit(3)->get();
-            }
+        $works = Work::query()->active()->orderBy($exp[0], $exp[1]);
+        $recommendations = [];
+
+        if ($this->category == 'Вакансии') {
+            $works = $works->vacancy();
         } else {
-            $typeName = 'резюме';
-            if ($this->region == 1) {
-                $works = Work::resume()->with('parent')->where('activity', 1)->orderBy($exp[0], $exp[1])->paginate(12);
-                $recommendations = [];
-            } else {
-                $works = Work::resume()->with('parent', 'region')
-                    ->where('activity', 1)
-                    ->where('region_id', '=', $this->region)
-                    ->orderBy($exp[0], $exp[1])
-                    ->paginate(12);
-                $recommendations = Work::resume()->with('parent', 'region')
-                    ->where('activity', 1)
-                    ->whereNot(function ($query) {
-                        $query->where('region_id', '=', $this->region);
-                    })->limit(3)->get();
-            }
+            $works = $works->resume()->with('parent');
         }
+
+        if ($this->region !== 1) {
+            $works = $works
+                ->where('region_id', '=', $this->region);
+
+            $recommendations = Work::query()->active()
+                ->orderBy($exp[0], $exp[1])
+                ->with('region')
+                ->whereNot(function ($query) {
+                    $query->where('region_id', '=', $this->region);
+                })
+                ->limit(3)
+                ->get();
+        }
+
+        $works = $works->paginate(12);
+
         $regions = Region::all();
 
         return view('livewire.select-works', [
-            'works' => $works,
+            'entityShowRout' => $entityShowRout,
+            'entities' => $works,
             'regions' => $regions,
             'region' => $this->region,
             'recommendations' => $recommendations,
-            'typeName' => $typeName
+            'position' => $this->position,
         ]);
     }
 }

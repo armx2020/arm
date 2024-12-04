@@ -28,9 +28,9 @@ class SelectGroups extends BaseSelect
             $groups = $groups
                 ->where('region_id', '=', $this->region);
 
-            $recommendations = $recommendations = Group::query()->active()
+            $recommendations = Group::query()->active()
                 ->orderBy($exp[0], $exp[1])
-                ->with(['categories', 'region'])
+                ->with('region')
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })

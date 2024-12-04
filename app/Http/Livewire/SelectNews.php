@@ -26,7 +26,7 @@ class SelectNews extends BaseSelect
             $news = $news
                 ->where('region_id', '=', $this->region);
 
-            $recommendations = $recommendations = News::query()->active()
+            $recommendations = News::query()->active()
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })

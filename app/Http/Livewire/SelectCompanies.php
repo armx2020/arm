@@ -30,7 +30,7 @@ class SelectCompanies extends BaseSelect
             $companies = $companies
                 ->where('region_id', '=', $this->region);
 
-            $recommendations = $recommendations = Company::query()->active()
+            $recommendations = Company::query()->active()
                 ->orderBy($exp[0], $exp[1])
                 ->with(['categories', 'region'])
                 ->whereNot(function ($query) {

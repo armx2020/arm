@@ -27,7 +27,7 @@ class SelectEvents extends BaseSelect
             $events = $events
                 ->where('region_id', '=', $this->region);
 
-            $recommendations = $recommendations = Event::query()->active()
+            $recommendations = Event::query()->active()
                 ->orderBy($exp[0], $exp[1])
                 ->with('region')
                 ->whereNot(function ($query) {
