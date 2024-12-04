@@ -52,7 +52,7 @@
                 <!-- Блок 2 -->
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-2">
                     <div class="bg-[#dbe6fb] rounded-xl p-2 lg:p-4 h-64 h-56 md:h-[280px] lg:h-72">
-                        <a href="{{ route('offers.index') }}">
+                        <a href="{{ route('companies.index') }}">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Бизнес справочник</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Каталог товаров/услуг армянской общины</p>
