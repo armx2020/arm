@@ -4,19 +4,15 @@ namespace App\Entity\Actions;
 
 use App\Models\Company;
 use App\Models\CompanyOffer;
-use App\Entity\Actions\Traits\GetCity;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
 class OfferAction
 {
-    use GetCity;
-
     public function store($request, $user_id = null): CompanyOffer
     {
-        $city = $this->getCity($request);
-
-        $company = Company::query()->select('id', 'user_id');
+        $company = Company::query();
 
         if ($user_id) {
             $company = $company->where('user_id', '=', $user_id);
@@ -24,22 +20,37 @@ class OfferAction
 
         $company = $company->find($request->company);
 
-        $company->categories()->syncWithoutDetaching($request->category);
+        if ($company) {
+            $categoryBD = Category::find($request->category);
+
+            if ($categoryBD) {
+                $categoryMain = $categoryBD->category_id;
+
+                if ($company->category_id == null) {
+                    $company->category_id = $categoryMain;
+                    $company->save();
+                }
+
+                $company->categories()->syncWithoutDetaching([$request->category => ['main_category_id' => $categoryMain]]);
+            }
+        } else {
+            return redirect()->route('myoffers.index');
+        }
 
         $offer = new CompanyOffer();
-
         $offer->name = $request->name;
         $offer->address = $request->address;
         $offer->description = $request->description;
         $offer->phone = $request->phone;
-        $offer->city_id = $city->id;
-        $offer->region_id = $city->region->id;
-        $offer->web = $request->web;
-        $offer->viber = $request->viber;
-        $offer->whatsapp = $request->whatsapp;
-        $offer->telegram = $request->telegram;
-        $offer->instagram = $request->instagram;
-        $offer->vkontakte = $request->vkontakte;
+        $offer->city_id = $company->city_id;
+        $offer->region_id = $company->region_id;
+        $offer->phone = $company->phone;
+        $offer->web = $company->web;
+        $offer->viber = $company->viber;
+        $offer->whatsapp = $company->whatsapp;
+        $offer->telegram = $company->telegram;
+        $offer->instagram = $company->instagram;
+        $offer->vkontakte = $company->vkontakte;
         $offer->company_id = $request->company;
         $offer->user_id = $user_id ?: $company->user_id;
         $offer->category_id = $request->category;
@@ -50,7 +61,7 @@ class OfferAction
                 $constraint->aspectRatio();
             })->save();
         }
-        
+
         if ($request->image1) {
             $offer->image1 = $request->file('image1')->store('offers', 'public');
             Image::make('storage/' . $offer->image1)->resize(400, null, function ($constraint) {
@@ -85,8 +96,6 @@ class OfferAction
 
     public function update($request, $offer, $user_id = null): CompanyOffer
     {
-        $city = $this->getCity($request);
-
         $company = Company::query();
 
         if ($user_id) {
@@ -95,11 +104,25 @@ class OfferAction
 
         $company = $company->find($request->company);
 
-        if (empty($company)) {
+        if ($company) {
+            $company->categories()->detach($offer->category_id);
+
+            $categoryBD = Category::find($request->category);
+
+            if ($categoryBD) {
+                $categoryMain = $categoryBD->category_id;
+
+                if ($company->category_id == null) {
+                    $company->category_id = $categoryMain;
+                    $company->save();
+                }
+
+                $company->categories()->syncWithoutDetaching([$request->category => ['main_category_id' => $categoryMain]]);
+            }
+        } else {
             return redirect()->route('myoffers.index');
         }
 
-        $company->categories()->syncWithoutDetaching($request->category);
 
         if ($request->image_remove == 'delete') {
             Storage::delete('public/' . $offer->image);
@@ -168,7 +191,7 @@ class OfferAction
         $offer->category_id = $request->category;
         $offer->company_id = $company->id;
         $offer->city_id = $company->city_id;
-        $offer->region_id = $company->region->id;
+        $offer->region_id = $company->region_id;
         $offer->phone = $company->phone;
         $offer->web = $company->web;
         $offer->viber = $company->viber;
@@ -176,6 +199,7 @@ class OfferAction
         $offer->telegram = $company->telegram;
         $offer->instagram = $company->instagram;
         $offer->vkontakte = $company->vkontakte;
+        $offer->user_id = $user_id ?: $company->user_id;
 
         $offer->update();
 

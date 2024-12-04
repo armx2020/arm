@@ -160,32 +160,31 @@
                         </div>
 
                         <div class="my-3">
-                            <label for="category" class="text-sm font-medium text-gray-900 block mb-2">Категория *</label>
-                            <select name="category" id="category"
-                                class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
-                                required>
-                                <option value="" checked> -- Выберите категорию -- </option>
+                            <x-input-label for="checkbox-group" :value="__('Выберите деятельность *')" />
+                            <div class="flex border-2 rounded-lg p-4  mt-1" id="checkbox-group">
+                                <div class="grid grid-cols-3 gap-4 w-full">
 
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" @disabled(count($category->childrenCategories) > 0)
-                                        class="font-semibold text-ellipsis overflow-hidden text-nowrap">
-                                        {{ mb_substr($category->name, 0, 80, 'UTF-8') }}
-                                        @if (mb_strlen($category->name) > 80)
-                                            ...
-                                        @endif
-                                    </option>
-                                    @foreach ($category->childrenCategories as $item)
-                                        <option value="{{ $item->id }}"
-                                            class="pl-6 text-ellipsis overflow-hidden text-nowrap">
-                                            {{ mb_substr($item->name, 0, 80, 'UTF-8') }}
-                                            @if (mb_strlen($item->name) > 80)
-                                                ...
-                                            @endif
-                                        </option>
+                                    @foreach ($categories as $item)
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex">
+                                                <label for="checkbox-group-{{ $loop->iteration }}"
+                                                    class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
+                                            </div>
+                                            @foreach ($item->categories as $child)
+                                                <div class="flex">
+                                                    <input type="radio" name="category" value="{{ $child->id }}" required
+                                                        class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                        id="checkbox-{{ $loop->iteration }}">
+                                                    <label for="checkbox-{{ $loop->iteration }}"
+                                                        class="text-sm text-gray-500 ms-3 dark:text-neutral-400">{{ $child->name }}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     @endforeach
-                                @endforeach
 
-                            </select>
+                                </div>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('category')" />
                         </div>
 
                         <div class="my-5">

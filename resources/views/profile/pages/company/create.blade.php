@@ -59,7 +59,7 @@
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
-                        <div class="my-3" x-data="{ open: false }">
+                        <div class="my-3">
                             <x-input-label for="checkbox-group" :value="__('Выберите деятельность *')" />
                             <div class="flex border-2 rounded-lg p-4  mt-1" id="checkbox-group">
                                 <div class="grid grid-cols-3 gap-4 w-full">

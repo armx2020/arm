@@ -16,6 +16,9 @@ class StoreOfferRequest extends FormRequest
             'image2'  => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
             'image3'  => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
             'image4'  => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
+            'city'          => ['integer'],
+            'user'          => ['nullable', 'integer'],
+            'category'    => ['required'],
         ];
     }
 }

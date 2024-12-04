@@ -21,6 +21,9 @@ class UpdateOfferRequest extends FormRequest
             'image_remove2'   => ['nullable', 'in:delete'],
             'image_remove3'   => ['nullable', 'in:delete'],
             'image_remove4'   => ['nullable', 'in:delete'],
+            'city'          => ['integer'],
+            'user'          => ['nullable', 'integer'],
+            'category'    => ['required'],
         ];
     }
 }

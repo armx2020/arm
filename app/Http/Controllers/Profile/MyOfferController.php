@@ -25,7 +25,7 @@ class MyOfferController extends BaseController
         $companies = Company::with('offers')->where('user_id', '=', Auth::user()->id)->get();
 
         if (count($companies) == 0) {
-            return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте вашу компанию.');
+            return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте компанию.');
         }
 
         return view('profile.pages.offer.index', [
@@ -41,10 +41,10 @@ class MyOfferController extends BaseController
         $companies = Company::with('offers')->where('user_id', '=', Auth::user()->id)->get();
 
         if (count($companies) == 0) {
-            return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте вашу компанию.');
+            return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте компанию.');
         }
 
-        $categories = Category::offer()->whereNotNull('category_id')->orderBy('sort_id')->get();
+        $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('profile.pages.offer.create', [
             'companies' => $companies,
@@ -89,7 +89,7 @@ class MyOfferController extends BaseController
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
-        $categories = Category::offer()->whereNotNull('category_id')->orderBy('sort_id')->get();
+        $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
         $companies = Company::query()->with('offers')->where('user_id', '=', Auth::user()->id)->whereNot('id', $offer->company_id)->get();
 
         return view('profile.pages.offer.edit', [

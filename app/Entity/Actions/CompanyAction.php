@@ -44,9 +44,10 @@ class CompanyAction
         if ($request->categories) {
             foreach ($request->categories as $categoryID => $val) {
                 $categoryBD = Category::find($categoryID);
-                $categoryMain = $categoryBD->category_id;
 
                 if ($categoryBD) {
+                    $categoryMain = $categoryBD->category_id;
+
                     if ($company->category_id == null) {
                         $company->category_id = $categoryMain;
                         $company->save();
@@ -97,9 +98,10 @@ class CompanyAction
         if ($request->categories) {
             foreach ($request->categories as $categoryID => $val) {
                 $categoryBD = Category::find($categoryID);
-                $categoryMain = $categoryBD->category_id;
 
                 if ($categoryBD) {
+                    $categoryMain = $categoryBD->category_id;
+                    
                     if ($company->category_id == null) {
                         $company->category_id = $categoryMain;
                         $company->save();
