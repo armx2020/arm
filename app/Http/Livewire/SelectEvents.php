@@ -4,9 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Event;
-use Livewire\Component;
-use Livewire\WithPagination;
-use Illuminate\Http\Request;
 use App\Models\Region;
 
 class SelectEvents extends BaseSelect

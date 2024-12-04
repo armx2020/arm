@@ -3,61 +3,46 @@
 namespace App\Http\Livewire;
 
 use App\Models\News;
-use Livewire\Component;
 use Illuminate\Http\Request;
 use App\Models\Region;
 use Livewire\WithPagination;
 
-class SelectNews extends Component
+class SelectNews extends BaseSelect
 {
-    use WithPagination;
-
-    public $region;
-    public $sort = "updated_at|desc";
-    public $view = 2;
-
-    public function mount(Request $request, $regionCode = null)
+    public function __construct()
     {
-        if($regionCode) {
-            $reg = Region::where('code', '=', $regionCode)->First();
-        } else {
-            $reg = Region::where('name', '=', $request->session()->get('region'))->First();
-        }
-
-        if (empty($reg)) {
-            $this->region = 1;
-        } else {
-            $this->region = $reg->id;
-        }
+        parent::__construct();
     }
+
     public function render()
     {
+        $entityShowRout = 'news.show';
         $exp = explode('|', $this->sort);
 
-        if ($this->region == 1) {
-            $news = News::orderBy($exp[0], $exp[1])->where('activity', 1)->paginate(12);
-            $recommendations = [];
-        } else {
-            $news = News::with('region')
-                ->where('activity', 1)
-                ->where('region_id', '=', $this->region)
-                ->orderBy($exp[0], $exp[1])
-                ->paginate(12);
+        $news = News::query()->active()->orderBy($exp[0], $exp[1]);
+        $recommendations = [];
 
-            $recommendations = News::with('region')
-                ->where('activity', 1)
+        if ($this->region !== 1) {
+            $news = $news
+                ->where('region_id', '=', $this->region);
+
+            $recommendations = $recommendations = News::query()->active()
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
-                })->limit(3)->get();
+                })
+                ->limit(3)
+                ->get();
         }
-
+        $news = $news->paginate(12);
         $regions = Region::all();
 
         return view('livewire.select-news', [
-            'news' => $news,
+            'entityShowRout' => $entityShowRout,
+            'entities' => $news,
             'regions' => $regions,
+            'region' => $this->region,
             'recommendations' => $recommendations,
-            'region' => $this->region
+            'position' => $this->position,
         ]);
     }
 }
