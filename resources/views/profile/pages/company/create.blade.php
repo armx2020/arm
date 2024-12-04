@@ -154,14 +154,6 @@
 
     <script type='text/javascript'>
         $(document).ready(function() {
-            Alpine.data('dropdown', () => ({
-                open: false,
-
-                toggle() {
-                    this.open = !this.open;
-                },
-            }));
-
             if ($("#city").length > 0) {
                 $("#city").select2({
                     ajax: {

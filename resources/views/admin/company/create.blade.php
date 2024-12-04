@@ -51,10 +51,33 @@
                                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                         </div>
                                         <div class="col-span-6">
-                                            <label for="dd_category"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Деятельность *</label>
-                                            <select name="categories[]" class="w-full" id="dd_category" multiple="multiple">
-                                            </select>
+                                            <label for="categories"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Направление</label>
+                                            <div class="flex border-2 rounded-lg p-4  mt-1" id="checkbox-group">
+                                                <div class="grid grid-cols-3 gap-4 w-full">
+
+                                                    @foreach ($categories as $item)
+                                                        <div class="flex flex-col gap-1">
+                                                            <div class="flex">
+                                                                <label for="checkbox-group-{{ $loop->iteration }}"
+                                                                    class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
+                                                            </div>
+                                                            @foreach ($item->categories as $child)
+                                                                <div class="flex">
+                                                                    <input type="checkbox"
+                                                                        name="categories[{{ $child->id }}]"
+                                                                        class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                                        id="checkbox-{{ $loop->iteration }}">
+                                                                    <label for="checkbox-{{ $loop->iteration }}"
+                                                                        class="text-sm text-gray-500 ms-3 dark:text-neutral-400">{{ $child->name }}</label>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @endforeach
+
+                                                </div>
+                                            </div>
+                                            <x-input-error class="mt-2" :messages="$errors->get('categories')" />
                                         </div>
                                         <div class="col-span-6">
                                             <label for="user"

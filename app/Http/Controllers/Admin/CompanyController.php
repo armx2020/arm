@@ -6,6 +6,7 @@ use App\Entity\Actions\CompanyAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
+use App\Models\Category;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -25,9 +26,10 @@ class CompanyController extends BaseAdminController
 
     public function create()
     {
+        $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
         $users = User::all();
 
-        return view('admin.company.create', ['users' => $users, 'menu' => $this->menu]);
+        return view('admin.company.create', ['users' => $users, 'menu' => $this->menu, 'categories' => $categories]);
     }
 
     public function store(StoreCompanyRequest $request)

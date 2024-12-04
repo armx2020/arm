@@ -194,7 +194,7 @@
                         dataType: 'json',
                         data: function(params) {
                             return {
-                                query: params.term, // search term
+                                query: params.term,
                                 "_token": "{{ csrf_token() }}",
                             };
                         },
