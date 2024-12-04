@@ -9,7 +9,6 @@ use App\Models\Region;
 class SelectCompanies extends BaseSelect
 {
     public $category = 'Все категории';
-    public $subcategory = null;
 
     public function __construct()
     {
@@ -41,26 +40,14 @@ class SelectCompanies extends BaseSelect
                 ->get();
         }
 
-
-
-        $companyCategories = Category::query()->offer()->main()->active()->orderBy('sort_id')->get();
-
-        if ($this->category == 'Все категории') {
-
-            $companies = $companies->paginate(12);
-            $subCompanyCategories = null;
-        } else {
-            if ($this->subcategory) {
-                $companies = $companies->whereHas('categories', function ($query) {
-                    $query->where('category_company.category_id', $this->subcategory);
-                });
-            } else {
-                $companies = $companies->where('category_id', '=', $this->category);
-            }
-
-            $companies = $companies->paginate(12);
-            $subCompanyCategories = Category::query()->where('category_id', $this->category)->active()->orderBy('sort_id')->get();
+        if ($this->category !== 'Все категории') {
+            $companies = $companies->where('category_id', '=', $this->category)->orWhereHas('categories', function ($query) {
+                $query->where('category_company.category_id', '=', $this->category);
+            });
         }
+
+        $companies = $companies->paginate(12);
+        $categories = Category::query()->offer()->main()->active()->orderBy('sort_id')->get();
 
         $regions = Region::all();
 
@@ -71,8 +58,7 @@ class SelectCompanies extends BaseSelect
             'region' => $this->region,
             'recommendations' => $recommendations,
             'position' => $this->position,
-            'companyCategories' => $companyCategories,
-            'subCompanyCategories' => $subCompanyCategories,
+            'categories' => $categories,
         ]);
     }
 }
