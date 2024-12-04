@@ -41,7 +41,7 @@ class SelectCompanies extends BaseSelect
         }
 
         if ($this->category !== 'Все') {
-            $companies = $companies->where('category_id', '=', $this->category)->orWhereHas('categories', function ($query) {
+            $companies = $companies->orWhereHas('categories', function ($query) {
                 $query->where('category_company.main_category_id', '=', $this->category);
             });
         }
