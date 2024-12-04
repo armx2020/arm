@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Profile;
 
 use App\Entity\Actions\CompanyAction;
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\Company\StoreCompanyRequest;
+use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Company;
@@ -36,7 +37,7 @@ class MyCompanyController extends BaseController
 
     public function create(Request $request)
     {
-        $categories = Category::offer()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
+        $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('profile.pages.company.create', [
             'categories' => $categories,
@@ -46,68 +47,9 @@ class MyCompanyController extends BaseController
         ]);
     }
 
-    public function store(CompanyRequest $request)
+    public function store(StoreCompanyRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'address' => ['max:128'],
-            'phone' => ['max:36'],
-            'web' => ['max:250'],
-            'viber' => ['max:36'],
-            'whatsapp' => ['max:36'],
-            'telegram' => ['max:36'],
-            'instagram' => ['max:36'],
-            'vkontakte' => ['max:36'],
-            'image' => ['image'],
-        ]);
-
-        $city = City::with('region')->find($request->company_city);
-
-        if (empty($city)) {
-            $city = City::find(1);
-        }
-
-        $company = new Company();
-
-        $company->name = $request->name;
-        $company->address = $request->address;
-        $company->description = $request->description;
-        $company->city_id = $request->company_city;
-        $company->region_id = $city->region->id;
-        $company->phone = $request->phone;
-        $company->web = $request->web;
-        $company->viber = $request->viber;
-        $company->whatsapp = $request->whatsapp;
-        $company->telegram = $request->telegram;
-        $company->instagram = $request->instagram;
-        $company->vkontakte = $request->vkontakte;
-        $company->user_id = Auth::user()->id;
-
-        if ($request->image) {
-            $company->image = $request->file('image')->store('companies', 'public');
-            Image::make('storage/' . $company->image)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        $company->save();
-
-        if ($request->categories) {
-            foreach ($request->categories as $categoryID => $val) {
-                $categoryBD = Category::find($categoryID);
-
-                if ($categoryBD->category_id == null) {
-                    if ($company->category_id) {
-                        $company->category_id = $categoryID;
-                        $company->save();
-                    } else {
-                        $company->categories()->attach($categoryID);
-                    }
-                } else {
-                    $company->categories()->attach($categoryID);
-                }
-            }
-        }
+        $company = $this->companyAction->store($request, Auth::user()->id);
 
         return redirect()->route('mycompanies.index')->with('success', 'Компания "' . $company->name . '" добавлена');
     }
@@ -151,7 +93,7 @@ class MyCompanyController extends BaseController
             return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
         }
 
-        $categories = Category::offer()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
+        $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('profile.pages.company.edit', [
             'categories' => $categories,
@@ -162,83 +104,15 @@ class MyCompanyController extends BaseController
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateCompanyRequest $request, $id)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'address' => ['max:128'],
-            'phone' => ['max:36'],
-            'web' => ['max:250'],
-            'viber' => ['max:36'],
-            'whatsapp' => ['max:36'],
-            'telegram' => ['max:36'],
-            'instagram' => ['max:36'],
-            'vkontakte' => ['max:36'],
-            'image' => ['image'],
-        ]);
-
-        $city = City::with('region')->find($request->company_city);
-
-        if (empty($city)) {
-            $city = City::find(1);
-        }
-
         $company = Company::where('user_id', '=', Auth::user()->id)->find($id);
 
         if (empty($company)) {
             return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
         }
 
-        $company->name = $request->name;
-        $company->address = $request->address;
-        $company->description = $request->description;
-        $company->city_id = $request->company_city;
-        $company->region_id = $city->region->id;
-        $company->phone = $request->phone;
-        $company->web = $request->web;
-        $company->viber = $request->viber;
-        $company->whatsapp = $request->whatsapp;
-        $company->telegram = $request->telegram;
-        $company->instagram = $request->instagram;
-        $company->vkontakte = $request->vkontakte;
-        $company->user_id = Auth::user()->id;
-        $company->category_id = null;
-
-        $new_categories = [];
-
-        if ($request->categories) {
-            foreach ($request->categories as $categoryID => $val) {
-                $categoryBD = Category::find($categoryID);
-
-                if ($categoryBD->category_id == null) {
-                    if ($company->category_id == null) {
-                        $company->category_id = $categoryID;
-                        $company->update();
-                    } else {
-                        $new_categories[] = $categoryID;
-                    }
-                } else {
-                    $new_categories[] = $categoryID;
-                }
-            }
-        }
-
-        $company->categories()->sync($new_categories);
-
-        if ($request->image_remove == 'delete') {
-            Storage::delete('public/' . $company->image);
-            $company->image = null;
-        }
-
-        if ($request->image) {
-            Storage::delete('public/' . $company->image);
-            $company->image = $request->file('image')->store('companies', 'public');
-            Image::make('storage/' . $company->image)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        $company->update();
+        $company = $this->companyAction->update($request, $company, Auth::user()->id);
 
         return redirect()->route('mycompanies.show', ['mycompany' => $company->id])->with('success', 'Компания "' . $company->name . '" обнавлена');
     }
@@ -246,8 +120,6 @@ class MyCompanyController extends BaseController
     public function destroy($id)
     {
         $company = Company::with('events', 'projects', 'news', 'offers')->where('user_id', '=', Auth::user()->id)->find($id);
-
-        $company->categories()->detach();
 
         if (empty($company)) {
             return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
@@ -257,32 +129,7 @@ class MyCompanyController extends BaseController
             return redirect()->route('mycompanies.index')->with('alert', 'У компании есть товары, необходимо удалить сначало их');
         }
 
-        foreach ($company->events as $event) {
-            if ($event->image) {
-                Storage::delete('public/' . $event->image);
-            }
-            $event->delete();
-        }
-
-        foreach ($company->news as $news) {
-            if ($news->image) {
-                Storage::delete('public/' . $news->image);
-            }
-            $news->delete();
-        }
-
-        foreach ($company->projects as $project) {
-            if ($project->image !== null) {
-                Storage::delete('public/' . $project->image);
-            }
-            $project->delete();
-        }
-
-        if ($company->image !== null) {
-            Storage::delete('public/' . $company->image);
-        }
-
-        $company->delete();
+        $this->companyAction->destroy($company);
 
         return redirect()->route('mycompanies.index')->with('success', 'Компания удалена');
     }

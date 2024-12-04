@@ -3,6 +3,7 @@
 namespace App\Entity\Actions;
 
 use App\Entity\Actions\Traits\GetCity;
+use App\Models\Category;
 use App\Models\Company;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
@@ -11,7 +12,7 @@ class CompanyAction
 {
     use GetCity;
 
-    public function store($request): Company
+    public function store($request, $user_id = null): Company
     {
         $city = $this->getCity($request);
 
@@ -29,7 +30,7 @@ class CompanyAction
         $company->telegram = $request->telegram;
         $company->instagram = $request->instagram;
         $company->vkontakte = $request->vkontakte;
-        $company->user_id = $request->user ? $request->user : 1; 
+        $company->user_id = $user_id ?: $request->user;
 
         if ($request->image) {
             $company->image = $request->file('image')->store('companies', 'public');
@@ -40,12 +41,25 @@ class CompanyAction
 
         $company->save();
 
-        $company->categories()->attach($request->categories);
+        if ($request->categories) {
+            foreach ($request->categories as $categoryID => $val) {
+                $categoryBD = Category::find($categoryID);
+                $categoryMain = $categoryBD->category_id;
+
+                if ($categoryBD) {
+                    if ($company->category_id == null) {
+                        $company->category_id = $categoryMain;
+                        $company->save();
+                    }
+                    $company->categories()->attach($categoryID, ['main_category_id' => $categoryMain]);
+                }
+            }
+        }
 
         return $company;
     }
 
-    public function update($request, $company): Company
+    public function update($request, $company, $user_id = null): Company
     {
         $city = $this->getCity($request);
 
@@ -74,12 +88,58 @@ class CompanyAction
         $company->telegram = $request->telegram;
         $company->instagram = $request->instagram;
         $company->vkontakte = $request->vkontakte;
-        $company->user_id = $request->user;
+        $company->user_id = $user_id ?: $request->user;
 
-        $company->categories()->sync($request->categories);
+        $company->categories()->detach();
 
         $company->update();
 
+        if ($request->categories) {
+            foreach ($request->categories as $categoryID => $val) {
+                $categoryBD = Category::find($categoryID);
+                $categoryMain = $categoryBD->category_id;
+
+                if ($categoryBD) {
+                    if ($company->category_id == null) {
+                        $company->category_id = $categoryMain;
+                        $company->save();
+                    }
+                    $company->categories()->attach($categoryID, ['main_category_id' => $categoryMain]);
+                }
+            }
+        }
+
         return $company;
+    }
+
+    public function destroy($company): void
+    {
+        foreach ($company->events as $event) {
+            if ($event->image) {
+                Storage::delete('public/' . $event->image);
+            }
+            $event->delete();
+        }
+
+        foreach ($company->news as $news) {
+            if ($news->image) {
+                Storage::delete('public/' . $news->image);
+            }
+            $news->delete();
+        }
+
+        foreach ($company->projects as $project) {
+            if ($project->image !== null) {
+                Storage::delete('public/' . $project->image);
+            }
+            $project->delete();
+        }
+
+        if ($company->image !== null) {
+            Storage::delete('public/' . $company->image);
+        }
+
+        $company->categories()->detach();
+        $company->delete();
     }
 }

@@ -9,7 +9,7 @@ class StoreCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'          => ['required', 'string', 'max:255'],
+            'name'          => ['required', 'string', 'max:255', 'min:3'],
             'address'       => ['nullable', 'string','max:128'],
             'phone'         => ['nullable', 'string','max:36'],
             'description'   => ['nullable', 'string'],
@@ -23,7 +23,7 @@ class StoreCompanyRequest extends FormRequest
             'image_remove'  => ['nullable', 'in:delete'],
             'city'          => ['integer'],
             'user'          => ['nullable', 'integer'],
-            'categories'    => [], // TODO Закончить с полями у компании (категории - null?)
+            'categories'    => ['required'],
         ];
     }
 }

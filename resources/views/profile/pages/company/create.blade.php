@@ -61,20 +61,17 @@
 
                         <div class="my-3" x-data="{ open: false }">
                             <x-input-label for="checkbox-group" :value="__('Выберите деятельность *')" />
-                            <div class="flex border-2 rounded-lg p-4  mt-1">
+                            <div class="flex border-2 rounded-lg p-4  mt-1" id="checkbox-group">
                                 <div class="grid grid-cols-3 gap-4 w-full">
 
                                     @foreach ($categories as $item)
                                         <div class="flex flex-col gap-1">
                                             <div class="flex">
-                                                <input type="checkbox" name="categories[{{ $item->id }}]"
-                                                    class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                    id="checkbox-group-{{ $loop->iteration }}">
                                                 <label for="checkbox-group-{{ $loop->iteration }}"
                                                     class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
                                             </div>
                                             @foreach ($item->categories as $child)
-                                                <div class="flex pl-4">
+                                                <div class="flex">
                                                     <input type="checkbox" name="categories[{{ $child->id }}]"
                                                         class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                                                         id="checkbox-{{ $loop->iteration }}">
@@ -83,31 +80,11 @@
                                                 </div>
                                             @endforeach
                                         </div>
-
-                                        <script>
-                                            document.addEventListener("DOMContentLoaded", function(event) {
-                                                var checkboxAll = document.querySelector("#checkbox-group-{!! $loop->iteration !!}");
-                                                checkboxAll.addEventListener('change', function() {
-                                                    let inputs = document.querySelectorAll(".checkbox-{!! $loop->iteration !!}")
-
-                                                    if (this.checked) {
-                                                        inputs.forEach(element => {
-                                                            element.checked = true
-                                                        });
-                                                    } else {
-                                                        inputs.forEach(element => {
-                                                            element.checked = false
-                                                        });
-                                                    }
-                                                });
-
-                                            });
-                                        </script>
                                     @endforeach
 
                                 </div>
                             </div>
-
+                            <x-input-error class="mt-2" :messages="$errors->get('categories')" />
                         </div>
 
                         <div class="my-3">
@@ -160,9 +137,8 @@
                         </div>
 
                         <div class="my-3">
-                            <label for="company_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
-                            <select name="company_city" style="border-color: rgb(209 213 219); width: 100%"
-                                id="company_city">
+                            <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
+                            <select name="city" style="border-color: rgb(209 213 219); width: 100%" id="city">
                                 <option value='1'>Выберете город</option>
                             </select>
                         </div>
@@ -186,8 +162,8 @@
                 },
             }));
 
-            if ($("#company_city").length > 0) {
-                $("#company_city").select2({
+            if ($("#city").length > 0) {
+                $("#city").select2({
                     ajax: {
                         url: " {{ route('cities') }}",
                         type: "post",
@@ -195,7 +171,7 @@
                         dataType: 'json',
                         data: function(params) {
                             return {
-                                query: params.term, // search term
+                                query: params.term,
                                 "_token": "{{ csrf_token() }}",
                             };
                         },
@@ -207,10 +183,6 @@
                         cache: true
                     }
                 });
-            }
-
-            if ($("#company_categories").length > 0) {
-                $("#company_categories").select2();
             }
 
             function previewImage(file) {
