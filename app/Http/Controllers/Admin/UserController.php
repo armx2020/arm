@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use App\Services\UserService;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends BaseAdminController

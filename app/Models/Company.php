@@ -46,7 +46,12 @@ class Company extends Model
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->withTimestamps();
+    }
+
+    public function main_categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'category_company', 'company_id', 'main_category_id')->withTimestamps();
     }
 
     public function scopeActive($query)

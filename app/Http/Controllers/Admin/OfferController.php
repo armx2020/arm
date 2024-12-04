@@ -8,7 +8,6 @@ use App\Http\Requests\OfferRequest;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\CompanyOffer;
-use App\Services\OfferService;
 
 class OfferController extends BaseAdminController
 {

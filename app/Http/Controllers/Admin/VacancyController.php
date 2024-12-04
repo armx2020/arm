@@ -9,7 +9,6 @@ use App\Models\Company;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\Work;
-use App\Services\VacancyService;
 
 class VacancyController extends BaseAdminController
 {
