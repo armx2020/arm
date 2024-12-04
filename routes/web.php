@@ -53,11 +53,6 @@ Route::name('companies.')->prefix('/companies')->group(function () {
     Route::get('/{id}', [CompanyController::class, 'show'])->name('show');
 });
 
-Route::name('offers.')->prefix('/market')->group(function () {
-    Route::get('/', [OfferController::class, 'index'])->name('index');
-    Route::get('/{id}', [OfferController::class, 'show'])->name('show');
-});
-
 Route::name('works.')->prefix('/works')->group(function () {
     Route::get('/', [WorkController::class, 'index'])->name('index');
     Route::get('/{id}', [WorkController::class, 'show'])->name('show');
@@ -69,7 +64,6 @@ Route::name('region.')->prefix('/{regionCode}')->group(function () {
     Route::get('/events', [EventController::class, 'index'])->name('events');
     Route::get('/news', [NewsController::class, 'index'])->name('news');
     Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
-    Route::get('/market', [OfferController::class, 'index'])->name('offers');
     Route::get('/works', [WorkController::class, 'index'])->name('works');
 });
 

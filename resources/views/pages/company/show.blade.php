@@ -173,15 +173,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-3 lg:gap-5">
                         @foreach ($company->offers as $offer)
                             <div class="block rounded-lg bg-white h-80">
-                                <a href="{{ route('offers.show', ['id' => $offer->id]) }}" class="block h-52">
-                                    @if ($offer->image == null)
-                                        <img class="h-48 w-full rounded-2xl p-2 flex object-cover"
-                                            src="{{ url('/image/no-image.png') }}" alt="image" />
-                                    @else
-                                        <img class="h-48 w-full rounded-2xl p-2 flex object-cover"
-                                            src="{{ asset('storage/' . $offer->image) }}" alt="image">
-                                    @endif
-                                </a>
+                                @if ($offer->image == null)
+                                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover"
+                                        src="{{ url('/image/no-image.png') }}" alt="image" />
+                                @else
+                                    <img class="h-48 w-full rounded-2xl p-2 flex object-cover"
+                                        src="{{ asset('storage/' . $offer->image) }}" alt="image">
+                                @endif
                                 <div class="px-6">
                                     <div class="h-12">
                                         <h5 class="mb-3 break-words text-lg font-medium leading-tight text-neutral-800">
