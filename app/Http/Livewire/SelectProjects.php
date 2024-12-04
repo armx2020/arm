@@ -3,87 +3,51 @@
 namespace App\Http\Livewire;
 
 use App\Models\Project;
-use Livewire\WithPagination;
-use Livewire\Component;
-use Illuminate\Http\Request;
 use App\Models\Region;
 
-class SelectProjects extends Component
+class SelectProjects extends BaseSelect
 {
-    use WithPagination;
+    public $category = 'Все';
 
-    public $region;
-    public $term = 2;
-    public $sort = "updated_at|desc";
-    public $view = 2;
-
-    public function mount(Request $request, $regionCode = null)
+    public function __construct()
     {
-        if($regionCode) {
-            $reg = Region::where('code', '=', $regionCode)->First();
-        } else {
-            $reg = Region::where('name', '=', $request->session()->get('region'))->First();
-        }
-
-        if (empty($reg)) {
-            $this->region = 1;
-        } else {
-            $this->region = $reg->id;
-        }
+        parent::__construct();
     }
 
     public function render()
     {
+        $entityShowRout = 'projects.show';
         $exp = explode('|', $this->sort);
 
-        $recommendations = [];
+        $projects = Project::query()->with('region')->orderBy($exp[0], $exp[1]);
+        $recommendations = Project::query()->with('region')->orderBy($exp[0], $exp[1]);
 
-        if ($this->region == 1) {
-            if ($this->term == 2) {
-                $projects = Project::orderBy($exp[0], $exp[1])->paginate(12);
-            } else {
-                $projects = Project::where('activity', '=', $this->term)
-                    ->where('activity', 1)
-                    ->orderBy($exp[0], $exp[1])
-                    ->paginate(12);
-            }
-        } else {
-            if ($this->term == 2) {
-                $projects = Project::with('region')
-                    ->where('activity', 1)
-                    ->where('region_id', '=', $this->region)
-                    ->orderBy($exp[0], $exp[1])
-                    ->paginate(12);
+        if ($this->region !== 1) {
+            $projects = $projects->where('region_id', '=', $this->region);
 
-                $recommendations = Project::with('region')
-                    ->where('activity', 1)
-                    ->whereNot(function ($query) {
-                        $query->where('region_id', '=', $this->region);
-                    })->limit(3)->get();
-            } else {
-                $projects = Project::with('region')
-                    ->where('activity', 1)
-                    ->where('region_id', '=', $this->region)
-                    ->where('activity', '=', $this->term)
-                    ->orderBy($exp[0], $exp[1])
-                    ->paginate(12);
-
-                $recommendations = Project::with('region')
-                    ->where('activity', 1)
-                    ->where('activity', '=', $this->term)
-                    ->whereNot(function ($query) {
-                        $query->where('region_id', '=', $this->region);
-                    })->limit(3)->get();
-            }
+            $recommendations = $recommendations
+                ->whereNot(function ($query) {
+                    $query->where('region_id', '=', $this->region);
+                });
         }
+
+        if ($this->category !== 'Все') {
+            $projects = $projects->where('activity', '=', $this->category);
+            $recommendations = $recommendations->where('activity', '=', $this->category);
+        }
+
+        $projects = $projects->paginate(12);
+        $recommendations = $recommendations->limit(3)->get();
 
         $regions = Region::all();
 
         return view('livewire.select-projects', [
-            'projects' => $projects,
+            'entityShowRout' => $entityShowRout,
+            'entities' => $projects,
             'regions' => $regions,
+            'region' => $this->region,
             'recommendations' => $recommendations,
-            'region' => $this->region
+            'position' => $this->position,
         ]);
     }
 }

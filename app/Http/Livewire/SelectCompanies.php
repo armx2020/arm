@@ -8,7 +8,7 @@ use App\Models\Region;
 
 class SelectCompanies extends BaseSelect
 {
-    public $category = 'Все категории';
+    public $category = 'Все';
 
     public function __construct()
     {
@@ -40,7 +40,7 @@ class SelectCompanies extends BaseSelect
                 ->get();
         }
 
-        if ($this->category !== 'Все категории') {
+        if ($this->category !== 'Все') {
             $companies = $companies->where('category_id', '=', $this->category)->orWhereHas('categories', function ($query) {
                 $query->where('category_company.main_category_id', '=', $this->category);
             });

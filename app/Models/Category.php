@@ -16,6 +16,8 @@ class Category extends Model
         'name'
     ];
 
+    protected $fillable = ['id', 'name'];
+
     public function scopeMain($query)
     {
         return $query->where('category_id', null);
