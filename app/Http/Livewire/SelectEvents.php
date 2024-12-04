@@ -9,80 +9,54 @@ use Livewire\WithPagination;
 use Illuminate\Http\Request;
 use App\Models\Region;
 
-class SelectEvents extends Component
+class SelectEvents extends BaseSelect
 {
-    use WithPagination;
+    public $category = 'Все';
 
-    public $term = 0;
-    public $region;
-    public $sort = "updated_at|desc";
-    public $view = 2;
-
-    public function mount(Request $request, $regionCode = null)
+    public function __construct()
     {
-        if($regionCode) {
-            $reg = Region::where('code', '=', $regionCode)->First();
-        } else {
-            $reg = Region::where('name', '=', $request->session()->get('region'))->First();
-        }
-
-        if (empty($reg)) {
-            $this->region = 1;
-        } else {
-            $this->region = $reg->id;
-        }
+        parent::__construct();
     }
+
     public function render()
     {
+        $entityShowRout = 'groups.show';
         $exp = explode('|', $this->sort);
 
-        if ($this->term == 0 && $this->region == 1) {
-            $events = Event::orderBy($exp[0], $exp[1])->where('activity', 1)->paginate(12);
-            $recommendations = [];
-        } elseif ($this->term !== 0 && $this->region == 1) {
-            $events = Event::with('region')
-                ->where('activity', 1)
-                ->where('category_id', '=', $this->term)
-                ->orderBy($exp[0], $exp[1])
-                ->paginate(12);
-            $recommendations = [];
-        } elseif ($this->term == 0 && $this->region !== 1) {
-            $events = Event::with('region')
-                ->where('activity', 1)
-                ->where('region_id', '=', $this->region)
-                ->orderBy($exp[0], $exp[1])
-                ->paginate(12);
+        $events = Event::query()->with('region')->active()->orderBy($exp[0], $exp[1]);
+        $recommendations = [];
 
-            $recommendations = Event::with('region')
-                ->where('activity', 1)
+        if ($this->region !== 1) {
+            $events = $events
+                ->where('region_id', '=', $this->region);
+
+            $recommendations = $recommendations = Event::query()->active()
+                ->orderBy($exp[0], $exp[1])
+                ->with('region')
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
-                })->limit(3)->get();
-        } else {
-            $events = Event::with('region')
-                ->where('activity', 1)
-                ->where('category_id', '=', $this->term)
-                ->where('region_id', '=', $this->region)
-                ->orderBy($exp[0], $exp[1])
-                ->paginate(12);
-
-            $recommendations = Event::with('region')
-                ->where('activity', 1)
-                ->where('category_id', '=', $this->term)
-                ->whereNot(function ($query) {
-                    $query->where('region_id', '=', $this->region);
-                })->limit(3)->get();
+                })
+                ->limit(3)
+                ->get();
         }
 
-        $categories = Category::active()->event()->main()->orderBy('sort_id', 'asc')->get();
+        if ($this->category !== 'Все') {
+            $events = $events->where('category_id', '=', $this->category);
+        }
+
+        $events = $events->paginate(12);
+        $categories = Category::active()->event()->main()->orderBy('sort_id')->get();
+
         $regions = Region::all();
 
         return view('livewire.select-events', [
-            'events' => $events,
-            'categories' => $categories,
+            'entityShowRout' => $entityShowRout,
+            'entities' => $events,
             'regions' => $regions,
             'region' => $this->region,
             'recommendations' => $recommendations,
+            'position' => $this->position,
+            'categories' => $categories,
         ]);
     }
 }
