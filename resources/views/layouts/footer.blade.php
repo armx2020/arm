@@ -36,7 +36,7 @@
                     <a class="mx-2" href="{{ route('projects.index') }}">Проекты</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('offers.index') }}">Маркет</a>
+                    <a class="mx-2" href="{{ route('companies.index') }}">Маркет</a>
                 </li>
                 <li class="mb-2 text-center">
                     <a class="mx-2" href="{{ route('events.index') }}">Афиша</a>
