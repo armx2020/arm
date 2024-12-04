@@ -1,46 +1,27 @@
 @props(['categories' => $categories])
 
-<div class="flex flex-nowrap gap-x-2 mb-3 overflow-x-scroll scrollhidden">
-    <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area" @if($term==0) style="background-color: rgb(59 130 246);color:white" @else style="background-color: white;color:black;" @endif>
-        <input class="hidden" type="radio" wire:model="term" value="0" name="select" />
-        <p class="inline-block " for="checkboxDefault">
-            Все группы
-        </p>
+<div class="flex flex-col basis-full lg:basis-1/5 max-w-56">
+    <div class="flex flex-row gap-3">
+        <div class="bg-white mt-3 basis-full rounded-md p-3">
+            <h4 class="mb-2 font-semibold text-gray-900 dark:text-white">Категория</h4>
+            <div class="flex items-center mb-2">
+                <input type="radio" value="Все категории" id="all_categories" wire:model="category"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="all_categories"
+                    class="mx-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Все</label>
+            </div>
+            @foreach ($categories as $category)
+                <div class="flex items-center mb-2">
+                    <input type="radio" value="{{ $category->id }}"
+                        id="{{ $category->name }}" wire:model="category"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="{{ $category->name }}"
+                        class="mx-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        {{ $category->name }}</label>
+                </div>
+            @endforeach
+        </div>
     </div>
-    <script type='text/javascript'>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("select-area").onclick = function() {
-                document.querySelector('input[name="select"][value="0"]').click();
-                document.getElementById("select-area").style.backgroundColor = 'rgb(59 130 246)';
-                document.getElementById("select-area").scrollIntoView({
-                    block: 'nearest',
-                    inline: "center"
-                });
-            };
-        });
-    </script>
-    @foreach($categories as $category)
-    <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_{{ $category->id }}" @if($term==$category->id)
-        style="background-color: rgb(59 130 246);color:white"
-        @else
-        style="background-color: white;color:black;"
-        @endif
-        >
-        <input class="hidden" type="radio" wire:model="term" value="{{ $category->id }}" name="select" />
-        <p class="inline-block " for="checkboxDefault">
-            {{ $category->name }}
-        </p>
-    </div>
-    <script type='text/javascript'>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("select-area_{{ $category->id }}").onclick = function() {
-                document.querySelector('input[name="select"][value="{{ $category->id }}"]').click();
-                document.getElementById("select-area_{{ $category->id }}").scrollIntoView({
-                    block: 'nearest',
-                    inline: "center"
-                });
-            };
-        });
-    </script>
-    @endforeach
+</div>
 </div>
