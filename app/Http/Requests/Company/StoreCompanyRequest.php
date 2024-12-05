@@ -11,7 +11,7 @@ class StoreCompanyRequest extends FormRequest
         return [
             'name'          => ['required', 'string', 'max:255', 'min:3'],
             'address'       => ['nullable', 'string','max:128'],
-            'phone'         => ['nullable', 'string','max:36'],
+            'phone'         => ['nullable', 'string','max:36', 'unique:companies'],
             'description'   => ['nullable', 'string'],
             'web'           => ['nullable', 'string','max:250'],
             'viber'         => ['nullable', 'string','max:36'],

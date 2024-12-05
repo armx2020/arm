@@ -34,21 +34,22 @@ class CompanyController extends BaseAdminController
 
     public function store(StoreCompanyRequest $request)
     {
-        $this->companyAction->store($request);
+        $this->companyAction->store($request, $request->user ?: 1);
 
         return redirect()->route('admin.company.index')->with('success', 'Компания добавлена');
     }
 
     public function edit(Company $company)
     {
+        $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
         $users = User::all();
 
-        return view('admin.company.edit', ['company' => $company, 'users' => $users, 'menu' => $this->menu]);
+        return view('admin.company.edit', ['company' => $company, 'users' => $users, 'menu' => $this->menu, 'categories' => $categories]);
     }
 
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        $company = $this->companyAction->update($request, $company);
+        $company = $this->companyAction->update($request, $company, $request->user ?: 1);
 
         return redirect()->route('admin.company.edit', ['company' => $company->id])
             ->with('success', "Компания сохранена");

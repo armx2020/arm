@@ -18,7 +18,8 @@
                                 action="{{ route('admin.company.update', ['company' => $company->id]) }}">
                                 @csrf
                                 @method('PUT')
-                                <input name="image_remove" type="text" id="image_remove" class="hidden" style="z-index:-10;" />
+                                <input name="image_remove" type="text" id="image_remove" class="hidden"
+                                    style="z-index:-10;" />
 
                                 <div class="flex items-start p-5 border-b rounded-t">
                                     <div class="flex items-center m-2">
@@ -26,21 +27,22 @@
                                     </div>
                                 </div>
 
-                                <div class="flex flex-row border-b" id="upload_area">
+                                <div class="flex flex-row" id="upload_area">
                                     <div class="flex relative">
-
-                                        @if ($company->image == null || $company->image == 'group/groups.png')
-                                            <img class="h-10 w-10 rounded-lg m-4 object-cover" id="img"
+                                        @if ($company->image == null)
+                                            <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img"
                                                 src="{{ url('/image/no-image.png') }}" alt="image">
                                         @else
-                                            <img class="h-10 w-10 rounded-lg m-4 object-cover" id="img"
+                                            <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img"
                                                 src="{{ asset('storage/' . $company->image) }}" alt="image">
                                         @endif
-
-                                        <button type="button" id="remove_image" class="absolute top-2 right-2 hidden"
-                                            @if ($company->image == null || $company->image == 'group/groups.png') style="display: none;" @else style="display: block;" @endif>
-                                            <img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                style="cursor:pointer;"></button>
+                                        <button type="button" id="remove_image" class="absolute top-5 right-5"
+                                            @if ($company->image == null) style="display: none;"
+                                        @else
+                                        style="display: block;" @endif><img
+                                                src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                                style="cursor:pointer;">
+                                        </button>
                                     </div>
 
                                     <div class="flex items-center">
@@ -49,10 +51,11 @@
                                                 class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
                                             <span
                                                 class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                                style="cursor:pointer;">Выберите файл или перетащите в эту область</span>
+                                                style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                                         </label>
                                     </div>
                                 </div>
+                                
                                 <div>
                                     <x-input-error :messages="$errors->get('image')" />
                                 </div>
@@ -95,13 +98,32 @@
                                         <div class="col-span-6">
                                             <label for="dd_category"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Деятельность *</label>
-                                            <select name="categories[]" class="w-full" id="dd_category" multiple="multiple">
-                                                @foreach ($company->categories as $category)
-                                                    <option selected value="{{ $category->id }}">
-                                                        {{ $category->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <div class="flex border-2 rounded-lg p-4 mt-1">
+                                                <div class="grid grid-cols-3 gap-4 w-full">
+
+                                                    @foreach ($categories as $item)
+                                                        <div class="flex flex-col gap-1">
+                                                            <div class="flex">
+                                                                <label for="checkbox-group-{{ $loop->iteration }}"
+                                                                    class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
+                                                            </div>
+                                                            @foreach ($item->categories as $child)
+                                                                <div class="flex pl-4">
+                                                                    <input type="checkbox"
+                                                                        name="categories[{{ $child->id }}]"
+                                                                        @checked($company->categories->contains($child->id))
+                                                                        class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                                        id="checkbox-{{ $loop->iteration }}">
+                                                                    <label for="checkbox-{{ $loop->iteration }}"
+                                                                        class="text-sm text-gray-400 ms-3 dark:text-neutral-400">{{ $child->name }}</label>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @endforeach
+
+                                                </div>
+                                            </div>
+                                            <x-input-error class="mt-2" :messages="$errors->get('categories')" />
                                         </div>
                                         <div class="col-span-6">
                                             <label for="user"

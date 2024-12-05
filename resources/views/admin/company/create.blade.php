@@ -13,6 +13,7 @@
                                     <h3 class="text-2xl font-bold leading-none text-gray-900">Новая компания</h3>
                                 </div>
                             </div>
+
                             <div class="p-6 space-y-6">
                                 <form method="POST" enctype="multipart/form-data"
                                     action="{{ route('admin.company.store') }}">
