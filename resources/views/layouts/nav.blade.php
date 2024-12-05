@@ -1,5 +1,5 @@
 <nav
-    class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-wrap lg:justify-start p-2 md:p-3 lg:py-5">
+    class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-wrap lg:justify-start p-3 lg:py-5">
     <div class="flex w-full lg:w-10/12 max-w-7xl flex-wrap items-center justify-between mx-auto text-sm font-medium">
         <div class="block xl:hidden">
             <a class="" href="{{ route('home') }}">
@@ -12,7 +12,9 @@
                 @if ($region)
                     {{ preg_replace('/\([^)]+\)/', '', $region) }}
                 @else
-                    Вся Россия
+                    <p class="truncate">
+                        Вся Россия
+                    </p>
                 @endif
             </button>
         </div>
@@ -27,7 +29,7 @@
         </button>
         <div class="bg-white w-full min-h-screen absolute top-0 right-0 z-40 hidden" id="menu">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" id="closeMenu"
-                class="w-6 h-6 absolute right-8 top-3">
+                class="w-6 h-6 absolute right-4 top-3">
                 <g>
                     <path d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001" stroke="#000000" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" />
@@ -86,12 +88,14 @@
         </div>
         <div class="visible hidden flex-grow basis-full items-center xl:!flex xl:basis-auto">
             <ul class="list-style-none mr-5 flex flex-col pl-0 lg:flex-row">
-                @if(isset($regionCode) && $regionCode !== 0)
+                @if (isset($regionCode) && $regionCode !== 0)
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('region.projects', ['regionCode' => $regionCode]) }}">Проекты</a>
+                        <a class=""
+                            href="{{ route('region.projects', ['regionCode' => $regionCode]) }}">Проекты</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('region.companies', ['regionCode' => $regionCode]) }}">Маркет</a>
+                        <a class=""
+                            href="{{ route('region.companies', ['regionCode' => $regionCode]) }}">Маркет</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('region.events', ['regionCode' => $regionCode]) }}">Афиша</a>
@@ -100,7 +104,7 @@
                         <a class="" href="{{ route('region.news', ['regionCode' => $regionCode]) }}">Новости</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('region.groups' , ['regionCode' => $regionCode]) }}">Группы</a>
+                        <a class="" href="{{ route('region.groups', ['regionCode' => $regionCode]) }}">Группы</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('region.works', ['regionCode' => $regionCode]) }}">Работа</a>
@@ -134,7 +138,9 @@
                     @isset($region)
                         {{ preg_replace('/\([^)]+\)/', '', $region) }}
                     @else
-                        Вся Россия
+                        <p class="truncate">
+                            Вся Россия
+                        </p>
                     @endisset
                 </button>
             </div>

@@ -37,29 +37,4 @@
     @livewireScripts
 </body>
 
-
-{{-- <body class="font-sans antialiased min-h-screen bg-gray-100">
-
-    @include('admin.layouts.head')
-
-    <div class="flex overflow-hidden bg-white pt-16">
-
-        @include('admin.layouts.nav')
-
-        <div class="bg-gray-900 opacity-50 hidden fixed inset-0 z-10" id="sidebarBackdrop"></div>
-
-        <div id="main-content" class="w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
-
-            <main class="min-h-screen">
-                @yield('content')
-            </main>
-
-            @include('admin.layouts.footer')
-
-        </div>
-
-    </div>
-    @livewireScripts
-</body> --}}
-
 </html>
