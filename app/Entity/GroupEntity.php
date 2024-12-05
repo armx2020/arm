@@ -37,6 +37,7 @@ class GroupEntity implements EntityColumnsInterface, EntityFiltersInterface
         'phone',
         'user_id',
         'city_id',
+        'category_id',
         'region_id',
     ];
 
