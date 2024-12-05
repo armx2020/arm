@@ -2,7 +2,8 @@
 
 <div class="flex flex-col basis-full lg:basis-1/5 max-w-56">
     <div class="flex flex-row gap-3">
-        <div class="bg-white mt-3 basis-full rounded-md p-3">
+
+        <div class="bg-white mt-3 basis-full rounded-md p-3 hidden lg:block">
             <h4 class="mb-2 font-semibold text-gray-900 dark:text-white">Категория</h4>
             <div class="flex items-center mb-2">
                 <input type="radio" value="Все" id="all_categories" wire:model="category"
@@ -19,6 +20,15 @@
                         {{ $category->name }}</label>
                 </div>
             @endforeach
+        </div>
+
+        <div class="bg-white mt-3 basis-full rounded-md block lg:hidden">
+            <select name="category" class="w-full border-0 rounded-md" wire:model="category" autocomplete="off">
+                <option value='Все'>Все категории</option>
+                @foreach ($categories as $category)
+                    <option value='{{ $category->id }}'>{{ $category->name }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 </div>
