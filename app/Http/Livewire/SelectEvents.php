@@ -17,7 +17,7 @@ class SelectEvents extends BaseSelect
 
     public function render()
     {
-        $entityShowRout = 'groups.show';
+        $entityShowRout = 'events.show';
         $exp = explode('|', $this->sort);
 
         $events = Event::query()->with('region')->active()->orderBy($exp[0], $exp[1]);
