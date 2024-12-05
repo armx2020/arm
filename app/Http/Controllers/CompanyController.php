@@ -33,7 +33,7 @@ class CompanyController extends BaseController
         return view('pages.company.show', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'company' => $company,
+            'entity' => $company,
             'regionCode' => $request->session()->get('regionId')
         ]);
     }
