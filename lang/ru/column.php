@@ -32,5 +32,7 @@ return [
     'parent_type' => 'Тип инициатора',
     'parent_id' => 'Инициатор',
     'price' => 'Цена',
+    'category_id' => 'Категория',
+    'company_id' => 'Компания'
 
 ];

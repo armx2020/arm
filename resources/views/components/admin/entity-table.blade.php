@@ -104,6 +104,10 @@
                                                                 {{ $entity->category ? $entity->category->name : '-' }}
                                                             @break
 
+                                                            @case('company_id')
+                                                                {{ $entity->company ? $entity->company->name : '-' }}
+                                                            @break
+
                                                             @case('parent_id')
                                                                 @isset($entity->parent)
                                                                     @if (isset($entity->parent->name))
