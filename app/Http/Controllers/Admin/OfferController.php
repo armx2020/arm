@@ -82,7 +82,7 @@ class OfferController extends BaseAdminController
         $offer = $this->offerAction->update($request, $offer);
 
         return redirect()->route('admin.offer.edit', ['offer' => $offer->id])
-            ->with('success', 'Предожение сохранено');
+            ->with('success', 'Предложение сохранено');
     }
 
     public function destroy(string $id)
