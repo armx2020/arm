@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pages;
 
+use App\Http\Controllers\BaseController;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class ProjectController extends BaseController
 
     public function index(Request $request, $regionCode = null)
     {
-        return view('pages.project.projects', [
+        return view('pages.project.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'regionCode' => $regionCode
@@ -29,17 +30,12 @@ class ProjectController extends BaseController
             return redirect()->route('projects.index')->with('alert', 'Проект не найден');
         }
 
-        if ($project->donations_have > 0 && $project->donations_need > 0) {
-            $fullness = (round(($project->donations_have * 100) / $project->donations_need));
-        } else {
-            $fullness = 0;
-        }
+        
 
-        return view('pages.project.project', [
+        return view('pages.project.show', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'project' => $project,
-            'fullness' => $fullness,
+            'entity' => $project,
             'regionCode' => $request->session()->get('regionId')
         ]);
     }

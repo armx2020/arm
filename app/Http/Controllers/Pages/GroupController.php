@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pages;
 
-use App\Models\Event;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use App\Models\Group;
 
-class EventController extends BaseController
+class GroupController extends BaseController
 {
     public function __construct()
     {
@@ -14,7 +15,7 @@ class EventController extends BaseController
 
     public function index(Request $request, $regionCode = null)
     {
-        return view('pages.event.events', [
+        return view('pages.group.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'regionCode' => $regionCode
@@ -23,17 +24,18 @@ class EventController extends BaseController
 
     public function show(Request $request, $id)
     {
-        $event = Event::with('parent')->find($id);
+        $group = Group::with('events', 'projects', 'works', 'news', 'users')->find($id);
 
-        if (empty($event)) {
-            return redirect()->route('myevents.index')->with('alert', 'Мероприятие не найдено');
+        if (empty($group)) {
+            return redirect()->route('groups.index')->with('alert', 'Группа не найдена');
         }
 
-        return view('pages.event.event', [
+        return view('pages.group.show', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'event'   => $event,
+            'entity' => $group,
             'regionCode' => $request->session()->get('regionId')
         ]);
     }
+
 }

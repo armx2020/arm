@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pages;
 
-use App\Models\City;
+use App\Http\Controllers\BaseController;
 use App\Models\Company;
 use Illuminate\Http\Request;
 

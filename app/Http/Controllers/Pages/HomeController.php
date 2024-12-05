@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pages;
 
+use App\Http\Controllers\BaseController;
 use App\Models\Group;
 use App\Models\Region;
 use Illuminate\Http\Request;

@@ -7,12 +7,9 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Models\Category;
-use App\Models\City;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image as Image;
 
 class MyCompanyController extends BaseController
 {

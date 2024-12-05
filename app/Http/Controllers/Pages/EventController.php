@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pages;
 
-use App\Models\Work;
+use App\Http\Controllers\BaseController;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
-class WorkController extends BaseController
+class EventController extends BaseController
 {
     public function __construct()
     {
@@ -14,7 +15,7 @@ class WorkController extends BaseController
 
     public function index(Request $request, $regionCode = null)
     {
-        return view('pages.work.index', [
+        return view('pages.event.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'regionCode' => $regionCode
@@ -23,16 +24,16 @@ class WorkController extends BaseController
 
     public function show(Request $request, $id)
     {
-        $work = Work::with('parent')->find($id);
+        $event = Event::with('parent')->find($id);
 
-        if (empty($work)) {
-            return redirect()->route('offers.index')->with('alert', 'Товар не найден');
+        if (empty($event)) {
+            return redirect()->route('myevents.index')->with('alert', 'Мероприятие не найдено');
         }
 
-        return view('pages.work.show', [
+        return view('pages.event.show', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'work' => $work,
+            'entity'   => $event,
             'regionCode' => $request->session()->get('regionId')
         ]);
     }

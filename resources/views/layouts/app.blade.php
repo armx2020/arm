@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>ВСЕ АРМЯНЕ @yield('title') @if(isset($region)) {{ ' - ' .$region }} @endif</title>
+    <title>ВСЕ АРМЯНЕ @yield('title') @if (isset($region))
+            {{ ' - ' . $region }}
+        @endif
+    </title>
 
     <link type="image/png" sizes="16x16" rel="icon" href="{{ url('image/favicon-16x16.png') }}">
     <link type="image/png" sizes="32x32" rel="icon" href="{{ url('image/favicon-32x32.png') }}">
@@ -32,7 +35,7 @@
 <body class="antialiased w-full">
     <div class="min-h-screen bg-neutral-100">
         @include('layouts.nav')
-        <div class="w-11/12 lg:w-10/12 max-w-7xl mx-auto">
+        <div class="w-11/12 lg:w-10/12 max-w-7xl mx-auto min-h-[40rem]">
             @yield('content')
         </div>
         @include('layouts.footer')

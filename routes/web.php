@@ -2,15 +2,14 @@
 
 use App\Http\Controllers\Api\CategoryForOfferController;
 use App\Http\Controllers\Api\CityController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\GroupController;
-use App\Http\Controllers\NewsController;
-use App\Http\Controllers\OfferController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\WorkController;
+use App\Http\Controllers\Pages\CompanyController;
+use App\Http\Controllers\Pages\HomeController;
+use App\Http\Controllers\Pages\EventController;
+use App\Http\Controllers\Pages\GroupController;
+use App\Http\Controllers\Pages\NewsController;
+use App\Http\Controllers\Pages\ProfileController;
+use App\Http\Controllers\Pages\ProjectController;
+use App\Http\Controllers\Pages\WorkController;
 use Illuminate\Support\Facades\Route;
 use Stevebauman\Location\Facades\Location;
 
@@ -29,8 +28,6 @@ Route::get('/{regionCode?}', [HomeController::class, 'home'])->where('regionCode
 Route::name('groups.')->prefix('/groups')->group(function () {
     Route::get('/', [GroupController::class, 'index'])->name('index');
     Route::get('/{id}', [GroupController::class, 'show'])->name('show');
-    Route::get('/places', [GroupController::class, 'places'])->name('places');
-    Route::get('/religion', [GroupController::class, 'religion'])->name('religion');
 });
 
 Route::name('projects.')->prefix('/projects')->group(function () {

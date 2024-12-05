@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pages;
 
-use App\Models\City;
-use App\Models\News;
+use App\Http\Controllers\BaseController;
+use App\Models\Work;
 use Illuminate\Http\Request;
 
-class NewsController extends BaseController
+class WorkController extends BaseController
 {
     public function __construct()
     {
@@ -15,7 +15,7 @@ class NewsController extends BaseController
 
     public function index(Request $request, $regionCode = null)
     {
-        return view('pages.news.news', [
+        return view('pages.work.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'regionCode' => $regionCode
@@ -24,15 +24,16 @@ class NewsController extends BaseController
 
     public function show(Request $request, $id)
     {
-        $news = News::with('parent')->find($id);
+        $work = Work::with('parent')->find($id);
 
-        if (empty($news)) {
-            return redirect()->route('news.index')->with('alert', 'Новость не найдена');
+        if (empty($work)) {
+            return redirect()->route('works.index')->with('alert', 'Товар не найден');
         }
-        return view('pages.news.new', [
+
+        return view('pages.work.show', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'news'   => $news,
+            'entity' => $work,
             'regionCode' => $request->session()->get('regionId')
         ]);
     }
