@@ -36,7 +36,7 @@ class SelectProjects extends BaseSelect
             $recommendations = $recommendations->where('activity', '=', $this->category);
         }
 
-        $projects = $projects->paginate(12);
+        $projects = $projects->paginate($this->quantityOfDisplayed);
         $recommendations = $recommendations->limit(3)->get();
 
         $regions = Region::all();

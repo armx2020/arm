@@ -32,9 +32,9 @@ class SearchGroup extends BaseSearch
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
-            $entities = $entities->paginate(20);
+            $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = Group::search($this->term)->with('city')->paginate(20);
+            $entities = Group::search($this->term)->with('city')->paginate($this->quantityOfDisplayed);
         }
 
         return view('livewire.search-group', [

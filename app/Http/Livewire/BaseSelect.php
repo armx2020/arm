@@ -15,6 +15,8 @@ abstract class BaseSelect extends Component
     public $sort;
     public $position;
 
+    protected $quantityOfDisplayed = 20; // Количество отоброжаемых сущностей
+
     public function __construct(string $sort = "updated_at|desc", int $position = 2)
     {
         $this->sort = $sort;

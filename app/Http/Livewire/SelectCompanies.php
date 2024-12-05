@@ -46,7 +46,7 @@ class SelectCompanies extends BaseSelect
             });
         }
 
-        $companies = $companies->paginate(12);
+        $companies = $companies->paginate($this->quantityOfDisplayed);
         $categories = Category::query()->offer()->main()->active()->orderBy('sort_id')->get();
 
         $regions = Region::all();

@@ -33,7 +33,7 @@ class SelectNews extends BaseSelect
                 ->limit(3)
                 ->get();
         }
-        $news = $news->paginate(12);
+        $news = $news->paginate($this->quantityOfDisplayed);
         $regions = Region::all();
 
         return view('livewire.select-news', [

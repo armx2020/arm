@@ -45,7 +45,7 @@ class SelectWorks extends BaseSelect
                 ->get();
         }
 
-        $works = $works->paginate(12);
+        $works = $works->paginate($this->quantityOfDisplayed);
 
         $regions = Region::all();
 

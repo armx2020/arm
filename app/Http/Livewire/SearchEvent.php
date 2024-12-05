@@ -32,9 +32,9 @@ class SearchEvent extends BaseSearch
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
-            $entities = $entities->paginate(20);
+            $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = Event::search($this->term)->with(['city', 'parent', 'category'])->paginate(20);
+            $entities = Event::search($this->term)->with(['city', 'parent', 'category'])->paginate($this->quantityOfDisplayed);
         }
 
         return view('livewire.search-event', [

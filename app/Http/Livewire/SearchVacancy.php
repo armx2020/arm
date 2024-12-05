@@ -32,9 +32,9 @@ class SearchVacancy extends BaseSearch
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
-            $entities = $entities->paginate(20);
+            $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = Work::search($this->term)->vacancy()->with('city')->paginate(20);
+            $entities = Work::search($this->term)->vacancy()->with('city')->paginate($this->quantityOfDisplayed);
         }
 
         return view('livewire.search-resume', [

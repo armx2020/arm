@@ -33,9 +33,9 @@ class SearchCategory extends BaseSearch
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
-            $entities = $entities->paginate(20);
+            $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = Category::search($this->term)->paginate(20);
+            $entities = Category::search($this->term)->paginate($this->quantityOfDisplayed);
         }
 
         return view('livewire.search-category', [

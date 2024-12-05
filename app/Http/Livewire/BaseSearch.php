@@ -15,6 +15,8 @@ abstract class BaseSearch extends Component
     public $filters = [];
     public $selectedFilters = [];
 
+    protected $quantityOfDisplayed = 100; // Количество отоброжаемых сущностей
+
     public function __construct($entity)
     {
         $this->allColumns = $entity->getAllColumns();

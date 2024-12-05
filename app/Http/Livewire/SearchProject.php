@@ -33,9 +33,9 @@ class SearchProject extends BaseSearch
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
-            $entities = $entities->paginate(20);
+            $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = Project::search($this->term)->with('city')->paginate(20);
+            $entities = Project::search($this->term)->with('city')->paginate($this->quantityOfDisplayed);
         }
 
         return view('livewire.search-project', [

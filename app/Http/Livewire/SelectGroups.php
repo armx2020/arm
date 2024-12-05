@@ -43,7 +43,7 @@ class SelectGroups extends BaseSelect
             $groups = $groups->where('category_id', '=', $this->category);
         }
 
-        $groups = $groups->paginate(12);
+        $groups = $groups->paginate($this->quantityOfDisplayed);
         $categories = Category::active()->main()->group()->orderBy('sort_id')->get();
 
         $regions = Region::all();

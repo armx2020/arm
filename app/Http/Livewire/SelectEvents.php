@@ -41,7 +41,7 @@ class SelectEvents extends BaseSelect
             $events = $events->where('category_id', '=', $this->category);
         }
 
-        $events = $events->paginate(12);
+        $events = $events->paginate($this->quantityOfDisplayed);
         $categories = Category::active()->event()->main()->orderBy('sort_id')->get();
 
         $regions = Region::all();
