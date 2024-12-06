@@ -95,7 +95,7 @@
                                         <select name="{{ $name }}"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
                                             wire:model="selectedFilters.{{ $name }}.=">
-                                            <option disabled value="">Все</option>
+                                            <option value="">Все</option>
                                             <option value="vacancy">Вакансии
                                             </option>
                                             <option value="resume">Резюмэ
