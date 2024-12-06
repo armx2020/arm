@@ -85,6 +85,24 @@
                                         </select>
                                     </div>
                                 @endif
+
+                                @if ($name == 'type')
+                                    <div class="basis-1/5 content-center self-center px-4">
+                                        {{ __('column.' . $name) }}
+                                    </div>
+
+                                    <div class="flex basis-4/5">
+                                        <select name="{{ $name }}"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
+                                            wire:model="selectedFilters.{{ $name }}.=">
+                                            <option disabled value="">Все</option>
+                                            <option value="vacancy">Вакансии
+                                            </option>
+                                            <option value="resume">Резюмэ
+                                            </option>
+                                        </select>
+                                    </div>
+                                @endif
                             @break
                         @endswitch
 

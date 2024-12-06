@@ -9,15 +9,13 @@ use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\Admin\ResumeController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\VacancyController;
-
+use App\Http\Controllers\Admin\WorkController;
 
 Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::middleware(['verified', 'role:super-admin'])->group(function () {
-        
+
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::resource('user', UserController::class)->except([
@@ -32,13 +30,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('group', GroupController::class)->except([
             'show'
         ]);
-        Route::resource('resume', ResumeController::class)->except([
-            'show'
-        ]);
         Route::resource('offer', OfferController::class)->except([
-            'show'
-        ]);
-        Route::resource('vacancy', VacancyController::class)->except([
             'show'
         ]);
         Route::resource('event', EventController::class)->except([
@@ -49,6 +41,10 @@ Route::name('admin.')->prefix('admin')->group(function () {
         ]);
         Route::resource('project', ProjectController::class)->except([
             'show'
-        ]);              
+        ]);
+
+        Route::resource('work', WorkController::class)->except([
+            'show'
+        ]);
     });
 });

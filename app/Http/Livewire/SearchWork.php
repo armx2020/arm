@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use App\Entity\WorkEntity;
 use App\Models\Work;
 
-class SearchResume extends BaseSearch
+class SearchWork extends BaseSearch
 {
     protected $entity;
 
@@ -17,14 +17,14 @@ class SearchResume extends BaseSearch
 
     public function render()
     {
-        $title = 'Все резюме';
-        $emptyEntity = 'Резюме нет';
-        $entityName = 'resume';
+        $title = 'Все резюме и вакансии';
+        $emptyEntity = 'Резюме и вакансий нет';
+        $entityName = 'work';
 
         sleep(1);
         if ($this->term == "") {
 
-            $entities = Work::resume()->with('city')->latest();
+            $entities = Work::with('city')->latest();
 
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
@@ -34,10 +34,10 @@ class SearchResume extends BaseSearch
             }
             $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = Work::search($this->term)->resume()->with('city')->paginate($this->quantityOfDisplayed);
+            $entities = Work::search($this->term)->with('city')->paginate($this->quantityOfDisplayed);
         }
 
-        return view('livewire.search-resume', [
+        return view('livewire.search-work', [
             'entities' => $entities,
             'allColumns' => $this->allColumns,
             'selectedColumns' => $this->selectedColumns,

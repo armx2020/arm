@@ -15,6 +15,7 @@ class WorkEntity implements EntityColumnsInterface, EntityFiltersInterface
         'address',
         'description',
         'activity',
+        'type',
         'city_id',
         'region_id',
         'parent_type',
@@ -24,6 +25,7 @@ class WorkEntity implements EntityColumnsInterface, EntityFiltersInterface
     protected $selectedColumns = [
         'id',
         'name',
+        'type',
         'description',
         'activity',
     ];
@@ -32,6 +34,7 @@ class WorkEntity implements EntityColumnsInterface, EntityFiltersInterface
         'created_at' => 'date',
         'updated_at' => 'date',
         'activity' => 'bool',
+        'type' => 'select', 
         'city_id' => 'select',
         'region_id' => 'select',
     ];
