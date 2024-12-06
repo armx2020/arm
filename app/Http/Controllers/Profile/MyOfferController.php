@@ -22,17 +22,18 @@ class MyOfferController extends BaseController
 
     public function index(Request $request)
     {
-        $companies = Company::with('offers')->where('user_id', '=', Auth::user()->id)->get();
+        $entitiesName = 'myoffers';
+        $entityName = 'myoffer';
 
-        if (count($companies) == 0) {
-            return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте компанию.');
-        }
+        $offers = Auth::user()->offers()->paginate(10);
 
         return view('profile.pages.offer.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'companies' => $companies,
-            'regionCode' => $request->session()->get('regionId')
+            'regionCode' => $request->session()->get('regionId'),
+            'entities' => $offers,
+            'entitiesName' => $entitiesName,
+            'entityName' => $entityName,
         ]);
     }
 

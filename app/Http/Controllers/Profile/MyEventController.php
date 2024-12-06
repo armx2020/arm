@@ -22,17 +22,17 @@ class MyEventController extends BaseController
 
     public function index(Request $request)
     {
-        $groups = Group::where('user_id', '=', Auth::user()->id)->with('events')->get();
-        $companies = Company::where('user_id', '=', Auth::user()->id)->with('events')->get();
-        $events = Auth::user()->events;
+        $entitiesName = 'myevents';
+        $entityName = 'myevent';
+        $events = Auth::user()->events()->paginate(10);
 
         return view('profile.pages.event.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'groups'    => $groups,
-            'companies' => $companies,
-            'events'    => $events,
-            'regionCode' => $request->session()->get('regionId')
+            'regionCode' => $request->session()->get('regionId'),
+            'entities' => $events,
+            'entitiesName' => $entitiesName,
+            'entityName' => $entityName,
         ]);
     }
 

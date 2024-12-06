@@ -11,7 +11,7 @@ class NewsAction
 {
     use GetCity;
 
-    public function store($request): News
+    public function store($request, $user_id = null): News
     {
         $city = $this->getCity($request);
 
@@ -82,7 +82,7 @@ class NewsAction
         return $news;
     }
 
-    public function update($request, $news): News
+    public function update($request, $news, $user_id = null): News
     {
         $city = $this->getCity($request);
 

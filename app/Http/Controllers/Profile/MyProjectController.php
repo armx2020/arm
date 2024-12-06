@@ -21,16 +21,17 @@ class MyProjectController extends BaseController
 
     public function index(Request $request)
     {
-        $projects = Auth::user()->projects;
-        $groups = Group::where('user_id', '=', Auth::user()->id)->with('news')->get();
-        $companies = Company::where('user_id', '=', Auth::user()->id)->with('news')->get();
+        $entitiesName = 'myprojects';
+        $entityName = 'myproject';
+
+        $projects = Auth::user()->projects()->paginate(10);
 
         return view('profile.pages.project.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'projects' => $projects,
-            'groups' => $groups,
-            'companies' => $companies,
+            'entities' => $projects,
+            'entitiesName' => $entitiesName,
+            'entityName' => $entityName,
         ]);
     }
 

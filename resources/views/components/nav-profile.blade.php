@@ -7,92 +7,91 @@
     <div class="bg-white rounded-md pb-3 lg:m-3 my-3 hidden lg:block" id="select-profile-menu">
         <ul class="m-6 text-sm">
 
-            @if($page == 'main')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Главная</a></li>
+            @if ($page == 'main')
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Моя страницы</a>
+                </li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Главная</a></li>
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Моя страницы</a></li>
             @endif
 
-            @if($page == 'mycompanies')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mycompanies.index') }}">Мои компании</a></li>
+            @if ($page == 'mycompanies')
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a
+                        href="{{ route('mycompanies.index') }}">Мои компании</a></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mycompanies.index') }}">Мои компании</a></li>
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mycompanies.index') }}">Мои
+                        компании</a></li>
             @endif
 
-            @if($page == 'mygroups')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mygroups.index') }}">Мои группы</a></li>
+            @if ($page == 'mygroups')
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mygroups.index') }}">Мои
+                        группы</a></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mygroups.index') }}">Мои группы</a></li>
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mygroups.index') }}">Мои группы</a>
+                </li>
             @endif
 
-            @if($page == 'myoffers')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myoffers.index') }}">Мои товары и услуги</a></li>
+            @if ($page == 'myoffers')
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myoffers.index') }}">Мои
+                        товары и услуги</a></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myoffers.index') }}">Мои товары и услуги</a></li>
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myoffers.index') }}">Мои товары и
+                        услуги</a></li>
             @endif
 
-            @if($page == 'mynews')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mynews.index') }}">Новости</a></li>
+            @if ($page == 'mynews')
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a
+                        href="{{ route('mynews.index') }}">Мои новости</a></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mynews.index') }}">Новости</a></li>
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mynews.index') }}">Мои новости</a></li>
             @endif
 
-            @if($page == 'myevents')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myevents.index') }}">Мероприятия</a></li>
+            @if ($page == 'myevents')
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a
+                        href="{{ route('myevents.index') }}">Мои события</a></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myevents.index') }}">Мероприятия</a></li>
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myevents.index') }}">Мои события</a>
+                </li>
             @endif
 
-            @if($page == 'myresumes' || $page == 'myvacancies')
-            <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><button id="dropdown_button">Работа</button></li>
+            @if ($page == 'myworks')
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a
+                        href="{{ route('myworks.index') }}">Работа</a></li>
             @else
-            <li class="p-2 hover:text-gray-500 rounded-md"><button id="dropdown_button">Работа</button></li>
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myworks.index') }}">Работа</a></li>
             @endif
 
-            @if($page == 'myresumes' || $page == 'myvacancies')
-            <ul id="dropdown_ul" class="block">
-                @else
-                <ul id="dropdown_ul" class="hidden">
-                    @endif
-                    @if($page == 'myresumes')
-                    <li class="text-gray-400 p-2 pl-6 hover:text-gray-500 rounded-md"><a href="{{ route('myresumes.index') }}">мои резюме</a></li>
-                    @else
-                    <li class="text-gray-600 p-2 pl-6 hover:text-gray-500 rounded-md"><a href="{{ route('myresumes.index') }}">мои резюме</a></li>
-                    @endif
 
-                    @if($page == 'myvacancies')
-                    <li class="text-gray-400 p-2 pl-6 hover:text-gray-500 rounded-md"><a href="{{ route('myvacancies.index') }}">мои вакансии</a></li>
-                    @else
-                    <li class="text-gray-600 p-2 pl-6 hover:text-gray-500 rounded-md"><a href="{{ route('myvacancies.index') }}">мои вакансии</a></li>
-                    @endif
-                </ul>
+            @if ($page == 'myprojects')
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a
+                        href="{{ route('myprojects.index') }}">Мои проекты</a></li>
+            @else
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myprojects.index') }}">Мои
+                        проекты</a></li>
+            @endif
 
+            <hr class="mt-3">
 
-                @if($page == 'myprojects')
-                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myprojects.index') }}">Мои проекты</a></li>
-                @else
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myprojects.index') }}">Мои проекты</a></li>
-                @endif
-
-                <hr class="mt-3">
-
-                @if($page == 'profile')
-                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('profile.edit') }}">Настройки</a></li>
-                @else
+            @if ($page == 'profile')
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a
+                        href="{{ route('profile.edit') }}">Настройки</a></li>
+            @else
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('profile.edit') }}">Настройки</a></li>
-                @endif
+            @endif
 
-                @if($page == 'questions')
-                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('questions') }}">Частые вопросы</a></li>
-                @else
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('questions') }}">Частые вопросы</a></li>
-                @endif
+            @if ($page == 'questions')
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('questions') }}">Частые
+                        вопросы</a></li>
+            @else
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('questions') }}">Частые вопросы</a>
+                </li>
+            @endif
 
-                @role('super-admin')
+            @role('super-admin')
                 <hr class="mt-3">
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('admin.dashboard') }}">Админ панель</a></li>
-                @endrole
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('admin.dashboard') }}">Админ панель</a>
+                </li>
+            @endrole
 
-            </ul>
+        </ul>
     </div>
 </div>

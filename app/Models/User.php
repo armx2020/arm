@@ -50,14 +50,14 @@ class User extends Authenticatable
         return $this->hasMany(Group::class);
     }
 
-    public function inGroups(): BelongsToMany
+    public function mynews(): HasMany
     {
-        return $this->belongsToMany(Group::class);
+        return $this->hasMany(News::class);
     }
 
-    public function isOfThe($group)
+    public function offers(): HasMany
     {
-        return $this->inGroups()->where('group_id', $group->id)->exists();
+        return $this->hasMany(CompanyOffer::class);
     }
 
     protected $fillable = [

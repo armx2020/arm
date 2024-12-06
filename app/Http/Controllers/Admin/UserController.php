@@ -50,7 +50,6 @@ class UserController extends BaseAdminController
     public function destroy(string $id)
     {
         $user = User::with(
-            'inGroups',
             'events',
             'news',
             'groups',
@@ -61,10 +60,6 @@ class UserController extends BaseAdminController
 
         if (empty($user)) {
             return redirect()->route('admin.user.index')->with('alert', 'Пользователь не найден');
-        }
-
-        foreach ($user->inGroups as $group) {
-            $user->inGroups()->detach($group->id);
         }
 
         foreach ($user->groups as $group) {

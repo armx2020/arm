@@ -22,13 +22,18 @@ class MyCompanyController extends BaseController
 
     public function index(Request $request)
     {
-        $companies = Auth::user()->companies;
+        $entitiesName = 'mycompanies';
+        $entityName = 'mycompany';
+
+        $companies = Auth::user()->companies()->paginate(10);
 
         return view('profile.pages.company.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'companies' => $companies,
-            'regionCode' => $request->session()->get('regionId')
+            'regionCode' => $request->session()->get('regionId'),
+            'entities' => $companies,
+            'entitiesName' => $entitiesName,
+            'entityName' => $entityName,
         ]);
     }
 

@@ -21,17 +21,18 @@ class MyNewsController extends BaseController
 
     public function index(Request $request)
     {
-        $groups = Group::where('user_id', '=', Auth::user()->id)->with('news')->get();
-        $companies = Company::where('user_id', '=', Auth::user()->id)->with('news')->get();
-        $news = Auth::user()->news;
+        $entitiesName = 'mynews';
+        $entityName = 'mynews';
+
+        $news = Auth::user()->mynews()->paginate(10);
 
         return view('profile.pages.news.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'groups' => $groups,
-            'companies' => $companies,
-            'newsFromUser' => $news,
-            'regionCode' => $request->session()->get('regionId')
+            'regionCode' => $request->session()->get('regionId'),
+            'entities' => $news,
+            'entitiesName' => $entitiesName,
+            'entityName' => $entityName,
         ]);
     }
 
@@ -73,6 +74,7 @@ class MyNewsController extends BaseController
         $news->date = $request->date;
         $news->city_id = $request->news_city;
         $news->region_id = $city->region->id;
+        $news->user_id = Auth::user()->id;
 
         $parent = $request->parent;
         $parent_explode = explode('|', $parent);

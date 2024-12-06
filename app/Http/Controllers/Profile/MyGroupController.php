@@ -20,15 +20,18 @@ class MyGroupController extends BaseController
 
     public function index(Request $request)
     {
-        $groups = Auth::user()->groups;
-        $categories = Category::group()->orderBy('sort_id', 'asc')->get();
+        $entitiesName = 'mygroups';
+        $entityName = 'mygroup';
+
+        $groups = Auth::user()->groups()->paginate(10);
 
         return view('profile.pages.group.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'groups' => $groups,
-            'categories' => $categories,
-            'regionCode' => $request->session()->get('regionId')
+            'regionCode' => $request->session()->get('regionId'),
+            'entities' => $groups,
+            'entitiesName' => $entitiesName,
+            'entityName' => $entityName,
         ]);
     }
 
@@ -88,31 +91,31 @@ class MyGroupController extends BaseController
 
         if ($request->image) {
             $group->image = $request->file('image')->store('groups', 'public');
-            Image::make('storage/'.$group->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image1) {
             $group->image1 = $request->file('image1')->store('groups', 'public');
-            Image::make('storage/'.$group->image1)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image1)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image2) {
             $group->image2 = $request->file('image2')->store('groups', 'public');
-            Image::make('storage/'.$group->image2)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image2)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image3) {
             $group->image3 = $request->file('image3')->store('groups', 'public');
-            Image::make('storage/'.$group->image3)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image3)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
         if ($request->image4) {
             $group->image4 = $request->file('image4')->store('groups', 'public');
-            Image::make('storage/'.$group->image4)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image4)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -165,7 +168,7 @@ class MyGroupController extends BaseController
         $categories = Category::group()->orderBy('sort_id', 'asc')->get();
 
         return view('profile.pages.group.edit', [
-           'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'group' => $group,
             'categories' => $categories,
@@ -222,34 +225,34 @@ class MyGroupController extends BaseController
 
         if ($request->image_remove == 'delete') {
             Storage::delete('public/' . $group->image);
-            $group->image = null;            
+            $group->image = null;
         }
 
         if ($request->image_remove1 == 'delete') {
             Storage::delete('public/' . $group->image1);
-            $group->image1 = null;            
+            $group->image1 = null;
         }
 
         if ($request->image_remove2 == 'delete') {
             Storage::delete('public/' . $group->image2);
-            $group->image2 = null;            
+            $group->image2 = null;
         }
 
         if ($request->image_remove3 == 'delete') {
             Storage::delete('public/' . $group->image3);
-            $group->image3 = null;            
+            $group->image3 = null;
         }
 
         if ($request->image_remove4 == 'delete') {
             Storage::delete('public/' . $group->image4);
-            $group->image4 = null;            
+            $group->image4 = null;
         }
 
 
         if ($request->image) {
-            Storage::delete('public/' . $group->image);            
+            Storage::delete('public/' . $group->image);
             $group->image = $request->file('image')->store('groups', 'public');
-            Image::make('storage/'.$group->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -257,7 +260,7 @@ class MyGroupController extends BaseController
         if ($request->image1) {
             Storage::delete('public/' . $group->image1);
             $group->image1 = $request->file('image1')->store('groups', 'public');
-            Image::make('storage/'.$group->image1)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image1)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -265,7 +268,7 @@ class MyGroupController extends BaseController
         if ($request->image2) {
             Storage::delete('public/' . $group->image2);
             $group->image2 = $request->file('image2')->store('groups', 'public');
-            Image::make('storage/'.$group->image2)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image2)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -273,7 +276,7 @@ class MyGroupController extends BaseController
         if ($request->image3) {
             Storage::delete('public/' . $group->image3);
             $group->image3 = $request->file('image3')->store('groups', 'public');
-            Image::make('storage/'.$group->image3)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image3)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -281,7 +284,7 @@ class MyGroupController extends BaseController
         if ($request->image4) {
             Storage::delete('public/' . $group->image4);
             $group->image4 = $request->file('image4')->store('groups', 'public');
-            Image::make('storage/'.$group->image4)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $group->image4)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -317,7 +320,7 @@ class MyGroupController extends BaseController
             if ($project->image !== null) {
                 Storage::delete('public/' . $project->image);
             }
-           $project->delete();
+            $project->delete();
         }
 
         foreach ($group->vacancies as $vacancy) {
