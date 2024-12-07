@@ -11,7 +11,7 @@
             $flex = 'flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64';
             $aClass = 'sm:basis-1/4 flex-none';
             $imageClass = 'h-full w-full rounded-2xl flex object-cover';
-            $bodyClass = 'px-3 flex flex-col sm:basis-full';
+            $bodyClass = 'px-5 flex flex-col sm:basis-full';
             $infoClass = 'sm:basis-1/4 flex-initial text-right';
             break;
         default:
@@ -78,20 +78,22 @@
     @endif
 @endif
 
+@if ($entity->city_id && $entity->city_id !== 1)
+    <p class="mt-3 break-words text-sm font-semibold text-blue-500">
+        {{ $entity->city->name }}
+    </p>
+@endif
+
 </div>
 <div class="{{ $infoClass }} flex flex-col">
 <p class="text-sm mb-1">
-    @isset($entity->phone)
-        <a href="tel:{{ $entity->phone }}" class="text-blue-600">
-            {{ $entity->phone }}
-        </a>
-    @endisset
+@isset($entity->phone)
+    <a href="tel:{{ $entity->phone }}" class="text-blue-600">
+        {{ $entity->phone }}
+    </a>
+@endisset
 </p>
-<p class="text-xs">
-    @if ($entity->city_id !== 1 && $entity->city)
-        {{ $entity->city->name }}
-    @endif
-</p>
+
 
 </div>
 </div>
