@@ -15,10 +15,17 @@ class NewsController extends BaseController
 
     public function index(Request $request, $regionCode = null)
     {
+        $secondPositionUrl = 'news.index';
+        $secondPositionName = 'Новости';
+        $entity = 'news';
+
         return view('pages.news.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'regionCode' => $regionCode
+            'regionCode' => $regionCode,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entity' => $entity,
         ]);
     }
 

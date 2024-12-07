@@ -15,10 +15,17 @@ class WorkController extends BaseController
 
     public function index(Request $request, $regionCode = null)
     {
+        $secondPositionUrl = 'works.index';
+        $secondPositionName = 'Работа';
+        $entity = 'works';
+
         return view('pages.work.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'regionCode' => $regionCode
+            'regionCode' => $regionCode,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entity' => $entity,
         ]);
     }
 

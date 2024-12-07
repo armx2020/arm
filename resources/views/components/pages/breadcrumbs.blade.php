@@ -1,4 +1,4 @@
-<nav class="mb-2 mt-3 lg:mt-5 rounded-md mx-auto text-xs sm:text-sm md:text-md">
+<nav class="hidden md:block mb-2 mt-3 lg:mt-5 rounded-md mx-auto text-xs sm:text-sm md:text-md px-1">
     <ol class="list-reset flex flex-nowrap overflow-hidden">
         <li class="text-neutral-500 dark:text-neutral-400">
             <a href="{{ $firstPositionUrl }}" class="truncate">

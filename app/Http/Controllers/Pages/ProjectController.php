@@ -15,10 +15,17 @@ class ProjectController extends BaseController
 
     public function index(Request $request, $regionCode = null)
     {
+        $secondPositionUrl = 'projects.index';
+        $secondPositionName = 'Проекты';
+        $entity = 'projects';
+
         return view('pages.project.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'regionCode' => $regionCode
+            'regionCode' => $regionCode,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entity' => $entity,
         ]);
     }
 
@@ -30,7 +37,7 @@ class ProjectController extends BaseController
             return redirect()->route('projects.index')->with('alert', 'Проект не найден');
         }
 
-        
+
 
         return view('pages.project.show', [
             'region'   => $request->session()->get('region'),

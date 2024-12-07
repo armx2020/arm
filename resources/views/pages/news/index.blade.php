@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('title', '- НОВОСТИ')
 @section('content')
-    <x-pages.breadcrumbs secondPositionUrl="{{ route('news.index') }}" secondPositionName='Новости' />
+    <x-pages.breadcrumbs :$secondPositionUrl :$secondPositionName />
     <section>
-        @livewire('select-news', ['regionCode' => $regionCode])
+        @livewire('base-page', ['regionCode' => $regionCode, 'entity' => $entity])
     </section>
 @endsection

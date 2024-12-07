@@ -15,10 +15,17 @@ class EventController extends BaseController
 
     public function index(Request $request, $regionCode = null)
     {
+        $secondPositionUrl = 'events.index';
+        $secondPositionName = 'События';
+        $entity = 'events';
+
         return view('pages.event.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'regionCode' => $regionCode
+            'regionCode' => $regionCode,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entity' => $entity,
         ]);
     }
 

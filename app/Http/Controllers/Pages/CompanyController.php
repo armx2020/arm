@@ -15,10 +15,17 @@ class CompanyController extends BaseController
 
     public function index(Request $request, $regionCode = null)
     {
+        $secondPositionUrl = 'companies.index';
+        $secondPositionName = 'Компании';
+        $entity = 'companies';
+
         return view('pages.company.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'regionCode' => $regionCode
+            'regionCode' => $regionCode,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entity' => $entity,
         ]);
     }
 
