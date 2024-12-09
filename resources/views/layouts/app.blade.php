@@ -33,7 +33,7 @@
 </head>
 
 <body class="antialiased w-full">
-    <div class="min-h-screen bg-neutral-100">
+    <div class="min-h-screen bg-[#F5F7FA]">
         @include('layouts.nav')
         <div class="w-11/12 lg:w-10/12 max-w-7xl mx-auto min-h-[40rem]">
             @yield('content')

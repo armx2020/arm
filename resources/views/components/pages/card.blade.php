@@ -20,7 +20,7 @@
         <div class="flex ">
             <a href="{{ route($entityShowRout, ['id' => $entity->id]) }}">
                 <p
-                    class="mb-2 mt-2 sm:mt-0 text-xs md:text-md font-semibold leading-tight text-neutral-700 truncate">
+                    class="mb-2 mt-2 sm:mt-0 text-xs md:text-base font-semibold leading-tight text-neutral-700 truncate">
                     {{ mb_substr($entity->name, 0, 1300, 'UTF-8') }}
                     @if (mb_strlen($entity->name) > 1300)
                         ...
