@@ -19,7 +19,7 @@ class BasePage extends Component
 
     public $region;
     public $position = 2;
-    public $entity = 'companies';
+    public $entity = '';
     public $category = 'Все';
 
     protected $quantityOfDisplayed = 20; // Количество отоброжаемых сущностей
@@ -39,6 +39,12 @@ class BasePage extends Component
         }
 
         $this->entity = $entity;
+
+        switch ($request->session()->pull('filter')) {
+            case 'places':
+                $this->category = 6;
+                break;
+        }
     }
 
     public function render()

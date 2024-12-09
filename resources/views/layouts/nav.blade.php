@@ -61,20 +61,14 @@
                     @endguest
                 </li>
 
-                <li class="mb-2 block">
-                    <a class="" href="{{ route('projects.index') }}">Проекты</a>
-                </li>
                 <li class="mb-2">
                     <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('events.index') }}">Афиша</a>
+                    <a class="" href="{{ route('groups.index') }}">Кружки и сообщества</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('news.index') }}">Новости</a>
-                </li>
-                <li class="mb-2">
-                    <a class="" href="{{ route('groups.index') }}">Сообщества</a>
+                    <a class="" href="{{ route('groups.places') }}">Интересные места</a>
                 </li>
                 <li class="mb-2">
                     <a class="" href="{{ route('works.index') }}">Работа</a>
@@ -90,40 +84,29 @@
             <ul class="list-style-none mr-5 flex flex-col pl-0 lg:flex-row">
                 @if (isset($regionCode) && $regionCode !== 0)
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class=""
-                            href="{{ route('region.projects', ['regionCode' => $regionCode]) }}">Проекты</a>
+                        <a class="" href="{{ route('region.companies', ['regionCode' => $regionCode]) }}">Бизнес
+                            справочник</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class=""
-                            href="{{ route('region.companies', ['regionCode' => $regionCode]) }}">Бизнес справочник</a>
+                        <a class="" href="{{ route('region.groups', ['regionCode' => $regionCode]) }}">Кружки и
+                            сообщества</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('region.events', ['regionCode' => $regionCode]) }}">Афиша</a>
-                    </li>
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('region.news', ['regionCode' => $regionCode]) }}">Новости</a>
-                    </li>
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('region.groups', ['regionCode' => $regionCode]) }}">Сообщества</a>
+                        <a class="" href="{{ route('region.places', ['regionCode' => $regionCode]) }}">Интересные
+                            места</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('region.works', ['regionCode' => $regionCode]) }}">Работа</a>
                     </li>
                 @else
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('projects.index') }}">Проекты</a>
-                    </li>
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('events.index') }}">Афиша</a>
+                        <a class="" href="{{ route('groups.index') }}">Кружки и сообщества</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('news.index') }}">Новости</a>
-                    </li>
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('groups.index') }}">Сообщества</a>
+                        <a class="" href="{{ route('groups.places') }}">Интересные места</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('works.index') }}">Работа</a>

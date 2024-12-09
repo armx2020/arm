@@ -31,7 +31,7 @@
 
             <div wire:loading.remove class="w-full">
                 @if ($entities->isEmpty())
-                    <x-pages.absence-entity entitiesName="компаний" />
+                    <x-pages.absence-entity/>
                 @else
                     <x-pages.grid :entities="$entities" :$position :$entityShowRout />
                 @endif

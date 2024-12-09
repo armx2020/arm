@@ -45,4 +45,9 @@ class GroupController extends BaseController
         ]);
     }
 
+    public function places(Request $request)
+    {
+        $request->session()->put('filter', 'places');
+        return redirect()->route('groups.index');
+    }
 }
