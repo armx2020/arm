@@ -36,7 +36,7 @@
                     <a class="mx-2" href="{{ route('projects.index') }}">Проекты</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('companies.index') }}">Маркет</a>
+                    <a class="mx-2" href="{{ route('companies.index') }}">Бизнес справочиник</a>
                 </li>
                 <li class="mb-2 text-center">
                     <a class="mx-2" href="{{ route('events.index') }}">Афиша</a>
@@ -45,7 +45,7 @@
                     <a class="mx-2" href="{{ route('news.index') }}">Новости</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('groups.index') }}">Группы</a>
+                    <a class="mx-2" href="{{ route('groups.index') }}">Сообщества</a>
                 </li>
                 <li class="mb-2 text-center">
                     <a class="mx-2" href="{{ route('works.index') }}">Работа</a>

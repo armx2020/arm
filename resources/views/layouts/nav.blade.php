@@ -65,7 +65,7 @@
                     <a class="" href="{{ route('projects.index') }}">Проекты</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('companies.index') }}">Маркет</a>
+                    <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
                 </li>
                 <li class="mb-2">
                     <a class="" href="{{ route('events.index') }}">Афиша</a>
@@ -74,7 +74,7 @@
                     <a class="" href="{{ route('news.index') }}">Новости</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('groups.index') }}">Группы</a>
+                    <a class="" href="{{ route('groups.index') }}">Сообщества</a>
                 </li>
                 <li class="mb-2">
                     <a class="" href="{{ route('works.index') }}">Работа</a>
@@ -95,7 +95,7 @@
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class=""
-                            href="{{ route('region.companies', ['regionCode' => $regionCode]) }}">Маркет</a>
+                            href="{{ route('region.companies', ['regionCode' => $regionCode]) }}">Бизнес справочник</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('region.events', ['regionCode' => $regionCode]) }}">Афиша</a>
@@ -104,7 +104,7 @@
                         <a class="" href="{{ route('region.news', ['regionCode' => $regionCode]) }}">Новости</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('region.groups', ['regionCode' => $regionCode]) }}">Группы</a>
+                        <a class="" href="{{ route('region.groups', ['regionCode' => $regionCode]) }}">Сообщества</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('region.works', ['regionCode' => $regionCode]) }}">Работа</a>
@@ -114,7 +114,7 @@
                         <a class="" href="{{ route('projects.index') }}">Проекты</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('companies.index') }}">Маркет</a>
+                        <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('events.index') }}">Афиша</a>
@@ -123,7 +123,7 @@
                         <a class="" href="{{ route('news.index') }}">Новости</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('groups.index') }}">Группы</a>
+                        <a class="" href="{{ route('groups.index') }}">Сообщества</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('works.index') }}">Работа</a>
