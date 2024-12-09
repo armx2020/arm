@@ -1,42 +1,28 @@
 @php
     switch ($position) {
-        case 1:
-            $flex = 'flex flex-col rounded-lg bg-white h-80';
-            $aClass = 'flex';
-            $imageClass = 'h-48 w-full rounded-2xl flex object-cover';
-            $bodyClass = 'px-3 md:px-6';
-            $infoClass = '';
-            break;
         case 2:
-            $flex = 'flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64';
-            $aClass = 'sm:basis-1/4 flex-none';
+            $flex = 'flex flex-row rounded-lg bg-white h-36 sm:h-64';
+            $aClass = 'basis-1/4 flex-none';
             $imageClass = 'h-full w-full rounded-2xl flex object-cover';
-            $bodyClass = 'px-5 flex flex-col sm:basis-full';
-            $infoClass = 'sm:basis-1/4 flex-initial text-right';
-            break;
-        default:
-            $flex = 'flex flex-col rounded-lg bg-white h-80';
-            $aClass = 'flex';
-            $imageClass = 'h-48 w-full rounded-2xl flex object-cover';
-            $bodyClass = 'px-3 md:px-6';
-            $infoClass = '';
+            $bodyClass = 'px-2 lg:px-5 flex flex-col basis-3/4 sm:basis-full max-w-48 grow-0 flex-1';
+            $infoClass = 'hidden lg:flex sm:basis-1/4 flex-initial text-right';
             break;
     }
 @endphp
 
-<div class="{{ $flex }} p-4">
+<div class="{{ $flex }} p-2 sm:p-4 truncate">
     <a href="{{ route($entityShowRout, ['id' => $entity->id]) }}" class="{{ $aClass }}">
         <img class="{{ $imageClass }} w-full rounded-2xl flex object-cover"
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}
             alt="{{ $entity->name }}" />
     </a>
-    <div class="{{ $bodyClass }}">
-        <div class="flex max-h-18">
+    <div class="{{ $bodyClass }} truncate">
+        <div class="flex ">
             <a href="{{ route($entityShowRout, ['id' => $entity->id]) }}">
                 <p
-                    class="mb-2 mt-2 sm:mt-0 break-words text-md font-semibold leading-tight text-neutral-700 text-ellipsis overflow-hidden ">
-                    {{ mb_substr($entity->name, 0, 130, 'UTF-8') }}
-                    @if (mb_strlen($entity->name) > 130)
+                    class="mb-2 mt-2 sm:mt-0 text-xs md:text-md font-semibold leading-tight text-neutral-700 truncate">
+                    {{ mb_substr($entity->name, 0, 1300, 'UTF-8') }}
+                    @if (mb_strlen($entity->name) > 1300)
                         ...
                     @endif
                 </p>
@@ -54,7 +40,7 @@
 
         @if ($position == 2)
             @if (isset($entity->offers))
-                <div class="my-2">
+                <div class="my-2 hidden lg:flex">
                     @foreach ($entity->offers as $offers)
                         <p class="break-words text-sm leading-tight text-neutral-600 line-clamp-3">
                             {{ $offers->name }}
@@ -65,7 +51,7 @@
                 @endforeach
             </div>
         @elseif(isset($entity->categories))
-            <div class="my-2">
+            <div class="my-2 hidden lg:flex">
                 @foreach ($entity->categories as $category)
                     <p class="break-words text-sm leading-tight text-neutral-600 line-clamp-3">
                         {{ $category->name }}
@@ -79,7 +65,7 @@
 @endif
 
 @if ($entity->city_id && $entity->city_id !== 1)
-    <p class="mt-3 break-words text-sm font-semibold text-blue-500">
+    <p class="mt-3 break-words text-xs lg:text-sm font-semibold text-blue-500">
         {{ $entity->city->name }}
     </p>
 @endif
@@ -87,11 +73,11 @@
 </div>
 <div class="{{ $infoClass }} flex flex-col">
 <p class="text-sm mb-1">
-@isset($entity->phone)
-    <a href="tel:{{ $entity->phone }}" class="text-blue-600">
-        {{ $entity->phone }}
-    </a>
-@endisset
+    @isset($entity->phone)
+        <a href="tel:{{ $entity->phone }}" class="text-blue-600">
+            {{ $entity->phone }}
+        </a>
+    @endisset
 </p>
 
 

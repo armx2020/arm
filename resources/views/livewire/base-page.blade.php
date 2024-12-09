@@ -23,7 +23,7 @@
         </div>
 
 
-        <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5 min-h-screen max-w-5xl">
+        <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-5 lg:ml-5 min-h-screen max-w-5xl">
 
             <div wire:loading class="w-full">
                 <x-pages.loading />
@@ -36,9 +36,10 @@
                     <x-pages.grid :entities="$entities" :$position :$entityShowRout />
                 @endif
 
-                <x-pages.recommendation />
+
 
                 @if (count($recommendations) > 0)
+                    <x-pages.recommendation />
                     <x-pages.grid :entities="$recommendations" :$position :$entityShowRout />
                 @endif
             </div>

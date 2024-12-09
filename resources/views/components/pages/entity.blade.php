@@ -6,10 +6,10 @@
         <div class="bg-white mt-3 basis-full rounded-md">
             <select name="entity" class="w-full border-0 rounded-md" wire:model="entity" autocomplete="off">
                 <option value='projects'>Проекты</option>
-                <option value='companies'>Маркет</option>
+                <option value='companies'>Бизнес справочиник</option>
                 <option value='events'>Афиша</option>
                 <option value='news'>Новости</option>
-                <option value='groups'>Группа</option>
+                <option value='groups'>Сообщества</option>
                 <option value='works'>Работа</option>
             </select>
         </div>

@@ -1,6 +1,6 @@
 @props(['activities' => $activities])
 
-<div class="flex flex-col basis-1/2 lg:basis-1/5 max-w-56 pl-2 md:pl-0">
+<div class="flex flex-col basis-1/2 lg:basis-1/5 max-w-56 pl-1 md:pl-0">
     <div class="flex flex-row gap-3">
 
         <div class="bg-white mt-3 basis-full rounded-md p-3 hidden lg:block">
