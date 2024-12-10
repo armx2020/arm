@@ -50,9 +50,6 @@
                 </div>
 
             </div>
-
-            <div class="ya-share2" data-curtain data-size="s" data-shape="round" data-limit="0"
-                data-more-button-type="short" data-services="vkontakte,odnoklassniki,telegram,viber,whatsapp"></div>
         </div>
 
 
