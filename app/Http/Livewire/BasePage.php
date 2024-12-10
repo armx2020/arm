@@ -44,6 +44,12 @@ class BasePage extends Component
             case 'places':
                 $this->category = 6;
                 break;
+            case 'society':
+                $this->category = 1;
+                break;
+            case 'communities':
+                $this->category = 2;
+                break;
         }
     }
 
@@ -102,6 +108,23 @@ class BasePage extends Component
                 if ($this->category !== 'Все') {
                     $entities = $entities->where('category_id', '=', $this->category);
                 }
+                break;
+            case 'places':
+                $entityShowRout = 'groups.show';
+                $entities = Group::query()->active()->with('region')->where('category_id', '=', 6);
+                break;
+            case 'groups':
+                $entityShowRout = 'groups.show';
+                $entities = Group::query()->active()->with('region');
+                $categories = Category::group()->active()->main()->get();
+
+                if ($this->category !== 'Все') {
+                    $entities = $entities->where('category_id', '=', $this->category);
+                }
+                break;
+            case 'communities':
+                $entityShowRout = 'groups.show';
+                $entities = Group::query()->active()->with('region')->where('category_id', '=', 3);
                 break;
             case 'works':
                 $entityShowRout = 'works.show';

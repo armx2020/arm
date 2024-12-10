@@ -50,4 +50,17 @@ class GroupController extends BaseController
         $request->session()->put('filter', 'places');
         return redirect()->route('groups.index');
     }
+
+    public function society(Request $request)
+    {
+        $request->session()->put('filter', 'society');
+        return redirect()->route('groups.index');
+    }
+
+    public function communities(Request $request)
+    {
+        $request->session()->put('filter', 'communities');
+        return redirect()->route('groups.index');
+    }
+
 }

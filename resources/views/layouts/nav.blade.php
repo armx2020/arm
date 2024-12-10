@@ -65,13 +65,13 @@
                     <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('groups.index') }}">Кружки и сообщества</a>
+                    <a class="" href="{{ route('groups.society') }}">Кружки и сообщества</a>
                 </li>
                 <li class="mb-2">
                     <a class="" href="{{ route('groups.places') }}">Интересные места</a>
                 </li>
                 <li class="mb-2">
-                    <a class="" href="{{ route('works.index') }}">Работа</a>
+                    <a class="" href="{{ route('groups.society') }}">Общины</a>
                 </li>
             </ul>
         </div>
@@ -88,7 +88,7 @@
                             справочник</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('region.groups', ['regionCode' => $regionCode]) }}">Кружки и
+                        <a class="" href="{{ route('region.society', ['regionCode' => $regionCode]) }}">Кружки и
                             сообщества</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
@@ -96,20 +96,20 @@
                             места</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('region.works', ['regionCode' => $regionCode]) }}">Работа</a>
+                        <a class="" href="{{ route('region.communities', ['regionCode' => $regionCode]) }}">Общины</a>
                     </li>
                 @else
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('groups.index') }}">Кружки и сообщества</a>
+                        <a class="" href="{{ route('groups.society') }}">Кружки и сообщества</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
                         <a class="" href="{{ route('groups.places') }}">Интересные места</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('works.index') }}">Работа</a>
+                        <a class="" href="{{ route('groups.communities') }}">Общины</a>
                     </li>
                 @endif
             </ul>

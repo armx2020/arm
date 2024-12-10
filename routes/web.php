@@ -28,6 +28,8 @@ Route::get('/{regionCode?}', [HomeController::class, 'home'])->where('regionCode
 Route::name('groups.')->prefix('/groups')->group(function () {
     Route::get('/', [GroupController::class, 'index'])->name('index');
     Route::get('/places', [GroupController::class, 'places'])->name('places');
+    Route::get('/society', [GroupController::class, 'society'])->name('society'); // общины
+    Route::get('/communities', [GroupController::class, 'communities'])->name('communities'); // сообщества
     Route::get('/{id}', [GroupController::class, 'show'])->name('show');
 });
 
@@ -59,6 +61,8 @@ Route::name('works.')->prefix('/works')->group(function () {
 Route::name('region.')->prefix('/{regionCode}')->group(function () {
     Route::get('/groups', [GroupController::class, 'index'])->name('groups');
     Route::get('/groups/places', [GroupController::class, 'places'])->name('places');
+    Route::get('/groups/society', [GroupController::class, 'society'])->name('society');
+    Route::get('/groups/communities', [GroupController::class, 'communities'])->name('communities');
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
     Route::get('/events', [EventController::class, 'index'])->name('events');
     Route::get('/news', [NewsController::class, 'index'])->name('news');
