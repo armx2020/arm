@@ -1,4 +1,4 @@
-<div class="flex flex-wrap items-center ml-4 space-x-1 rtl:space-x-reverse">
+<div class="flex flex-wrap items-center space-x-1 rtl:space-x-reverse">
 
     @isset($entity->whatsapp)
         <a href="">

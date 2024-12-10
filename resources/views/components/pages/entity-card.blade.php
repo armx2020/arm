@@ -50,7 +50,7 @@
                     </p>
                 @endif
 
-                <div class="my-3">
+                <div class="my-3 pl-4">
                     <x-pages.social :entity=$entity />
                 </div>
 
