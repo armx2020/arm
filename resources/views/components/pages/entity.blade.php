@@ -5,12 +5,11 @@
     <div class="flex flex-row gap-3">
         <div class="bg-white mt-3 basis-full rounded-md">
             <select name="entity" class="w-full border-0 rounded-md" wire:model="entity" autocomplete="off">
-                <option value='projects'>Проекты</option>
                 <option value='companies'>Бизнес справочиник</option>
-                <option value='news'>Новости</option>
+                <option value='society'>Общины консульства</option>
                 <option value='groups'>Сообщества</option>
-                <option value='places'>Интересные места</option>
                 <option value='communities'>Кружки и секции</option>
+                <option value='places'>Церкви, музеи, места</option>
                 <option value='works'>Работа</option>
             </select>
         </div>
