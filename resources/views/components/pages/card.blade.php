@@ -29,7 +29,7 @@
         </div>
 
         @isset($entity->description)
-            <p class="mb-2 break-words text-xs font-medium text-neutral-600">
+            <p class="mb-2 break-words text-xs font-medium text-neutral-600 truncate">
                 {{ mb_substr($entity->description, 0, 350, 'UTF-8') }}
                 @if (mb_strlen($entity->description) > 350)
                     ...
@@ -64,7 +64,8 @@
 @endif
 
 @if ($entity->city_id && $entity->city_id !== 1)
-    <p class="mt-3 break-words text-xs lg:text-sm font-semibold text-blue-500 absolute top-24 sm:top-48">
+    <p
+        class="mt-3 break-words text-xs lg:text-sm font-semibold text-blue-500 absolute top-24 sm:top-48 block lg:hidden">
         {{ $entity->city->name }}
     </p>
 @endif
@@ -81,6 +82,12 @@
             {{ $entity->phone }}
         </a>
     @endisset
+
+    @if ($entity->city_id && $entity->city_id !== 1)
+        <p class="break-words text-xs font-semibold text-blue-500 hidden lg:block">
+            {{ $entity->city->name }}
+        </p>
+    @endif
 </p>
 
 

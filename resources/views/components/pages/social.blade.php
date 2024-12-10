@@ -1,4 +1,4 @@
-<div class="absolute top-24 sm:top-48 right-[0.8rem]">
+<div class="hidden lg:block absolute top-24 sm:top-48">
     <div class="flex flex-wrap items-center justify-center space-x-1 rtl:space-x-reverse">
 
         @isset($entity->whatsapp)
