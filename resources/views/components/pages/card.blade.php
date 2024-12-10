@@ -70,8 +70,9 @@
     </p>
 @endif
 
-<x-pages.social :entity=$entity />
-
+<div class="hidden lg:block absolute top-24 sm:top-48">
+    <x-pages.social :entity=$entity />
+</div>
 
 
 </div>
