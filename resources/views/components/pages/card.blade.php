@@ -69,6 +69,8 @@
     </p>
 @endif
 
+<x-pages.social :entity=$entity />
+
 
 
 </div>
