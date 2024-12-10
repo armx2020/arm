@@ -1,8 +1,17 @@
 <section>
     <div class="flex flex-col mx-auto my-6 lg:my-8">
 
-        <div class="flex flex-col sm:flex-row basis-full bg-white rounded-md p-2 lg:p-4">
+        <div class="flex flex-col sm:flex-row basis-full bg-white rounded-md p-2 lg:p-4 relative">
 
+            <div class="flex sm:hidden p-2 w-full justify-end">
+                <a href="{{ url()->previous() }}" class="[&>svg]:fill-[#a1b4c2] w-3 h-3">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path
+                            d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" />
+                    </svg>
+                </a>
+            </div>
 
             <div class="flex flex-col basis-1/5 flex-none">
                 <img src="{{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}"
@@ -52,6 +61,17 @@
 
                 <div class="my-3 pl-4">
                     <x-pages.social :entity=$entity />
+                </div>
+
+                <div class="hidden lg:block absolute right-4 w-4 h-4">
+                    <a href="{{ url()->previous() }}" class="[&>svg]:fill-[#a1b4c2]">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path
+                                d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" />
+                        </svg>
+                    </a>
+
                 </div>
 
             </div>
