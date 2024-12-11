@@ -26,6 +26,7 @@
     <!-- Scripts -->
     <script src="{{ url('/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ url('/select2.min.js') }}"></script>
+    <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/select.css', 'resources/js/jquery.bxslider.js'])
     @livewireStyles
@@ -39,7 +40,7 @@
         </div>
         @include('layouts.footer')
     </div>
-    @vite(['resources/js/scripts.js'])
+    @vite(['resources/js/scripts.js', 'resources/js/mask_phone.js'])
     @livewireScripts
 </body>
 

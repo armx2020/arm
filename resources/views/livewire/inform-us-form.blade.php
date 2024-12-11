@@ -4,6 +4,13 @@
             <img src="{{ url('/image/logo-app.png') }}" class="w-60" alt="logo" />
         </a>
     </div>
+
+    @if (session('success'))
+        <div class="mt-5 w-full sm:max-w-xl rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="w-full sm:max-w-xl my-6 px-6 py-6 bg-white overflow-hidden sm:rounded-lg">
 
         <h3 class="text-xl font-semibold">Добавить проект</h3>
@@ -31,6 +38,7 @@
                         <option value='companies'>Компания</option>
                         <option value='groups'>Сообщества</option>
                         <option value='places'>Интересные места</option>
+                        <option value='society'>Общины</option>
                     </select>
                 </div>
                 <x-input-error :messages="$errors->get('category')" class="mt-2" />
@@ -67,8 +75,6 @@
             </div>
 
 
-
-
             <h4 class="text-xl font-semibold mt-4">Ваши контакты</h4>
             <hr class="mb-4 mt-2">
 
@@ -99,7 +105,4 @@
             </div>
         </form>
     </div>
-
-    @vite(['resources/js/mask_phone.js'])
-
 </div>
