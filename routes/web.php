@@ -81,3 +81,4 @@ Route::post('/actions', [CategoryForOfferController::class, 'get'])->name('actio
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 require __DIR__ . '/profile.php';
+require __DIR__ . '/inform-us.php';

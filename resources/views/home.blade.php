@@ -134,7 +134,7 @@
                         <div class="my-1 text-sm md:text-md lg:text-lg xl:text-xl font-normal">
                             Сообшить о проблеме, добавить информацию, оставить отзыв</div>
                         <a class="my-2 lg:my-4 rounded-md bg-blue-500 text-white text-center w-4/5 xl:w-1/2 h-9 py-2 items-center font-normal"
-                            href="">
+                            href="{{ route('inform-us')}}">
                             Перейти к форме
                         </a>
                     </div>
