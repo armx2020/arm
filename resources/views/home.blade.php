@@ -148,8 +148,8 @@
                         </div>
                         <div class="my-1 text-sm md:text-md lg:text-lg xl:text-xl font-normal">
                             Сообшить о проблеме, добавить информацию, оставить отзыв</div>
-                        <button
-                            class="inform-us my-2 lg:my-4 rounded-md bg-blue-500 text-white text-center w-4/5 xl:w-1/2 h-9 py-2 items-center font-normal">
+                        <button id="inform-us-button"
+                            class="my-2 lg:my-4 rounded-md bg-blue-500 text-white text-center w-4/5 xl:w-1/2 h-9 py-2 items-center font-normal">
                             Перейти к форме
                         </button>
                     </div>
@@ -242,7 +242,7 @@
 
     <script type='text/javascript'>
         $(document).ready(function() {
-            $(".inform-us").click(function() {
+            $("#inform-us-button").click(function() {
                 $("#inform-us").toggle();
                 $("#select-inform").show();
                 $("#select-form").hide();
@@ -252,7 +252,7 @@
                 $("#inform-us").toggle();
                 $("#select-inform").show();
                 $("#select-form").hide();
-                $('body, html').css('overflow', 'hidden');
+                $('body, html').css('overflow', 'visible');
             });
             $("#select-form-button").click(function() {
                 $("#select-form").show();
