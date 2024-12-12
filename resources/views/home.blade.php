@@ -129,7 +129,7 @@
                                     <img class="flex self-center m-auto rounded-xl sm:w-[36%] md:w-[70%]"
                                         src="{{ url('/image/church.png') }}" alt="church">
                                 </div>
-                                <divD
+                                <div
                                     class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
                                     Подробнее &rarr;
                                 </div>
@@ -162,7 +162,6 @@
         </div>
 
         <div id="inform-us" class="hidden fixed inset-0 px-4 min-h-full overlow-hidden sm:px-0 z-50" focusable>
-            <div class="absolute inset-0 bg-gray-500 opacity-75 location-close"></div>
 
             <div class="my-5 mx-auto opacity-100 translate-y-0 sm:scale-100 bg-white rounded-lg overflow-auto shadow-xl transform transition-all sm:w-11/12 lg:w-1/2 h-5/6"
                 style="max-width:50rem">
