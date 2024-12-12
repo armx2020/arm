@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\BaseController;
+use App\Models\Category;
+use App\Models\City;
 use App\Models\Company;
 use App\Models\Group;
 use App\Models\User;
@@ -12,22 +14,40 @@ use Illuminate\Support\Facades\Hash;
 
 class InformUsController extends BaseController
 {
+    public $secondPositionUrl = 'inform-us';
+    public $secondPositionName = 'Сообщите нам';
+    public $cities;
+
     public function __construct()
     {
+        $this->cities = City::all();
+
         parent::__construct();
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $entity)
     {
-        $secondPositionUrl = 'inform-us';
-        $secondPositionName = 'Сообщите нам';
+        switch ($entity) {
+            case "company":
+                return $this->createCompaniesForm($request);
+                break;
+            default:
+                return redirect()->route('home');
+        }
+    }
 
-        return view('inform-us', [
+    private function createCompaniesForm($request)
+    {
+        $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
+
+        return view('inform-us.create-company', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'regionCode' => $request->session()->get('regionId'),
-            'secondPositionUrl' => $secondPositionUrl,
-            'secondPositionName' => $secondPositionName
+            'cities' => $this->cities,
+            'secondPositionUrl' => $this->secondPositionUrl,
+            'secondPositionName' => $this->secondPositionName,
+            'categories' => $categories
 
         ]);
     }

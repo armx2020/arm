@@ -176,7 +176,6 @@ class BasePage extends Component
             'regions' => $regions,
             'region' => $this->region,
             'recommendations' => $recommendations,
-            'position' => $this->position,
             'categories' => $categories,
             'activities' => $activities,
             'typeWorks' => $typeWorks
