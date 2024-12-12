@@ -1,5 +1,5 @@
 <div class="flex flex-row rounded-lg bg-white min-h-36 sm:min-h-64 p-2 sm:p-4 truncate relative">
-    <a href="{{ route($entityShowRout, ['id' => $entity->id]) }}" class="w-1/4">
+    <a href="{{ route($entityShowRout, ['id' => $entity->id]) }}">
         <img class="h-24 w-24 md:h-40 md:w-40 lg:h-48 lg:w-48 rounded-2xl object-cover rounded-2xl object-cover"
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}
             alt="{{ $entity->name }}" />
