@@ -127,9 +127,9 @@
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Интересные места</p>
                                 <div class="flex place-content-center p-3">
                                     <img class="flex self-center m-auto rounded-xl sm:w-[36%] md:w-[70%]"
-                                        src="{{ url('/image/church.jpg') }}" alt="church">
+                                        src="{{ url('/image/church.png') }}" alt="church">
                                 </div>
-                                <div
+                                <divD
                                     class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
                                     Подробнее &rarr;
                                 </div>
