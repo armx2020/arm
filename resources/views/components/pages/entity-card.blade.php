@@ -1,7 +1,7 @@
 <section>
     <div class="flex flex-col mx-auto my-6 lg:my-8">
 
-        <div class="flex flex-col sm:flex-row basis-full bg-white rounded-md p-2 lg:p-4 relative">
+        <div class="flex flex-col sm:flex-row bg-white rounded-md p-2 lg:p-4 relative">
 
             <div class="flex sm:hidden p-2 w-full justify-end">
                 <a href="{{ url()->previous() }}" class="[&>svg]:fill-[#a1b4c2] w-3 h-3">
@@ -13,9 +13,9 @@
                 </a>
             </div>
 
-            <div class="flex flex-col w-1/5 flex-none">
+            <div class="flex flex-col sm:w-1/5 flex-none">
                 <img src="{{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}"
-                    class="h-56 w-full sm:w-56 rounded-2xl p-2 object-cover" alt="{{ $entity->name }}">
+                    class="h-full w-full sm:w-56 rounded-2xl p-2 object-cover" alt="{{ $entity->name }}">
 
                 @if ($entity->getTable() == 'projects')
                     <x-pages.donations-for-project :$entity />
