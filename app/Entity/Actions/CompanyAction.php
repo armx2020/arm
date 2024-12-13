@@ -12,11 +12,15 @@ class CompanyAction
 {
     use GetCity;
 
-    public function store($request, $user_id = null): Company
+    public function store($request, $user_id = null, $isActive = true): Company
     {
         $city = $this->getCity($request);
 
         $company = new Company();
+
+        if (isset($isActive) || $isActive == false) {
+            $company->activity = $isActive;
+        }
 
         $company->name = $request->name;
         $company->address = $request->address;
@@ -101,7 +105,7 @@ class CompanyAction
 
                 if ($categoryBD) {
                     $categoryMain = $categoryBD->category_id;
-                    
+
                     if ($company->category_id == null) {
                         $company->category_id = $categoryMain;
                         $company->save();

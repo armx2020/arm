@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('instagram', 255)->nullable();
             $table->string('vkontakte', 255)->nullable();
             $table->string('telegram', 255)->nullable();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('city_id')->default(1)->constrained();
             $table->foreignId('region_id')->default(1)->constrained();
             $table->foreignId('category_id')->nullable()->constrained();

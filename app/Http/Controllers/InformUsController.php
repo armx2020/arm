@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Entity\Actions\CompanyAction;
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Models\Category;
 use App\Models\City;
-use App\Models\Company;
-use App\Models\Group;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class InformUsController extends BaseController
 {
@@ -18,9 +15,10 @@ class InformUsController extends BaseController
     public $secondPositionName = 'Сообщите нам';
     public $cities;
 
-    public function __construct()
+    public function __construct(private CompanyAction $companyAction)
     {
         $this->cities = City::all();
+        $this->companyAction = $companyAction;
 
         parent::__construct();
     }
@@ -29,14 +27,14 @@ class InformUsController extends BaseController
     {
         switch ($entity) {
             case "company":
-                return $this->createCompaniesForm($request);
+                return $this->createCompanyForm($request);
                 break;
             default:
                 return redirect()->route('home');
         }
     }
 
-    private function createCompaniesForm($request)
+    private function createCompanyForm($request)
     {
         $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
@@ -47,50 +45,15 @@ class InformUsController extends BaseController
             'cities' => $this->cities,
             'secondPositionUrl' => $this->secondPositionUrl,
             'secondPositionName' => $this->secondPositionName,
-            'categories' => $categories
+            'categories' => $categories,
 
         ]);
     }
 
-    public function store(Request $request)
+    public function storeCompany(StoreCompanyRequest $request)
     {
-        $user = User::where('phone', $request->phone)->first();
+        $company = $this->companyAction->store($request, null, false);
 
-        if (!$user) {
-            $user - new User();
-            $user->firstname = $request->firstname;
-            $user->phone = $request->phone;
-            $user->password = Hash::make('0000'); // 0000
-            $user->save();
-        }
-
-        switch ($request->category) {
-            case 'companies':
-                $entity = new Company();
-                break;
-            case 'places':
-                $entity = new Group();
-                break;
-            case 'groups':
-                $entity = new Group();
-                break;
-            case 'projects':
-                $entity = new Group();
-                break;
-            default:
-                $entity = new Group();
-                break;
-        }
-
-        $entity->activity = false;
-        $entity->name = $request->name;
-        $entity->description = $request->description;
-        $entity->user_id = $user->id;
-        $entity->phone = $user->phone;
-        $entity->save();
-
-
-
-        return redirect()->route('inform-us')->with('success', 'Ваша заявка успешно принята');
+        return redirect()->route('inform-us', ['entity' => 'company'])->with('success', 'Ваша заявка успешно принята');
     }
 }
