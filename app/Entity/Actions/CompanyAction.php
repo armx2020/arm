@@ -46,7 +46,7 @@ class CompanyAction
         $company->save();
 
         if ($request->categories) {
-            foreach ($request->categories as $categoryID => $val) {
+            foreach ($request->categories as $categoryID) {
                 $categoryBD = Category::find($categoryID);
 
                 if ($categoryBD) {

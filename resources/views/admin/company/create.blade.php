@@ -65,8 +65,9 @@
                                                             </div>
                                                             @foreach ($item->categories as $child)
                                                                 <div class="flex">
-                                                                    <input type="checkbox"
-                                                                        name="categories[{{ $child->id }}]"
+                                                                    <input type="checkbox" name="categories[]"
+                                                                        value="{{ $child->id }}"
+                                                                        @if (is_array(old('categories')) && in_array($child->id, old('categories'))) checked @endif
                                                                         class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                                                                         id="checkbox-{{ $loop->iteration }}">
                                                                     <label for="checkbox-{{ $loop->iteration }}"
