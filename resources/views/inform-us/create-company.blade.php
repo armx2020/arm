@@ -27,7 +27,7 @@
 
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                <form method="POST" action="{{ route('inform-us.store.company') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('inform-us.company') }}" enctype="multipart/form-data">
                     @csrf
 
                     @if (session('error'))

@@ -195,32 +195,32 @@
                             <h4 class="text-xl font-semibold mt-6">Выберите, что добавить</h4>
                             <hr class="mb-4 mt-2">
 
-                            <a href="{{ route('inform-us', ['entity' => 'company']) }}"
+                            <a href="{{ route('inform-us.company') }}"
                                 class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
                                 Компанию
                             </a>
 
-                            <a href="{{ route('register', ['entity' => 'place']) }}"
+                            <a href=""
                                 class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
                                 Место для посещения
                             </a>
 
-                            <a href="{{ route('inform-us', ['entity' => 'group']) }}"
+                            <a href=""
                                 class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
                                 Община, консульство
                             </a>
 
-                            <a href="{{ route('inform-us', ['entity' => 'event']) }}"
+                            <a href=""
                                 class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
                                 Событие
                             </a>
 
-                            <a href="{{ route('register', ['entity' => 'news']) }}"
+                            <a href=""
                                 class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
                                 Новость
                             </a>
 
-                            <a href="{{ route('inform-us', ['entity' => 'work']) }}"
+                            <a href=""
                                 class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
                                 Работа, вакансия
                             </a>

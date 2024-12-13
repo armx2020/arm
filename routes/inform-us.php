@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\InformUsController;
+use App\Http\Controllers\InformUS\CompanyController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('/inform-us/{entity}', [InformUsController::class, 'index'])->name('inform-us');
-Route::post('/inform-us/company', [InformUsController::class, 'storeCompany'])->name('inform-us.store.company');
+Route::name('inform-us.')->group(function () {
+    Route::get('/inform-us/company', [CompanyController::class, 'index'])->name('company');
+    Route::post('/inform-us/company', [CompanyController::class, 'store']);
+});
