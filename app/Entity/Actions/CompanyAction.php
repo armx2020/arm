@@ -18,7 +18,7 @@ class CompanyAction
 
         $company = new Company();
 
-        if (isset($isActive) || $isActive == false) {
+        if ($isActive == false) {
             $company->activity = $isActive;
         }
 

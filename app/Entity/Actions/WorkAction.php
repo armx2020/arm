@@ -9,11 +9,15 @@ class WorkAction
 {
     use GetCity;
 
-    public function store($request): Work
+    public function store($request, $user_id = null, $isActive = true): Work
     {
         $city = $this->getCity($request);
 
         $work = new Work();
+
+        if ($isActive == false) {
+            $work->activity = $isActive;
+        }
 
         $work->name = $request->name;
         $work->address = $request->address;

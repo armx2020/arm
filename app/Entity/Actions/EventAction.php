@@ -11,11 +11,15 @@ class EventAction
 {
     use GetCity;
 
-    public function store($request): Event
+    public function store($request, $user_id = null, $isActive = true): Event
     {
         $city = $this->getCity($request);
 
         $event = new Event();
+
+        if ($isActive == false) {
+            $event->activity = $isActive;
+        }
 
         $event->name = $request->name;
         $event->address = $request->address;
@@ -41,7 +45,7 @@ class EventAction
 
         if ($request->image) {
             $event->image = $request->file('image')->store('events', 'public');
-            Image::make('storage/'.$event->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $event->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -84,7 +88,7 @@ class EventAction
         if ($request->image) {
             Storage::delete('public/' . $event->image);
             $event->image = $request->file('image')->store('events', 'public');
-            Image::make('storage/'.$event->image)->resize(400, null, function ($constraint) {
+            Image::make('storage/' . $event->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }

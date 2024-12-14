@@ -11,11 +11,15 @@ class GroupAction
 {
     use GetCity;
 
-    public function store($request): Group
+    public function store($request, $user_id = null, $isActive = true): Group
     {
         $city = $this->getCity($request);
 
         $group = new Group();
+
+        if ($isActive == false) {
+            $group->activity = $isActive;
+        }
 
         $group->name = $request->name;
         $group->address = $request->address;

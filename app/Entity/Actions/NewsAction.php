@@ -11,11 +11,15 @@ class NewsAction
 {
     use GetCity;
 
-    public function store($request, $user_id = null): News
+    public function store($request, $user_id = null, $isActive = true): News
     {
         $city = $this->getCity($request);
 
         $news = new News();
+
+        if ($isActive == false) {
+            $news->activity = $isActive;
+        }
 
         $news->name = $request->name;
         $news->date = $request->date;

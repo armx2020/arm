@@ -36,6 +36,6 @@ class CompanyController extends BaseInformUsController
     {
         $company = $this->companyAction->store($request, null, false);
 
-        return redirect()->route('inform-us', ['entity' => 'company'])->with('success', 'Ваша заявка успешно принята');
+        return redirect()->route('inform-us.company')->with('success', 'Ваша заявка успешно принята');
     }
 }

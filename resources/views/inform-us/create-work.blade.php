@@ -19,7 +19,7 @@
 
             <div class="w-full sm:max-w-xl my-6 px-6 py-6 bg-white overflow-hidden sm:rounded-lg">
 
-                <h3 class="text-xl font-semibold">Добавить группу</h3>
+                <h3 class="text-xl font-semibold">Добавить вакансию или резюмэ</h3>
                 <p class="text-sm">Укажите данные. После проверки, он окажеться на портале</p>
                 <hr class="mt-4">
 
@@ -27,7 +27,7 @@
 
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                <form method="POST" action="{{ route('inform-us.group') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('inform-us.work') }}" enctype="multipart/form-data">
                     @csrf
 
                     @if (session('error'))
@@ -65,24 +65,18 @@
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
 
-                    <!-- category -->
+                    <!-- type -->
                     <div class="mt-4">
-                        <label for="category" class="text-sm font-medium text-gray-900 block mb-2">Категория</label>
-                        <select name="category" id="category"
+                        <select name="type" id="type"
                             class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                             required>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" @selected(old('category') == $category->id)>{{ $category->name }}
-                                </option>
-                            @endforeach
+                            <option value="" selected>Выберите тип
+                            </option>
+                            <option value="vacancy" @selected(old('type') == 'vacancy')>Вакансия
+                            </option>
+                            <option value="resume" @selected(old('type') == 'resume')>Резюмэ
+                            </option>
                         </select>
-                    </div>
-
-                    <!-- phone -->
-                    <div class="mt-4">
-                        <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone"
-                            :value="old('phone')" placeholder="Телефон" required />
-                        <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                     </div>
 
                     <!-- address -->
@@ -90,49 +84,6 @@
                         <x-text-input id="address" class="block mt-1 w-full" type="text" name="address"
                             :value="old('address')" placeholder="Адрес" />
                         <x-input-error :messages="$errors->get('address')" class="mt-2" />
-                    </div>
-
-                    <!-- web -->
-                    <div class="mt-4">
-                        <x-text-input id="web" class="block mt-1 w-full" type="text" name="web"
-                            :value="old('web')" placeholder="Веб-сайт" />
-                        <x-input-error :messages="$errors->get('web')" class="mt-2" />
-                    </div>
-
-                    <!-- telegram -->
-                    <div class="mt-4">
-                        <x-text-input id="telegram" class="block mt-1 w-full" type="text" name="telegram"
-                            :value="old('telegram')" placeholder="Telegram" />
-                        <x-input-error :messages="$errors->get('telegram')" class="mt-2" />
-                    </div>
-
-
-                    <!-- whatsapp -->
-                    <div class="mt-4">
-                        <x-text-input id="whatsapp" class="block mt-1 w-full" type="text" name="whatsapp"
-                            :value="old('whatsapp')" placeholder="Whatsapp" />
-                        <x-input-error :messages="$errors->get('whatsapp')" class="mt-2" />
-                    </div>
-
-                    <!-- viber -->
-                    <div class="mt-4">
-                        <x-text-input id="viber" class="block mt-1 w-full" type="text" name="viber"
-                            :value="old('viber')" placeholder="Viber" />
-                        <x-input-error :messages="$errors->get('viber')" class="mt-2" />
-                    </div>
-
-                    <!-- vkontakte -->
-                    <div class="mt-4">
-                        <x-text-input id="vkontakte" class="block mt-1 w-full" type="text" name="vkontakte"
-                            :value="old('vkontakte')" placeholder="Vkontakte" />
-                        <x-input-error :messages="$errors->get('vkontakte')" class="mt-2" />
-                    </div>
-
-                    <!-- instagram -->
-                    <div class="mt-4">
-                        <x-text-input id="instagram" class="block mt-1 w-full" type="text" name="instagram"
-                            :value="old('instagram')" placeholder="Instagram" />
-                        <x-input-error :messages="$errors->get('instagram')" class="mt-2" />
                     </div>
 
                     <!-- Description -->
