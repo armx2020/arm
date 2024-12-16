@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\InformUS\CompanyController;
-use App\Http\Controllers\InformUS\EventController;
-use App\Http\Controllers\InformUS\GroupController;
-use App\Http\Controllers\InformUS\NewsController;
-use App\Http\Controllers\InformUS\WorkController;
+use App\Http\Controllers\InformUs\CompanyController;
+use App\Http\Controllers\InformUs\EventController;
+use App\Http\Controllers\InformUs\GroupController;
+use App\Http\Controllers\InformUs\NewsController;
+use App\Http\Controllers\InformUs\WorkController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('inform-us.')->group(function () {

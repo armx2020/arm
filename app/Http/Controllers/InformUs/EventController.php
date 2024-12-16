@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\InformUS;
+namespace App\Http\Controllers\InformUs;
 
 use App\Entity\Actions\EventAction;
 use App\Http\Requests\Event\StoreEventRequest;
