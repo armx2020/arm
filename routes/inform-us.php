@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InformUs\AppealController;
 use App\Http\Controllers\InformUs\CompanyController;
 use App\Http\Controllers\InformUs\EventController;
 use App\Http\Controllers\InformUs\GroupController;
@@ -23,4 +24,7 @@ Route::name('inform-us.')->group(function () {
 
     Route::get('/inform-us/work', [WorkController::class, 'index'])->name('work');
     Route::post('/inform-us/work', [WorkController::class, 'store']);
+
+    Route::get('/inform-us/appeal', [AppealController::class, 'index'])->name('appeal');
+    Route::post('/inform-us/appeal', [AppealController::class, 'store']);
 });

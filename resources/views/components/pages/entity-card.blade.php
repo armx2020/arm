@@ -1,9 +1,9 @@
 <section>
     <div class="flex flex-col mx-auto my-6 lg:my-8">
 
-        <div class="flex flex-col sm:flex-row bg-white rounded-md p-2 lg:p-4 relative">
+        <div class="flex flex-col sm:flex-row bg-white rounded-md p-3 lg:p-4 relative h-auto lg:min-h-80">
 
-            <div class="flex sm:hidden p-2 w-full justify-end">
+            <div class="flex sm:hidden pb-4 px-3 w-full justify-end">
                 <a href="{{ url()->previous() }}" class="[&>svg]:fill-[#a1b4c2] w-3 h-3">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -13,14 +13,12 @@
                 </a>
             </div>
 
-            <div class="flex flex-col sm:w-1/5 flex-none">
                 <img src="{{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}"
-                    class="h-full w-full sm:w-56 rounded-2xl p-2 object-cover" alt="{{ $entity->name }}">
+                    class="h-full w-full  lg:h-72 lg:w-72 rounded-lg object-cover" alt="{{ $entity->name }}">
 
                 @if ($entity->getTable() == 'projects')
                     <x-pages.donations-for-project :$entity />
                 @endif
-            </div>
 
             <div class="flex flex-col px-0 lg:px-6 mt-3 sm:mt-0 justify-start break-all">
                 <h3 class="block text-left text-md font-semibold mx-4">

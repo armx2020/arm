@@ -185,7 +185,7 @@
                                 Добавьте свою компанию, сообщество или событие
                             </a>
 
-                            <a href=""
+                            <a href="{{ route('inform-us.appeal') }}"
                                 class="block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
                                 Написать нам, сообщить об ошибки, запросить помощь
                             </a>
