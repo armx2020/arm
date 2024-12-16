@@ -1,7 +1,7 @@
 <div class="flex flex-wrap items-center space-x-1 rtl:space-x-reverse">
 
     @isset($entity->whatsapp)
-        <a href="https://wa.me/79200000000{{ $entity->whatsapp }}">
+        <a href="https://wa.me/79200000000{{ $entity->whatsapp }}" target="_blank">
             <span class="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-[#c1ced7] hover:[&>svg]:fill-[#128c7e]">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
                     <path
@@ -12,7 +12,7 @@
     @endisset
 
     @isset($entity->instagram)
-        <a href="https://instagram.com/{{ $entity->instagram }}">
+        <a href="https://instagram.com/{{ $entity->instagram }}" target="_blank">
             <span class="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-[#c1ced7] hover:[&>svg]:fill-[#c13584]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                     <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
@@ -25,7 +25,7 @@
 
 
     @isset($entity->vkontakte)
-        <a href="https://instagram.com/{{ $entity->vkontakte }}">
+        <a href="https://instagram.com/{{ $entity->vkontakte }}" target="_blank">
             <span class="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-[#c1ced7] hover:[&>svg]:fill-[#45668e]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                     <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
@@ -37,7 +37,7 @@
     @endisset
 
     @isset($entity->telegram)
-        <a href="https://t.me/{{ $entity->telegram }}">
+        <a href="https://t.me/{{ $entity->telegram }}" target="_blank">
             <span class="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-[#c1ced7] hover:[&>svg]:fill-[#0088cc]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
                     <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
@@ -49,7 +49,7 @@
     @endisset
 
     @isset($entity->viber)
-        <a href="viber://chat?number={{ $entity->viber }}">
+        <a href="viber://chat?number={{ $entity->viber }}" target="_blank">
             <span class="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-[#c1ced7] hover:[&>svg]:fill-[#674EA7]">
                 <svg xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -61,7 +61,7 @@
     @endisset
 
     @isset($entity->web)
-        <a href="{{ $entity->web }}">
+        <a href="{{ $entity->web }}" target="_blank">
             <span class="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-[#c1ced7] hover:[&>svg]:fill-[#6FA8DC]">
                 <svg xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
