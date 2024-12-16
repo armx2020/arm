@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Entity\Actions\OfferAction;
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\OfferRequest;
+use App\Http\Requests\Offer\StoreOfferRequest;
+use App\Http\Requests\Offer\UpdateOfferRequest;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\CompanyOffer;
@@ -30,7 +31,7 @@ class OfferController extends BaseAdminController
         return view('admin.offer.create', ['companies' => $companies, 'categories' => $categories, 'menu' => $this->menu]);
     }
 
-    public function store(OfferRequest $request)
+    public function store(StoreOfferRequest $request)
     {
         $this->offerAction->store($request);
 
@@ -71,7 +72,7 @@ class OfferController extends BaseAdminController
         ]);
     }
 
-    public function update(OfferRequest $request, string $id)
+    public function update(UpdateOfferRequest $request, string $id)
     {
         $offer = CompanyOffer::find($id);
 

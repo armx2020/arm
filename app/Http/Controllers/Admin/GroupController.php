@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Entity\Actions\GroupAction;
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\GroupRequest;
+use App\Http\Requests\Group\StoreGroupRequest;
+use App\Http\Requests\Group\UpdateGroupRequest;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\User;
@@ -32,7 +33,7 @@ class GroupController extends BaseAdminController
         return view('admin.group.create', ['categories' => $categories, 'users' => $users, 'menu' => $this->menu]);
     }
 
-    public function store(GroupRequest $request)
+    public function store(StoreGroupRequest $request)
     {
         $this->groupAction->store($request);
 
@@ -73,7 +74,7 @@ class GroupController extends BaseAdminController
         ]);
     }
 
-    public function update(GroupRequest $request, string $id)
+    public function update(UpdateGroupRequest $request, string $id)
     {
         $group = Group::find($id);
 

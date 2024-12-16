@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Entity\Actions\ProjectAction;
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\ProjectRequest;
+use App\Http\Requests\Project\StoreProjectRequest;
+use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Models\Company;
 use App\Models\Group;
 use App\Models\Project;
@@ -37,7 +38,7 @@ class ProjectController extends BaseAdminController
         ]);
     }
 
-    public function store(ProjectRequest $request)
+    public function store(StoreProjectRequest $request)
     {
         $this->projectAction->store($request);
 
@@ -76,7 +77,7 @@ class ProjectController extends BaseAdminController
         ]);
     }
 
-    public function update(ProjectRequest $request, string $id)
+    public function update(UpdateProjectRequest $request, string $id)
     {
         $project = Project::find($id);
 

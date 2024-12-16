@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Entity\Actions\EventAction;
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\EventRequest;
+use App\Http\Requests\Event\StoreEventRequest;
+use App\Http\Requests\Event\UpdateEventRequest;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Event;
@@ -41,7 +42,7 @@ class EventController extends BaseAdminController
         ]);
     }
 
-    public function store(EventRequest $request)
+    public function store(StoreEventRequest $request)
     {
         $this->eventAction->store($request);
 
@@ -82,7 +83,7 @@ class EventController extends BaseAdminController
         ]);
     }
 
-    public function update(EventRequest $request, string $id)
+    public function update(UpdateEventRequest $request, string $id)
     {
         $event = Event::find($id);
 

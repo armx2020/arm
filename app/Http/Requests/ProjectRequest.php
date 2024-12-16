@@ -23,7 +23,6 @@ class ProjectRequest extends FormRequest
             'donations_need'    => [],
             'donations_have'    => [],
             'parent'            => []
-
         ];
     }
 }

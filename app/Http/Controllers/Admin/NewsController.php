@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Entity\Actions\NewsAction;
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\NewsRequest;
+use App\Http\Requests\News\StoreNewsRequest;
+use App\Http\Requests\News\UpdateNewsRequest;
 use App\Models\Company;
 use App\Models\Group;
 use App\Models\News;
@@ -37,7 +38,7 @@ class NewsController extends BaseAdminController
         ]);
     }
 
-    public function store(NewsRequest $request)
+    public function store(StoreNewsRequest $request)
     {
         $this->newsAction->store($request);        
 
@@ -76,7 +77,7 @@ class NewsController extends BaseAdminController
         ]);
     }
 
-    public function update(NewsRequest $request, string $id)
+    public function update(UpdateNewsRequest $request, string $id)
     {
         $news = News::find($id);
 
