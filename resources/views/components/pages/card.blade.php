@@ -19,9 +19,10 @@
 
         @if ($entity->getTable() == 'groups')
             <div class="hidden lg:block">
-                <p class="mb-2 mt-2 sm:mt-0 text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
-                    {{ mb_substr($entity->description, 0, 400, 'UTF-8') }}
-                    @if (mb_strlen($entity->description) > 400)
+                <p
+                    class="mb-2 mt-2 sm:mt-0 text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
+                    {{ mb_substr($entity->description, 0, 250, 'UTF-8') }}
+                    @if (mb_strlen($entity->description) > 250)
                         ...
                     @endif
                 </p>
@@ -75,7 +76,7 @@
             </p>
         @endif
 
-        <div class="hidden lg:block absolute top-24 sm:top-40">
+        <div class="hidden lg:block absolute top-[17.5rem] sm:top-40">
             <x-pages.social :entity=$entity />
         </div>
 
