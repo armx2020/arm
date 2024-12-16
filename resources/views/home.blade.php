@@ -16,10 +16,10 @@
                         <div class="text-gray-600 hidden md:block text-sm lg:text-md xl:text-lg font-light">
                             - Помощь по поиску работы и размещение ваших вакансий
                         </div>
-                        <a class="my-1 md:my-2 lg:my-4 text-xs md:text-base rounded-md bg-blue-500 text-white text-center w-4/5 xl:w-1/2 h-6 py-1 md:h-9 md:py-2 items-center font-normal"
-                            href="{{ route('groups.show', ['id' => $group->id]) }}">
+                        <button
+                            class="my-1 md:my-2 lg:my-4 text-xs md:text-base rounded-md bg-blue-500 text-white text-center w-4/5 xl:w-1/2 h-6 py-1 md:h-9 md:py-2 items-center font-normal inform-us-button">
                             Добавить
-                        </a>
+                        </button>
                     </div>
                     <div class="flex lg:basis-1/2 md:basis-1/3 basis-1/5 justify-end items-center sm:justify-center sm:items-center rounded-xl"
                         style="background-size: 100% 100%;background-image:linear-gradient(to right,rgba(255, 255, 255, 99%), rgba(255, 255, 255, 70%)), url({{ url('/image/flag.png') }})"
@@ -148,8 +148,8 @@
                         </div>
                         <div class="my-1 text-sm md:text-md lg:text-lg xl:text-xl font-normal">
                             Сообшить о проблеме, добавить информацию, оставить отзыв</div>
-                        <button id="inform-us-button"
-                            class="my-2 lg:my-4 rounded-md bg-blue-500 text-white text-center w-4/5 xl:w-1/2 h-9 py-2 items-center font-normal">
+                        <button
+                            class="my-2 lg:my-4 rounded-md bg-blue-500 text-white text-center w-4/5 xl:w-1/2 h-9 py-2 items-center font-normal inform-us-button">
                             Перейти к форме
                         </button>
                     </div>
@@ -242,7 +242,7 @@
 
     <script type='text/javascript'>
         $(document).ready(function() {
-            $("#inform-us-button").click(function() {
+            $(".inform-us-button").click(function() {
                 $("#inform-us").toggle();
                 $("#select-inform").show();
                 $("#select-form").hide();
