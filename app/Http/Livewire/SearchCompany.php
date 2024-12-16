@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Entity\CompanyEntity;
+use App\Entity\Repository\CompanyRepository;
 use App\Models\Company;
 
 class SearchCompany extends BaseSearch
@@ -11,7 +11,7 @@ class SearchCompany extends BaseSearch
 
     public function __construct()
     {
-        $this->entity = new CompanyEntity;
+        $this->entity = new CompanyRepository;
         parent::__construct($this->entity);
     }
 

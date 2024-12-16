@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Repository;
 
 use App\Contracts\EntityColumnsInterface;
 use App\Contracts\EntityFiltersInterface;
 
-class NewsEntity implements EntityColumnsInterface, EntityFiltersInterface
+class EventRepository implements EntityColumnsInterface, EntityFiltersInterface
 {
     protected $allColumns = [
         'id',
-        'created_at',
-        'updated_at',
-        'date',
         'name',
+        'date_to_start',
         'description',
+        'address',
         'category_id',
         'activity',
         'created_at',
@@ -27,8 +26,8 @@ class NewsEntity implements EntityColumnsInterface, EntityFiltersInterface
     protected $selectedColumns = [
         'id',
         'name',
-        'date',
-        'description',
+        'date_to_start',
+        'type',
         'category_id',
         'activity',
     ];
@@ -36,7 +35,7 @@ class NewsEntity implements EntityColumnsInterface, EntityFiltersInterface
     protected $filters = [
         'created_at' => 'date',
         'updated_at' => 'date',
-        'date' => 'date',
+        'date_to_start' => 'date',
         'activity' => 'bool',
         'city_id' => 'select',
         'region_id' => 'select',

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Entity\GroupEntity;
+use App\Entity\Repository\GroupRepository;
 use App\Models\Group;
 
 class SearchGroup extends BaseSearch
@@ -11,7 +11,7 @@ class SearchGroup extends BaseSearch
 
     public function __construct()
     {
-        $this->entity = new GroupEntity;
+        $this->entity = new GroupRepository;
         parent::__construct($this->entity);
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Entity\WorkEntity;
+use App\Entit\Repository\WorkRepository;
 use App\Models\Work;
 
 class SearchWork extends BaseSearch
@@ -11,7 +11,7 @@ class SearchWork extends BaseSearch
 
     public function __construct()
     {
-        $this->entity = new WorkEntity;
+        $this->entity = new WorkRepository;
         parent::__construct($this->entity);
     }
 

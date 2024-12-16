@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Entity\EventEntity;
+use App\Entity\Repository\EventRepository;
 use App\Models\Event;
 
 class SearchEvent extends BaseSearch
@@ -11,7 +11,7 @@ class SearchEvent extends BaseSearch
 
     public function __construct()
     {
-        $this->entity = new EventEntity;
+        $this->entity = new EventRepository;
         parent::__construct($this->entity);
     }
 

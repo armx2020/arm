@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Entity\CategoryEntity;
+use App\Entity\Repository\CategoryRepository;
 use App\Models\Category;
 
 class SearchCategory extends BaseSearch
@@ -11,7 +11,7 @@ class SearchCategory extends BaseSearch
 
     public function __construct()
     {
-        $this->entity = new CategoryEntity;
+        $this->entity = new CategoryRepository;
         parent::__construct($this->entity);
     }
 

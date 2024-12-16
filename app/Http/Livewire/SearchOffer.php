@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Entity\OfferEntity;
+use App\Entity\Repository\OfferRepository;
 use App\Models\CompanyOffer;
 
 class SearchOffer extends BaseSearch
@@ -11,7 +11,7 @@ class SearchOffer extends BaseSearch
 
     public function __construct()
     {
-        $this->entity = new OfferEntity;
+        $this->entity = new OfferRepository;
         parent::__construct($this->entity);
     }
 

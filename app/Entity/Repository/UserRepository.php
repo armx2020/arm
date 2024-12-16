@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Repository;
 
 use App\Contracts\EntityColumnsInterface;
 use App\Contracts\EntityFiltersInterface;
 
-class CompanyEntity implements EntityColumnsInterface, EntityFiltersInterface
+class UserRepository implements EntityColumnsInterface, EntityFiltersInterface
 {
     protected $allColumns = [
         'id',
-        'name',
-        'address',
+        'firstname',
+        'email',
         'phone',
-        'description',
+        'last_active_at',
         'activity',
         'created_at',
         'updated_at',
@@ -21,19 +21,15 @@ class CompanyEntity implements EntityColumnsInterface, EntityFiltersInterface
         'instagram',
         'vkontakte',
         'telegram',
-        'category_id',
-        'user_id',
         'city_id',
         'region_id',
     ];
 
     protected $selectedColumns = [
         'id',
-        'name',
-        'address',
+        'firstname',
+        'email',
         'phone',
-        'category_id',
-        'user_id',
         'city_id',
         'region_id',
     ];
@@ -41,8 +37,8 @@ class CompanyEntity implements EntityColumnsInterface, EntityFiltersInterface
     protected $filters = [
         'created_at' => 'date',
         'updated_at' => 'date',
+        'last_active_at' => 'date',
         'activity' => 'bool',
-    //    'user_id' => 'select', // TODO выборка по пользователю
         'city_id' => 'select',
         'region_id' => 'select',
     ];
@@ -68,5 +64,4 @@ class CompanyEntity implements EntityColumnsInterface, EntityFiltersInterface
     {
         return $this->selectedFilters;
     }
-
 }

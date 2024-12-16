@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\InformUS;
 
 use App\Entity\Actions\WorkAction;
-use App\Http\Requests\News\StoreNewsRequest;
+use App\Http\Requests\Work\StoreWorkRequest;
 use Illuminate\Http\Request;
 
 class WorkController extends BaseInformUsController
@@ -27,7 +27,7 @@ class WorkController extends BaseInformUsController
         ]);
     }
 
-    public function store(StoreNewsRequest $request)
+    public function store(StoreWorkRequest $request)
     {
         $work = $this->workAction->store($request, null, false);
 

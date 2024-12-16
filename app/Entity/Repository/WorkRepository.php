@@ -1,51 +1,40 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entit\Repository;
 
 use App\Contracts\EntityColumnsInterface;
 use App\Contracts\EntityFiltersInterface;
 
-class GroupEntity implements EntityColumnsInterface, EntityFiltersInterface
+class WorkRepository implements EntityColumnsInterface, EntityFiltersInterface
 {
     protected $allColumns = [
         'id',
         'created_at',
         'updated_at',
         'name',
-        'activity',
         'address',
         'description',
-        'phone',
-        'web',
-        'viber',
-        'whatsapp',
-        'instagram',
-        'vkontakte',
-        'telegram',
-        'user_id',
+        'activity',
+        'type',
         'city_id',
         'region_id',
-        'category_id',
-        'comment'
-
+        'parent_type',
+        'parent_id',
     ];
 
     protected $selectedColumns = [
         'id',
         'name',
-        'address',
-        'phone',
-        'user_id',
-        'city_id',
-        'category_id',
-        'region_id',
+        'type',
+        'description',
+        'activity',
     ];
 
     protected $filters = [
         'created_at' => 'date',
         'updated_at' => 'date',
         'activity' => 'bool',
-        //    'user_id' => 'select', // TODO выборка по пользователю
+        'type' => 'select',
         'city_id' => 'select',
         'region_id' => 'select',
     ];

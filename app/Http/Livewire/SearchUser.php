@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Entity\Repository\UserRepository;
 use App\Models\User;
-use App\Entity\UserEntity;
 
 class SearchUser extends BaseSearch
 {
@@ -11,7 +11,7 @@ class SearchUser extends BaseSearch
 
     public function __construct()
     {
-        $this->entity = new UserEntity;
+        $this->entity = new UserRepository;
         parent::__construct($this->entity);
     }
 

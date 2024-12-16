@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Entity\ProjectEntity;
+use App\Entity\Repository\ProjectRepository;
 use App\Models\Project;
 
 class SearchProject extends BaseSearch
@@ -11,7 +11,7 @@ class SearchProject extends BaseSearch
 
     public function __construct()
     {
-        $this->entity = new ProjectEntity;
+        $this->entity = new ProjectRepository;
         parent::__construct($this->entity);
     }
 

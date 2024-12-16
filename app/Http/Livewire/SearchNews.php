@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Entity\NewsEntity;
+use App\Entity\Repository\NewsRepository;
 use App\Models\News;
 
 class SearchNews extends BaseSearch
@@ -11,7 +11,7 @@ class SearchNews extends BaseSearch
 
     public function __construct()
     {
-        $this->entity = new NewsEntity;
+        $this->entity = new NewsRepository;
         parent::__construct($this->entity);
     }
 

@@ -1,36 +1,50 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Repository;
 
 use App\Contracts\EntityColumnsInterface;
 use App\Contracts\EntityFiltersInterface;
 
-class CategoryEntity implements EntityColumnsInterface, EntityFiltersInterface
+class CompanyRepository implements EntityColumnsInterface, EntityFiltersInterface
 {
     protected $allColumns = [
         'id',
         'name',
-        'sort_id',
-        'type',
-        'category_id',
+        'address',
+        'phone',
+        'description',
         'activity',
         'created_at',
         'updated_at',
+        'viber',
+        'whatsapp',
+        'instagram',
+        'vkontakte',
+        'telegram',
+        'category_id',
+        'user_id',
+        'city_id',
+        'region_id',
     ];
 
     protected $selectedColumns = [
         'id',
         'name',
-        'sort_id',
-        'type',
+        'address',
+        'phone',
         'category_id',
-        'activity',
+        'user_id',
+        'city_id',
+        'region_id',
     ];
 
     protected $filters = [
         'created_at' => 'date',
         'updated_at' => 'date',
         'activity' => 'bool',
+        //    'user_id' => 'select', // TODO выборка по пользователю
+        'city_id' => 'select',
+        'region_id' => 'select',
     ];
 
     protected $selectedFilters = [];
@@ -54,4 +68,5 @@ class CategoryEntity implements EntityColumnsInterface, EntityFiltersInterface
     {
         return $this->selectedFilters;
     }
+
 }

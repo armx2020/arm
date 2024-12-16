@@ -1,46 +1,36 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Repository;
 
 use App\Contracts\EntityColumnsInterface;
 use App\Contracts\EntityFiltersInterface;
 
-class UserEntity implements EntityColumnsInterface, EntityFiltersInterface
+class CategoryRepository implements EntityColumnsInterface, EntityFiltersInterface
 {
     protected $allColumns = [
         'id',
-        'firstname',
-        'email',
-        'phone',
-        'last_active_at',
+        'name',
+        'sort_id',
+        'type',
+        'category_id',
         'activity',
         'created_at',
         'updated_at',
-        'viber',
-        'whatsapp',
-        'instagram',
-        'vkontakte',
-        'telegram',
-        'city_id',
-        'region_id',
     ];
 
     protected $selectedColumns = [
         'id',
-        'firstname',
-        'email',
-        'phone',
-        'city_id',
-        'region_id',
+        'name',
+        'sort_id',
+        'type',
+        'category_id',
+        'activity',
     ];
 
     protected $filters = [
         'created_at' => 'date',
         'updated_at' => 'date',
-        'last_active_at' => 'date',
         'activity' => 'bool',
-        'city_id' => 'select',
-        'region_id' => 'select',
     ];
 
     protected $selectedFilters = [];
