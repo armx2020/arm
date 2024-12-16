@@ -8,6 +8,7 @@ use App\Models\Traits\HasRegion;
 use App\Models\Traits\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Project extends Model
 {
@@ -25,5 +26,10 @@ class Project extends Model
     public function scopeActive($query)
     {
         return $query->where('activity', 1);
+    }
+
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

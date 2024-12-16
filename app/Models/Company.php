@@ -15,6 +15,7 @@ use App\Models\Traits\HasWorks;
 use App\Models\Traits\Search;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Company extends Model
 {
@@ -57,5 +58,10 @@ class Company extends Model
     public function scopeActive($query)
     {
         return $query->where('activity', 1);
+    }
+
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }
