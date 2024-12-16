@@ -25,7 +25,7 @@
 
 
     @isset($entity->vkontakte)
-        <a href="https://instagram.com/{{ $entity->vkontakte }}" target="_blank">
+        <a href="https://vk.com/{{ $entity->vkontakte }}" target="_blank">
             <span class="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-[#c1ced7] hover:[&>svg]:fill-[#45668e]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                     <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
