@@ -45,10 +45,10 @@ class BasePage extends Component
                 $this->category = 6;
                 break;
             case 'society':
-                $this->category = 1;
+                $this->category = 4;
                 break;
             case 'communities':
-                $this->category = 2;
+                $this->category = 1;
                 break;
         }
     }

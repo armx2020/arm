@@ -1,6 +1,6 @@
 <nav
-    class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-nowrap lg:justify-start p-4 lg:py-5">
-    <div class="flex w-full lg:w-10/12 max-w-7xl flex-wrap items-center justify-between mx-auto text-base font-medium">
+    class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-nowrap lg:justify-start p-4 lg:py-5 text-base">
+    <div class="flex w-full lg:w-10/12 max-w-7xl items-center justify-between mx-auto text-base font-medium">
         <div class="block xl:hidden">
             <a class="" href="{{ route('home') }}">
                 <img src="{{ url('/image/logo.png') }}" class="h-7" alt="logo" />
@@ -10,7 +10,7 @@
             <button class="text-blue-600 text-sm hover:text-blue-400 locationButton" id="locationButton">
                 <img src="{{ url('/image/location-marker.png') }}" class="w-4 h-4 inline" />
                 @if ($region)
-                   {{ mb_substr($region, 0, 19, 'UTF-8') }}
+                    {{ mb_substr($region, 0, 19, 'UTF-8') }}
                 @else
                     <p class="truncate">
                         Вся Россия
@@ -60,56 +60,75 @@
                         </div>
                     @endguest
                 </li>
-
-                <li class="mb-2">
-                    <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
-                </li>
-                <li class="mb-2">
-                    <a class="" href="{{ route('groups.society') }}">Кружки и сообщества</a>
-                </li>
-                <li class="mb-2">
-                    <a class="" href="{{ route('groups.places') }}">Интересные места</a>
-                </li>
-                <li class="mb-2">
-                    <a class="" href="{{ route('groups.society') }}">Общины</a>
-                </li>
+                @if (isset($regionCode) && $regionCode !== 0)
+                    <li class="mb-2">
+                        <a class="" href="{{ route('region.companies', ['regionCode' => $regionCode]) }}">Бизнес
+                            справочник</a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="" href="{{ route('region.society', ['regionCode' => $regionCode]) }}">Кружки и
+                            сообщества</a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="" href="{{ route('region.places', ['regionCode' => $regionCode]) }}">Интересные
+                            места</a>
+                    </li>
+                    <li class="mb-2">
+                        <a class=""
+                            href="{{ route('region.communities', ['regionCode' => $regionCode]) }}">Общины,
+                            констульства</a>
+                    </li>
+                @else
+                    <li class="mb-2">
+                        <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="" href="{{ route('groups.society') }}">Кружки и сообщества</a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="" href="{{ route('groups.places') }}">Интересные места</a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="" href="{{ route('groups.society') }}">Общины, констульства</a>
+                    </li>
+                @endif
             </ul>
         </div>
-        <div class="hidden flex-grow items-center xl:flex">
+        <div class="hidden flex-grow items-center xl:flex pr-3">
             <a href="{{ route('home') }}">
                 <img src="{{ url('/image/logo.png') }}" class="w-30 h-10" alt="logo" />
             </a>
         </div>
-        <div class="visible hidden flex-grow basis-full items-center xl:!flex xl:basis-auto">
+        <div class="visible hidden text-base flex-grow basis-full items-center xl:!flex xl:basis-auto">
             <ul class="list-style-none flex flex-col pl-0 lg:flex-row">
                 @if (isset($regionCode) && $regionCode !== 0)
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                    <li class="mb-4 lg:mb-0 lg:pr-4">
                         <a class="" href="{{ route('region.companies', ['regionCode' => $regionCode]) }}">Бизнес
                             справочник</a>
                     </li>
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                    <li class="mb-4 lg:mb-0 lg:pr-4">
                         <a class="" href="{{ route('region.society', ['regionCode' => $regionCode]) }}">Кружки и
                             сообщества</a>
                     </li>
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                    <li class="mb-4 lg:mb-0 lg:pr-4">
                         <a class="" href="{{ route('region.places', ['regionCode' => $regionCode]) }}">Интересные
                             места</a>
                     </li>
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                    <li class="mb-4 lg:mb-0 lg:pr-4">
                         <a class=""
                             href="{{ route('region.communities', ['regionCode' => $regionCode]) }}">Общины</a>
                     </li>
                 @else
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
+                    <li class="mb-4 lg:mb-0 lg:pr-4">
+                        <a class="" href="{{ route('companies.index') }}">Бизнес-справочник</a>
                     </li>
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
-                        <a class="" href="{{ route('groups.society') }}">Кружки и сообщества</a>
+                    <li class="mb-4 lg:mb-0 lg:pr-4">
+                        <a class="" href="{{ route('groups.society') }}">Кружки, сообщества</a>
                     </li>
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                    <li class="mb-4 lg:mb-0 lg:pr-4">
                         <a class="" href="{{ route('groups.places') }}">Интересные места</a>
                     </li>
-                    <li class="mb-4 lg:mb-0 lg:pr-4 mr-3">
+                    <li class="mb-4 lg:mb-0 lg:pr-4">
                         <a class="" href="{{ route('groups.communities') }}">Общины</a>
                     </li>
                 @endif
