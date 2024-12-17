@@ -8,15 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('category_entity', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->morphs('imageable');
+            $table->foreignId('category_id')->constrained();
+            $table->foreignId('entity_id')->constrained();
+            $table->unsignedBigInteger('main_category_id')->nullable();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('category_entity');
     }
 };

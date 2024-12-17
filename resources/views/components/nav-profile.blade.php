@@ -8,10 +8,11 @@
         <ul class="m-6 text-sm">
 
             @if ($page == 'main')
-                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Моя страницы</a>
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Моя
+                        страница</a>
                 </li>
             @else
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Моя страницы</a></li>
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('dashboard') }}">Моя страница</a></li>
             @endif
 
             @if ($page == 'mycompanies')
@@ -39,15 +40,16 @@
             @endif
 
             @if ($page == 'mynews')
-                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a
-                        href="{{ route('mynews.index') }}">Мои новости</a></li>
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mynews.index') }}">Мои
+                        новости</a></li>
             @else
-                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mynews.index') }}">Мои новости</a></li>
+                <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('mynews.index') }}">Мои новости</a>
+                </li>
             @endif
 
             @if ($page == 'myevents')
-                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a
-                        href="{{ route('myevents.index') }}">Мои события</a></li>
+                <li class="bg-gray-100 p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myevents.index') }}">Мои
+                        события</a></li>
             @else
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('myevents.index') }}">Мои события</a>
                 </li>
