@@ -1,4 +1,5 @@
-<div class="flex flex-row rounded-lg bg-white h-36 md:h-64 lg:h-80 p-2 sm:p-4 truncate relative">
+<div class="flex flex-row rounded-lg bg-white h-36 md:h-64 lg:h-80 p-2 sm:p-4 truncate relative drop-shadow-sm hover:drop-shadow-md"
+    id="{{ $entity->name }}">
     <a href="{{ route($entityShowRout, ['id' => $entity->id]) }}">
         <img class="h-32 w-32 md:h-56 md:w-56 lg:h-72 lg:w-72 rounded-lg object-cover"
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}
@@ -101,3 +102,16 @@
 
     </div>
 </div>
+
+<script type='text/javascript'>
+    $(document).ready(function() {
+        $('#{!! $entity->name !!}').on('click', function() {
+            const mobileWidthMediaQuery = window.matchMedia('(max-width: 768px)')
+
+            if (mobileWidthMediaQuery.matches) {
+                window.location.href = `{!! route($entityShowRout, ['id' => $entity->id]) !!}`;
+            }
+        });
+
+    });
+</script>
