@@ -82,7 +82,7 @@
 
     </div>
 
-    <div class="hidden lg:flex flex-initial text-right flex flex-col">
+    <div class="hidden xl:flex flex-initial text-right flex flex-col w-36 text-wrap whitespace-normal">
         <p class="text-lg mb-1 font-medium">
             @isset($entity->phone)
                 <a href="tel:{{ $entity->phone }}" class="text-blue-600">
