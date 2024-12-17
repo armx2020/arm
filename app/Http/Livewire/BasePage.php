@@ -45,7 +45,7 @@ class BasePage extends Component
                 $this->category = 6;
                 break;
             case 'society':
-                $this->category = 4;
+                $this->category = 3;
                 break;
             case 'communities':
                 $this->category = 1;
