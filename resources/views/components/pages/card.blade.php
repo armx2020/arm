@@ -38,7 +38,7 @@
             <ul class="list-disc text-base font-normal text-gray-500 break-all ml-4">
                 @if ($entity->categories)
                     @foreach ($entity->categories as $category)
-                        <li class="text-base">
+                        <li class="text-xs lg:text-base">
                             {{ $category->name }}
                         </li>
 
@@ -54,7 +54,7 @@
 
                 @if ($count <= 2 && $entity->offers)
                     @foreach ($entity->offers as $offer)
-                        <li class="text-base">
+                        <li class="text-xs lg:text-base">
                             {{ $offer->name }}
                         </li>
 
@@ -71,7 +71,8 @@
         @endif
 
         @if ($entity->city_id && $entity->city_id !== 1)
-            <p class="mt-3 break-words text-xs font-medium text-blue-500 absolute top-24 sm:top-48 block lg:hidden">
+            <p
+                class="mt-3 break-words text-xs font-medium text-blue-500 absolute top-[6.5rem] sm:top-[13.5rem] block lg:hidden">
                 {{ $entity->city->name }}
             </p>
         @endif
