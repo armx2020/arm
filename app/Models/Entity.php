@@ -31,7 +31,7 @@ class Entity extends Model
 
     protected $fillable = [
         'name',
-        'type',
+        'entity_type_id',
         'activity',
         'address',
         'image',
@@ -56,22 +56,27 @@ class Entity extends Model
 
     public function scopeCompanies($query)
     {
-        return $query->where('type', 'company');
+        return $query->where('entity_type_id', 1);
     }
 
     public function scopeGroups($query)
     {
-        return $query->where('type', 'group');
+        return $query->where('entity_type_id', 2);
     }
 
-    public function scopePlaces($query)
+    public function type(): BelongsTo
     {
-        return $query->where('type', 'place');
+        return $this->belongsTo(EntityType::class);
     }
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function region(): BelongsTo
+    {
+        return $this->belongsTo(Region::class);
     }
 
     public function fields(): BelongsToMany

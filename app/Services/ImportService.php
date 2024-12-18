@@ -12,11 +12,10 @@ class ImportService
     {
         $oldEntity->chunk(100, function (Collection $oldEntities) {
             foreach ($oldEntities as $entity) {
-
                 $newEntity = Entity::firstOrCreate([
                     'name' => $entity->name,
                     'activity' => $entity->activity,
-                    'type' => $this->getType($entity->getTable()),
+                    'entity_type_id' => $this->getType($entity->getTable()),
                     'address' => $entity->address,
                     'image' => $this->getNewPathForImage($entity->image),
                     'description' => $entity->description,
@@ -39,14 +38,14 @@ class ImportService
         });
     }
 
-    public function getType($table)
+    public function getType($tableName)
     {
-        switch ($table) {
+        switch ($tableName) {
             case 'companies':
-                return 'company';
+                return 1;
                 break;
             case 'groups':
-                return 'group';
+                return 2;
                 break;
             default:
                 return null;

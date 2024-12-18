@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name', 255);
-            $table->enum('type', ['company', 'group', 'place'])->nullable()->index();
+            $table->foreignId('entity_type_id')->nullable()->constrained();
             $table->boolean('activity')->default(true);
             $table->string('address', 128)->nullable()->index();
             $table->string('image', 255)->nullable();
