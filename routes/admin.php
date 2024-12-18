@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WorkController;
 
@@ -25,6 +26,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
             'show'
         ]);
         Route::resource('category', CategoryController::class)->except([
+            'show'
+        ]);
+        Route::resource('type', TypeController::class)->except([
             'show'
         ]);
         Route::resource('group', GroupController::class)->except([

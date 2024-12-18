@@ -19,7 +19,7 @@ switch ($width) {
         $width = 'w-48';
         break;
     case '64':
-        $width = 'w-[64rem]';
+        $width = 'w-[17rem] lg:w-[64rem]';
         break;
 }
 @endphp

@@ -10,9 +10,9 @@
                         {{ $title }}
                     </h1>
                 </div>
-                <div class="sm:flex justify-between">
+                <div class="flex flex-row justify-between">
 
-                    <div class="flex space-x-2">
+                    <div class="flex space-x-1 lg:space-x-2">
                         <x-admin.columns :allColumns=$allColumns />
                         <x-admin.filters :filters=$filters />
                     </div>
@@ -28,10 +28,10 @@
                         </form>
                     </div>
 
-                    <div class="flex items-center space-x-2 sm:space-x-3">
+                    <div class="flex items-center space-x-1 lg:space-x-2">
                         <a href="{{ route('admin.' . $entityName . '.create') }}"
                             data-modal-toggle="add-{{ $entityName }}-modal"
-                            class="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+                            class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-2 py-1 lg:px-3 lg:py-2 text-center sm:w-auto">
                             <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -71,7 +71,7 @@
                                         <tr>
                                             @foreach ($selectedColumns as $column)
                                                 <th scope="col"
-                                                    class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                                    class="p-4 text-left text-xs font-medium text-gray-500 uppercase max-w-[20rem] truncate">
                                                     {{ __('column.' . $column) }}
                                                 </th>
                                             @endforeach
@@ -86,7 +86,7 @@
                                             <tr class="hover:bg-gray-100">
 
                                                 @foreach ($selectedColumns as $column)
-                                                    <td class="p-4 whitespace-nowrap text-base text-left text-gray-900">
+                                                    <td class="p-4 text-base text-left text-gray-900 break-all max-w-[20rem] truncate">
                                                         @switch($column)
                                                             @case('city_id')
                                                                 {{ $entity->city->name }}

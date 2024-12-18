@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Models\Company;
+use App\Models\Entity;
 use App\Models\Event;
-use App\Models\Group;
 use App\Models\User;
 
 
@@ -16,11 +15,11 @@ class DashboardController extends BaseAdminController
         $countUsersAll = User::all()->count();
         $countUsersToday = User::whereDate('created_at', '=', date("Y-m-d"))->count();
 
-        $countCompaniesAll = Company::all()->count();
-        $countCompaniesToday = Company::whereDate('created_at', '=', date("Y-m-d"))->count();
+        $countCompaniesAll = Entity::companies()->count();
+        $countCompaniesToday = Entity::companies()->whereDate('created_at', '=', date("Y-m-d"))->count();
 
-        $countGroupsAll = Group::all()->count();
-        $countGroupsToday = Group::whereDate('created_at', '=', date("Y-m-d"))->count();
+        $countGroupsAll = Entity::groups()->count();
+        $countGroupsToday = Entity::groups()->whereDate('created_at', '=', date("Y-m-d"))->count();
 
         $events = Event::with('parent')->limit(5)->get();
 
