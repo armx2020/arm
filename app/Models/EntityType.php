@@ -24,4 +24,9 @@ class EntityType extends Model
     {
         return $this->hasMany(Entity::class);
     }
+
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
 }
