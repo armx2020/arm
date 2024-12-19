@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\EntityController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\OfferController;
@@ -29,6 +30,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
             'show'
         ]);
         Route::resource('type', TypeController::class)->except([
+            'show'
+        ]);
+        Route::resource('entity', EntityController::class)->except([
             'show'
         ]);
         Route::resource('group', GroupController::class)->except([
