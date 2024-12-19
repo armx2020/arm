@@ -29,21 +29,6 @@ class Category extends Model
         return $query->where('activity', 1);
     }
 
-    public function scopeGroup($query)
-    {
-        return $query->where('type', 'group');
-    }
-
-    public function scopeEvent($query)
-    {
-        return $query->where('type', 'event');
-    }
-
-    public function scopeOffer($query)
-    {
-        return $query->where('type', 'offer');
-    }
-
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
@@ -81,6 +66,6 @@ class Category extends Model
 
     public function type(): BelongsTo
     {
-        return $this->belongsTo(EntityType::class);
+        return $this->belongsTo(EntityType::class, 'entity_type_id');
     }
 }

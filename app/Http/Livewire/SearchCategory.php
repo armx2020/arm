@@ -25,7 +25,7 @@ class SearchCategory extends BaseSearch
         sleep(1);
         if ($this->term == "") {
 
-            $entities = Category::query()->latest();
+            $entities = Category::query()->with('type')->latest();
 
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
@@ -35,7 +35,7 @@ class SearchCategory extends BaseSearch
             }
             $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = Category::search($this->term)->paginate($this->quantityOfDisplayed);
+            $entities = Category::search($this->term)->with('type')->paginate($this->quantityOfDisplayed);
         }
 
         return view('livewire.search-category', [

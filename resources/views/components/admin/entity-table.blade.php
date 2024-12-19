@@ -86,7 +86,8 @@
                                             <tr class="hover:bg-gray-100">
 
                                                 @foreach ($selectedColumns as $column)
-                                                    <td class="p-4 text-base text-left text-gray-900 break-all max-w-[20rem] truncate">
+                                                    <td
+                                                        class="p-4 text-base text-left text-gray-900 break-all max-w-[20rem] truncate">
                                                         @switch($column)
                                                             @case('city_id')
                                                                 {{ $entity->city->name }}
@@ -106,6 +107,10 @@
 
                                                             @case('company_id')
                                                                 {{ $entity->company ? $entity->company->name : '-' }}
+                                                            @break
+
+                                                            @case('entity_type_id')
+                                                                {{ $entity->type ? $entity->type->name : '-' }}
                                                             @break
 
                                                             @case('parent_id')
