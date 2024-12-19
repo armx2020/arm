@@ -14,7 +14,7 @@ class CategoryAction
 
         $category->name = $request->name;
         $category->sort_id = $request->sort_id;
-        $category->type = $request->type;
+        $category->entity_type_id = $request->entity_type_id;
         $category->category_id = $request->parent;
 
         if ($request->image) {
@@ -33,7 +33,7 @@ class CategoryAction
     {
         $category->name = $request->name;
         $category->sort_id = $request->sort_id;
-        $category->type = $request->type;
+        $category->entity_type_id = $request->entity_type_id;
         $category->category_id = $request->parent;
 
         if ($request->image_remove == 'delete') {

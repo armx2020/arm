@@ -11,7 +11,7 @@ class CategoryRepository implements EntityColumnsInterface, EntityFiltersInterfa
         'id',
         'name',
         'sort_id',
-        'type',
+        'entity_type_id',
         'category_id',
         'activity',
         'created_at',
@@ -22,7 +22,7 @@ class CategoryRepository implements EntityColumnsInterface, EntityFiltersInterfa
         'id',
         'name',
         'sort_id',
-        'type',
+        'entity_type_id',
         'category_id',
         'activity',
     ];
@@ -31,6 +31,7 @@ class CategoryRepository implements EntityColumnsInterface, EntityFiltersInterfa
         'created_at' => 'date',
         'updated_at' => 'date',
         'activity' => 'bool',
+        'entity_type_id' => 'select',
     ];
 
     protected $selectedFilters = [];

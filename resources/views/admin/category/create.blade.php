@@ -59,15 +59,15 @@
                                             <x-input-error :messages="$errors->get('sort_id')" class="mt-2" />
                                         </div>
                                         <div class="col-span-6">
-                                            <label for="type" class="text-sm font-medium text-gray-900 block mb-2">Тип
+                                            <label for="entity_type_id" class="text-sm font-medium text-gray-900 block mb-2">Тип
                                                 *</label>
-                                            <select name="type" id="type"
+                                            <select name="entity_type_id" id="entity_type_id"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                                 required>
                                                 <option value="">Не выбрано</option>
-                                                <option value="group">Для групп</option>
-                                                <option value="event">Для событий</option>
-                                                <option value="offer">Для компаний и предложений</option>
+                                                @foreach ($typies as $type)
+                                                    <option value="{{ $type->id }}"> {{ $type->name }} </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-span-6" id="parent">
@@ -76,33 +76,13 @@
                                             <select name="parent"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                                 <option value="">Не выбрано</option>
-                                                <optgroup label="категории событий" class="event">
-                                                    @foreach ($categoriesForEvents as $category)
-                                                        <option value="{{ $category->id }}" class="event">
-                                                            {{ $category->name }} @empty($category->category_id)
-                                                                - ГЛАВНАЯ
-                                                            @endempty
-                                                        </option>
-                                                    @endforeach
-                                                </optgroup>
-                                                <optgroup label="категории групп" class="group">
-                                                    @foreach ($categoriesForGroups as $category)
-                                                        <option value="{{ $category->id }}" class="group">
-                                                            {{ $category->name }} @empty($category->category_id)
-                                                                - ГЛАВНАЯ
-                                                            @endempty
-                                                        </option>
-                                                    @endforeach
-                                                </optgroup>
-                                                <optgroup label="категории предложений" class="offer">
-                                                    @foreach ($categoriesForOffers as $category)
-                                                        <option value="{{ $category->id }}" class="offer">
-                                                            {{ $category->name }} @empty($category->category_id)
-                                                                - ГЛАВНАЯ
-                                                            @endempty
-                                                        </option>
-                                                    @endforeach
-                                                </optgroup>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->id }}">
+                                                        {{ $category->name }} @empty($category->category_id)
+                                                            - ГЛАВНАЯ
+                                                        @endempty
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

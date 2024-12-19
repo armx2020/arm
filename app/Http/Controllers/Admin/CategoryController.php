@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Models\EntityType;
 
 class CategoryController extends BaseAdminController
 {
@@ -23,17 +24,15 @@ class CategoryController extends BaseAdminController
 
     public function create()
     {
-        $categoriesForEvents = Category::event()->latest()->get();
-        $categoriesForGroups = Category::group()->latest()->get();
-        $categoriesForOffers = Category::offer()->latest()->get();
+        $typies = EntityType::get();
+        $categories = Category::active()->get();
 
         return view(
             'admin.category.create',
             [
-                'categoriesForEvents' => $categoriesForEvents,
-                'categoriesForGroups' => $categoriesForGroups,
-                'categoriesForOffers' => $categoriesForOffers,
-                'menu' => $this->menu
+                'categories' => $categories,
+                'menu' => $this->menu,
+                'typies' => $typies
             ]
         );
     }

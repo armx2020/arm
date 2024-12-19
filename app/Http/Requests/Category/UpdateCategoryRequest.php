@@ -11,7 +11,8 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'name'           => ['required', 'string', 'max:255'],
             'sort_id'        => ['required'],
-            'type'           => ['in:group,event,offer'],
+            'type'           => ['in:group,event,offer'], // TODO удалить после переноса сущностей
+            'entity_type_id' => ['integer'],
             'image'          => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
             'image_remove'   => ['nullable', 'in:delete'],
         ];
