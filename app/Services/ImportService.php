@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Entity;
+use App\Models\Offer;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,6 +34,7 @@ class ImportService
 
                 if ($entity->getTable() == 'companies') {
                     $this->syncFields($entity, $newEntity);
+                    $this->syncOffers($entity, $newEntity);
                 }
             }
         });
@@ -73,5 +75,22 @@ class ImportService
         }
 
         return $imageName;
+    }
+
+    public function syncOffers($fromEntity, $toEntity)
+    {
+        foreach ($fromEntity->offers as $offer) {
+            $newOffer = Offer::firstOrCreate([
+                'name' => $offer->name,
+                'address' => $offer->address,
+                'image' => $this->getNewPathForImage($offer->image),
+                'description' => $offer->description,
+                'user_id' => $offer->user_id,
+                'city_id' => $offer->city_id,
+                'region_id' => $offer->region_id,
+                'category_id' => $offer->category_id,
+                'entity_id' => $toEntity->id
+            ]);
+        }
     }
 }
