@@ -29,6 +29,22 @@ class Category extends Model
         return $query->where('activity', 1);
     }
 
+
+    public function scopeGroup($query) // TODO удалить после переноса сущностей
+    {
+        return $query->where('type', 'group');
+    }
+
+    public function scopeEvent($query) // TODO удалить после переноса сущностей
+    {
+        return $query->where('type', 'event');
+    }
+
+    public function scopeOffer($query) // TODO удалить после переноса сущностей
+    {
+        return $query->where('type', 'offer');
+    }
+
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
