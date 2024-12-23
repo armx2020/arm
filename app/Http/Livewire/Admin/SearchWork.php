@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Admin;
 
-use App\Entit\Repository\WorkRepository;
+use App\Entity\Repository\WorkRepository;
+use App\Http\Livewire\BaseSearch;
 use App\Models\Work;
 
 class SearchWork extends BaseSearch
@@ -37,7 +38,7 @@ class SearchWork extends BaseSearch
             $entities = Work::search($this->term)->with('city')->paginate($this->quantityOfDisplayed);
         }
 
-        return view('livewire.search-work', [
+        return view('livewire.admin.search-work', [
             'entities' => $entities,
             'allColumns' => $this->allColumns,
             'selectedColumns' => $this->selectedColumns,

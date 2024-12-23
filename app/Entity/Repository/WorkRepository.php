@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entit\Repository;
+namespace App\Entity\Repository;
 
 use App\Contracts\EntityColumnsInterface;
 use App\Contracts\EntityFiltersInterface;
