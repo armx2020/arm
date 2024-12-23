@@ -90,6 +90,8 @@ class EntityAction
             })->save();
         }
 
+        $entity->entity_type_id = $request->type;
+
         $entity->name = $request->name;
         $entity->address = $request->address;
         $entity->description = $request->description;
@@ -103,27 +105,33 @@ class EntityAction
         $entity->vkontakte = $request->vkontakte;
         $entity->user_id = $user_id ?: $request->user;
 
-        if ($entity->entity_type_id == 1) {
-            $entity->fields()->detach();
-            $entity->update();
+        $entity->save();
 
-            if ($request->fields) {
-                foreach ($request->fields as $categoryID) {
-                    $categoryBD = Category::find($categoryID);
+        switch ($request->type) {
+            case 1:
+                $entity->fields()->detach();
+                $entity->update();
 
-                    if ($categoryBD) {
-                        $categoryMain = $categoryBD->category_id;
+                if ($request->fields) {
+                    foreach ($request->fields as $categoryID) {
+                        $categoryBD = Category::find($categoryID);
 
-                        if ($entity->category_id == null) {
-                            $entity->category_id = $categoryMain;
-                            $entity->save();
+                        if ($categoryBD) {
+                            $categoryMain = $categoryBD->category_id;
+
+                            if ($entity->category_id == null) {
+                                $entity->category_id = $categoryMain;
+                                $entity->save();
+                            }
+                            $entity->fields()->attach($categoryID, ['main_category_id' => $categoryMain]);
                         }
-                        $entity->fields()->attach($categoryID, ['main_category_id' => $categoryMain]);
                     }
                 }
-            }
-        } else {
-            $entity->category_id = $request->category;
+                break;
+            default:
+                $entity->category_id = $request->category;
+                $entity->save();
+                break;
         }
 
         return $entity;

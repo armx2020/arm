@@ -38,10 +38,7 @@ class EntityController extends BaseAdminController
 
     public function edit(Entity $entity)
     {
-        $categories = Category::query()->active()->where('category_id', null)->with('categories')->where('entity_type_id', $entity->entity_type_id)->orderBy('sort_id')->get();
-        $users = User::all();
-
-        return view('admin.entity.edit', ['entity' => $entity, 'users' => $users, 'menu' => $this->menu, 'categories' => $categories]);
+        return view('admin.entity.edit', ['entity' => $entity, 'menu' => $this->menu]);
     }
 
     public function update(UpdateEntityRequest $request, Entity $entity)
