@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Admin;
 
 use App\Entity\Repository\CategoryRepository;
+use App\Http\Livewire\BaseSearch;
 use App\Models\Category;
 
 class SearchCategory extends BaseSearch
@@ -22,23 +23,23 @@ class SearchCategory extends BaseSearch
         $emptyEntity = 'Категорий нет';
         $entityName = 'category';
 
-        sleep(1);
+        sleep(0.5);
+        $entities = Category::query()->with('type')->orderByDesc('id');
+
         if ($this->term == "") {
-
-            $entities = Category::query()->with('type')->latest();
-
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
                 $callable = $filterValue[array_key_first($filterValue)];
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
-            $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = Category::search($this->term)->with('type')->paginate($this->quantityOfDisplayed);
+            $entities = $entities->search($this->term);
         }
 
-        return view('livewire.search-category', [
+        $entities = $entities->paginate($this->quantityOfDisplayed);
+
+        return view('livewire.admin.search-category', [
             'entities' => $entities,
             'allColumns' => $this->allColumns,
             'selectedColumns' => $this->selectedColumns,

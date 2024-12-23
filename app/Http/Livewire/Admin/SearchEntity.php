@@ -23,7 +23,7 @@ class SearchEntity extends BaseSearch
         $entityName = 'entity';
 
         sleep(0.5);
-        $entities = Entity::query()->with('city', 'type')->orderByDesc('id');;
+        $entities = Entity::query()->with('city', 'type')->orderByDesc('id');
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {

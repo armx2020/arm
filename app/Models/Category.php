@@ -32,17 +32,17 @@ class Category extends Model
 
     public function scopeGroup($query) // TODO удалить после переноса сущностей
     {
-        return $query->where('type', 'group');
+        return $query->where('type_old', 'group');
     }
 
     public function scopeEvent($query) // TODO удалить после переноса сущностей
     {
-        return $query->where('type', 'event');
+        return $query->where('type_old', 'event');
     }
 
     public function scopeOffer($query) // TODO удалить после переноса сущностей
     {
-        return $query->where('type', 'offer');
+        return $query->where('type_old', 'offer');
     }
 
     public function events(): HasMany
