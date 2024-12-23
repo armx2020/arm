@@ -23,12 +23,7 @@ class TypeController extends BaseAdminController
 
     public function create()
     {
-        return view(
-            'admin.type.create',
-            [
-                'menu' => $this->menu
-            ]
-        );
+        return view('admin.type.create', ['menu' => $this->menu]);
     }
 
     public function store(StoreTypeRequest $request)

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Admin;
 
 use App\Entity\Repository\TypeRepository;
+use App\Http\Livewire\BaseSearch;
 use App\Models\EntityType;
 
 class SearchType extends BaseSearch
@@ -38,7 +39,7 @@ class SearchType extends BaseSearch
             $entities = EntityType::search($this->term)->paginate($this->quantityOfDisplayed);
         }
 
-        return view('livewire.search-category', [
+        return view('livewire.admin.search-type', [
             'entities' => $entities,
             'allColumns' => $this->allColumns,
             'selectedColumns' => $this->selectedColumns,
