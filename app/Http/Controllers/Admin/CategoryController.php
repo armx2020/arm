@@ -23,7 +23,7 @@ class CategoryController extends BaseAdminController
 
     public function create()
     {
-        return view('admin.category.create', ['menu' => $this->menu,]);
+        return view('admin.category.create', ['menu' => $this->menu]);
     }
 
     public function store(StoreCategoryRequest $request)
@@ -35,19 +35,7 @@ class CategoryController extends BaseAdminController
 
     public function edit(Category $category)
     {
-        $categories = Category::where('type', $category->type)->latest()->get();
-        $categoriesForEvents = Category::event()->latest()->get();
-        $categoriesForGroups = Category::group()->latest()->get();
-        $categoriesForOffers = Category::offer()->latest()->get();
-
-        return view('admin.category.edit', [
-            'category' => $category,
-            'categories' => $categories,
-            'categoriesForEvents' => $categoriesForEvents,
-            'categoriesForGroups' => $categoriesForGroups,
-            'categoriesForOffers' => $categoriesForOffers,
-            'menu' => $this->menu
-        ]);
+        return view('admin.category.edit', ['menu' => $this->menu, 'category' => $category]);
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)

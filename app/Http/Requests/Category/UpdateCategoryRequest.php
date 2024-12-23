@@ -15,6 +15,7 @@ class UpdateCategoryRequest extends FormRequest
             'entity_type_id' => ['integer'],
             'image'          => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
             'image_remove'   => ['nullable', 'in:delete'],
+            'parent'         => ['nullable', 'integer']
         ];
     }
 }
