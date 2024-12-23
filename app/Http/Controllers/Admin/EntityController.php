@@ -54,20 +54,7 @@ class EntityController extends BaseAdminController
 
     public function destroy(Entity $entity)
     {
-        if (count($entity->offers) > 0) {
-            return redirect()->route('admin.company.index')->with('alert', 'У компании есть предложения, удалите сначала их');
-        }
-
-
-        foreach ($entity->works as $work) {
-            $work->delete();
-        }
-
-        if ($entity->image !== null) {
-            Storage::delete('public/' . $entity->image);
-        }
-
-        $entity->delete();
+        $entity = $this->entityAction->destroy($entity);
 
         return redirect()->route('admin.entity.index')->with('success', 'Сущность удалена');
     }

@@ -129,34 +129,16 @@ class EntityAction
         return $entity;
     }
 
-    public function destroy($entity): void
+    public function destroy($entity)
     {
-        foreach ($entity->events as $event) {
-            if ($event->image) {
-                Storage::delete('public/' . $event->image);
-            }
-            $event->delete();
+        if (count($entity->offers) > 0) {
+            return redirect()->route('admin.entity.index')->with('alert', 'У компании есть предложения, удалите сначала их');
         }
 
-        foreach ($entity->news as $news) {
-            if ($news->image) {
-                Storage::delete('public/' . $news->image);
-            }
-            $news->delete();
+        if ($entity->entity_type_id == 1) {
+            $entity->fields()->detach();
         }
 
-        foreach ($entity->projects as $project) {
-            if ($project->image !== null) {
-                Storage::delete('public/' . $project->image);
-            }
-            $project->delete();
-        }
-
-        if ($entity->image !== null) {
-            Storage::delete('public/' . $entity->image);
-        }
-
-        $entity->categories()->detach();
         $entity->delete();
     }
 }
