@@ -15,7 +15,7 @@
                         <div class="bg-white rounded-lg relative">
 
                             <form method="POST" enctype="multipart/form-data"
-                                action="{{ route('admin.company.update', ['company' => $company->id]) }}">
+                                action="{{ route('admin.entity.update', ['entity' => $entity->id]) }}">
                                 @csrf
                                 @method('PUT')
                                 <input name="image_remove" type="text" id="image_remove" class="hidden"
@@ -23,21 +23,21 @@
 
                                 <div class="flex items-start p-5 border-b rounded-t">
                                     <div class="flex items-center m-2">
-                                        <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $company->name }}</h3>
+                                        <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $entity->name }}</h3>
                                     </div>
                                 </div>
 
                                 <div class="flex flex-row" id="upload_area">
                                     <div class="flex relative">
-                                        @if ($company->image == null)
+                                        @if ($entity->image == null)
                                             <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img"
                                                 src="{{ url('/image/no-image.png') }}" alt="image">
                                         @else
                                             <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img"
-                                                src="{{ asset('storage/' . $company->image) }}" alt="image">
+                                                src="{{ asset('storage/' . $entity->image) }}" alt="image">
                                         @endif
                                         <button type="button" id="remove_image" class="absolute top-5 right-5"
-                                            @if ($company->image == null) style="display: none;"
+                                            @if ($entity->image == null) style="display: none;"
                                         @else
                                         style="display: block;" @endif><img
                                                 src="{{ url('/image/remove.png') }}" class="w-5 h-5"
@@ -68,7 +68,7 @@
                                                 class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
                                             <input type="text" name="name" id="name"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                required value="{{ $company->name }}">
+                                                required value="{{ $entity->name }}">
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
@@ -76,7 +76,7 @@
                                                 class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
                                             <input type="text" name="address" id="address"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $company->address }}">
+                                                value="{{ $entity->address }}">
                                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
@@ -84,7 +84,7 @@
                                                 class="text-sm font-medium text-gray-900 block mb-2">Описание</label>
                                             <input type="text" name="description" id="description"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $company->description }}">
+                                                value="{{ $entity->description }}">
                                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
@@ -92,48 +92,72 @@
                                                 class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
                                             <input type="tel" name="phone" id="phone"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $company->phone }}">
+                                                value="{{ $entity->phone }}">
                                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                         </div>
-                                        <div class="col-span-6">
-                                            <label for="dd_category"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Деятельность *</label>
-                                            <div class="flex border-2 rounded-lg p-4 mt-1">
-                                                <div class="grid grid-cols-3 gap-4 w-full">
 
-                                                    @foreach ($categories as $item)
-                                                        <div class="flex flex-col gap-1">
-                                                            <div class="flex">
-                                                                <label for="checkbox-group-{{ $loop->iteration }}"
-                                                                    class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
-                                                            </div>
-                                                            @foreach ($item->categories as $child)
-                                                                <div class="flex pl-4">
-                                                                    <input type="checkbox" name="categories[]"
-                                                                        value="{{ $child->id }}"
-                                                                        @checked($company->categories->contains($child->id))
-                                                                        class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                                        id="checkbox-{{ $loop->iteration }}">
-                                                                    <label for="checkbox-{{ $loop->iteration }}"
-                                                                        class="text-sm text-gray-400 ms-3 dark:text-neutral-400">{{ $child->name }}</label>
+
+                                        @if ($entity->entity_type_id == 1)
+                                            <div class="col-span-6">
+                                                <label for="dd_category"
+                                                    class="text-sm font-medium text-gray-900 block mb-2">Деятельность
+                                                    *</label>
+                                                <div class="flex border-2 rounded-lg p-4 mt-1">
+                                                    <div class="grid grid-cols-3 gap-4 w-full">
+
+                                                        @foreach ($categories as $item)
+                                                            <div class="flex flex-col gap-1">
+                                                                <div class="flex">
+                                                                    <label for="checkbox-group-{{ $loop->iteration }}"
+                                                                        class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
                                                                 </div>
-                                                            @endforeach
-                                                        </div>
-                                                    @endforeach
+                                                                @foreach ($item->categories as $child)
+                                                                    <div class="flex pl-4">
+                                                                        <input type="checkbox" name="fields[]"
+                                                                            value="{{ $child->id }}"
+                                                                            @checked($entity->fields->contains($child->id))
+                                                                            class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                                            id="checkbox-{{ $loop->iteration }}">
+                                                                        <label for="checkbox-{{ $loop->iteration }}"
+                                                                            class="text-sm text-gray-400 ms-3 dark:text-neutral-400">{{ $child->name }}</label>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        @endforeach
 
+                                                    </div>
                                                 </div>
+                                                <x-input-error class="mt-2" :messages="$errors->get('fields')" />
                                             </div>
-                                            <x-input-error class="mt-2" :messages="$errors->get('categories')" />
-                                        </div>
+                                        @else
+                                            <div class="col-span-6">
+                                                <label for="category"
+                                                    class="text-sm font-medium text-gray-900 block mb-2">Категория
+                                                    *</label>
+                                                <select name="category" id="category"
+                                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                                    <option value="{{ $entity->category->id }}">
+                                                        {{ $entity->category->name }}</option>
+                                                    @foreach ($categories as $category)
+                                                        @if ($entity->category->id !== $category->id)
+                                                            <option value="{{ $category->id }}">{{ $category->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        @endif
+
+
                                         <div class="col-span-6">
                                             <label for="user"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Пользователь *</label>
                                             <select name="user" id="user"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                                 <option selected value="">без пользователя</option>
-                                                @if ($company->user)
-                                                    <option selected value="{{ $company->user->id }}">
-                                                        {{ $company->user->firstname }} {{ $company->user->lastname }}
+                                                @if ($entity->user)
+                                                    <option selected value="{{ $entity->user->id }}">
+                                                        {{ $entity->user->firstname }} {{ $entity->user->lastname }}
                                                     </option>
                                                 @endif
                                                 @foreach ($users as $user)
@@ -147,7 +171,7 @@
                                                 class="text-sm font-medium text-gray-900 block mb-2">Город
                                                 *</label>
                                             <select name="city" class="w-full" id="dd_city">
-                                                <option value='{{ $company->city->id }}'>{{ $company->city->name }}
+                                                <option value='{{ $entity->city->id }}'>{{ $entity->city->name }}
                                                 </option>
                                             </select>
                                         </div>
@@ -158,23 +182,15 @@
                                                 class="text-sm font-medium text-gray-900 block mb-2">Web</label>
                                             <input type="text" name="web" id="web"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $company->web }}">
+                                                value="{{ $entity->web }}">
                                             <x-input-error :messages="$errors->get('web')" class="mt-2" />
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="viber"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Viber</label>
-                                            <input type="text" name="viber" id="viber"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $company->viber }}">
-                                            <x-input-error :messages="$errors->get('viber')" class="mt-2" />
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="whatsapp"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Whatsapp</label>
                                             <input type="text" name="whatsapp" id="whatsapp"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $company->whatsapp }}">
+                                                value="{{ $entity->whatsapp }}">
                                             <x-input-error :messages="$errors->get('whatsapp')" class="mt-2" />
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
@@ -182,7 +198,7 @@
                                                 class="text-sm font-medium text-gray-900 block mb-2">Telegram</label>
                                             <input type="text" name="telegram" id="telegram"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $company->telegram }}">
+                                                value="{{ $entity->telegram }}">
                                             <x-input-error :messages="$errors->get('telegram')" class="mt-2" />
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
@@ -190,7 +206,7 @@
                                                 class="text-sm font-medium text-gray-900 block mb-2">Instagram</label>
                                             <input type="text" name="instagram" id="instagram"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $company->instagram }}">
+                                                value="{{ $entity->instagram }}">
                                             <x-input-error :messages="$errors->get('instagram')" class="mt-2" />
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
@@ -198,7 +214,7 @@
                                                 class="text-sm font-medium text-gray-900 block mb-2">Vkontakte</label>
                                             <input type="text" name="vkontakte" id="vkontakte"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $company->vkontakte }}">
+                                                value="{{ $entity->vkontakte }}">
                                             <x-input-error :messages="$errors->get('vkontakte')" class="mt-2" />
                                         </div>
                                     </div>

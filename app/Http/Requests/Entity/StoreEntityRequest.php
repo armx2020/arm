@@ -23,8 +23,8 @@ class StoreEntityRequest extends FormRequest
             'city'          => ['integer'],
             'user'          => ['nullable', 'integer'],
             'type'          => ['required', 'integer'],
-            'category'      => ['nullable', 'required'],
-            'fields'        => ['nullable', 'required'],
+            'category'      => ['nullable'],
+            'fields'        => ['nullable'],
         ];
     }
 }

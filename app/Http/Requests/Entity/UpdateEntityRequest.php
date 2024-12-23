@@ -23,8 +23,8 @@ class UpdateEntityRequest extends FormRequest
             'image_remove'  => ['nullable', 'in:delete'],
             'city'          => ['integer'],
             'user'          => ['nullable', 'integer'],
-            'category'      => ['nullable', 'required'],
-            'fields'        => ['nullable', 'required'],
+            'category'      => ['nullable'],
+            'fields'        => ['nullable'],
         ];
     }
 }

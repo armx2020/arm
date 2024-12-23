@@ -24,29 +24,6 @@ class EntityAction
 
         $entity->entity_type_id = $request->type;
 
-        switch ($request->type) {
-            case 1:
-                if ($request->categories) {
-                    foreach ($request->categories as $categoryID) {
-                        $categoryBD = Category::find($categoryID);
-
-                        if ($categoryBD) {
-                            $categoryMain = $categoryBD->category_id;
-
-                            if ($entity->category_id == null) {
-                                $entity->category_id = $categoryMain;
-                                $entity->save();
-                            }
-                            $entity->fields()->attach($categoryID, ['main_category_id' => $categoryMain]);
-                        }
-                    }
-                }
-                break;
-            case 2:
-                $entity->category_id = $request->category;
-                break;
-        }
-
         $entity->name = $request->name;
         $entity->address = $request->address;
         $entity->description = $request->description;
@@ -69,20 +46,28 @@ class EntityAction
 
         $entity->save();
 
-        if ($request->categories) {
-            foreach ($request->categories as $categoryID) {
-                $categoryBD = Category::find($categoryID);
+        switch ($request->type) {
+            case 1:
+                if ($request->fields) {
+                    foreach ($request->fields as $categoryID) {
+                        $categoryBD = Category::find($categoryID);
 
-                if ($categoryBD) {
-                    $categoryMain = $categoryBD->category_id;
+                        if ($categoryBD) {
+                            $categoryMain = $categoryBD->category_id;
 
-                    if ($entity->category_id == null) {
-                        $entity->category_id = $categoryMain;
-                        $entity->save();
+                            if ($entity->category_id == null) {
+                                $entity->category_id = $categoryMain;
+                                $entity->save();
+                            }
+                            $entity->fields()->attach($categoryID, ['main_category_id' => $categoryMain]);
+                        }
                     }
-                    $entity->fields()->attach($categoryID, ['main_category_id' => $categoryMain]);
                 }
-            }
+                break;
+            default:
+                $entity->category_id = $request->category;
+                $entity->save();
+                break;
         }
 
         return $entity;
@@ -112,31 +97,33 @@ class EntityAction
         $entity->region_id = $city->region->id;
         $entity->phone = $request->phone;
         $entity->web = $request->web;
-        $entity->viber = $request->viber;
         $entity->whatsapp = $request->whatsapp;
         $entity->telegram = $request->telegram;
         $entity->instagram = $request->instagram;
         $entity->vkontakte = $request->vkontakte;
         $entity->user_id = $user_id ?: $request->user;
 
-        $entity->categories()->detach();
+        if ($entity->entity_type_id == 1) {
+            $entity->fields()->detach();
+            $entity->update();
 
-        $entity->update();
+            if ($request->fields) {
+                foreach ($request->fields as $categoryID) {
+                    $categoryBD = Category::find($categoryID);
 
-        if ($request->categories) {
-            foreach ($request->categories as $categoryID => $val) {
-                $categoryBD = Category::find($categoryID);
+                    if ($categoryBD) {
+                        $categoryMain = $categoryBD->category_id;
 
-                if ($categoryBD) {
-                    $categoryMain = $categoryBD->category_id;
-
-                    if ($entity->category_id == null) {
-                        $entity->category_id = $categoryMain;
-                        $entity->save();
+                        if ($entity->category_id == null) {
+                            $entity->category_id = $categoryMain;
+                            $entity->save();
+                        }
+                        $entity->fields()->attach($categoryID, ['main_category_id' => $categoryMain]);
                     }
-                    $entity->categories()->attach($categoryID, ['main_category_id' => $categoryMain]);
                 }
             }
+        } else {
+            $entity->category_id = $request->category;
         }
 
         return $entity;

@@ -52,9 +52,10 @@
 
                                     {{-- Тип сущности --}}
                                     <div class="col-span-6">
-                                        <label for="type" class="text-sm font-medium text-gray-900 block mb-2">Тип
+                                        <label for="selectedType"
+                                            class="text-sm font-medium text-gray-900 block mb-2">Тип
                                             сущности</label>
-                                        <select name="type" id="type" wire:model="type" required
+                                        <select name="type" id="selectedType" wire:model="selectedType" required
                                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                             <option selected value=""> -- не выбрано --</option>
                                             @foreach ($typies as $type)
@@ -63,55 +64,53 @@
                                         </select>
                                     </div>
 
-                                    {{--  Направления для категорий --}}
-                                    @isset($categorieForOffer)
-                                        <div class="col-span-6">
-                                            <label for="fields"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Направление</label>
-                                            <div class="flex border-2 rounded-lg p-4  mt-1" id="checkbox-group">
-                                                <div class="grid grid-cols-3 gap-4 w-full">
+                                    @isset($categories)
+                                        @if ($this->selectedType == 1)
+                                            <div class="col-span-6">
+                                                <label for="fields"
+                                                    class="text-sm font-medium text-gray-900 block mb-2">Направление</label>
+                                                <div class="flex border-2 rounded-lg p-4  mt-1" id="checkbox-group">
+                                                    <div class="grid grid-cols-3 gap-4 w-full">
 
-                                                    @foreach ($categorieForOffer as $item)
-                                                        <div class="flex flex-col gap-1">
-                                                            <div class="flex">
-                                                                <label for="checkbox-group-{{ $loop->iteration }}"
-                                                                    class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
-                                                            </div>
-                                                            @foreach ($item->categories as $child)
+                                                        @foreach ($categories as $item)
+                                                            <div class="flex flex-col gap-1">
                                                                 <div class="flex">
-                                                                    <input type="checkbox" name="fields[]"
-                                                                        value="{{ $child->id }}"
-                                                                        @if (is_array(old('fields')) && in_array($child->id, old('fields'))) checked @endif
-                                                                        class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                                        id="checkbox-{{ $loop->iteration }}">
-                                                                    <label for="checkbox-{{ $loop->iteration }}"
-                                                                        class="text-sm text-gray-500 ms-3 dark:text-neutral-400">{{ $child->name }}</label>
+                                                                    <label for="checkbox-group-{{ $loop->iteration }}"
+                                                                        class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
                                                                 </div>
-                                                            @endforeach
-                                                        </div>
-                                                    @endforeach
+                                                                @foreach ($item->categories as $child)
+                                                                    <div class="flex">
+                                                                        <input type="checkbox" name="fields[]"
+                                                                            value="{{ $child->id }}"
+                                                                            @if (is_array(old('fields')) && in_array($child->id, old('fields'))) checked @endif
+                                                                            class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                                            id="checkbox-{{ $loop->iteration }}">
+                                                                        <label for="checkbox-{{ $loop->iteration }}"
+                                                                            class="text-sm text-gray-500 ms-3 dark:text-neutral-400">{{ $child->name }}</label>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        @endforeach
 
+                                                    </div>
                                                 </div>
+                                                <x-input-error class="mt-2" :messages="$errors->get('fields')" />
                                             </div>
-                                            <x-input-error class="mt-2" :messages="$errors->get('fields')" />
-                                        </div>
+                                        @else
+                                            <div class="col-span-6">
+                                                <label for="category"
+                                                    class="text-sm font-medium text-gray-900 block mb-2">Категория</label>
+                                                <select name="category" id="category" required
+                                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                                    <option selected value=""> -- не выбрано --</option>
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        @endif
                                     @endisset
 
-
-                                    {{-- Категории для групп --}}
-                                    @isset($categoriesForGroup)
-                                        <div class="col-span-6">
-                                            <label for="category"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Категория</label>
-                                            <select name="category" id="category" required
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
-                                                <option selected value=""> -- не выбрано --</option>
-                                                @foreach ($categoriesForGroup as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    @endisset
 
 
                                     <div class="col-span-6">
@@ -131,8 +130,12 @@
                                         <label for="select_city"
                                             class="text-sm font-medium text-gray-900 block mb-2">Город
                                             *</label>
-                                        <select name="city" class="w-full" id="select_city">
+                                        <select name="city"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                             <option value='1'> -- выбор города -- </option>
+                                            @foreach ($cities as $city)
+                                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -203,32 +206,6 @@
         </div>
     </div>
 
-    <script type='text/javascript'>
-        $(document).ready(function() {
-            if ($("#select_city").length > 0) {
-                $("#select_city").select2({
-                    ajax: {
-                        url: " {{ route('cities') }}",
-                        type: "post",
-                        delay: 250,
-                        dataType: 'json',
-                        data: function(params) {
-                            return {
-                                query: params.term, // search term
-                                "_token": "{{ csrf_token() }}",
-                            };
-                        },
-                        processResults: function(response) {
-                            return {
-                                results: response
-                            };
-                        },
-                        cache: true
-                    }
-                });
-            }
-        });
-    </script>
     <script type="text/javascript">
         $(document).ready(function() {
             let dropzone = $("#dropzone");

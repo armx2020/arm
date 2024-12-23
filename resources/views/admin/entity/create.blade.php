@@ -1,4 +1,4 @@
 @extends('admin.layouts.app')
 @section('content')
-    @livewire('create-entity')
+    @livewire('admin.create-entity')
 @endsection
