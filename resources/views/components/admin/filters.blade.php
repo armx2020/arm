@@ -1,4 +1,4 @@
-<div class="flex items-center space-x-2">
+<div class="flex items-center">
 
     <x-dropdown align="left" width="64" outside='false'>
         <x-slot name="trigger">
@@ -100,6 +100,23 @@
                                             </option>
                                             <option value="resume">Резюмэ
                                             </option>
+                                        </select>
+                                    </div>
+                                @endif
+
+                                @if ($name == 'entity_type_id')
+                                    <div class="basis-1/5 content-center self-center px-4">
+                                        {{ __('column.' . $name) }}
+                                    </div>
+
+                                    <div class="flex basis-4/5">
+                                        <select name="$name"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
+                                            wire:model="selectedFilters.{{ $name }}.=">
+                                            <option disabled value="">Выберите тип...</option>
+                                            @foreach (\App\Models\EntityType::all() as $type)
+                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 @endif

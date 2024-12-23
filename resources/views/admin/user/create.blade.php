@@ -52,20 +52,15 @@
                                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6">
-                                        <label for="dd_city" class="text-sm font-medium text-gray-900 block mb-2">Город *</label>
-                                        <select name="city" class="w-full rounded-lg" id="dd_city">
+                                        <label for="select_city" class="text-sm font-medium text-gray-900 block mb-2">Город *</label>
+                                        <select name="city" class="w-full rounded-lg" id="select_city">
                                             <option value='1'>-- выберите город --</option>
                                         </select>
                                     </div>
                                 </div>
                                 <hr class="my-5">
                                 <div class="grid grid-cols-6 gap-6">
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="viber" class="text-sm font-medium text-gray-900 block mb-2">Viber</label>
-                                        <input type="text" name="viber" id="viber" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('viber')">
-                                        <x-input-error :messages="$errors->get('viber')" class="mt-2" />
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
+                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="whatsapp" class="text-sm font-medium text-gray-900 block mb-2">Whatsapp</label>
                                         <input type="text" name="whatsapp" id="whatsapp" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" :value="old('whatsapp')">
                                         <x-input-error :messages="$errors->get('whatsapp')" class="mt-2" />
@@ -99,8 +94,8 @@
 </div>
 <script type='text/javascript'>
     $(document).ready(function() {
-        if ($("#dd_city").length > 0) {
-            $("#dd_city").select2({
+        if ($("#select_city").length > 0) {
+            $("#select_city").select2({
                 ajax: {
                     url: " {{ route('cities') }}",
                     type: "post",

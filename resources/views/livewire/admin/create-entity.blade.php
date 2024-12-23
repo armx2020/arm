@@ -5,9 +5,7 @@
                 <div class="relative w-full h-full md:h-auto">
                     <div class="bg-white rounded-lg relative">
                         <div class="flex items-start p-5 border-b rounded-t">
-                            <div class="flex items-center mb-4">
-                                <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png') }}"
-                                    alt="image">
+                            <div class="flex items-center">
                                 <h3 class="text-2xl font-bold leading-none text-gray-900">Новая сущность</h3>
                             </div>
                         </div>

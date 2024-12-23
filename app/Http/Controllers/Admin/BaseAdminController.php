@@ -48,24 +48,6 @@ abstract class BaseAdminController extends Controller
                 'sub' => []
             ],
             [
-                'name' => 'События',
-                'route' => 'admin.event.index',
-                'routeIs' => 'admin.event.*',
-                'sub' => []
-            ],
-            [
-                'name' => 'Новости',
-                'route' => 'admin.new.index',
-                'routeIs' => 'admin.new.*',
-                'sub' => []
-            ],
-            [
-                'name' => 'Проекты',
-                'route' => 'admin.project.index',
-                'routeIs' => 'admin.project.*',
-                'sub' => []
-            ],
-            [
                 'name' => 'Прочее',
                 'route' => '',
                 'sub' => [

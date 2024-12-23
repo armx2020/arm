@@ -66,7 +66,7 @@ class Entity extends Model
 
     public function type(): BelongsTo
     {
-        return $this->belongsTo(EntityType::class);
+        return $this->belongsTo(EntityType::class, 'entity_type_id');
     }
 
     public function category(): BelongsTo

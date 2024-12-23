@@ -1,44 +1,45 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Admin;
 
-use App\Entity\Repository\EntityRepository;
-use App\Models\Entity;
+use App\Entity\Repository\UserRepository;
+use App\Http\Livewire\BaseSearch;
+use App\Models\User;
 
-class SearchEntity extends BaseSearch
+class SearchUser extends BaseSearch
 {
     protected $entity;
 
     public function __construct()
     {
-        $this->entity = new EntityRepository();
+        $this->entity = new UserRepository;
         parent::__construct($this->entity);
     }
 
     public function render()
     {
-        $title = 'Все сушности';
-        $emptyEntity = 'сущностей нет';
-        $entityName = 'entity';
+        $title = 'Все пользователи';
+        $emptyEntity = 'Пользователей нет';
+        $entityName = 'user';
 
-        sleep(1);
+        sleep(0.5);
+        $entities = User::query()->with('city')->orderByDesc('id');
+
         if ($this->term == "") {
-
-            $entities = Entity::query()->with('city')->latest();
-
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
                 $callable = $filterValue[array_key_first($filterValue)];
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
-            $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = Entity::search($this->term)->with('city')->paginate($this->quantityOfDisplayed);
+            $entities = $entities->search($this->term);
         }
 
+        $entities = $entities->paginate($this->quantityOfDisplayed);
+
         return view(
-            'livewire.search-entity',
+            'livewire.admin.search-user',
             [
                 'entities' => $entities,
                 'allColumns' => $this->allColumns,

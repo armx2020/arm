@@ -63,14 +63,14 @@
                                                 value="{{ $offer->phone }}">
                                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                         </div>
-                                        <div class="col-span-6 sm:col-span-3">
+                                        <div class="col-span-6">
                                             <label for="company"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Компания *</label>
                                             <select name="company" id="company"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
 
-                                                @if ($offer->company)
-                                                    <option value="{{ $offer->company->id }}">{{ $offer->company->name }}
+                                                @if ($offer->entity)
+                                                    <option value="{{ $offer->entity->id }}">{{ $offer->entity->name }}
                                                     </option>
                                                 @else
                                                     <option value="">без компании</option>
@@ -130,57 +130,6 @@
                                                 accept="image/*">
                                         </div>
                                         <x-input-error :messages="$errors->get('image')" class="mt-2" />
-                                    </div>
-                                    <hr class="my-3">
-                                    <div class="grid grid-cols-6 gap-6">
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="web"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Web</label>
-                                            <input type="text" name="web" id="web"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $offer->web }}">
-                                            <x-input-error :messages="$errors->get('web')" class="mt-2" />
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="viber"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Viber</label>
-                                            <input type="text" name="viber" id="viber"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $offer->viber }}">
-                                            <x-input-error :messages="$errors->get('viber')" class="mt-2" />
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="whatsapp"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Whatsapp</label>
-                                            <input type="text" name="whatsapp" id="whatsapp"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $offer->whatsapp }}">
-                                            <x-input-error :messages="$errors->get('whatsapp')" class="mt-2" />
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="telegram"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Telegram</label>
-                                            <input type="text" name="telegram" id="telegram"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $offer->telegram }}">
-                                            <x-input-error :messages="$errors->get('telegram')" class="mt-2" />
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="instagram"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Instagram</label>
-                                            <input type="text" name="instagram" id="instagram"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $offer->instagram }}">
-                                            <x-input-error :messages="$errors->get('instagram')" class="mt-2" />
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="vkontakte"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Vkontakte</label>
-                                            <input type="text" name="vkontakte" id="vkontakte"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $offer->vkontakte }}">
-                                            <x-input-error :messages="$errors->get('vkontakte')" class="mt-2" />
-                                        </div>
                                     </div>
                                     <div class="items-center py-6 border-gray-200 rounded-b">
                                         <button

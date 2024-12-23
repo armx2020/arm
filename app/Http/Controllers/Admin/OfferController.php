@@ -9,6 +9,8 @@ use App\Http\Requests\Offer\UpdateOfferRequest;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\CompanyOffer;
+use App\Models\Entity;
+use App\Models\Offer;
 
 class OfferController extends BaseAdminController
 {
@@ -25,8 +27,8 @@ class OfferController extends BaseAdminController
 
     public function create()
     {
-        $companies = Company::all();
-        $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
+        $companies = Entity::where('entity_type_id', 1)->get();
+        $categories = Category::query()->active()->where('category_id', null)->with('categories')->where('entity_type_id', 1)->orderBy('sort_id')->get();
 
         return view('admin.offer.create', ['companies' => $companies, 'categories' => $categories, 'menu' => $this->menu]);
     }
@@ -38,34 +40,19 @@ class OfferController extends BaseAdminController
         return redirect()->route('admin.offer.index')->with('success', 'Предложение добавлено');
     }
 
-    public function show(string $id)
-    {
-        $offer = CompanyOffer::with('company', 'category')->find($id);
-
-        if (empty($offer)) {
-            return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
-        }
-
-        return view('admin.offer.edit', ['offer' => $offer, 'menu' => $this->menu]);
-    }
-
     public function edit(string $id)
     {
-        $offer = CompanyOffer::with('company', 'category')->find($id);
+        $offer = Offer::with('entity', 'category')->find($id);
 
         if (empty($offer)) {
             return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
         }
 
-        $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
-        $companies = Company::all();
-        $company = $offer->company;
-        $category = $offer->category;
+        $categories = Category::query()->active()->where('category_id', null)->with('categories')->where('entity_type_id', 1)->orderBy('sort_id')->get();
+        $companies = Entity::where('entity_type_id', 1)->get();
 
         return view('admin.offer.edit', [
             'offer' => $offer,
-            'company' => $company,
-            'category' => $category,
             'categories' => $categories,
             'companies' => $companies,
             'menu' => $this->menu
@@ -74,13 +61,13 @@ class OfferController extends BaseAdminController
 
     public function update(UpdateOfferRequest $request, string $id)
     {
-        $offer = CompanyOffer::find($id);
+        $offer = Offer::find($id);
 
         if (empty($offer)) {
             return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
         }
 
-        $offer = $this->offerAction->update($request, $offer);
+        $this->offerAction->update($request, $offer);
 
         return redirect()->route('admin.offer.edit', ['offer' => $offer->id])
             ->with('success', 'Предложение сохранено');

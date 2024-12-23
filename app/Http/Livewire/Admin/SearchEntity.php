@@ -1,44 +1,45 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Admin;
 
-use App\Entity\Repository\OfferRepository;
-use App\Models\CompanyOffer;
+use App\Entity\Repository\EntityRepository;
+use App\Http\Livewire\BaseSearch;
+use App\Models\Entity;
 
-class SearchOffer extends BaseSearch
+class SearchEntity extends BaseSearch
 {
     protected $entity;
 
     public function __construct()
     {
-        $this->entity = new OfferRepository;
+        $this->entity = new EntityRepository();
         parent::__construct($this->entity);
     }
 
-
     public function render()
     {
-        $title = 'Все предложения';
-        $emptyEntity = 'Предложений нет';
-        $entityName = 'offer';
+        $title = 'Все сушности';
+        $emptyEntity = 'сущностей нет';
+        $entityName = 'entity';
 
-        sleep(1);
+        sleep(0.5);
+        $entities = Entity::query()->with('city', 'type')->orderByDesc('id');;
+
         if ($this->term == "") {
-            $entities = CompanyOffer::query()->with('city')->latest();
-
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
                 $callable = $filterValue[array_key_first($filterValue)];
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
-
-            $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = CompanyOffer::search($this->term)->with('city')->paginate($this->quantityOfDisplayed);
+            $entities = $entities->search($this->term);
         }
+
+        $entities = $entities->paginate($this->quantityOfDisplayed);
+
         return view(
-            'livewire.search-offer',
+            'livewire.admin.search-entity',
             [
                 'entities' => $entities,
                 'allColumns' => $this->allColumns,

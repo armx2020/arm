@@ -34,6 +34,7 @@ return [
     'price' => 'Цена',
     'category_id' => 'Категория',
     'company_id' => 'Компания',
-    'entity_type_id' => 'Тип'
+    'entity_type_id' => 'Тип',
+    'entity_id' => 'Сущность'
 
 ];

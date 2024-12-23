@@ -3,56 +3,49 @@
 namespace App\Entity\Actions;
 
 use App\Models\Company;
-use App\Models\CompanyOffer;
 use App\Models\Category;
+use App\Models\Entity;
+use App\Models\Offer;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
 class OfferAction
 {
-    public function store($request, $user_id = null): CompanyOffer
+    public function store($request, $user_id = null)
     {
-        $company = Company::query();
+        $entity = Entity::query();
 
         if ($user_id) {
-            $company = $company->where('user_id', '=', $user_id);
+            $entity = $entity->where('user_id', '=', $user_id);
         }
 
-        $company = $company->find($request->company);
+        $entity = $entity->find($request->company);
 
-        if ($company) {
+        if ($entity) {
             $categoryBD = Category::find($request->category);
 
             if ($categoryBD) {
                 $categoryMain = $categoryBD->category_id;
 
-                if ($company->category_id == null) {
-                    $company->category_id = $categoryMain;
-                    $company->save();
+                if ($entity->category_id == null) {
+                    $entity->category_id = $categoryMain;
+                    $entity->save();
                 }
 
-                $company->categories()->syncWithoutDetaching([$request->category => ['main_category_id' => $categoryMain]]);
+                $entity->fields()->syncWithoutDetaching([$request->category => ['main_category_id' => $categoryMain]]);
             }
         } else {
-            return redirect()->route('myoffers.index');
+            return redirect()->back()->with('warning', 'компания не найдена');
         }
 
-        $offer = new CompanyOffer();
+        $offer = new Offer();
         $offer->name = $request->name;
         $offer->address = $request->address;
         $offer->description = $request->description;
-        $offer->phone = $request->phone;
-        $offer->city_id = $company->city_id;
-        $offer->region_id = $company->region_id;
-        $offer->phone = $company->phone;
-        $offer->web = $company->web;
-        $offer->viber = $company->viber;
-        $offer->whatsapp = $company->whatsapp;
-        $offer->telegram = $company->telegram;
-        $offer->instagram = $company->instagram;
-        $offer->vkontakte = $company->vkontakte;
-        $offer->company_id = $request->company;
-        $offer->user_id = $user_id ?: $company->user_id;
+        $offer->city_id = $entity->city_id;
+        $offer->region_id = $entity->region_id;
+        $offer->entity_id = $request->company;
+        $offer->user_id = $user_id ?: $entity->user_id;
         $offer->category_id = $request->category;
 
         if ($request->image) {
@@ -94,33 +87,33 @@ class OfferAction
         return $offer;
     }
 
-    public function update($request, $offer, $user_id = null): CompanyOffer
+    public function update($request, $offer, $user_id = null)
     {
-        $company = Company::query();
+        $entity = Entity::query();
 
         if ($user_id) {
-            $company = $company->where('user_id', '=', $user_id);
+            $entity = $entity->where('user_id', '=', $user_id);
         }
 
-        $company = $company->find($request->company);
+        $entity = $entity->find($request->company);
 
-        if ($company) {
-            $company->categories()->detach($offer->category_id);
+        if ($entity) {
+            $entity->fields()->detach($offer->category_id);
 
             $categoryBD = Category::find($request->category);
 
             if ($categoryBD) {
                 $categoryMain = $categoryBD->category_id;
 
-                if ($company->category_id == null) {
-                    $company->category_id = $categoryMain;
-                    $company->save();
+                if ($entity->category_id == null) {
+                    $entity->category_id = $categoryMain;
+                    $entity->save();
                 }
 
-                $company->categories()->syncWithoutDetaching([$request->category => ['main_category_id' => $categoryMain]]);
+                $entity->fields()->syncWithoutDetaching([$request->category => ['main_category_id' => $categoryMain]]);
             }
         } else {
-            return redirect()->route('myoffers.index');
+            return redirect()->back()->with('warning', 'компания не найдена');
         }
 
 
@@ -189,17 +182,10 @@ class OfferAction
         $offer->address = $request->address;
         $offer->description = $request->description;
         $offer->category_id = $request->category;
-        $offer->company_id = $company->id;
-        $offer->city_id = $company->city_id;
-        $offer->region_id = $company->region_id;
-        $offer->phone = $company->phone;
-        $offer->web = $company->web;
-        $offer->viber = $company->viber;
-        $offer->whatsapp = $company->whatsapp;
-        $offer->telegram = $company->telegram;
-        $offer->instagram = $company->instagram;
-        $offer->vkontakte = $company->vkontakte;
-        $offer->user_id = $user_id ?: $company->user_id;
+        $offer->entity_id = $entity->id;
+        $offer->city_id = $entity->city_id;
+        $offer->region_id = $entity->region_id;
+        $offer->user_id = $user_id ?: $entity->user_id;
 
         $offer->update();
 

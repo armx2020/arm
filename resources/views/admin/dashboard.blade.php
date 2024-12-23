@@ -47,73 +47,7 @@
 
     </div>
 
-    <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 gap-4">
-        <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-            <div class="mb-4 flex items-center justify-between">
-                <div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Последние события</h3>
-                </div>
-                <div class="flex-shrink-0">
-                    <a href="{{ route('admin.event.index') }}" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">посмотреть все</a>
-                </div>
-            </div>
-            <div class="flex flex-col mt-8">
-                <div class="overflow-x-auto rounded-lg">
-                    <div class="align-middle inline-block min-w-full">
-                        <div class="shadow overflow-hidden sm:rounded-lg">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            имя
-                                        </th>
-                                        <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            дата
-                                        </th>
-                                        <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            инициатор
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white">
-
-                                    @if(count($events) == 0)
-                                    <td colspan="3" class="text-center p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                        событий нет
-                                    </td>
-                                    @else
-                                    @foreach($events as $event)
-                                    <tr>
-                                        <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                            <a href="{{ route('admin.event.edit', [ 'event' => $event->id ]) }}">
-                                                {{ $event->name }}
-                                            </a>
-                                        </td>
-                                        <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                            {{ $event->date_to_start}}
-                                        </td>
-                                        <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                            @if($event->parent !== null)
-                                            @if( $event->parent->name == null)
-                                            {{ $event->parent->firstname}} {{ $event->parent->lastname}}
-                                            @else
-                                            {{ $event->parent->name }}
-                                            @endif
-                                            @else
-                                            no parent
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    @endif
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="w-full">
 
         <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
             <div class="flex items-center justify-between mb-4">

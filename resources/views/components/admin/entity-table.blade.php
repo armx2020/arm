@@ -12,7 +12,7 @@
                 </div>
                 <div class="flex flex-row justify-between">
 
-                    <div class="flex space-x-1 lg:space-x-2">
+                    <div class="flex space-x-1">
                         <x-admin.columns :allColumns=$allColumns />
                         <x-admin.filters :filters=$filters />
                     </div>
@@ -80,11 +80,9 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-
+                                    <tbody class="bg-white divide-y divide-gray-200">          
                                         @foreach ($entities as $entity)
                                             <tr class="hover:bg-gray-100">
-
                                                 @foreach ($selectedColumns as $column)
                                                     <td
                                                         class="p-4 text-base text-left text-gray-900 break-all max-w-[20rem] truncate">
