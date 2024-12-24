@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Offer\StoreOfferRequest;
 use App\Http\Requests\Offer\UpdateOfferRequest;
 use App\Models\Category;
-use App\Models\Company;
 use App\Models\CompanyOffer;
 use App\Models\Entity;
 use App\Models\Offer;
@@ -27,7 +26,7 @@ class OfferController extends BaseAdminController
 
     public function create()
     {
-        $companies = Entity::where('entity_type_id', 1)->get();
+        $companies = Entity::get();
         $categories = Category::query()->active()->where('category_id', null)->with('categories')->where('entity_type_id', 1)->orderBy('sort_id')->get();
 
         return view('admin.offer.create', ['companies' => $companies, 'categories' => $categories, 'menu' => $this->menu]);

@@ -20,7 +20,7 @@
                                             class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
                                         <input type="text" name="name" id="name"
                                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                            required :value="old('name')">
+                                            required value="{{ old('name') }}">
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
@@ -28,7 +28,7 @@
                                             class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
                                         <input type="text" name="address" id="address"
                                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                            :value="old('address')">
+                                            :value="{{ old('address') }}">
                                         <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
@@ -36,7 +36,7 @@
                                             class="text-sm font-medium text-gray-900 block mb-2">Описание</label>
                                         <input type="text" name="description" id="description"
                                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                            :value="old('description')">
+                                            :value="{{ old('description') }}">
                                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
@@ -44,7 +44,7 @@
                                             class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
                                         <input type="tel" name="phone" id="phone"
                                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                            :value="old('phone')">
+                                            :value="{{ old('phone') }}">
                                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                     </div>
 
@@ -62,8 +62,8 @@
                                         </select>
                                     </div>
 
-                                    @isset($categories)
-                                        @if ($this->selectedType == 1)
+                                    @isset($this->selectedType)
+                                        @if ($categories !== null && count($categories) > 0)
                                             <div class="col-span-6">
                                                 <label for="fields"
                                                     class="text-sm font-medium text-gray-900 block mb-2">Направление</label>
@@ -94,51 +94,15 @@
                                                 </div>
                                                 <x-input-error class="mt-2" :messages="$errors->get('fields')" />
                                             </div>
-                                        @else
-                                            <div class="col-span-6">
-                                                <label for="category"
-                                                    class="text-sm font-medium text-gray-900 block mb-2">Категория</label>
-                                                <select name="category" id="category"
-                                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
-                                                    <option selected value=""> -- не выбрано --</option>
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
                                         @endif
                                     @endisset
+                                    
+                                    <x-admin.select-user />
+                                    <x-admin.select-city />
 
-
-
-                                    <div class="col-span-6">
-                                        <label for="user"
-                                            class="text-sm font-medium text-gray-900 block mb-2">Пользователь</label>
-                                        <select name="user" id="user"
-                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
-                                            <option selected value=""> -- без пользователя --</option>
-                                            @foreach ($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->firstname }}
-                                                    {{ $user->lastname }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="col-span-6">
-                                        <label for="select_city"
-                                            class="text-sm font-medium text-gray-900 block mb-2">Город
-                                            *</label>
-                                        <select name="city"
-                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
-                                            <option value='1'> -- выбор города -- </option>
-                                            @foreach ($cities as $city)
-                                                <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
                                 </div>
                                 <hr class="my-5">
-                                <div class="flex flex-row">
+                                <div class="flex flex-row" wire:ignore>
                                     <div id="dropzone"
                                         class="shadow-sm sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block basis-full p-2.5 border-2 border-dashed border-gray-300 flex justify-center items-center cursor-pointer">
                                         <p class="text-gray-500 text-sm text-center">Перетащите изображение сюда или
@@ -203,93 +167,89 @@
             </div>
         </div>
     </div>
-
     <script type="text/javascript">
-        $(document).ready(function() {
-            function previewImage(file) {
-                var reader = new FileReader();
-                reader.onload = function(event) {
-                    $('#img').attr('src', event.target.result);
-                };
-                reader.readAsDataURL(file);
-            }
+        function previewImage(file) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                $('#img').attr('src', event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
 
-            function handleFile(file) {
-                var fileSize = file.size;
-                var maxSize = 2000000; // 2 MB
+        function handleFile(file) {
+            var fileSize = file.size;
+            var maxSize = 2000000; // 2 MB
 
-                if (fileSize > maxSize) {
-                    $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
-                    $('.input-file input[type=file]').next().css({
-                        "color": "rgb(239 68 68)"
-                    });
-                    $('#img').attr('src', `{{ url('/image/no-image.png') }}`);
-                    $('#remove_image').css({
-                        "display": "none"
-                    });
-                } else {
-                    $('.input-file input[type=file]').next().html(file.name);
-                    $('.input-file input[type=file]').next().css({
-                        "color": "rgb(71 85 105)"
-                    });
-                    $('#remove_image').css({
-                        "display": "block"
-                    });
-                    previewImage(file);
-                }
-            }
-
-            $('#image').on('change', function(event) {
-                var selectedFile = event.target.files[0];
-                handleFile(selectedFile);
-            });
-
-            $('#remove_image').on('click', function() {
-                $('#image').val('');
-                $('#image_remove').val('delete');
+            if (fileSize > maxSize) {
+                $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
+                $('.input-file input[type=file]').next().css({
+                    "color": "rgb(239 68 68)"
+                });
                 $('#img').attr('src', `{{ url('/image/no-image.png') }}`);
-                $('.input-file input[type=file]').next().html('Выберите файл или перетащите сюда');
                 $('#remove_image').css({
                     "display": "none"
                 });
-            });
+            } else {
+                $('.input-file input[type=file]').next().html(file.name);
+                $('.input-file input[type=file]').next().css({
+                    "color": "rgb(71 85 105)"
+                });
+                $('#remove_image').css({
+                    "display": "block"
+                });
+                previewImage(file);
+            }
+        }
 
-            let dropzone = $("#dropzone");
-            let fileInput = $("#image");
+        $('#image').on('change', function(event) {
+            var selectedFile = event.target.files[0];
+            handleFile(selectedFile);
+        });
 
-            const dragOverClasses = "border-cyan-600 bg-cyan-50";
-
-            dropzone.on("click", function(e) {
-                fileInput[0].click();
-            });
-
-            dropzone.on("dragover", function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                dropzone.addClass(dragOverClasses);
-            });
-
-            dropzone.on("dragleave drop", function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                dropzone.removeClass(dragOverClasses);
-            });
-
-            dropzone.on("drop", function(e) {
-                let files = e.originalEvent.dataTransfer.files;
-                if (files.length > 0) {
-                    fileInput[0].files = files;
-                    fileInput.trigger("change");
-                }
-            });
-
-            fileInput.on("change", function() {
-                if (fileInput[0].files.length > 0) {
-                    let fileName = fileInput[0].files[0].name;
-                    dropzone.find("p").text(fileName);
-                }
+        $('#remove_image').on('click', function() {
+            $('#image').val('');
+            $('#image_remove').val('delete');
+            $('#img').attr('src', `{{ url('/image/no-image.png') }}`);
+            $('.input-file input[type=file]').next().html('Выберите файл или перетащите сюда');
+            $('#remove_image').css({
+                "display": "none"
             });
         });
-    </script>
 
+        let dropzone = $("#dropzone");
+        let fileInput = $("#image");
+
+        const dragOverClasses = "border-cyan-600 bg-cyan-50";
+
+        dropzone.on("click", function(e) {
+            fileInput[0].click();
+        });
+
+        dropzone.on("dragover", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.addClass(dragOverClasses);
+        });
+
+        dropzone.on("dragleave drop", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.removeClass(dragOverClasses);
+        });
+
+        dropzone.on("drop", function(e) {
+            let files = e.originalEvent.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput[0].files = files;
+                fileInput.trigger("change");
+            }
+        });
+
+        fileInput.on("change", function() {
+            if (fileInput[0].files.length > 0) {
+                let fileName = fileInput[0].files[0].name;
+                dropzone.find("p").text(fileName);
+            }
+        });
+    </script>
 </div>

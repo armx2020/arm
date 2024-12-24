@@ -110,8 +110,8 @@
                                         </select>
                                     </div>
 
-                                    @isset($categories)
-                                        @if ($this->selectedType == 1)
+                                    @isset($this->selectedType)
+                                        @if ($categories !== null && count($categories) > 0)
                                             <div class="col-span-6">
                                                 <label for="fields"
                                                     class="text-sm font-medium text-gray-900 block mb-2">Направление</label>
@@ -129,6 +129,7 @@
                                                                         <input type="checkbox" name="fields[]"
                                                                             value="{{ $child->id }}"
                                                                             @checked($entity->fields->contains($child->id))
+                                                                            @if (is_array(old('fields')) && in_array($child->id, old('fields'))) checked @endif
                                                                             class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                                                                             id="checkbox-{{ $loop->iteration }}">
                                                                         <label for="checkbox-{{ $loop->iteration }}"
@@ -141,18 +142,6 @@
                                                     </div>
                                                 </div>
                                                 <x-input-error class="mt-2" :messages="$errors->get('fields')" />
-                                            </div>
-                                        @else
-                                            <div class="col-span-6">
-                                                <label for="category"
-                                                    class="text-sm font-medium text-gray-900 block mb-2">Категория</label>
-                                                <select name="category" id="category"
-                                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
-                                                    <option selected value=""> -- не выбрано --</option>
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                    @endforeach
-                                                </select>
                                             </div>
                                         @endif
                                     @endisset

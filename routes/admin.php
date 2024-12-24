@@ -35,4 +35,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
             'show'
         ]);
     });
+
+    require __DIR__ . '/admin-api.php';
 });

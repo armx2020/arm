@@ -75,7 +75,7 @@ Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/condition-of-use', [HomeController::class, 'conditionOfUse'])->name('condition-of-use');
 
-Route::post('/cities', [CityController::class, 'get'])->name('cities');
+Route::get('/cities', [CityController::class, 'get'])->name('cities');
 Route::post('/actions', [CategoryForOfferController::class, 'get'])->name('actions');
 
 require __DIR__ . '/auth.php';

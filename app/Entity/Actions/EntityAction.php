@@ -46,28 +46,21 @@ class EntityAction
 
         $entity->save();
 
-        switch ($request->type) {
-            case 1:
-                if ($request->fields) {
-                    foreach ($request->fields as $categoryID) {
-                        $categoryBD = Category::find($categoryID);
 
-                        if ($categoryBD) {
-                            $categoryMain = $categoryBD->category_id;
+        if ($request->fields) {
+            foreach ($request->fields as $categoryID) {
+                $categoryBD = Category::find($categoryID);
 
-                            if ($entity->category_id == null) {
-                                $entity->category_id = $categoryMain;
-                                $entity->save();
-                            }
-                            $entity->fields()->attach($categoryID, ['main_category_id' => $categoryMain]);
-                        }
+                if ($categoryBD) {
+                    $categoryMain = $categoryBD->category_id;
+
+                    if ($entity->category_id == null) {
+                        $entity->category_id = $categoryMain;
+                        $entity->save();
                     }
+                    $entity->fields()->attach($categoryID, ['main_category_id' => $categoryMain]);
                 }
-                break;
-            default:
-                $entity->category_id = $request->category;
-                $entity->save();
-                break;
+            }
         }
 
         return $entity;
@@ -107,31 +100,24 @@ class EntityAction
 
         $entity->save();
 
-        switch ($request->type) {
-            case 1:
-                $entity->fields()->detach();
-                $entity->update();
 
-                if ($request->fields) {
-                    foreach ($request->fields as $categoryID) {
-                        $categoryBD = Category::find($categoryID);
+        $entity->fields()->detach();
+        $entity->update();
 
-                        if ($categoryBD) {
-                            $categoryMain = $categoryBD->category_id;
+        if ($request->fields) {
+            foreach ($request->fields as $categoryID) {
+                $categoryBD = Category::find($categoryID);
 
-                            if ($entity->category_id == null) {
-                                $entity->category_id = $categoryMain;
-                                $entity->save();
-                            }
-                            $entity->fields()->attach($categoryID, ['main_category_id' => $categoryMain]);
-                        }
+                if ($categoryBD) {
+                    $categoryMain = $categoryBD->category_id;
+
+                    if ($entity->category_id == null) {
+                        $entity->category_id = $categoryMain;
+                        $entity->save();
                     }
+                    $entity->fields()->attach($categoryID, ['main_category_id' => $categoryMain]);
                 }
-                break;
-            default:
-                $entity->category_id = $request->category;
-                $entity->save();
-                break;
+            }
         }
 
         return $entity;

@@ -23,7 +23,6 @@ class EditEntity extends Component
     {
         $categories = Category::query()->active()->with('categories')->where('category_id', null)->orderBy('sort_id');
 
-
         if ($this->selectedType) {
             $categories = $categories->where('entity_type_id', $this->selectedType)->get();
         } else {

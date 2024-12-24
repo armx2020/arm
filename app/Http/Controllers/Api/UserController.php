@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class CityController extends Controller
+class UserController extends Controller
 {
     public function get(Request $request)
     {
@@ -14,9 +14,9 @@ class CityController extends Controller
         $morePages = false;
 
         if (!empty($input['query'])) {
-            $data = City::where("name", "LIKE", "%{$input['query']}%")->get();
+            $data = User::where("firstname", "LIKE", "%{$input['query']}%")->get();
         } else {
-            $data = City::orderBy('name')->simplePaginate(10);
+            $data = User::orderBy('firstname')->simplePaginate(10);
 
             $pagination_obj = json_encode($data);
 
@@ -25,20 +25,20 @@ class CityController extends Controller
             }
         }
 
-        $cities['results'] = [];
+        $users['results'] = [];
         if (count($data) > 0) {
-            foreach ($data as $city) {
-                $cities['results'][] = array(
-                    "id" => $city->id,
-                    "text" => $city->name,
+            foreach ($data as $user) {
+                $users['results'][] = array(
+                    "id" => $user->id,
+                    "text" => $user->firstname,
                 );
             }
         }
 
-        $cities['pagination'] = array(
+        $users['pagination'] = array(
             "more" => $morePages
         );
 
-        return response()->json($cities);
+        return response()->json($users);
     }
 }

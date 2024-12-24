@@ -24,16 +24,12 @@ class CreateEntity extends Component
         }
 
         $typies = EntityType::all();
-        $users = User::all();
-        $cities = City::all();
 
         return view(
             'livewire.admin.create-entity',
             [
-                'users' => $users,
                 'typies' => $typies,
                 'categories' => $categories,
-                'cities' => $cities
             ]
         );
     }
