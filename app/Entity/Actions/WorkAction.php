@@ -25,20 +25,7 @@ class WorkAction
         $work->city_id = $city->id;
         $work->region_id = $city->region->id;
         $work->type = $request->type;
-
-        if ($request->parent == 'User') {
-            $work->parent_type = 'App\Models\User';
-            $work->parent_id = $request->user;
-        } elseif ($request->parent == 'Company') {
-            $work->parent_type = 'App\Models\Company';
-            $work->parent_id = $request->company;
-        } elseif ($request->parent == 'Group') {
-            $work->parent_type = 'App\Models\Group';
-            $work->parent_id = $request->group;
-        } else {
-            $work->parent_type = 'App\Models\User';
-            $work->parent_id = 1;
-        }
+        $work->entity_id = $request->entity;
 
         $work->save();
 
@@ -54,21 +41,7 @@ class WorkAction
         $work->description = $request->description;
         $work->city_id = $city->id;
         $work->region_id = $city->region->id;
-        // $work->type = $request->type;
-
-        if ($request->parent == 'User') {
-            $work->parent_type = 'App\Models\User';
-            $work->parent_id = $request->user;
-        } elseif ($request->parent == 'Company') {
-            $work->parent_type = 'App\Models\Company';
-            $work->parent_id = $request->company;
-        } elseif ($request->parent == 'Group') {
-            $work->parent_type = 'App\Models\Group';
-            $work->parent_id = $request->group;
-        } else {
-            $work->parent_type = 'App\Models\User';
-            $work->parent_id = 1;
-        }
+        $work->entity_id = $request->entity;
 
         $work->update();
 

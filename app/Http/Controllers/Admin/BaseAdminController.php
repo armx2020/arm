@@ -48,19 +48,17 @@ abstract class BaseAdminController extends Controller
                 'sub' => []
             ],
             [
-                'name' => 'Прочее',
-                'route' => '',
-                'sub' => [
-                    [
-                        'name' => 'Категории',
-                        'route' => 'admin.category.index'
-                    ],
-                    [
-                        'name' => 'Типы',
-                        'route' => 'admin.type.index'
-                    ],
-                ]
-            ]
+                'name' => 'Категории',
+                'route' => 'admin.category.index',
+                'routeIs' => 'admin.category.*',
+                'sub' => []
+            ],
+            [
+                'name' => 'Типы',
+                'route' => 'admin.type.index',
+                'routeIs' => 'admin.type.*',
+                'sub' => []
+            ],
         ];
     }
 }

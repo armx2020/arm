@@ -21,8 +21,6 @@ class DashboardController extends BaseAdminController
         $countGroupsAll = Entity::groups()->count();
         $countGroupsToday = Entity::groups()->whereDate('created_at', '=', date("Y-m-d"))->count();
 
-        $events = Event::with('parent')->limit(5)->get();
-
         $users = User::orderBy('id', 'desc')->limit(5)->get();
 
         return view('admin.dashboard', [
@@ -32,7 +30,6 @@ class DashboardController extends BaseAdminController
             'countCompaniesToday' => $countCompaniesToday,
             'countGroupsAll' => $countGroupsAll,
             'countGroupsToday' => $countGroupsToday,
-            'events' => $events,
             'users' => $users,
             'menu' => $this->menu
         ]);

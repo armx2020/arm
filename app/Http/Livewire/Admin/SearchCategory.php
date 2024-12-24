@@ -3,10 +3,10 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Entity\Repository\CategoryRepository;
-use App\Http\Livewire\BaseSearch;
+use App\Http\Livewire\Admin\BaseComponent;
 use App\Models\Category;
 
-class SearchCategory extends BaseSearch
+class SearchCategory extends BaseComponent
 {
     protected $entity;
 

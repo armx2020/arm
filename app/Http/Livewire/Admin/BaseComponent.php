@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use Livewire\WithPagination;
 
-abstract class BaseSearch extends Component
+abstract class BaseComponent extends Component
 {
     use WithPagination;
 

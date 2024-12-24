@@ -6,11 +6,8 @@ use App\Entity\Actions\WorkAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Work\StoreWorkRequest;
 use App\Http\Requests\Work\UpdateWorkRequest;
-use App\Models\Company;
-use App\Models\Group;
-use App\Models\User;
+use App\Models\Entity;
 use App\Models\Work;
-
 
 class WorkController extends BaseAdminController
 {
@@ -27,14 +24,10 @@ class WorkController extends BaseAdminController
 
     public function create()
     {
-        $users = User::all();
-        $companies = Company::all();
-        $groups = Group::all();
+        $entities = Entity::query()->orderByDesc('id')->take(300)->get();
 
         return view('admin.work.create', [
-            'users' => $users,
-            'companies' => $companies,
-            'groups' => $groups,
+            'entities' => $entities,
             'menu' => $this->menu
         ]);
     }
@@ -54,15 +47,11 @@ class WorkController extends BaseAdminController
             return redirect()->route('admin.work.index')->with('alert', 'Работа не найдена');
         }
 
-        $users = User::all();
-        $companies = Company::all();
-        $groups = Group::all();
+        $entities = Entity::query()->orderByDesc('id')->take(300)->get();
 
         return view('admin.work.edit', [
             'work' => $work,
-            'users' => $users,
-            'companies' => $companies,
-            'groups' => $groups,
+            'entities' => $entities,
             'menu' => $this->menu
         ]);
     }

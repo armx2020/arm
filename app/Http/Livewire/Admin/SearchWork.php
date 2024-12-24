@@ -3,10 +3,10 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Entity\Repository\WorkRepository;
-use App\Http\Livewire\BaseSearch;
+use App\Http\Livewire\Admin\BaseComponent;
 use App\Models\Work;
 
-class SearchWork extends BaseSearch
+class SearchWork extends BaseComponent
 {
     protected $entity;
 
@@ -22,21 +22,21 @@ class SearchWork extends BaseSearch
         $emptyEntity = 'Резюме и вакансий нет';
         $entityName = 'work';
 
-        sleep(1);
+        sleep(0.5);
+        $entities = Work::with('city')->orderByDesc('id');
+
         if ($this->term == "") {
-
-            $entities = Work::with('city')->latest();
-
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
                 $callable = $filterValue[array_key_first($filterValue)];
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
-            $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = Work::search($this->term)->with('city')->paginate($this->quantityOfDisplayed);
+            $entities = $entities->search($this->term);
         }
+
+        $entities = $entities->paginate($this->quantityOfDisplayed);
 
         return view('livewire.admin.search-work', [
             'entities' => $entities,

@@ -6,10 +6,7 @@ use App\Entity\Actions\EntityAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Entity\StoreEntityRequest;
 use App\Http\Requests\Entity\UpdateEntityRequest;
-use App\Models\Category;
 use App\Models\Entity;
-use App\Models\User;
-use Illuminate\Support\Facades\Storage;
 
 class EntityController extends BaseAdminController
 {
