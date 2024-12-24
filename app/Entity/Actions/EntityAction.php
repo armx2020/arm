@@ -52,7 +52,7 @@ class EntityAction
                 $categoryBD = Category::find($categoryID);
 
                 if ($categoryBD) {
-                    $categoryMain = $categoryBD->category_id;
+                    $categoryMain = $categoryBD->category_id ?: $categoryBD->id;
 
                     if ($entity->category_id == null) {
                         $entity->category_id = $categoryMain;
@@ -100,7 +100,6 @@ class EntityAction
 
         $entity->save();
 
-
         $entity->fields()->detach();
         $entity->update();
 
@@ -109,7 +108,7 @@ class EntityAction
                 $categoryBD = Category::find($categoryID);
 
                 if ($categoryBD) {
-                    $categoryMain = $categoryBD->category_id;
+                    $categoryMain = $categoryBD->category_id ?: $categoryBD->id;;
 
                     if ($entity->category_id == null) {
                         $entity->category_id = $categoryMain;
