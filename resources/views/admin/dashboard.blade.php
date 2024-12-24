@@ -68,7 +68,7 @@
                         <div class="flex items-center space-x-4">
                             <div class="flex-shrink-0">
                                 @if( $user->image == null)
-                                <img class="h-8 w-8 rounded-full" src="{{ url('/image/user.png')}}" alt="{{ $user->firstname }} avatar">
+                                <img class="h-8 w-8 rounded-full" src="{{ url('/image/no-image.png')}}" alt="{{ $user->firstname }} avatar">
                                 @else
                                 <img class="h-8 w-8 rounded-full" src="{{ asset( 'storage/'.$user->image) }}" alt="{{ $user->firstname }} avatar">
                                 @endif
