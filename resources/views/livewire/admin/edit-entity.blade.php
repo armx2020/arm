@@ -31,7 +31,7 @@
                                             src="{{ url('/image/no-image.png') }}" alt="image">
                                     @else
                                         <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img"
-                                            src="{{ asset('storage/' . $entity->image) }}" alt="image">
+                                            src="{{ asset($entity->image) }}" alt="image">
                                     @endif
                                     <button type="button" id="remove_image" class="absolute top-5 right-5"
                                         @if ($entity->image == null) style="display: none;"
