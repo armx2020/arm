@@ -71,7 +71,7 @@ class ImportService
         if (isset($imageFullUrl[1])) {
             $imageName = $imageFullUrl[1];
             Storage::copy('public/' . $imageURL, 'public/entities/' . $imageFullUrl[1]);
-            $imageName = 'public/entities/' . $imageFullUrl[1];
+            $imageName = 'entities/' . $imageFullUrl[1];
         }
 
         return $imageName;
