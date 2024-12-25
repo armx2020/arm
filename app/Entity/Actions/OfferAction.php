@@ -48,7 +48,7 @@ class OfferAction
         $offer->category_id = $request->category;
 
         if ($request->image) {
-            $offer->image = $request->file('image')->store('offers', 'public');
+            $offer->image = $request->file('image')->store('entities', 'public');
             Image::make('storage/' . $offer->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();

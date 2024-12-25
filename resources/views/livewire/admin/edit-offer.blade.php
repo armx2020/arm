@@ -9,7 +9,7 @@
                                 <img class="h-10 w-10 rounded-lg m-4" src="{{ url('/image/no-image.png') }}"
                                     alt="{{ $offer->name }}">
                             @else
-                                <img class="h-10 w-10 rounded-full m-4" src="{{ asset($offer->image) }}"
+                                <img class="h-10 w-10 rounded-full m-4" src="{{ asset('storage/' . $offer->image) }}"
                                     alt="{{ $offer->image }}">
                             @endif
                             <h3 class="text-2xl font-bold leading-none text-gray-900">{{ $offer->name }}</h3>
