@@ -1,4 +1,4 @@
-<div class="col-span-6" id="select_city_div" wire:ignore>
+<div class="col-span-6" id="select_user_div" wire:ignore>
     <label for="select_user" class="text-sm font-medium text-gray-900 block mb-2">Пользователь</label>
     <select name="select_user" class="w-full" id="select_user">
         <option value=''>- без пользователя -</option>

@@ -1,15 +1,15 @@
-<div class="col-span-6" id="select_city_div" wire:ignore>
-    <label for="select_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
-    <select name="select_city" class="w-full" id="select_city">
-        <option value='1'>-- выбор города --</option>
+<div class="col-span-6" id="select_entity_div" wire:ignore>
+    <label for="select_entity" class="text-sm font-medium text-gray-900 block mb-2">Сущность</label>
+    <select name="select_entity" class="w-full" id="select_entity" wire:model="selectedType" required>
+        <option value='1'>-- выбор сушности --</option>
     </select>
 </div>
 
 <script type="text/javascript">
-    if ($("#select_city").length > 0) {
-        $("#select_city").select2({
+    if ($("#select_entity").length > 0) {
+        $("#select_entity").select2({
             ajax: {
-                url: " {{ route('admin.get-city') }}",
+                url: " {{ route('admin.get-entity') }}",
                 type: "get",
                 delay: 250,
                 dataType: 'json',

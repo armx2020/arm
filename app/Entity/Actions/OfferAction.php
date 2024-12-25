@@ -2,7 +2,6 @@
 
 namespace App\Entity\Actions;
 
-use App\Models\Company;
 use App\Models\Category;
 use App\Models\Entity;
 use App\Models\Offer;
@@ -19,7 +18,7 @@ class OfferAction
             $entity = $entity->where('user_id', '=', $user_id);
         }
 
-        $entity = $entity->find($request->company);
+        $entity = $entity->find($request->entity);
 
         if ($entity) {
             $categoryBD = Category::find($request->category);
@@ -44,7 +43,7 @@ class OfferAction
         $offer->description = $request->description;
         $offer->city_id = $entity->city_id;
         $offer->region_id = $entity->region_id;
-        $offer->entity_id = $request->company;
+        $offer->entity_id = $request->entity;
         $offer->user_id = $user_id ?: $entity->user_id;
         $offer->category_id = $request->category;
 
@@ -95,7 +94,7 @@ class OfferAction
             $entity = $entity->where('user_id', '=', $user_id);
         }
 
-        $entity = $entity->find($request->company);
+        $entity = $entity->find($request->entity);
 
         if ($entity) {
             $entity->fields()->detach($offer->category_id);
@@ -185,6 +184,7 @@ class OfferAction
         $offer->entity_id = $entity->id;
         $offer->city_id = $entity->city_id;
         $offer->region_id = $entity->region_id;
+        $offer->entity_id = $request->entity;
         $offer->user_id = $user_id ?: $entity->user_id;
 
         $offer->update();

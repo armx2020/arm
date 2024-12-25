@@ -26,10 +26,7 @@ class OfferController extends BaseAdminController
 
     public function create()
     {
-        $companies = Entity::get();
-        $categories = Category::query()->active()->where('category_id', null)->with('categories')->where('entity_type_id', 1)->orderBy('sort_id')->get();
-
-        return view('admin.offer.create', ['companies' => $companies, 'categories' => $categories, 'menu' => $this->menu]);
+        return view('admin.offer.create', ['menu' => $this->menu]);
     }
 
     public function store(StoreOfferRequest $request)
@@ -47,13 +44,8 @@ class OfferController extends BaseAdminController
             return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
         }
 
-        $categories = Category::query()->active()->where('category_id', null)->with('categories')->where('entity_type_id', 1)->orderBy('sort_id')->get();
-        $companies = Entity::where('entity_type_id', 1)->get();
-
         return view('admin.offer.edit', [
             'offer' => $offer,
-            'categories' => $categories,
-            'companies' => $companies,
             'menu' => $this->menu
         ]);
     }
