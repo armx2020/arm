@@ -83,13 +83,13 @@
                         <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
                     </li>
                     <li class="mb-2">
-                        <a class="" href="{{ route('groups.society') }}">Кружки и сообщества</a>
+                        <a class="" href="{{ route('groups.index') }}">Кружки и сообщества</a>
                     </li>
                     <li class="mb-2">
-                        <a class="" href="{{ route('groups.places') }}">Интересные места</a>
+                        <a class="" href="{{ route('places.index') }}">Интересные места</a>
                     </li>
                     <li class="mb-2">
-                        <a class="" href="{{ route('groups.society') }}">Общины, констульства</a>
+                        <a class="" href="{{ route('communities.index') }}">Общины, констульства</a>
                     </li>
                 @endif
             </ul>
@@ -123,13 +123,13 @@
                         <a class="" href="{{ route('companies.index') }}">Бизнес-справочник</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4">
-                        <a class="" href="{{ route('groups.society') }}">Кружки, сообщества</a>
+                        <a class="" href="{{ route('groups.index') }}">Кружки, сообщества</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4">
-                        <a class="" href="{{ route('groups.places') }}">Интересные места</a>
+                        <a class="" href="{{ route('places.index') }}">Интересные места</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4">
-                        <a class="" href="{{ route('groups.communities') }}">Общины</a>
+                        <a class="" href="{{ route('communities.index') }}">Общины</a>
                     </li>
                 @endif
             </ul>

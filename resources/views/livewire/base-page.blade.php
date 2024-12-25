@@ -5,18 +5,10 @@
 
             <x-pages.region-select :regions=$regions />
             <div class="flex flex-row lg:flex-col">
-                <x-pages.entity :entity=$entity />
+                <x-pages.entity :entityTypies=$entityTypies />
 
                 @isset($categories)
                     <x-pages.category-select :categories=$categories />
-                @endisset
-
-                @isset($activities)
-                    <x-pages.activity-select :activities=$activities />
-                @endisset
-
-                @isset($typeWorks)
-                    <x-pages.type-work-select :typeWorks=$typeWorks />
                 @endisset
             </div>
 
@@ -31,16 +23,16 @@
 
             <div wire:loading.remove class="w-full">
                 @if ($entities->isEmpty())
-                    <x-pages.absence-entity/>
+                    <x-pages.absence-entity />
                 @else
-                    <x-pages.grid :entities="$entities" :$position :$entityShowRout />
+                    <x-pages.grid :entities="$entities" :$entityShowRout />
                 @endif
 
 
 
                 @if (count($recommendations) > 0)
                     <x-pages.recommendation />
-                    <x-pages.grid :entities="$recommendations" :$position :$entityShowRout />
+                    <x-pages.grid :entities="$recommendations" :$entityShowRout />
                 @endif
             </div>
 

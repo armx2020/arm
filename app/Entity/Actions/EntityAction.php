@@ -38,7 +38,7 @@ class EntityAction
         $entity->user_id = $user_id ?: $request->user;
 
         if ($request->image) {
-            $entity->image = $request->file('image')->store('companies', 'public');
+            $entity->image = $request->file('image')->store('entities', 'public');
             Image::make('storage/' . $entity->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
@@ -77,7 +77,7 @@ class EntityAction
 
         if ($request->image) {
             Storage::delete('public/' . $entity->image);
-            $entity->image = $request->file('image')->store('companies', 'public');
+            $entity->image = $request->file('image')->store('entities', 'public');
             Image::make('storage/' . $entity->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();

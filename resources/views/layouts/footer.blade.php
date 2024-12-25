@@ -33,22 +33,22 @@
         <div class="flex basis-1/3">
             <ul class="list-style-none flex flex-wrap lg:flex-col justify-center text-md lg:text-lg font-medium mx-auto py-10">
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('projects.index') }}">Проекты</a>
+                    <a class="mx-2" href="">Проекты</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('companies.index') }}">Бизнес справочиник</a>
+                    <a class="mx-2" href="">Бизнес справочиник</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('events.index') }}">Афиша</a>
+                    <a class="mx-2" href="">Афиша</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('news.index') }}">Новости</a>
+                    <a class="mx-2" href="">Новости</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('groups.index') }}">Сообщества</a>
+                    <a class="mx-2" href="">Сообщества</a>
                 </li>
                 <li class="mb-2 text-center">
-                    <a class="mx-2" href="{{ route('works.index') }}">Работа</a>
+                    <a class="mx-2" href="">Работа</a>
                 </li>
             </ul>
         </div>

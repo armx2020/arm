@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
-use App\Models\Company;
+use App\Models\Entity;
 use App\Models\Region;
 
 class SelectCompanies extends BaseSelect
@@ -20,19 +20,19 @@ class SelectCompanies extends BaseSelect
         $entityShowRout = 'companies.show';
         $exp = explode('|', $this->sort);
 
-        $companies = Company::query()->active()
+        $entities = Entity::query()->active()
             ->orderBy($exp[0], $exp[1])
             ->with(['categories', 'region']);
 
         $recommendations = [];
 
         if ($this->region !== 1) {
-            $companies = $companies
+            $entities = $entities
                 ->where('region_id', '=', $this->region);
 
-            $recommendations = Company::query()->active()
+            $recommendations = Entity::query()->active()
                 ->orderBy($exp[0], $exp[1])
-                ->with(['categories', 'region'])
+                ->with(['fields', 'region'])
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })
@@ -41,19 +41,19 @@ class SelectCompanies extends BaseSelect
         }
 
         if ($this->category !== 'Все') {
-            $companies = $companies->whereHas('categories', function ($query) {
-                $query->where('category_company.main_category_id', '=', $this->category);
+            $entities = $entities->whereHas('fields', function ($query) {
+                $query->where('category_entity.main_category_id', '=', $this->category);
             });
         }
 
-        $companies = $companies->paginate($this->quantityOfDisplayed);
-        $categories = Category::query()->offer()->main()->active()->orderBy('sort_id')->get();
+        $entities = $entities->paginate($this->quantityOfDisplayed);
+        $categories = Category::query()->main()->active()->orderBy('sort_id')->get();
 
         $regions = Region::all();
 
         return view('livewire.select-companies', [
             'entityShowRout' => $entityShowRout,
-            'entities' => $companies,
+            'entities' => $entities,
             'regions' => $regions,
             'region' => $this->region,
             'recommendations' => $recommendations,

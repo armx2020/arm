@@ -13,7 +13,7 @@ class ImportService
     {
         $oldEntity->chunk(100, function (Collection $oldEntities) {
             foreach ($oldEntities as $entity) {
-                $newEntity = Entity::firstOrCreate([
+                $newEntity = Entity::updateOrCreate ([
                     'name' => $entity->name,
                     'activity' => $entity->activity,
                     'entity_type_id' => $this->getType($entity->getTable()),
