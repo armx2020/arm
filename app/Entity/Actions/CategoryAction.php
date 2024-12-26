@@ -18,7 +18,7 @@ class CategoryAction
         $category->category_id = $request->parent;
 
         if ($request->image) {
-            $category->image = $request->file('image')->store('groups', 'public');
+            $category->image = $request->file('image')->store('uploaded', 'public');
             Image::make('storage/' . $category->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();

@@ -77,7 +77,7 @@ class EntityAction
 
         if ($request->image) {
             Storage::delete('public/' . $entity->image);
-            $entity->image = $request->file('image')->store('entities', 'public');
+            $entity->image = $request->file('image')->store('uploaded', 'public');
             Image::make('storage/' . $entity->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
