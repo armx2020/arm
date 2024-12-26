@@ -37,6 +37,11 @@ class BasePage extends Component
         $this->type = $type;
     }
 
+    public function resetCategory()
+{
+    $this->category = 'Все';
+}
+
     public function render()
     {
         $categories = null;
