@@ -13,7 +13,7 @@ class ImportService
     {
         $oldEntity->chunk(100, function (Collection $oldEntities) {
             foreach ($oldEntities as $entity) {
-                $newEntity = Entity::updateOrCreate ([
+                $newEntity = Entity::updateOrCreate([
                     'name' => $entity->name,
                     'activity' => $entity->activity,
                     'entity_type_id' => $this->getType($entity->getTable()),
@@ -70,8 +70,8 @@ class ImportService
 
         if (isset($imageFullUrl[1])) {
             $imageName = $imageFullUrl[1];
-            Storage::copy('public/' . $imageURL, 'public/images/' . $imageFullUrl[1]);
-            $imageName = 'images/' . $imageFullUrl[1];
+            Storage::copy('public/' . $imageURL, 'public/uploaded/' . $imageFullUrl[1]);
+            $imageName = 'uploaded/' . $imageFullUrl[1];
         }
 
         return $imageName;
