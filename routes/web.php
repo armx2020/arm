@@ -69,6 +69,7 @@ Route::get('/companies', [EntityController::class, 'companies'])->name('companie
 Route::get('/groups', [EntityController::class, 'groups'])->name('groups.index');
 Route::get('/places', [EntityController::class, 'places'])->name('places.index');
 Route::get('/communities', [EntityController::class, 'communities'])->name('communities.index');
+Route::get('/entity/{entity}', [EntityController::class, 'show'])->name('entity.show');
 
 Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show');
 

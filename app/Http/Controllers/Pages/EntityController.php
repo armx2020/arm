@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\BaseController;
+use App\Models\Entity;
 use Illuminate\Http\Request;
 
 class EntityController extends BaseController
@@ -20,7 +21,7 @@ class EntityController extends BaseController
 
         $type = 1;
 
-        return view('pages.base', [
+        return view('pages.entity.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'regionCode' => $regionCode,
@@ -38,7 +39,7 @@ class EntityController extends BaseController
 
         $type = 2;
 
-        return view('pages.base', [
+        return view('pages.entity.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'regionCode' => $regionCode,
@@ -57,7 +58,7 @@ class EntityController extends BaseController
 
         $type = 3;
 
-        return view('pages.base', [
+        return view('pages.entity.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'regionCode' => $regionCode,
@@ -76,7 +77,7 @@ class EntityController extends BaseController
 
         $type = 4;
 
-        return view('pages.base', [
+        return view('pages.entity.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'regionCode' => $regionCode,
@@ -84,6 +85,22 @@ class EntityController extends BaseController
             'secondPositionName' => $secondPositionName,
             'entity' => $entity,
             'type' => $type
+        ]);
+    }
+
+    public function show(Request $request, Entity $entity)
+    {
+        $secondPositionUrl = 'communities.index';
+        $secondPositionName = 'Общины и консульства';
+        $entityName = 'communities';
+
+        return view('pages.entity.show', [
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entityName' => $entityName,
+            'entity' => $entity,
         ]);
     }
 }
