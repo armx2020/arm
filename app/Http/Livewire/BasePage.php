@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+
 class BasePage extends Component
 {
     use WithPagination;
@@ -38,17 +39,22 @@ class BasePage extends Component
     }
 
     public function resetCategory()
-{
-    $this->category = 'Все';
-}
+    {
+        $this->category = 'Все';
+    }
 
     public function render()
     {
         $categories = null;
 
         $entityShowRout = '';
-        $entities = Entity::query()->active()->with(['fields', 'region'])->where('entity_type_id', $this->type);
         $categories = Category::active()->main()->where('entity_type_id', $this->type)->get();
+        $entities = Entity::query()->active()->with('fields')->where('entity_type_id', $this->type);
+
+        if ($this->region !== '1') {
+            $entities = $entities
+                ->where('region_id', '=', $this->region);
+        }
 
         if ($this->category !== 'Все') {
             $entities = $entities->whereHas('fields', function ($query) {
@@ -58,10 +64,7 @@ class BasePage extends Component
 
         $recommendations = [];
 
-        if ($this->region !== 1) {
-            $entities = $entities
-                ->where('region_id', '=', $this->region);
-        }
+       
 
         $entities = $entities->paginate($this->quantityOfDisplayed);
 
