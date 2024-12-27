@@ -12,13 +12,10 @@ class StoreOfferRequest extends FormRequest
             'name'    => ['required', 'string', 'max:255'],
             'address' => ['nullable', 'string', 'max:128'],
             'image'   => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'image1'  => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'image2'  => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'image3'  => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'image4'  => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'city'          => ['integer'],
-            'user'          => ['nullable', 'integer'],
-            'category'    => ['required'],
+            'city'    => ['nullable', 'integer'],
+            'user'    => ['nullable', 'integer'],
+            'category'  => ['required'],
+            'entity'  => ['nullable', 'integer'],
         ];
     }
 }

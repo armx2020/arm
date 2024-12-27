@@ -2,7 +2,7 @@
 @section('content')
     <div class="flex flex-col lg:flex-row mx-auto my-10">
 
-        <x-nav-profile page="myoffers"></x-nav-profile>
+        @include('profile.menu')
 
         <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
             <div class="flex flex-col basis-full">
@@ -12,182 +12,41 @@
                         @csrf
                         @method('patch')
                         <input name="image_remove" type="text" id="image_remove" class="hidden" style="z-index:-10;" />
-                        <input name="image_remove1" type="text" id="image_remove1" class="hidden" style="z-index:-10;" />
-                        <input name="image_remove2" type="text" id="image_remove2" class="hidden" style="z-index:-10;" />
-                        <input name="image_remove3" type="text" id="image_remove3" class="hidden" style="z-index:-10;" />
-                        <input name="image_remove4" type="text" id="image_remove4" class="hidden" style="z-index:-10;" />
 
                         <div class="w-full">
                             <h2 class="text-xl">Редактировать товар</h2>
                             <hr class="w-full h-2 my-2">
                         </div>
 
-                        <div class="flex flex-row">
-
-                            <!-- image  -->
-                            <div class="flex flex-row" id="image-section">
-                                <div class="flex relative">
-                                    @if ($offer->image == null)
-                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img"
-                                            src="{{ url('/image/no-image.png') }}" alt="image">
-                                    @else
-                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img"
-                                            src="{{ asset('storage/' . $offer->image) }}" alt="image">
-                                    @endif
-                                    <button type="button" id="remove_image" class="absolute right-0"
-                                        @if ($offer->image !== null && $offer->image1 == null) style="display: block;"
-                                    @else
-                                    style="display: none;" @endif><img
-                                            src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;"></button>
-                                </div>
-                                <div class="items-center" id="title_image"
-                                    @if ($offer->image == null) style="display: flex;"
+                        <div class="flex flex-row" id="upload_area">
+                            <div class="flex relative">
+                                @if ($offer->image == null)
+                                    <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img"
+                                        src="{{ url('/image/no-image.png') }}" alt="image">
                                 @else
-                                style="display: none;" @endif>
-                                    <label class="relative inline-block">
-                                        <input name="image" type="file" accept=".jpg,.jpeg,.png" id="image"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span"
-                                            class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- image 1 -->
-                            <div class="flex-row" id="image1-section"
-                                @if ($offer->image == null) style="display: none;"
-                            @else
-                            style="display: flex;" @endif>
-                                <div class="flex relative">
-                                    @if ($offer->image1 == null)
-                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img1"
-                                            src="{{ url('/image/no-image.png') }}" alt="image">
-                                    @else
-                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img1"
-                                            src="{{ asset('storage/' . $offer->image1) }}" alt="image">
-                                    @endif
-                                    <button type="button" id="remove_image1" class="absolute right-0"
-                                        @if ($offer->image1 !== null && $offer->image2 == null) style="display: block;"
-                                    @else
-                                    style="display: none;" @endif><img
-                                            src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;"></button>
-                                </div>
-                                <div class="items-center" id="title_image1"
-                                    @if ($offer->image1 == null) style="display: flex;"
+                                    <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img"
+                                        src="{{ asset('storage/' . $offer->image) }}" alt="image">
+                                @endif
+                                <button type="button" id="remove_image" class="absolute top-5 right-5"
+                                    @if ($offer->image == null) style="display: none;"
                                 @else
-                                style="display: none;" @endif>
-                                    <label class="relative inline-block">
-                                        <input name="image1" type="file" accept=".jpg,.jpeg,.png" id="image1"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span1"
-                                            class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
+                                style="display: block;" @endif><img
+                                        src="{{ url('/image/remove.png') }}" class="w-5 h-5" style="cursor:pointer;">
+                                </button>
                             </div>
 
-                            <!-- image 2 -->
-                            <div class="flex-row" id="image2-section"
-                                @if ($offer->image1 == null) style="display: none;"
-                            @else
-                            style="display: flex;" @endif>
-                                <div class="flex relative">
-                                    @if ($offer->image2 == null)
-                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img2"
-                                            src="{{ url('/image/no-image.png') }}" alt="image">
-                                    @else
-                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img2"
-                                            src="{{ asset('storage/' . $offer->image2) }}" alt="image">
-                                    @endif
-                                    <button type="button" id="remove_image2" class="absolute right-0"
-                                        @if ($offer->image2 !== null && $offer->image3 == null) style="display: block;"
-                                    @else
-                                    style="display: none;" @endif><img
-                                            src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;"></button>
-                                </div>
-                                <div class="items-center" id="title_image2"
-                                    @if ($offer->image2 == null) style="display: flex;"
-                                @else
-                                style="display: none;" @endif>
-                                    <label class="relative inline-block">
-                                        <input name="image2" type="file" accept=".jpg,.jpeg,.png" id="image2"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span2"
-                                            class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
+                            <div class="flex items-center">
+                                <label class="input-file relative inline-block">
+                                    <input name="image" type="file" accept=".jpg,.jpeg,.png" id="image"
+                                        class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                    <span
+                                        class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600"
+                                        style="cursor:pointer;">Выберите файл или перетащите сюда</span>
+                                </label>
                             </div>
-
-                            <!-- image 3 -->
-                            <div class="flex-row" id="image3-section"
-                                @if ($offer->image2 == null) style="display: none;"
-                            @else
-                            style="display: flex;" @endif>
-                                <div class="flex relative">
-                                    @if ($offer->image3 == null)
-                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img3"
-                                            src="{{ url('/image/no-image.png') }}" alt="image">
-                                    @else
-                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img3"
-                                            src="{{ asset('storage/' . $offer->image3) }}" alt="image">
-                                    @endif
-                                    <button type="button" id="remove_image3" class="absolute right-0"
-                                        @if ($offer->image3 !== null && $offer->image4 == null) style="display: block;"
-                                    @else
-                                    style="display: none;" @endif><img
-                                            src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;"></button>
-                                </div>
-                                <div class="items-center" id="title_image3"
-                                    @if ($offer->image3 == null) style="display: flex;"
-                                @else
-                                style="display: none;" @endif>
-                                    <label class="relative inline-block">
-                                        <input name="image3" type="file" accept=".jpg,.jpeg,.png" id="image3"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span3"
-                                            class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- image 4 -->
-                            <div class="flex-row" id="image4-section"
-                                @if ($offer->image3 == null) style="display: none;"
-                            @else
-                            style="display: flex;" @endif>
-                                <div class="flex relative">
-                                    @if ($offer->image4 == null)
-                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img4"
-                                            src="{{ url('/image/no-image.png') }}" alt="image">
-                                    @else
-                                        <img class="h-12 w-12 rounded-lg m-1 object-cover" id="img4"
-                                            src="{{ asset('storage/' . $offer->image4) }}" alt="image">
-                                    @endif
-                                    <button type="button" id="remove_image4" class="absolute right-0"
-                                        @if ($offer->image4 !== null) style="display: block;"
-                                    @else
-                                    style="display: none;" @endif><img
-                                            src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;"></button>
-                                </div>
-                                <div class="flex items-center" id="title_image4">
-                                    <label class="relative inline-block">
-                                        <input name="image4" type="file" accept=".jpg,.jpeg,.png" id="image4"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span4"
-                                            class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
-
+                        </div>
+                        <div>
+                            <x-input-error :messages="$errors->get('image')" />
                         </div>
 
                         <div class="my-3">
@@ -200,31 +59,30 @@
                         <div class="my-3">
                             <x-input-label for="address" :value="__('Адрес')" />
                             <x-text-input id="address" name="address" type="text" class="mt-1 block w-full"
-                                :value="old('address', $offer->address)" autofocus />
+                                :value="old('address', $offer->address)" />
                             <x-input-error class="mt-2" :messages="$errors->get('address')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="description" :value="__('Описание')" />
                             <x-text-input id="description" name="description" type="text" class="mt-1 block w-full"
-                                :value="old('description', $offer->description)" autofocus />
+                                :value="old('description', $offer->description)" />
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
                         <div class="my-3">
-                            <label for="company" class="text-sm font-medium text-gray-900 block mb-2">Компания</label>
-                            <select name="company" id="company"
+                            <label for="entity" class="text-sm font-medium text-gray-900 block mb-2">Компания</label>
+                            <select name="entity" id="entity"
                                 class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                                 required>
-                                <option value="{{ $offer->company->id }}">
-                                    {{ mb_substr($offer->company->name, 0, 80, 'UTF-8') }}
-                                    @if (mb_strlen($offer->company->name) > 80)
+                                <option value="{{ $offer->entity->id }}">
+                                    {{ mb_substr($offer->entity->name, 0, 80, 'UTF-8') }}
+                                    @if (mb_strlen($offer->entity->name) > 80)
                                         ...
                                     @endif
                                 </option>
                                 @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}"
-                                        class="text-ellipsis overflow-hidden text-nowrap">
+                                    <option value="{{ $company->id }}" class="text-ellipsis overflow-hidden text-nowrap">
                                         {{ mb_substr($company->name, 0, 80, 'UTF-8') }}
                                         @if (mb_strlen($company->name) > 80)
                                             ...
@@ -291,132 +149,83 @@
     </div>
     <script type='text/javascript'>
         $(document).ready(function() {
-            const maxSize = 2000000; // 2 MB
-
-            function updatePreview(input, imgSelector, spanSelector, sectionSelector, removeBtnSelectorShow,
-                removeBtnSelectorHide, nextSectionSelector) {
-                const file = input.files[0];
-                if (file.size > maxSize) {
-                    $(spanSelector).html('Максимальный размер 2 МБ').css("color", "rgb(239 68 68)");
-                    input.value = '';
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    $(imgSelector).attr('src', e.target.result);
+            function previewImage(file) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    $('#img').attr('src', event.target.result);
                 };
                 reader.readAsDataURL(file);
-
-                $(spanSelector).html(file.name).css("color", "rgb(71 85 105)");
-                $(sectionSelector).css("display", "none");
-                $(removeBtnSelectorHide).css("display", "none");
-                $(removeBtnSelectorShow).css("display", "block");
-                $(nextSectionSelector).css({
-                    "display": "flex",
-                    "flex-direction": "row"
-                });
             }
 
-            function removeFile(inputSelector, imgSelector, spanSelector, sectionSelector, removeBtnSelectorShow,
-                removeBtnSelectorHide, prevSectionSelector, imageDelete) {
-                $(inputSelector).val('');
-                $(imgSelector).attr('src', `{{ url('/image/no-image.png') }}`);
-                $(spanSelector).html('Выберите файл или перетащите сюда').css("color", "rgb(71 85 105)");
-                $(sectionSelector).css("display", "none");
-                $(removeBtnSelectorHide).css("display", "none");
-                $(imageDelete).val('delete');
-                if (removeBtnSelectorShow) {
-                    $(removeBtnSelectorShow).css("display", "block");
-                }
+            function handleFile(file) {
+                var fileSize = file.size;
+                var maxSize = 2000000; // 2 MB
 
-                if (prevSectionSelector) {
-                    $(prevSectionSelector).css({
-                        "display": "flex",
-                        "flex-direction": "row"
+                if (fileSize > maxSize) {
+                    $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
+                    $('.input-file input[type=file]').next().css({
+                        "color": "rgb(239 68 68)"
                     });
+                    $('#img').attr('src', `{{ url('/image/no-image.png') }}`);
+                    $('#remove_image').css({
+                        "display": "none"
+                    });
+                } else {
+                    $('.input-file input[type=file]').next().html(file.name);
+                    $('.input-file input[type=file]').next().css({
+                        "color": "rgb(71 85 105)"
+                    });
+                    $('#remove_image').css({
+                        "display": "block"
+                    });
+                    previewImage(file);
                 }
             }
 
-
-            $('#image').on('change', function() {
-                updatePreview(this, '#img', '#image_span', '#title_image', '#remove_image', null,
-                    '#image1-section');
+            $('#image').on('change', function(event) {
+                var selectedFile = event.target.files[0];
+                handleFile(selectedFile);
             });
 
             $('#remove_image').on('click', function() {
-                removeFile('#image', '#img', '#image_span', '#image1-section', null, '#remove_image',
-                    '#image-section, #title_image', '#image_remove');
-            });
-
-            $('#image1').on('change', function() {
-                updatePreview(this, '#img1', '#image_span1', '#title_image1', '#remove_image1',
-                    '#remove_image', '#image2-section');
-            });
-            $('#remove_image1').on('click', function() {
-                removeFile('#image1', '#img1', '#image_span1', '#image2-section', '#remove_image',
-                    '#remove_image1', '#image1-section, #title_image1', '#image_remove1');
-            });
-
-            $('#image2').on('change', function() {
-                updatePreview(this, '#img2', '#image_span2', '#title_image2', '#remove_image2',
-                    '#remove_image1', '#image3-section');
-            });
-            $('#remove_image2').on('click', function() {
-                removeFile('#image2', '#img2', '#image_span2', '#image3-section', '#remove_image1',
-                    '#remove_image2', '#image2-section, #title_image2', '#image_remove2');
-            });
-
-            $('#image3').on('change', function() {
-                updatePreview(this, '#img3', '#image_span3', '#title_image3', '#remove_image3',
-                    '#remove_image2', '#image4-section');
-            });
-            $('#remove_image3').on('click', function() {
-                removeFile('#image3', '#img3', '#image_span3', '#image4-section', '#remove_image2',
-                    '#remove_image3', '#image3-section, #title_image3', '#image_remove3');
-            });
-
-            $('#image4').on('change', function() {
-                updatePreview(this, '#img4', '#image_span4', '#title_image4', '#remove_image4',
-                    '#remove_image3', null);
-            });
-            $('#remove_image4').on('click', function() {
-                removeFile('#image4', '#img4', '#image_span4', null, '#remove_image3', '#remove_image4',
-                    '#image4-section, #title_image4', '#image_remove4');
-            });
-
-
-            ['#image-section', '#image1-section', '#image2-section', '#image3-section', '#image4-section'].forEach(
-                function(sectionId) {
-                    const dropArea = $(sectionId);
-
-                    dropArea.on('dragover', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        $(this).addClass('bg-slate-100');
-                    });
-
-                    dropArea.on('dragleave', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        $(this).removeClass('bg-slate-100');
-                    });
-
-                    dropArea.on('drop', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        $(this).removeClass('bg-slate-100');
-
-                        const files = e.originalEvent.dataTransfer.files;
-                        if (files.length > 0) {
-                            const currentInput = $(this).find('input[type="file"]:visible').get(0);
-                            const dataTransfer = new DataTransfer();
-                            dataTransfer.items.add(files[0]);
-                            currentInput.files = dataTransfer.files;
-                            $(currentInput).trigger('change');
-                        }
-                    });
+                $('#image').val('');
+                $('#image_remove').val('delete');
+                $('#img').attr('src', `{{ url('/image/no-image.png') }}`);
+                $('.input-file input[type=file]').next().html('Выберите файл или перетащите сюда');
+                $('#remove_image').css({
+                    "display": "none"
                 });
+            });
+
+            var uploadArea = $('#upload_area');
+
+            uploadArea.on('dragover', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                uploadArea.addClass('bg-gray-200');
+            });
+
+            uploadArea.on('dragleave', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                uploadArea.removeClass('bg-gray-200');
+            });
+
+            uploadArea.on('drop', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                uploadArea.removeClass('bg-gray-200');
+
+                var files = event.originalEvent.dataTransfer.files;
+                if (files.length > 0) {
+                    var file = files[0];
+                    handleFile(file);
+
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    $('#image').prop('files', dataTransfer.files);
+                }
+            });
         });
     </script>
 @endsection

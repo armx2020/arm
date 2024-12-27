@@ -9,6 +9,8 @@ use App\Http\Requests\Offer\UpdateOfferRequest;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\CompanyOffer;
+use App\Models\Entity;
+use App\Models\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +27,7 @@ class MyOfferController extends BaseController
         $entitiesName = 'myoffers';
         $entityName = 'myoffer';
 
-        $offers = Auth::user()->offers()->paginate(10);
+        $offers = Auth::user()->offers()->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.offer.index', [
             'region'   => $request->session()->get('region'),
@@ -39,13 +41,13 @@ class MyOfferController extends BaseController
 
     public function create(Request $request)
     {
-        $companies = Company::with('offers')->where('user_id', '=', Auth::user()->id)->get();
+        $companies = Entity::companies()->with('offers')->where('user_id', '=', Auth::user()->id)->get();
 
         if (count($companies) == 0) {
             return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте компанию.');
         }
 
-        $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
+        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('profile.pages.offer.create', [
             'companies' => $companies,
@@ -60,38 +62,51 @@ class MyOfferController extends BaseController
     {
         $offer = $this->offerAction->store($request, Auth::user()->id);
 
-        return redirect()->route('myoffers.index')->with('success', 'Товар "' . $offer->name . '" добавлен');
+        if (empty($offer)) {
+            return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
+        }
+
+        return redirect()->route('myoffers.index')->with('success', 'Товар "' . $offer->name .'" добавлен');
     }
 
     public function show(Request $request, $id)
     {
-        $offer = CompanyOffer::with('company')->find($id);
+        $offer = Offer::with('entity')->find($id);
 
         if (empty($offer)) {
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
-        if (!$offer->company->user_id == Auth::user()->id) {
+        if (!$offer->entity->user_id == Auth::user()->id) {
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
         return view('profile.pages.offer.show', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'offer' => $offer,
+            'entity' => $offer,
         ]);
     }
 
     public function edit(Request $request, $id)
     {
-        $offer = CompanyOffer::with('company')->find($id);
+        $offer = Offer::with('entity')->find($id);
 
-        if (empty($offer) || $offer->company->user_id !== Auth::user()->id) {
+        if (empty($offer)) {
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
-        $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
-        $companies = Company::query()->with('offers')->where('user_id', '=', Auth::user()->id)->whereNot('id', $offer->company_id)->get();
+        if (!$offer->entity->user_id == Auth::user()->id) {
+            return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
+        }
+
+        $companies = Entity::companies()->with('offers')->where('user_id', '=', Auth::user()->id)->get();
+
+        if (count($companies) == 0) {
+            return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте компанию.');
+        }
+
+        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('profile.pages.offer.edit', [
             'region'   => $request->session()->get('region'),
@@ -105,22 +120,26 @@ class MyOfferController extends BaseController
 
     public function update(UpdateOfferRequest $request, $id)
     {
-        $offer = CompanyOffer::find($id);
+        $offer = Offer::find($id);
 
-        if (empty($offer) || $offer->company->user_id !== Auth::user()->id) {
+        if (empty($offer) || $offer->entity->user_id !== Auth::user()->id) {
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
         $offer = $this->offerAction->update($request, $offer, Auth::user()->id);
+
+        if (empty($offer)) {
+            return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
+        }
 
         return redirect()->route('myoffers.show', ['myoffer' => $offer->id])->with('success', 'Товар "' . $offer->name . '" обнавлен');
     }
 
     public function destroy($id)
     {
-        $offer = CompanyOffer::find($id);
+        $offer = Offer::find($id);
 
-        if (empty($offer) || $offer->company->user_id !== Auth::user()->id) {
+        if (empty($offer) || $offer->entity->user_id !== Auth::user()->id) {
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 

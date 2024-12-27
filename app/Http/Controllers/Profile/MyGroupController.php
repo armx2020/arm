@@ -7,13 +7,9 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Http\Requests\Group\UpdateGroupRequest;
 use App\Models\Category;
-use App\Models\City;
 use App\Models\Entity;
-use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image as Image;
 
 class MyGroupController extends BaseController
 {
@@ -28,7 +24,7 @@ class MyGroupController extends BaseController
         $entitiesName = 'mygroups';
         $entityName = 'mygroup';
 
-        $groups = Auth::user()->entity()->groups()->paginate(10);
+        $groups = Auth::user()->entity()->groups()->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.group.index', [
             'region'   => $request->session()->get('region'),
@@ -42,7 +38,7 @@ class MyGroupController extends BaseController
 
     public function create(Request $request)
     {
-        $categories = Category::query()->groups()->active()->orderBy('sort_id', 'asc')->get();
+        $categories = Category::query()->groups()->active()->orderBy('sort_id', 'asc')->paginate(10);
 
         return view('profile.pages.group.create', [
             'region'   => $request->session()->get('region'),

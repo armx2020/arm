@@ -34,7 +34,7 @@ class OfferAction
                 $entity->fields()->syncWithoutDetaching([$request->category => ['main_category_id' => $categoryMain]]);
             }
         } else {
-            return redirect()->back()->with('warning', 'компания не найдена');
+            return false;
         }
 
         $offer = new Offer();
@@ -50,33 +50,6 @@ class OfferAction
         if ($request->image) {
             $offer->image = $request->file('image')->store('uploaded', 'public');
             Image::make('storage/' . $offer->image)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image1) {
-            $offer->image1 = $request->file('image1')->store('offers', 'public');
-            Image::make('storage/' . $offer->image1)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image2) {
-            $offer->image2 = $request->file('image2')->store('offers', 'public');
-            Image::make('storage/' . $offer->image2)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image3) {
-            $offer->image3 = $request->file('image3')->store('offers', 'public');
-            Image::make('storage/' . $offer->image3)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-        if ($request->image4) {
-            $offer->image4 = $request->file('image4')->store('offers', 'public');
-            Image::make('storage/' . $offer->image4)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -112,7 +85,7 @@ class OfferAction
                 $entity->fields()->syncWithoutDetaching([$request->category => ['main_category_id' => $categoryMain]]);
             }
         } else {
-            return redirect()->back()->with('warning', 'компания не найдена');
+            return false;
         }
 
 
@@ -121,58 +94,10 @@ class OfferAction
             $offer->image = null;
         }
 
-        if ($request->image_remove1 == 'delete') {
-            Storage::delete('public/' . $offer->image1);
-            $offer->image1 = null;
-        }
-
-        if ($request->image_remove2 == 'delete') {
-            Storage::delete('public/' . $offer->image2);
-            $offer->image2 = null;
-        }
-
-        if ($request->image_remove3 == 'delete') {
-            Storage::delete('public/' . $offer->image3);
-            $offer->image3 = null;
-        }
-
-        if ($request->image_remove4 == 'delete') {
-            Storage::delete('public/' . $offer->image4);
-            $offer->image4 = null;
-        }
-
         if ($request->image) {
             Storage::delete('public/' . $offer->image);
-            $offer->image = $request->file('image')->store('offers', 'public');
+            $offer->image = $request->file('image')->store('uploaded', 'public');
             Image::make('storage/' . $offer->image)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-        if ($request->image1) {
-            Storage::delete('public/' . $offer->image1);
-            $offer->image1 = $request->file('image1')->store('offers', 'public');
-            Image::make('storage/' . $offer->image1)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-        if ($request->image2) {
-            Storage::delete('public/' . $offer->image2);
-            $offer->image2 = $request->file('image2')->store('offers', 'public');
-            Image::make('storage/' . $offer->image2)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-        if ($request->image3) {
-            Storage::delete('public/' . $offer->image3);
-            $offer->image3 = $request->file('image3')->store('offers', 'public');
-            Image::make('storage/' . $offer->image3)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-        if ($request->image4) {
-            Storage::delete('public/' . $offer->image4);
-            $offer->image4 = $request->file('image4')->store('offers', 'public');
-            Image::make('storage/' . $offer->image4)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
@@ -196,18 +121,6 @@ class OfferAction
     {
         if ($offer->image !== null) {
             Storage::delete('public/' . $offer->image);
-        }
-        if ($offer->image1 !== null) {
-            Storage::delete('public/' . $offer->image1);
-        }
-        if ($offer->image2 !== null) {
-            Storage::delete('public/' . $offer->image2);
-        }
-        if ($offer->image3 !== null) {
-            Storage::delete('public/' . $offer->image3);
-        }
-        if ($offer->image4 !== null) {
-            Storage::delete('public/' . $offer->image4);
         }
 
         $offer->delete();
