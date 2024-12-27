@@ -36,7 +36,7 @@
                 <!-- Блок 1 -->
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pr-4 lg:pr-2">
                     <div class="bg-[#feecdc] rounded-xl p-2 lg:p-4 h-64 h-56 md:h-[280px] lg:h-72">
-                        <a href="{{ route('works.index') }}">
+                        <a href="">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Поиск работы</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Найти работу или разместить вакансию
@@ -79,7 +79,7 @@
                 <!-- Блок 3 -->
                 <div class="CEB__wrapTable mb-5 hidden lg:block lg:w-1/5 xl:w-1/5 pr-2 md:pr-0 lg:pr-2">
                     <div class="bg-[#e6c6c9] rounded-xl p-2 lg:p-4 h-64 h-56 md:h-[280px] lg:h-72 ">
-                        <a href="{{ route('projects.index') }}">
+                        <a href="">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Наши проекты</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Сделанные проекты, достижения</p>
@@ -99,7 +99,7 @@
                 <!-- Кружки сообщества -->
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pl-0 md:pr-4 lg:pr-2">
                     <div class="bg-[#d7e6d8] rounded-xl p-2 lg:p-4 h-64 h-56 md:h-[280px] lg:h-72">
-                        <a href="{{ route('groups.index') }}">
+                        <a href="">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Кружки,
                                     сообщества</p>
@@ -120,7 +120,7 @@
                 <!-- Интересные места -->
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-0">
                     <div class="bg-[#f0e7ce] rounded-xl p-2 lg:p-4 h-64 md:h-[280px] lg:h-72">
-                        <a href="{{ route('groups.places') }}">
+                        <a href="">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Интересные
                                     места, церкви</p>

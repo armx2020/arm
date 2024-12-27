@@ -66,7 +66,7 @@
                             справочник</a>
                     </li>
                     <li class="mb-2">
-                        <a class="" href="{{ route('region.society', ['regionCode' => $regionCode]) }}">Кружки и
+                        <a class="" href="{{ route('region.groups', ['regionCode' => $regionCode]) }}">Кружки и
                             сообщества</a>
                     </li>
                     <li class="mb-2">
@@ -107,7 +107,7 @@
                             справочник</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4">
-                        <a class="" href="{{ route('region.society', ['regionCode' => $regionCode]) }}">Кружки и
+                        <a class="" href="{{ route('region.groups', ['regionCode' => $regionCode]) }}">Кружки и
                             сообщества</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4">
