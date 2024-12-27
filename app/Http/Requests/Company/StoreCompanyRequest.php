@@ -11,10 +11,9 @@ class StoreCompanyRequest extends FormRequest
         return [
             'name'          => ['required', 'string', 'max:255', 'min:3'],
             'address'       => ['nullable', 'string', 'max:128'],
-            'phone'         => ['nullable', 'string', 'max:36', 'unique:companies'],
+            'phone'         => ['nullable', 'string', 'max:36'],
             'description'   => ['nullable', 'string'],
             'web'           => ['nullable', 'string', 'max:250'],
-            'viber'         => ['nullable', 'string', 'max:36'],
             'whatsapp'      => ['nullable', 'string', 'max:36'],
             'telegram'      => ['nullable', 'string', 'max:36'],
             'instagram'     => ['nullable', 'string', 'max:36'],
@@ -23,7 +22,7 @@ class StoreCompanyRequest extends FormRequest
             'image_remove'  => ['nullable', 'in:delete'],
             'city'          => ['integer'],
             'user'          => ['nullable', 'integer'],
-            'categories'    => ['nullable', 'required'],
+            'fields'        => ['nullable', 'required'],
         ];
     }
 }

@@ -2,12 +2,12 @@
 @section('content')
     <div class="flex flex-col lg:flex-row mx-auto my-10">
 
-        <x-nav-profile page="mycompanies"></x-nav-profile>
+        @include('profile.menu')
 
         <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
             <div class="flex flex-col basis-full">
                 <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
-                    <form method="post" action="{{ route('mycompanies.update', ['mycompany' => $company->id]) }}"
+                    <form method="post" action="{{ route('mycompanies.update', ['mycompany' => $entity->id]) }}"
                         class="w-full" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
@@ -20,15 +20,15 @@
 
                         <div class="flex flex-row" id="upload_area">
                             <div class="flex relative">
-                                @if ($company->image == null)
+                                @if ($entity->image == null)
                                     <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img"
                                         src="{{ url('/image/no-image.png') }}" alt="image">
                                 @else
                                     <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img"
-                                        src="{{ asset('storage/' . $company->image) }}" alt="image">
+                                        src="{{ asset('storage/' . $entity->image) }}" alt="image">
                                 @endif
                                 <button type="button" id="remove_image" class="absolute top-5 right-5"
-                                    @if ($company->image == null) style="display: none;"
+                                    @if ($entity->image == null) style="display: none;"
                                 @else
                                 style="display: block;" @endif><img
                                         src="{{ url('/image/remove.png') }}" class="w-5 h-5" style="cursor:pointer;">
@@ -52,21 +52,21 @@
                         <div class="my-3">
                             <x-input-label for="name" :value="__('Название*')" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
-                                :value="old('name', $company->name)" required autofocus />
+                                :value="old('name', $entity->name)" required autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="address" :value="__('Адрес')" />
                             <x-text-input id="address" name="address" type="text" class="mt-1 block w-full"
-                                :value="old('address', $company->address)" autofocus />
+                                :value="old('address', $entity->address)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('address')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="description" :value="__('Описание')" />
                             <x-text-input id="description" name="description" type="text" class="mt-1 block w-full"
-                                :value="old('description', $company->description)" autofocus />
+                                :value="old('description', $entity->description)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
@@ -83,8 +83,8 @@
                                             </div>
                                             @foreach ($item->categories as $child)
                                                 <div class="flex pl-4">
-                                                    <input type="checkbox" name="categories[]" value="{{ $child->id }}"
-                                                        @checked($company->categories->contains($child->id))
+                                                    <input type="checkbox" name="fields[]" value="{{ $child->id }}"
+                                                        @checked($entity->fields->contains($child->id))
                                                         class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                                                         id="checkbox-{{ $loop->iteration }}">
                                                     <label for="checkbox-{{ $loop->iteration }}"
@@ -96,55 +96,48 @@
 
                                 </div>
                             </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('categories')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('fields')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="phone" :value="__('Телефон')" />
                             <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full"
-                                :value="old('phone', $company->phone)" autofocus />
+                                :value="old('phone', $entity->phone)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="whatsapp" :value="__('Whatsapp')" />
                             <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full"
-                                :value="old('whatsapp', $company->whatsapp)" autofocus />
+                                :value="old('whatsapp', $entity->whatsapp)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="web" :value="__('Веб')" />
                             <x-text-input id="web" name="web" type="text" class="mt-1 block w-full"
-                                :value="old('web', $company->web)" autofocus />
+                                :value="old('web', $entity->web)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('web')" />
-                        </div>
-
-                        <div class="my-3">
-                            <x-input-label for="viber" :value="__('Вайбер')" />
-                            <x-text-input id="viber" name="viber" type="text" class="mt-1 block w-full"
-                                :value="old('viber', $company->viber)" autofocus />
-                            <x-input-error class="mt-2" :messages="$errors->get('viber')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="telegram" :value="__('Телеграм')" />
                             <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full"
-                                :value="old('telegram', $company->telegram)" autofocus />
+                                :value="old('telegram', $entity->telegram)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('telegram')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="vkontakte" :value="__('Вконтакте')" />
                             <x-text-input id="vkontakte" name="vkontakte" type="text" class="mt-1 block w-full"
-                                :value="old('vkontakte', $company->vkontakte)" autofocus />
+                                :value="old('vkontakte', $entity->vkontakte)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('vkontakte')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="instagram" :value="__('Инстаграм')" />
                             <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full"
-                                :value="old('instagram', $company->instagram)" autofocus />
+                                :value="old('instagram', $entity->instagram)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('instagram')" />
                         </div>
 
@@ -152,7 +145,7 @@
                             <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
                             <select name="city" class="w-full" style="border-color: rgb(209 213 219)"
                                 id="city">
-                                <option value='{{ $company->city->id }}'>{{ $company->city->name }}</option>
+                                <option value='{{ $entity->city->id }}'>{{ $entity->city->name }}</option>
                             </select>
                         </div>
 
@@ -163,7 +156,7 @@
                 </div>
 
                 <div class="flex basis-full bg-gray-200 rounded-md p-5 my-6 text-sm">
-                    <form method="post" action="{{ route('mycompanies.destroy', ['mycompany' => $company->id]) }}"
+                    <form method="post" action="{{ route('mycompanies.destroy', ['mycompany' => $entity->id]) }}"
                         class="w-full text-center">
                         @csrf
                         @method('delete')
@@ -193,14 +186,21 @@
                         delay: 250,
                         dataType: 'json',
                         data: function(params) {
-                            return {
-                                query: params.term,
+                            var query = {
+                                query: params.term || '',
+                                page: params.page || 1,
                                 "_token": "{{ csrf_token() }}",
                             };
+
+                            return query;
                         },
-                        processResults: function(response) {
+                        processResults: function(response, params) {
+                            params.page = params.page || 1;
                             return {
-                                results: response
+                                results: response.results,
+                                pagination: {
+                                    more: response.pagination.more
+                                }
                             };
                         },
                         cache: true

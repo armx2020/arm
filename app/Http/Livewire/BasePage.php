@@ -30,7 +30,7 @@ class BasePage extends Component
         }
 
         if (empty($reg)) {
-            $this->region = 1;
+            $this->region = '1';
         } else {
             $this->region = $reg->id;
         }

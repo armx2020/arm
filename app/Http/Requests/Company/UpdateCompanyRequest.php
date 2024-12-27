@@ -14,7 +14,6 @@ class UpdateCompanyRequest extends FormRequest
             'phone'         => ['nullable', 'string', 'max:36'],
             'description'   => ['nullable', 'string'],
             'web'           => ['nullable', 'string', 'max:250'],
-            'viber'         => ['nullable', 'string', 'max:36'],
             'whatsapp'      => ['nullable', 'string', 'max:36'],
             'telegram'      => ['nullable', 'string', 'max:36'],
             'instagram'     => ['nullable', 'nullable', 'string', 'max:36'],
@@ -23,7 +22,7 @@ class UpdateCompanyRequest extends FormRequest
             'image_remove'  => ['nullable', 'in:delete'],
             'city'          => ['integer'],
             'user'          => ['nullable', 'integer'],
-            'categories'    => ['required'],
+            'fields'        => ['required'],
         ];
     }
 }

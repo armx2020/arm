@@ -2,7 +2,7 @@
 @section('content')
     <div class="flex flex-col lg:flex-row mx-auto my-10">
 
-        <x-nav-profile page="mycompanies"></x-nav-profile>
+        @include('profile.menu')
 
         <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
             <div class="flex flex-col basis-full">
@@ -41,27 +41,28 @@
                         <div class="my-3">
                             <x-input-label for="name" :value="__('Название*')" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
-                                :value="old('name')" required autofocus />
+                                :error="$errors->get('name')" :value="old('name')" required autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="address" :value="__('Адрес')" />
                             <x-text-input id="address" name="address" type="text" class="mt-1 block w-full"
-                                :value="old('address')" autofocus />
+                                :error="$errors->get('address')" :value="old('address')" />
                             <x-input-error class="mt-2" :messages="$errors->get('address')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="description" :value="__('Описание')" />
                             <x-text-input id="description" name="description" type="text" class="mt-1 block w-full"
-                                :value="old('description')" autofocus />
+                                :error="$errors->get('description')" :value="old('description')" />
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="checkbox-group" :value="__('Выберите деятельность *')" />
-                            <div class="flex border-2 rounded-lg p-4  mt-1" id="checkbox-group">
+                            <div class="flex border-2 rounded-lg p-4 mt-1 @if (count($errors->get('fields')) > 0) border-1 border-red-300 @endif"
+                                id="checkbox-group">
                                 <div class="grid grid-cols-3 gap-4 w-full">
 
                                     @foreach ($categories as $item)
@@ -72,8 +73,8 @@
                                             </div>
                                             @foreach ($item->categories as $child)
                                                 <div class="flex">
-                                                    <input type="checkbox" name="categories[]" value="{{ $child->id }}"
-                                                        @if (is_array(old('categories')) && in_array($child->id, old('categories'))) checked @endif
+                                                    <input type="checkbox" name="fields[]" value="{{ $child->id }}"
+                                                        @if (is_array(old('fields')) && in_array($child->id, old('fields'))) checked @endif
                                                         class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                                                         id="checkbox-{{ $loop->iteration }}">
                                                     <label for="checkbox-{{ $loop->iteration }}"
@@ -85,55 +86,48 @@
 
                                 </div>
                             </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('categories')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('fields')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="phone" :value="__('Телефон')" />
                             <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full"
-                                :value="old('phone')" autofocus />
+                                :error="$errors->get('phone')" :value="old('phone')" />
                             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="whatsapp" :value="__('Whatsapp')" />
                             <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full"
-                                :value="old('whatsapp')" autofocus />
+                                :error="$errors->get('whatsapp')" :value="old('whatsapp')" />
                             <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="web" :value="__('Веб')" />
                             <x-text-input id="web" name="web" type="text" class="mt-1 block w-full"
-                                :value="old('web')" autofocus />
+                                :error="$errors->get('web')" :value="old('web')" />
                             <x-input-error class="mt-2" :messages="$errors->get('web')" />
-                        </div>
-
-                        <div class="my-3">
-                            <x-input-label for="viber" :value="__('Вайбер')" />
-                            <x-text-input id="viber" name="viber" type="text" class="mt-1 block w-full"
-                                :value="old('viber')" autofocus />
-                            <x-input-error class="mt-2" :messages="$errors->get('viber')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="telegram" :value="__('Телеграм')" />
                             <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full"
-                                :value="old('telegram')" autofocus />
+                                :error="$errors->get('telegram')" :value="old('telegram')" />
                             <x-input-error class="mt-2" :messages="$errors->get('telegram')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="vkontakte" :value="__('Вконтакте')" />
                             <x-text-input id="vkontakte" name="vkontakte" type="text" class="mt-1 block w-full"
-                                :value="old('vkontakte')" autofocus />
+                                :error="$errors->get('vkontakte')" :value="old('vkontakte')" />
                             <x-input-error class="mt-2" :messages="$errors->get('vkontakte')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="instagram" :value="__('Инстаграм')" />
                             <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full"
-                                :value="old('instagram')" autofocus />
+                                :error="$errors->get('instagram')" :value="old('instagram')" />
                             <x-input-error class="mt-2" :messages="$errors->get('instagram')" />
                         </div>
 
@@ -163,14 +157,21 @@
                         delay: 250,
                         dataType: 'json',
                         data: function(params) {
-                            return {
-                                query: params.term,
+                            var query = {
+                                query: params.term || '',
+                                page: params.page || 1,
                                 "_token": "{{ csrf_token() }}",
                             };
+
+                            return query;
                         },
-                        processResults: function(response) {
+                        processResults: function(response, params) {
+                            params.page = params.page || 1;
                             return {
-                                results: response
+                                results: response.results,
+                                pagination: {
+                                    more: response.pagination.more
+                                }
                             };
                         },
                         cache: true

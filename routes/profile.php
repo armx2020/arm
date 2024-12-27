@@ -4,12 +4,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Profile\MyProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Profile\MyCompanyController;
-use App\Http\Controllers\Profile\MyEventController;
 use App\Http\Controllers\Profile\MyGroupController;
-use App\Http\Controllers\Profile\MyNewsController;
-use App\Http\Controllers\Profile\MyProjectController;
 use App\Http\Controllers\Profile\MyOfferController;
-use App\Http\Controllers\Profile\MyWorksController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
@@ -24,10 +20,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resources([
         'mygroups'      =>  MyGroupController::class,
         'mycompanies'   =>  MyCompanyController::class,
-        'myprojects'    =>  MyProjectController::class,
         'myoffers'      =>  MyOfferController::class,
-        'mynews'        =>  MyNewsController::class,
-        'myevents'      =>  MyEventController::class,
-        'myworks'       =>  MyWorksController::class,
     ]);
 });

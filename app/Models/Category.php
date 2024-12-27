@@ -29,6 +29,11 @@ class Category extends Model
         return $query->where('activity', 1);
     }
 
+    public function scopeCompanies($query)
+    {
+        return $query->where('entity_type_id', 1);
+    }
+
 
     public function scopeGroup($query) // TODO удалить после переноса сущностей
     {
