@@ -39,11 +39,6 @@ class User extends Authenticatable
         'phone'
     ];
 
-    public function mynews(): HasMany
-    {
-        return $this->hasMany(News::class);
-    }
-
     public function entity(): HasMany
     {
         return $this->hasMany(Entity::class);

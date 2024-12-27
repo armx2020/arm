@@ -12,16 +12,16 @@
                 </div>
             @endif
             <div class="flex flex-col basis-full">
-                <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-10 relative">
-                    <div class="flex flex-col basis-1/4">
+                <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
+                    <div class="flex flex-col">
                         @if ($entity->image == null)
-                            <img class="h-56 w-full rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png') }}"
+                            <img class="h-64 w-64 rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png') }}"
                                 alt="image" />
                         @else
-                            <img class="h-56 w-full rounded-2xl p-2 flex object-cover"
+                            <img class="h-64 w-64 rounded-2xl p-2 flex object-cover"
                                 src="{{ asset('storage/' . $entity->image) }}" alt="image">
                         @endif
-                        <div class="m-5">
+                        <div class="p-5 w-64">
                             <div class="my-2 flex flex-row">
                                 <div class="basis-4/5 text-left text-sm">Заполненость профиля компании</div>
                                 <div class="basis-1/5 text-right text-sm">{{ $fullness }}%</div>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col px-3 lg:px-10 basis-3/4">
+                    <div class="flex flex-col px-3 lg:px-10">
                         <h3 class="text-left text-xl lg:text-2xl mx-4">{{ $entity->name }}</h3>
                         <p class="text-left text-md mx-4 my-1 text-gray-600">{{ $entity->city->name }}
                             {{ $entity->address }}
@@ -101,7 +101,7 @@
                                     <a href="{{ route('myevents.show', ['myevent' => $event->id]) }}"
                                         class="h-48 max-w-lg block">
                                         @if ($event->image == null)
-                                            <img class="h-48 w-full rounded-2xl p-2 flex object-cover"
+                                            <img class="h-56 w-full rounded-2xl p-2 flex object-cover"
                                                 src="{{ url('/image/no-image.png') }}" alt="image" />
                                         @else
                                             <img class="h-48 w-full rounded-2xl p-2 flex object-cover"

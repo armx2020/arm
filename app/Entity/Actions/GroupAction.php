@@ -2,8 +2,8 @@
 
 namespace App\Entity\Actions;
 
-use App\Models\Group;
 use App\Entity\Actions\Traits\GetCity;
+use App\Models\Entity;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
@@ -11,157 +11,85 @@ class GroupAction
 {
     use GetCity;
 
-    public function store($request, $user_id = null, $isActive = true): Group
+    public function store($request, $user_id = null, $isActive = true): Entity
     {
         $city = $this->getCity($request);
 
-        $group = new Group();
+        $entity = new Entity();
 
         if ($isActive == false) {
-            $group->activity = $isActive;
+            $entity->activity = $isActive;
         }
 
-        $group->name = $request->name;
-        $group->address = $request->address;
-        $group->description = $request->description;
-        $group->city_id = $city->id;
-        $group->region_id = $city->region->id;
-        $group->phone = $request->phone;
-        $group->web = $request->web;
-        $group->viber = $request->viber;
-        $group->whatsapp = $request->whatsapp;
-        $group->telegram = $request->telegram;
-        $group->instagram = $request->instagram;
-        $group->vkontakte = $request->vkontakte;
-        $group->user_id = $request->user ? $request->user : 1;
-        $group->category_id = $request->category;
+        $entity->entity_type_id = 2;
+        $entity->name = $request->name;
+        $entity->address = $request->address;
+        $entity->description = $request->description;
+        $entity->city_id = $city->id;
+        $entity->region_id = $city->region->id;
+        $entity->phone = $request->phone;
+        $entity->web = $request->web;
+        $entity->whatsapp = $request->whatsapp;
+        $entity->telegram = $request->telegram;
+        $entity->instagram = $request->instagram;
+        $entity->vkontakte = $request->vkontakte;
+        $entity->user_id = $user_id ?: $request->user;
+        $entity->category_id = $request->category;
 
         if ($request->image) {
-            $group->image = $request->file('image')->store('groups', 'public');
-            Image::make('storage/' . $group->image)->resize(400, null, function ($constraint) {
+            $entity->image = $request->file('image')->store('uploaded', 'public');
+            Image::make('storage/' . $entity->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
 
-        if ($request->image1) {
-            $group->image1 = $request->file('image1')->store('groups', 'public');
-            Image::make('storage/' . $group->image1)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
+        $entity->save();
 
-        if ($request->image2) {
-            $group->image2 = $request->file('image2')->store('groups', 'public');
-            Image::make('storage/' . $group->image2)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image3) {
-            $group->image3 = $request->file('image3')->store('groups', 'public');
-            Image::make('storage/' . $group->image3)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image4) {
-            $group->image4 = $request->file('image4')->store('groups', 'public');
-            Image::make('storage/' . $group->image4)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        $group->save();
-
-        return $group;
+        return $entity;
     }
 
-    public function update($request, $group): Group
+    public function update($request, $entity, $user_id = null): Entity
     {
         $city = $this->getCity($request);
 
         if ($request->image_remove == 'delete') {
-            Storage::delete('public/' . $group->image);
-            $group->image = null;
-        }
-
-        if ($request->image_remove1 == 'delete') {
-            Storage::delete('public/' . $group->image1);
-            $group->image1 = null;
-        }
-
-        if ($request->image_remove2 == 'delete') {
-            Storage::delete('public/' . $group->image2);
-            $group->image2 = null;
-        }
-
-        if ($request->image_remove3 == 'delete') {
-            Storage::delete('public/' . $group->image3);
-            $group->image3 = null;
-        }
-
-        if ($request->image_remove4 == 'delete') {
-            Storage::delete('public/' . $group->image4);
-            $group->image4 = null;
+            Storage::delete('public/' . $entity->image);
+            $entity->image = null;
         }
 
         if ($request->image) {
-            Storage::delete('public/' . $group->image);
-            $group->image = $request->file('image')->store('groups', 'public');
-            Image::make('storage/' . $group->image)->resize(400, null, function ($constraint) {
+            Storage::delete('public/' . $entity->image);
+            $entity->image = $request->file('image')->store('uploaded', 'public');
+            Image::make('storage/' . $entity->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
         }
 
-        if ($request->image1) {
-            Storage::delete('public/' . $group->image1);
-            $group->image1 = $request->file('image1')->store('groups', 'public');
-            Image::make('storage/' . $group->image1)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
+        $entity->name = $request->name;
+        $entity->address = $request->address;
+        $entity->description = $request->description;
+        $entity->city_id = $city->id;
+        $entity->region_id = $city->region->id;
+        $entity->phone = $request->phone;
+        $entity->web = $request->web;
+        $entity->whatsapp = $request->whatsapp;
+        $entity->telegram = $request->telegram;
+        $entity->instagram = $request->instagram;
+        $entity->vkontakte = $request->vkontakte;
+        $entity->user_id = $user_id ?: $request->user;
+        $entity->category_id = $request->category;
+
+        $entity->update();
+
+        return $entity;
+    }
+
+    public function destroy($entity): void
+    {
+        if ($entity->image !== null) {
+            Storage::delete('public/' . $entity->image);
         }
 
-        if ($request->image2) {
-            Storage::delete('public/' . $group->image2);
-            $group->image2 = $request->file('image2')->store('groups', 'public');
-            Image::make('storage/' . $group->image2)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image3) {
-            Storage::delete('public/' . $group->image3);
-            $group->image3 = $request->file('image3')->store('groups', 'public');
-            Image::make('storage/' . $group->image3)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image4) {
-            Storage::delete('public/' . $group->image4);
-            $group->image4 = $request->file('image4')->store('groups', 'public');
-            Image::make('storage/' . $group->image4)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        $group->name = $request->name;
-        $group->address = $request->address;
-        $group->description = $request->description;
-        $group->city_id = $request->city;
-        $group->region_id = $city->region->id;
-        $group->phone = $request->phone;
-        $group->web = $request->web;
-        $group->viber = $request->viber;
-        $group->whatsapp = $request->whatsapp;
-        $group->telegram = $request->telegram;
-        $group->instagram = $request->instagram;
-        $group->vkontakte = $request->vkontakte;
-        $group->user_id = $request->user;
-        $group->category_id = $request->category;
-
-        $group->update();
-
-        return $group;
+        $entity->delete();
     }
 }

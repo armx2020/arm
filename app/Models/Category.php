@@ -35,9 +35,9 @@ class Category extends Model
     }
 
 
-    public function scopeGroup($query) // TODO удалить после переноса сущностей
+    public function scopeGroups($query)
     {
-        return $query->where('type_old', 'group');
+        return $query->where('entity_type_id', 2);
     }
 
     public function scopeEvent($query) // TODO удалить после переноса сущностей

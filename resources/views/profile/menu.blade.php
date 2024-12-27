@@ -12,16 +12,16 @@
                     страница</a>
             </li>
 
-            <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('mycompanies.index')) bg-gray-100 @endif"><a
+            <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('mycompanies.*')) bg-gray-100 @endif"><a
                     href="{{ route('mycompanies.index') }}">Мои компании</a>
             </li>
 
-            <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('mygroups.index')) bg-gray-100 @endif"><a
-                    href="{{ route('mygroups.index') }}">Мои группы</a>
+            <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('mygroups.*')) bg-gray-100 @endif"><a
+                    href="{{ route('mygroups.index') }}">Мои сообщества</a>
             </li>
 
-            <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('myoffers.index')) bg-gray-100 @endif"><a
-                    href="{{ route('myoffers.index') }}">Маркет</a>
+            <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('myoffers.*')) bg-gray-100 @endif"><a
+                    href="{{ route('myoffers.index') }}">Товары и услуги</a>
             </li>
 
             <hr class="mt-3">

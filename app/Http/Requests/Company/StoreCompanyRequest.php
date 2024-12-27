@@ -22,7 +22,7 @@ class StoreCompanyRequest extends FormRequest
             'image_remove'  => ['nullable', 'in:delete'],
             'city'          => ['integer'],
             'user'          => ['nullable', 'integer'],
-            'fields'        => ['nullable', 'required'],
+            'fields'        => ['required'],
         ];
     }
 }
