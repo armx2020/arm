@@ -15,7 +15,7 @@ class BasePage extends Component
 {
     use WithPagination;
 
-    public $region;
+    public $region = '1';
     public $type = '';
     public $category = 'Все';
 
@@ -32,15 +32,10 @@ class BasePage extends Component
         if (empty($reg)) {
             $this->region = '1';
         } else {
-            $this->region = $reg->id;
+            $this->region = (string) $reg->id;
         }
 
         $this->type = $type;
-    }
-
-    public function resetCategory()
-    {
-        $this->category = 'Все';
     }
 
     public function render()
@@ -64,8 +59,6 @@ class BasePage extends Component
 
         $recommendations = [];
 
-       
-
         $entities = $entities->paginate($this->quantityOfDisplayed);
 
         $regions = Region::all();
@@ -80,5 +73,10 @@ class BasePage extends Component
             'categories' => $categories,
             'entityTypies' => $entityTypies
         ]);
+    }
+
+    public function resetCategory()
+    {
+        $this->category = 'Все';
     }
 }
