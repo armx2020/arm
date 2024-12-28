@@ -1,6 +1,6 @@
 <div class="col-span-6" id="select_city_div" wire:ignore>
     <label for="select_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
-    <select name="select_city" class="w-full" id="select_city">
+    <select name="select_city" class="w-full" id="select_city" style="background-color: brown">
         <option value='1'>-- выбор города --</option>
     </select>
 </div>
@@ -36,3 +36,11 @@
         });
     }
 </script>
+
+<style>
+    .select2-container--default .select2-selection--single {
+        background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+        border-color: rgb(209 213 219));
+        border-radius: 0.5rem;
+    }
+</style>

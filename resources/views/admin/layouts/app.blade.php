@@ -21,6 +21,7 @@
 
     <script src="{{ url('/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ url('/select2.min.js') }}"></script>
+    <script src="{{ url('/jquery.maskedinput.min.js')}}"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/select.css'])
     @livewireStyles
