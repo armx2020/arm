@@ -45,6 +45,11 @@ class Category extends Model
         return $query->where('entity_type_id', 3);
     }
 
+    public function scopeCommunities($query)
+    {
+        return $query->where('entity_type_id', 4);
+    }
+
     public function scopeEvent($query) // TODO удалить после переноса сущностей
     {
         return $query->where('type_old', 'event');

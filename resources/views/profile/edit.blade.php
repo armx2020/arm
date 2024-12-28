@@ -2,11 +2,10 @@
 @section('content')
 <div class="flex flex-col lg:flex-row mx-auto my-10">
 
-    <x-nav-profile page="profile"></x-nav-profile>
+    @include('profile.menu')
+
 
     <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
-
-
 
         <div class="w-full mx-auto space-y-6">
 

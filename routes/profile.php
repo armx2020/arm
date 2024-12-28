@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Profile\MyCommunityController;
 use App\Http\Controllers\Profile\MyProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Profile\MyCompanyController;
@@ -22,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'mygroups'      =>  MyGroupController::class,
         'mycompanies'   =>  MyCompanyController::class,
         'myoffers'      =>  MyOfferController::class,
-        'myplaces'      =>  MyPlacesController::class
+        'myplaces'      =>  MyPlacesController::class,
+        'mycommunities' =>  MyCommunityController::class
     ]);
 });

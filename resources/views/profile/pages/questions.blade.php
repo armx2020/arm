@@ -3,7 +3,7 @@
 
 <div class="flex flex-col lg:flex-row mx-auto my-10">
 
-    <x-nav-profile page="questions"></x-nav-profile>
+    @include('profile.menu')
 
     <div class="flex basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
         <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-2 lg:p-10">
