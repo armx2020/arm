@@ -7,7 +7,8 @@
         <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
             <div class="flex flex-col basis-full">
                 <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-2 lg:p-10 relative">
-                    <form method="post" action="{{ route('mycommunities.store') }}" class="w-full" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('mycommunities.store') }}" class="w-full"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <div class="w-full">
@@ -68,6 +69,10 @@
                                     @foreach ($categories as $item)
                                         <div class="flex flex-col gap-1">
                                             <div class="flex">
+                                                <input type="radio" name="category" value="{{ $item->id }}"
+                                                    @if (is_array(old('category')) && in_array($item->id, old('category'))) checked @endif
+                                                    class="checkbox-{{ $loop->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                    id="checkbox-{{ $loop->iteration }}">
                                                 <label for="checkbox-group-{{ $loop->iteration }}"
                                                     class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
                                             </div>

@@ -59,14 +59,14 @@
                         <div class="my-3">
                             <x-input-label for="address" :value="__('Адрес')" />
                             <x-text-input id="address" name="address" type="text" class="mt-1 block w-full"
-                                :value="old('address', $entity->address)"  />
+                                :value="old('address', $entity->address)" />
                             <x-input-error class="mt-2" :messages="$errors->get('address')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="description" :value="__('Описание')" />
                             <x-text-input id="description" name="description" type="text" class="mt-1 block w-full"
-                                :value="old('description', $entity->description)"  />
+                                :value="old('description', $entity->description)" />
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
@@ -78,6 +78,10 @@
                                     @foreach ($categories as $item)
                                         <div class="flex flex-col gap-1">
                                             <div class="flex">
+                                                <input type="radio" name="category" value="{{ $item->id }}"
+                                                    @checked($entity->category_id == $item->id)
+                                                    class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                    id="checkbox-{{ $loop->iteration }}">
                                                 <label for="checkbox-group-{{ $loop->iteration }}"
                                                     class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
                                             </div>
@@ -143,8 +147,7 @@
 
                         <div class="my-3">
                             <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
-                            <select name="city" class="w-full" style="border-color: rgb(209 213 219)"
-                                id="city">
+                            <select name="city" class="w-full" style="border-color: rgb(209 213 219)" id="city">
                                 <option value='{{ $entity->city->id }}'>{{ $entity->city->name }}</option>
                             </select>
                         </div>
@@ -207,7 +210,7 @@
                     }
                 });
             }
-            
+
             function previewImage(file) {
                 var reader = new FileReader();
                 reader.onload = function(event) {
