@@ -64,6 +64,11 @@ class Entity extends Model
         return $query->where('entity_type_id', 2);
     }
 
+    public function scopePlaces($query)
+    {
+        return $query->where('entity_type_id', 3);
+    }
+
     public function type(): BelongsTo
     {
         return $this->belongsTo(EntityType::class, 'entity_type_id');

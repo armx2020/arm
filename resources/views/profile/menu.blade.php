@@ -24,6 +24,10 @@
                     href="{{ route('myoffers.index') }}">Товары и услуги</a>
             </li>
 
+            <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('myplaces.*')) bg-gray-100 @endif"><a
+                    href="{{ route('myplaces.index') }}">Мои места</a>
+            </li>
+
             <hr class="mt-3">
 
             <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('profile.*')) bg-gray-100 @endif"><a

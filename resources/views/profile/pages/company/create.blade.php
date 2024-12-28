@@ -153,7 +153,7 @@
                 $("#city").select2({
                     ajax: {
                         url: " {{ route('cities') }}",
-                        type: "post",
+                        type: "GET",
                         delay: 250,
                         dataType: 'json',
                         data: function(params) {

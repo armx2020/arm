@@ -7,7 +7,7 @@
         <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
             <div class="flex flex-col basis-full">
                 <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-2 lg:p-10 relative">
-                    <form method="post" action="{{ route('mygroups.store') }}" class="w-full" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('myplaces.store') }}" class="w-full" enctype="multipart/form-data">
                         @csrf
 
                         <div class="w-full">
@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="checkbox-group" :value="__('Выберите деятельность *')" />
+                            <x-input-label for="checkbox-group" :value="__('Выберите категорию *')" />
                             <div class="flex border-2 rounded-lg p-4 mt-1 @if (count($errors->get('fields')) > 0) border-1 border-red-300 @endif"
                                 id="checkbox-group">
                                 <div class="grid grid-cols-3 gap-4 w-full">
