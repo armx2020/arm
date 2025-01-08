@@ -39,7 +39,7 @@ class User extends Authenticatable
         'phone'
     ];
 
-    public function entity(): HasMany
+    public function entities(): HasMany
     {
         return $this->hasMany(Entity::class);
     }

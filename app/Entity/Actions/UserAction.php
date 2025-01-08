@@ -73,4 +73,20 @@ class UserAction
 
         return $user;
     }
+
+    public function destroy($user): Void
+    {
+        foreach ($user->entities as $entity) {
+            if ($entity->image) {
+                Storage::delete('public/' . $entity->image);
+            }
+            $entity->delete();
+        }
+
+        if ($user->image !== null) {
+            Storage::delete('public/' . $user->image);
+        }
+
+        $user->delete();
+    }
 }
