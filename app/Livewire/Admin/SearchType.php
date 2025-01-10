@@ -1,45 +1,45 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
-use App\Entity\Repository\CategoryRepository;
-use App\Http\Livewire\Admin\BaseComponent;
-use App\Models\Category;
+use App\Entity\Repository\TypeRepository;
+use App\Livewire\Admin\BaseComponent;
+use App\Models\EntityType;
 
-class SearchCategory extends BaseComponent
+class SearchType extends BaseComponent
 {
     protected $entity;
 
     public function __construct()
     {
-        $this->entity = new CategoryRepository;
+        $this->entity = new TypeRepository;
         parent::__construct($this->entity);
     }
 
 
     public function render()
     {
-        $title = 'Все категории';
-        $emptyEntity = 'Категорий нет';
-        $entityName = 'category';
+        $title = 'Все типы сущностей';
+        $emptyEntity = 'Типов для сущностей нет';
+        $entityName = 'type';
 
-        sleep(0.5);
-        $entities = Category::query()->with('type')->orderByDesc('id');
-
+        sleep(1);
         if ($this->term == "") {
+
+            $entities = EntityType::query()->latest();
+
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
                 $callable = $filterValue[array_key_first($filterValue)];
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
+            $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = $entities->search($this->term);
+            $entities = EntityType::search($this->term)->paginate($this->quantityOfDisplayed);
         }
 
-        $entities = $entities->paginate($this->quantityOfDisplayed);
-
-        return view('livewire.admin.search-category', [
+        return view('livewire.admin.search-type', [
             'entities' => $entities,
             'allColumns' => $this->allColumns,
             'selectedColumns' => $this->selectedColumns,

@@ -30,7 +30,7 @@ class UserController extends Controller
             foreach ($data as $user) {
                 $users['results'][] = array(
                     "id" => $user->id,
-                    "text" => $user->firstname,
+                    "text" => $user->firstname . " " . $user->phone,
                 );
             }
         }

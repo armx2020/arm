@@ -1,45 +1,44 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
-use App\Entity\Repository\TypeRepository;
-use App\Http\Livewire\Admin\BaseComponent;
-use App\Models\EntityType;
+use App\Entity\Repository\WorkRepository;
+use App\Livewire\Admin\BaseComponent;
+use App\Models\Work;
 
-class SearchType extends BaseComponent
+class SearchWork extends BaseComponent
 {
     protected $entity;
 
     public function __construct()
     {
-        $this->entity = new TypeRepository;
+        $this->entity = new WorkRepository;
         parent::__construct($this->entity);
     }
 
-
     public function render()
     {
-        $title = 'Все типы сущностей';
-        $emptyEntity = 'Типов для сущностей нет';
-        $entityName = 'type';
+        $title = 'Все резюме и вакансии';
+        $emptyEntity = 'Резюме и вакансий нет';
+        $entityName = 'work';
 
-        sleep(1);
+        sleep(0.5);
+        $entities = Work::with('city')->orderByDesc('id');
+
         if ($this->term == "") {
-
-            $entities = EntityType::query()->latest();
-
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
                 $callable = $filterValue[array_key_first($filterValue)];
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
-            $entities = $entities->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = EntityType::search($this->term)->paginate($this->quantityOfDisplayed);
+            $entities = $entities->search($this->term);
         }
 
-        return view('livewire.admin.search-type', [
+        $entities = $entities->paginate($this->quantityOfDisplayed);
+
+        return view('livewire.admin.search-work', [
             'entities' => $entities,
             'allColumns' => $this->allColumns,
             'selectedColumns' => $this->selectedColumns,

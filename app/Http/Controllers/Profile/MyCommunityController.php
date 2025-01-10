@@ -24,7 +24,7 @@ class MyCommunityController extends BaseController
         $entitiesName = 'mycommunities';
         $entityName = 'mycommunity';
 
-        $groups = Auth::user()->entity()->communities()->orderByDesc('updated_at')->paginate(10);
+        $groups = Auth::user()->entities()->communities()->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.community.index', [
             'region'   => $request->session()->get('region'),

@@ -1,29 +1,30 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
-use App\Entity\Repository\UserRepository;
-use App\Http\Livewire\Admin\BaseComponent;
-use App\Models\User;
+use App\Entity\Repository\OfferRepository;
+use App\Livewire\Admin\BaseComponent;
+use App\Models\Offer;
 
-class SearchUser extends BaseComponent
+class SearchOffer extends BaseComponent
 {
     protected $entity;
 
     public function __construct()
     {
-        $this->entity = new UserRepository;
+        $this->entity = new OfferRepository;
         parent::__construct($this->entity);
     }
 
+
     public function render()
     {
-        $title = 'Все пользователи';
-        $emptyEntity = 'Пользователей нет';
-        $entityName = 'user';
+        $title = 'Все предложения';
+        $emptyEntity = 'Предложений нет';
+        $entityName = 'offer';
 
         sleep(0.5);
-        $entities = User::query()->with('city')->orderByDesc('id');
+        $entities = Offer::query()->with('city')->orderByDesc('id');;
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {
@@ -39,7 +40,7 @@ class SearchUser extends BaseComponent
         $entities = $entities->paginate($this->quantityOfDisplayed);
 
         return view(
-            'livewire.admin.search-user',
+            'livewire.admin.search-offer',
             [
                 'entities' => $entities,
                 'allColumns' => $this->allColumns,

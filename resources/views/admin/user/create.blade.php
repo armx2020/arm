@@ -7,6 +7,12 @@
                     <div class="relative w-full h-full md:h-auto">
                         <div class="bg-white rounded-lg relative">
 
+                            <div class="flex items-start p-5 border-b rounded-t">
+                                <div class="flex items-center">
+                                    <h3 class="text-2xl font-bold leading-none text-gray-900">Новый пользователь</h3>
+                                </div>
+                            </div>
+
                             <form method="POST" enctype="multipart/form-data" action="{{ route('admin.user.store') }}">
                                 @csrf
 
@@ -28,13 +34,14 @@
                                                 style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                                         </label>
                                     </div>
-
                                 </div>
+
+                                <x-input-error :messages="$errors->get('image')" class="mt-2" />
 
                                 <div class="p-6 space-y-6">
                                     <div class="grid grid-cols-6 gap-6">
-                                        <div class="col-span-6">
 
+                                        <div class="col-span-6">
                                             <label for="firstname" class="text-sm font-medium text-gray-900 block mb-2">Имя
                                                 *</label>
                                             <input type="text" name="firstname" id="firstname"

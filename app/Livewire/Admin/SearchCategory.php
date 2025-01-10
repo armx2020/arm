@@ -1,29 +1,30 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
-use App\Entity\Repository\WorkRepository;
-use App\Http\Livewire\Admin\BaseComponent;
-use App\Models\Work;
+use App\Entity\Repository\CategoryRepository;
+use App\Livewire\Admin\BaseComponent;
+use App\Models\Category;
 
-class SearchWork extends BaseComponent
+class SearchCategory extends BaseComponent
 {
     protected $entity;
 
     public function __construct()
     {
-        $this->entity = new WorkRepository;
+        $this->entity = new CategoryRepository;
         parent::__construct($this->entity);
     }
 
+
     public function render()
     {
-        $title = 'Все резюме и вакансии';
-        $emptyEntity = 'Резюме и вакансий нет';
-        $entityName = 'work';
+        $title = 'Все категории';
+        $emptyEntity = 'Категорий нет';
+        $entityName = 'category';
 
         sleep(0.5);
-        $entities = Work::with('city')->orderByDesc('id');
+        $entities = Category::query()->with('type')->orderByDesc('id');
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {
@@ -38,7 +39,7 @@ class SearchWork extends BaseComponent
 
         $entities = $entities->paginate($this->quantityOfDisplayed);
 
-        return view('livewire.admin.search-work', [
+        return view('livewire.admin.search-category', [
             'entities' => $entities,
             'allColumns' => $this->allColumns,
             'selectedColumns' => $this->selectedColumns,

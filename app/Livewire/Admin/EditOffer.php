@@ -1,14 +1,21 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
 use App\Models\Category;
 use App\Models\Entity;
 use Livewire\Component;
 
-class CreateOffer extends Component
+class EditOffer extends Component
 {
     public $selectedType = null;
+    public $offer = null;
+
+    public function mount($offer)
+    {
+        $this->offer = $offer;
+        $this->selectedType = $offer->entity_id;
+    }
 
     public function render()
     {
@@ -24,7 +31,7 @@ class CreateOffer extends Component
         $entities = Entity::whereNotNull('entity_type_id')->get();
 
         return view(
-            'livewire.admin.create-offer',
+            'livewire.admin.edit-offer',
             [
                 'categories' => $categories,
                 'entities' => $entities

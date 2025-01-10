@@ -1,7 +1,13 @@
+@props(['selectedUser' => null])
+
 <div class="col-span-6" id="select_user_div" wire:ignore>
     <label for="select_user" class="text-sm font-medium text-gray-900 block mb-2">Пользователь</label>
     <select name="select_user" class="w-full" id="select_user">
-        <option value=''>- без пользователя -</option>
+        @if (isset($selectedUser))
+            <option value="{{ $selectedUser->id }}"> {{ $selectedUser->firstname }} {{ $selectedUser->phone }}</option>
+        @else
+            <option value=''>- без пользователя -</option>
+        @endif
     </select>
 </div>
 

@@ -1,6 +1,6 @@
 <div class="flex justify-between">
     <div class="bg-white rounded-md mb-3">
-        <select name="sort" class="w-full border-0" wire:model="sort">
+        <select name="sort" class="w-full border-0" wire:model.live="sort">
             <option value="name|asc">по имени: min</option>
             <option value="name|desc">по имени: max</option>
             <option value="created_at|asc">по дате создания: min</option>
@@ -12,7 +12,7 @@
         </select>
     </div>
     <div class="bg-white rounded-md mb-3">
-        <select name="view" class="w-full border-0 hidden md:block" wire:model="view">
+        <select name="view" class="w-full border-0 hidden md:block" wire:model.live="view">
             <option value="1">сетка</option>
             <option value="2">столбик</option>
         </select>

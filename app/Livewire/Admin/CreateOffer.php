@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
 use App\Models\Category;
-use App\Models\City;
-use App\Models\EntityType;
-use App\Models\User;
+use App\Models\Entity;
 use Livewire\Component;
 
-class CreateEntity extends Component
+class CreateOffer extends Component
 {
     public $selectedType = null;
 
@@ -16,20 +14,20 @@ class CreateEntity extends Component
     {
         $categories = Category::query()->active()->with('categories')->where('category_id', null)->orderBy('sort_id');
 
-
         if ($this->selectedType) {
-            $categories = $categories->where('entity_type_id', $this->selectedType)->get();
+            $entity = Entity::where('id', $this->selectedType)->First();
+            $categories = $categories->where('entity_type_id', $entity->entity_type_id)->get();
         } else {
             $categories = $categories->take(0)->get();
         }
 
-        $typies = EntityType::all();
+        $entities = Entity::whereNotNull('entity_type_id')->get();
 
         return view(
-            'livewire.admin.create-entity',
+            'livewire.admin.create-offer',
             [
-                'typies' => $typies,
                 'categories' => $categories,
+                'entities' => $entities
             ]
         );
     }

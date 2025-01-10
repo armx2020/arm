@@ -24,7 +24,7 @@ class MyGroupController extends BaseController
         $entitiesName = 'mygroups';
         $entityName = 'mygroup';
 
-        $groups = Auth::user()->entity()->groups()->orderByDesc('updated_at')->paginate(10);
+        $groups = Auth::user()->entities()->groups()->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.group.index', [
             'region'   => $request->session()->get('region'),

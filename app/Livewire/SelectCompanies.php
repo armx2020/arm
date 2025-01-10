@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Category;
-use App\Models\Group;
+use App\Models\Entity;
 use App\Models\Region;
 
-class SelectGroups extends BaseSelect
+class SelectCompanies extends BaseSelect
 {
-
     public $category = 'Все';
 
     public function __construct()
@@ -18,19 +17,22 @@ class SelectGroups extends BaseSelect
 
     public function render()
     {
-        $entityShowRout = 'groups.show';
+        $entityShowRout = 'companies.show';
         $exp = explode('|', $this->sort);
 
-        $groups = Group::query()->with('users')->active()->orderBy($exp[0], $exp[1]);
+        $entities = Entity::query()->active()
+            ->orderBy($exp[0], $exp[1])
+            ->with(['categories', 'region']);
+
         $recommendations = [];
 
         if ($this->region !== 1) {
-            $groups = $groups
+            $entities = $entities
                 ->where('region_id', '=', $this->region);
 
-            $recommendations = Group::query()->active()
+            $recommendations = Entity::query()->active()
                 ->orderBy($exp[0], $exp[1])
-                ->with('region')
+                ->with(['fields', 'region'])
                 ->whereNot(function ($query) {
                     $query->where('region_id', '=', $this->region);
                 })
@@ -38,19 +40,20 @@ class SelectGroups extends BaseSelect
                 ->get();
         }
 
-
         if ($this->category !== 'Все') {
-            $groups = $groups->where('category_id', '=', $this->category);
+            $entities = $entities->whereHas('fields', function ($query) {
+                $query->where('category_entity.main_category_id', '=', $this->category);
+            });
         }
 
-        $groups = $groups->paginate($this->quantityOfDisplayed);
-        $categories = Category::active()->main()->group()->orderBy('sort_id')->get();
+        $entities = $entities->paginate($this->quantityOfDisplayed);
+        $categories = Category::query()->main()->active()->orderBy('sort_id')->get();
 
         $regions = Region::all();
 
-        return view('livewire.select-groups', [
+        return view('livewire.select-companies', [
             'entityShowRout' => $entityShowRout,
-            'entities' => $groups,
+            'entities' => $entities,
             'regions' => $regions,
             'region' => $this->region,
             'recommendations' => $recommendations,

@@ -6,7 +6,7 @@
                     <form class="w-full" method="get">
                         <label for="search" class="sr-only">Search</label>
                         <div class="w-full">
-                            <input type="text" placeholder="поиск по названию, описанию" wire:model="search" id="search"
+                            <input type="text" placeholder="поиск по названию, описанию" wire:model.live="search" id="search"
                                 class="bg-white border-0 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                         </div>
                     </form>
@@ -14,7 +14,7 @@
             </div>
             <div>
                 <div class="bg-white rounded-lg grid-cols-1">
-                    <select name="region" class="w-full border-0 rounded-lg" wire:model="region" autocomplete="off">
+                    <select name="region" class="w-full border-0 rounded-lg" wire:model.live="region" autocomplete="off">
                         @foreach ($regions as $region)
                             <option value='{{ $region->id }}'>{{ $region->name }}</option>
                         @endforeach
@@ -26,7 +26,7 @@
             <div class="flex flex-nowrap gap-x-2 overflow-x-scroll scrollhidden lowercase max-w-full">
                 <div class="flex-none py-2 px-3 rounded-md cursor-pointer" id="select-area_0"
                     @if ($term == 0) style="background-color:rgb(59 130 246);color:white" @else style="background-color:white;color:black;" @endif>
-                    <input class="hidden" type="radio" wire:model="term" value="0" name="select" />
+                    <input class="hidden" type="radio" wire:model.live="term" value="0" name="select" />
                     <p class="inline-block " for="checkboxDefault">
                         Все группы
                     </p>
@@ -47,7 +47,7 @@
                         @if ($term == $category->id) style="background-color:rgb(59 130 246);color:white"
                     @else
                     style="background-color: white;color:black;" @endif>
-                        <input class="hidden" type="radio" wire:model="term" value="{{ $category->id }}"
+                        <input class="hidden" type="radio" wire:model.live="term" value="{{ $category->id }}"
                             name="select" />
                         <p class="inline-block " for="checkboxDefault">
                             {{ $category->name }}

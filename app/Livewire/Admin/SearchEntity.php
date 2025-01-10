@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
 use App\Entity\Repository\EntityRepository;
-use App\Http\Livewire\Admin\BaseComponent;
+use App\Livewire\Admin\BaseComponent;
 use App\Models\Entity;
 
 class SearchEntity extends BaseComponent

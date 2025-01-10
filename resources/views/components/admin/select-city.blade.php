@@ -1,7 +1,13 @@
+@props(['selectedCity' => null])
+
 <div class="col-span-6" id="select_city_div" wire:ignore>
     <label for="select_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
     <select name="select_city" class="w-full" id="select_city" style="background-color: brown">
-        <option value='1'>-- выбор города --</option>
+        @if (isset($selectedCity))
+            <option value="{{ $selectedCity->id }}"> {{ $selectedCity->name }}</option>
+        @else
+            <option value='1'>-- выбор города --</option>
+        @endif
     </select>
 </div>
 

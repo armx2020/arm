@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
 use App\Models\Category;
 use App\Models\City;
@@ -8,16 +8,9 @@ use App\Models\EntityType;
 use App\Models\User;
 use Livewire\Component;
 
-class EditEntity extends Component
+class CreateEntity extends Component
 {
     public $selectedType = null;
-    public $entity = null;
-
-    public function mount($entity)
-    {
-        $this->entity = $entity;
-        $this->selectedType = $entity->entity_type_id;
-    }
 
     public function render()
     {
@@ -30,16 +23,12 @@ class EditEntity extends Component
         }
 
         $typies = EntityType::all();
-        $users = User::all();
-        $cities = City::all();
 
         return view(
-            'livewire.admin.edit-entity',
+            'livewire.admin.create-entity',
             [
-                'users' => $users,
                 'typies' => $typies,
                 'categories' => $categories,
-                'cities' => $cities
             ]
         );
     }

@@ -1,14 +1,21 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
 use App\Models\Category;
 use App\Models\EntityType;
 use Livewire\Component;
 
-class CreateCategory extends Component
+class EditCategory extends Component
 {
     public $selectedType = null;
+    public $category = null;
+
+    public function mount($category)
+    {
+        $this->category = $category;
+        $this->selectedType = $category->entity_type_id;
+    }
 
     public function render()
     {
@@ -22,7 +29,7 @@ class CreateCategory extends Component
 
         $typies = EntityType::get();
 
-        return view('livewire.admin.create-category', [
+        return view('livewire.admin.edit-category', [
             'categories' => $categories,
             'typies' => $typies
         ]);

@@ -27,11 +27,11 @@
                                 </div>
 
                                 <div class="flex basis-2/5">
-                                    <input type="date" wire:model="selectedFilters.{{ $name }}.>=" name="$name"
+                                    <input type="date" wire:model.live="selectedFilters.{{ $name }}.>=" name="$name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                 </div>
                                 <div class="flex basis-2/5">
-                                    <input type="date" wire:model="selectedFilters.{{ $name }}.<=" name="$name"
+                                    <input type="date" wire:model.live="selectedFilters.{{ $name }}.<=" name="$name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                 </div>
                             @break
@@ -44,7 +44,7 @@
                                 <div class="flex basis-4/5">
                                     <select name="$name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
-                                        wire:model="selectedFilters.{{ $name }}.=">
+                                        wire:model.live="selectedFilters.{{ $name }}.=">
                                         <option value="true">да</option>
                                         <option value="false">нет</option>
                                     </select>
@@ -60,7 +60,7 @@
                                     <div class="flex basis-4/5">
                                         <select name="$name"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
-                                            wire:model="selectedFilters.{{ $name }}.=">
+                                            wire:model.live="selectedFilters.{{ $name }}.=">
                                             <option disabled value="">Выберите регион...</option>
                                             @foreach (\App\Models\Region::all() as $region)
                                                 <option value="{{ $region->id }}">{{ $region->name }}</option>
@@ -77,7 +77,7 @@
                                     <div class="flex basis-4/5">
                                         <select name="$name"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
-                                            wire:model="selectedFilters.{{ $name }}.=">
+                                            wire:model.live="selectedFilters.{{ $name }}.=">
                                             <option disabled value="">Выберите регион...</option>
                                             @foreach (\App\Models\City::all() as $city)
                                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
@@ -94,7 +94,7 @@
                                     <div class="flex basis-4/5">
                                         <select name="{{ $name }}"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
-                                            wire:model="selectedFilters.{{ $name }}.=">
+                                            wire:model.live="selectedFilters.{{ $name }}.=">
                                             <option value="">Все</option>
                                             <option value="vacancy">Вакансии
                                             </option>
@@ -112,7 +112,7 @@
                                     <div class="flex basis-4/5">
                                         <select name="$name"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
-                                            wire:model="selectedFilters.{{ $name }}.=">
+                                            wire:model.live="selectedFilters.{{ $name }}.=">
                                             <option disabled value="">Выберите тип...</option>
                                             @foreach (\App\Models\EntityType::all() as $type)
                                                 <option value="{{ $type->id }}">{{ $type->name }}</option>

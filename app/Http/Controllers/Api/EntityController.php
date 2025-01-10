@@ -30,7 +30,7 @@ class EntityController extends Controller
             foreach ($data as $entity) {
                 $entities['results'][] = array(
                     "id" => $entity->id,
-                    "text" => $entity->name,
+                    "text" => $entity->name . ' (' . $entity->type->name . ')',
                 );
             }
         }

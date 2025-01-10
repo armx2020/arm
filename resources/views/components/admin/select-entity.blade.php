@@ -1,7 +1,13 @@
+@props(['selectedEntity' => null])
+
 <div class="col-span-6" id="select_entity_div" wire:ignore>
     <label for="select_entity" class="text-sm font-medium text-gray-900 block mb-2">Сущность</label>
-    <select name="select_entity" class="w-full" id="select_entity" wire:model="selectedType" required>
-        <option value='1'>-- выбор сушности --</option>
+    <select name="select_entity" class="w-full" id="select_entity" wire:model.live="selectedType" required>
+        @if (isset($selectedUser))
+            <option value="{{ $selectedUser->id }}"> {{ $selectedUser->firstname }} {{ $selectedUser->phone }}</option>
+        @else
+            <option value=''>-- выбор сущности --</option>
+        @endif
     </select>
 </div>
 
@@ -33,6 +39,11 @@
                 },
                 cache: true
             }
+        });
+        $('#select_entity').on('change', function(e) {
+            // let elementName = $(this).attr('id');
+            // var data = $(this).select2("val");
+            @this.set('selectedType', e.target.value);
         });
     }
 </script>

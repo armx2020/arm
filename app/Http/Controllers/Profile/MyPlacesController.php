@@ -24,7 +24,7 @@ class MyPlacesController extends BaseController
         $entitiesName = 'myplaces';
         $entityName = 'myplace';
 
-        $groups = Auth::user()->entity()->places()->orderByDesc('updated_at')->paginate(10);
+        $groups = Auth::user()->entities()->places()->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.place.index', [
             'region'   => $request->session()->get('region'),

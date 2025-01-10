@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
-use Livewire\WithPagination;
+use App\Models\Category;
+use App\Models\Event;
 use App\Models\Region;
-use App\Models\Work;
 
-class SelectWorks extends BaseSelect
+class SelectEvents extends BaseSelect
 {
-    use WithPagination;
-
-    public $category = 'Вакансии';
+    public $category = 'Все';
 
     public function __construct()
     {
@@ -19,23 +17,17 @@ class SelectWorks extends BaseSelect
 
     public function render()
     {
-        $entityShowRout = 'works.show';
+        $entityShowRout = 'events.show';
         $exp = explode('|', $this->sort);
 
-        $works = Work::query()->active()->orderBy($exp[0], $exp[1]);
+        $events = Event::query()->with('region')->active()->orderBy($exp[0], $exp[1]);
         $recommendations = [];
 
-        if ($this->category == 'Вакансии') {
-            $works = $works->vacancy();
-        } else {
-            $works = $works->resume()->with('parent');
-        }
-
         if ($this->region !== 1) {
-            $works = $works
+            $events = $events
                 ->where('region_id', '=', $this->region);
 
-            $recommendations = Work::query()->active()
+            $recommendations = Event::query()->active()
                 ->orderBy($exp[0], $exp[1])
                 ->with('region')
                 ->whereNot(function ($query) {
@@ -45,17 +37,23 @@ class SelectWorks extends BaseSelect
                 ->get();
         }
 
-        $works = $works->paginate($this->quantityOfDisplayed);
+        if ($this->category !== 'Все') {
+            $events = $events->where('category_id', '=', $this->category);
+        }
+
+        $events = $events->paginate($this->quantityOfDisplayed);
+        $categories = Category::active()->event()->main()->orderBy('sort_id')->get();
 
         $regions = Region::all();
 
-        return view('livewire.select-works', [
+        return view('livewire.select-events', [
             'entityShowRout' => $entityShowRout,
-            'entities' => $works,
+            'entities' => $events,
             'regions' => $regions,
             'region' => $this->region,
             'recommendations' => $recommendations,
             'position' => $this->position,
+            'categories' => $categories,
         ]);
     }
 }
