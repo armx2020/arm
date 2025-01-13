@@ -18,7 +18,7 @@
             </a>
         </div>
 
-        @if ($entity->getTable() == 'groups')
+        @if ($entity->entity_type_id == 2)
             <div class="hidden lg:block">
                 <p
                     class="mb-2 mt-2 sm:mt-0 text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
@@ -30,17 +30,17 @@
             </div>
         @endif
 
-        @if ($entity->getTable() == 'companies')
+        @if ($entity->entity_type_id == 1)
 
             @php
                 $count = 0;
             @endphp
 
             <ul class="list-disc text-base font-normal text-gray-500 break-all ml-4">
-                @if ($entity->categories)
-                    @foreach ($entity->categories as $category)
+                @if ($entity->fields)
+                    @foreach ($entity->fields as $field)
                         <li class="text-xs lg:text-base">
-                            {{ $category->name }}
+                            {{ $field->name }}
                         </li>
 
                         @php
