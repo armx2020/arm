@@ -47,11 +47,13 @@ class BasePage extends Component
         $entities = Entity::query()->active()->with('fields')->where('entity_type_id', $this->type);
 
         $entities = $entities->orderByRaw("FIELD(`region_id`, $this->region) DESC");
-        
+
         if ($this->category !== 'Все') {
-            $entities = $entities->whereHas('fields', function ($query) {
-                $query->where('category_entity.main_category_id', '=', $this->category);
-            });
+            $entities = $entities
+                ->where('category_id', $this->category)
+                ->orWhereHas('fields', function ($query) {
+                    $query->where('category_entity.main_category_id', '=', $this->category);
+                });
         }
 
         $entities = $entities->paginate($this->quantityOfDisplayed);

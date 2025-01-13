@@ -94,7 +94,7 @@ class MyOfferController extends BaseController
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
-        if (!$offer->entity->user_id == Auth::user()->id) {
+        if (!$offer->user_id == Auth::user()->id) {
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
@@ -137,7 +137,7 @@ class MyOfferController extends BaseController
     {
         $offer = Offer::find($id);
 
-        if (empty($offer) || $offer->entity->user_id !== Auth::user()->id) {
+        if (empty($offer) || $offer->user_id !== Auth::user()->id) {
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 

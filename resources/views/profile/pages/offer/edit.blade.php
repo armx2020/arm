@@ -75,12 +75,16 @@
                             <select name="entity" id="entity"
                                 class="shadow-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                                 required>
-                                <option value="{{ $offer->entity->id }}">
-                                    {{ mb_substr($offer->entity->name, 0, 80, 'UTF-8') }}
-                                    @if (mb_strlen($offer->entity->name) > 80)
-                                        ...
-                                    @endif
-                                </option>
+                                @if ($offer->entity)
+                                    <option value="{{ $offer->entity->id }}">
+                                        {{ mb_substr($offer->entity->name, 0, 80, 'UTF-8') }}
+                                        @if (mb_strlen($offer->entity->name) > 80)
+                                            ...
+                                        @endif
+                                    </option>
+                                @else
+                                    <option value=""> -- Выберите компанию -- </option>
+                                @endif
                                 @foreach ($companies as $company)
                                     <option value="{{ $company->id }}" class="text-ellipsis overflow-hidden text-nowrap">
                                         {{ mb_substr($company->name, 0, 80, 'UTF-8') }}
