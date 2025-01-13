@@ -44,7 +44,11 @@ class BasePage extends Component
 
         $entityShowRout = '';
         $categories = Category::active()->main()->where('entity_type_id', $this->type)->get();
-        $entities = Entity::query()->active()->with('fields')->where('entity_type_id', $this->type);
+        $entities = Entity::query()->active()->with('fields');
+
+        if ($this->type !== 1) {
+            $entities = $entities->where('entity_type_id', $this->type);
+        }
 
         $entities = $entities->orderByRaw("FIELD(`region_id`, $this->region) DESC");
 

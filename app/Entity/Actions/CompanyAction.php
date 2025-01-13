@@ -98,8 +98,8 @@ class CompanyAction
 
         $entity->update();
 
-        if ($request->categories) {
-            foreach ($request->categories as $categoryID => $val) {
+        if ($request->fields) {
+            foreach ($request->fields as $categoryID) {
                 $categoryBD = Category::find($categoryID);
 
                 if ($categoryBD) {
