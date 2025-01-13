@@ -5,7 +5,7 @@
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}
             alt="{{ $entity->name }}" />
     </a>
-    <div class="px-3 lg:px-5 flex flex-col max-w-48 flex-1 truncate">
+    <div class="px-3 lg:px-5 flex flex-col flex-1 truncate">
         <div class="flex truncate">
             <a href="{{ route('entity.show', ['entity' => $entity]) }}">
                 <p
@@ -84,23 +84,23 @@
 
     </div>
 
-    <div class="hidden xl:flex flex-initial text-right flex flex-col w-44 text-wrap whitespace-normal">
-        <p class="text-lg mb-1 font-medium">
-            @isset($entity->phone)
-                <a href="tel:{{ $entity->phone }}" class="text-blue-600">
-                    {{ $entity->phone }}
-                </a>
-            @endisset
+    @if (isset($entity->phone) || $entity->city_id !== 1)
+        <div class="hidden xl:flex flex-initial text-right flex flex-col w-44 text-wrap whitespace-normal">
+            <p class="text-lg mb-1 font-medium">
+                @isset($entity->phone)
+                    <a href="tel:{{ $entity->phone }}" class="text-blue-600">
+                        {{ $entity->phone }}
+                    </a>
+                @endisset
 
-            @if ($entity->city_id && $entity->city_id !== 1)
-                <p class="break-words text-lg font-medium text-blue-500 hidden lg:block">
-                    {{ $entity->city->name }}
-                </p>
-            @endif
-        </p>
-
-
-    </div>
+                @if ($entity->city_id && $entity->city_id !== 1)
+                    <p class="break-words text-lg font-medium text-blue-500 hidden lg:block">
+                        {{ $entity->city->name }}
+                    </p>
+                @endif
+            </p>
+        </div>
+    @endif
 </div>
 
 <script type='text/javascript'>
