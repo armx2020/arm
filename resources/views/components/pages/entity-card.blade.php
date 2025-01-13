@@ -13,12 +13,12 @@
                 </a>
             </div>
 
-                <img src="{{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}"
-                    class="h-full w-full  lg:h-72 lg:w-72 rounded-lg object-cover" alt="{{ $entity->name }}">
+            <img src="{{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}"
+                class="h-full w-full  lg:h-72 lg:w-72 rounded-lg object-cover" alt="{{ $entity->name }}">
 
-                @if ($entity->getTable() == 'projects')
-                    <x-pages.donations-for-project :$entity />
-                @endif
+            @if ($entity->getTable() == 'projects')
+                <x-pages.donations-for-project :$entity />
+            @endif
 
             <div class="flex flex-col px-0 lg:px-6 mt-3 sm:mt-0 justify-start break-all">
                 <h3 class="block text-left text-md font-semibold mx-4">
@@ -32,10 +32,10 @@
                     </p>
                 @endif
 
-                @if ($entity->getTable() == 'companies')
-                    @if ($entity->categories && count($entity->categories) > 3)
+                @if ($entity->entity_type_id == 1)
+                    @if ($entity->fields && count($entity->fields) > 3)
                         <span class="mx-4 text-sm font-semibold mt-4">Деятельность</span>
-                        @foreach ($entity->categories as $category)
+                        @foreach ($entity->fields as $category)
                             <p class="flex text-left text-sm mx-4 text-gray-500 break-all">
                                 &bull; {{ $category->name }}
                             </p>
@@ -60,6 +60,14 @@
                 <div class="my-3 pl-4">
                     <x-pages.social :entity=$entity />
                 </div>
+
+                @role('super-admin')
+                    <div class="hidden lg:block absolute right-4 top-72">
+                        <a href="{{ route('admin.entity.edit', ['entity' => $entity->id]) }}" class="[&>svg]:fill-[#a1b4c2]">
+                            перейти в админ-панель
+                        </a>
+                    </div>
+                @endrole
 
                 <div class="hidden lg:block absolute right-4 w-4 h-4">
                     <a href="{{ url()->previous() }}" class="[&>svg]:fill-[#a1b4c2]">
