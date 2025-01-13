@@ -30,13 +30,13 @@ class EntityRepository implements EntityColumnsInterface, EntityFiltersInterface
     protected $selectedColumns = [
         'id',
         'name',
-        'address',
-        'phone',
         'entity_type_id',
         'category_id',
         'user_id',
         'city_id',
         'region_id',
+        'address',
+        'phone',
     ];
 
     protected $filters = [
