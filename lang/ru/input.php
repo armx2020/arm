@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'name' => 'Название',
     'firstname' => 'Имя',
     'description' => 'Описание',
@@ -26,4 +27,5 @@ return [
     'parent_id' => 'Инициатор',
     'price' => 'Цена',
     'company_id' => 'Компания'
+    
 ];

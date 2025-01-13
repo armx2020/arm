@@ -7,8 +7,6 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Offer\StoreOfferRequest;
 use App\Http\Requests\Offer\UpdateOfferRequest;
 use App\Models\Category;
-use App\Models\Company;
-use App\Models\CompanyOffer;
 use App\Models\Entity;
 use App\Models\Offer;
 use Illuminate\Http\Request;

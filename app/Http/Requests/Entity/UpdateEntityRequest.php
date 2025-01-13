@@ -14,7 +14,7 @@ class UpdateEntityRequest extends FormRequest
             'phone'         => ['nullable', 'string', 'max:36'],
             'description'   => ['nullable', 'string'],
             'web'           => ['nullable', 'string', 'max:250'],
-            'whatsapp'      => ['nullable', 'string', 'max:36'],
+            'whatsapp'      => ['nullable', 'url:https'],
             'telegram'      => ['nullable', 'string', 'max:36'],
             'instagram'     => ['nullable', 'string', 'max:36'],
             'vkontakte'     => ['nullable', 'string', 'max:36'],

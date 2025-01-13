@@ -73,7 +73,7 @@
                         <div class="my-3">
                             <x-input-label for="checkbox-group" :value="__('Выберите деятельность *')" />
                             <div class="flex border-2 rounded-lg p-4 mt-1">
-                                <div class="grid grid-cols-3 gap-4 w-full">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
 
                                     @foreach ($categories as $item)
                                         <div class="flex flex-col gap-1">
@@ -101,50 +101,49 @@
 
                         <div class="my-3">
                             <x-input-label for="phone" :value="__('Телефон')" />
-                            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full"
+                            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full mask-phone" placeholder='+7 (***) ***-**-**'
                                 :value="old('phone', $entity->phone)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="whatsapp" :value="__('Whatsapp')" />
-                            <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full"
+                            <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full" placeholder='https://wa.me/***********'
                                 :value="old('whatsapp', $entity->whatsapp)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="web" :value="__('Веб')" />
-                            <x-text-input id="web" name="web" type="text" class="mt-1 block w-full"
+                            <x-text-input id="web" name="web" type="text" class="mt-1 block w-full" placeholder='https://***********.**'
                                 :value="old('web', $entity->web)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('web')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="telegram" :value="__('Телеграм')" />
-                            <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full"
+                            <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full"  placeholder='https://t.me/******'
                                 :value="old('telegram', $entity->telegram)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('telegram')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="vkontakte" :value="__('Вконтакте')" />
-                            <x-text-input id="vkontakte" name="vkontakte" type="text" class="mt-1 block w-full"
+                            <x-text-input id="vkontakte" name="vkontakte" type="text" class="mt-1 block w-full" placeholder='https://vk.com/***********'
                                 :value="old('vkontakte', $entity->vkontakte)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('vkontakte')" />
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="instagram" :value="__('Инстаграм')" />
-                            <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full"
+                            <x-input-label for="instagram" :value="__('Инстаграм')" /> 
+                            <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full" placeholder='https://www.instagram.com/*******'
                                 :value="old('instagram', $entity->instagram)" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('instagram')" />
                         </div>
 
                         <div class="my-3">
                             <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
-                            <select name="city" class="w-full" style="border-color: rgb(209 213 219)"
-                                id="city">
+                            <select name="city" class="w-full" style="border-color: rgb(209 213 219)" id="city">
                                 <option value='{{ $entity->city->id }}'>{{ $entity->city->name }}</option>
                             </select>
                         </div>
@@ -207,7 +206,7 @@
                     }
                 });
             }
-            
+
             function previewImage(file) {
                 var reader = new FileReader();
                 reader.onload = function(event) {

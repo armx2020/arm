@@ -32,7 +32,7 @@
                     href="{{ route('mycommunities.index') }}">Мои общины</a>
             </li>
 
-            <hr class="mt-3">
+            <hr class="mt-3 mb-2">
 
             <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('profile.*')) bg-gray-100 @endif"><a
                     href="{{ route('profile.edit') }}">Настройки</a>
@@ -44,7 +44,7 @@
             </li>
 
             @role('super-admin')
-                <hr class="mt-3">
+                <hr class="my-3">
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('admin.dashboard') }}">Админ панель</a>
                 </li>
             @endrole
