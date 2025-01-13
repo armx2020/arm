@@ -126,7 +126,7 @@
 
                         <div class="my-3">
                             <x-input-label for="instagram" :value="__('Инстаграм')" /> 
-                            <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full" placeholder='https://www.instagram.com/*******'
+                            <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full" placeholder='https://instagram.com/*******'
                                 :value="old('instagram')" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('instagram')" />
                         </div>

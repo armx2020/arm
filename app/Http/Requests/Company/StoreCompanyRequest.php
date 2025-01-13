@@ -2,6 +2,11 @@
 
 namespace App\Http\Requests\Company;
 
+use App\Rules\InstagramUrl;
+use App\Rules\TelegramUrl;
+use App\Rules\VkontakteUrl;
+use App\Rules\WebUrl;
+use App\Rules\WhatsappUrl;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCompanyRequest extends FormRequest
@@ -13,11 +18,11 @@ class StoreCompanyRequest extends FormRequest
             'address'       => ['nullable', 'string', 'max:128'],
             'phone'         => ['nullable', 'string', 'max:36'],
             'description'   => ['nullable', 'string'],
-            'web'           => ['nullable', 'string', 'max:250'],
-            'whatsapp'      => ['nullable', 'url:https'],
-            'telegram'      => ['nullable', 'string', 'max:36'],
-            'instagram'     => ['nullable', 'string', 'max:36'],
-            'vkontakte'     => ['nullable', 'string', 'max:36'],
+            'web'           => ['nullable', new WebUrl],
+            'whatsapp'      => ['nullable', new WhatsappUrl],
+            'telegram'      => ['nullable', new TelegramUrl],
+            'instagram'     => ['nullable', new InstagramUrl],
+            'vkontakte'     => ['nullable', new VkontakteUrl],
             'image'         => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
             'image_remove'  => ['nullable', 'in:delete'],
             'city'          => ['integer'],

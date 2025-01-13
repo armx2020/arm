@@ -6,7 +6,7 @@ use App\Services\ParseUrlService;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class WhatsappUrl implements ValidationRule
+class WebUrl implements ValidationRule
 {
     /**
      * Run the validation rule.
@@ -19,12 +19,8 @@ class WhatsappUrl implements ValidationRule
 
         $parse = parse_url($url);
 
-        if ($parse["host"] !== 'wa.me') {
-            $fail('Неверный формат :attribute');
-        }
-
         if (!array_key_exists("path", $parse)) {
-            $fail('Добавьте в :attribute свой идентификатор');
+            $fail('Неверный формат :attribute');
         }
     }
 }
