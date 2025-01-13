@@ -88,7 +88,7 @@
                     </ul>
                 </div>
                 <div class="flex basis-full mt-3 mb-16" id="events">
-                    @if ($entity->events->isEmpty())
+                    @if ($entity->offers->isEmpty())
                         <div class="w-full text-center p-4">
                             <div class="flex items-center text-center justify-center">
                                 <h3 class="text-2xl font-normal mx-auto">У КОМПАНИИ НЕТ ПРЕДСТОЯЩИХ МЕРОПРИЯТИЙ</h3>
@@ -127,7 +127,7 @@
                     @endif
                 </div>
                 <div class="basis-full mt-3 mb-16 hidden" id="projects">
-                    @if ($entity->projects->isEmpty())
+                    @if ($entity->offers->isEmpty())
                         <div class="w-full text-center p-4">
                             <div class="flex items-center text-center justify-center">
                                 <h3 class="text-2xl font-normal mx-auto">У КОМПАНИИ НЕТ ПРОЕКТОВ</h3>
@@ -174,7 +174,7 @@
                     @endif
                 </div>
                 <div class="basis-full mt-3 mb-16 hidden" id="vacancies">
-                    @if ($entity->works->isEmpty())
+                    @if ($entity->offers->isEmpty())
                         <div class="w-full text-center p-4">
                             <div class="flex items-center text-center justify-center">
                                 <h3 class="text-2xl font-normal mx-auto">У КОМПАНИИ НЕТ ВАКАНСИЙ</h3>
@@ -212,7 +212,7 @@
                     @endif
                 </div>
                 <div class="basis-full mt-3 mb-16 hidden" id="news">
-                    @if ($entity->news->isEmpty())
+                    @if ($entity->offers->isEmpty())
                         <div class="w-full text-center p-4">
                             <div class="flex items-center text-center justify-center">
                                 <h3 class="text-2xl font-normal mx-auto">У КОМПАНИИ НЕТ НОВОСТЕЙ</h3>

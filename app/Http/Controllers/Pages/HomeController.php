@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\BaseController;
+use App\Models\Entity;
 use App\Models\Group;
 use App\Models\Region;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class HomeController extends BaseController
             }
         }
 
-        $group = Group::find($region->id);
+        $group = Entity::find($region->id);
 
         return view('home', [
             'region'   => $request->session()->get('region'),

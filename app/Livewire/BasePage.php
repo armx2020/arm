@@ -46,18 +46,13 @@ class BasePage extends Component
         $categories = Category::active()->main()->where('entity_type_id', $this->type)->get();
         $entities = Entity::query()->active()->with('fields')->where('entity_type_id', $this->type);
 
-        if ($this->region !== '1') {
-            $entities = $entities
-                ->where('region_id', '=', $this->region);
-        }
-
+        $entities = $entities->orderByRaw("FIELD(`region_id`, $this->region) DESC");
+        
         if ($this->category !== 'Все') {
             $entities = $entities->whereHas('fields', function ($query) {
                 $query->where('category_entity.main_category_id', '=', $this->category);
             });
         }
-
-        $recommendations = [];
 
         $entities = $entities->paginate($this->quantityOfDisplayed);
 
@@ -69,7 +64,6 @@ class BasePage extends Component
             'entities' => $entities,
             'regions' => $regions,
             'region' => $this->region,
-            'recommendations' => $recommendations,
             'categories' => $categories,
             'entityTypies' => $entityTypies
         ]);
