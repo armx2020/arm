@@ -26,7 +26,7 @@ class SearchType extends BaseComponent
         sleep(1);
         if ($this->term == "") {
 
-            $entities = EntityType::query()->latest();
+            $entities = EntityType::query();
 
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 $operator = array_key_first($filterValue);
@@ -34,9 +34,9 @@ class SearchType extends BaseComponent
 
                 $entities = $entities->where($filterName, $operator, $callable);
             }
-            $entities = $entities->paginate($this->quantityOfDisplayed);
+            $entities = $entities->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')->paginate($this->quantityOfDisplayed);
         } else {
-            $entities = EntityType::search($this->term)->paginate($this->quantityOfDisplayed);
+            $entities = EntityType::search($this->term)->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')->paginate($this->quantityOfDisplayed);
         }
 
         return view('livewire.admin.search-type', [

@@ -10,6 +10,7 @@ class SearchEntity extends BaseComponent
 {
     protected $entity;
 
+
     public function __construct()
     {
         $this->entity = new EntityRepository();
@@ -23,7 +24,7 @@ class SearchEntity extends BaseComponent
         $entityName = 'entity';
 
         sleep(0.5);
-        $entities = Entity::query()->with('city', 'type')->orderByDesc('id');
+        $entities = Entity::query()->with('city', 'type');
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {
@@ -36,7 +37,7 @@ class SearchEntity extends BaseComponent
             $entities = $entities->search($this->term);
         }
 
-        $entities = $entities->paginate($this->quantityOfDisplayed);
+        $entities = $entities->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')->paginate($this->quantityOfDisplayed);
 
         return view(
             'livewire.admin.search-entity',

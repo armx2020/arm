@@ -14,6 +14,8 @@ abstract class BaseComponent extends Component
     public $selectedColumns = [];
     public $filters = [];
     public $selectedFilters = [];
+    public $sortField = 'id';
+    public $sortAsc = true;
 
     protected $quantityOfDisplayed = 100; // Количество отоброжаемых сущностей
 
@@ -23,5 +25,16 @@ abstract class BaseComponent extends Component
         $this->selectedColumns = $entity->getSelectedColumns();
         $this->filters = $entity->getFilters();
         $this->selectedFilters = $entity->getSelectedFilters();
+    }
+    
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortAsc = ! $this->sortAsc;
+        } else {
+            $this->sortAsc = true;
+        }
+
+        $this->sortField = $field;
     }
 }

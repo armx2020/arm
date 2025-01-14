@@ -23,7 +23,7 @@ class SearchWork extends BaseComponent
         $entityName = 'work';
 
         sleep(0.5);
-        $entities = Work::with('city')->orderByDesc('id');
+        $entities = Work::with('city');
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {
@@ -36,7 +36,7 @@ class SearchWork extends BaseComponent
             $entities = $entities->search($this->term);
         }
 
-        $entities = $entities->paginate($this->quantityOfDisplayed);
+        $entities = $entities->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')->paginate($this->quantityOfDisplayed);
 
         return view('livewire.admin.search-work', [
             'entities' => $entities,

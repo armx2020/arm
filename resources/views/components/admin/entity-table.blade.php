@@ -1,6 +1,5 @@
 <div>
     <div class="py-6 px-4 max-w-7xl mx-auto rounded-t-lg">
-
         <x-admin.alert />
 
         <div class="p-4 bg-white block shadow sm:flex items-center justify-between border-b border-gray-200">
@@ -72,7 +71,16 @@
                                             @foreach ($selectedColumns as $column)
                                                 <th scope="col"
                                                     class="p-4 text-left text-xs font-medium text-gray-500 uppercase max-w-[20rem] truncate">
-                                                    {{ __('column.' . $column) }}
+                                                    <button wire:click.prevent='sortBy("{{ $column }}")'
+                                                        role="button">
+                                                        {{ __('column.' . $column) }}</button>
+                                                    @if ($this->sortField == $column)
+                                                        @if ($this->sortAsc)
+                                                            &#8593
+                                                        @else
+                                                            &#8595
+                                                        @endif
+                                                    @endif
                                                 </th>
                                             @endforeach
 
@@ -80,7 +88,7 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">          
+                                    <tbody class="bg-white divide-y divide-gray-200">
                                         @foreach ($entities as $entity)
                                             <tr class="hover:bg-gray-100">
                                                 @foreach ($selectedColumns as $column)

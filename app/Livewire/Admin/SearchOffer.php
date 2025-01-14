@@ -24,7 +24,7 @@ class SearchOffer extends BaseComponent
         $entityName = 'offer';
 
         sleep(0.5);
-        $entities = Offer::query()->with('city')->orderByDesc('id');;
+        $entities = Offer::query()->with('city');
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {
@@ -37,7 +37,7 @@ class SearchOffer extends BaseComponent
             $entities = $entities->search($this->term);
         }
 
-        $entities = $entities->paginate($this->quantityOfDisplayed);
+        $entities = $entities->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')->paginate($this->quantityOfDisplayed);
 
         return view(
             'livewire.admin.search-offer',
