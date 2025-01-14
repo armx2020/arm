@@ -19,7 +19,8 @@
                             <div class="flex relative">
                                 <img class="h-20 w-20 rounded-lg m-1 md:m-4 object-cover" id="img"
                                     src="{{ url('/image/no-image.png') }}" alt="image">
-                                <button type="button" id="remove_image" class="absolute top-1 right-1 md:top-5 md:right-5 hidden"><img
+                                <button type="button" id="remove_image"
+                                    class="absolute top-1 right-1 md:top-5 md:right-5 hidden"><img
                                         src="{{ url('/image/remove.png') }}" class="w-5 h-5"
                                         style="cursor:pointer;"></button>
                             </div>
@@ -91,44 +92,51 @@
 
                         <div class="my-3">
                             <x-input-label for="phone" :value="__('Телефон')" />
-                            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full mask-phone" placeholder='+7 (***) ***-**-**'
-                                :value="old('phone')" autofocus />
+                            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full mask-phone"
+                                placeholder='+7 (***) ***-**-**' :value="old('phone')" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="whatsapp" :value="__('Whatsapp')" />
-                            <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full" placeholder='https://wa.me/***********'
-                                :value="old('whatsapp')" autofocus />
+                            <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full"
+                                placeholder='https://wa.me/***********' :value="old('whatsapp')" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="web" :value="__('Веб')" />
-                            <x-text-input id="web" name="web" type="text" class="mt-1 block w-full" placeholder='https://***********.**'
-                                :value="old('web')" autofocus />
+                            <x-text-input id="web" name="web" type="text" class="mt-1 block w-full"
+                                placeholder='https://***********.**' :value="old('web')" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('web')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="telegram" :value="__('Телеграм')" />
-                            <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full"  placeholder='https://t.me/******'
-                                :value="old('telegram')" autofocus />
+                            <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full"
+                                placeholder='https://t.me/******' :value="old('telegram')" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('telegram')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="vkontakte" :value="__('Вконтакте')" />
-                            <x-text-input id="vkontakte" name="vkontakte" type="text" class="mt-1 block w-full" placeholder='https://vk.com/***********'
-                                :value="old('vkontakte')" autofocus />
+                            <x-text-input id="vkontakte" name="vkontakte" type="text" class="mt-1 block w-full"
+                                placeholder='https://vk.com/***********' :value="old('vkontakte')" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('vkontakte')" />
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="instagram" :value="__('Инстаграм')" /> 
-                            <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full" placeholder='https://instagram.com/*******'
-                                :value="old('instagram')" autofocus />
+                            <x-input-label for="instagram" :value="__('Инстаграм')" />
+                            <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full"
+                                placeholder='https://instagram.com/*******' :value="old('instagram')" autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('instagram')" />
+                        </div>
+
+                        <div class="my-3">
+                            <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
+                            <select name="city" style="border-color: rgb(209 213 219); width: 100%" id="city">
+                                <option value='1'>Выберете город</option>
+                            </select>
                         </div>
 
                         <div class="my-5">

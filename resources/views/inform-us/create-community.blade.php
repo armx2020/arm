@@ -19,15 +19,15 @@
 
             <div class="w-full sm:max-w-xl my-6 px-6 py-6 bg-white overflow-hidden sm:rounded-lg">
 
-                <h3 class="text-xl font-semibold">Добавить компанию</h3>
-                <p class="text-sm">Укажите данные компании. После проверки, он окажеться на портале</p>
+                <h3 class="text-xl font-semibold">Добавить общину</h3>
+                <p class="text-sm">Укажите данные общины. После проверки, он окажеться на портале</p>
                 <hr class="mt-4">
 
                 <!-- Session Status -->
 
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                <form method="POST" action="{{ route('inform-us.company') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('inform-us.community') }}" enctype="multipart/form-data">
                     @csrf
 
                     @if (session('error'))
@@ -130,20 +130,25 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="checkbox-group" :value="__('Выберите деятельность *')" />
-                        <div class="flex flex-col border-2 rounded-lg p-4  mt-1" id="checkbox-group">
+                        <x-input-label for="checkbox-group" :value="__('Выберите категорию *')" />
+                        <div class="flex border-2 rounded-lg p-4 mt-1 @if (count($errors->get('fields')) > 0) border-1 border-red-300 @endif"
+                            id="checkbox-group">
                             <div class="grid grid-cols-3 gap-4 w-full">
 
                                 @foreach ($categories as $item)
                                     <div class="flex flex-col gap-1">
                                         <div class="flex">
+                                            <input type="radio" name="category" value="{{ $item->id }}"
+                                                @if (is_array(old('category')) && in_array($item->id, old('category'))) checked @endif
+                                                class="checkbox-{{ $loop->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                id="checkbox-{{ $loop->iteration }}">
                                             <label for="checkbox-group-{{ $loop->iteration }}"
                                                 class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
                                         </div>
                                         @foreach ($item->categories as $child)
                                             <div class="flex">
-                                                <input type="checkbox" name="fields[]" value="{{ $child->id }}"
-                                                    @if (is_array(old('fields')) && in_array($child->id, old('fields'))) checked @endif
+                                                <input type="radio" name="category" value="{{ $child->id }}"
+                                                    @if (is_array(old('category')) && in_array($child->id, old('category'))) checked @endif
                                                     class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                                                     id="checkbox-{{ $loop->iteration }}">
                                                 <label for="checkbox-{{ $loop->iteration }}"
@@ -155,7 +160,7 @@
 
                             </div>
                         </div>
-                        <x-input-error class="mt-2" :messages="$errors->get('fields')" />
+                        <x-input-error class="mt-2" :messages="$errors->get('category')" />
                     </div>
 
                     <!-- Description -->

@@ -32,7 +32,7 @@ class HomeController extends BaseController
             }
         }
 
-        $group = Entity::find($region->id);
+        $group = Entity::groups()->where('region_id', $region->id)->first();
 
         return view('home', [
             'region'   => $request->session()->get('region'),

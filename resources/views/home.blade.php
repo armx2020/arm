@@ -200,30 +200,21 @@
                                 Компанию
                             </a>
 
-                            <a href="{{ route('inform-us.group') }}"
+                            <a href="{{ route('inform-us.place') }}"
                                 class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
-                                Место для посещения
+                                Интересное место
                             </a>
 
                             <a href="{{ route('inform-us.group') }}"
                                 class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
-                                Община, консульство
+                               Кружок, сообщество
                             </a>
 
-                            <a href="{{ route('inform-us.event') }}"
+                            <a href="{{ route('inform-us.community') }}"
                                 class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
-                                Событие
+                               Община
                             </a>
 
-                            <a href="{{ route('inform-us.news') }}"
-                                class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
-                                Новость
-                            </a>
-
-                            <a href="{{ route('inform-us.work') }}"
-                                class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
-                                Работа, вакансия
-                            </a>
                         </div>
 
                     </div>

@@ -18,7 +18,7 @@ class GroupController extends BaseInformUsController
 
     public function index(Request $request)
     {
-        $categories = Category::query()->group()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
+        $categories = Category::query()->groups()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('inform-us.create-group', [
             'region'   => $request->session()->get('region'),
