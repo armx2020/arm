@@ -50,10 +50,24 @@
                     @endif
                 @endif
 
+                @if ($entity->city)
+                    <span class="mx-4 text-sm mt-4">Город:</span>
+                    <p class="flex text-left text-sm mx-4 my-1 text-gray-500 break-all">
+                        {{ mb_substr($entity->city->name, 0, 400, 'UTF-8') }}
+                    </p>
+                @endif
+
                 @if ($entity->address)
                     <span class="mx-4 text-sm mt-4">Адрес:</span>
                     <p class="flex text-left text-sm mx-4 my-1 text-gray-500 break-all">
                         {{ mb_substr($entity->address, 0, 400, 'UTF-8') }}
+                    </p>
+                @endif
+
+                @if ($entity->phone)
+                    <span class="mx-4 text-sm mt-4">Телефон:</span>
+                    <p class="flex text-left text-sm mx-4 my-1 text-gray-500 break-all">
+                        {{ mb_substr($entity->phone, 0, 400, 'UTF-8') }}
                     </p>
                 @endif
 
