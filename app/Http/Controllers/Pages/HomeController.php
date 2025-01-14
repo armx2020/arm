@@ -24,7 +24,7 @@ class HomeController extends BaseController
         } else {
             $region = Region::where('code', 'like', $regionCode)->First();
 
-            if($region) {
+            if ($region) {
                 $request->session()->put('region', $region->name);
                 $request->session()->put('regionId', $region->code);
             } else {
@@ -33,6 +33,10 @@ class HomeController extends BaseController
         }
 
         $group = Entity::groups()->where('region_id', $region->id)->first();
+
+        if (empty($group)) {
+            $group = Entity::where('region_id', 1)->first();
+        }
 
         return view('home', [
             'region'   => $request->session()->get('region'),
