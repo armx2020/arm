@@ -17,7 +17,7 @@ class Category extends Model
         'name'
     ];
 
-    protected $fillable = ['id', 'name'];
+    protected $fillable = ['id', 'name', 'activity'];
 
     public function scopeMain($query)
     {

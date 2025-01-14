@@ -17,6 +17,14 @@ class SearchEntity extends BaseComponent
         parent::__construct($this->entity);
     }
 
+    public function changeActivity($id)
+    {
+        $entity = Entity::find($id);
+        $isActive = $entity->activity ? false : true;
+
+        $entity->update(['activity' => $isActive]);
+    }
+
     public function render()
     {
         $title = 'Все сушности';

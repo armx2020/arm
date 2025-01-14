@@ -90,10 +90,11 @@
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         @foreach ($entities as $entity)
-                                            <tr class="hover:bg-gray-100">
+                                            <tr
+                                                class="@if ($entity->activity) bg-white text-gray-900 @else bg-gray-100 text-gray-500 @endif hover:bg-gray-200">
                                                 @foreach ($selectedColumns as $column)
                                                     <td
-                                                        class="p-4 text-base text-left text-gray-900 break-all max-w-[20rem] truncate">
+                                                        class="p-4 text-base text-left break-all max-w-[20rem] truncate">
                                                         @switch($column)
                                                             @case('city_id')
                                                                 {{ $entity->city->name }}
@@ -161,6 +162,31 @@
                                                             </button>
                                                         </x-slot>
                                                         <x-slot name="content">
+                                                            <div
+                                                                class="block px-4 text-sm font-medium hover:bg-gray-100 cursor-pointer">
+                                                                <button
+                                                                    class="w-full h-full py-2 flex items-center space-x-2"
+                                                                    wire:click.prevent='changeActivity("{{ $entity->id }}")'
+                                                                    role="button">
+                                                                    @if ($entity->activity)
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            class="w-4 h-4 fill-red-500"
+                                                                            viewBox="0 0 576 512">
+                                                                            <path
+                                                                                d="M192 64C86 64 0 150 0 256S86 448 192 448l192 0c106 0 192-86 192-192s-86-192-192-192L192 64zm192 96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" />
+                                                                        </svg>
+                                                                        <span class="text-red-500">деактивировать</span>
+                                                                    @else
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            class="w-4 h-4 fill-green-500"
+                                                                            viewBox="0 0 576 512">
+                                                                            <path
+                                                                                d="M384 128c70.7 0 128 57.3 128 128s-57.3 128-128 128l-192 0c-70.7 0-128-57.3-128-128s57.3-128 128-128l192 0zM576 256c0-106-86-192-192-192L192 64C86 64 0 150 0 256S86 448 192 448l192 0c106 0 192-86 192-192zM192 352a96 96 0 1 0 0-192 96 96 0 1 0 0 192z" />
+                                                                        </svg>
+                                                                        <span class="text-green-500">активировать</span>
+                                                                    @endif
+                                                                </button>
+                                                            </div>
                                                             <form
                                                                 action="{{ route('admin.' . $entityName . '.destroy', [$entityName => $entity->id]) }}"
                                                                 method="post"

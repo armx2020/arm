@@ -16,6 +16,13 @@ class SearchType extends BaseComponent
         parent::__construct($this->entity);
     }
 
+    public function changeActivity($id)
+    {
+        $entity = EntityType::find($id);
+        $isActive = $entity->activity ? false : true;
+
+        $entity->update(['activity' => $isActive]);
+    }
 
     public function render()
     {

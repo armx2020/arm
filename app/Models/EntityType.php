@@ -13,6 +13,7 @@ class EntityType extends Model
 
     protected $fillable = [
         'name',
+        'activity'
     ];
 
 
