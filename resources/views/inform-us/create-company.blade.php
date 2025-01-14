@@ -132,7 +132,7 @@
                     <div class="mt-4">
                         <x-input-label for="checkbox-group" :value="__('Выберите деятельность *')" />
                         <div class="flex flex-col border-2 rounded-lg p-4  mt-1" id="checkbox-group">
-                            <div class="grid grid-cols-3 gap-4 w-full">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
 
                                 @foreach ($categories as $item)
                                     <div class="flex flex-col gap-1">

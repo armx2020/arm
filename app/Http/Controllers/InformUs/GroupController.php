@@ -25,7 +25,7 @@ class GroupController extends BaseInformUsController
             'regions' => $this->regions,
             'regionCode' => $request->session()->get('regionId'),
             'cities' => $this->cities,
-            'secondPositionUrl' => $this->secondPositionUrl,
+            'secondPositionUrl' => '',
             'secondPositionName' => $this->secondPositionName,
             'categories' => $categories,
 

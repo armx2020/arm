@@ -133,7 +133,7 @@
                         <x-input-label for="checkbox-group" :value="__('Выберите категорию *')" />
                         <div class="flex border-2 rounded-lg p-4 mt-1 @if (count($errors->get('fields')) > 0) border-1 border-red-300 @endif"
                             id="checkbox-group">
-                            <div class="grid grid-cols-3 gap-4 w-full">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
 
                                 @foreach ($categories as $item)
                                     <div class="flex flex-col gap-1">
