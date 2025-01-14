@@ -33,63 +33,18 @@
 
         <div>
             <div class="flex flex-wrap mx-auto pt-5 lg:pt-10 md:flex-wrap">
-                <!-- Блок 1 -->
+
+                <!-- Интересные места -->
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pr-4 lg:pr-2">
-                    <div class="bg-[#feecdc] rounded-xl p-2 lg:p-4 h-64 h-56 md:h-[280px] lg:h-72">
-                        <a href="">
+                    <div class="bg-[#f0e7ce] rounded-xl p-2 lg:p-4 h-64 md:h-[280px] lg:h-72">
+                        <a href="{{ route('places.index') }}">
                             <div class="flex flex-col h-full w-full relative">
-                                <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Поиск работы</p>
-                                <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Найти работу или разместить вакансию
-                                </p>
-                                <div class="place-content-center p-3">
-                                    <img class="flex self-center m-auto rounded-xl sm:w-[70%] md:w-[100%]"
-                                        src="{{ url('/image/to_find_job.png') }}" alt="banner">
-                                </div>
-                                <div
-                                    class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
-                                    Подробнее &rarr;
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Блок 2 -->
-                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-2">
-                    <div class="bg-[#dbe6fb] rounded-xl p-2 lg:p-4 h-64 h-56 md:h-[280px] lg:h-72">
-                        <a href="{{ route('companies.index') }}">
-                            <div class="flex flex-col h-full w-full relative">
-                                <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Бизнес
-                                    справочник</p>
-                                <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Каталог товаров/услуг армянской общины
-                                </p>
-                                <div class="place-content-center p-3">
-                                    <img class="flex self-center m-auto rounded-xl sm:w-[70%] md:w-[100%]"
-                                        src="{{ url('/image/www.png') }}" alt="banner">
-                                </div>
-                                <div
-                                    class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
-                                    Подробнее &rarr;
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Блок 3 -->
-                <div class="CEB__wrapTable mb-5 hidden lg:block lg:w-1/5 xl:w-1/5 pr-2 md:pr-0 lg:pr-2">
-                    <div class="bg-[#e6c6c9] rounded-xl p-2 lg:p-4 h-64 h-56 md:h-[280px] lg:h-72 ">
-                        <a href="">
-                            <div class="flex flex-col h-full w-full relative">
-                                <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Наши проекты</p>
-                                <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Сделанные проекты, достижения</p>
-                                <div class="flex place-content-center">
-                                    <img class="flex self-center m-auto rounded-xl sm:w-[43%] md:w-[70%]"
-                                        src="{{ url('/image/like.png') }}" alt="like">
-                                </div>
-                                <div
-                                    class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
-                                    Подробнее &rarr;
+                                <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Интересные
+                                    места, церкви</p>
+                                <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Интересные места</p>
+                                <div class="p-3 mt-8">
+                                    <img class="flex self-center m-auto rounded-xl sm:w-[36%] md:w-[70%]"
+                                        src="{{ url('/image/church.png') }}" alt="church">
                                 </div>
                             </div>
                         </a>
@@ -97,46 +52,73 @@
                 </div>
 
                 <!-- Кружки сообщества -->
-                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pl-0 md:pr-4 lg:pr-2">
+                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-2">
                     <div class="bg-[#d7e6d8] rounded-xl p-2 lg:p-4 h-64 h-56 md:h-[280px] lg:h-72">
                         <a href="{{ route('groups.index') }}">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Кружки,
                                     сообщества</p>
-                                <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Сообщества, группы по интересам</p>
-                                <div class="flex place-content-center p-3">
+                                <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Сообщества, группы по интересам</p>
+                                <div class="p-3 mt-8">
                                     <img class="flex self-center m-auto rounded-xl sm:w-[70%] md:w-[100%]"
-                                        src="{{ url('/image/friends.png') }}" alt="friends">
-                                </div>
-                                <div
-                                    class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
-                                    Подробнее &rarr;
+                                        src="{{ url('/image/group-of-young-people-waving-hand.png') }}" alt="friends">
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
 
-                <!-- Интересные места -->
-                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-0">
-                    <div class="bg-[#f0e7ce] rounded-xl p-2 lg:p-4 h-64 md:h-[280px] lg:h-72">
-                        <a href="{{ route('places.index') }}">
+                <!-- Бизнес справочник -->
+                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pr-4 lg:pr-2">
+                    <div class="bg-[#dbe6fb] rounded-xl p-2 lg:p-4 h-64 h-56 md:h-[280px] lg:h-72">
+                        <a href="{{ route('companies.index') }}">
                             <div class="flex flex-col h-full w-full relative">
-                                <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Интересные
-                                    места, церкви</p>
-                                <p class="mx-1 lg:mx-2 text-xs lg:text-md font-light">Интересные места</p>
-                                <div class="flex place-content-center p-3">
-                                    <img class="flex self-center m-auto rounded-xl sm:w-[36%] md:w-[70%]"
-                                        src="{{ url('/image/church.png') }}" alt="church">
-                                </div>
-                                <div
-                                    class="absolute inset-x-0 bottom-0 text-blue-600 text-xs md:text-md lg:text-lg text-center font-medium">
-                                    Подробнее &rarr;
+                                <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Бизнес
+                                    справочник</p>
+                                <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Каталог товаров/услуг</p>
+                                <div class="p-3 mt-8">
+                                    <img class="flex self-center m-auto rounded-xl sm:w-[70%] md:w-[70%]"
+                                        src="{{ url('/image/building.png') }}" alt="banner">
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
+
+                <!-- Общины консульства -->
+                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pl-0 md:pr-4 lg:pr-2">
+                    <div class="bg-[#e6c6c9] rounded-xl p-2 lg:p-4 h-64 h-56 md:h-[280px] lg:h-72 ">
+                        <a href="">
+                            <div class="flex flex-col h-full w-full relative">
+                                <p class="m-1 lg:m-2 text-sm lg:text-base font-bold">Общины консульства</p>
+                                <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Каталог товаров/услуг </p>
+                                <div class="p-3 mt-6">
+                                    <img class="flex self-center m-auto rounded-xl sm:w-[43%] md:w-[65%]"
+                                        src="{{ url('/image/university.png') }}" alt="like">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Поиск работы -->
+                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-0 hidden lg:block">
+                    <div class="bg-[#feecdc] rounded-xl p-2 lg:p-4 h-64 h-56 md:h-[280px] lg:h-72">
+                        <a href="{{ route('companies.index') }}">
+                            <div class="flex flex-col h-full w-full relative">
+                                <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Поиск работы</p>
+                                <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Найти работу или разместить вакансию
+                                </p>
+                                <div class="p-3 mt-8">
+                                    <img class="flex self-center m-auto rounded-xl sm:w-[70%] md:w-[100%]"
+                                        src="{{ url('/image/to_find_job.png') }}" alt="banner">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
             </div>
         </div>
 
@@ -207,12 +189,12 @@
 
                             <a href="{{ route('inform-us.group') }}"
                                 class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
-                               Кружок, сообщество
+                                Кружок, сообщество
                             </a>
 
                             <a href="{{ route('inform-us.community') }}"
                                 class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
-                               Община
+                                Община
                             </a>
 
                         </div>
