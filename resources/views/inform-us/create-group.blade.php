@@ -19,7 +19,7 @@
 
             <div class="w-full sm:max-w-xl my-6 px-6 py-6 bg-white overflow-hidden sm:rounded-lg">
 
-                <h3 class="text-xl font-semibold">Добавить место</h3>
+                <h3 class="text-xl font-semibold">Добавить сообщество</h3>
                 <p class="text-sm">Укажите данные сообщества. После проверки, он окажеться на портале</p>
                 <hr class="mt-4">
 
