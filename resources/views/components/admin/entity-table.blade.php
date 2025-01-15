@@ -91,7 +91,7 @@
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         @foreach ($entities as $entity)
                                             <tr
-                                                class="@if ($entity->activity) bg-white text-gray-900 @else bg-gray-100 text-gray-500 @endif hover:bg-gray-200">
+                                                class="@if ($entity->activity) bg-white text-gray-900 @else bg-gray-300 text-gray-600 @endif hover:bg-gray-200">
                                                 @foreach ($selectedColumns as $column)
                                                     <td
                                                         class="p-4 text-base text-left break-all max-w-[20rem] truncate">

@@ -92,7 +92,7 @@
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-base font-bold">Общины консульства</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Каталог товаров/услуг </p>
-                                <div class="p-3 mt-6">
+                                <div class="p-3 mt-8 md:mt-12">
                                     <img class="flex self-center m-auto rounded-xl sm:w-[43%] md:w-[65%]"
                                         src="{{ url('/image/university.png') }}" alt="like">
                                 </div>
