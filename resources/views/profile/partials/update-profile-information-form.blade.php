@@ -45,45 +45,34 @@
         </div>
 
         <div>
-            <x-input-label for="lastname" :value="__('Фамилия')" />
-            <x-text-input id="lastname" name="lastname" type="text" class="mt-1 block w-full" :value="old('lastname', $user->lastname)" required autofocus autocomplete="lastname" />
-            <x-input-error class="mt-2" :messages="$errors->get('lastname')" />
-        </div>
-
-        <div>
-            <x-input-label for="viber" :value="__('Вайбер')" />
-            <x-text-input id="viber" name="viber" type="text" class="mt-1 block w-full" :value="old('viber', $user->viber)" autofocus autocomplete="viber" />
-            <x-input-error class="mt-2" :messages="$errors->get('viber')" />
-        </div>
-
-        <div>
             <x-input-label for="telegram" :value="__('Телеграм')" />
-            <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full" :value="old('telegram', $user->telegram)" autofocus autocomplete="telegram" />
+            <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full" :value="old('telegram', $user->telegram)" autocomplete="telegram" />
             <x-input-error class="mt-2" :messages="$errors->get('telegram')" />
         </div>
 
         <div>
             <x-input-label for="vkontakte" :value="__('Вконтакте')" />
-            <x-text-input id="vkontakte" name="vkontakte" type="text" class="mt-1 block w-full" :value="old('vkontakte', $user->vkontakte)" autofocus autocomplete="vkontakte" />
+            <x-text-input id="vkontakte" name="vkontakte" type="text" class="mt-1 block w-full" :value="old('vkontakte', $user->vkontakte)" autocomplete="vkontakte" />
             <x-input-error class="mt-2" :messages="$errors->get('vkontakte')" />
         </div>
 
         <div>
             <x-input-label for="instagram" :value="__('Инстаграм')" />
-            <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full" :value="old('instagram', $user->instagram)" autofocus autocomplete="instagram" />
+            <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full" :value="old('instagram', $user->instagram)" autocomplete="instagram" />
             <x-input-error class="mt-2" :messages="$errors->get('instagram')" />
         </div>
 
         <div>
-            <label for="user_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
-            <select name="user_city" class="w-full" style="border-color: rgb(209 213 219)" id="user_city">
+            <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
+            <select name="city" class="w-full" style="border-color: rgb(209 213 219)" id="city">
                 <option value='{{ $user->city->id }}'>{{ $user->city->name }}</option>
             </select>
         </div>
 
+
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="email" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
@@ -111,23 +100,29 @@
     </form>
     <script type='text/javascript'>
         $(document).ready(function() {
-            // Initialize select2
-            if ($("#user_city").length > 0) {
-                $("#user_city").select2({
+            if ($("#city").length > 0) {
+                $("#city").select2({
                     ajax: {
                         url: " {{ route('cities') }}",
-                        type: "post",
+                        type: "GET",
                         delay: 250,
                         dataType: 'json',
                         data: function(params) {
-                            return {
-                                query: params.term, // search term
+                            var query = {
+                                query: params.term || '',
+                                page: params.page || 1,
                                 "_token": "{{ csrf_token() }}",
                             };
+
+                            return query;
                         },
-                        processResults: function(response) {
+                        processResults: function(response, params) {
+                            params.page = params.page || 1;
                             return {
-                                results: response
+                                results: response.results,
+                                pagination: {
+                                    more: response.pagination.more
+                                }
                             };
                         },
                         cache: true
