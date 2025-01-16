@@ -44,7 +44,6 @@ class EntityRepository implements EntityColumnsInterface, EntityFiltersInterface
         'updated_at' => 'date',
         'activity' => 'bool',
         'entity_type_id' => 'select',
-        //    'user_id' => 'select', // TODO выборка по пользователю
         'city_id' => 'select',
         'region_id' => 'select',
     ];

@@ -27,11 +27,13 @@
                                 </div>
 
                                 <div class="flex basis-2/5">
-                                    <input type="date" wire:model.live="selectedFilters.{{ $name }}.>=" name="$name"
+                                    <input type="date" wire:model.live="selectedFilters.{{ $name }}.>="
+                                        name="$name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                 </div>
                                 <div class="flex basis-2/5">
-                                    <input type="date" wire:model.live="selectedFilters.{{ $name }}.<=" name="$name"
+                                    <input type="date" wire:model.live="selectedFilters.{{ $name }}.<="
+                                        name="$name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                 </div>
                             @break
@@ -45,8 +47,9 @@
                                     <select name="$name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
                                         wire:model.live="selectedFilters.{{ $name }}.=">
-                                        <option value="true">да</option>
-                                        <option value="false">нет</option>
+                                        <option value="">- все -</option>
+                                        <option value="1">да</option>
+                                        <option value="0">нет</option>
                                     </select>
                                 </div>
                             @break
@@ -61,7 +64,7 @@
                                         <select name="$name"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
                                             wire:model.live="selectedFilters.{{ $name }}.=">
-                                            <option disabled value="">Выберите регион...</option>
+                                            <option value=""> - все регионы -</option>
                                             @foreach (\App\Models\Region::all() as $region)
                                                 <option value="{{ $region->id }}">{{ $region->name }}</option>
                                             @endforeach
@@ -78,7 +81,7 @@
                                         <select name="$name"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
                                             wire:model.live="selectedFilters.{{ $name }}.=">
-                                            <option disabled value="">Выберите регион...</option>
+                                            <option value=""> - все города - </option>
                                             @foreach (\App\Models\City::all() as $city)
                                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
                                             @endforeach
@@ -113,7 +116,7 @@
                                         <select name="$name"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
                                             wire:model.live="selectedFilters.{{ $name }}.=">
-                                            <option disabled value="">Выберите тип...</option>
+                                            <option value="">- выберите тип -</option>
                                             @foreach (\App\Models\EntityType::all() as $type)
                                                 <option value="{{ $type->id }}">{{ $type->name }}</option>
                                             @endforeach

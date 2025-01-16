@@ -36,10 +36,12 @@ class SearchEntity extends BaseComponent
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {
-                $operator = array_key_first($filterValue);
-                $callable = $filterValue[array_key_first($filterValue)];
+                if ($filterValue) {
+                    $operator = array_key_first($filterValue);
+                    $callable = $filterValue[array_key_first($filterValue)];
 
-                $entities = $entities->where($filterName, $operator, $callable);
+                    $entities = $entities->where($filterName, $operator, $callable);
+                }
             }
         } else {
             $entities = $entities->search($this->term);
