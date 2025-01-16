@@ -36,6 +36,7 @@ class EntityAction
         $entity->instagram = $request->instagram;
         $entity->vkontakte = $request->vkontakte;
         $entity->user_id = $user_id ?: $request->select_user;
+        $entity->activity = $request->activity ? 1 : 0;
 
         if ($request->image) {
             $entity->image = $request->file('image')->store('uploaded', 'public');
@@ -97,6 +98,7 @@ class EntityAction
         $entity->instagram = $request->instagram;
         $entity->vkontakte = $request->vkontakte;
         $entity->user_id = $user_id ?: $request->select_user;
+        $entity->activity = $request->activity ? 1 : 0;
 
         $entity->save();
 

@@ -30,6 +30,7 @@ class StoreEntityRequest extends FormRequest
             'type'          => ['required', 'integer'],
             'category'      => ['nullable'],
             'fields'        => ['nullable'],
+            'activity'      => ['nullable', 'in:1']
         ];
     }
 }

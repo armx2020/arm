@@ -5,14 +5,14 @@
                 <div class="shadow overflow-hidden">
                     <div class="relative w-full h-full md:h-auto">
 
-                        <div class="bg-white rounded-lg relative">
+                        <div class="bg-white rounded-lg relative mb-8">
 
                             <div class="flex items-start p-5 border-b rounded-t">
                                 <div class="flex items-center">
                                     <h3 class="text-2xl font-bold leading-none text-gray-900">Новая сущность</h3>
                                 </div>
                             </div>
-
+                            @dump($errors->all())
                             <form method="POST" enctype="multipart/form-data"
                                 action="{{ route('admin.entity.store') }}">
                                 @csrf
@@ -41,9 +41,10 @@
                                     <x-input-error :messages="$errors->get('image')" />
                                 </div>
 
-                                <div class="p-6 space-y-6">
-                                    <div class="grid grid-cols-6 gap-6">
+                                <div class="p-6 space-y-3">
+                                    <div class="grid grid-cols-6 gap-4">
 
+                                        {{-- Название --}}
                                         <div class="col-span-6">
                                             <x-input-label for="name" :value="__('Название *')" />
                                             <x-text-input id="name" name="name" type="text"
@@ -52,7 +53,19 @@
                                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                                         </div>
 
+                                        {{-- Город --}}
                                         <x-admin.select-city />
+
+                                        {{-- Телефон --}}
+                                        <div class="col-span-6">
+                                            <label for="phone"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
+                                            <input type="tel" name="phone" id="phone" wire:ignore
+                                                placeholder='+ 7 (***) ***-**-**'
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5 mask-phone"
+                                                value="{{ old('phone') }}">
+                                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                                        </div>
 
                                         {{-- Тип сущности --}}
                                         <div class="col-span-6">
@@ -69,25 +82,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-span-6">
-                                            <label for="phone"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
-                                            <input type="tel" name="phone" id="phone" wire:ignore
-                                                placeholder='+ 7 (***) ***-**-**'
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5 mask-phone"
-                                                value="{{ old('phone') }}">
-                                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
-                                        </div>
-
-                                        <div class="col-span-6">
-                                            <label for="address"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
-                                            <input type="text" name="address" id="address"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ old('address') }}">
-                                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
-                                        </div>
-
+                                        {{-- Направления --}}
                                         @isset($this->selectedType)
                                             @if ($categories !== null && count($categories) > 0)
                                                 <div class="col-span-6">
@@ -104,8 +99,8 @@
                                                                                 value="{{ $item->id }}"
                                                                                 @if (is_array(old('fields')) && in_array($item->id, old('fields'))) checked @endif
                                                                                 class="checkbox-{{ $loop->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                                                id="checkbox-{{ $loop->iteration }}">
-                                                                            <label for="checkbox-{{ $loop->iteration }}"
+                                                                                id="checkbox-{{ $item->id }}">
+                                                                            <label for="checkbox-{{ $item->id }}"
                                                                                 class="text-sm text-gray-500 ms-3 dark:text-neutral-400">{{ $item->name }}</label>
                                                                         @else
                                                                             <label
@@ -119,8 +114,8 @@
                                                                                 value="{{ $child->id }}"
                                                                                 @if (is_array(old('fields')) && in_array($child->id, old('fields'))) checked @endif
                                                                                 class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                                                id="checkbox-{{ $loop->iteration }}">
-                                                                            <label for="checkbox-{{ $loop->iteration }}"
+                                                                                id="checkbox-{{ $child->id }}">
+                                                                            <label for="checkbox-{{ $child->id }}"
                                                                                 class="text-sm text-gray-500 ms-3 dark:text-neutral-400">{{ $child->name }}</label>
                                                                         </div>
                                                                     @endforeach
@@ -133,6 +128,17 @@
                                                 </div>
                                             @endif
                                         @endisset
+
+                                        {{-- Адрес --}}
+                                        <div class="col-span-6">
+                                            <label for="address"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
+                                            <input type="text" name="address" id="address"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                value="{{ old('address') }}">
+                                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                                        </div>
+
 
                                         {{-- Описание --}}
                                         <div class="col-span-6">
@@ -149,7 +155,7 @@
 
                                     {{-- Соц. ссылки --}}
                                     <hr class="my-5">
-                                    <div class="grid grid-cols-6 gap-6">
+                                    <div class="grid grid-cols-6 gap-4">
 
                                         <div class="col-span-6">
                                             <x-input-label for="web" :value="__('Веб')" />
@@ -193,13 +199,23 @@
 
                                     </div>
 
-                                    <div class="items-center py-6 border-gray-200 rounded-b">
-                                        <button
-                                            class="text-white w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                            type="submit">Добавить</button>
-                                    </div>
+                                    <hr class="my-5">
+                                    <div class="items-center pb-6 border-gray-200 rounded-b">
+                                        <div class="col-span-6">
+                                            <div class="flex w-full justify-between">
+                                                <label for="activity" class="inline-flex items-center">
+                                                    <input id="activity" type="checkbox" checked value="1"
+                                                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                                        name="activity">
+                                                    <span class="ml-2 text-sm text-gray-600">Активность</span>
+                                                </label>
+                                                <button
+                                                    class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                                    type="submit">СОХРАНИТЬ</button>
+                                            </div>
 
-                                </div>
+                                        </div>
+                                    </div>
                             </form>
                         </div>
                     </div>
