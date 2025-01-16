@@ -32,7 +32,7 @@ return [
     'parent_type' => 'Тип инициатора',
     'parent_id' => 'Инициатор',
     'price' => 'Цена',
-    'category_id' => 'Категория',
+    'main_category_id' => 'Главная категория',
     'company_id' => 'Компания',
     'entity_type_id' => 'Тип',
     'entity_id' => 'Сущность'

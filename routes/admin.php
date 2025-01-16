@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CategoryEntityController;
 use App\Http\Controllers\Admin\EntityController;
 use App\Http\Controllers\Admin\ImportController;
 use App\Http\Controllers\Admin\OfferController;
@@ -35,6 +36,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('work', WorkController::class)->except([
             'show'
         ]);
+
+        Route::get('category-entity', [CategoryEntityController::class, 'index'])->name('category-entity.index');
 
         Route::get('/import-excel', [ImportController::class, 'index'])->name('import.excel');
         Route::post('/import-excel', [ImportController::class, 'import']);
