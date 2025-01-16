@@ -24,6 +24,8 @@
                                 action="{{ route('admin.entity.update', ['entity' => $entity->id]) }}">
                                 @csrf
                                 @method('PUT')
+                                <input name="image_remove" type="text" id="image_remove" class="hidden"
+                                    style="z-index:-10;" />
 
                                 <div class="flex flex-row border-b" id="upload_area" wire:ignore>
                                     <div class="flex relative p-3">
@@ -61,48 +63,26 @@
                                 <div class="p-6 space-y-6">
                                     <div class="grid grid-cols-6 gap-6">
 
-                                        <div class="col-span-6 sm:col-span-3">
+                                        {{-- Название --}}
+                                        <div class="col-span-6">
                                             <label for="name"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
                                             <input type="text" name="name" id="name"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $entity->name }}" required>
+                                                value="{{ old('name', $entity->name) }}" required autofocus>
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         </div>
 
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="address"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
-                                            <input type="text" name="address" id="address"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $entity->address }}">
-                                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
-                                        </div>
-
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="description"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Описание</label>
-                                            <input type="text" name="description" id="description"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ $entity->description }}">
-                                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
-                                        </div>
-
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="phone"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
-                                            <input type="tel" name="phone" id="phone" wire:ignore
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5 mask-phone"
-                                                value="{{ $entity->phone }}">
-                                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
-                                        </div>
+                                        {{-- Город --}}
+                                        <x-admin.select-city :selectedCity="$entity->city" />
 
                                         {{-- Тип сущности --}}
                                         <div class="col-span-6">
                                             <label for="selectedType"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Тип
                                                 сущности</label>
-                                            <select name="type" id="selectedType" wire:model.live="selectedType" required
+                                            <select name="type" id="selectedType" wire:model.live="selectedType"
+                                                required
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                                 <option selected value=""> -- не выбрано --</option>
                                                 @foreach ($typies as $type)
@@ -111,6 +91,27 @@
                                             </select>
                                         </div>
 
+                                        {{-- Телефон --}}
+                                        <div class="col-span-6">
+                                            <label for="phone"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
+                                            <input type="tel" name="phone" id="phone" wire:ignore
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5 mask-phone"
+                                                value="{{ old('phone', $entity->phone) }}">
+                                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                                        </div>
+
+                                        {{-- Адрес --}}
+                                        <div class="col-span-6">
+                                            <label for="address"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
+                                            <input type="text" name="address" id="address"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                value="{{ old('address', $entity->address) }}">
+                                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                                        </div>
+
+                                        {{-- Направления --}}
                                         @isset($this->selectedType)
                                             @if ($categories !== null && count($categories) > 0)
                                                 <div class="col-span-6">
@@ -159,17 +160,71 @@
                                             @endif
                                         @endisset
 
-                                        <x-admin.select-user :selectedUser="$entity->user" />
+                                        {{-- Описание --}}
+                                        <div class="col-span-6">
+                                            <label for="description"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Описание</label>
+                                            <textarea type="text" name="description" id="description"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">{{ old('description', $entity->description) }}</textarea>
+                                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                                        </div>
 
-                                        <x-admin.select-city :selectedCity="$entity->city" />
+                                        {{-- Пользователь --}}
+                                        <x-admin.select-user :selectedUser="$entity->user" />
+                                    </div>
+
+                                    {{-- Соц. ссылки --}}
+                                    <hr class="my-5">
+                                    <div class="grid grid-cols-6 gap-6">
+
+                                        <div class="col-span-6">
+                                            <x-input-label for="web" :value="__('Веб')" />
+                                            <x-text-input id="web" name="web" type="text"
+                                                class="mt-1 block w-full bg-gray-50"
+                                                placeholder='https://***********.**' :value="old('web', $entity->web)" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('web')" />
+                                        </div>
+
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <x-input-label for="whatsapp" :value="__('Whatsapp')" />
+                                            <x-text-input id="whatsapp" name="whatsapp" type="text"
+                                                class="mt-1 block w-full bg-gray-50"
+                                                placeholder='https://wa.me/***********' :value="old('whatsapp', $entity->whatsapp)" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
+                                        </div>
+
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <x-input-label for="telegram" :value="__('Телеграм')" />
+                                            <x-text-input id="telegram" name="telegram" type="text"
+                                                class="mt-1 block w-full bg-gray-50" placeholder='https://t.me/******'
+                                                :value="old('telegram', $entity->telegram)" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('telegram')" />
+                                        </div>
+
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <x-input-label for="vkontakte" :value="__('Вконтакте')" />
+                                            <x-text-input id="vkontakte" name="vkontakte" type="text"
+                                                class="mt-1 block w-full bg-gray-50"
+                                                placeholder='https://vk.com/***********' :value="old('vkontakte', $entity->vkontakte)" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('vkontakte')" />
+                                        </div>
+
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <x-input-label for="instagram" :value="__('Инстаграм')" />
+                                            <x-text-input id="instagram" name="instagram" type="text"
+                                                class="mt-1 block w-full bg-gray-50"
+                                                placeholder='https://instagram.com/*******' :value="old('instagram', $entity->instagram)" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('instagram')" />
+                                        </div>
 
                                     </div>
 
                                     <div class="items-center py-6 border-gray-200 rounded-b">
                                         <button
                                             class="text-white w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                            type="submit">Добавить</button>
+                                            type="submit">обновить</button>
                                     </div>
+
                                 </div>
                             </form>
 
@@ -182,6 +237,54 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            function previewImage(file) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    $('#img').attr('src', event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            function handleFile(file) {
+                var fileSize = file.size;
+                var maxSize = 2000000; // 2 MB
+
+                if (fileSize > maxSize) {
+                    $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
+                    $('.input-file input[type=file]').next().css({
+                        "color": "rgb(239 68 68)"
+                    });
+                    $('#img').attr('src', `{{ url('/image/no-image.png') }}`);
+                    $('#remove_image').css({
+                        "display": "none"
+                    });
+                } else {
+                    $('.input-file input[type=file]').next().html(file.name);
+                    $('.input-file input[type=file]').next().css({
+                        "color": "rgb(71 85 105)"
+                    });
+                    $('#remove_image').css({
+                        "display": "block"
+                    });
+                    previewImage(file);
+                }
+            }
+
+            $('#image').on('change', function(event) {
+                var selectedFile = event.target.files[0];
+                handleFile(selectedFile);
+            });
+
+            $('#remove_image').on('click', function() {
+                $('#image').val('');
+                $('#image_remove').val('delete');
+                $('#img').attr('src', `{{ url('/image/no-image.png') }}`);
+                $('.input-file input[type=file]').next().html('Выберите файл или перетащите сюда');
+                $('#remove_image').css({
+                    "display": "none"
+                });
+            });
+
             let dropzone = $("#dropzone");
             let fileInput = $("#image");
 

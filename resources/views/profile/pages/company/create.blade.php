@@ -93,42 +93,42 @@
                         <div class="my-3">
                             <x-input-label for="phone" :value="__('Телефон')" />
                             <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full mask-phone"
-                                placeholder='+7 (***) ***-**-**' :value="old('phone')" autofocus />
+                                placeholder='+7 (***) ***-**-**' :value="old('phone')" />
                             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="whatsapp" :value="__('Whatsapp')" />
                             <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full"
-                                placeholder='https://wa.me/***********' :value="old('whatsapp')" autofocus />
+                                placeholder='https://wa.me/***********' :value="old('whatsapp')" />
                             <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="web" :value="__('Веб')" />
                             <x-text-input id="web" name="web" type="text" class="mt-1 block w-full"
-                                placeholder='https://***********.**' :value="old('web')" autofocus />
+                                placeholder='https://***********.**' :value="old('web')" />
                             <x-input-error class="mt-2" :messages="$errors->get('web')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="telegram" :value="__('Телеграм')" />
                             <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full"
-                                placeholder='https://t.me/******' :value="old('telegram')" autofocus />
+                                placeholder='https://t.me/******' :value="old('telegram')" />
                             <x-input-error class="mt-2" :messages="$errors->get('telegram')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="vkontakte" :value="__('Вконтакте')" />
                             <x-text-input id="vkontakte" name="vkontakte" type="text" class="mt-1 block w-full"
-                                placeholder='https://vk.com/***********' :value="old('vkontakte')" autofocus />
+                                placeholder='https://vk.com/***********' :value="old('vkontakte')" />
                             <x-input-error class="mt-2" :messages="$errors->get('vkontakte')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="instagram" :value="__('Инстаграм')" />
                             <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full"
-                                placeholder='https://instagram.com/*******' :value="old('instagram')" autofocus />
+                                placeholder='https://instagram.com/*******' :value="old('instagram')" />
                             <x-input-error class="mt-2" :messages="$errors->get('instagram')" />
                         </div>
 

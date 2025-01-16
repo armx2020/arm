@@ -28,7 +28,7 @@ class EntityController extends BaseAdminController
 
     public function store(StoreEntityRequest $request)
     {
-        $this->entityAction->store($request, $request->user ?: 1);
+        $this->entityAction->store($request, $request->select_user ?: 1);
 
         return redirect()->route('admin.entity.index')->with('success', 'Сущность добавлена');
     }
@@ -40,7 +40,7 @@ class EntityController extends BaseAdminController
 
     public function update(UpdateEntityRequest $request, Entity $entity)
     {
-        $entity = $this->entityAction->update($request, $entity, $request->user ?: 1);
+        $entity = $this->entityAction->update($request, $entity, $request->select_user ?: 1);
 
         return redirect()->route('admin.entity.edit', ['entity' => $entity->id])
             ->with('success', "Сущность сохранена");

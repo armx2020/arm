@@ -35,10 +35,10 @@ class EntityAction
         $entity->telegram = $request->telegram;
         $entity->instagram = $request->instagram;
         $entity->vkontakte = $request->vkontakte;
-        $entity->user_id = $user_id ?: $request->user;
+        $entity->user_id = $user_id ?: $request->select_user;
 
         if ($request->image) {
-            $entity->image = $request->file('image')->store('entities', 'public');
+            $entity->image = $request->file('image')->store('uploaded', 'public');
             Image::make('storage/' . $entity->image)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save();
@@ -96,7 +96,7 @@ class EntityAction
         $entity->telegram = $request->telegram;
         $entity->instagram = $request->instagram;
         $entity->vkontakte = $request->vkontakte;
-        $entity->user_id = $user_id ?: $request->user;
+        $entity->user_id = $user_id ?: $request->select_user;
 
         $entity->save();
 

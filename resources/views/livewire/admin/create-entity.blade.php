@@ -43,51 +43,49 @@
 
                                 <div class="p-6 space-y-6">
                                     <div class="grid grid-cols-6 gap-6">
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="name"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
-                                            <input type="text" name="name" id="name"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                required value="{{ old('name') }}">
-                                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+
+                                        <div class="col-span-6">
+                                            <x-input-label for="name" :value="__('Название *')" />
+                                            <x-text-input id="name" name="name" type="text"
+                                                class="mt-1 block w-full bg-gray-50" :error="$errors->get('name')" :value="old('name')"
+                                                required autofocus />
+                                            <x-input-error class="mt-2" :messages="$errors->get('name')" />
                                         </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="address"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
-                                            <input type="text" name="address" id="address"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                :value="{{ old('address') }}">
-                                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="description"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Описание</label>
-                                            <input type="text" name="description" id="description"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                :value="{{ old('description') }}">
-                                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="phone"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
-                                            <input type="tel" name="phone" id="phone" wire:ignore
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5 mask-phone"
-                                                :value="{{ old('phone') }}">
-                                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
-                                        </div>
+
+                                        <x-admin.select-city />
 
                                         {{-- Тип сущности --}}
                                         <div class="col-span-6">
                                             <label for="selectedType"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Тип
                                                 сущности</label>
-                                            <select name="type" id="selectedType" wire:model.live="selectedType" required
+                                            <select name="type" id="selectedType" wire:model.live="selectedType"
+                                                required
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                                 <option selected value=""> -- не выбрано --</option>
                                                 @foreach ($typies as $type)
                                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+
+                                        <div class="col-span-6">
+                                            <label for="phone"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
+                                            <input type="tel" name="phone" id="phone" wire:ignore
+                                                placeholder='+ 7 (***) ***-**-**'
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5 mask-phone"
+                                                value="{{ old('phone') }}">
+                                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                                        </div>
+
+                                        <div class="col-span-6">
+                                            <label for="address"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
+                                            <input type="text" name="address" id="address"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                value="{{ old('address') }}">
+                                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                         </div>
 
                                         @isset($this->selectedType)
@@ -136,66 +134,71 @@
                                             @endif
                                         @endisset
 
-                                        <x-admin.select-user />
-                                        <x-admin.select-city />
+                                        {{-- Описание --}}
+                                        <div class="col-span-6">
+                                            <label for="description"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Описание</label>
+                                            <textarea type="text" name="description" id="description"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">{{ old('description') ?? old('description') }}</textarea>
+                                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                                        </div>
 
+                                        {{-- Пользователь --}}
+                                        <x-admin.select-user />
                                     </div>
 
+                                    {{-- Соц. ссылки --}}
                                     <hr class="my-5">
-
                                     <div class="grid grid-cols-6 gap-6">
 
                                         <div class="col-span-6">
-                                            <label for="web"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Web</label>
-                                            <input type="text" name="web" id="web"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                :value="old('web')">
-                                            <x-input-error :messages="$errors->get('web')" class="mt-2" />
+                                            <x-input-label for="web" :value="__('Веб')" />
+                                            <x-text-input id="web" name="web" type="text"
+                                                class="mt-1 block w-full bg-gray-50"
+                                                placeholder='https://***********.**' :value="old('web')" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('web')" />
                                         </div>
 
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="whatsapp"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Whatsapp</label>
-                                            <input type="text" name="whatsapp" id="whatsapp"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                :value="old('whatsapp')">
-                                            <x-input-error :messages="$errors->get('whatsapp')" class="mt-2" />
+                                            <x-input-label for="whatsapp" :value="__('Whatsapp')" />
+                                            <x-text-input id="whatsapp" name="whatsapp" type="text"
+                                                class="mt-1 block w-full bg-gray-50"
+                                                placeholder='https://wa.me/***********' :value="old('whatsapp')" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
                                         </div>
 
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="telegram"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Telegram</label>
-                                            <input type="text" name="telegram" id="telegram"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                :value="old('telegram')">
-                                            <x-input-error :messages="$errors->get('telegram')" class="mt-2" />
+                                            <x-input-label for="telegram" :value="__('Телеграм')" />
+                                            <x-text-input id="telegram" name="telegram" type="text"
+                                                class="mt-1 block w-full bg-gray-50" placeholder='https://t.me/******'
+                                                :value="old('telegram')" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('telegram')" />
                                         </div>
 
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="instagram"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Instagram</label>
-                                            <input type="text" name="instagram" id="instagram"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                :value="old('instagram')">
-                                            <x-input-error :messages="$errors->get('instagram')" class="mt-2" />
+                                            <x-input-label for="vkontakte" :value="__('Вконтакте')" />
+                                            <x-text-input id="vkontakte" name="vkontakte" type="text"
+                                                class="mt-1 block w-full bg-gray-50"
+                                                placeholder='https://vk.com/***********' :value="old('vkontakte')" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('vkontakte')" />
                                         </div>
 
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="vkontakte"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Vkontakte</label>
-                                            <input type="text" name="vkontakte" id="vkontakte"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                :value="old('vkontakte')">
-                                            <x-input-error :messages="$errors->get('vkontakte')" class="mt-2" />
+                                            <x-input-label for="instagram" :value="__('Инстаграм')" />
+                                            <x-text-input id="instagram" name="instagram" type="text"
+                                                class="mt-1 block w-full bg-gray-50"
+                                                placeholder='https://instagram.com/*******' :value="old('instagram')" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('instagram')" />
                                         </div>
 
                                     </div>
+
                                     <div class="items-center py-6 border-gray-200 rounded-b">
                                         <button
                                             class="text-white w-full bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                             type="submit">Добавить</button>
                                     </div>
+
                                 </div>
                             </form>
                         </div>
