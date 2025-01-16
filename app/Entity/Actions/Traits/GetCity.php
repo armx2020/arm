@@ -8,7 +8,7 @@ trait GetCity
 {
     public function getCity($request): City
     {
-        $city = City::with('region')->find($request->select_city);
+        $city = City::with('region')->find($request->city);
 
         if (empty($city)) {
             $city = City::find(1);

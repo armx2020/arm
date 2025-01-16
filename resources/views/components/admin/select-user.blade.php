@@ -1,8 +1,8 @@
 @props(['selectedUser' => null])
 
-<div class="col-span-6" id="select_user_div" wire:ignore>
-    <label for="select_user" class="text-sm font-medium text-gray-900 block mb-2">Пользователь</label>
-    <select name="select_user" class="w-full" id="select_user">
+<div class="col-span-6" id="user_div" wire:ignore>
+    <label for="user" class="text-sm font-medium text-gray-900 block mb-2">Пользователь</label>
+    <select name="user" class="w-full" id="user">
         @if (isset($selectedUser))
             <option value="{{ $selectedUser->id }}"> {{ $selectedUser->firstname }} {{ $selectedUser->phone }}</option>
         @else
@@ -12,7 +12,7 @@
 </div>
 
 <script type="text/javascript">
-    $("#select_user").select2({
+    $("#user").select2({
         ajax: {
             url: " {{ route('admin.get-user') }}",
             type: "get",

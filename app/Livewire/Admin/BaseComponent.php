@@ -15,7 +15,7 @@ abstract class BaseComponent extends Component
     public $filters = [];
     public $selectedFilters = [];
     public $sortField = 'id';
-    public $sortAsc = true;
+    public $sortAsc = false;
 
     protected $quantityOfDisplayed = 100; // Количество отоброжаемых сущностей
 

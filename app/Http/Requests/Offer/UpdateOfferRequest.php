@@ -9,13 +9,14 @@ class UpdateOfferRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'    => ['required', 'string', 'max:255'],
-            'address' => ['nullable', 'string', 'max:128'],
-            'image'   => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'city'    => ['nullable', 'integer'],
-            'user'    => ['nullable', 'integer'],
+            'name'      => ['required', 'string', 'max:255'],
+            'address'   => ['nullable', 'string', 'max:128'],
+            'image'     => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
+            'city'      => ['nullable', 'integer'],
+            'user'      => ['nullable', 'integer'],
             'category'  => ['required'],
-            'entity'  => ['nullable', 'integer'],
+            'entity'    => ['nullable', 'integer'],
+            'activity'  => ['nullable', 'in:1']
         ];
     }
 }

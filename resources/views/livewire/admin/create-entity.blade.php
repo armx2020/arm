@@ -12,7 +12,7 @@
                                     <h3 class="text-2xl font-bold leading-none text-gray-900">Новая сущность</h3>
                                 </div>
                             </div>
-                            @dump($errors->all())
+
                             <form method="POST" enctype="multipart/form-data"
                                 action="{{ route('admin.entity.store') }}">
                                 @csrf

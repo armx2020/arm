@@ -35,7 +35,7 @@ class EntityAction
         $entity->telegram = $request->telegram;
         $entity->instagram = $request->instagram;
         $entity->vkontakte = $request->vkontakte;
-        $entity->user_id = $user_id ?: $request->select_user;
+        $entity->user_id = $user_id ?: $request->user;
         $entity->activity = $request->activity ? 1 : 0;
 
         if ($request->image) {
@@ -97,7 +97,7 @@ class EntityAction
         $entity->telegram = $request->telegram;
         $entity->instagram = $request->instagram;
         $entity->vkontakte = $request->vkontakte;
-        $entity->user_id = $user_id ?: $request->select_user;
+        $entity->user_id = $user_id ?: $request->user;
         $entity->activity = $request->activity ? 1 : 0;
 
         $entity->save();

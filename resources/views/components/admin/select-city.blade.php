@@ -1,8 +1,8 @@
 @props(['selectedCity' => null])
 
-<div class="col-span-6" id="select_city_div" wire:ignore>
-    <label for="select_city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
-    <select name="select_city" class="w-full" id="select_city" style="background-color: brown">
+<div class="col-span-6" id="city_div" wire:ignore>
+    <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
+    <select name="city" class="w-full" id="city" style="background-color: brown">
         @if (isset($selectedCity))
             <option value="{{ $selectedCity->id }}"> {{ $selectedCity->name }}</option>
         @else
@@ -12,8 +12,8 @@
 </div>
 
 <script type="text/javascript">
-    if ($("#select_city").length > 0) {
-        $("#select_city").select2({
+    if ($("#city").length > 0) {
+        $("#city").select2({
             ajax: {
                 url: " {{ route('admin.get-city') }}",
                 type: "get",

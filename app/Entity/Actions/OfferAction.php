@@ -2,6 +2,7 @@
 
 namespace App\Entity\Actions;
 
+use App\Entity\Actions\Traits\GetCity;
 use App\Models\Category;
 use App\Models\Entity;
 use App\Models\Offer;
@@ -10,6 +11,8 @@ use Intervention\Image\Facades\Image as Image;
 
 class OfferAction
 {
+    use GetCity;
+
     public function store($request, $user_id = null)
     {
         $entity = Entity::query();
@@ -37,15 +40,18 @@ class OfferAction
             return false;
         }
 
+        $city = $this->getCity($request);
+
         $offer = new Offer();
         $offer->name = $request->name;
         $offer->address = $request->address;
         $offer->description = $request->description;
-        $offer->city_id = $entity->city_id;
-        $offer->region_id = $entity->region_id;
+        $offer->city_id = $city->id;
+        $offer->region_id = $city->region->id;
         $offer->entity_id = $request->entity;
-        $offer->user_id = $user_id ?: $entity->user_id;
+        $offer->user_id = $user_id ?: $entity->user_id ?: 1;
         $offer->category_id = $request->category;
+        $offer->activity = $request->activity ? 1 : 0;
 
         if ($request->image) {
             $offer->image = $request->file('image')->store('uploaded', 'public');
@@ -102,15 +108,18 @@ class OfferAction
             })->save();
         }
 
+        $city = $this->getCity($request);
+
         $offer->name = $request->name;
         $offer->address = $request->address;
         $offer->description = $request->description;
         $offer->category_id = $request->category;
         $offer->entity_id = $entity->id;
-        $offer->city_id = $entity->city_id;
-        $offer->region_id = $entity->region_id;
+        $offer->city_id = $city->id;
+        $offer->region_id = $city->region->id;
         $offer->entity_id = $request->entity;
-        $offer->user_id = $user_id ?: $entity->user_id;
+        $offer->user_id = $user_id ?: $entity->user_id ?: 1;
+        $offer->activity = $request->activity ? 1 : 0;
 
         $offer->update();
 
