@@ -19,8 +19,8 @@
                             <div class="basis-4/5 text-left text-sm">Заполненость профиля</div>
                             <div class="basis-1/5 text-right text-sm">{{ $fullness }}%</div>
                         </div>
-                        <div class="w-full bg-gray-200 rounded-md mb-5">
-                            <div class="bg-green-500 h-2 text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100"
+                        <div class="w-full bg-gray-200 rounded-sm mb-5">
+                            <div class="bg-green-500 h-2 rounded-l-sm text-gray-50 align-middle p-0.5 text-center text-md font-medium leading-none text-primary-100"
                                 style='width: {{ $fullness }}%'></div>
                         </div>
                     </div>

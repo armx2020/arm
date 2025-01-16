@@ -154,14 +154,14 @@
                     </form>
                 </div>
 
-                <div class="flex basis-full bg-gray-200 rounded-md p-5 my-6 text-sm">
+                <div class="flex basis-full bg-gray-200 rounded-md p-3 my-6 text-sm">
                     <form method="post" action="{{ route('mycompanies.destroy', ['mycompany' => $entity->id]) }}"
                         class="w-full text-center">
                         @csrf
                         @method('delete')
 
                         <div class="m-2 flex flex-row justify-between basis-full">
-                            <div class="text-lg font-medium text-gray-900 flex">
+                            <div class="text-base font-medium text-gray-900 flex items-center">
                                 {{ __('Чтобы удалить, нажмите') }}
                             </div>
                             <x-danger-button class="flex">

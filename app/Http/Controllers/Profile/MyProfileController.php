@@ -89,11 +89,9 @@ class MyProfileController extends BaseController
         }
 
         $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
         $user->email = $request->email;
         $user->city_id = $request->user_city;
         $user->region_id = $city->region->id;
-        $user->viber = $request->viber;
         $user->whatsapp = $request->whatsapp;
         $user->telegram = $request->telegram;
         $user->instagram = $request->instagram;
