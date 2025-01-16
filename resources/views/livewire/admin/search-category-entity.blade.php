@@ -82,7 +82,7 @@
                                                             @break
 
                                                             @case('main_category_id')
-                                                                @if ($entity->category)
+                                                                @if ($entity->main_category_id)
                                                                     <a class="text-blue-800 hover:text-blue-600"
                                                                         href="{{ route('admin.category.edit', ['category' => $entity->main_category_id]) }}">
                                                                         {{ $entity->mainCategory->name }}
