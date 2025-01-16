@@ -76,7 +76,7 @@
                 </div>
 
                 @role('super-admin')
-                    <div class="hidden lg:block absolute right-4 bottom-4">
+                    <div class="absolute right-4 bottom-4">
                         <a href="{{ route('admin.entity.edit', ['entity' => $entity->id]) }}" class="[&>svg]:fill-[#a1b4c2]">
                             перейти в админ-панель
                         </a>
