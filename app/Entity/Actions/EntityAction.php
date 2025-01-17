@@ -4,7 +4,7 @@ namespace App\Entity\Actions;
 
 use App\Entity\Actions\Traits\GetCity;
 use App\Models\Category;
-use App\Models\entity;
+use App\Models\Entity;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
