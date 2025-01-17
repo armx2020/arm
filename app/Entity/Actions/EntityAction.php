@@ -99,6 +99,7 @@ class EntityAction
         $entity->vkontakte = $request->vkontakte;
         $entity->user_id = $user_id ?: $request->user;
         $entity->activity = $request->activity ? 1 : 0;
+        $entity->category_id = null;
 
         $entity->save();
 
