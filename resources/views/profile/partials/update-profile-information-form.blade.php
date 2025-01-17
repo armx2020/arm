@@ -3,13 +3,14 @@
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Редактирования профиля') }}
         </h2>
+        <hr class="w-full h-2 mt-2">
     </header>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="space-y-6 w-full" enctype="multipart/form-data">
+    <form method="post" action="{{ route('profile.update') }}" class="space-y-4 w-full" enctype="multipart/form-data">
         @csrf
         @method('patch')
         <input name="image_remove" type="text" id="image_remove" class="hidden" style="z-index:-10;" />
@@ -18,9 +19,9 @@
         <div class="flex flex-row" id="upload_area">
             <div class="flex relative">
                 @if( $user->image == null)
-                <img class="h-20 w-20 rounded-full m-4 object-cover" id="img" src="{{ url('/image/no-image.png')}}" alt="{{ $user->firstname }} avatar">
+                <img class="h-20 w-20 rounded-full m-1 object-cover" id="img" src="{{ url('/image/no-image.png')}}" alt="{{ $user->firstname }} avatar">
                 @else
-                <img class="h-20 w-20 rounded-full m-4 object-cover" id="img" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
+                <img class="h-20 w-20 rounded-full m-1 object-cover" id="img" src="{{ asset('storage/'. $user->image) }}" alt="{{ $user->firstname }} avatar">
                 @endif
                 <button type="button" id="remove_image" class="absolute top-2 right-2" @if( $user->image == null)
                     style="display: none;"
@@ -29,10 +30,10 @@
                     @endif><img src="{{ url('/image/remove.png')}}" class="w-5 h-5" style="cursor:pointer;"></button>
             </div>
 
-            <div class="flex items-center">
+            <div class="flex items-center pl-4">
                 <label class="input-file relative inline-block">
                     <input name="image" type="file" accept=".jpg,.jpeg,.png" id="image" class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                    <span class="relative inline-block bg-slate-100 align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл</span>
+                    <span class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600" style="cursor:pointer;">Выберите файл или перетащите в эту область</span>
                 </label>
             </div>
 

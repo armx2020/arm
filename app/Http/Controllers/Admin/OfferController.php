@@ -66,7 +66,7 @@ class OfferController extends BaseAdminController
 
     public function destroy(string $id)
     {
-        $offer = CompanyOffer::find($id);
+        $offer = Offer::find($id);
 
         if (empty($offer)) {
             return redirect()->route('admin.offer.index')->with('alert', 'Предложение не найдено');
