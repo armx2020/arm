@@ -6,9 +6,6 @@ use App\Entity\Actions\OfferAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Offer\StoreOfferRequest;
 use App\Http\Requests\Offer\UpdateOfferRequest;
-use App\Models\Category;
-use App\Models\CompanyOffer;
-use App\Models\Entity;
 use App\Models\Offer;
 
 class OfferController extends BaseAdminController
