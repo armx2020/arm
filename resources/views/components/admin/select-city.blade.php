@@ -2,7 +2,7 @@
 
 <div class="col-span-6" id="city_div" wire:ignore>
     <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
-    <select name="city" class="w-full" id="city" style="background-color: brown">
+    <select name="city" class="w-full" id="city">
         @if (isset($selectedCity))
             <option value="{{ $selectedCity->id }}"> {{ $selectedCity->name }}</option>
         @else

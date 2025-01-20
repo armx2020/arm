@@ -3,9 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Category;
-use App\Models\City;
 use App\Models\EntityType;
-use App\Models\User;
 use Livewire\Component;
 
 class EditEntity extends Component

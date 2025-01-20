@@ -40,3 +40,11 @@
         }
     });
 </script>
+
+<style>
+    .select2-container--default .select2-selection--single {
+        background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+        border-color: rgb(209 213 219));
+        border-radius: 0.5rem;
+    }
+</style>

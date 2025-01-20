@@ -23,14 +23,22 @@ class UpdateEntityRequest extends FormRequest
             'telegram'      => ['nullable', new TelegramUrl],
             'instagram'     => ['nullable', new InstagramUrl],
             'vkontakte'     => ['nullable', new VkontakteUrl],
-            'image'         => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'image_remove'  => ['nullable', 'in:delete'],
-            'city'   => ['integer'],
-            'user'   => ['nullable', 'integer'],
+            'city'          => ['integer'],
+            'user'          => ['nullable', 'integer'],
             'type'          => ['required', 'integer'],
             'category'      => ['nullable'],
             'fields'        => ['nullable'],
-            'activity'      => ['nullable', 'in:1']
+            'activity'      => ['nullable', 'in:1'],
+            'image'           => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
+            'image_remove'    => ['nullable', 'in:delete'],
+            'image_1'         => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
+            'image_remove_1'  => ['nullable', 'in:delete'],
+            'image_2'         => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
+            'image_remove_2'  => ['nullable', 'in:delete'],
+            'image_3'         => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
+            'image_remove_3'  => ['nullable', 'in:delete'],
+            'image_4'         => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
+            'image_remove_4'  => ['nullable', 'in:delete'],
         ];
     }
 }
