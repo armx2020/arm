@@ -18,7 +18,7 @@
             </a>
         </div>
 
-        <div class="">
+        <div class="hidden md:block">
             <p
                 class="mb-2 mt-2 sm:mt-0 text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
                 {{ mb_substr($entity->description, 0, 200, 'UTF-8') }}
