@@ -18,17 +18,15 @@
             </a>
         </div>
 
-        @if ($entity->entity_type_id == 2)
-            <div class="hidden lg:block">
-                <p
-                    class="mb-2 mt-2 sm:mt-0 text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
-                    {{ mb_substr($entity->description, 0, 250, 'UTF-8') }}
-                    @if (mb_strlen($entity->description) > 250)
-                        ...
-                    @endif
-                </p>
-            </div>
-        @endif
+        <div class="">
+            <p
+                class="mb-2 mt-2 sm:mt-0 text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
+                {{ mb_substr($entity->description, 0, 200, 'UTF-8') }}
+                @if (mb_strlen($entity->description) > 200)
+                    ...
+                @endif
+            </p>
+        </div>
 
         @if ($entity->entity_type_id == 1)
 
