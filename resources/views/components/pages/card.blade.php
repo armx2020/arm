@@ -5,7 +5,7 @@
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}
             alt="{{ $entity->name }}" />
     </a>
-    <div class="px-3 lg:px-5 flex flex-col flex-1 truncate">
+    <div class="px-3 lg:px-5 flex-col flex-1">
         <div class="flex truncate">
             <a href="{{ route('entity.show', ['entity' => $entity]) }}">
                 <p
@@ -19,9 +19,9 @@
         </div>
 
         @if ($entity->entity_type_id !== 1)
-            <div class="">
+            <div class="max-h-20 md:max-h-40 lg:max-h-56 flex truncate">
                 <p
-                    class="mb-2 mt-2 sm:mt-0 text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
+                    class="text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
                     {{ $entity->description }}
                 </p>
             </div>
