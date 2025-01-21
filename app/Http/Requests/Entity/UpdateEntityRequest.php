@@ -29,6 +29,7 @@ class UpdateEntityRequest extends FormRequest
             'category'      => ['nullable'],
             'fields'        => ['nullable'],
             'activity'      => ['nullable', 'in:1'],
+            'sort_id'        => ['required'],
             'image'           => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
             'image_remove'    => ['nullable', 'in:delete'],
             'image_1'         => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],

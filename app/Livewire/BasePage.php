@@ -50,7 +50,12 @@ class BasePage extends Component
             $entities = $entities->where('entity_type_id', $this->type);
         }
 
-        $entities = $entities->orderByRaw("FIELD(`region_id`, $this->region) DESC")->orderBy('offers_count', 'desc');
+        if ($this->region !== '1') {
+            $entities = $entities->orderByRaw("FIELD(`region_id`, $this->region) DESC")->orderBy('offers_count', 'desc');
+        }
+
+
+        $entities = $entities->orderByDesc('sort_id');
 
         if ($this->category !== 'Все') {
             $entities = $entities

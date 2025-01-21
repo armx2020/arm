@@ -24,6 +24,7 @@ class EntityRepository implements EntityColumnsInterface, EntityFiltersInterface
         'category_id',
         'user_id',
         'city_id',
+        'sort_id',
         'region_id',
     ];
 
@@ -34,6 +35,7 @@ class EntityRepository implements EntityColumnsInterface, EntityFiltersInterface
         'category_id',
         'user_id',
         'city_id',
+        'sort_id',
         'region_id',
         'address',
         'phone',

@@ -45,7 +45,8 @@ class Entity extends Model
         'user_id',
         'city_id',
         'region_id',
-        'category_id'
+        'category_id',
+        'sort_id'
     ];
 
     protected $searchable = [
