@@ -6,7 +6,7 @@
             alt="{{ $entity->name }}" />
     </a>
     <div class="px-3 lg:px-5 flex flex-col flex-1">
-        <div class="flex max-h-14 overflow-hidden mb-2">
+        <div class="flex max-h-14 overflow-hidden mb-0 lg:mb-2">
             <a href="{{ route('entity.show', ['entity' => $entity]) }}">
                 <p
                     class="text-xs md:text-base lg:text-xl font-bold leading-tight text-neutral-700 break-words text-ellipsis overflow-hidden">
