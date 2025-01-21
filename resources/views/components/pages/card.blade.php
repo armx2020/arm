@@ -1,19 +1,16 @@
-<div class="flex flex-row rounded-lg bg-white h-36 md:h-64 lg:h-80 p-2 sm:p-4 truncate relative drop-shadow-sm hover:drop-shadow-md"
+<div class="flex flex-row rounded-lg bg-white h-36 md:h-64 lg:h-80 p-2 sm:p-4 relative drop-shadow-sm hover:drop-shadow-md"
     id="{{ $entity->id }}_card">
     <a href="{{ route('entity.show', ['entity' => $entity]) }}">
         <img class="h-32 w-32 min-h-32 min-w-32 md:h-56 md:w-56 md:min-h-56 md:min-w-56 lg:h-72 lg:w-72 lg:min-h-72 lg:min-w-72 rounded-lg object-cover" style="min-width: 18rem;"
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}
             alt="{{ $entity->name }}" />
     </a>
-    <div class="px-3 lg:px-5 flex-col flex-1">
-        <div class="flex">
+    <div class="px-3 lg:px-5 flex flex-col flex-1">
+        <div class="flex max-h-14 overflow-hidden">
             <a href="{{ route('entity.show', ['entity' => $entity]) }}">
                 <p
-                    class="mb-2 mt-2 sm:mt-0 text-xs md:text-base lg:text-xl font-bold leading-tight text-neutral-700 truncate">
-                    {{ mb_substr($entity->name, 0, 1300, 'UTF-8') }}
-                    @if (mb_strlen($entity->name) > 1300)
-                        ...
-                    @endif
+                    class="mb-2 mt-2 sm:mt-0 text-xs md:text-base lg:text-xl font-bold leading-tight text-neutral-700 break-words text-ellipsis overflow-hidden">
+                    {{ $entity->name }}
                 </p>
             </a>
         </div>
