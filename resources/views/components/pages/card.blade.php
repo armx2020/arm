@@ -43,14 +43,14 @@
                         @php
                             $count++;
 
-                            if ($loop->iteration == 2) {
+                            if ($loop->iteration == 6) {
                                 break;
                             }
                         @endphp
                     @endforeach
                 @endif
 
-                @if ($count <= 2 && $entity->offers)
+                @if ($count <= 6 && $entity->offers)
                     @foreach ($entity->offers as $offer)
                         <li class="text-xs lg:text-base">
                             {{ $offer->name }}
@@ -59,7 +59,7 @@
                         @php
                             $count++;
 
-                            if ($count == 2) {
+                            if ($count == 6) {
                                 break;
                             }
                         @endphp
