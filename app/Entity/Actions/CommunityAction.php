@@ -21,7 +21,7 @@ class CommunityAction
             $entity->activity = $isActive;
         }
 
-        $entity->entity_type_id = 3;
+        $entity->entity_type_id = 4;
         $entity->name = $request->name;
         $entity->address = $request->address;
         $entity->description = $request->description;
@@ -189,8 +189,29 @@ class CommunityAction
 
     public function destroy($entity): void
     {
-        if ($entity->image !== null) {
+        if (isset($entity->image)) {
             Storage::delete('public/' . $entity->image);
+            $entity->image = null;
+        }
+
+        if (isset($entity->images()->get()[0])) {
+            Storage::delete('public/' . $entity->images()->get()[0]->path);
+            $entity->images()->get()[0]->delete();
+        }
+
+        if (isset($entity->images()->get()[1])) {
+            Storage::delete('public/' . $entity->images()->get()[1]->path);
+            $entity->images()->get()[1]->delete();
+        }
+
+        if (isset($entity->images()->get()[2])) {
+            Storage::delete('public/' . $entity->images()->get()[2]->path);
+            $entity->images()->get()[2]->delete();
+        }
+
+        if (isset($entity->images()->get()[3])) {
+            Storage::delete('public/' . $entity->images()->get()[3]->path);
+            $entity->images()->get()[3]->delete();
         }
 
         $entity->delete();

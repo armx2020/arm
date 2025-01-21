@@ -232,8 +232,29 @@ class OfferAction
 
     public function destroy($offer): void
     {
-        if ($offer->image !== null) {
+        if (isset($offer->image)) {
             Storage::delete('public/' . $offer->image);
+            $offer->image = null;
+        }
+
+        if (isset($offer->images()->get()[0])) {
+            Storage::delete('public/' . $offer->images()->get()[0]->path);
+            $offer->images()->get()[0]->delete();
+        }
+
+        if (isset($offer->images()->get()[1])) {
+            Storage::delete('public/' . $offer->images()->get()[1]->path);
+            $offer->images()->get()[1]->delete();
+        }
+
+        if (isset($offer->images()->get()[2])) {
+            Storage::delete('public/' . $offer->images()->get()[2]->path);
+            $offer->images()->get()[2]->delete();
+        }
+
+        if (isset($offer->images()->get()[3])) {
+            Storage::delete('public/' . $offer->images()->get()[3]->path);
+            $offer->images()->get()[3]->delete();
         }
 
         $offer->delete();

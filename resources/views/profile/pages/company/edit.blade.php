@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div>
                             <x-input-error :messages="$errors->get('image')" />
                         </div>
@@ -210,8 +210,18 @@
                                     @foreach ($categories as $item)
                                         <div class="flex flex-col gap-1">
                                             <div class="flex">
-                                                <label for="checkbox-group-{{ $loop->iteration }}"
-                                                    class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
+                                                @if (count($item->categories) < 1)
+                                                    <input type="checkbox" name="fields[]" value="{{ $item->id }}"
+                                                        @checked($entity->fields->contains($item->id))
+                                                        @if (is_array(old('fields')) && in_array($item->id, old('fields'))) checked @endif
+                                                        class="checkbox-{{ $loop->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                        id="checkbox-{{ $item->id }}">
+                                                    <label for="checkbox-{{ $item->id }}"
+                                                        class="text-sm text-gray-500 ms-3 dark:text-neutral-400">{{ $item->name }}</label>
+                                                @else
+                                                    <label for="checkbox-group-{{ $loop->iteration }}"
+                                                        class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
+                                                @endif
                                             </div>
                                             @foreach ($item->categories as $child)
                                                 <div class="flex pl-4">
