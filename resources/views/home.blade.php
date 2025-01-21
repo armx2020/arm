@@ -88,7 +88,7 @@
                 <!-- Общины консульства -->
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-2">
                     <div class="bg-[#e6c6c9] rounded-xl p-2 lg:p-4 h-60 h-56 md:h-[280px] lg:h-72 ">
-                        <a href="">
+                        <a href="{{ route('communities.index') }}">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-base font-bold">Общины консульства</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Каталог товаров/услуг </p>
