@@ -25,7 +25,7 @@
         @endif
 
         @if ($entity->entity_type_id == 1)
-            <div class="max-h-12 md:max-h-[4.5rem] lg:max-h-24 flex truncate">
+            <div class="max-h-12 md:max-h-[4.5rem] flex truncate">
                 <p
                     class="text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
                     {{ $entity->description }}
