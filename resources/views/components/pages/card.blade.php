@@ -1,7 +1,7 @@
 <div class="flex flex-row rounded-lg bg-white h-36 md:h-64 lg:h-80 p-2 sm:p-4 truncate relative drop-shadow-sm hover:drop-shadow-md"
     id="{{ $entity->id }}_card">
     <a href="{{ route('entity.show', ['entity' => $entity]) }}">
-        <img class="h-32 w-32 min-h-32 min-w-32 md:h-56 md:w-56 md:min-h-56 md:min-w-56 lg:h-72 lg:w-72 lg:min-h-72 lg:min-w-72 rounded-lg object-cover"
+        <img class="h-32 w-32 min-h-32 min-w-32 md:h-56 md:w-56 md:min-h-56 md:min-w-56 lg:h-72 lg:w-72 lg:min-h-72 lg:min-w-72 rounded-lg object-cover" style="min-width: 18rem;"
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}
             alt="{{ $entity->name }}" />
     </a>
