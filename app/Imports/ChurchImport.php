@@ -16,23 +16,26 @@ class ChurchImport implements ToCollection, WithUpserts, PersistRelations, WithS
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            $entity = Entity::create([
-                'name' => $row[2],
-                'link' => $row[1],
-                'city_id' => $this->getCityName($row[3]),
-                'address' => $row[4],
-                'phone' => preg_replace('/[^0-9]/', '', $row[5]),
-                'web' => $row[6],
-                'vkontakte' => $row[7],
-                'whatsapp' => $row[8],
-                'telegram' => $row[9],
-                'activity' => true,
-                'region_id' => $this->getRegionName($row[3]),
-                'entity_type_id' => 3,
-                'category_id' => 6,
-                'image' => null
-            ]);
-
+            $entity = Entity::updateOrCreate(
+                [
+                    'name' => $row[2]
+                ],
+                [
+                    'link' => $row[1],
+                    'city_id' => $this->getCityName($row[3]),
+                    'address' => $row[4],
+                    'phone' => preg_replace('/[^0-9]/', '', $row[5]),
+                    'web' => $row[6],
+                    'vkontakte' => $row[7],
+                    'whatsapp' => $row[8],
+                    'telegram' => $row[9],
+                    'activity' => true,
+                    'region_id' => $this->getRegionName($row[3]),
+                    'entity_type_id' => 3,
+                    'category_id' => 6,
+                    'image' => null
+                ]
+            );
 
             if (Storage::disk('public')->exists("uploaded/church/$row[0]/$row[0]_1.jpg")) {
                 $entity->image = "uploaded/church/$row[0]/$row[0]_1.jpg";
@@ -62,6 +65,7 @@ class ChurchImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     'path' => "uploaded/church/$row[0]/$row[0]_5.jpg"
                 ]);
             }
+
         }
     }
 
