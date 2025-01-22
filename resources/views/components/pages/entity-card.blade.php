@@ -87,9 +87,12 @@
 
                 @if ($entity->description)
                     <span class="mx-4 text-sm font-semibold mt-4">Описание</span>
-                    <p class="flex text-left text-sm mx-4 my-1 text-gray-500 break-all">
-                        {{ mb_substr($entity->description, 0, 400, 'UTF-8') }}
-                    </p>
+                    <div class="max-h-16 md:max-h-36 lg:max-h-48 flex truncate mx-4 max-w-[50rem]">
+                        <p
+                            class="text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
+                            {{ $entity->description }}
+                        </p>
+                    </div>
                 @endif
 
                 @if ($entity->entity_type_id == 1)
