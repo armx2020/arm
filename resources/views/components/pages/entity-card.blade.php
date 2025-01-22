@@ -14,11 +14,9 @@
             </div>
 
             <img src="{{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}"
-                class="h-[27rem] w-[27rem] lg:h-72 lg:w-72 rounded-lg object-cover mx-auto" alt="{{ $entity->name }}">
+                class="h-[27rem] w-[27rem] lg:h-72 lg:w-72 rounded-lg object-cover mx-auto lg:mx-0" alt="{{ $entity->name }}">
 
-            @if ($entity->getTable() == 'projects')
-                <x-pages.donations-for-project :$entity />
-            @endif
+  
 
             <div class="flex flex-col px-0 lg:px-6 mt-3 sm:mt-0 justify-start break-all">
                 <h3 class="block text-left text-md font-semibold mx-4">
