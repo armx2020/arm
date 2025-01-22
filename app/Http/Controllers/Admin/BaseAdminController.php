@@ -54,11 +54,24 @@ abstract class BaseAdminController extends Controller
                 'sub' => []
             ],
             [
+                'name' => 'Импорт',
+                'route' => '',
+                'sub' => [
+                    [
+                        'name' => 'церкви',
+                        'route' => 'admin.import.excel',
+                        'routeIs' => 'admin.import.excel*',
+                    ],
+                ]
+            ],
+            [
                 'name' => 'Типы',
                 'route' => 'admin.type.index',
                 'routeIs' => 'admin.type.*',
                 'sub' => []
             ],
+
+
         ];
     }
 }

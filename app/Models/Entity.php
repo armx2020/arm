@@ -34,6 +34,7 @@ class Entity extends Model
         'entity_type_id',
         'activity',
         'address',
+        'link',
         'image',
         'description',
         'phone',
