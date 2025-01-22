@@ -13,10 +13,14 @@
 
                         <div class="bg-white rounded-lg relative">
 
-                            <div class="flex items-start p-5 border-b rounded-t">
+                            <div class="flex justify-between p-5 border-b rounded-t">
                                 <div class="flex items-center">
                                     <h3 class="text-2xl font-bold leading-none text-gray-900">
                                         {{ $entity->name }}</h3>
+                                </div>
+                                <div class="flex items-center">
+                                    <a class="text-gray-700" href="https://ya.ru/search/?text={{ $entity->name }}">
+                                       перейти в яндекс</a>
                                 </div>
                             </div>
 
