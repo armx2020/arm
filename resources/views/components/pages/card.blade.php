@@ -6,7 +6,7 @@
             alt="{{ $entity->name }}" />
     </a>
     <div class="px-3 lg:px-5 flex flex-col flex-1">
-        <div class="flex max-h-14 overflow-hidden mb-0 lg:mb-2">
+        <div class="flex max-h-14 overflow-hidden mb-2">
             <a href="{{ route('entity.show', ['entity' => $entity]) }}">
                 <p
                     class="text-xs md:text-base lg:text-xl font-bold leading-tight text-neutral-700 break-words text-ellipsis overflow-hidden">
@@ -25,7 +25,7 @@
         @endif
 
         @if ($entity->entity_type_id == 1)
-            <div class="hidden lg:block max-h-12 md:max-h-[4.5rem] flex truncate">
+            <div class="hidden lg:block max-h-12 md:max-h-[4.5rem] flex truncate mb-2">
                 <p
                     class="text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
                     {{ $entity->description }}

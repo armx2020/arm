@@ -14,7 +14,7 @@
             </div>
 
             <img src="{{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}"
-                class="h-full w-full  lg:h-72 lg:w-72 rounded-lg object-cover" alt="{{ $entity->name }}">
+                class="h-[27rem] w-[27rem] lg:h-72 lg:w-72 rounded-lg object-cover mx-auto" alt="{{ $entity->name }}">
 
             @if ($entity->getTable() == 'projects')
                 <x-pages.donations-for-project :$entity />

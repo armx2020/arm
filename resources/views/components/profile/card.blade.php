@@ -1,18 +1,10 @@
-@php
-    $flex = 'flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64';
-    $aClass = 'sm:basis-1/4 flex-none';
-    $imageClass = 'h-full w-full rounded-2xl flex object-cover';
-    $bodyClass = 'px-3 flex flex-col sm:basis-full';
-    $infoClass = 'sm:basis-1/4 flex-initial text-right';
-@endphp
-
-<div class="{{ $flex }} p-4  relative">
+<div class="flex flex-col sm:flex-row rounded-lg bg-white h-auto sm:h-64 p-4  relative">
     <a href="{{ route($entitiesName . '.show', [$entityName => $entity->id]) }}" class="{{ $aClass }}">
-        <img class="{{ $imageClass }} w-full rounded-2xl flex object-cover"
+        <img class="h-full w-full rounded-2xl flex object-cover rounded-2xl flex object-cover"
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}
             alt="{{ $entity->name }}" />
     </a>
-    <div class="{{ $bodyClass }}">
+    <div class="px-3 flex flex-col sm:basis-full">
         <div class="flex max-h-18">
             <a href="{{ route($entitiesName . '.show', [$entityName => $entity->id]) }}">
                 <p
@@ -35,7 +27,7 @@
         @endisset
 
     </div>
-    <div class="{{ $infoClass }} flex flex-col">
+    <div class="sm:basis-1/4 flex-initial text-right flex flex-col">
         <div class="absolute top-[0.6rem] right-[0.6rem]">
             <a href="{{ route($entitiesName . '.edit', [$entityName => $entity->id]) }}"
                 class="inline rounded-md p-1 my-1" title="редактировать">
