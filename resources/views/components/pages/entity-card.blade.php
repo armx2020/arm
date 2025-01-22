@@ -5,18 +5,80 @@
 
             <div class="flex sm:hidden pb-4 px-3 w-full justify-end">
                 <a href="{{ url()->previous() }}" class="[&>svg]:fill-[#a1b4c2] w-3 h-3">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 384 512">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                         <path
                             d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" />
                     </svg>
                 </a>
             </div>
 
-            <img src="{{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}"
-                class="h-[27rem] w-[27rem] lg:h-72 lg:w-72 rounded-lg object-cover mx-auto lg:mx-0" alt="{{ $entity->name }}">
+            <div class="flex flex-col gap-2">
 
-  
+                <div class="flex">
+                    <img src="{{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}"
+                        class="h-[27rem] w-[27rem] lg:h-72 lg:w-72 rounded-lg object-cover mx-auto lg:mx-0"
+                        alt="{{ $entity->name }}">
+                </div>
+
+                @php
+                    $images = $entity->images() ? $entity->images()->get() : null;
+
+                @endphp
+
+                @if ($images !== null)
+
+                    @php
+                        $imagesClass = null;
+                        $imageGap = null;
+
+                        switch (count($images)) {
+                            case 1:
+                                $imageClass = 'w-[9.2rem] h-[9.2rem] lg:w-[8.6rem] lg:h-[8.6rem]';
+                                $imageGap = 'gap-3';
+                                break;
+                            case 2:
+                                $imageClass = 'w-[9.2rem] h-[9.2rem] lg:w-[8.6rem] lg:h-[8.6rem]';
+                                $imageGap = 'gap-3';
+                                break;
+                            case 3:
+                                $imageClass = 'w-[6rem] h-[6rem] lg:w-[5.5rem] lg:h-[5.5rem]';
+                                $imageGap = 'gap-3';
+                                break;
+                            case 4:
+                                $imageClass = 'w-[5rem] h-[5rem] lg:w-[4.1rem] lg:h-[4.1rem]';
+                                $imageGap = 'gap-2';
+                                break;
+
+                            default:
+                                $imageClass = null;
+                                break;
+                        }
+
+                    @endphp
+
+                    <div class="flex flex-row {{ $imageGap }}">
+
+                        @foreach ($images as $image)
+                            <div class="flex">
+                                <img src="{{ isset($image) ? asset('storage/' . $image->path) : url('/image/groups.png') }}"
+                                    class="{{ $imageClass }} rounded-lg object-cover mx-auto lg:mx-0"
+                                    alt="{{ $entity->name }}">
+                            </div>
+                        @endforeach
+
+                        @if (count($images) == 1)
+                            <div class="flex">
+                                <img src="{{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}"
+                                    class="{{ $imageClass }} rounded-lg object-cover mx-auto lg:mx-0"
+                                    alt="{{ $entity->name }}">
+                            </div>
+                        @endif
+
+                    </div>
+
+                @endif
+
+            </div>
 
             <div class="flex flex-col px-0 lg:px-6 mt-3 sm:mt-0 justify-start break-all">
                 <h3 class="block text-left text-md font-semibold mx-4">
@@ -75,7 +137,8 @@
 
                 @role('super-admin')
                     <div class="absolute right-4 bottom-4">
-                        <a href="{{ route('admin.entity.edit', ['entity' => $entity->id]) }}" class="[&>svg]:fill-[#a1b4c2]">
+                        <a href="{{ route('admin.entity.edit', ['entity' => $entity->id]) }}"
+                            class="[&>svg]:fill-[#a1b4c2]">
                             перейти в админ-панель
                         </a>
                     </div>
