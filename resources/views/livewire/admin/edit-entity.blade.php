@@ -19,7 +19,7 @@
                                         {{ $entity->name }}</h3>
                                 </div>
                                 <div class="flex items-center">
-                                    <a class="text-gray-700" href="https://ya.ru/search/?text={{ $entity->name }}">
+                                    <a class="text-gray-700" href="https://ya.ru/search/?text={{ $entity->name }}" target="_blank">
                                        перейти в яндекс</a>
                                 </div>
                             </div>
