@@ -16,7 +16,7 @@
 
                 <div class="flex">
                     <img src="{{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}"
-                        class="h-[27rem] w-[27rem] lg:h-72 lg:w-72 rounded-lg object-cover mx-auto lg:mx-0"
+                        class="h-[11rem] w-[27rem] lg:h-72 lg:w-72 rounded-lg object-cover mx-auto lg:mx-0"
                         alt="{{ $entity->name }}">
                 </div>
 
