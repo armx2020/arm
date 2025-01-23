@@ -17,8 +17,7 @@
 
         @if ($entity->entity_type_id !== 1)
             <div class="max-h-16 md:max-h-36 lg:max-h-48 flex truncate">
-                <p
-                    class="text-xs md:text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
+                <p class="text-xs md:text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
                     {{ $entity->description }}
                 </p>
             </div>
@@ -26,59 +25,61 @@
 
         @if ($entity->entity_type_id == 1)
             <div class="hidden lg:block max-h-12 md:max-h-[4.5rem] flex truncate mb-2">
-                <p
-                    class="text-xs md:text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
+                <p class="text-xs md:text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
                     {{ $entity->description }}
                 </p>
             </div>
         @endif
 
         @if ($entity->entity_type_id == 1)
+            <div class="max-h-16 md:max-h-36 lg:max-h-48 flex truncate">
+                @php
+                    $count = 0;
+                @endphp
 
-            @php
-                $count = 0;
-            @endphp
+                <ul class="list-disc text-base font-normal text-gray-500 break-all ml-4">
+                    @if ($entity->fields)
+                        @foreach ($entity->fields as $field)
+                            <li class="text-xs lg:text-base">
+                                {{ $field->name }}
+                            </li>
 
-            <ul class="list-disc text-base font-normal text-gray-500 break-all ml-4">
-                @if ($entity->fields)
-                    @foreach ($entity->fields as $field)
-                        <li class="text-xs lg:text-base">
-                            {{ $field->name }}
-                        </li>
+                            @php
+                                $count++;
 
-                        @php
-                            $count++;
+                                if ($loop->iteration == 6) {
+                                    break;
+                                }
+                            @endphp
+                        @endforeach
+                    @endif
 
-                            if ($loop->iteration == 6) {
-                                break;
-                            }
-                        @endphp
-                    @endforeach
-                @endif
+                    @if ($count <= 6 && $entity->offers)
+                        @foreach ($entity->offers as $offer)
+                            <li class="text-xs lg:text-base">
+                                {{ $offer->name }}
+                            </li>
 
-                @if ($count <= 6 && $entity->offers)
-                    @foreach ($entity->offers as $offer)
-                        <li class="text-xs lg:text-base">
-                            {{ $offer->name }}
-                        </li>
+                            @php
+                                $count++;
 
-                        @php
-                            $count++;
-
-                            if ($count == 6) {
-                                break;
-                            }
-                        @endphp
-                    @endforeach
-                @endif
-            </ul>
+                                if ($count == 6) {
+                                    break;
+                                }
+                            @endphp
+                        @endforeach
+                    @endif
+                </ul>
+            </div>
         @endif
 
         @if ($entity->city_id && $entity->city_id !== 1)
-            <p
-                class="mt-3 break-words text-xs font-medium text-blue-500 absolute top-[6.5rem] sm:top-[13.5rem] block lg:hidden">
-                {{ $entity->city->name }}
-            </p>
+            <div class="max-h-4 md:max-h-36 lg:max-h-48">
+                <p
+                    class="mt-1 break-words text-xs font-medium text-blue-500 absolute top-[6.5rem] sm:top-[13.5rem] block lg:hidden">
+                    {{ $entity->city->name }}
+                </p>
+            </div>
         @endif
 
         <div class="hidden lg:block absolute top-24 sm:top-[17.5rem]">
@@ -111,9 +112,9 @@
         $('#{!! $entity->id !!}_card').on('click', function() {
             const mobileWidthMediaQuery = window.matchMedia('(max-width: 768px)')
 
-            // if (mobileWidthMediaQuery.matches) {
-            //     window.location.href = ``;
-            // }
+            if (mobileWidthMediaQuery.matches) {
+                window.location.href = "{!! route('entity.show', ['entity' => $entity]) !!}";
+            }
         });
 
     });
