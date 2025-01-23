@@ -74,10 +74,10 @@
         @endif
 
         @if ($entity->city_id && $entity->city_id !== 1)
-            <div class="max-h-4 md:max-h-36 lg:max-h-48">
+            <div class="max-h-4 mb-0 md:max-h-36 lg:max-h-48  break-words overflow-hidden">
                 <p
-                    class="mt-1 break-words text-xs font-medium text-blue-500 absolute top-[6.5rem] sm:top-[13.5rem] block lg:hidden">
-                    {{ $entity->city->name }}
+                    class="mt-3 break-words text-xs font-medium text-blue-500 absolute top-[6.5rem] sm:top-[13.5rem] block lg:hidden">
+                    {{ strtok($entity->city->name, ' ') }}
                 </p>
             </div>
         @endif
