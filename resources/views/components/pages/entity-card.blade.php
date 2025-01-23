@@ -50,7 +50,8 @@
                                 break;
 
                             default:
-                                $imageClass = 'gap-2';
+                                $imageClass = 'w-[5rem] h-[5rem] lg:w-[4.1rem] lg:h-[4.1rem]';
+                                $imageGap = 'gap-2';
                                 break;
                         }
 
