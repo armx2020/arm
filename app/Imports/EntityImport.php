@@ -59,7 +59,7 @@ class EntityImport implements ToCollection, WithUpserts, PersistRelations, WithS
 
             if (Storage::disk('public')->exists("uploaded/entity/$row[0]/4.jpg")) {
                 $entity->images()->create([
-                    'path' => "uploaded/entity/$row[0]/$4.jpg"
+                    'path' => "uploaded/entity/$row[0]/4.jpg"
                 ]);
             }
 
