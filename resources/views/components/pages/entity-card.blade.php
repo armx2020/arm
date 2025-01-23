@@ -50,7 +50,7 @@
                                 break;
 
                             default:
-                                $imageClass = null;
+                                $imageClass = 'gap-2';
                                 break;
                         }
 
