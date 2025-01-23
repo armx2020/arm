@@ -4,27 +4,39 @@
         <div class="mx-auto pt-5 lg:pt-10">
             <div class="bg-white rounded-xl row-span-1 lg:row-span-1">
                 <div class="flex sm:flex-row">
-                    <div class="flex flex-col text-left basis-4/5 lg:basis-1/2 p-5 xl:p-8">
+                    <div class="flex flex-col text-left basis-full lg:basis-1/2 p-3 xl:p-8">
                         <div class="my-1 lg:my-2 text-sm md:text-lg lg:text-2xl font-extrabold uppercase">Армянский
                             справочник
                         </div>
-                        <div class="my-1 text-xs md:text-md xl:text-lg font-normal">
-                            Информационный справочник для армян - {{ $group->region->name }}</div>
-                        <div class="text-gray-600 hidden md:block text-sm lg:text-md xl:text-lg font-light">
-                            - Новости, сообщества, товары, проекты в одном месте
+                        <div class="flex flex-row">
+                            <div class="flex flex-col">
+                                <div class="my-1 text-xs md:text-md xl:text-lg font-normal">
+                                    Информационный справочник для армян - {{ $group->region->name }}</div>
+
+                                <div class="text-gray-600 hidden md:block text-sm lg:text-md xl:text-lg font-light">
+                                    - Новости, сообщества, товары, проекты в одном месте
+                                </div>
+                                <div class="text-gray-600 hidden md:block text-sm lg:text-md xl:text-lg font-light">
+                                    - Помощь по поиску работы и размещение ваших вакансий
+                                </div>
+
+                                <button
+                                    class="my-1 md:my-2 lg:my-4 text-xs md:text-base rounded-md bg-blue-500 text-white text-center w-4/5 xl:w-1/2 h-6 py-1 md:h-9 md:py-2 items-center font-normal inform-us-button">
+                                    Добавить
+                                </button>
+                            </div>
+                            <img class="float-end flex lg:hidden self-end w-24 lg:h-72 h-18 p-1 md:p-0 object-cover rounded-xl object-right-bottom"
+                                src="{{ url('/image/banner.png') }}" alt="banner">
                         </div>
-                        <div class="text-gray-600 hidden md:block text-sm lg:text-md xl:text-lg font-light">
-                            - Помощь по поиску работы и размещение ваших вакансий
-                        </div>
-                        <button
-                            class="my-1 md:my-2 lg:my-4 text-xs md:text-base rounded-md bg-blue-500 text-white text-center w-4/5 xl:w-1/2 h-6 py-1 md:h-9 md:py-2 items-center font-normal inform-us-button">
-                            Добавить
-                        </button>
+
                     </div>
-                    <div class="flex lg:basis-1/2 md:basis-1/3 basis-1/5 justify-end items-center sm:justify-center sm:items-center rounded-xl"
+
+
+
+                    <div class="hidden lg:flex basis-2/5 md:basis-1/3 lg:basis-1/2 justify-end items-center sm:justify-center sm:items-center rounded-xl"
                         style="background-size: 100% 100%;background-image:linear-gradient(to right,rgba(255, 255, 255, 99%), rgba(255, 255, 255, 70%)), url({{ url('/image/flag.png') }})"
                         id="bg-flag">
-                        <img class="flex self-end sm:h-20 md:h-32 lg:h-72 h-18 p-1 md:p-0 object-cover rounded-xl object-right-bottom"
+                        <img class="hidden lg:flex self-end sm:h-20 md:h-32 lg:h-72 h-18 p-1 md:p-0 object-cover rounded-xl object-right-bottom"
                             src="{{ url('/image/frame.png') }}" alt="banner">
                     </div>
                 </div>
@@ -102,7 +114,8 @@
                 </div>
 
                 <!-- Поиск работы -->
-                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-0 hidden lg:block">
+                <div
+                    class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-0 hidden lg:block">
                     <div class="bg-[#feecdc] rounded-xl p-2 lg:p-4 h-56 h-56 md:h-[280px] lg:h-72">
                         <a href="{{ route('companies.index') }}">
                             <div class="flex flex-col h-full w-full relative">
