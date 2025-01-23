@@ -31,7 +31,7 @@ class EntityImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     'director' => $row[8],
                     'phone' =>  preg_replace('/[^0-9]/', '', mb_substr($row[9], 0, 36)),
                     'email' => mb_substr($row[10], 0, 96),
-                    'address' => mb_substr($row[12], 0, 255),
+                    'address' => mb_substr($row[12], 0, 128),
                   // 'web' => $row[11],
                     'image' => null,
                     'activity' => false,
