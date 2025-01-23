@@ -8,7 +8,7 @@
                 <div class="my-3 w-full">
                     <div class="mb-4">
                         <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">
-                            Добавить церкви
+                            Добавить сущность
                         </h1>
                     </div>
                     <div class="flex flex-row ">
@@ -19,7 +19,7 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.import.excel') }}" method="POST" enctype="multipart/form-data" class="w-full">
+                            <form action="{{ route('admin.import.church') }}" method="POST" enctype="multipart/form-data" class="w-full">
                                 @csrf
                                 <div class="flex flex-row w-full justify-between">
                                     <input type="file" name="file" id="file" class="form-control">

@@ -9,13 +9,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('entities', function (Blueprint $table) {
-            $table->integer('sort_id')->index()->default(0);
+            $table->string('director', 255)->nullable();
+            $table->timestamp('started_at')->nullable();
+            $table->text('email', 96)->nullable();
         });
     }
 
     public function down(): void
     {
-        Schema::table('entity', function (Blueprint $table) {
+        Schema::table('entities', function (Blueprint $table) {
             //
         });
     }
