@@ -38,34 +38,34 @@ class EntityImport implements ToCollection, WithUpserts, PersistRelations, WithS
                 ]
             );
 
-            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/$row[0]_1.jpg")) {
-                $entity->image = "uploaded/entity/$row[0]/$row[0]_1.jpg";
+            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/1.jpg")) {
+                $entity->image = "uploaded/entity/$row[0]/1.jpg";
                 $entity->update();
             }
 
             $entity->images()->delete();
 
-            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/$row[0]_2.jpg")) {
+            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/2.jpg")) {
                 $entity->images()->create([
-                    'path' => "uploaded/entity/$row[0]/$row[0]_2.jpg"
+                    'path' => "uploaded/entity/$row[0]/2.jpg"
                 ]);
             }
 
-            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/$row[0]_3.jpg")) {
+            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/3.jpg")) {
                 $entity->images()->create([
-                    'path' => "uploaded/entity/$row[0]/$row[0]_3.jpg"
+                    'path' => "uploaded/entity/$row[0]/3.jpg"
                 ]);
             }
 
-            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/$row[0]_4.jpg")) {
+            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/4.jpg")) {
                 $entity->images()->create([
-                    'path' => "uploaded/entity/$row[0]/$row[0]_4.jpg"
+                    'path' => "uploaded/entity/$row[0]/$4.jpg"
                 ]);
             }
 
-            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/$row[0]_5.jpg")) {
+            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/5.jpg")) {
                 $entity->images()->create([
-                    'path' => "uploaded/entity/$row[0]/$row[0]_5.jpg"
+                    'path' => "uploaded/entity/$row[0]/5.jpg"
                 ]);
             }
         }
