@@ -54,9 +54,9 @@
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Интересные
                                     места, церкви</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Интересные места</p>
-                                <div class="p-3 mt-1 lg:mt-8">
-                                    <img class="flex self-center m-auto rounded-xl sm:w-[36%] md:w-[70%]"
-                                        src="{{ url('/image/church.png') }}" alt="church">
+                                <div class="p-3 mt-2 sm:mt-8">
+                                    <img class="flex self-center m-auto rounded-xl h-[75%] es:h-[100%] ms:h-[80%] sm:h-[55%] md:h-[100%] lg:h-[84%]"
+                                         src="{{ url('/image/church.png') }}" alt="banner">
                                 </div>
                             </div>
                         </a>
@@ -71,8 +71,8 @@
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Кружки,
                                     сообщества</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Сообщества, группы по интересам</p>
-                                <div class="p-3 mt-8">
-                                    <img class="flex self-center m-auto rounded-xl sm:w-[70%] md:w-[100%]"
+                                <div class="">
+                                    <img class="flex self-center m-auto rounded-xl w-[75%] es:w-[100%] ms:w-[80%] sm:w-[64%] md:w-[100%] lg:w-[90%]"
                                         src="{{ url('/image/group-of-young-people-waving-hand.png') }}" alt="friends">
                                 </div>
                             </div>
@@ -88,8 +88,8 @@
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Бизнес
                                     справочник</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Каталог товаров/услуг</p>
-                                <div class="p-3 mt-2 lg:mt-8">
-                                    <img class="flex self-center m-auto rounded-xl sm:w-[70%] md:w-[70%]"
+                                <div class="pt-12 sm:pt-7 ms:pt-8 2xl:pt-14 xl:pt-10 md:pt-12">
+                                    <img class="flex self-center m-auto rounded-xl w-[75%] es:w-[70%] ms:w-[60%] sm:w-[52%] md:w-[90%] lg:w-[80%]"
                                         src="{{ url('/image/building.png') }}" alt="banner">
                                 </div>
                             </div>
@@ -104,8 +104,8 @@
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-base font-bold">Общины консульства</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Каталог товаров/услуг </p>
-                                <div class="p-3 mt-1 lg:mt-12">
-                                    <img class="flex self-center m-auto rounded-xl sm:w-[43%] md:w-[65%]"
+                                <div class="pt-12 sm:pt-7 ms:pt-8 md:pt-10 2xl:pt-14 xl:pt-10">
+                                    <img class="flex self-center m-auto rounded-xl w-[75%] es:w-[70%] ms:w-[60%] sm:w-[52%] md:w-[90%] lg:w-[75%]"
                                         src="{{ url('/image/university.png') }}" alt="like">
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Поиск работы</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Найти работу или разместить вакансию
                                 </p>
-                                <div class="p-3 mt-8">
+                                <div class="p-3 pt-8 lg:pt-5 2xl:pt-10 xl:pt-14">
                                     <img class="flex self-center m-auto rounded-xl sm:w-[70%] md:w-[100%]"
                                         src="{{ url('/image/to_find_job.png') }}" alt="banner">
                                 </div>

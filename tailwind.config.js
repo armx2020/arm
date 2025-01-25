@@ -16,6 +16,10 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            screens: {
+                'es': '280px',
+                'ms': '430px',
+            },
         },
     },
 

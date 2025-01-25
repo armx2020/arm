@@ -30,7 +30,7 @@
                 <a href="{{ route('privacy-policy') }}" target="_blank" class="text-sm lg:text-md font-bold">Политика конфиденциальности</a>
             </div>
         </div>
-        <div class="flex basis-1/3">
+        <div class="sm:flex basis-1/3 hidden">
             <ul class="list-style-none flex flex-wrap lg:flex-col justify-center text-md lg:text-lg font-medium mx-auto py-10">
                 <li class="mb-2 text-center">
                     <a class="mx-2" href="">Проекты</a>
@@ -52,8 +52,8 @@
                 </li>
             </ul>
         </div>
-        <div class="flex flex-col basis-1/3 justify-center lg:justify-end">
-            
+        <div class="sm:flex flex-col basis-1/3 justify-center lg:justify-end hidden">
+
             <p class="text-center lg:text-right text-md lg:text-xl font-bold">
                 Оставайтесь в курсе последних обновлений
             </p>
