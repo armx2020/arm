@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image', 255)->nullable();
             $table->text('description')->nullable();
             $table->string('phone', 36)->nullable();
-            $table->string('web', 255)->nullable();
+            $table->text('web')->nullable();
             $table->string('whatsapp', 36)->nullable();
             $table->string('instagram', 255)->nullable();
             $table->string('vkontakte', 255)->nullable();
@@ -29,6 +29,11 @@ return new class extends Migration
             $table->foreignId('region_id')->default(1)->constrained();
             $table->foreignId('category_id')->nullable()->constrained();
             $table->text('comment')->nullable();
+            $table->string('director', 255)->nullable();
+            $table->timestamp('started_at')->nullable();
+            $table->text('email', 96)->nullable();
+            $table->string('link', 400 )->nullable();
+            $table->integer('sort_id')->index()->default(0);
         });
 
         DB::statement(
