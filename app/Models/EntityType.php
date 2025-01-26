@@ -21,6 +21,11 @@ class EntityType extends Model
         'name',
     ];
 
+    public function scopeActive($query)
+    {
+        return $query->where('activity', 1);
+    }
+
     public function entities(): HasMany
     {
         return $this->hasMany(Entity::class);

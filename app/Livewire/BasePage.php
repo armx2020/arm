@@ -68,7 +68,7 @@ class BasePage extends Component
         $entities = $entities->paginate($this->quantityOfDisplayed);
 
         $regions = Region::all();
-        $entityTypies = EntityType::all();
+        $entityTypies = EntityType::active()->get();
 
         return view('livewire.base-page', [
             'entityShowRout' => $entityShowRout,
