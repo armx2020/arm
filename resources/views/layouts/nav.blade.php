@@ -136,7 +136,7 @@
         </div>
         <div class="hidden lg:basis-1/3 xl:flex basis-1/4 items-center justify-between">
             <div class="block">
-                <button class="text-blue-600 text-sm hover:text-blue-400 block locationButton" id="locationButton">
+                <button class="text-blue-600 hover:text-blue-400 block locationButton" id="locationButton">
                     <img src="{{ url('/image/location-marker.png') }}" class="w-4 h-4 inline align-middle" />
                     @isset($region)
                         {{ preg_replace('/\([^)]+\)/', '', $region) }}

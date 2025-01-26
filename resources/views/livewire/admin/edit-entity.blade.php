@@ -12,22 +12,36 @@
                         @endif
 
                         <div class="bg-white rounded-lg relative">
-
-                            <div class="flex justify-between p-5 border-b rounded-t">
-                                <div class="flex items-center">
-                                    <h3 class="text-2xl font-bold leading-none text-gray-900">
-                                        {{ $entity->name }}</h3>
-                                </div>
-                                <div class="flex items-center">
-                                    <a class="text-gray-700" href="https://ya.ru/search/?text={{ $entity->name }}" target="_blank">
-                                       перейти в яндекс</a>
-                                </div>
-                            </div>
-
+                            <form id="entity_delete_form" action="{{ route('admin.entity.destroy', $entity->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                            </form>
                             <form method="POST" enctype="multipart/form-data"
                                 action="{{ route('admin.entity.update', ['entity' => $entity->id]) }}">
                                 @csrf
                                 @method('PUT')
+                                <div class="flex justify-between p-5 border-b rounded-t">
+                                    <div class="flex items-center">
+                                        <h3 class="text-2xl font-bold leading-none text-gray-900">
+                                            {{ $entity->name }}</h3>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="pr-5">
+                                            <label for="activity" class="inline-flex">
+                                                <div>
+                                                    <input id="activity" type="checkbox" @checked($entity->activity)
+                                                    value="1"
+                                                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                                    name="activity">
+                                                </div>
+                                                <span class="ml-2 text-gray-700">Активность</span>
+                                            </label>
+                                        </div>
+                                        <button id="entity_delete" type="button" class="pr-5 text-gray-700">Удалить</button>
+                                        <a class="text-gray-700" href="https://ya.ru/search/?text={{ $entity->name }}" target="_blank">
+                                            перейти в яндекс</a>
+                                    </div>
+                                </div>
                                 <input name="image_remove" type="text" id="image_remove" class="hidden"
                                     style="z-index:-10;" />
                                 <input name="image_remove_1" type="text" id="image_remove_1" class="hidden"
@@ -385,14 +399,7 @@
                                     <hr class="my-5">
                                     <div class="items-center pb-6 border-gray-200 rounded-b">
                                         <div class="col-span-6">
-                                            <div class="flex w-full justify-between">
-                                                <label for="activity" class="inline-flex items-center">
-                                                    <input id="activity" type="checkbox" @checked($entity->activity)
-                                                        value="1"
-                                                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-                                                        name="activity">
-                                                    <span class="ml-2 text-sm text-gray-600">Активность</span>
-                                                </label>
+                                            <div class="flex w-full justify-end">
                                                 <button
                                                     class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                                     type="submit">ОБНОВИТЬ</button>
@@ -412,6 +419,8 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
+
+            $('#entity_delete').on("click", function(){$('#entity_delete_form').submit()});
 
             const maxSize = 2000000; // 2 MB
 
