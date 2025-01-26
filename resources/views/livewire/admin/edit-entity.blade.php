@@ -25,7 +25,7 @@
                                         <h3 class="text-2xl font-bold leading-none text-gray-900">
                                             {{ $entity->name }}</h3>
                                     </div>
-                                    <div class="flex items-center">
+                                    <div class="flex items-center pl-7">
                                         <div class="pr-5">
                                             <label for="activity" class="inline-flex">
                                                 <div>
@@ -38,7 +38,7 @@
                                             </label>
                                         </div>
                                         <button id="entity_delete" type="button" class="pr-5 text-gray-700">Удалить</button>
-                                        <a class="text-gray-700" href="https://ya.ru/search/?text={{ $entity->name }}" target="_blank">
+                                        <a class="text-gray-700 whitespace-nowrap" href="https://ya.ru/search/?text={{ $entity->name }}" target="_blank">
                                             перейти в яндекс</a>
                                     </div>
                                 </div>
