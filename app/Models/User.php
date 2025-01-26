@@ -56,6 +56,8 @@ class User extends Authenticatable
         'password',
         'last_active_at',
         'activity',
+        'city_id',
+        'region_id'
     ];
 
     protected $hidden = [
