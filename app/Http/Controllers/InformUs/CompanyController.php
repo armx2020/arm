@@ -32,9 +32,26 @@ class CompanyController extends BaseInformUsController
         ]);
     }
 
+    public function fields(Request $request)
+    {
+        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
+
+        return view('inform-us.create-company', [
+            'region'   => $request->session()->get('region'),
+            'regions' => $this->regions,
+            'regionCode' => $request->session()->get('regionId'),
+            'cities' => $this->cities,
+            'secondPositionUrl' => '',
+            'secondPositionName' => $this->secondPositionName,
+            'categories' => $categories,
+
+        ]);
+    }
+
     public function store(StoreCompanyRequest $request)
     {
-        $company = $this->companyAction->store($request, null, false);
+        $fields = $request->fields;
+    //    $company = $this->companyAction->store($request, null, false);
 
         return redirect()->route('inform-us.company')->with('success', 'Ваша заявка успешно принята');
     }
