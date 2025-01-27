@@ -12,7 +12,7 @@ abstract class BaseAdminController extends Controller
     {
         $this->menu = [
             [
-                'name' => 'Моя страница',
+                'name' => 'ЛК',
                 'route' => 'dashboard',
                 'routeIs' => 'dashboard',
                 'sub' => []
@@ -36,7 +36,7 @@ abstract class BaseAdminController extends Controller
                 'sub' => []
             ],
             [
-                'name' => 'Предложения',
+                'name' => 'Товары',
                 'route' => 'admin.offer.index',
                 'routeIs' => 'admin.offer.*',
                 'sub' => []
@@ -48,7 +48,7 @@ abstract class BaseAdminController extends Controller
                 'sub' => []
             ],
             [
-                'name' => 'Категория - сущность',
+                'name' => 'Направления',
                 'route' => 'admin.category-entity.index',
                 'routeIs' => 'admin.category-entity.*',
                 'sub' => []

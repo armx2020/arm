@@ -230,7 +230,7 @@
                                     <div class="grid grid-cols-6 gap-4">
 
                                         {{-- Название --}}
-                                        <div class="col-span-6">
+                                        <div class="col-span-6 md:col-span-2">
                                             <label for="name"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
                                             <input type="text" name="name" id="name"
@@ -240,10 +240,22 @@
                                         </div>
 
                                         {{-- Город --}}
-                                        <x-admin.select-city :selectedCity="$entity->city" />
+                                        <div class="col-span-6 md:col-span-2" id="city_div" wire:ignore>
+                                            <x-admin.select-city :selectedCity="$entity->city" />
+                                        </div>
+
+                                        {{-- Адрес --}}
+                                        <div class="col-span-6 md:col-span-2">
+                                            <label for="address"
+                                                   class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
+                                            <input type="text" name="address" id="address"
+                                                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                   value="{{ old('address', $entity->address) }}">
+                                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                                        </div>
 
                                         {{-- Телефон --}}
-                                        <div class="col-span-6">
+                                        <div class="col-span-6 ms:col-span-3">
                                             <label for="phone"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
                                             <input type="tel" name="phone" id="phone" wire:ignore
@@ -253,7 +265,7 @@
                                         </div>
 
                                         {{-- Тип сущности --}}
-                                        <div class="col-span-6">
+                                        <div class="col-span-6 ms:col-span-3">
                                             <label for="selectedType"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Тип
                                                 сущности</label>
@@ -315,16 +327,6 @@
                                                 </div>
                                             @endif
                                         @endisset
-
-                                        {{-- Адрес --}}
-                                        <div class="col-span-6">
-                                            <label for="address"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
-                                            <input type="text" name="address" id="address"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ old('address', $entity->address) }}">
-                                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
-                                        </div>
 
                                         {{-- Описание --}}
                                         <div class="col-span-6">

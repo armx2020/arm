@@ -6,6 +6,9 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 xl:flex">
+                    <x-nav-link :href="route('home')">
+                        <img src="{{ url('/image/logo.png') }}" class="h-7" alt="logo" />
+                    </x-nav-link>
                     @foreach ($menu as $link)
                         @if (count($link['sub']) > 0)
                             <div class="hidden sm:flex sm:items-center sm:ms-6">

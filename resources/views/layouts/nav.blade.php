@@ -1,5 +1,5 @@
 <nav
-    class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-nowrap lg:justify-start p-4 lg:py-5 text-base">
+    class="flex-no-wrap relative flex w-full items-center justify-between bg-white lg:flex-nowrap lg:justify-start p-4 lg:py-5 text-base h-[50px] xl:min-h-[82px]">
     <div class="flex w-full lg:w-10/12 max-w-7xl items-center justify-between mx-auto text-base font-medium">
         <div class="block xl:hidden">
             <a class="" href="{{ route('home') }}">

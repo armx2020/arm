@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <section>
-        <div class="mx-auto pt-5 lg:pt-10">
+        <div class="mx-auto pt-4 lg:pt-10">
             <div class="bg-white rounded-xl row-span-1 lg:row-span-1">
                 <div class="flex sm:flex-row">
                     <div class="flex flex-col text-left basis-full lg:basis-1/2 p-3 xl:p-8">
@@ -11,7 +11,7 @@
                         <div class="flex flex-row">
                             <div class="flex flex-col">
                                 <div class="my-1 text-xs md:text-md xl:text-lg font-normal">
-                                    Информационный справочник для армян - {{ $group->region->name }}</div>
+                                    Информационный справочник для армян мира</div>
 
                                 <div class="text-gray-600 hidden md:block text-sm lg:text-md xl:text-lg font-light">
                                     - Новости, сообщества, товары, проекты в одном месте
@@ -44,7 +44,7 @@
         </div>
 
         <div>
-            <div class="flex flex-wrap mx-auto pt-5 lg:pt-10 md:flex-wrap">
+            <div class="flex flex-wrap mx-auto pt-4 lg:pt-10 md:flex-wrap">
 
                 <!-- Интересные места -->
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pr-4 lg:pr-2">
