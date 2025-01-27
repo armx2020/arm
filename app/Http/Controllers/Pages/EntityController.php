@@ -15,6 +15,8 @@ class EntityController extends BaseController
 
     public function companies(Request $request, $regionCode = null)
     {
+        $region = $this->getRegion($request, $regionCode);
+
         $secondPositionUrl = 'companies.index';
         $secondPositionName = 'Компании';
         $entity = 'companies';
@@ -33,6 +35,8 @@ class EntityController extends BaseController
     }
     public function groups(Request $request, $regionCode = null)
     {
+        $region = $this->getRegion($request, $regionCode);
+
         $secondPositionUrl = 'groups.index';
         $secondPositionName = 'Группы';
         $entity = 'groups';
@@ -52,6 +56,8 @@ class EntityController extends BaseController
 
     public function places(Request $request, $regionCode = null)
     {
+        $region = $this->getRegion($request, $regionCode);
+
         $secondPositionUrl = 'places.index';
         $secondPositionName = 'Места и церкви';
         $entity = 'places';
@@ -71,6 +77,8 @@ class EntityController extends BaseController
 
     public function communities(Request $request, $regionCode = null)
     {
+        $region = $this->getRegion($request, $regionCode);
+
         $secondPositionUrl = 'communities.index';
         $secondPositionName = 'Общины и консульства';
         $entity = 'communities';

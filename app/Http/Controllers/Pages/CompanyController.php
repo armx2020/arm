@@ -19,6 +19,8 @@ class CompanyController extends BaseController
         $secondPositionName = 'Компании';
         $entity = 'companies';
 
+        $region = $this->getRegion($request, $regionCode);
+
         return view('pages.company.index', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,

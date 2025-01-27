@@ -197,9 +197,31 @@
                 <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     @foreach ($letterCities as $region)
                         <div class="px-1 hover:text-gray-500">
-                            <a href="{{ route('home', ['regionCode' => $region->code]) }}">
-                                {{ $region->name }}
-                            </a>
+                            @if (Route::is('home'))
+                                <a href="{{ route('home', ['regionCode' => $region->code]) }}">
+                                    {{ $region->name }}
+                                </a>
+                            @elseif (Route::is('companies') || Route::is('region.companies'))
+                                <a href="{{ route('region.companies', ['regionCode' => $region->code]) }}">
+                                    {{ $region->name }}
+                                </a>
+                            @elseif (Route::is('groups') || Route::is('region.groups'))
+                                <a href="{{ route('region.groups', ['regionCode' => $region->code]) }}">
+                                    {{ $region->name }}
+                                </a>
+                            @elseif (Route::is('places') || Route::is('region.places'))
+                                <a href="{{ route('region.places', ['regionCode' => $region->code]) }}">
+                                    {{ $region->name }}
+                                </a>
+                            @elseif (Route::is('communities') || Route::is('region.communities'))
+                                <a href="{{ route('region.communities', ['regionCode' => $region->code]) }}">
+                                    {{ $region->name }}
+                                </a>
+                            @else
+                                <a href="{{ route('home', ['regionCode' => $region->code]) }}">
+                                    {{ $region->name }}
+                                </a>
+                            @endif
                         </div>
                     @endforeach
                 </div>
