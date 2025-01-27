@@ -1,15 +1,13 @@
 @props(['selectedCity' => null])
 
-<div class="col-span-6" id="city_div" wire:ignore>
-    <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
-    <select name="city" class="w-full" id="city">
-        @if (isset($selectedCity))
-            <option value="{{ $selectedCity->id }}"> {{ $selectedCity->name }}</option>
-        @else
-            <option value='1'>-- выбор города --</option>
-        @endif
-    </select>
-</div>
+<label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
+<select name="city" class="w-full" id="city">
+    @if (isset($selectedCity))
+        <option value="{{ $selectedCity->id }}"> {{ $selectedCity->name }}</option>
+    @else
+        <option value='1'>-- выбор города --</option>
+    @endif
+</select>
 
 <script type="text/javascript">
     if ($("#city").length > 0) {
@@ -48,5 +46,10 @@
         background-color: rgb(249 250 251 / var(--tw-bg-opacity));
         border-color: rgb(209 213 219));
         border-radius: 0.5rem;
+        height: 42px;
     }
+    .select2, .select2-container, .select2-container--default{
+        width: 100% !important;
+    }
+
 </style>

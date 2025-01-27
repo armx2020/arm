@@ -212,7 +212,7 @@
                                     <div class="grid grid-cols-6 gap-4">
 
                                         {{-- Название --}}
-                                        <div class="col-span-6">
+                                        <div class="col-span-6 md:col-span-2">
                                             <label for="name"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Название *</label>
                                             <input type="text" name="name" id="name"
@@ -222,7 +222,7 @@
                                         </div>
 
                                         {{-- Телефон --}}
-                                        <div class="col-span-6">
+                                        <div class="col-span-6 md:col-span-2">
                                             <label for="phone"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
                                             <input type="tel" name="phone" id="phone" wire:ignore
@@ -232,7 +232,9 @@
                                         </div>
 
                                         {{-- Город --}}
-                                        <x-admin.select-city :selectedCity="$offer->city" />
+                                        <div class="col-span-6 md:col-span-2" id="city_div" wire:ignore>
+                                            <x-admin.select-city :selectedCity="$offer->city" />
+                                        </div>
 
                                         {{-- Сущность --}}
                                         <x-admin.select-entity :selectedEntity="$offer->entity" />

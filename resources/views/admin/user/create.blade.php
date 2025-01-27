@@ -41,13 +41,17 @@
                                 <div class="p-6 space-y-6">
                                     <div class="grid grid-cols-6 gap-6">
 
-                                        <div class="col-span-6">
+                                        <div class="col-span-6 sm:col-span-3">
                                             <label for="firstname" class="text-sm font-medium text-gray-900 block mb-2">Имя
                                                 *</label>
                                             <input type="text" name="firstname" id="firstname"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                                 :value="old('firstname')" required>
                                             <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
+                                        </div>
+
+                                        <div class="col-span-6 sm:col-span-3" id="city_div" wire:ignore>
+                                            <x-admin.select-city />
                                         </div>
 
                                         <div class="col-span-6 sm:col-span-3">
@@ -88,8 +92,6 @@
                                                 required>
                                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                         </div>
-
-                                        <x-admin.select-city />
 
                                     </div>
 

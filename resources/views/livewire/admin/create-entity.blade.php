@@ -7,15 +7,28 @@
 
                         <div class="bg-white rounded-lg relative mb-8">
 
-                            <div class="flex items-start p-5 border-b rounded-t">
-                                <div class="flex items-center">
-                                    <h3 class="text-2xl font-bold leading-none text-gray-900">Новая сущность</h3>
-                                </div>
-                            </div>
-
                             <form method="POST" enctype="multipart/form-data"
                                 action="{{ route('admin.entity.store') }}">
                                 @csrf
+
+                                <div class="flex justify-between p-5 border-b rounded-t">
+                                    <div class="flex items-center">
+                                        <h3 class="text-2xl font-bold leading-none text-gray-900">Новая сущность</h3>
+                                    </div>
+                                    <div class="flex items-center pl-7">
+                                        <div class="pr-5">
+                                            <label for="activity" class="inline-flex">
+                                                <div>
+                                                    <input id="activity" type="checkbox" checked
+                                                           value="1"
+                                                           class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                                           name="activity">
+                                                </div>
+                                                <span class="ml-2 text-gray-700">Активность</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="flex flex-row border-b" wire:ignore>
 
@@ -139,19 +152,31 @@
                                     <div class="grid grid-cols-6 gap-4">
 
                                         {{-- Название --}}
-                                        <div class="col-span-6">
+                                        <div class="col-span-6 md:col-span-2">
                                             <x-input-label for="name" :value="__('Название *')" />
                                             <x-text-input id="name" name="name" type="text"
-                                                class="mt-1 block w-full bg-gray-50" :error="$errors->get('name')"
+                                                class="mt-2 block w-full bg-gray-50" :error="$errors->get('name')"
                                                 :value="old('name')" required autofocus />
                                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                                         </div>
 
                                         {{-- Город --}}
-                                        <x-admin.select-city />
+                                        <div class="col-span-6 md:col-span-2" id="city_div" wire:ignore>
+                                            <x-admin.select-city />
+                                        </div>
+
+                                        {{-- Адрес --}}
+                                        <div class="col-span-6 md:col-span-2">
+                                            <label for="address"
+                                                   class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
+                                            <input type="text" name="address" id="address"
+                                                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                   value="{{ old('address') }}">
+                                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                                        </div>
 
                                         {{-- Телефон --}}
-                                        <div class="col-span-6">
+                                        <div class="col-span-6 ms:col-span-3">
                                             <label for="phone"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
                                             <input type="tel" name="phone" id="phone" wire:ignore
@@ -162,7 +187,7 @@
                                         </div>
 
                                         {{-- Тип сущности --}}
-                                        <div class="col-span-6">
+                                        <div class="col-span-6 ms:col-span-3">
                                             <label for="selectedType"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Тип
                                                 сущности</label>
@@ -222,16 +247,6 @@
                                                 </div>
                                             @endif
                                         @endisset
-
-                                        {{-- Адрес --}}
-                                        <div class="col-span-6">
-                                            <label for="address"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
-                                            <input type="text" name="address" id="address"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ old('address') }}">
-                                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
-                                        </div>
 
 
                                         {{-- Описание --}}
