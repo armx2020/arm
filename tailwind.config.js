@@ -18,7 +18,8 @@ export default {
             },
             screens: {
                 'es': '280px',
-                'ms': '430px',
+                'ms': '410px',
+                'ls': '460px',
             },
         },
     },
