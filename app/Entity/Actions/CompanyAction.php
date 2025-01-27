@@ -247,8 +247,9 @@ class CompanyAction
             Storage::delete('public/' . $entity->images()->get()[3]->path);
             $entity->images()->get()[3]->delete();
         }
-        
+
         $entity->fields()->detach();
+        $entity->offers()->delete();
         $entity->delete();
     }
 }
