@@ -48,14 +48,14 @@
 
                 <!-- Интересные места -->
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pr-4 lg:pr-2">
-                    <div class="bg-[#f0e7ce] rounded-xl p-2 lg:p-4 h-56 md:h-[250px] lg:h-72">
+                    <div class="bg-[#f0e7ce] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
                         <a href="{{ route('places.index') }}">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Интересные
                                     места, церкви</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Интересные места</p>
                                 <div class="absolute bottom-0 w-full">
-                                    <img class="mb-2 flex self-center m-auto rounded-xl md:w-[84%] sm:w-[55%] ms:w-[70%] es:w-[84%]"
+                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[100%] md:w-[95%] sm:w-[62%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
                                          src="{{ url('/image/church.png') }}" alt="banner">
                                 </div>
                             </div>
@@ -65,14 +65,14 @@
 
                 <!-- Кружки сообщества -->
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-2">
-                    <div class="bg-[#d7e6d8] rounded-xl p-2 lg:p-4 h-56 md:h-[250px] lg:h-72">
+                    <div class="bg-[#d7e6d8] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
                         <a href="{{ route('groups.index') }}">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Кружки,
                                     сообщества</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Сообщества, группы по интересам</p>
                                 <div class="absolute bottom-0 w-full">
-                                    <img class="mb-2 flex self-center m-auto rounded-xl md:w-[84%] sm:w-[55%] ms:w-[70%] es:w-[84%]"
+                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[100%] md:w-[95%] sm:w-[62%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
                                         src="{{ url('/image/group-of-young-people-waving-hand.png') }}" alt="friends">
                                 </div>
                             </div>
@@ -82,14 +82,14 @@
 
                 <!-- Бизнес справочник -->
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pr-4 lg:pr-2">
-                    <div class="bg-[#dbe6fb] rounded-xl p-2 lg:p-4 h-56 md:h-[250px] lg:h-72">
+                    <div class="bg-[#dbe6fb] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
                         <a href="{{ route('companies.index') }}">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Бизнес
                                     справочник</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Каталог товаров/услуг</p>
                                 <div class="absolute bottom-0 w-full">
-                                    <img class="mb-2 flex self-center m-auto rounded-xl md:w-[84%] sm:w-[55%] ms:w-[70%] es:w-[84%]"
+                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[100%] md:w-[95%] sm:w-[62%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
                                         src="{{ url('/image/building.png') }}" alt="banner">
                                 </div>
                             </div>
@@ -99,13 +99,13 @@
 
                 <!-- Общины консульства -->
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-2">
-                    <div class="bg-[#e6c6c9] rounded-xl p-2 lg:p-4 h-56 md:h-[250px] lg:h-72 ">
+                    <div class="bg-[#e6c6c9] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72 ">
                         <a href="{{ route('communities.index') }}">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-base font-bold">Общины консульства</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Каталог товаров/услуг </p>
                                 <div class="absolute bottom-0 w-full">
-                                    <img class="mb-2 flex self-center m-auto rounded-xl md:w-[84%] sm:w-[55%] ms:w-[70%] es:w-[84%]"
+                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[100%] md:w-[95%] sm:w-[62%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
                                         src="{{ url('/image/university.png') }}" alt="like">
                                 </div>
                             </div>
@@ -116,14 +116,14 @@
                 <!-- Поиск работы -->
                 <div
                     class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-0 hidden lg:block">
-                    <div class="bg-[#feecdc] rounded-xl p-2 lg:p-4 h-56 h-56 md:h-[250px] lg:h-72">
+                    <div class="bg-[#feecdc] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
                         <a href="{{ route('companies.index') }}">
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Поиск работы</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Найти работу или разместить вакансию
                                 </p>
                                 <div class="absolute bottom-0 w-full">
-                                    <img class="mb-2 flex self-center m-auto rounded-xl md:w-[84%] sm:w-[55%] ms:w-[70%] es:w-[84%]"
+                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[100%] md:w-[95%] sm:w-[62%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
                                         src="{{ url('/image/to_find_job.png') }}" alt="banner">
                                 </div>
                             </div>
