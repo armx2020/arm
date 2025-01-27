@@ -67,6 +67,11 @@ abstract class BaseAdminController extends Controller
                         'route' => 'admin.import.entity',
                         'routeIs' => 'admin.import.entity.*',
                     ],
+                    [
+                        'name' => 'адвокаты',
+                        'route' => 'admin.import.lawyer',
+                        'routeIs' => 'admin.import.lawyer.*',
+                    ],
                 ]
             ],
             [

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryEntityController;
 use App\Http\Controllers\Admin\EntityController;
 use App\Http\Controllers\Admin\ImportChurchController;
 use App\Http\Controllers\Admin\ImportEntityController;
+use App\Http\Controllers\Admin\ImportLawyerController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController;
@@ -45,6 +46,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
         Route::get('/import-entity', [ImportEntityController::class, 'index'])->name('import.entity');
         Route::post('/import-entity', [ImportEntityController::class, 'import']);
+
+        Route::get('/import-lawyer', [ImportLawyerController::class, 'index'])->name('import.lawyer');
+        Route::post('/import-lawyer', [ImportLawyerController::class, 'import']);
     });
 
     require __DIR__ . '/admin-api.php';

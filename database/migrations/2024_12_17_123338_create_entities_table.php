@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('phone', 36)->nullable();
             $table->text('web')->nullable();
-            $table->string('whatsapp', 36)->nullable();
+            $table->text('whatsapp')->nullable();
             $table->string('instagram', 255)->nullable();
             $table->string('vkontakte', 255)->nullable();
             $table->string('telegram', 255)->nullable();
