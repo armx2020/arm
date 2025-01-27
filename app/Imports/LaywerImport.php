@@ -46,34 +46,34 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
             $entity->fields()->syncWithPivotValues([86, 87, 88, 91], ['main_category_id' => 78]);
 
 
-            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/1.jpg")) {
-                $entity->image = "uploaded/lawyer/$row[0]/1.jpg";
+            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/1.png")) {
+                $entity->image = "uploaded/lawyer/$row[0]/1.png";
                 $entity->update();
             }
 
             $entity->images()->delete();
 
-            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/2.jpg")) {
+            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/2.png")) {
                 $entity->images()->create([
-                    'path' => "uploaded/lawyer/$row[0]/2.jpg"
+                    'path' => "uploaded/lawyer/$row[0]/2.png"
                 ]);
             }
 
-            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/3.jpg")) {
+            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/3.png")) {
                 $entity->images()->create([
-                    'path' => "uploaded/lawyer/$row[0]/3.jpg"
+                    'path' => "uploaded/lawyer/$row[0]/3.png"
                 ]);
             }
 
-            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/4.jpg")) {
+            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/4.png")) {
                 $entity->images()->create([
-                    'path' => "uploaded/lawyer/$row[0]/4.jpg"
+                    'path' => "uploaded/lawyer/$row[0]/4.png"
                 ]);
             }
 
-            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/5.jpg")) {
+            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/5.png")) {
                 $entity->images()->create([
-                    'path' => "uploaded/lawyer/$row[0]/5.jpg"
+                    'path' => "uploaded/lawyer/$row[0]/5.png"
                 ]);
             }
         }
