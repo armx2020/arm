@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Entity;
 use App\Models\EntityType;
 use App\Models\Region;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -59,9 +60,12 @@ class BasePage extends Component
 
         if ($this->category !== 'Все') {
             $entities = $entities
-                ->where('category_id', $this->category)
-                ->orWhereHas('fields', function ($query) {
-                    $query->where('category_entity.main_category_id', '=', $this->category);
+                ->where(function (Builder $query) {
+                    $query
+                        ->where('category_id', $this->category)
+                        ->orWhereHas('fields', function ($que) {
+                            $que->where('category_entity.main_category_id', '=', $this->category);
+                        });
                 });
         }
 
