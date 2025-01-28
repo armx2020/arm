@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\CategoryEntityController;
 use App\Http\Controllers\Admin\EntityController;
 use App\Http\Controllers\Admin\ImportChurchController;
 use App\Http\Controllers\Admin\ImportEntityController;
-use App\Http\Controllers\Admin\ImportLawyerController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController;
@@ -38,6 +37,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('work', WorkController::class)->except([
             'show'
         ]);
+
+        Route::get('entity/report', [EntityController::class, 'report'])->name('entity.report');
 
         Route::get('category-entity', [CategoryEntityController::class, 'index'])->name('category-entity.index');
 

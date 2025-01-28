@@ -52,4 +52,8 @@ class EntityController extends BaseAdminController
 
         return redirect()->route('admin.entity.index')->with('success', 'Сущность удалена');
     }
+
+    public function report(){
+        return view('admin.entity.report.index', ['menu' => $this->menu]);
+    }
 }
