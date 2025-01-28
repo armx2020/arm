@@ -31,44 +31,37 @@ class SearchReportEntity extends BaseComponent
     {
         $title = 'Сводка сущности';
 
-        // Проверяем, есть ли в запросе месяц, если нет, используем текущий месяц
-        $currentMonth = $this->month ?? now()->translatedFormat('F'); // Текущий месяц по умолчанию
-        $currentYear = $this->year ?? now()->year;  // Текущий год по умолчанию
+        $currentMonth = $this->month ?? now()->translatedFormat('F');
+        $currentYear = $this->year ?? now()->year;
 
-        // Массив всех месяцев на русском
         $months = [
             'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
             'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
         ];
 
-        // Индекс текущего месяца
         $currentIndex = array_search($currentMonth, $months);
 
-        // Если месяц не был передан или индекс оказался -1, то устанавливаем значения по умолчанию
         if ($currentIndex === false) {
-            $currentIndex = now()->month - 1;  // Устанавливаем индекс текущего месяца
-            $currentMonth = $months[$currentIndex];  // Устанавливаем текущий месяц
+            $currentIndex = now()->month - 1;
+            $currentMonth = $months[$currentIndex];
         }
 
-        // Предыдущий месяц с учетом года
         if ($currentIndex === 0) {
-            $prevMonth = $months[11]; // Декабрь предыдущего года
+            $prevMonth = $months[11];
             $prevYear = $currentYear - 1;
         } else {
             $prevMonth = $months[$currentIndex - 1];
             $prevYear = $currentYear;
         }
 
-        // Следующий месяц с учетом года
         if ($currentIndex === 11) {
-            $nextMonth = $months[0]; // Январь следующего года
+            $nextMonth = $months[0];
             $nextYear = $currentYear + 1;
         } else {
             $nextMonth = $months[$currentIndex + 1];
             $nextYear = $currentYear;
         }
 
-        // Данные для отчета
         $regions = Region::query()->get();
         $entityTypes = EntityType::query()->get();
         $currentMonthIndex = $currentIndex + 1; // Январь = 1, Февраль = 2 и т.д.
@@ -81,7 +74,7 @@ class SearchReportEntity extends BaseComponent
             ->get()
             ->groupBy('region_id');
 
-        // Сборка таблицы
+
         $table = [];
         foreach ($regions as $region) {
             $row = ['region' => $region->name];
