@@ -18,7 +18,7 @@ Route::get('ip', function () {
     dd($data);
 }); // TODO проверка ip пользователя (Удалить при запуски проекта)
 
-Route::get('/{regionCode?}', [HomeController::class, 'home'])->where('regionCode', '[0-9]+|null')->name('home');
+Route::get('/{region?}', [HomeController::class, 'home'])->name('home');
 
 Route::get('/companies', [EntityController::class, 'companies'])->name('companies.index');
 Route::get('/groups', [EntityController::class, 'groups'])->name('groups.index');
@@ -26,7 +26,7 @@ Route::get('/places', [EntityController::class, 'places'])->name('places.index')
 Route::get('/communities', [EntityController::class, 'communities'])->name('communities.index');
 Route::get('/entity/{entity}', [EntityController::class, 'show'])->name('entity.show');
 
-Route::name('region.')->prefix('/{regionCode}')->group(function () {
+Route::name('region.')->prefix('/{region}')->group(function () {
     Route::get('/companies', [EntityController::class, 'companies'])->name('companies');
     Route::get('/groups', [EntityController::class, 'groups'])->name('groups');
     Route::get('/places', [EntityController::class, 'places'])->name('places');

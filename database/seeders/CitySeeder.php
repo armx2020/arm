@@ -1172,11 +1172,11 @@ class CitySeeder extends Seeder
         foreach ($citiesInRussia as $cityInRussia) {
             foreach($cityInRussia as $city) {
                 if ($city['name'] == 'не выбрано') {
-                    DB::table('cities')->insert(['name' => $city['name'], 'InEnglish' => 'no selected']);
+                    DB::table('cities')->insert(['name' => $city['name'], 'transcription' => 'no selected']);
                 } elseif ($city['name'] == 'Москва') {
-                    DB::table('cities')->insert(['name' => $city['name'], 'InEnglish' => 'Moscow']);
+                    DB::table('cities')->insert(['name' => $city['name'], 'transcription' => 'Moscow']);
                 } else {
-                    DB::table('cities')->insert(['name' => $city['name'], 'InEnglish' => translit($city['name'])]);
+                    DB::table('cities')->insert(['name' => $city['name'], 'transcription' => translit($city['name'])]);
                 }
             }         
         }

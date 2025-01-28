@@ -3,6 +3,6 @@
 @section('content')
     <x-pages.breadcrumbs :$secondPositionUrl :$secondPositionName />
     <section>
-        @livewire('base-page', ['regionCode' => $regionCode, 'type' => $type])
+        @livewire('base-page', ['region' => $region, 'type' => $type])
     </section>
 @endsection

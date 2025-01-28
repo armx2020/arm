@@ -15,9 +15,9 @@ class HomeController extends BaseController
         parent::__construct();
     }
 
-    public function home(Request $request, $regionCode = null)
+    public function home(Request $request, $region = null)
     {
-        $region = $this->getRegion($request, $regionCode);
+        $region = $this->getRegion($request, $region);
 
         $group = Entity::groups()->where('region_id', $region->id)->first();
 
@@ -27,9 +27,9 @@ class HomeController extends BaseController
 
         return view('home', [
             'region'   => $request->session()->get('region'),
+            'regionName' => $request->session()->get('regionName'),
             'group' => $group,
             'regions' => $this->regions,
-            'regionCode' => $regionCode
         ]);
     }
 
@@ -37,8 +37,8 @@ class HomeController extends BaseController
     {
         return view('pages.privacy-policy', [
             'region'   => $request->session()->get('region'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -46,8 +46,8 @@ class HomeController extends BaseController
     {
         return view('pages.condition-of-use', [
             'region'   => $request->session()->get('region'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 }

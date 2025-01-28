@@ -22,12 +22,12 @@ class BasePage extends Component
 
     protected $quantityOfDisplayed = 20; // Количество отоброжаемых сущностей
 
-    public function mount(Request $request, $regionCode = null, $type = 1)
+    public function mount(Request $request, $region = null, $type = 1)
     {
-        if ($regionCode) {
-            $reg = Region::where('code', '=', $regionCode)->First();
+        if ($region) {
+            $reg = Region::where('transcription', 'like', $region)->First();
         } else {
-            $reg = Region::where('name', '=', $request->session()->get('region'))->First();
+            $reg = Region::where('transcription', 'like', $request->session()->get('region'))->First();
         }
 
         if (empty($reg)) {

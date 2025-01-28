@@ -18,18 +18,18 @@ abstract class BaseController extends Controller
             });
     }
 
-    public function getRegion($request, $regionCode = null)
+    public function getRegion($request, $region = null)
     {
-        if (!$regionCode) {
+        if (empty($region)) {
             $region = Region::find(1);
-            $request->session()->put('region', $region->name);
-            $request->session()->put('regionId', $region->code);
+            $request->session()->put('regionName', $region->name);
+            $request->session()->put('region', $region->transcription);
         } else {
-            $region = Region::where('code', 'like', $regionCode)->First();
+            $region = Region::where('transcription', 'like', $region)->First();
 
             if ($region) {
-                $request->session()->put('region', $region->name);
-                $request->session()->put('regionId', $region->code);
+                $request->session()->put('regionName', $region->name);
+                $request->session()->put('region', $region->transcription);
             } else {
                 return redirect()->route('home');
             }

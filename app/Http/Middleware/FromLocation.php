@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\City;
 use App\Models\Region;
 use Closure;
 use Illuminate\Http\Request;
@@ -20,17 +19,14 @@ class FromLocation
 
             $regionName = $data ? $data->regionName : 'Russia';
 
-            $region = Region::where('InEnglish', 'like', $regionName)->First();
+            $region = Region::where('transcription', 'like', $regionName)->First();
 
-            if (empty($city)) {
+            if (empty($region)) {
                 $region = Region::find(1);
             }
 
-            $regionName = $region->name;
-            $code = $region->code;
-
-            $request->session()->put('region', $regionName);
-            $request->session()->put('regionId', $code);
+            $request->session()->put('regionName', $region->name);
+            $request->session()->put('region', $region->transcription);
         }
 
         return $next($request);

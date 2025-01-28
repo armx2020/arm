@@ -3,7 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Models\Category;
+use App\Models\City;
+use App\Models\Entity;
 use App\Models\EntityType;
+use App\Models\Region;
 use App\Services\TranscriptService;
 use Illuminate\Console\Command;
 
@@ -17,5 +20,8 @@ class Transcript extends Command
     {
         $service->translitName(Category::query());
         $service->translitName(EntityType::query());
+        $service->translitName(Entity::query());
+        $service->translitName(City::query());
+        $service->translitName(Region::query());
     }
 }

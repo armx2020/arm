@@ -13,18 +13,18 @@ class CompanyController extends BaseController
         parent::__construct();
     }
 
-    public function index(Request $request, $regionCode = null)
+    public function index(Request $request, $region = null)
     {
         $secondPositionUrl = 'companies.index';
         $secondPositionName = 'Компании';
         $entity = 'companies';
 
-        $region = $this->getRegion($request, $regionCode);
+        $region = $this->getRegion($request, $region);
 
         return view('pages.company.index', [
             'region'   => $request->session()->get('region'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'regionCode' => $regionCode,
             'secondPositionUrl' => $secondPositionUrl,
             'secondPositionName' => $secondPositionName,
             'entity' => $entity,

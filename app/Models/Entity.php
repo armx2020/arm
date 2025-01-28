@@ -10,6 +10,7 @@ use App\Models\Traits\HasRegion;
 use App\Models\Traits\HasUser;
 use App\Models\Traits\HasWorks;
 use App\Models\Traits\Search;
+use App\Models\Traits\TranscriptName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,10 +28,12 @@ class Entity extends Model
         HasWorks,
         HasUser,
         HasNews,
+        TranscriptName,
         Search;
 
     protected $fillable = [
         'name',
+        'transcription',
         'entity_type_id',
         'activity',
         'address',

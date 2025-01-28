@@ -9,8 +9,8 @@
         <div class="block px-0 md:px-2 xl:hidden">
             <button class="text-blue-600 text-sm hover:text-blue-400 locationButton" id="locationButton">
                 <img src="{{ url('/image/location-marker.png') }}" class="w-4 h-4 inline" />
-                @if ($region)
-                    {{ mb_substr($region, 0, 19, 'UTF-8') }}
+                @if ($regionName)
+                    {{ mb_substr($regionName, 0, 19, 'UTF-8') }}
                 @else
                     <p class="truncate">
                         Вся Россия
@@ -60,22 +60,22 @@
                         </div>
                     @endguest
                 </li>
-                @if (isset($regionCode) && $regionCode !== 0)
+                @if (isset($region) && $region !== 0)
                     <li class="mb-2">
-                        <a class="" href="{{ route('region.companies', ['regionCode' => $regionCode]) }}">Бизнес
+                        <a class="" href="{{ route('region.companies', ['region' => $region]) }}">Бизнес
                             справочник</a>
                     </li>
                     <li class="mb-2">
-                        <a class="" href="{{ route('region.groups', ['regionCode' => $regionCode]) }}">Кружки и
+                        <a class="" href="{{ route('region.groups', ['region' => $region]) }}">Кружки и
                             сообщества</a>
                     </li>
                     <li class="mb-2">
-                        <a class="" href="{{ route('region.places', ['regionCode' => $regionCode]) }}">Интересные
+                        <a class="" href="{{ route('region.places', ['region' => $region]) }}">Интересные
                             места</a>
                     </li>
                     <li class="mb-2">
                         <a class=""
-                            href="{{ route('region.communities', ['regionCode' => $regionCode]) }}">Общины,
+                            href="{{ route('region.communities', ['region' => $region]) }}">Общины,
                             констульства</a>
                     </li>
                 @else
@@ -101,22 +101,22 @@
         </div>
         <div class="visible hidden text-base flex-grow basis-full items-center xl:!flex xl:basis-auto">
             <ul class="list-style-none flex flex-col pl-0 lg:flex-row">
-                @if (isset($regionCode) && $regionCode !== 0)
+                @if (isset($region) && $region !== 0)
                     <li class="mb-4 lg:mb-0 lg:pr-4">
-                        <a class="" href="{{ route('region.companies', ['regionCode' => $regionCode]) }}">Бизнес
+                        <a class="" href="{{ route('region.companies', ['region' => $region]) }}">Бизнес
                             справочник</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4">
-                        <a class="" href="{{ route('region.groups', ['regionCode' => $regionCode]) }}">Кружки и
+                        <a class="" href="{{ route('region.groups', ['region' => $region]) }}">Кружки и
                             сообщества</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4">
-                        <a class="" href="{{ route('region.places', ['regionCode' => $regionCode]) }}">Интересные
+                        <a class="" href="{{ route('region.places', ['region' => $region]) }}">Интересные
                             места</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4">
                         <a class=""
-                            href="{{ route('region.communities', ['regionCode' => $regionCode]) }}">Общины</a>
+                            href="{{ route('region.communities', ['region' => $region]) }}">Общины</a>
                     </li>
                 @else
                     <li class="mb-4 lg:mb-0 lg:pr-4">
@@ -138,8 +138,8 @@
             <div class="block">
                 <button class="text-blue-600 hover:text-blue-400 block locationButton" id="locationButton">
                     <img src="{{ url('/image/location-marker.png') }}" class="w-4 h-4 inline align-middle" />
-                    @isset($region)
-                        {{ preg_replace('/\([^)]+\)/', '', $region) }}
+                    @isset($regionName)
+                        {{ preg_replace('/\([^)]+\)/', '', $regionName) }}
                     @else
                         <p class="truncate">
                             Вся Россия
@@ -198,27 +198,27 @@
                     @foreach ($letterCities as $region)
                         <div class="px-1 hover:text-gray-500">
                             @if (Route::is('home'))
-                                <a href="{{ route('home', ['regionCode' => $region->code]) }}">
+                                <a href="{{ route('home', ['region' => $region->transcription]) }}">
                                     {{ $region->name }}
                                 </a>
                             @elseif (Route::is('companies') || Route::is('region.companies'))
-                                <a href="{{ route('region.companies', ['regionCode' => $region->code]) }}">
+                                <a href="{{ route('region.companies', ['region' => $region->transcription]) }}">
                                     {{ $region->name }}
                                 </a>
                             @elseif (Route::is('groups') || Route::is('region.groups'))
-                                <a href="{{ route('region.groups', ['regionCode' => $region->code]) }}">
+                                <a href="{{ route('region.groups', ['region' => $region->transcription]) }}">
                                     {{ $region->name }}
                                 </a>
                             @elseif (Route::is('places') || Route::is('region.places'))
-                                <a href="{{ route('region.places', ['regionCode' => $region->code]) }}">
+                                <a href="{{ route('region.places', ['region' => $region->transcription]) }}">
                                     {{ $region->name }}
                                 </a>
                             @elseif (Route::is('communities') || Route::is('region.communities'))
-                                <a href="{{ route('region.communities', ['regionCode' => $region->code]) }}">
+                                <a href="{{ route('region.communities', ['region' => $region->transcription]) }}">
                                     {{ $region->name }}
                                 </a>
                             @else
-                                <a href="{{ route('home', ['regionCode' => $region->code]) }}">
+                                <a href="{{ route('home', ['region' => $region->transcription]) }}">
                                     {{ $region->name }}
                                 </a>
                             @endif

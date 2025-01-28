@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255)->index();
             $table->unsignedInteger('code')->default(0)->index();
-            $table->string('InEnglish', 255);
+            $table->string('transcription', 255);
         });
     }
 

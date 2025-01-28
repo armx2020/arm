@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255)->index();
-            $table->string('InEnglish', 255)->index();
+            $table->string('transcription', 255)->index();
             $table->foreignId('region_id')->constrained()->index();
         });
     }

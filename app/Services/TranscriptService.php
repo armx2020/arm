@@ -44,11 +44,17 @@ class TranscriptService
 
     private function getTranslit($value)
     {
-        $value = mb_strtolower($value);
-        $value = strtr($value, $this->converter);
-        $value = mb_ereg_replace('[^-0-9a-z]', '-', $value);
-        $value = mb_ereg_replace('[-]+', '-', $value);
-        $value = trim($value, '-');
+        if ($value == 'Россия') {
+            $value = 'russia';
+        } elseif ($value == 'не выбрано') {
+            $value = 'no-selected';
+        } else {
+            $value = mb_strtolower($value);
+            $value = strtr($value, $this->converter);
+            $value = mb_ereg_replace('[^-0-9a-z]', '-', $value);
+            $value = mb_ereg_replace('[-]+', '-', $value);
+            $value = trim($value, '-');
+        }
 
         return $value;
     }
@@ -57,6 +63,7 @@ class TranscriptService
     {
         $table->chunk(100, function (Collection $collections) {
             foreach ($collections as $entity) {
+
                 $transcription = $this->getTranslit($entity->name);
 
                 $entity->update([

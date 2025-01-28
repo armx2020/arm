@@ -2,19 +2,23 @@
 
 namespace App\Models;
 
+use App\Models\Traits\TranscriptName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Region extends Model
 {
-    use HasFactory;
+    use HasFactory, TranscriptName;
 
     protected $searchable = [
         'name',
     ];
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'transcription'
+    ];
 
     public $timestamps = false;
 
@@ -23,7 +27,7 @@ class Region extends Model
         return $this->hasMany(City::class);
     }
 
-    public function users() : HasMany
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
