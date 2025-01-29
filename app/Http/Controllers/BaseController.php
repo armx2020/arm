@@ -30,9 +30,7 @@ abstract class BaseController extends Controller
                 $request->session()->put('regionName', $region->name);
                 $request->session()->put('regionTranslit', $region->transcription);
             } else {
-                $region = Region::find(1);
-                $request->session()->put('regionName', $region->name);
-                $request->session()->put('regionTranslit', $region->transcription);
+                return null;
             }
         }
 

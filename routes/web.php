@@ -28,9 +28,12 @@ Route::get('/groups', [EntityController::class, 'groups'])->name('groups.index')
 Route::get('/places', [EntityController::class, 'places'])->name('places.index');
 Route::get('/communities', [EntityController::class, 'communities'])->name('communities.index');
 
+Route::get('/company/{entity}', [EntityController::class, 'company'])->name('company.show');
+Route::get('/group/{entity}', [EntityController::class, 'group'])->name('group.show');
+Route::get('/place/{entity}', [EntityController::class, 'place'])->name('place.show');
+Route::get('/community/{entity}', [EntityController::class, 'community'])->name('community.show');
+
 Route::get('/{regionTranslit?}', [HomeController::class, 'home'])->name('home');
-
-
 
 
 Route::name('region.')->prefix('/{regionTranslit}')->group(function () {
@@ -40,7 +43,7 @@ Route::name('region.')->prefix('/{regionTranslit}')->group(function () {
     Route::get('/communities', [EntityController::class, 'communities'])->name('communities');
 });
 
-Route::get('/entity/{entity}', [EntityController::class, 'show'])->name('entity.show');
+//Route::get('/{entity}', [EntityController::class, 'show'])->name('entity.show');
 
 Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show');
 

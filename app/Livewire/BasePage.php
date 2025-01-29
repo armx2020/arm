@@ -43,12 +43,27 @@ class BasePage extends Component
     {
         $categories = null;
 
-        $entityShowRout = '';
+        $entityShowRout = 'company.show';
         $categories = Category::active()->main()->where('entity_type_id', $this->type)->get();
         $entities = Entity::query()->active()->with('fields', 'offers')->withCount('offers');
 
         if ($this->type) {
             $entities = $entities->where('entity_type_id', $this->type);
+
+            switch ($this->type) {
+                case '2':
+                    $entityShowRout = 'group.show';
+                    break;
+                case '3':
+                    $entityShowRout = 'place.show';
+                    break;
+                case '4':
+                    $entityShowRout = 'community.show';
+                    break;
+                default:
+                    $entityShowRout = 'company.show';
+                    break;
+            }
         }
 
         if ($this->region !== '1') {
@@ -80,7 +95,7 @@ class BasePage extends Component
             'regions' => $regions,
             'region' => $this->region,
             'categories' => $categories,
-            'entityTypies' => $entityTypies
+            'entityTypies' => $entityTypies,
         ]);
     }
 

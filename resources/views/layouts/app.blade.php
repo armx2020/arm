@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>ВСЕ АРМЯНЕ @yield('title') @if (isset($region))
-            {{ ' - ' . $region }}
+    <title>ВСЕ АРМЯНЕ @yield('title') @if (isset($regionName))
+            {{ ' - ' . $regionName }}
         @endif
     </title>
 

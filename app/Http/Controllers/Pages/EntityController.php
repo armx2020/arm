@@ -17,9 +17,13 @@ class EntityController extends BaseController
     {
         $region = $this->getRegion($request, $regionTranslit);
 
+        if (!$region) {
+            return redirect()->route('home');
+        }
+
         $secondPositionUrl = 'companies.index';
         $secondPositionName = 'Компании';
-        $entity = 'companies';
+        $routeShow = 'company.show';
 
         $type = 1;
 
@@ -29,13 +33,17 @@ class EntityController extends BaseController
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
             'secondPositionName' => $secondPositionName,
-            'entity' => $entity,
-            'type' => $type
+            'type' => $type,
+            'routeShow' => $routeShow
         ]);
     }
     public function groups(Request $request, $regionTranslit = null)
     {
         $region = $this->getRegion($request, $regionTranslit);
+
+        if (!$region) {
+            return redirect()->route('home');
+        }
 
         $secondPositionUrl = 'groups.index';
         $secondPositionName = 'Группы';
@@ -58,6 +66,10 @@ class EntityController extends BaseController
     {
         $region = $this->getRegion($request, $regionTranslit);
 
+        if (!$region) {
+            return redirect()->route('home');
+        }
+
         $secondPositionUrl = 'places.index';
         $secondPositionName = 'Места и церкви';
         $entity = 'places';
@@ -79,6 +91,10 @@ class EntityController extends BaseController
     {
         $region = $this->getRegion($request, $regionTranslit);
 
+        if (!$region) {
+            return redirect()->route('home');
+        }
+
         $secondPositionUrl = 'communities.index';
         $secondPositionName = 'Общины и консульства';
         $entity = 'communities';
@@ -97,6 +113,74 @@ class EntityController extends BaseController
     }
 
     public function show(Request $request, Entity $entity)
+    {
+        $secondPositionUrl = 'communities.index';
+        $secondPositionName = 'Общины и консульства';
+        $entityName = 'communities';
+
+        return view('pages.entity.show', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'regions' => $this->regions,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entityName' => $entityName,
+            'entity' => $entity,
+        ]);
+    }
+
+    public function company(Request $request, Entity $entity)
+    {
+        $secondPositionUrl = 'companies.index';
+        $secondPositionName = 'Бизнес - справочник';
+        $entityName = 'companies';
+
+        return view('pages.entity.show', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'regions' => $this->regions,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entityName' => $entityName,
+            'entity' => $entity,
+        ]);
+    }
+
+    public function group(Request $request, Entity $entity)
+    {
+        $secondPositionUrl = 'groups.index';
+        $secondPositionName = 'Общины и консульства';
+        $entityName = 'groups';
+
+        return view('pages.entity.show', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'regions' => $this->regions,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entityName' => $entityName,
+            'entity' => $entity,
+        ]);
+    }
+
+    public function place(Request $request, Entity $entity)
+    {
+        $secondPositionUrl = 'places.index';
+        $secondPositionName = 'Места и церкви';
+        $entityName = 'places';
+
+        return view('pages.entity.show', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'regions' => $this->regions,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entityName' => $entityName,
+            'entity' => $entity,
+        ]);
+    }
+
+    public function community(Request $request, Entity $entity)
     {
         $secondPositionUrl = 'communities.index';
         $secondPositionName = 'Общины и консульства';

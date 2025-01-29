@@ -16,7 +16,10 @@ class HomeController extends BaseController
     public function home(Request $request, $regionTranslit = null)
     {
         $region = $this->getRegion($request, $regionTranslit);
-       // dd($region);
+
+        if (!$region) {
+            return redirect()->route('home');
+        }
 
         $group = Entity::query()->groups();
 
