@@ -145,29 +145,22 @@
 
             <div class="my-3 pl-0 ms:pl-4">
                 @php
-                    $connect = null;
+                    $message = null;
                     if(isset($entity->whatsapp)){
-                        $connect = [
-                            "message" => "https://wa.me/" . $entity->whatsapp,
-                            "call" => "https://api.whatsapp.com/send?phone=" . $entity->whatsapp . "&text=Позвоните%20мне"
-                        ];
+                        $message = $entity->whatsapp;
                     }elseif(isset($entity->telegram)){
-                        $connect = [
-                            "message" => "https://t.me/" . $entity->telegram,
-                            "call" => "tg://call?phone=" . $entity->telegram
-                        ];
+                        $message = $entity->telegram;
                     }elseif(isset($entity->phone)){
-                        $connect = [
-                            "message" => "sms:" . $entity->phone . "?body=Здравствуйте!",
-                            "call" => "tel:" . $entity->whatsapp
-                        ];
+                        $message = "sms:" . $entity->phone . "?body=Привет!";
                     }
                 @endphp
-                @if(isset($connect))
-                    <a href="{{ $connect['message'] }}" class="cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-32 text-white">
+                @if(isset($message))
+                    <a href="{{ $message }}" class="cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-32 text-white">
                         Написать
                     </a>
-                    <a href="{{ $connect['call'] }}" class="cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-36 text-white">
+                @endif
+                @if(isset($entity->phone))
+                    <a href="tel:{{ $entity->phone }}" class="cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-36 text-white">
                         Позвонить
                     </a>
                 @endif
