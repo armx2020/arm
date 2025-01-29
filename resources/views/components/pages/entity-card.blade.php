@@ -144,13 +144,32 @@
             </div>
 
             <div class="my-3 pl-0 ms:pl-4">
-                <button type="submit" class="inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-32 text-white">
-                    Написать
-                </button>
-                @if($entity->phone)
-                    <button type="submit" onclick="window.location.href='tel:{{ $entity->phone }}'" class="inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-36 text-white">
+                @php
+                    $connect = null;
+                    if(isset($entity->whatsapp)){
+                        $connect = [
+                            "message" => "https://wa.me/" . $entity->whatsapp,
+                            "call" => "https://api.whatsapp.com/send?phone=" . $entity->whatsapp . "&text=Позвоните%20мне"
+                        ];
+                    }elseif(isset($entity->telegram)){
+                        $connect = [
+                            "message" => "https://t.me/" . $entity->telegram,
+                            "call" => "tg://call?phone=" . $entity->telegram
+                        ];
+                    }elseif(isset($entity->phone)){
+                        $connect = [
+                            "message" => "sms:" . $entity->phone . "?body=Здравствуйте!",
+                            "call" => "tel:" . $entity->whatsapp
+                        ];
+                    }
+                @endphp
+                @if(isset($connect))
+                    <a href="{{ $connect['message'] }}" class="cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-32 text-white">
+                        Написать
+                    </a>
+                    <a href="{{ $connect['call'] }}" class="cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-36 text-white">
                         Позвонить
-                    </button>
+                    </a>
                 @endif
             </div>
 
