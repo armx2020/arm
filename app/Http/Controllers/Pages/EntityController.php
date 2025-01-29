@@ -23,7 +23,6 @@ class EntityController extends BaseController
 
         $secondPositionUrl = 'companies.index';
         $secondPositionName = 'Компании';
-        $routeShow = 'company.show';
 
         $type = 1;
 
@@ -34,7 +33,6 @@ class EntityController extends BaseController
             'secondPositionUrl' => $secondPositionUrl,
             'secondPositionName' => $secondPositionName,
             'type' => $type,
-            'routeShow' => $routeShow
         ]);
     }
     public function groups(Request $request, $regionTranslit = null)
