@@ -63,13 +63,11 @@ class SearchReportEntity extends BaseComponent
                     'count' => $count
                 ];
 
-                // Считаем итоги
                 if (!isset($totals[$type->name])) {
                     $totals[$type->name] = 0;
                 }
                 $totals[$type->name] += $count;
             }
-
             $table[] = $row;
         }
 
@@ -81,8 +79,6 @@ class SearchReportEntity extends BaseComponent
             ];
         }
         $table[] = $totalsRow;
-
-
 
         if ($this->sortField && in_array($this->sortField, $entityTypes->pluck('name')->toArray())) {
             usort($table, function ($a, $b) {
@@ -104,12 +100,7 @@ class SearchReportEntity extends BaseComponent
             'entityTypes' => $entityTypes,
             'regions' => $regions,
             'table' => $table,
-            'title' => $title,
-            'filters' =>  [
-                'entity_type_id' => 'select',
-                'city_id' => 'select',
-                'region_id' => 'select',
-            ],
+            'title' => $title
         ]);
     }
 }
