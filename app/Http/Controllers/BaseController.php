@@ -19,7 +19,7 @@ abstract class BaseController extends Controller
 
     public function getRegion($request, $regionTranslit = null)
     {
-        if (empty($regionTranslit)) {
+        if ($regionTranslit == null) {
             $region = Region::find(1);
             $request->session()->put('regionName', $region->name);
             $request->session()->put('regionTranslit', $region->transcription);
@@ -30,7 +30,9 @@ abstract class BaseController extends Controller
                 $request->session()->put('regionName', $region->name);
                 $request->session()->put('regionTranslit', $region->transcription);
             } else {
-                return redirect()->route('home');
+                $region = Region::find(1);
+                $request->session()->put('regionName', $region->name);
+                $request->session()->put('regionTranslit', $region->transcription);
             }
         }
 

@@ -60,7 +60,7 @@
                         </div>
                     @endguest
                 </li>
-                @if (isset($region) && $region !== 0)
+                @if (isset($regionName) && $regionName !== 'Россия')
                     <li class="mb-2">
                         <a class="" href="{{ route('region.companies', ['regionTranslit' => $region]) }}">Бизнес
                             справочник</a>
@@ -101,7 +101,7 @@
         </div>
         <div class="visible hidden text-base flex-grow basis-full items-center xl:!flex xl:basis-auto">
             <ul class="list-style-none flex flex-col pl-0 lg:flex-row">
-                @if (isset($region) && $region !== 0)
+                @if (isset($regionName) && $regionName !== 'Россия')
                     <li class="mb-4 lg:mb-0 lg:pr-4">
                         <a class="" href="{{ route('region.companies', ['regionTranslit' => $region]) }}">Бизнес
                             справочник</a>
