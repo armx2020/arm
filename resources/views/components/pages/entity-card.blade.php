@@ -143,8 +143,19 @@
                 <x-pages.social :entity=$entity />
             </div>
 
+            <div class="my-3 pl-0 ms:pl-4">
+                <button type="submit" class="inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-32 text-white">
+                    Написать
+                </button>
+                @if($entity->phone)
+                    <button type="submit" onclick="window.location.href='tel:{{ $entity->phone }}'" class="inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-36 text-white">
+                        Позвонить
+                    </button>
+                @endif
+            </div>
+
             @role('super-admin')
-                <div class="absolute right-4 bottom-4">
+                <div class="absolute right-4 bottom-1">
                     <a href="{{ route('admin.entity.edit', ['entity' => $entity->id]) }}"
                         class="[&>svg]:fill-[#a1b4c2]">
                         перейти в админ-панель
