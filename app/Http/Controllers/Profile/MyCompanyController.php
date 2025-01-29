@@ -28,9 +28,9 @@ class MyCompanyController extends BaseController
         $companies = Auth::user()->entities()->companies()->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.company.index', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId'),
             'entities' => $companies,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
@@ -42,10 +42,10 @@ class MyCompanyController extends BaseController
         $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('profile.pages.company.create', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'categories' => $categories,
-            'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -78,11 +78,11 @@ class MyCompanyController extends BaseController
         $fullness = (round(($sum / 70) * 100));
 
         return view('profile.pages.company.show', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'entity' => $entity,
             'fullness' => $fullness,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -97,11 +97,11 @@ class MyCompanyController extends BaseController
         $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('profile.pages.company.edit', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'categories' => $categories,
-            'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'entity' => $entity,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 

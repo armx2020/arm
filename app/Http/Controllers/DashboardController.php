@@ -26,19 +26,19 @@ class DashboardController extends BaseController
         $fullness = (round(($sum / 45) * 100));
 
         return view('dashboard', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'fullness' => $fullness,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
     public function questions(Request $request)
     {
         return view('profile.pages.questions', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 }

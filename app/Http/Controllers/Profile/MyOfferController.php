@@ -28,9 +28,9 @@ class MyOfferController extends BaseController
         $offers = Auth::user()->offers()->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.offer.index', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId'),
             'entities' => $offers,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
@@ -48,11 +48,11 @@ class MyOfferController extends BaseController
         $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('profile.pages.offer.create', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'companies' => $companies,
             'categories' => $categories,
-            'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -64,7 +64,7 @@ class MyOfferController extends BaseController
             return redirect()->route('myoffers.index')->with('alert', 'Товар не найден');
         }
 
-        return redirect()->route('myoffers.index')->with('success', 'Товар "' . $offer->name .'" добавлен');
+        return redirect()->route('myoffers.index')->with('success', 'Товар "' . $offer->name . '" добавлен');
     }
 
     public function show(Request $request, $id)
@@ -80,7 +80,8 @@ class MyOfferController extends BaseController
         }
 
         return view('profile.pages.offer.show', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'entity' => $offer,
         ]);
@@ -107,12 +108,12 @@ class MyOfferController extends BaseController
         $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('profile.pages.offer.edit', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'offer' => $offer,
             'categories' => $categories,
             'companies' => $companies,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 

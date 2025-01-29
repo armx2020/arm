@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Entity;
-use App\Models\Group;
-use App\Models\Region;
 use Illuminate\Http\Request;
 
 class HomeController extends BaseController
@@ -15,9 +13,9 @@ class HomeController extends BaseController
         parent::__construct();
     }
 
-    public function home(Request $request, $region = null)
+    public function home(Request $request, $regionTranslit = null)
     {
-        $region = $this->getRegion($request, $region);
+        $region = $this->getRegion($request, $regionTranslit);
 
         $group = Entity::groups()->where('region_id', $region->id)->first();
 
@@ -26,7 +24,7 @@ class HomeController extends BaseController
         }
 
         return view('home', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'group' => $group,
             'regions' => $this->regions,
@@ -36,7 +34,7 @@ class HomeController extends BaseController
     public function privacyPolicy(Request $request)
     {
         return view('pages.privacy-policy', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
         ]);
@@ -45,7 +43,7 @@ class HomeController extends BaseController
     public function conditionOfUse(Request $request)
     {
         return view('pages.condition-of-use', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
         ]);

@@ -23,14 +23,14 @@ class MyProfileController extends BaseController
         $this->profileAction = $profileAction;
     }
 
-    
+
     public function edit(Request $request): View
     {
         return view('profile.edit', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'user' => $request->user(),
-            'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -52,11 +52,11 @@ class MyProfileController extends BaseController
         $fullness = (round(($sum / 45) * 100));
 
         return view('pages.user.user', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'user' => $user,
             'fullness' => $fullness,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 

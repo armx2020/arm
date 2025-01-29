@@ -27,9 +27,9 @@ class MyCommunityController extends BaseController
         $groups = Auth::user()->entities()->communities()->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.community.index', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId'),
             'entities' => $groups,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
@@ -41,16 +41,16 @@ class MyCommunityController extends BaseController
         $categories = Category::query()->communities()->active()->orderBy('sort_id', 'asc')->paginate(10);
 
         return view('profile.pages.community.create', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'categories' => $categories,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
     public function store(StoreGroupRequest $request)
     {
-        
+
         $group = $this->groupAction->store($request, Auth::user()->id);
 
         return redirect()->route('mycommunities.index')->with('success', 'Община "' . $group->name . '" добавлена');
@@ -78,11 +78,11 @@ class MyCommunityController extends BaseController
         $fullness = (round(($sum / 70) * 100));
 
         return view('profile.pages.community.show', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'entity' => $entity,
             'fullness' => $fullness,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -97,11 +97,11 @@ class MyCommunityController extends BaseController
         $categories = Category::query()->communities()->active()->orderBy('sort_id', 'asc')->get();
 
         return view('profile.pages.community.edit', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'categories' => $categories,
-            'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'entity' => $entity,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 

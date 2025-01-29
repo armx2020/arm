@@ -12,7 +12,7 @@ class FromLocation
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->session()->has('region')) {
+        if (!$request->session()->has('regionTranslit')) {
 
             $ip = $_SERVER['REMOTE_ADDR'];
             $data = Location::get($ip);
@@ -26,7 +26,7 @@ class FromLocation
             }
 
             $request->session()->put('regionName', $region->name);
-            $request->session()->put('region', $region->transcription);
+            $request->session()->put('regionTranslit', $region->transcription);
         }
 
         return $next($request);

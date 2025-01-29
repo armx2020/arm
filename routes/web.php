@@ -8,9 +8,14 @@ use App\Http\Controllers\Pages\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Stevebauman\Location\Facades\Location;
 
-Route::get('/admin', function () {
-    return redirect()->route('admin.dashboard');
-});
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';
+require __DIR__ . '/profile.php';
+require __DIR__ . '/inform-us.php';
+
+// Route::get('/admin', function () {
+//     return redirect()->route('admin.dashboard');
+// });
 
 Route::get('ip', function () {
     $ip = '109.234.28.90';
@@ -18,7 +23,7 @@ Route::get('ip', function () {
     dd($data);
 }); // TODO проверка ip пользователя (Удалить при запуски проекта)
 
-Route::get('/{region?}', [HomeController::class, 'home'])->name('home');
+Route::get('/{regionTranslit?}', [HomeController::class, 'home'])->name('home');
 
 Route::get('/companies', [EntityController::class, 'companies'])->name('companies.index');
 Route::get('/groups', [EntityController::class, 'groups'])->name('groups.index');
@@ -26,7 +31,7 @@ Route::get('/places', [EntityController::class, 'places'])->name('places.index')
 Route::get('/communities', [EntityController::class, 'communities'])->name('communities.index');
 Route::get('/entity/{entity}', [EntityController::class, 'show'])->name('entity.show');
 
-Route::name('region.')->prefix('/{region}')->group(function () {
+Route::name('region.')->prefix('/{regionTranslit}')->group(function () {
     Route::get('/companies', [EntityController::class, 'companies'])->name('companies');
     Route::get('/groups', [EntityController::class, 'groups'])->name('groups');
     Route::get('/places', [EntityController::class, 'places'])->name('places');

@@ -39,9 +39,9 @@ class InformUsController extends BaseController
         $categories = Category::query()->offer()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('inform-us.create-company', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId'),
             'cities' => $this->cities,
             'secondPositionUrl' => $this->secondPositionUrl,
             'secondPositionName' => $this->secondPositionName,
