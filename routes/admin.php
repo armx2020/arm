@@ -33,7 +33,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('offer', OfferController::class)->except([
             'show'
         ]);
-
         Route::resource('work', WorkController::class)->except([
             'show'
         ]);

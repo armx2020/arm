@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Entity\Repository\EntityRepository;
 use App\Livewire\Admin\BaseComponent;
+use Illuminate\Http\Request;
 use App\Models\Entity;
 
 class SearchEntity extends BaseComponent
@@ -17,6 +18,12 @@ class SearchEntity extends BaseComponent
         parent::__construct($this->entity);
     }
 
+    public function mount(Request $request)
+    {
+        $this->type = $request->get('type');
+        $this->region = $request->get('region');
+    }
+
     public function changeActivity($id)
     {
         $entity = Entity::find($id);
@@ -25,8 +32,12 @@ class SearchEntity extends BaseComponent
         $entity->update(['activity' => $isActive]);
     }
 
-    public function render()
+    public function render(Request $request)
     {
+        if(isset($this->type) && isset($this->region)){
+            $this->selectedFilters['entity_type_id']['='] = $this->type;
+            $this->selectedFilters['region_id']['='] = $this->region;
+        }
         $title = 'Все сушности';
         $emptyEntity = 'сущностей нет';
         $entityName = 'entity';

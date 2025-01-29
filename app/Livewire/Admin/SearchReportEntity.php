@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Entity\Repository\EntityRepository;
+use App\Entity\Repository\ReportEntityRepository;
 use App\Livewire\Admin\BaseComponent;
 use Illuminate\Http\Request;
 use App\Models\EntityType;
@@ -16,76 +16,88 @@ class SearchReportEntity extends BaseComponent
 
     public function __construct()
     {
-        $this->entity = new EntityRepository();
+        $this->entity = new ReportEntityRepository();
         parent::__construct($this->entity);
-    }
-
-    public function mount(Request $request)
-    {
-        // Получаем текущий месяц и год из запроса (или устанавливаем по умолчанию текущий месяц и год)
-        $this->month = $request->get('month', now()->translatedFormat('F'));
-        $this->year = $request->get('year', now()->year); // Добавляем год
     }
 
     public function render(Request $request)
     {
         $title = 'Сводка сущности';
-
-        $currentMonth = $this->month ?? now()->translatedFormat('F');
-        $currentYear = $this->year ?? now()->year;
-
-        $months = [
-            'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-        ];
-
-        $currentIndex = array_search($currentMonth, $months);
-
-        if ($currentIndex === false) {
-            $currentIndex = now()->month - 1;
-            $currentMonth = $months[$currentIndex];
-        }
-
-        if ($currentIndex === 0) {
-            $prevMonth = $months[11];
-            $prevYear = $currentYear - 1;
-        } else {
-            $prevMonth = $months[$currentIndex - 1];
-            $prevYear = $currentYear;
-        }
-
-        if ($currentIndex === 11) {
-            $nextMonth = $months[0];
-            $nextYear = $currentYear + 1;
-        } else {
-            $nextMonth = $months[$currentIndex + 1];
-            $nextYear = $currentYear;
-        }
-
         $regions = Region::query()->get();
         $entityTypes = EntityType::query()->get();
-        $currentMonthIndex = $currentIndex + 1; // Январь = 1, Февраль = 2 и т.д.
+        $entityCounts = Entity::query();
 
-        $entityCounts = Entity::query()
-            ->whereMonth('created_at', $currentMonthIndex)
-            ->whereYear('created_at', $currentYear)
+        if ($this->term == "") {
+            foreach ($this->selectedFilters as $filterName => $filterValue) {
+                if ($filterValue) {
+                    $operator = array_key_first($filterValue);
+                    $callable = $filterValue[array_key_first($filterValue)];
+                    if($callable != ''){
+                        $entityCounts = $entityCounts->where($filterName, $operator, $callable);
+                    }
+                }
+            }
+        } else {
+            $entityCounts = $entityCounts->search($this->term);
+        }
+
+        $entityCounts = $entityCounts
             ->select('region_id', 'entity_type_id', \DB::raw('COUNT(*) as count'))
             ->groupBy('region_id', 'entity_type_id')
             ->get()
             ->groupBy('region_id');
 
-
         $table = [];
+        $totals = [];
+
         foreach ($regions as $region) {
-            $row = ['region' => $region->name];
+            $row = [
+                'region' => ['id' => $region->id, 'name' => $region->name]
+            ];
             $regionCounts = $entityCounts->get($region->id, collect());
 
             foreach ($entityTypes as $type) {
                 $count = $regionCounts->firstWhere('entity_type_id', $type->id)->count ?? 0;
-                $row[$type->name] = $count;
+                $row[$type->name] = [
+                    'id' => $type->id,
+                    'count' => $count
+                ];
+
+                // Считаем итоги
+                if (!isset($totals[$type->name])) {
+                    $totals[$type->name] = 0;
+                }
+                $totals[$type->name] += $count;
             }
 
             $table[] = $row;
+        }
+
+        $totalsRow = ['region' => ['id' => null, 'name' => 'Итоги']];
+        foreach ($entityTypes as $type) {
+            $totalsRow[$type->name] = [
+                'id' => $type->id,
+                'count' => $totals[$type->name] ?? 0
+            ];
+        }
+        $table[] = $totalsRow;
+
+
+
+        if ($this->sortField && in_array($this->sortField, $entityTypes->pluck('name')->toArray())) {
+            usort($table, function ($a, $b) {
+                if ($a['region']['name'] === 'Итоги') return 1;
+                if ($b['region']['name'] === 'Итоги') return -1;
+
+                $valueA = $a[$this->sortField]['count'] ?? 0;
+                $valueB = $b[$this->sortField]['count'] ?? 0;
+
+                if ($this->sortAsc) {
+                    return $valueA <=> $valueB;
+                } else {
+                    return $valueB <=> $valueA;
+                }
+            });
         }
 
         return view('livewire.admin.search-report-entity', [
@@ -93,12 +105,11 @@ class SearchReportEntity extends BaseComponent
             'regions' => $regions,
             'table' => $table,
             'title' => $title,
-            'month' => $currentMonth,
-            'year' => $currentYear,
-            'prevMonth' => $prevMonth,
-            'prevYear' => $prevYear,
-            'nextMonth' => $nextMonth,
-            'nextYear' => $nextYear,
+            'filters' =>  [
+                'entity_type_id' => 'select',
+                'city_id' => 'select',
+                'region_id' => 'select',
+            ],
         ]);
     }
 }
