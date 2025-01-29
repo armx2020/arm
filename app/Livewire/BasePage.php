@@ -27,7 +27,7 @@ class BasePage extends Component
         if ($region) {
             $reg = Region::where('transcription', 'like', $region)->First();
         } else {
-            $reg = Region::where('transcription', 'like', $request->session()->get('region'))->First();
+            $reg = Region::where('transcription', 'like', $request->session()->get('regionTranslit'))->First();
         }
 
         if (empty($reg)) {

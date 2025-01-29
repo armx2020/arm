@@ -13,9 +13,9 @@ class EntityController extends BaseController
         parent::__construct();
     }
 
-    public function companies(Request $request, $region = null)
+    public function companies(Request $request, $regionTranslit = null)
     {
-        $region = $this->getRegion($request, $region);
+        $region = $this->getRegion($request, $regionTranslit);
 
         $secondPositionUrl = 'companies.index';
         $secondPositionName = 'Компании';
@@ -24,7 +24,7 @@ class EntityController extends BaseController
         $type = 1;
 
         return view('pages.entity.index', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
@@ -33,9 +33,9 @@ class EntityController extends BaseController
             'type' => $type
         ]);
     }
-    public function groups(Request $request, $region = null)
+    public function groups(Request $request, $regionTranslit = null)
     {
-        $region = $this->getRegion($request, $region);
+        $region = $this->getRegion($request, $regionTranslit);
 
         $secondPositionUrl = 'groups.index';
         $secondPositionName = 'Группы';
@@ -44,7 +44,7 @@ class EntityController extends BaseController
         $type = 2;
 
         return view('pages.entity.index', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
@@ -54,9 +54,9 @@ class EntityController extends BaseController
         ]);
     }
 
-    public function places(Request $request, $region = null)
+    public function places(Request $request, $regionTranslit = null)
     {
-        $region = $this->getRegion($request, $region);
+        $region = $this->getRegion($request, $regionTranslit);
 
         $secondPositionUrl = 'places.index';
         $secondPositionName = 'Места и церкви';
@@ -65,7 +65,7 @@ class EntityController extends BaseController
         $type = 3;
 
         return view('pages.entity.index', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
@@ -75,9 +75,9 @@ class EntityController extends BaseController
         ]);
     }
 
-    public function communities(Request $request, $region = null)
+    public function communities(Request $request, $regionTranslit = null)
     {
-        $region = $this->getRegion($request, $region);
+        $region = $this->getRegion($request, $regionTranslit);
 
         $secondPositionUrl = 'communities.index';
         $secondPositionName = 'Общины и консульства';
@@ -86,7 +86,7 @@ class EntityController extends BaseController
         $type = 4;
 
         return view('pages.entity.index', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
@@ -103,7 +103,7 @@ class EntityController extends BaseController
         $entityName = 'communities';
 
         return view('pages.entity.show', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,

@@ -23,13 +23,15 @@ Route::get('ip', function () {
     dd($data);
 }); // TODO проверка ip пользователя (Удалить при запуски проекта)
 
-Route::get('/{regionTranslit?}', [HomeController::class, 'home'])->name('home');
-
 Route::get('/companies', [EntityController::class, 'companies'])->name('companies.index');
 Route::get('/groups', [EntityController::class, 'groups'])->name('groups.index');
 Route::get('/places', [EntityController::class, 'places'])->name('places.index');
 Route::get('/communities', [EntityController::class, 'communities'])->name('communities.index');
-Route::get('/entity/{entity}', [EntityController::class, 'show'])->name('entity.show');
+
+Route::get('/{regionTranslit?}', [HomeController::class, 'home'])->name('home');
+
+
+
 
 Route::name('region.')->prefix('/{regionTranslit}')->group(function () {
     Route::get('/companies', [EntityController::class, 'companies'])->name('companies');
@@ -37,6 +39,8 @@ Route::name('region.')->prefix('/{regionTranslit}')->group(function () {
     Route::get('/places', [EntityController::class, 'places'])->name('places');
     Route::get('/communities', [EntityController::class, 'communities'])->name('communities');
 });
+
+Route::get('/entity/{entity}', [EntityController::class, 'show'])->name('entity.show');
 
 Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show');
 

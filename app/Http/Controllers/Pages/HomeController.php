@@ -16,8 +16,16 @@ class HomeController extends BaseController
     public function home(Request $request, $regionTranslit = null)
     {
         $region = $this->getRegion($request, $regionTranslit);
+       // dd($region);
 
-        $group = Entity::groups()->where('region_id', $region->id)->first();
+        $group = Entity::query()->groups();
+
+        if ($region && $region->id == 1) {
+            $group = $group->where('region_id', 1)->first();
+        } else {
+            $group = $group->where('region_id', $region->id)->first();
+        }
+
 
         if (empty($group)) {
             $group = Entity::where('region_id', 1)->first();
