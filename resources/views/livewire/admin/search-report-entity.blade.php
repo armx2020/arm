@@ -33,37 +33,60 @@
                                 <table class="table-fixed min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-200">
                                     <tr>
-                                        <th scope="col" class="pl-4 text-left text-gray-500">Регион</th>
+                                        <th scope="col" class="pl-4 text-left text-gray-500">
+                                            <button wire:click.prevent='sortBy("region")' role="button">
+                                                Регион
+                                            </button>
+                                            @if ($sortField == "region")
+                                                @if ($sortAsc) &#8593; @else &#8595; @endif
+                                            @endif
+                                        </th>
                                         @foreach ($entityTypes as $type)
                                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 max-w-[20rem] truncate">
-                                                <button wire:click.prevent='sortBy("{{ $type->name }}")' role="button">{{ $type->name }}</button>
-                                                @if ($this->sortField == $type->name)
-                                                    @if ($this->sortAsc)
-                                                        &#8593
-                                                    @else
-                                                        &#8595
-                                                    @endif
+                                                <button wire:click.prevent='sortBy("{{ $type->name }}")' role="button">
+                                                    {{ $type->name }}
+                                                </button>
+                                                @if ($sortField == $type->name && $sortRegionId === null)
+                                                    @if ($sortAsc) &#8593; @else &#8595; @endif
                                                 @endif
                                             </th>
-                                        @endforeach
-
+                                    @endforeach
+                                        <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500">
+                                            <button wire:click.prevent='sortBy("total")' role="button">
+                                                Итоги
+                                            </button>
+                                            @if ($sortField == "total")
+                                                @if ($sortAsc) &#8593; @else &#8595; @endif
+                                            @endif
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
                                     @foreach ($table as $row)
-                                        <tr class="hover:bg-gray-200 @if($row['region']['name'] === 'Итоги') bg-gray-200 @endif">
-                                            <td class="pl-4 text-xs">{{ $row['region']['name'] }}</td>
+                                        <tr class="hover:bg-gray-200 @if($row['region']['name'] === 'Итоги') bg-gray-200 font-bold @endif">
+
+                                            <td class="pl-4 text-xs whitespace-nowrap">
+                                                @if($row['region']['name'] !== 'Итоги')
+                                                    <button wire:click.prevent='sortBy("count", {{ $row["region"]["id"] }})' role="button">
+                                                        {{ $row['region']['name'] }}
+                                                    </button>
+                                                    @if ($sortRegionId === $row["region"]["id"])
+                                                        @if ($sortAsc) &#8593; @else &#8595; @endif
+                                                    @endif
+                                                @else
+                                                    {{ $row['region']['name'] }}
+                                                @endif
+                                            </td>
+
                                             @foreach ($entityTypes as $type)
                                                 <td class="p-4 text-base text-left break-all max-w-[20rem] truncate">
-                                                    @if($row['region']['name'] !== 'Итоги')
-                                                        <a href="{{ route('admin.entity.index', ['type' => $row[$type->name]['id'], 'region' => $row['region']['id']]) }}">
-                                                            {{ $row[$type->name]['count'] }}
-                                                        </a>
-                                                    @else
-                                                        {{ $row[$type->name]['count'] }}
-                                                    @endif
+                                                    {{ $row[$type->name]['count'] }}
                                                 </td>
-                                            @endforeach
+                                        @endforeach
+
+                                            <td class="p-4 font-bold text-base">
+                                                {{ $row['total'] ?? 0 }}
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

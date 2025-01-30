@@ -144,13 +144,25 @@
             </div>
 
             <div class="my-3 pl-0 ms:pl-4">
-                <button type="submit" class="inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-32 text-white">
-                    Написать
-                </button>
-                @if($entity->phone)
-                    <button type="submit" onclick="window.location.href='tel:{{ $entity->phone }}'" class="inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-36 text-white">
+                @php
+                    $message = null;
+                    if(isset($entity->whatsapp)){
+                        $message = $entity->whatsapp;
+                    }elseif(isset($entity->telegram)){
+                        $message = $entity->telegram;
+                    }elseif(isset($entity->phone)){
+                        $message = "sms:" . $entity->phone . "?body=Привет!";
+                    }
+                @endphp
+                @if(isset($message))
+                    <a href="{{ $message }}" class="cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-32 text-white">
+                        Написать
+                    </a>
+                @endif
+                @if(isset($entity->phone))
+                    <a href="tel:{{ $entity->phone }}" class="cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-36 text-white">
                         Позвонить
-                    </button>
+                    </a>
                 @endif
             </div>
 
