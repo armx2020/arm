@@ -1,13 +1,13 @@
 <div class="flex flex-row rounded-lg bg-white h-36 md:h-64 lg:h-80 p-2 sm:p-4 relative drop-shadow-sm hover:drop-shadow-md"
     id="{{ $entity->id }}_card">
-    <a href="{{ route($entityShowRout, ['entity' => $entity]) }}">
+    <a href="{{ route($entityShowRout, ['idOrTranscript' => $entity->id]) }}">
         <img class="h-32 w-32 min-h-32 min-w-32 md:h-56 md:w-56 md:min-h-56 md:min-w-56 lg:h-72 lg:w-72 lg:min-h-72 lg:min-w-72 rounded-lg object-cover"
             src={{ isset($entity->image) ? asset('storage/' . $entity->image) : url('/image/groups.png') }}
             alt="{{ $entity->name }}" />
     </a>
     <div class="px-3 lg:px-5 flex flex-col flex-1">
         <div class="flex max-h-8 overflow-hidden mb-2">
-            <a href="{{ route($entityShowRout, ['entity' => $entity]) }}">
+            <a href="{{ route($entityShowRout, ['idOrTranscript' => $entity->id]) }}">
                 <p
                     class="text-xs md:text-base lg:text-xl font-bold leading-tight text-neutral-700 break-words text-ellipsis overflow-hidden">
                     {{ $entity->name }}
@@ -113,7 +113,7 @@
             const mobileWidthMediaQuery = window.matchMedia('(max-width: 768px)')
 
             if (mobileWidthMediaQuery.matches) {
-                window.location.href = "{!! route($entityShowRout, ['entity' => $entity]) !!}";
+                window.location.href = "{!! route($entityShowRout, ['idOrTranscript' => $entity->id]) !!}";
             }
         });
 

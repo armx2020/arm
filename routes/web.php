@@ -28,10 +28,10 @@ Route::get('/groups', [EntityController::class, 'groups'])->name('groups.index')
 Route::get('/places', [EntityController::class, 'places'])->name('places.index');
 Route::get('/communities', [EntityController::class, 'communities'])->name('communities.index');
 
-Route::get('/company/{entity}', [EntityController::class, 'company'])->name('company.show');
-Route::get('/group/{entity}', [EntityController::class, 'group'])->name('group.show');
-Route::get('/place/{entity}', [EntityController::class, 'place'])->name('place.show');
-Route::get('/community/{entity}', [EntityController::class, 'community'])->name('community.show');
+Route::get('/company/{idOrTranscript}', [EntityController::class, 'company'])->name('company.show');
+Route::get('/group/{idOrTranscript}', [EntityController::class, 'group'])->name('group.show');
+Route::get('/place/{idOrTranscript}', [EntityController::class, 'place'])->name('place.show');
+Route::get('/community/{idOrTranscript}', [EntityController::class, 'community'])->name('community.show');
 
 Route::get('/{regionTranslit?}', [HomeController::class, 'home'])->name('home');
 
