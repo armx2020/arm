@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Region;
 
 abstract class BaseController extends Controller
@@ -30,7 +31,16 @@ abstract class BaseController extends Controller
                 $request->session()->put('regionName', $region->name);
                 $request->session()->put('regionTranslit', $region->transcription);
             } else {
-                return null;
+                $city = City::where('transcription', 'like', $regionTranslit)->First();
+
+                if ($city) {
+                    $request->session()->put('regionName', $city->region->name);
+                    $request->session()->put('regionTranslit', $city->region->transcription);
+
+                    $region = $city->region;
+                } else {
+                    return null;
+                }
             }
         }
 
