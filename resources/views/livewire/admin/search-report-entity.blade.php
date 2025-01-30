@@ -87,7 +87,9 @@
                                         @endforeach
 
                                             <td class="p-4 font-bold text-base">
-                                                {{ $row['total'] ?? 0 }}
+                                                <a href="{{ route('admin.entity.index', ['region' => $row['region']['id']]) }}">
+                                                    {{ $row['total'] ?? 0 }}
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

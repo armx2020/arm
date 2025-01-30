@@ -34,8 +34,10 @@ class SearchEntity extends BaseComponent
 
     public function render(Request $request)
     {
-        if(isset($this->type) && isset($this->region)){
+        if(isset($this->type)){
             $this->selectedFilters['entity_type_id']['='] = $this->type;
+        }
+        if(isset($this->region)){
             $this->selectedFilters['region_id']['='] = $this->region;
         }
         $title = 'Все сушности';
