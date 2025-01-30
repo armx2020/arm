@@ -84,7 +84,7 @@ class SearchReportEntity extends BaseComponent
 
         foreach ($regions as $region) {
             $row = [
-                'region' => ['id' => $region->id, 'name' => $region->name],
+                'region' => ['id' => $region->id, 'name' => $region->name . " (" . number_format($region->population, 0, '.', ' ') . ")"],
                 'total' => 0
             ];
             $regionCounts = $entityCounts->get($region->id, collect());

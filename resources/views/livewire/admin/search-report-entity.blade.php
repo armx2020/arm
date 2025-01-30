@@ -80,7 +80,9 @@
 
                                             @foreach ($entityTypes as $type)
                                                 <td class="p-4 text-base text-left break-all max-w-[20rem] truncate">
-                                                    {{ $row[$type->name]['count'] }}
+                                                    <a href="{{ route('admin.entity.index', ['type' => $row[$type->name]['id'], 'region' => $row['region']['id']]) }}">
+                                                        {{ $row[$type->name]['count'] }}
+                                                    </a>
                                                 </td>
                                         @endforeach
 
