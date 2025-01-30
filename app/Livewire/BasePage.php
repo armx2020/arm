@@ -19,10 +19,11 @@ class BasePage extends Component
     public $region = '1';
     public $type = '';
     public $category = 'Все';
+    public $categoryUri = null;
 
     protected $quantityOfDisplayed = 20; // Количество отоброжаемых сущностей
 
-    public function mount(Request $request, $region = null, $type = 1)
+    public function mount(Request $request, $region = null, $type = 1, $categoryUri = null)
     {
         if ($region) {
             $reg = Region::where('transcription', 'like', $region)->First();
@@ -36,7 +37,9 @@ class BasePage extends Component
             $this->region = (string) $reg->id;
         }
 
-        $this->type = $type;
+        if ($categoryUri) {
+            $this->category = $categoryUri;
+        }
     }
 
     public function render()
@@ -69,7 +72,6 @@ class BasePage extends Component
         if ($this->region !== '1') {
             $entities = $entities->orderByRaw("FIELD(`region_id`, $this->region) DESC")->orderBy('offers_count', 'desc');
         }
-
 
         $entities = $entities->orderByDesc('sort_id');
 

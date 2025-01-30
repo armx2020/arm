@@ -29,7 +29,6 @@ class HomeController extends BaseController
             $group = $group->where('region_id', $region->id)->first();
         }
 
-
         if (empty($group)) {
             $group = Entity::where('region_id', 1)->first();
         }

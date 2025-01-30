@@ -29,12 +29,14 @@ class EntityController extends BaseController
         return view('pages.entity.index', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
+            'categoryUri' => null,
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
             'secondPositionName' => $secondPositionName,
             'type' => $type,
         ]);
     }
+
     public function groups(Request $request, $regionTranslit = null)
     {
         $region = $this->getRegion($request, $regionTranslit);
@@ -52,6 +54,7 @@ class EntityController extends BaseController
         return view('pages.entity.index', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
+            'categoryUri' => null,
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
             'secondPositionName' => $secondPositionName,
@@ -77,6 +80,7 @@ class EntityController extends BaseController
         return view('pages.entity.index', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
+            'categoryUri' => null,
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
             'secondPositionName' => $secondPositionName,
@@ -102,6 +106,7 @@ class EntityController extends BaseController
         return view('pages.entity.index', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
+            'categoryUri' => null,
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
             'secondPositionName' => $secondPositionName,
@@ -131,6 +136,7 @@ class EntityController extends BaseController
         return view('pages.entity.show', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
+            'categoryUri' => null,
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
             'secondPositionName' => $secondPositionName,
@@ -160,6 +166,7 @@ class EntityController extends BaseController
         return view('pages.entity.show', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
+            'categoryUri' => null,
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
             'secondPositionName' => $secondPositionName,
@@ -189,6 +196,7 @@ class EntityController extends BaseController
         return view('pages.entity.show', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
+            'categoryUri' => null,
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
             'secondPositionName' => $secondPositionName,
@@ -218,6 +226,7 @@ class EntityController extends BaseController
         return view('pages.entity.show', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
+            'categoryUri' => null,
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,
             'secondPositionName' => $secondPositionName,

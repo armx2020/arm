@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryEntityController;
 use App\Http\Controllers\Admin\EntityController;
 use App\Http\Controllers\Admin\ImportChurchController;
 use App\Http\Controllers\Admin\ImportEntityController;
+use App\Http\Controllers\Admin\ImportLawyerController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController;
