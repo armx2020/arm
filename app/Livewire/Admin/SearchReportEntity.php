@@ -12,12 +12,42 @@ use App\Models\Entity;
 class SearchReportEntity extends BaseComponent
 {
     protected $entity;
+    public $sortRegionId = null;
 
 
     public function __construct()
     {
         $this->entity = new ReportEntityRepository();
         parent::__construct($this->entity);
+    }
+
+    public function sortBy($field, $regionId = null)
+    {
+        if ($regionId !== null) {
+            if ($this->sortField === $field && $this->sortRegionId === $regionId) {
+                $this->sortAsc = !$this->sortAsc;
+            } else {
+                $this->sortField = $field;
+                $this->sortAsc = true;
+                $this->sortRegionId = $regionId;
+            }
+        } elseif ($field === 'total' || $field === 'region') {
+            if ($this->sortField === $field) {
+                $this->sortAsc = !$this->sortAsc;
+            } else {
+                $this->sortField = $field;
+                $this->sortAsc = true;
+            }
+            $this->sortRegionId = null;
+        } else {
+            if ($this->sortField === $field && $this->sortRegionId === null) {
+                $this->sortAsc = !$this->sortAsc;
+            } else {
+                $this->sortField = $field;
+                $this->sortAsc = true;
+                $this->sortRegionId = null;
+            }
+        }
     }
 
     public function render(Request $request)
@@ -31,7 +61,7 @@ class SearchReportEntity extends BaseComponent
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 if ($filterValue) {
                     $operator = array_key_first($filterValue);
-                    $callable = $filterValue[array_key_first($filterValue)];
+                    $callable = $filterValue[$operator];
                     if($callable != ''){
                         $entityCounts = $entityCounts->where($filterName, $operator, $callable);
                     }
@@ -49,10 +79,13 @@ class SearchReportEntity extends BaseComponent
 
         $table = [];
         $totals = [];
+        $regionValues = [];
+        $columnTotals = [];
 
         foreach ($regions as $region) {
             $row = [
-                'region' => ['id' => $region->id, 'name' => $region->name]
+                'region' => ['id' => $region->id, 'name' => $region->name],
+                'total' => 0
             ];
             $regionCounts = $entityCounts->get($region->id, collect());
 
@@ -63,44 +96,64 @@ class SearchReportEntity extends BaseComponent
                     'count' => $count
                 ];
 
-                if (!isset($totals[$type->name])) {
-                    $totals[$type->name] = 0;
+                if ($this->sortRegionId === $region->id) {
+                    $regionValues[$type->id] = $count;
                 }
-                $totals[$type->name] += $count;
+
+                if (!isset($columnTotals[$type->name])) {
+                    $columnTotals[$type->name] = 0;
+                }
+                $columnTotals[$type->name] += $count;
+
+                $row['total'] += $count;
             }
             $table[] = $row;
         }
 
-        $totalsRow = ['region' => ['id' => null, 'name' => 'Итоги']];
+        $totalsRow = ['region' => ['id' => null, 'name' => 'Итоги'], 'total' => array_sum($columnTotals)];
         foreach ($entityTypes as $type) {
             $totalsRow[$type->name] = [
                 'id' => $type->id,
-                'count' => $totals[$type->name] ?? 0
+                'count' => $columnTotals[$type->name] ?? 0
             ];
         }
-        $table[] = $totalsRow;
 
-        if ($this->sortField && in_array($this->sortField, $entityTypes->pluck('name')->toArray())) {
-            usort($table, function ($a, $b) {
-                if ($a['region']['name'] === 'Итоги') return 1;
-                if ($b['region']['name'] === 'Итоги') return -1;
+        $tableWithoutTotals = array_filter($table, function ($row) {
+            return $row['region']['name'] !== 'Итоги';
+        });
 
-                $valueA = $a[$this->sortField]['count'] ?? 0;
-                $valueB = $b[$this->sortField]['count'] ?? 0;
+        if ($this->sortField === 'region') {
+            $tableWithoutTotals = collect($tableWithoutTotals)->sortBy(function ($row) {
+                return $this->sortAsc ? strtolower($row['region']['name']) : -strcasecmp($row['region']['name'], '');
+            })->values()->toArray();
+        }
 
-                if ($this->sortAsc) {
-                    return $valueA <=> $valueB;
-                } else {
-                    return $valueB <=> $valueA;
-                }
+        elseif ($this->sortField === 'total') {
+            $tableWithoutTotals = collect($tableWithoutTotals)->sortBy(function ($row) {
+                return $this->sortAsc ? $row['total'] : -$row['total'];
+            })->values()->toArray();
+        }
+
+        elseif ($this->sortRegionId === null) {
+            $tableWithoutTotals = collect($tableWithoutTotals)->sortBy(function ($row) {
+                return $this->sortAsc ? ($row[$this->sortField]['count'] ?? 0) : -($row[$this->sortField]['count'] ?? 0);
+            })->values()->toArray();
+        }
+
+        if ($this->sortRegionId !== null) {
+            $entityTypes = $entityTypes->sortBy(function ($type) use ($regionValues) {
+                return $this->sortAsc ? ($regionValues[$type->id] ?? 0) : -($regionValues[$type->id] ?? 0);
             });
         }
+
+        $tableWithoutTotals[] = $totalsRow;
 
         return view('livewire.admin.search-report-entity', [
             'entityTypes' => $entityTypes,
             'regions' => $regions,
-            'table' => $table,
+            'table' => $tableWithoutTotals,
             'title' => $title
         ]);
     }
+
 }
