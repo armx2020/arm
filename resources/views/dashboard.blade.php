@@ -1,4 +1,13 @@
 @extends('layouts.app')
+
+@section('title')
+    <title>ВСЕ АРМЯНЕ - Мой профиль </title>
+@endsection
+
+@section('meta')
+@endsection
+
+
 @section('content')
     <div class="flex flex-col lg:flex-row mx-auto my-10">
 

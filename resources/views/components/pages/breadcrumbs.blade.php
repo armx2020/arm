@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="text-neutral-500 dark:text-neutral-400">
-                <a href="{{ $secondPositionUrl }}" class="truncate">
+                <a href="{{ route($secondPositionUrl) }}" class="truncate">
                     {{ $secondPositionName }}
                 </a>
             </li>

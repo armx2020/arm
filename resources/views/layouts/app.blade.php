@@ -6,11 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @yield('meta')
 
-    <title>ВСЕ АРМЯНЕ @yield('title') @if (isset($regionName))
-            {{ ' - ' . $regionName }}
-        @endif
-    </title>
+    @yield('title')
 
     <link type="image/png" sizes="16x16" rel="icon" href="{{ url('image/favicon-16x16.png') }}">
     <link type="image/png" sizes="32x32" rel="icon" href="{{ url('image/favicon-32x32.png') }}">
@@ -27,10 +25,11 @@
     <!-- Scripts -->
     <script src="{{ url('/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ url('/select2.min.js') }}"></script>
-    <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
+    {{-- <script src="{{ url('/jquery.maskedinput.min.js') }}"></script> --}}
 
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/select.css', 'resources/js/jquery.bxslider.js'])
-    @livewireStyles
+    {{-- @vite(['resources/css/select.css', 'resources/js/jquery.bxslider.js']) --}}
+    @yield('scripts')
 
     @include('layouts.yandex')
 </head>
@@ -43,7 +42,11 @@
         </div>
         @include('layouts.footer')
     </div>
-    @vite(['resources/js/scripts.js', 'resources/js/mask_phone.js'])
-    @livewireScripts
+    @vite(['resources/js/scripts.js'])
+    {{-- @vite(['resources/js/mask_phone.js']) --}}
+
+    @yield('body')
+
+
 </body>
 </html>

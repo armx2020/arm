@@ -28,6 +28,9 @@ Route::get('/groups', [EntityController::class, 'groups'])->name('groups.index')
 Route::get('/places', [EntityController::class, 'places'])->name('places.index');
 Route::get('/communities', [EntityController::class, 'communities'])->name('communities.index');
 
+Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('/condition-of-use', [HomeController::class, 'conditionOfUse'])->name('condition-of-use');
+
 Route::get('/company/{idOrTranscript}', [EntityController::class, 'company'])->name('company.show');
 Route::get('/group/{idOrTranscript}', [EntityController::class, 'group'])->name('group.show');
 Route::get('/place/{idOrTranscript}', [EntityController::class, 'place'])->name('place.show');
@@ -47,8 +50,7 @@ Route::name('region.')->prefix('/{regionTranslit}')->group(function () {
 
 Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show');
 
-Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
-Route::get('/condition-of-use', [HomeController::class, 'conditionOfUse'])->name('condition-of-use');
+
 
 Route::get('/cities', [CityController::class, 'get'])->name('cities');
 Route::post('/actions', [CategoryForOfferController::class, 'get'])->name('actions');

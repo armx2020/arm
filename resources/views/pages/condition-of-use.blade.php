@@ -1,4 +1,12 @@
 @extends('layouts.app')
+
+@section('title')
+    <title>ВСЕ АРМЯНЕ - Условия использование  </title>
+@endsection
+
+@section('meta')
+@endsection
+
 @section('content')
 <nav class="mb-2 mt-5 rounded-md mx-auto px-3 lg:px-2 text-sm md:text-md">
     <ol class="list-reset flex">

@@ -1,4 +1,16 @@
 @extends('layouts.app')
+
+@section('title')
+    <title>ВСЕ АРМЯНЕ
+        @if (isset($regionName) && $regionName !== 'Россия')
+            {{ ' - ' . $regionName }}
+        @endif
+    </title>
+@endsection
+
+@section('meta')
+@endsection
+
 @section('content')
     <section>
         <div class="mx-auto pt-4 lg:pt-10">
