@@ -17,19 +17,21 @@
             <div class="bg-white rounded-xl row-span-1 lg:row-span-1">
                 <div class="flex sm:flex-row">
                     <div class="flex flex-col text-left basis-full lg:basis-1/2 p-3 xl:p-8">
-                        <div class="my-1 lg:my-2 text-sm md:text-lg lg:text-2xl font-extrabold uppercase">Армянский
-                            справочник
+                        <div class="my-1 lg:my-2 text-sm md:text-lg lg:text-2xl font-extrabold uppercase">
+                            <h1>Армянский
+                                справочник</h1>
                         </div>
                         <div class="flex flex-row">
                             <div class="flex flex-col">
                                 <div class="my-1 text-xs md:text-md xl:text-lg font-normal">
-                                    Информационный справочник для армян мира</div>
+                                    <h2>Информационный справочник для армян мира</h2>
+                                </div>
 
                                 <div class="text-gray-600 hidden md:block text-sm lg:text-md xl:text-lg font-light">
-                                    - Новости, сообщества, товары, проекты в одном месте
+                                    <h2>- Новости, сообщества, товары, проекты в одном месте</h2>
                                 </div>
                                 <div class="text-gray-600 hidden md:block text-sm lg:text-md xl:text-lg font-light">
-                                    - Помощь по поиску работы и размещение ваших вакансий
+                                    <h2>- Помощь по поиску работы и размещение ваших вакансий</h2>
                                 </div>
 
                                 <button
@@ -68,7 +70,7 @@
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Интересные места</p>
                                 <div class="absolute bottom-0 w-full">
                                     <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[100%] md:w-[95%] sm:w-[62%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
-                                         src="{{ url('/image/church.png') }}" alt="banner">
+                                        src="{{ url('/image/church.png') }}" alt="banner">
                                 </div>
                             </div>
                         </a>

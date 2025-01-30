@@ -24,11 +24,11 @@
 
     <!-- Scripts -->
     <script src="{{ url('/jquery-3.7.0.min.js') }}"></script>
-    <script src="{{ url('/select2.min.js') }}"></script>
+    {{-- <script src="{{ url('/select2.min.js') }}"></script> --}}
     {{-- <script src="{{ url('/jquery.maskedinput.min.js') }}"></script> --}}
 
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/select.css', 'resources/js/jquery.bxslider.js'])
-    {{-- @vite(['resources/css/select.css', 'resources/js/jquery.bxslider.js']) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/select.css']) --}}
     @yield('scripts')
 
     @include('layouts.yandex')
@@ -46,7 +46,6 @@
     {{-- @vite(['resources/js/mask_phone.js']) --}}
 
     @yield('body')
-
 
 </body>
 </html>

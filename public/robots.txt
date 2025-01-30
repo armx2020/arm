@@ -1,2 +1,9 @@
 User-agent: *
-Disallow:
+Allow: /*
+Allow: /companies/*
+Allow: /groups/*
+Allow: /places/*
+Allow: /communities/*
+Disallow: /admin/*
+Disallow: /login
+Disallow: /register

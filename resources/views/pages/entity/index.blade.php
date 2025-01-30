@@ -12,6 +12,8 @@
 @endsection
 
 @section('meta')
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Сообщество армян в России: {{ strtolower($secondPositionName) }} и другая полезная информация для диаспоры">
 @endsection
 
 @section('scripts')

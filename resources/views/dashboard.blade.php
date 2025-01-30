@@ -5,6 +5,8 @@
 @endsection
 
 @section('meta')
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Сообщество армян в России: актуальные новости, культурные события и полезная информация для вас!">
 @endsection
 
 

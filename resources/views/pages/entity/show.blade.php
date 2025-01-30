@@ -12,10 +12,12 @@
 @endsection
 
 @section('meta')
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="{{ $entity->description ?: $entity->name }}">
 @endsection
 
 @section('content')
-    <x-pages.breadcrumbs :$secondPositionUrl secondPositionName='{{ $entity->type->name}}' fourthPositionUrl=""
+    <x-pages.breadcrumbs :$secondPositionUrl secondPositionName='{{ $entity->type->name }}' fourthPositionUrl=""
         fourthPositionName="{{ $entity->name }}" />
 
     <x-pages.entity-card :$entity />
