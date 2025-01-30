@@ -12,7 +12,7 @@
 
                                 <div class="flex items-start p-5 border-b rounded-t">
                                     <div class="flex items-center mb-4">
-                                        <h3 class="text-2xl font-bold leading-none text-gray-900">Новая тип для сущностей
+                                        <h3 class="text-2xl font-bold leading-none text-gray-900">Новый тип для сущностей
                                         </h3>
                                     </div>
                                 </div>

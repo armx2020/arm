@@ -7,3 +7,4 @@ Allow: /communities/*
 Disallow: /admin/*
 Disallow: /login
 Disallow: /register
+Disallow: /profile

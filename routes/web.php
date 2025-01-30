@@ -6,7 +6,6 @@ use App\Http\Controllers\Pages\EntityController;
 use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Pages\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Stevebauman\Location\Facades\Location;
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
@@ -20,6 +19,9 @@ Route::get('/communities', [EntityController::class, 'communities'])->name('comm
 
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/condition-of-use', [HomeController::class, 'conditionOfUse'])->name('condition-of-use');
+
+Route::get('/cities', [CityController::class, 'get'])->name('cities');
+Route::post('/actions', [CategoryForOfferController::class, 'get'])->name('actions');
 
 Route::get('/company/{idOrTranscript}', [EntityController::class, 'company'])->name('company.show');
 Route::get('/group/{idOrTranscript}', [EntityController::class, 'group'])->name('group.show');
@@ -37,12 +39,3 @@ Route::name('region.')->prefix('/{regionTranslit}')->group(function () {
 });
 
 Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show');
-
-
-Route::get('/cities', [CityController::class, 'get'])->name('cities');
-Route::post('/actions', [CategoryForOfferController::class, 'get'])->name('actions');
-
-require __DIR__ . '/auth.php';
-require __DIR__ . '/admin.php';
-require __DIR__ . '/profile.php';
-require __DIR__ . '/inform-us.php';

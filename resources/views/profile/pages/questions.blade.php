@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('title')
+    <title>ВСЕ АРМЯНЕ - Частые вопросы</title>
+@endsection
+
 @section('content')
 
 <div class="flex flex-col lg:flex-row mx-auto my-10">

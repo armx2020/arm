@@ -1,4 +1,21 @@
 @extends('layouts.app')
+
+@section('title')
+    <title>ВСЕ АРМЯНЕ - Мои компании</title>
+@endsection
+
+@section('meta')
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Все армяне - изменить компанию">
+@endsection
+
+@section('scripts')
+    <script src="{{ url('/select2.min.js') }}"></script>
+    <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
+    @vite(['resources/css/select.css'])
+    @livewireStyles
+@endsection
+
 @section('content')
     <div class="flex flex-col lg:flex-row mx-auto my-10">
 
@@ -494,4 +511,9 @@
                 });
         });
     </script>
+@endsection
+
+@section('body')
+    @vite(['resources/js/mask_phone.js'])
+    @livewireScripts
 @endsection
