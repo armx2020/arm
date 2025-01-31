@@ -143,7 +143,7 @@
                 <x-pages.social :entity=$entity />
             </div>
 
-            <div class="my-3 pl-0 ms:pl-4">
+            <div class="flex space-x-2 my-3 pl-0 ms:pl-4 max-w-[400px]">
                 @php
                     $message = null;
                     if(isset($entity->whatsapp)){
@@ -155,12 +155,12 @@
                     }
                 @endphp
                 @if(isset($message))
-                    <a href="{{ $message }}" class="cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-32 text-white">
+                    <a href="{{ $message }}" class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white">
                         Написать
                     </a>
                 @endif
                 @if(isset($entity->phone))
-                    <a href="tel:{{ $entity->phone }}" class="cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 w-full ms:w-36 text-white">
+                    <a href="tel:{{ $entity->phone }}" class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white">
                         Позвонить
                     </a>
                 @endif
