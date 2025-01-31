@@ -22,6 +22,7 @@ class SearchEntity extends BaseComponent
     {
         $this->type = $request->get('type');
         $this->region = $request->get('region');
+        $this->category = $request->get('category');
     }
 
     public function changeActivity($id)
@@ -39,6 +40,9 @@ class SearchEntity extends BaseComponent
         }
         if(isset($this->region)){
             $this->selectedFilters['region_id']['='] = $this->region;
+        }
+        if(isset($this->category)){
+            $this->selectedFilters['category_id']['='] = $this->category;
         }
         $title = 'Все сушности';
         $emptyEntity = 'сущностей нет';

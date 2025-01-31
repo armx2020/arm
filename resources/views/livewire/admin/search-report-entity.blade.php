@@ -33,7 +33,7 @@
                                 <table class="table-fixed min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-200">
                                     <tr>
-                                        <th scope="col" class="pl-4 text-left text-gray-500">
+                                        <th scope="col" class="pl-4 text-left font-medium text-gray-500">
                                             <button wire:click.prevent='sortBy("region")' role="button">
                                                 Регион
                                             </button>
@@ -41,6 +41,16 @@
                                                 @if ($sortAsc) &#8593; @else &#8595; @endif
                                             @endif
                                         </th>
+
+                                        <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500">
+                                            <button wire:click.prevent='sortBy("population")' role="button">
+                                                Численность
+                                            </button>
+                                            @if ($sortField == "population")
+                                                @if ($sortAsc) &#8593; @else &#8595; @endif
+                                            @endif
+                                        </th>
+
                                         @foreach ($entityTypes as $type)
                                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 max-w-[20rem] truncate">
                                                 <button wire:click.prevent='sortBy("{{ $type->name }}")' role="button">
@@ -50,7 +60,8 @@
                                                     @if ($sortAsc) &#8593; @else &#8595; @endif
                                                 @endif
                                             </th>
-                                    @endforeach
+                                        @endforeach
+
                                         <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500">
                                             <button wire:click.prevent='sortBy("total")' role="button">
                                                 Итоги
@@ -78,15 +89,19 @@
                                                 @endif
                                             </td>
 
+                                            <td class="p-4 text-base text-left whitespace-nowrap">
+                                                {{ number_format($row['population'] ?? 0, 0, '.', ' ') }}
+                                            </td>
+
                                             @foreach ($entityTypes as $type)
-                                                <td class="p-4 text-base text-left break-all max-w-[20rem] truncate">
+                                                <td class="p-4 text-base text-left break-all whitespace-nowrap">
                                                     <a href="{{ route('admin.entity.index', ['type' => $row[$type->name]['id'], 'region' => $row['region']['id']]) }}">
                                                         {{ $row[$type->name]['count'] }}
                                                     </a>
                                                 </td>
-                                        @endforeach
+                                            @endforeach
 
-                                            <td class="p-4 font-bold text-base">
+                                            <td class="p-4 font-bold text-base whitespace-nowrap">
                                                 <a href="{{ route('admin.entity.index', ['region' => $row['region']['id']]) }}">
                                                     {{ $row['total'] ?? 0 }}
                                                 </a>

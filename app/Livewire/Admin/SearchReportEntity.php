@@ -62,7 +62,7 @@ class SearchReportEntity extends BaseComponent
                 if ($filterValue) {
                     $operator = array_key_first($filterValue);
                     $callable = $filterValue[$operator];
-                    if($callable != ''){
+                    if ($callable != '') {
                         $entityCounts = $entityCounts->where($filterName, $operator, $callable);
                     }
                 }
@@ -84,7 +84,8 @@ class SearchReportEntity extends BaseComponent
 
         foreach ($regions as $region) {
             $row = [
-                'region' => ['id' => $region->id, 'name' => $region->name . " (" . number_format($region->population, 0, '.', ' ') . ")"],
+                'region' => ['id' => $region->id, 'name' => $region->name],
+                'population' => $region->population, // Добавляем численность
                 'total' => 0
             ];
             $regionCounts = $entityCounts->get($region->id, collect());
@@ -110,7 +111,11 @@ class SearchReportEntity extends BaseComponent
             $table[] = $row;
         }
 
-        $totalsRow = ['region' => ['id' => null, 'name' => 'Итоги'], 'total' => array_sum($columnTotals)];
+        $totalsRow = [
+            'region' => ['id' => null, 'name' => 'Итоги'],
+            'population' => null,
+            'total' => array_sum($columnTotals)
+        ];
         foreach ($entityTypes as $type) {
             $totalsRow[$type->name] = [
                 'id' => $type->id,
@@ -126,15 +131,15 @@ class SearchReportEntity extends BaseComponent
             $tableWithoutTotals = collect($tableWithoutTotals)->sortBy(function ($row) {
                 return $this->sortAsc ? strtolower($row['region']['name']) : -strcasecmp($row['region']['name'], '');
             })->values()->toArray();
-        }
-
-        elseif ($this->sortField === 'total') {
+        } elseif ($this->sortField === 'population') {
+            $tableWithoutTotals = collect($tableWithoutTotals)->sortBy(function ($row) {
+                return $this->sortAsc ? $row['population'] : -$row['population'];
+            })->values()->toArray();
+        } elseif ($this->sortField === 'total') {
             $tableWithoutTotals = collect($tableWithoutTotals)->sortBy(function ($row) {
                 return $this->sortAsc ? $row['total'] : -$row['total'];
             })->values()->toArray();
-        }
-
-        elseif ($this->sortRegionId === null) {
+        } elseif ($this->sortRegionId === null) {
             $tableWithoutTotals = collect($tableWithoutTotals)->sortBy(function ($row) {
                 return $this->sortAsc ? ($row[$this->sortField]['count'] ?? 0) : -($row[$this->sortField]['count'] ?? 0);
             })->values()->toArray();
