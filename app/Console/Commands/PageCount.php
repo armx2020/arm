@@ -93,7 +93,7 @@ class PageCount extends Command
 
                     Page::updateOrCreate(
                         [
-                            'url' => route('home', ['regionTranslit' => $region->transcription])
+                            'url' => 'https://vsearmyane.ru' .'/'. $region->transcription
                         ],
                         [
                             'site_type_id' => 2,
@@ -114,7 +114,7 @@ class PageCount extends Command
 
                         Page::updateOrCreate(
                             [
-                                'url' => route('home', ['regionTranslit' => $region->transcription]) . '/' . $type->transcription
+                                'url' => 'https://vsearmyane.ru' .'/'. $region->transcription . '/' . $type->transcription
                             ],
                             [
                                 'site_type_id' => 4,
@@ -142,7 +142,7 @@ class PageCount extends Command
 
                                 Page::updateOrCreate(
                                     [
-                                        'url' => route('home', ['regionTranslit' => $region->transcription]) . '/' . $type->transcription . '/' . $category->transcription
+                                        'url' => 'https://vsearmyane.ru' .'/'. $region->transcription . '/' . $type->transcription . '/' . $category->transcription
                                     ],
                                     [
                                         'site_type_id' => 5,
@@ -169,7 +169,7 @@ class PageCount extends Command
 
                     Page::updateOrCreate(
                         [
-                            'url' => route('home', ['regionTranslit' => $city->transcription])
+                            'url' => 'https://vsearmyane.ru' .'/'. $city->transcription
                         ],
                         [
                             'site_type_id' => 3,
@@ -189,7 +189,7 @@ class PageCount extends Command
 
                         Page::updateOrCreate(
                             [
-                                'url' => route('home', ['regionTranslit' => $city->transcription]) . '/' . $type->transcription
+                                'url' => 'https://vsearmyane.ru' .'/'. $city->transcription . '/' . $type->transcription
                             ],
                             [
                                 'site_type_id' => 4,
@@ -216,7 +216,7 @@ class PageCount extends Command
 
                                 Page::updateOrCreate(
                                     [
-                                        'url' => route('home', ['regionTranslit' => $city->transcription]) . '/' . $type->transcription . '/' . $category->transcription
+                                        'url' => 'https://vsearmyane.ru' .'/'. $city->transcription . '/' . $type->transcription . '/' . $category->transcription
                                     ],
                                     [
                                         'site_type_id' => 5,
