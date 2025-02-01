@@ -13,12 +13,18 @@ use Illuminate\Database\Eloquent\Collection;
 
 class PageCount extends Command
 {
-    protected $signature = 'app:page-count';
+    protected $signature = 'app:page-count {--truncate}';
 
     protected $description = 'подсчёт страниц';
 
     public function handle()
     {
+
+        if($this->option('truncate')) {
+            Page::truncate();
+        }
+
+
         $entity_types = EntityType::with('categories')->active()->get();
 
         $count = 1;
@@ -89,7 +95,7 @@ class PageCount extends Command
             foreach ($regions as $region) {
                 if ($region->id !== 1) {
 
-                    $count = 1;
+                    $count = null;
 
                     Page::updateOrCreate(
                         [
@@ -165,7 +171,7 @@ class PageCount extends Command
 
                 if ($city->id !== 1) {
 
-                    $count = 1;
+                    $count = null;
 
                     Page::updateOrCreate(
                         [
