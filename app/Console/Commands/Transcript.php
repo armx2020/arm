@@ -14,7 +14,7 @@ class Transcript extends Command
 {
     protected $signature = 'app:transcript';
 
-    protected $description = 'translit table';
+    protected $description = 'транскрипция таблиц';
 
     public function handle(TranscriptService $service)
     {
