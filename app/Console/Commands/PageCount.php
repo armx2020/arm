@@ -26,7 +26,7 @@ class PageCount extends Command
         // Главные страницы регионов
         Page::updateOrCreate(
             [
-                'url' => route('home')
+                'url' => 'https://vsearmyane.ru'
             ],
             [
                 'site_type_id' => 1,
@@ -43,7 +43,7 @@ class PageCount extends Command
 
             Page::updateOrCreate(
                 [
-                    'url' => route('home') . '/' . $type->transcription
+                    'url' => 'https://vsearmyane.ru' . '/' . $type->transcription
                 ],
                 [
                     'site_type_id' => 4,
@@ -69,7 +69,7 @@ class PageCount extends Command
 
                     Page::updateOrCreate(
                         [
-                            'url' => route('home') . '/' . $type->transcription . '/' . $category->transcription
+                            'url' => 'https://vsearmyane.ru' . '/' . $type->transcription . '/' . $category->transcription
                         ],
                         [
                             'site_type_id' => 5,
@@ -257,7 +257,7 @@ class PageCount extends Command
 
                     Page::updateOrCreate(
                         [
-                            'url' => route('home') . '/' . $type . '/' . $entity->id
+                            'url' => 'https://vsearmyane.ru' . '/' . $type . '/' . $entity->id
                         ],
                         [
                             'site_type_id' => 6,
@@ -270,7 +270,7 @@ class PageCount extends Command
 
                     Page::updateOrCreate(
                         [
-                            'url' => route('home') . '/' . $type . '/' . $entity->transcription
+                            'url' => 'https://vsearmyane.ru' . '/' . $type . '/' . $entity->transcription
                         ],
                         [
                             'site_type_id' => 6,

@@ -19,7 +19,7 @@ class Transcript extends Command
     public function handle(TranscriptService $service)
     {
         $service->translitName(Category::query());
-        $service->translitName(EntityType::query());
+        // $service->translitName(EntityType::query());
         $service->translitName(Entity::query());
         $service->translitName(City::query());
         $service->translitName(Region::query());
