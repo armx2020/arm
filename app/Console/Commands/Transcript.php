@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Entity;
-use App\Models\EntityType;
 use App\Models\Region;
 use App\Services\TranscriptService;
 use Illuminate\Console\Command;
