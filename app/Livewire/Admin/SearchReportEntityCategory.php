@@ -59,9 +59,13 @@ class SearchReportEntityCategory extends BaseComponent
         $regions = Region::all();
         $categories = Category::all();
         $entityQuery = Entity::query();
+        $activity = isset($this->selectedFilters['activity']['=']) && $this->selectedFilters['activity']['='] != '';
 
         if (!empty($this->selectedFilters['entity_type_id']['='])) {
             $entityQuery->where('entity_type_id', $this->selectedFilters['entity_type_id']['=']);
+        }
+        if ($activity) {
+            $entityQuery->where('activity', (bool)$this->selectedFilters['activity']['=']);
         }
 
         $entityCounts = $entityQuery
@@ -74,6 +78,9 @@ class SearchReportEntityCategory extends BaseComponent
 
         if (!empty($this->selectedFilters['entity_type_id']['='])) {
             $categoryQuery->where('entity_type_id', $this->selectedFilters['entity_type_id']['=']);
+        }
+        if ($activity) {
+            $categoryQuery->where('activity', (bool)$this->selectedFilters['activity']['=']);
         }
 
         $categoryCounts = $categoryQuery

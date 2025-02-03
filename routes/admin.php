@@ -40,6 +40,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
         Route::get('entity/report', [EntityController::class, 'report'])->name('entity.report');
         Route::get('entity/report-two', [EntityController::class, 'reportTwo'])->name('entity.report-two');
+        Route::get('entity/report-double', [EntityController::class, 'reportDouble'])->name('entity.report-double');
 
         Route::get('category-entity', [CategoryEntityController::class, 'index'])->name('category-entity.index');
 

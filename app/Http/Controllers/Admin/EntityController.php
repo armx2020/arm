@@ -60,4 +60,8 @@ class EntityController extends BaseAdminController
     public function reportTwo(){
         return view('admin.entity.report.index-two', ['menu' => $this->menu]);
     }
+
+    public function reportDouble(){
+        return view('admin.entity.report.index-double', ['menu' => $this->menu]);
+    }
 }
