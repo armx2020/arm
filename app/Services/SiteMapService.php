@@ -9,7 +9,7 @@ use App\Models\Region;
 use App\Models\SiteMap;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Sitemap as SM;
 use Carbon\Carbon;
 use Spatie\Sitemap\Tags\Url;
 
@@ -371,11 +371,9 @@ class SiteMapService
     public function addFile()
     {
         $path = public_path('sitemap.xml');
-        $sitemapGenerat = SitemapGenerator::create(env('APP_URL'))
-            ->getSitemap();
+        $sitemapGenerat = SM::create();
 
         SiteMap::chunk(50, function (Collection $sitemaps) use ($path, $sitemapGenerat) {
-
             foreach ($sitemaps as $sitemap) {
                 $sitemapGenerat->add(Url::create($sitemap->url)
                     ->setLastModificationDate(Carbon::yesterday())

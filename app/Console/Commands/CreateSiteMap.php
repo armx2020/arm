@@ -18,7 +18,7 @@ class CreateSiteMap extends Command
             SiteMap::truncate();
         }
 
-        $siteMapService->create();
+      //  $siteMapService->create();
         $siteMapService->addFile();
     }
 }
