@@ -5,16 +5,13 @@ namespace App\Entity\Repository;
 use App\Contracts\EntityColumnsInterface;
 use App\Contracts\EntityFiltersInterface;
 
-class CategoryReportEntityRepository implements EntityColumnsInterface, EntityFiltersInterface
+class DoubleReportEntityRepository implements EntityColumnsInterface, EntityFiltersInterface
 {
     protected $allColumns = [];
 
     protected $selectedColumns = [];
 
-    protected $filters = [
-        'entity_type_id' => 'select',
-        'activity' => 'bool',
-    ];
+    protected $filters = [];
 
     protected $selectedFilters = [];
 

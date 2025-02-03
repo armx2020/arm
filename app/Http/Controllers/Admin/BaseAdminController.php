@@ -49,6 +49,11 @@ abstract class BaseAdminController extends Controller
                         'route' => 'admin.entity.report-two',
                         'routeIs' => 'admin.entity.report-two.*',
                     ],
+                    [
+                        'name' => 'Сводка дубли',
+                        'route' => 'admin.entity.report-double',
+                        'routeIs' => 'admin.entity.report-double.*',
+                    ],
                 ]
             ],
 
