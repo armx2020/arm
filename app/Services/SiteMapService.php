@@ -321,45 +321,48 @@ class SiteMapService
             foreach ($entities as $entity) {
                 if ($entity->activity) {
 
-                    $type = $this->entity_types[$entity->type->id];
+                    if ($entity->type->id > 0 && $entity->type->id < 5) {
 
-                    SiteMap::updateOrCreate(
-                        [
-                            'url' => 'https://vsearmyane.ru' . '/' . $type . '/' . $entity->id
-                        ],
-                        [
-                            'site_map_type_id' => 10,
-                            'name' => $entity->name,
-                            'title' => $entity->type->name  . ' - ' . $entity->name,
-                            'description' => $entity->description,
-                            'quantity_entity' => null,
-                            'region_id' => $entity->region_id,
-                            'city_id' => $entity->city_id,
-                            'entity_type_id' => $entity->entity_type_id,
-                            'category_id' => $entity->category_id,
-                            'entity_id' => $entity->id,
-                            'index' => true
-                        ]
-                    );
+                        $type = $this->entity_types[$entity->type->id];
 
-                    SiteMap::updateOrCreate(
-                        [
-                            'url' => 'https://vsearmyane.ru' . '/' . $type . '/' . $entity->transcription
-                        ],
-                        [
-                            'site_map_type_id' => 10,
-                            'name' => $entity->name,
-                            'title' => $entity->type->name  . ' - ' . $entity->name,
-                            'description' => $entity->description,
-                            'quantity_entity' => null,
-                            'region_id' => $entity->region_id,
-                            'city_id' => $entity->city_id,
-                            'entity_type_id' => $entity->entity_type_id,
-                            'category_id' => $entity->category_id,
-                            'entity_id' => $entity->id,
-                            'index' => true
-                        ]
-                    );
+                        SiteMap::updateOrCreate(
+                            [
+                                'url' => 'https://vsearmyane.ru' . '/' . $type . '/' . $entity->id
+                            ],
+                            [
+                                'site_map_type_id' => 10,
+                                'name' => $entity->name,
+                                'title' => $entity->type->name  . ' - ' . $entity->name,
+                                'description' => $entity->description,
+                                'quantity_entity' => null,
+                                'region_id' => $entity->region_id,
+                                'city_id' => $entity->city_id,
+                                'entity_type_id' => $entity->entity_type_id,
+                                'category_id' => $entity->category_id,
+                                'entity_id' => $entity->id,
+                                'index' => true
+                            ]
+                        );
+
+                        SiteMap::updateOrCreate(
+                            [
+                                'url' => 'https://vsearmyane.ru' . '/' . $type . '/' . $entity->transcription
+                            ],
+                            [
+                                'site_map_type_id' => 10,
+                                'name' => $entity->name,
+                                'title' => $entity->type->name  . ' - ' . $entity->name,
+                                'description' => $entity->description,
+                                'quantity_entity' => null,
+                                'region_id' => $entity->region_id,
+                                'city_id' => $entity->city_id,
+                                'entity_type_id' => $entity->entity_type_id,
+                                'category_id' => $entity->category_id,
+                                'entity_id' => $entity->id,
+                                'index' => true
+                            ]
+                        );
+                    }
                 }
             }
         });
@@ -375,9 +378,9 @@ class SiteMapService
 
             foreach ($sitemaps as $sitemap) {
                 $sitemapGenerat->add(Url::create($sitemap->url)
-                        ->setLastModificationDate(Carbon::yesterday())
-                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                        ->setPriority(0.1))
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                    ->setPriority(0.1))
                     ->writeToFile($path);
             }
         });
