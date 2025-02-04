@@ -26,7 +26,7 @@ class SearchReportEntityCategory extends BaseComponent
     {
         if ($regionId !== null) {
             if ($this->sortField === $field && $this->sortRegionId === $regionId) {
-                $this->sortAsc = !$this->sortAsc;
+                $this->sortAsc = ! $this->sortAsc;
             } else {
                 $this->sortField = $field;
                 $this->sortAsc = true;
@@ -35,7 +35,7 @@ class SearchReportEntityCategory extends BaseComponent
         }
         elseif (in_array($field, ['total', 'region', 'population', 'total_entities'])) {
             if ($this->sortField === $field) {
-                $this->sortAsc = !$this->sortAsc;
+                $this->sortAsc = ! $this->sortAsc;
             } else {
                 $this->sortField = $field;
                 $this->sortAsc = true;
@@ -44,7 +44,7 @@ class SearchReportEntityCategory extends BaseComponent
         }
         else {
             if ($this->sortField === $field && $this->sortRegionId === null) {
-                $this->sortAsc = !$this->sortAsc;
+                $this->sortAsc = ! $this->sortAsc;
             } else {
                 $this->sortField = $field;
                 $this->sortAsc = true;
@@ -57,7 +57,13 @@ class SearchReportEntityCategory extends BaseComponent
     {
         $title = 'Сводка по категориям';
         $regions = Region::all();
-        $categories = Category::all();
+
+        $categoriesQuery = Category::query();
+        if (!empty($this->selectedFilters['entity_type_id']['='])) {
+            $categoriesQuery->where('entity_type_id', $this->selectedFilters['entity_type_id']['=']);
+        }
+        $categories = $categoriesQuery->get();
+
         $entityQuery = Entity::query();
         $activity = isset($this->selectedFilters['activity']['=']) && $this->selectedFilters['activity']['='] != '';
 
@@ -75,7 +81,6 @@ class SearchReportEntityCategory extends BaseComponent
             ->keyBy('region_id');
 
         $categoryQuery = Entity::query();
-
         if (!empty($this->selectedFilters['entity_type_id']['='])) {
             $categoryQuery->where('entity_type_id', $this->selectedFilters['entity_type_id']['=']);
         }
