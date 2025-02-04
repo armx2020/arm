@@ -22,10 +22,10 @@ class GroupController extends BaseInformUsController
 
         return view('inform-us.create-group', [
             'region'   => $request->session()->get('region'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId'),
             'cities' => $this->cities,
-            'secondPositionUrl' => '',
+            'secondPositionUrl' => 'inform-us.group',
             'secondPositionName' => $this->secondPositionName,
             'categories' => $categories,
 

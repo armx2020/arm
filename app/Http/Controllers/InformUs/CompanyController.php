@@ -22,26 +22,10 @@ class CompanyController extends BaseInformUsController
 
         return view('inform-us.create-company', [
             'region'   => $request->session()->get('region'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId'),
             'cities' => $this->cities,
-            'secondPositionUrl' => '',
-            'secondPositionName' => $this->secondPositionName,
-            'categories' => $categories,
-
-        ]);
-    }
-
-    public function fields(Request $request)
-    {
-        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
-
-        return view('inform-us.create-company', [
-            'region'   => $request->session()->get('region'),
-            'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId'),
-            'cities' => $this->cities,
-            'secondPositionUrl' => '',
+            'secondPositionUrl' => 'inform-us.company',
             'secondPositionName' => $this->secondPositionName,
             'categories' => $categories,
 

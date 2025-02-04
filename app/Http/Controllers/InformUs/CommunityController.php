@@ -22,10 +22,10 @@ class CommunityController extends BaseInformUsController
 
         return view('inform-us.create-community', [
             'region'   => $request->session()->get('region'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'regionCode' => $request->session()->get('regionId'),
             'cities' => $this->cities,
-            'secondPositionUrl' => '',
+            'secondPositionUrl' => 'inform-us.community',
             'secondPositionName' => $this->secondPositionName,
             'categories' => $categories,
 
