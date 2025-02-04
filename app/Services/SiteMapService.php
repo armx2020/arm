@@ -10,8 +10,7 @@ use App\Models\SiteMap;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\Sitemap\Sitemap as SM;
-use Carbon\Carbon;
-use Spatie\Sitemap\Tags\Url;
+use Spatie\Sitemap\SitemapIndex;
 
 class SiteMapService
 {
@@ -371,16 +370,23 @@ class SiteMapService
     public function addFile()
     {
         $path = public_path('sitemap.xml');
-        $sitemapGenerat = SM::create();
+        $iteration = 1;
+        $sitemapIndex = SitemapIndex::create();
 
-        SiteMap::chunk(50, function (Collection $sitemaps) use ($path, $sitemapGenerat) {
+        SiteMap::chunk(10000, function (Collection $sitemaps, $iteration) use ($path, $sitemapIndex) {
+
+            $sitemapIndex->add("sitemap-$iteration.xml")
+                ->writeToFile($path);
+
+            $sitemapGenerat = SM::create();
+          
             foreach ($sitemaps as $sitemap) {
-                $sitemapGenerat->add(Url::create($sitemap->url)
-                    ->setLastModificationDate(Carbon::yesterday())
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                    ->setPriority(0.1))
-                    ->writeToFile($path);
+                $sitemapGenerat->add($sitemap->url);       
             }
+
+            $sitemapGenerat->writeToFile(public_path("sitemap-$iteration.xml"));
+
+            $iteration++;
         });
     }
 }
