@@ -20,7 +20,7 @@
 
 @section('meta')
     <meta name="robots" content="index, follow" />
-    <meta name="description" content={{ $description }}>
+    <meta name="description" content="{{ $description }}">
 @endsection
 
 @section('content')
