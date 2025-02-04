@@ -65,6 +65,9 @@
                     <div class="overflow-x-auto">
                         <div class="align-middle inline-block min-w-full">
                             <div class="shadow overflow-hidden">
+                                @php
+                                    $colorMap = $colorMap ?? [];
+                                @endphp
                                 <table class="table-fixed min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-200">
                                         <tr>
@@ -90,8 +93,21 @@
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         @foreach ($entities as $entity)
+                                            @php
+                                                $duplicateClass = $colorMap[$entity->id] ?? null;
+
+                                                if ($duplicateClass) {
+                                                    $rowClass = $duplicateClass . ' ' . ($entity->activity ? 'text-gray-900' : 'text-gray-600');
+                                                } else {
+                                                    if ($entity->activity) {
+                                                        $rowClass = 'bg-white text-gray-900';
+                                                    } else {
+                                                        $rowClass = 'bg-gray-300 text-gray-600';
+                                                    }
+                                                }
+                                            @endphp
                                             <tr
-                                                class="@if ($entity->activity) bg-white text-gray-900 @else bg-gray-300 text-gray-600 @endif hover:bg-gray-200">
+                                                class="hover:bg-gray-200 {{ $rowClass }}">
                                                 @foreach ($selectedColumns as $column)
                                                     <td
                                                         class="p-4 text-base text-left break-all max-w-[20rem] truncate">

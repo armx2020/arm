@@ -16,6 +16,7 @@ class EntityTable extends Component
         public string $title,
         public string $emptyEntity,
         public string $entityName,
+        public array $colorMap = [],
     ) {
         //
     }

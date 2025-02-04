@@ -86,17 +86,17 @@
                                             {{ $row['field'] }}
                                         </td>
                                         <td class="p-4 text-gray-800 whitespace-nowrap">
-                                            <a href="{{ route('admin.entity.index', ['double' => $row['double']]) }}">
+                                            <a href="{{ route('admin.entity.index', ['duplicatesField' => $row['double']]) }}">
                                                 {{ $row['db'] }}
                                             </a>
                                         </td>
                                         <td class="p-4 text-gray-800 whitespace-nowrap">
-                                            <a href="{{ route('admin.entity.index', ['double' => $row['double']]) }}">
+                                            <a href="{{ route('admin.entity.index', ['duplicatesField' => $row['double'], 'doubleRegion' => 1]) }}">
                                                 {{ $row['region'] }}
                                             </a>
                                         </td>
                                         <td class="p-4 text-gray-800 whitespace-nowrap">
-                                            <a href="{{ route('admin.entity.index', ['double' => $row['double']]) }}">
+                                            <a href="{{ route('admin.entity.index', ['duplicatesField' => $row['double'], 'doubleCity' => 1]) }}">
                                                 {{ $row['city'] }}
                                             </a>
                                         </td>

@@ -5,12 +5,31 @@ namespace App\Livewire\Admin;
 use App\Entity\Repository\EntityRepository;
 use App\Livewire\Admin\BaseComponent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Entity;
 
 class SearchEntity extends BaseComponent
 {
     protected $entity;
 
+    public $type;
+    public $region;
+    public $category;
+    public $duplicatesField = null;
+    public $doubleRegion = false;
+    public $doubleCity   = false;
+
+    protected array $allowedFields = [
+        'name',
+        'phone',
+        'address',
+        'email',
+        'web',
+        'vkontakte',
+        'whatsapp',
+        'telegram',
+        'instagram',
+    ];
 
     public function __construct()
     {
@@ -20,63 +39,161 @@ class SearchEntity extends BaseComponent
 
     public function mount(Request $request)
     {
-        $this->type = $request->get('type');
-        $this->region = $request->get('region');
-        $this->category = $request->get('category');
+        $this->type           = $request->get('type');
+        $this->region         = $request->get('region');
+        $this->category       = $request->get('category');
+        $this->duplicatesField= $request->get('duplicatesField');
+        $this->doubleRegion   = (bool) $request->get('doubleRegion', false);
+        $this->doubleCity     = (bool) $request->get('doubleCity', false);
+        if (!in_array($this->duplicatesField, $this->allowedFields, true)) {
+            $this->duplicatesField = null;
+        }
     }
 
     public function changeActivity($id)
     {
         $entity = Entity::find($id);
-        $isActive = $entity->activity ? false : true;
-
-        $entity->update(['activity' => $isActive]);
+        $entity->update(['activity' => ! $entity->activity]);
     }
 
     public function render(Request $request)
     {
-        if(isset($this->type)){
+        if (isset($this->type)) {
             $this->selectedFilters['entity_type_id']['='] = $this->type;
         }
-        if(isset($this->region)){
+        if (isset($this->region)) {
             $this->selectedFilters['region_id']['='] = $this->region;
         }
-        if(isset($this->category)){
+        if (isset($this->category)) {
             $this->selectedFilters['category_id']['='] = $this->category;
         }
-        $title = 'Все сушности';
-        $emptyEntity = 'сущностей нет';
-        $entityName = 'entity';
 
-        sleep(0.5);
-        $entities = Entity::query()->with('city', 'type');
+        $title       = 'Все сущности';
+        $emptyEntity = 'сущностей нет';
+        $entityName  = 'entity';
+
+        $entities = Entity::query()->with('city','type');
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {
                 if ($filterValue) {
                     $operator = array_key_first($filterValue);
-                    $callable = $filterValue[array_key_first($filterValue)];
-
-                    $entities = $entities->where($filterName, $operator, $callable);
+                    $val = $filterValue[$operator];
+                    $entities->where($filterName, $operator, $val);
                 }
             }
         } else {
             $entities = $entities->search($this->term);
         }
 
-        $entities = $entities->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')->paginate($this->quantityOfDisplayed);
+        // --- Фильтр дублей ---
+        if ($this->duplicatesField) {
+            if ($this->doubleRegion) {
+                $entities->whereIn('id', function($sub) {
+                    $sub->select('e.id')
+                        ->distinct()
+                        ->from('entities as e')
+                        ->join(DB::raw('(
+                            SELECT region_id as rid, ' . $this->duplicatesField . ' as val
+                            FROM entities
+                            WHERE ' . $this->duplicatesField . ' <> ""
+                              AND ' . $this->duplicatesField . ' IS NOT NULL
+                            GROUP BY region_id, ' . $this->duplicatesField . '
+                            HAVING COUNT(*) > 1
+                        ) grp'), function($join) {
+                            $join->on('e.region_id', '=', 'grp.rid')
+                                ->on('e.' . $this->duplicatesField, '=', 'grp.val');
+                        });
+                });
+            }
+            elseif ($this->doubleCity) {
+                $entities->whereIn('id', function($sub) {
+                    $sub->select('e.id')
+                        ->distinct()
+                        ->from('entities as e')
+                        ->join(DB::raw('(
+                            SELECT city_id as cid, ' . $this->duplicatesField . ' as val
+                            FROM entities
+                            WHERE ' . $this->duplicatesField . ' <> ""
+                              AND ' . $this->duplicatesField . ' IS NOT NULL
+                            GROUP BY city_id, ' . $this->duplicatesField . '
+                            HAVING COUNT(*) > 1
+                        ) grp'), function($join) {
+                            $join->on('e.city_id', '=', 'grp.cid')
+                                ->on('e.' . $this->duplicatesField, '=', 'grp.val');
+                        });
+                });
+            }
+            else {
+                $entities->whereIn('id', function($sub) {
+                    $sub->select('e.id')
+                        ->distinct()
+                        ->from('entities as e')
+                        ->join(DB::raw('(
+                            SELECT ' . $this->duplicatesField . ' as val
+                            FROM entities
+                            WHERE ' . $this->duplicatesField . ' <> ""
+                              AND ' . $this->duplicatesField . ' IS NOT NULL
+                            GROUP BY ' . $this->duplicatesField . '
+                            HAVING COUNT(*) > 1
+                        ) grp'), function($join) {
+                            $join->on('e.' . $this->duplicatesField, '=', 'grp.val');
+                        });
+                });
+            }
+        }
+        else {
+            $entities->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+        }
 
-        return view(
-            'livewire.admin.search-entity',
-            [
-                'entities' => $entities,
-                'allColumns' => $this->allColumns,
-                'selectedColumns' => $this->selectedColumns,
-                'filters' => $this->filters,
-                'title' => $title,
-                'emptyEntity' => $emptyEntity,
-                'entityName' => $entityName,
-            ]
-        );
+        $entities = $entities->paginate($this->quantityOfDisplayed);
+
+        $colorMap = [];
+        if ($this->duplicatesField) {
+            $items = collect($entities->items());
+
+            $groups = $items->groupBy(function($e) {
+                $key = $e->{$this->duplicatesField} ?: '';
+                if ($this->doubleRegion) {
+                    $key .= '|region=' . $e->region_id;
+                }
+                if ($this->doubleCity) {
+                    $key .= '|city=' . $e->city_id;
+                }
+                return $key;
+            });
+
+            $groups = $groups->filter(function($grp) {
+                return $grp->count() > 1;
+            });
+
+            $sortedItems = collect();
+            foreach ($groups as $g) {
+                $sortedItems = $sortedItems->merge($g);
+            }
+
+            $entities->setCollection($sortedItems);
+
+            $colors = ['bg-gray-300', 'bg-gray-200'];
+            $index = 0;
+            foreach ($groups as $grp) {
+                $twClass = $colors[$index % count($colors)];
+                foreach ($grp as $entityItem) {
+                    $colorMap[$entityItem->id] = $twClass;
+                }
+                $index++;
+            }
+        }
+
+        return view('livewire.admin.search-entity', [
+            'entities'    => $entities,
+            'allColumns'  => $this->allColumns,
+            'selectedColumns' => $this->selectedColumns,
+            'filters'     => $this->filters,
+            'title'       => $title,
+            'emptyEntity' => $emptyEntity,
+            'entityName'  => $entityName,
+            'colorMap'    => $colorMap,
+        ]);
     }
 }

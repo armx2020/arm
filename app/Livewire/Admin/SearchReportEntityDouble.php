@@ -28,9 +28,6 @@ class SearchReportEntityDouble extends BaseComponent
         parent::__construct($this->entity);
     }
 
-    /**
-     * Сортируем по одной из 4 колонок: "field", "db", "region", "city"
-     */
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
