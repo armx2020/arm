@@ -1,19 +1,14 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>ВСЕ АРМЯНЕ
-        @if (isset($secondPositionName))
-            {{ ' - ' . $secondPositionName }}
-        @endif
-        @if (isset($regionName))
-            {{ ' - ' . $regionName }}
-        @endif
+    <title>{{ App\Models\SiteMap::select('url')->where('url', url()->current())->first()?->title }}
     </title>
 @endsection
 
 @section('meta')
     <meta name="robots" content="index, follow" />
-    <meta name="description" content="Сообщество армян в России: {{ strtolower($secondPositionName) }} и другая полезная информация для диаспоры">
+    <meta name="description"
+        content="{{ App\Models\SiteMap::select('url')->where('url', url()->current())->first()?->description }}">
 @endsection
 
 @section('scripts')

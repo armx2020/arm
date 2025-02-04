@@ -1,19 +1,14 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>ВСЕ АРМЯНЕ
-        @if (isset($entity->type->name))
-            {{ ' - ' . $entity->type->name }}
-        @endif
-        @if (isset($entity->name))
-            {{ ' - ' . $entity->name }}
-        @endif
+    <title>{{ App\Models\SiteMap::select('url')->where('url', url()->current())->first()?->title }}
     </title>
 @endsection
 
 @section('meta')
     <meta name="robots" content="index, follow" />
-    <meta name="description" content="{{ $entity->description ?: $entity->name }}">
+    <meta name="description"
+        content="{{ App\Models\SiteMap::select('url')->where('url', url()->current())->first()?->description }}">
 @endsection
 
 @section('content')
