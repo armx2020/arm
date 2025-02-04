@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\InformUs;
 
 use App\Entity\Actions\PlaceAction;
-use App\Http\Requests\Company\StoreCompanyRequest;
-use App\Http\Requests\Entity\StoreEntityRequest;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
