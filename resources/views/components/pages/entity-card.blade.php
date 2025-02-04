@@ -83,6 +83,18 @@
 
             @endif
 
+            <div class="flex justify-between my-3 pl-0 text-xs text-blue-600">
+
+                <a href="" class="whitespace-nowrap cursor-pointer flex text-center hover:text-blue-800">
+                    Добавить фото
+                </a>
+
+                <a href="" class="whitespace-nowrap cursor-pointer flex text-center hover:text-blue-800">
+                    Исправить информацию
+                </a>
+
+            </div>
+
         </div>
 
         <div class="flex flex-col px-0 lg:px-6 mt-3 sm:mt-0 justify-start break-all">
@@ -146,21 +158,23 @@
             <div class="flex space-x-2 my-3 pl-0 ms:pl-4 max-w-[400px]">
                 @php
                     $message = null;
-                    if(isset($entity->whatsapp)){
+                    if (isset($entity->whatsapp)) {
                         $message = $entity->whatsapp;
-                    }elseif(isset($entity->telegram)){
+                    } elseif (isset($entity->telegram)) {
                         $message = $entity->telegram;
-                    }elseif(isset($entity->phone)){
-                        $message = "sms:" . $entity->phone . "?body=Привет!";
+                    } elseif (isset($entity->phone)) {
+                        $message = 'sms:' . $entity->phone . '?body=Привет!';
                     }
                 @endphp
-                @if(isset($message))
-                    <a href="{{ $message }}" class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white">
+                @if (isset($message))
+                    <a href="{{ $message }}"
+                        class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white">
                         Написать
                     </a>
                 @endif
-                @if(isset($entity->phone))
-                    <a href="tel:{{ $entity->phone }}" class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white">
+                @if (isset($entity->phone))
+                    <a href="tel:{{ $entity->phone }}"
+                        class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white">
                         Позвонить
                     </a>
                 @endif
@@ -187,10 +201,8 @@
             </div>
 
         </div>
+
     </div>
-
-
-
 
 </div>
 

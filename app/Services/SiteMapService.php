@@ -128,7 +128,7 @@ class SiteMapService
 
                     // Категории сущностей в регионе
                     foreach ($type->categories as $category) {
-                        if ($category->activity) {
+                        if ($category->activity && $category->category_id == null) {
 
                             if ($region->id == 1) {
                                 $name =  "Сообщество армян в России - " . strtolower($type->name) . " - " . strtolower($category->name);
@@ -261,7 +261,7 @@ class SiteMapService
 
                     // Категории сущностей в городе
                     foreach ($type->categories as $category) {
-                        if ($category->activity) {
+                        if ($category->activity && $category->category_id == null) {
 
                             if ($city->id == 1) {
                                 $name =  "Сообщество армян в России - " . strtolower($type->name) . " - " . strtolower($category->name);
