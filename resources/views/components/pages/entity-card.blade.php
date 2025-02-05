@@ -89,7 +89,7 @@
                     Добавить фото
                 </a>
 
-                <a href="" class="whitespace-nowrap cursor-pointer flex text-center hover:text-blue-800">
+                <a href="{{ route('entity.edit', ['idOrTranscript' => $entity->id]) }}" class="whitespace-nowrap cursor-pointer flex text-center hover:text-blue-800">
                     Исправить информацию
                 </a>
 

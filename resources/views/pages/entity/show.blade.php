@@ -27,5 +27,11 @@
     <x-pages.breadcrumbs :$secondPositionUrl secondPositionName='{{ $entity->type->name }}' fourthPositionUrl=""
         fourthPositionName="{{ $entity->name }}" />
 
+    @if (session('success'))
+        <div class="mt-5 w-full rounded-lg bg-green-100 px-6 py-5 text-base text-green-700" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <x-pages.entity-card :$entity />
 @endsection
