@@ -118,6 +118,11 @@ class Entity extends Model
         return $query->where('activity', 1);
     }
 
+    public function appeals(): HasMany
+    {
+        return $this->hasMany(Appeal::class);
+    }
+
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
