@@ -1,5 +1,16 @@
 @extends('layouts.app')
-@section('title', '- СООБЩИТЕ НАМ О КОМПАНИИ')
+
+@section('title')
+    <title>ВСЕ АРМЯНЕ - Сообщите нам о компании</title>
+@endsection
+
+
+@section('scripts')
+    <script src="{{ url('/select2.min.js') }}"></script>
+    <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
+    @vite(['resources/css/select.css'])
+@endsection
+
 @section('content')
     <x-pages.breadcrumbs :$secondPositionUrl :$secondPositionName />
     <section>
@@ -366,4 +377,8 @@
             });
         });
     </script>
+@endsection
+
+@section('body')
+    @vite(['resources/js/mask_phone.js'])
 @endsection

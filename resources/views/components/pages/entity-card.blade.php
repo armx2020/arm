@@ -89,7 +89,8 @@
                     Добавить фото
                 </a>
 
-                <a href="{{ route('entity.edit', ['idOrTranscript' => $entity->id]) }}" class="whitespace-nowrap cursor-pointer flex text-center hover:text-blue-800">
+                <a href="{{ route('entity.edit', ['idOrTranscript' => $entity->id]) }}"
+                    class="whitespace-nowrap cursor-pointer flex text-center hover:text-blue-800">
                     Исправить информацию
                 </a>
 
@@ -190,7 +191,25 @@
             @endrole
 
             <div class="hidden lg:block absolute right-4 w-4 h-4">
-                <a href="{{ url()->previous() }}" class="[&>svg]:fill-[#a1b4c2]">
+
+                @php
+                    switch ($entity->entity_type_id) {
+                        // case 4:
+                        //     $routeBack = null;
+                        //     break;
+                        // case 3:
+                        //     $routeBack = null;
+                        //     break;
+                        // case 2:
+                        //     $routeBack = null;
+                        //     break;
+                        default:
+                            $routeBack = url()->previous();
+                            break;
+                    }
+                @endphp
+
+                <a href="{{ $routeBack }}" class="[&>svg]:fill-[#a1b4c2]">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                         <path

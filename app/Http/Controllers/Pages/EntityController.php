@@ -283,8 +283,22 @@ class EntityController extends BaseController
         $appeal = $this->appealAction->store($request, $entity->id, Auth::user()?->id);
 
         if (!$appeal) {
-            return redirect()->route('home');
+            switch ($entity->entity_type_id) {
+                case 4:
+                    return redirect()->route('community.show', ['idOrTranscript' => $entity->id])->with('warning', 'Не удалось, попробуйте позднее');
+                    break;
+                case 3:
+                    return redirect()->route('place.show', ['idOrTranscript' => $entity->id])->with('warning', 'Не удалось, попробуйте позднее');
+                    break;
+                case 2:
+                    return redirect()->route('group.show', ['idOrTranscript' => $entity->id])->with('warning', 'Не удалось, попробуйте позднее');
+                    break;
+                default:
+                    return redirect()->route('company.show', ['idOrTranscript' => $entity->id])->with('warning', 'Не удалось, попробуйте позднее');
+                    break;
+            }
         }
+
         switch ($entity->entity_type_id) {
             case 4:
                 return redirect()->route('community.show', ['idOrTranscript' => $entity->id])->with('success', 'Ваша заявка успешно принята, изменения будут доступны после модерации');
