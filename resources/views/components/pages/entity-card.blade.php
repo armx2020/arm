@@ -98,13 +98,13 @@
         </div>
 
         <div class="flex flex-col px-0 lg:px-6 mt-3 sm:mt-0 justify-start break-all">
-            <h3 class="block text-left text-md font-semibold mx-4">
+            <h3 class="block text-left text-md font-semibold sm:mx-4">
                 {{ mb_substr($entity->name, 0, 90, 'UTF-8') }}
             </h3>
 
             @if ($entity->description)
-                <span class="mx-4 text-sm font-semibold mt-4">Описание</span>
-                <div class="max-h-16 md:max-h-36 lg:max-h-48 flex truncate mx-4 max-w-[50rem]">
+                <span class="sm:mx-4 text-sm font-semibold mt-4">Описание</span>
+                <div class="max-h-16 md:max-h-36 lg:max-h-48 flex truncate sm:mx-4 max-w-[50rem]">
                     <p
                         class="text-xs md:text-base text-base font-normal text-gray-500 break-words whitespace-normal text-justify">
                         {{ $entity->description }}
@@ -114,16 +114,16 @@
 
             @if ($entity->entity_type_id == 1)
                 @if ($entity->fields && count($entity->fields) > 3)
-                    <span class="mx-4 text-sm font-semibold mt-4">Деятельность</span>
+                    <span class="sm:mx-4 text-sm font-semibold mt-4">Деятельность</span>
                     @foreach ($entity->fields as $category)
-                        <p class="flex text-left text-sm mx-4 text-gray-500 break-all">
+                        <p class="flex text-left text-sm sm:mx-4 text-gray-500 break-all">
                             &bull; {{ $category->name }}
                         </p>
                     @endforeach
                 @elseif ($entity->offers && count($entity->offers) > 0)
-                    <span class="mx-4 text-sm font-semibold mt-4">Деятельность</span>
+                    <span class="sm:mx-4 text-sm font-semibold mt-4">Деятельность</span>
                     @foreach ($entity->offers as $offer)
-                        <p class="flex text-left text-sm mx-4 text-gray-500 break-all">
+                        <p class="flex text-left text-sm sm:mx-4 text-gray-500 break-all">
                             &bull; {{ $offer->name }}
                         </p>
                     @endforeach
@@ -131,31 +131,31 @@
             @endif
 
             @if ($entity->city)
-                <span class="mx-4 text-sm mt-4">Город:</span>
-                <p class="flex text-left text-sm mx-4 my-1 text-gray-500 break-all">
+                <span class="sm:mx-4 text-sm mt-4">Город:</span>
+                <p class="flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-all">
                     {{ mb_substr($entity->city->name, 0, 400, 'UTF-8') }}
                 </p>
             @endif
 
             @if ($entity->address)
-                <span class="mx-4 text-sm mt-4">Адрес:</span>
-                <p class="flex text-left text-sm mx-4 my-1 text-gray-500 break-all">
+                <span class="sm:mx-4 text-sm mt-4">Адрес:</span>
+                <p class="flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-all">
                     {{ mb_substr($entity->address, 0, 400, 'UTF-8') }}
                 </p>
             @endif
 
             @if ($entity->phone)
-                <span class="mx-4 text-sm mt-4">Телефон:</span>
-                <p class="flex text-left text-sm mx-4 my-1 text-gray-500 break-all">
+                <span class="sm:mx-4 text-sm mt-4">Телефон:</span>
+                <p class="flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-all">
                     {{ mb_substr($entity->phone, 0, 400, 'UTF-8') }}
                 </p>
             @endif
 
-            <div class="my-3 pl-4">
+            <div class="my-3 sm:pl-4">
                 <x-pages.social :entity=$entity />
             </div>
 
-            <div class="flex space-x-2 my-3 pl-0 ms:pl-4 max-w-[400px]">
+            <div class="flex space-x-2 my-3 pl-0 pl-0 sm:pl-4 max-w-[400px]">
                 @php
                     $message = null;
                     if (isset($entity->whatsapp)) {

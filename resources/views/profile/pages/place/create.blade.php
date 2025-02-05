@@ -264,24 +264,21 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
-
             if ($("#city").length > 0) {
                 $("#city").select2({
                     ajax: {
-                        url: " {{ route('cities') }}",
+                        url: "{{ route('cities') }}",
                         type: "GET",
                         delay: 250,
                         dataType: 'json',
-                        data: function(params) {
-                            var query = {
+                        data: function (params) {
+                            return {
                                 query: params.term || '',
                                 page: params.page || 1,
-                                "_token": "{{ csrf_token() }}",
+                                "_token": "{{ csrf_token() }}"
                             };
-
-                            return query;
                         },
-                        processResults: function(response, params) {
+                        processResults: function (response, params) {
                             params.page = params.page || 1;
                             return {
                                 results: response.results,
@@ -295,149 +292,116 @@
                 });
             }
 
-            const maxSize = 2000000; // Максимальный размер файла 2 MB
-
-            const sections = [{
-                    input: '#image',
-                    img: '#img',
-                    span: '#image_span',
-                    remove: '#remove_image',
-                    section: '#upload_area'
-                },
-                {
-                    input: '#image_1',
-                    img: '#img_1',
-                    span: '#image_span_1',
-                    remove: '#remove_image_1',
-                    section: '#upload_area_1'
-                },
-                {
-                    input: '#image_2',
-                    img: '#img_2',
-                    span: '#image_span_2',
-                    remove: '#remove_image_2',
-                    section: '#upload_area_2'
-                },
-                {
-                    input: '#image_3',
-                    img: '#img_3',
-                    span: '#image_span_3',
-                    remove: '#remove_image_3',
-                    section: '#upload_area_3'
-                },
-                {
-                    input: '#image_4',
-                    img: '#img_4',
-                    span: '#image_span_4',
-                    remove: '#remove_image_4',
-                    section: '#upload_area_4'
-                },
+            // Максимальный размер файла – 2 МБ
+            const maxSize = 2000000;
+            const sections = [
+                { input: '#image',    img: '#img',    span: '#image_span',    remove: '#remove_image',    section: '#upload_area' },
+                { input: '#image_1',  img: '#img_1',  span: '#image_span_1',  remove: '#remove_image_1',  section: '#upload_area_1' },
+                { input: '#image_2',  img: '#img_2',  span: '#image_span_2',  remove: '#remove_image_2',  section: '#upload_area_2' },
+                { input: '#image_3',  img: '#img_3',  span: '#image_span_3',  remove: '#remove_image_3',  section: '#upload_area_3' },
+                { input: '#image_4',  img: '#img_4',  span: '#image_span_4',  remove: '#remove_image_4',  section: '#upload_area_4' }
             ];
 
             function handleFileInput(file, index) {
                 if (!file) return;
-
-                const fileSize = file.size;
                 const section = sections[index];
-                const nextSection = sections[index + 1];
 
-                if (fileSize > maxSize) {
-                    $(section.span).html('Максимальный размер 2 МБ').css({
-                        color: "rgb(239 68 68)"
-                    });
+                if (file.size > maxSize) {
+                    $(section.span).html('Максимальный размер 2 МБ').css({ color: "rgb(239 68 68)" });
                     return;
                 }
 
-                $(section.span).html(file.name).css({
-                    color: "rgb(71 85 105)"
-                });
+                $(section.span).html(file.name).css({ color: "rgb(71 85 105)" });
                 $(section.section).find('.flex.items-center').hide();
-
-                // Скрыть кнопку "Удалить" на предыдущих секциях
-                sections.forEach((s, i) => {
-                    if (i !== index) $(s.remove).hide();
-                });
-
-                // Показать кнопку "Удалить" только для текущей секции
                 $(section.remove).show();
 
-                // Показать следующую секцию
-                if (nextSection) {
-                    $(nextSection.section).css({
-                        display: "flex",
-                        "flex-direction": "row"
-                    });
-                }
-
-                // Предварительный просмотр изображения
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     $(section.img).attr('src', event.target.result);
                 };
                 reader.readAsDataURL(file);
 
-                // Синхронизация файла с <input type="file">
                 const dataTransfer = new DataTransfer();
                 dataTransfer.items.add(file);
                 $(section.input)[0].files = dataTransfer.files;
+
+                if (index < sections.length - 1) {
+                    $(sections[index + 1].section).css({
+                        display: "flex",
+                        "flex-direction": "row"
+                    });
+                }
             }
 
-            function resetFileInput(index) {
+            function setSectionFile(index, file) {
                 const section = sections[index];
-                const prevSection = sections[index - 1];
-                const nextSection = sections[index + 1];
+                if (!file) return;
+                if (file.size > maxSize) {
+                    $(section.span).html('Максимальный размер 2 МБ').css({ color: "rgb(239 68 68)" });
+                    return;
+                }
+                $(section.span).html(file.name).css({ color: "rgb(71 85 105)" });
+                $(section.section).find('.flex.items-center').hide();
+                $(section.remove).show();
 
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    $(section.img).attr('src', event.target.result);
+                };
+                reader.readAsDataURL(file);
+
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                $(section.input)[0].files = dataTransfer.files;
+
+                if (index < sections.length - 1) {
+                    $(sections[index + 1].section).css({
+                        display: "flex",
+                        "flex-direction": "row"
+                    });
+                }
+            }
+
+            function resetSection(index) {
+                const section = sections[index];
                 $(section.input).val('');
                 $(section.img).attr('src', `{{ url('/image/no-image.png') }}`);
-                $(section.span).html('Выберите файл').css({
-                    color: "rgb(71 85 105)"
-                });
+                $(section.span).html('Выберите файл или перетащите сюда').css({ color: "rgb(71 85 105)" });
                 $(section.remove).hide();
                 $(section.section).find('.flex.items-center').show();
+            }
 
-                // Если удаляем последнее изображение, снова показываем эту секцию
-                $(section.section).css({
-                    display: "flex",
-                    "flex-direction": "row"
-                });
-
-                // Скрыть следующие секции
-                if (nextSection) {
-                    for (let i = index + 1; i < sections.length; i++) {
-                        $(sections[i].section).hide();
-                        $(sections[i].input).val('');
-                        $(sections[i].img).attr('src', `{{ url('/image/no-image.png') }}`);
-                        $(sections[i].span).html('Выберите файл').css({
-                            color: "rgb(71 85 105)"
-                        });
-                        $(sections[i].remove).hide();
+            function deleteImageAtIndex(index) {
+                for (let i = index; i < sections.length - 1; i++) {
+                    if ($(sections[i + 1].input)[0].files.length > 0) {
+                        let file = $(sections[i + 1].input)[0].files[0];
+                        setSectionFile(i, file);
+                    } else {
+                        resetSection(i);
+                        for (let j = i + 1; j < sections.length; j++) {
+                            $(sections[j].section).hide();
+                            resetSection(j);
+                        }
+                        return;
                     }
                 }
-
-                // Показать кнопку "Удалить" в предыдущей секции
-                if (prevSection) {
-                    $(prevSection.remove).show();
-                }
+                resetSection(sections.length - 1);
             }
 
             function enableDragAndDrop(index) {
                 const section = sections[index];
-
                 $(section.section).on('dragover', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    $(this).css('background-color', '#f1f5f9'); // Подсветка
+                    $(this).css('background-color', '#f1f5f9');
                 });
-
                 $(section.section).on('dragleave', function() {
-                    $(this).css('background-color', ''); // Убираем подсветку
+                    $(this).css('background-color', '');
                 });
-
                 $(section.section).on('drop', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     $(this).css('background-color', '');
-
                     const files = e.originalEvent?.dataTransfer?.files || [];
                     if (files.length > 0) {
                         handleFileInput(files[0], index);
@@ -451,7 +415,7 @@
                 });
 
                 $(section.remove).on('click', function() {
-                    resetFileInput(index);
+                    deleteImageAtIndex(index);
                 });
 
                 enableDragAndDrop(index);
