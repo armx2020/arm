@@ -27,19 +27,21 @@
                         </form>
                     </div>
 
-                    <div class="flex items-center space-x-1 lg:space-x-2">
-                        <a href="{{ route('admin.' . $entityName . '.create') }}"
-                            data-modal-toggle="add-{{ $entityName }}-modal"
-                            class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-2 py-1 lg:px-3 lg:py-2 text-center sm:w-auto">
-                            <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            Добавить
-                        </a>
-                    </div>
+                    @if ($entityName !== 'appeal')
+                        <div class="flex items-center space-x-1 lg:space-x-2">
+                            <a href="{{ route('admin.' . $entityName . '.create') }}"
+                                data-modal-toggle="add-{{ $entityName }}-modal"
+                                class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-2 py-1 lg:px-3 lg:py-2 text-center sm:w-auto">
+                                <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                Добавить
+                            </a>
+                        </div>
+                    @endif
 
                 </div>
             </div>
@@ -97,7 +99,10 @@
                                                 $duplicateClass = $colorMap[$entity->id] ?? null;
 
                                                 if ($duplicateClass) {
-                                                    $rowClass = $duplicateClass . ' ' . ($entity->activity ? 'text-gray-900' : 'text-gray-600');
+                                                    $rowClass =
+                                                        $duplicateClass .
+                                                        ' ' .
+                                                        ($entity->activity ? 'text-gray-900' : 'text-gray-600');
                                                 } else {
                                                     if ($entity->activity) {
                                                         $rowClass = 'bg-white text-gray-900';
@@ -106,8 +111,7 @@
                                                     }
                                                 }
                                             @endphp
-                                            <tr
-                                                class="hover:bg-gray-200 {{ $rowClass }}">
+                                            <tr class="hover:bg-gray-200 {{ $rowClass }}">
                                                 @foreach ($selectedColumns as $column)
                                                     <td
                                                         class="p-4 text-base text-left break-all max-w-[20rem] truncate">

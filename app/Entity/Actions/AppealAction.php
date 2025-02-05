@@ -20,4 +20,14 @@ class AppealAction
 
         return $appeal;
     }
+
+    public function update($request, $appeal): Appeal
+    {
+        $appeal->message = $request->message;
+        $appeal->activity = $request->activity ? 1 : 0;
+        
+        $appeal->update();
+
+        return $appeal;
+    }
 }

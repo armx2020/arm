@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AppealController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -11,7 +12,6 @@ use App\Http\Controllers\Admin\ImportLawyerController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\WorkController;
 
 Route::name('admin.')->prefix('admin')->group(function () {
 
@@ -34,8 +34,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('offer', OfferController::class)->except([
             'show'
         ]);
-        Route::resource('work', WorkController::class)->except([
-            'show'
+        Route::resource('appeal', AppealController::class)->except([
+            'show', 'create', 'store'
         ]);
 
         Route::get('entity/report', [EntityController::class, 'report'])->name('entity.report');

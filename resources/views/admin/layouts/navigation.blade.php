@@ -40,9 +40,26 @@
                         @else
                             <x-nav-link :href="route($link['route'])" :active="request()->routeIs($link['routeIs'])">
                                 {{ $link['name'] }}
+
+                                @if ($link['name'] == 'Сообщения')
+                                    @php
+                                        $messagesCount = App\Models\Appeal::active()->count();
+                                    @endphp
+
+                                    <div
+                                        class="mb-2 bottom-auto bg-red-300 mx-1 rounded-full bg-neutral-800 px-2 py-1 text-center align-baseline text-xs font-bold leading-none text-white">
+                                        @if ($messagesCount > 9)
+                                            9+
+                                        @elseif($messagesCount <= 9 && $messagesCount > 0)
+                                            {{ $messagesCount }}
+                                        @endif
+                                    </div>
+
+                                @endif
                             </x-nav-link>
                         @endif
                     @endforeach
+
                 </div>
             </div>
 
@@ -51,7 +68,8 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <button type="submit" class="inline-block text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg px-6 pb-2 pt-2.5 text-white">
+                    <button type="submit"
+                        class="inline-block text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg px-6 pb-2 pt-2.5 text-white">
                         Выход
                     </button>
                 </form>

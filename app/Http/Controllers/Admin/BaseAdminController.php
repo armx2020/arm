@@ -56,14 +56,6 @@ abstract class BaseAdminController extends Controller
                     ],
                 ]
             ],
-
-
-
-
-
-
-
-
             [
                 'name' => 'Товары',
                 'route' => 'admin.offer.index',
@@ -109,7 +101,12 @@ abstract class BaseAdminController extends Controller
                 'routeIs' => 'admin.type.*',
                 'sub' => []
             ],
-
+            [
+                'name' => 'Сообщения',
+                'route' => 'admin.appeal.index',
+                'routeIs' => 'admin.appeal.*',
+                'sub' => [],
+            ],
 
         ];
     }

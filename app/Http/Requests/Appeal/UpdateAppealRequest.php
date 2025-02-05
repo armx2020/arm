@@ -4,12 +4,12 @@ namespace App\Http\Requests\Appeal;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAppealRequest extends FormRequest
+class UpdateAppealRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'name'           => ['required', 'string', 'max:32'],
+            'name'           => ['nullable', 'string', 'max:32'],
             'phone'          => ['nullable', 'string', 'max:36'],
             'message'        => ['string'],
         ];
