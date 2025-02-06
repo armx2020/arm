@@ -31,12 +31,12 @@ Route::get('/places/{category}', [EntityWithCategoryController::class, 'places']
 Route::get('/communities/{category}', [EntityWithCategoryController::class, 'communities'])->name('communities.category.index');
 
 Route::get('/company/{idOrTranscript}', [EntityController::class, 'company'])->name('company.show');
-Route::put('/company/{idOrTranscript}', [EntityController::class, 'company'])->name('company.update');
 Route::get('/group/{idOrTranscript}', [EntityController::class, 'group'])->name('group.show');
 Route::get('/place/{idOrTranscript}', [EntityController::class, 'place'])->name('place.show');
 Route::get('/community/{idOrTranscript}', [EntityController::class, 'community'])->name('community.show');
 
 Route::get('/edit/{idOrTranscript}', [EntityController::class, 'edit'])->name('entity.edit');
+Route::get('/add/{idOrTranscript}', [EntityController::class, 'edit'])->name('entity.edit');
 Route::patch('/{idOrTranscript}', [EntityController::class, 'update'])->name('entity.update');
 
 Route::get('/{regionTranslit?}', [HomeController::class, 'home'])->name('home');
