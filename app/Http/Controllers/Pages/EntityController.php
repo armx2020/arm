@@ -314,4 +314,64 @@ class EntityController extends BaseController
                 break;
         }
     }
+
+    public function editPhoto(Request $request, $idOrTranscript)
+    {
+        $entity = Entity::query()->active();
+
+        if (is_numeric($idOrTranscript)) {
+            $entity = $entity->where('id', $idOrTranscript)->First();
+        } else {
+            $entity = $entity->where('transcription', $idOrTranscript)->First();
+        }
+
+        if (!$entity) {
+            return redirect()->route('home');
+        }
+
+        $secondPositionUrl = "home";
+        $secondPositionName = 'Добавить фото';
+
+        return view('pages.entity.photo', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'categoryUri' => null,
+            'regions' => $this->regions,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entity' => $entity,
+        ]);
+    }
+
+    public function updatePhoto(Request $request, $idOrTranscript)
+    {
+        $entity = Entity::query()->active();
+
+        if (is_numeric($idOrTranscript)) {
+            $entity = $entity->where('id', $idOrTranscript)->First();
+        } else {
+            $entity = $entity->where('transcription', $idOrTranscript)->First();
+        }
+
+        if (!$entity) {
+            return redirect()->route('home');
+        }
+
+        $entity = $this->appealAction->storePhotoToEntity($request, $entity);
+  
+        switch ($entity->entity_type_id) {
+            case 4:
+                return redirect()->route('community.show', ['idOrTranscript' => $entity->id])->with('success', 'Ваша заявка успешно принята, изменения будут доступны после модерации');
+                break;
+            case 3:
+                return redirect()->route('place.show', ['idOrTranscript' => $entity->id])->with('success', 'Ваша заявка успешно принята, изменения будут доступны после модерации');
+                break;
+            case 2:
+                return redirect()->route('group.show', ['idOrTranscript' => $entity->id])->with('success', 'Ваша заявка успешно принята, изменения будут доступны после модерации');
+                break;
+            default:
+                return redirect()->route('company.show', ['idOrTranscript' => $entity->id])->with('success', 'Ваша заявка успешно принята, изменения будут доступны после модерации');
+                break;
+        }
+    }
 }

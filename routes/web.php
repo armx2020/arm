@@ -36,8 +36,10 @@ Route::get('/place/{idOrTranscript}', [EntityController::class, 'place'])->name(
 Route::get('/community/{idOrTranscript}', [EntityController::class, 'community'])->name('community.show');
 
 Route::get('/edit/{idOrTranscript}', [EntityController::class, 'edit'])->name('entity.edit');
-Route::get('/add/{idOrTranscript}', [EntityController::class, 'edit'])->name('entity.edit');
 Route::patch('/{idOrTranscript}', [EntityController::class, 'update'])->name('entity.update');
+
+Route::get('/photo/{idOrTranscript}', [EntityController::class, 'editPhoto'])->name('entity.photo.edit');
+Route::patch('/photo/{idOrTranscript}', [EntityController::class, 'updatePhoto'])->name('entity.photo.update');
 
 Route::get('/{regionTranslit?}', [HomeController::class, 'home'])->name('home');
 
