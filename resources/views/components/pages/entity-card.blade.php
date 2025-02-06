@@ -83,15 +83,11 @@
 
             @endif
 
-            <div class="flex justify-between my-3 pl-0 text-xs text-blue-600">
-
-                <a href="" class="whitespace-nowrap cursor-pointer flex text-center hover:text-blue-800">
-                    Добавить фото
-                </a>
+            <div class="flex my-3 pl-0 text-xs text-blue-600">
 
                 <a href="{{ route('entity.edit', ['idOrTranscript' => $entity->id]) }}"
                     class="whitespace-nowrap cursor-pointer flex text-center hover:text-blue-800">
-                    Исправить информацию
+                    Исправить информацию или добавить фото 
                 </a>
 
             </div>

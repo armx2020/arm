@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\BaseAdminController;
+use App\Models\Appeal;
 use App\Models\Entity;
 use App\Models\Event;
 use App\Models\User;
@@ -12,7 +13,7 @@ class DashboardController extends BaseAdminController
 {
     public function index()
     {
-        $countUsersAll = User::all()->count();
+        $countUsersAll = User::count();
         $countUsersToday = User::whereDate('created_at', '=', date("Y-m-d"))->count();
 
         $countCompaniesAll = Entity::companies()->count();
@@ -22,6 +23,7 @@ class DashboardController extends BaseAdminController
         $countGroupsToday = Entity::groups()->whereDate('created_at', '=', date("Y-m-d"))->count();
 
         $users = User::orderBy('id', 'desc')->limit(5)->get();
+        $appeals = Appeal::active()->orderBy('id', 'desc')->limit(5)->get();
 
         return view('admin.dashboard', [
             'countUsersAll' => $countUsersAll,
@@ -31,6 +33,7 @@ class DashboardController extends BaseAdminController
             'countGroupsAll' => $countGroupsAll,
             'countGroupsToday' => $countGroupsToday,
             'users' => $users,
+            'appeals' => $appeals,
             'menu' => $this->menu
         ]);
     }

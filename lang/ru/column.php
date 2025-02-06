@@ -35,6 +35,7 @@ return [
     'main_category_id' => 'Главная категория',
     'company_id' => 'Компания',
     'entity_type_id' => 'Тип',
-    'entity_id' => 'Сущность'
+    'entity_id' => 'Сущность',
+    'message' => 'Сообщения'
 
 ];

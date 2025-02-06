@@ -49,7 +49,6 @@
         </div>
 
         <div class="w-full">
-
             <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold leading-none text-gray-900">Новые пользователи</h3>
@@ -98,7 +97,47 @@
                     </ul>
                 </div>
             </div>
+        </div>
 
+        <div class="w-full">
+            <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold leading-none text-gray-900">Новые сообщения</h3>
+                    <a href="{{ route('admin.appeal.index') }}"
+                        class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2">
+                        посмотреть все
+                    </a>
+                </div>
+                <div class="flow-root">
+                    <ul role="list" class="divide-y divide-gray-200">
+                        @if (count($appeals) === 0)
+                            <li class="text-center py-3 sm:py-4">
+                                нет сообщений
+                            </li>
+                        @else
+                            @foreach ($appeals as $appeal)
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <a href="{{ route('admin.appeal.edit', ['appeal' => $appeal->id]) }}">
+                                                {{ $appeal->message }}
+                                            </a>
+                                        </div>
+                                        <div class="inline-flex items-center text-base font-semibold text-gray-900">
+                                            <p class="text-sm font-medium text-gray-900 truncate">
+                                                {{ $appeal->entity?->name }}
+                                            </p>
+                                            <p class="mx-1 text-sm text-gray-500 truncate">
+                                                {{ $appeal->phone }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
+            </div>
         </div>
 
 

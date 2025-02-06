@@ -7,7 +7,7 @@ use App\Models\Traits\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Appeal extends Model
 {
@@ -37,8 +37,8 @@ class Appeal extends Model
         return $this->belongsTo(Entity::class);
     }
 
-    public function imageable(): MorphTo
+    public function images(): MorphMany
     {
-        return $this->morphTo();
+        return $this->morphMany(Image::class, 'imageable');
     }
 }
