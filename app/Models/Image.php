@@ -11,11 +11,21 @@ class Image extends Model
     use HasFactory;
 
     protected $fillable = [
-        'path',
+        'path', 'activity', 'main'
     ];
 
     public function imageable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function scopeMain($query)
+    {
+        return $query->where('main', 1);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('activity', 1);
     }
 }
