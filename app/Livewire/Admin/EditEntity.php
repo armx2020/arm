@@ -20,18 +20,16 @@ class EditEntity extends Component
 
     public function render()
     {
-        $duplicateExists = Entity::where(function ($query) {
-            $query->where('name', $this->entity->name)
-                ->orWhere('phone', $this->entity->phone)
-                ->orWhere('address', $this->entity->address)
-                ->orWhere('email', $this->entity->email)
-                ->orWhere('web', $this->entity->web)
-                ->orWhere('vkontakte', $this->entity->vkontakte)
-                ->orWhere('whatsapp', $this->entity->whatsapp)
-                ->orWhere('telegram', $this->entity->telegram)
-                ->orWhere('instagram', $this->entity->instagram);
+        $fields = ['name', 'phone', 'address', 'email', 'web', 'vkontakte', 'whatsapp', 'telegram', 'instagram'];
+
+        $duplicateExists = Entity::where(function ($query) use ($fields) {
+            foreach ($fields as $field) {
+                if (!empty($this->entity->$field)) {
+                    $query->orWhere($field, $this->entity->$field);
+                }
+            }
         })->where('id', '!=', $this->entity->id)
-        ->exists();
+            ->exists();
         $categories = Category::query()->active()->with('categories')->where('category_id', null)->orderBy('sort_id');
 
         if ($this->selectedType) {
