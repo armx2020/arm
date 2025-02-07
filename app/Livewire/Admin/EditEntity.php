@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Models\Category;
 use App\Models\EntityType;
+use App\Models\Entity;
 use Livewire\Component;
 
 class EditEntity extends Component
@@ -19,6 +20,18 @@ class EditEntity extends Component
 
     public function render()
     {
+        $duplicateExists = Entity::where(function ($query) {
+            $query->where('name', $this->entity->name)
+                ->orWhere('phone', $this->entity->phone)
+                ->orWhere('address', $this->entity->address)
+                ->orWhere('email', $this->entity->email)
+                ->orWhere('web', $this->entity->web)
+                ->orWhere('vkontakte', $this->entity->vkontakte)
+                ->orWhere('whatsapp', $this->entity->whatsapp)
+                ->orWhere('telegram', $this->entity->telegram)
+                ->orWhere('instagram', $this->entity->instagram);
+        })->where('id', '!=', $this->entity->id)
+        ->exists();
         $categories = Category::query()->active()->with('categories')->where('category_id', null)->orderBy('sort_id');
 
         if ($this->selectedType) {
@@ -34,6 +47,7 @@ class EditEntity extends Component
             [
                 'typies' => $typies,
                 'categories' => $categories,
+                'duplicateExists' => $duplicateExists
             ]
         );
     }

@@ -26,6 +26,16 @@
                                             {{ $entity->name }}</h3>
                                     </div>
                                     <div class="flex items-center pl-7">
+                                        @if(isset($duplicateExists) && $duplicateExists == true)
+                                            <div class="mr-5 text-white bg-orange-700 font-medium rounded-lg text-sm px-2 px-3 py-2 text-center">
+                                                Дубль
+                                            </div>
+                                        @endif
+                                        @if($entity->top == 1)
+                                            <div class="mr-5 text-white bg-sky-600 font-medium rounded-lg text-sm px-2 px-3 py-2 text-center">
+                                                Топ
+                                            </div>
+                                        @endif
                                         <div class="pr-5">
                                             <label for="activity" class="inline-flex">
                                                 <div>
