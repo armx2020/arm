@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ActiveScope;
 use App\Models\Traits\HasCity;
 use App\Models\Traits\HasEvents;
 use App\Models\Traits\HasNews;
@@ -17,6 +18,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+
+#[ScopedBy([ActiveScope::class])]
 
 class Entity extends Model
 {

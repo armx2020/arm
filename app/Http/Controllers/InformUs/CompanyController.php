@@ -35,7 +35,7 @@ class CompanyController extends BaseInformUsController
     public function store(StoreCompanyRequest $request)
     {
         $fields = $request->fields;
-    //    $company = $this->companyAction->store($request, null, false);
+        $company = $this->companyAction->store($request, null, false);
 
         return redirect()->route('inform-us.company')->with('success', 'Ваша заявка успешно принята');
     }

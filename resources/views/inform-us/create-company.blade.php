@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>ВСЕ АРМЯНЕ - Сообщите нам о компании</title>
+    <title>Все армяне - Сообщите нам о компании</title>
 @endsection
 
 

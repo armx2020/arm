@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>ВСЕ АРМЯНЕ -  Политика конфидициальности </title>
+    <title>Все армяне -  Политика конфидициальности </title>
 @endsection
 
 @section('meta')

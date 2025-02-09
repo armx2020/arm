@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>ВСЕ АРМЯНЕ
+    <title>Все армяне
         @if (isset($regionName) && $regionName !== 'Россия')
             {{ ' - ' . $regionName }}
         @endif

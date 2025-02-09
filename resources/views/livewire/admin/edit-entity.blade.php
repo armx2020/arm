@@ -12,27 +12,32 @@
                         @endif
 
                         <div class="bg-white rounded-lg relative">
-                            <form id="entity_delete_form" action="{{ route('admin.entity.destroy', $entity->id) }}" method="POST">
+                            <form id="entity_delete_form" action="{{ route('admin.entity.destroy', $entity->id) }}"
+                                method="POST">
                                 @csrf
                                 @method('DELETE')
                             </form>
+
                             <form method="POST" enctype="multipart/form-data"
                                 action="{{ route('admin.entity.update', ['entity' => $entity->id]) }}">
                                 @csrf
                                 @method('PUT')
+
                                 <div class="flex justify-between p-5 border-b rounded-t">
                                     <div class="flex items-center">
                                         <h3 class="text-2xl font-bold leading-none text-gray-900">
                                             {{ $entity->name }}</h3>
                                     </div>
                                     <div class="flex items-center pl-7">
-                                        @if(isset($duplicateExists) && $duplicateExists == true)
-                                            <div class="mr-5 text-white bg-orange-700 font-medium rounded-lg text-sm px-2 px-3 py-2 text-center">
+                                        @if (isset($duplicateExists) && $duplicateExists == true)
+                                            <div
+                                                class="mr-5 text-white bg-orange-700 font-medium rounded-lg text-sm px-2 px-3 py-2 text-center">
                                                 Дубль
                                             </div>
                                         @endif
-                                        @if($entity->top == 1)
-                                            <div class="mr-5 text-white bg-sky-600 font-medium rounded-lg text-sm px-2 px-3 py-2 text-center">
+                                        @if ($entity->top == 1)
+                                            <div
+                                                class="mr-5 text-white bg-sky-600 font-medium rounded-lg text-sm px-2 px-3 py-2 text-center">
                                                 Топ
                                             </div>
                                         @endif
@@ -40,195 +45,79 @@
                                             <label for="activity" class="inline-flex">
                                                 <div>
                                                     <input id="activity" type="checkbox" @checked($entity->activity)
-                                                    value="1"
-                                                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-                                                    name="activity">
+                                                        value="1"
+                                                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                                        name="activity">
                                                 </div>
                                                 <span class="ml-2 text-gray-700">Активность</span>
                                             </label>
                                         </div>
-                                        <button id="entity_delete" type="button" class="pr-5 text-gray-700">Удалить</button>
-                                        <a class="text-gray-700 whitespace-nowrap" href="https://ya.ru/search/?text={{ $entity->name }}" target="_blank">
+                                        <button id="entity_delete" type="button"
+                                            class="pr-5 text-gray-700">Удалить</button>
+                                        <a class="text-gray-700 whitespace-nowrap"
+                                            href="https://ya.ru/search/?text={{ $entity->name }}" target="_blank">
                                             перейти в яндекс</a>
                                     </div>
                                 </div>
-                                <input name="image_remove" type="text" id="image_remove" class="hidden"
-                                    style="z-index:-10;" />
-                                <input name="image_remove_1" type="text" id="image_remove_1" class="hidden"
-                                    style="z-index:-10;" />
-                                <input name="image_remove_2" type="text" id="image_remove_2" class="hidden"
-                                    style="z-index:-10;" />
-                                <input name="image_remove_3" type="text" id="image_remove_3" class="hidden"
-                                    style="z-index:-10;" />
-                                <input name="image_remove_4" type="text" id="image_remove_4" class="hidden"
-                                    style="z-index:-10;" />
+
+                                @for ($i = 1; $i < 21; $i++)
+                                    <input name="image_remove_{{ $i }}" type="text"
+                                        id="image_remove_{{ $i }}" class="hidden" style="z-index:-10;" />
+                                @endfor
 
 
                                 @php
-                                    $images = $entity->images()->get();
+                                    $images = $entity->images()->withoutGlobalScopes()->get();
                                 @endphp
 
-                                <div class="flex flex-row border-b" wire:ignore>
+                                <div class="flex flex-wrap gap-4 border-b pb-3" wire:ignore>
 
-                                    <!-- image  -->
-                                    <div class="flex flex-row" id="upload_area">
+                                    @for ($i = 1, $k = 0, $t = -1; $i < 21; $i++, $k++, $t++)
+                                        <div class="flex flex-row" id="upload_area_{{ $i }}"
+                                            @if (empty($images[$t]) && $i !== 1) style="display: none;" @else style="display: flex;" @endif>
 
-                                        <div class="flex relative p-3">
-                                            <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img"
-                                                alt="image"
-                                                @if (empty($entity->image)) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $entity->image) }}" @endif>
+                                            <div class="flex flex-col relative p-3">
+                                                <img class="h-20 w-20 rounded-lg m-4 object-cover"
+                                                    id="img_{{ $i }}" alt="image"
+                                                    @if (empty($images[$k])) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $images[$k]->path) }}" @endif>
 
-                                            <button type="button" id="remove_image" class="absolute top-2 right-2"
-                                                @if (isset($entity->image) && empty($images[0])) style="display: block;" @else style="display: none;" @endif>
+                                                <div class="mx-auto">
+                                                    <label for="activity_img_{{ $i }}" class="inline-flex">
+                                                        <div>
+                                                            <input id="activity_img_{{ $i }}"
+                                                                type="checkbox" @checked(isset($images[$k]) && $images[$k]->activity)
+                                                                value="1"
+                                                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                                                name="activity_img_{{ $i }}">
+                                                        </div>
+                                                        <span class="ml-2 text-gray-700">активное</span>
+                                                    </label>
+                                                </div>
 
-                                                <img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                    style="cursor:pointer;">
-                                            </button>
+                                                <button type="button" id="remove_image_{{ $i }}"
+                                                    class="absolute top-2 right-2"
+                                                    @if (empty($images[$k])) style="display: none;" @else style="display: flex;" @endif>
+
+                                                    <img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                                        style="cursor:pointer;">
+                                                </button>
+                                            </div>
+
+                                            <div class="flex items-center"
+                                                @if (empty($images[$k])) style="display: flex;" @else style="display: none;" @endif>
+
+                                                <label class="input-file relative inline-block">
+                                                    <input name="image_{{ $i }}" type="file"
+                                                        accept=".jpg,.jpeg,.png" id="image_{{ $i }}"
+                                                        class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                                    <span id="image_span_{{ $i }}"
+                                                        class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
+                                                        style="cursor:pointer;">Выберите файл</span>
+                                                </label>
+                                            </div>
+
                                         </div>
-
-                                        <div class="items-center" id="title_image"
-                                            @if (empty($entity->image)) style="display: flex;" @else style="display: none;" @endif>
-
-                                            <label class="input-file relative inline-block">
-                                                <input name="image" type="file" accept=".jpg,.jpeg,.png"
-                                                    id="image" class="absolute opacity-0 block w-0 h-0"
-                                                    style="z-index:-1;" />
-                                                <span id="image_span"
-                                                    class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                                    style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                            </label>
-                                        </div>
-
-                                    </div>
-
-                                    <!-- image 1 -->
-                                    <div class="flex flex-row" id="upload_area_1"
-                                        @if (empty($entity->image)) style="display: none;" @else style="display: flex;" @endif>
-
-                                        <div class="flex relative p-3">
-                                            <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img_1"
-                                                alt="image"
-                                                @if (empty($images[0])) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $images[0]->path) }}" @endif>
-
-                                            <button type="button" id="remove_image_1" class="absolute top-2 right-2"
-                                                @if (isset($images[0]) && empty($images[1])) style="display: block;" @else style="display: none;" @endif>
-
-                                                <img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                    style="cursor:pointer;">
-                                            </button>
-                                        </div>
-
-                                        <div class="items-center" id="title_image_1"
-                                            @if (empty($images[0])) style="display: flex;" @else style="display: none;" @endif>
-
-                                            <label class="input-file relative inline-block">
-                                                <input name="image_1" type="file" accept=".jpg,.jpeg,.png"
-                                                    id="image_1" class="absolute opacity-0 block w-0 h-0"
-                                                    style="z-index:-1;" />
-                                                <span id="image_span_1"
-                                                    class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                                    style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                            </label>
-                                        </div>
-
-                                    </div>
-
-                                    <!-- image 2 -->
-                                    <div class="flex-row" id="upload_area_2"
-                                        @if (empty($images[0])) style="display: none;" @else style="display: flex;" @endif>
-
-                                        <div class="flex relative p-3">
-
-                                            <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img_2"
-                                                alt="image"
-                                                @if (empty($images[1])) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $images[1]->path) }}" @endif>
-
-                                            <button type="button" id="remove_image_2" class="absolute top-2 right-2"
-                                                @if (isset($images[1]) && empty($images[2])) style="display: block;" @else style="display: none;" @endif>
-
-                                                <img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                    style="cursor:pointer;">
-                                            </button>
-                                        </div>
-
-                                        <div class="items-center" id="title_image_2"
-                                            @if (empty($images[1])) style="display: flex;" @else style="display: none;" @endif>
-
-                                            <label class="input-file relative inline-block">
-                                                <input name="image_2" type="file" accept=".jpg,.jpeg,.png"
-                                                    id="image_2" class="absolute opacity-0 block w-0 h-0"
-                                                    style="z-index:-1;" />
-                                                <span id="image_span_2"
-                                                    class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                                    style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                            </label>
-                                        </div>
-                                    </div>
-
-
-                                    <!-- image 3 -->
-                                    <div class="flex-row" id="upload_area_3"
-                                        @if (empty($images[1])) style="display: none;" @else style="display: flex;" @endif>
-                                        <div class="flex relative p-3">
-
-                                            <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img_3"
-                                                alt="image"
-                                                @if (empty($images[2])) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $images[2]->path) }}" @endif>
-
-                                            <button type="button" id="remove_image_3" class="absolute top-2 right-2"
-                                                @if (isset($images[2]) && empty($images[3])) style="display: block;" @else style="display: none;" @endif>
-
-                                                <img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                    style="cursor:pointer;">
-                                            </button>
-                                        </div>
-
-                                        <div class="items-center" id="title_image_3"
-                                            @if (empty($images[2])) style="display: flex;" @else style="display: none;" @endif>
-
-                                            <label class="input-file relative inline-block">
-                                                <input name="image_3" type="file" accept=".jpg,.jpeg,.png"
-                                                    id="image_3" class="absolute opacity-0 block w-0 h-0"
-                                                    style="z-index:-1;" />
-                                                <span id="image_span_3"
-                                                    class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                                    style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- image 4 -->
-                                    <div class="flex-row" id="upload_area_4"
-                                        @if (empty($images[2])) style="display: none;" @else style="display: flex;" @endif>
-
-                                        <div class="flex relative p-3">
-
-                                            <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img_4"
-                                                alt="image"
-                                                @if (empty($images[3])) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $images[3]->path) }}" @endif>
-
-                                            <button type="button" id="remove_image_4" class="absolute top-2 right-2"
-                                                @if (isset($images[3])) style="display: block;" @else style="display: none;" @endif>
-
-                                                <img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                    style="cursor:pointer;">
-                                            </button>
-                                        </div>
-
-                                        <div class="items-center" id="title_image_4"
-                                            @if (empty($images[3])) style="display: flex;" @else style="display: none;" @endif>
-
-                                            <label class="input-file relative inline-block">
-                                                <input name="image_4" type="file" accept=".jpg,.jpeg,.png"
-                                                    id="image_4" class="absolute opacity-0 block w-0 h-0"
-                                                    style="z-index:-1;" />
-                                                <span id="image_span_4"
-                                                    class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                                    style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                            </label>
-                                        </div>
-                                    </div>
-
+                                    @endfor
 
                                 </div>
 
@@ -257,10 +146,10 @@
                                         {{-- Адрес --}}
                                         <div class="col-span-6 md:col-span-2">
                                             <label for="address"
-                                                   class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
+                                                class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
                                             <input type="text" name="address" id="address"
-                                                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                   value="{{ old('address', $entity->address) }}">
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                value="{{ old('address', $entity->address) }}">
                                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                         </div>
 
@@ -432,138 +321,154 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
-            $('#entity_delete').on("click", function(){$('#entity_delete_form').submit()});
+            $('#entity_delete').on("click", function() {
+                $('#entity_delete_form').submit()
+            });
 
             const maxSize = 2000000; // 2 MB
 
-            function updatePreview(input, imgSelector, spanSelector, sectionSelector, removeBtnSelectorShow,
-                removeBtnSelectorHide, nextSectionSelector) {
-                const file = input.files[0];
-                if (file.size > maxSize) {
-                    $(spanSelector).html('Максимальный размер 2 МБ').css("color", "rgb(239 68 68)");
-                    input.value = '';
-                    return;
-                }
+            const sections = [];
 
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    $(imgSelector).attr('src', e.target.result);
-                };
-                reader.readAsDataURL(file);
-
-                $(spanSelector).html(file.name).css("color", "rgb(71 85 105)");
-                $(sectionSelector).css("display", "none");
-                $(removeBtnSelectorHide).css("display", "none");
-                $(removeBtnSelectorShow).css("display", "block");
-                $(nextSectionSelector).css({
-                    "display": "flex",
-                    "flex-direction": "row"
+            for (let i = 1; i < 21; i++) {
+                sections.push({
+                    input: `#image_${i}`,
+                    img: `#img_${i}`,
+                    span: `#image_span_${i}`,
+                    remove: `#remove_image_${i}`,
+                    section: `#upload_area_${i}`,
+                    delete: `#image_remove_${i}`
                 });
             }
 
-            function removeFile(inputSelector, imgSelector, spanSelector, sectionSelector,
-                removeBtnSelectorShow, removeBtnSelectorHide, prevSectionSelector, imageDelete) {
-                $(inputSelector).val('');
-                $(imgSelector).attr('src', `{{ url('/image/no-image.png') }}`);
-                $(spanSelector).html('Выберите файл или перетащите сюда').css("color", "rgb(71 85 105)");
-                $(sectionSelector).css("display", "none");
-                $(removeBtnSelectorHide).css("display", "none");
-                $(imageDelete).val('delete');
-                if (removeBtnSelectorShow) {
-                    $(removeBtnSelectorShow).css("display", "block");
+            function handleFileInput(file, index) {
+                if (!file) return;
+                const section = sections[index];
+
+                if (file.size > maxSize) {
+                    $(section.span).html('Максимальный размер 2 МБ').css({
+                        color: "rgb(239 68 68)"
+                    });
+                    return;
                 }
 
-                if (prevSectionSelector) {
-                    $(prevSectionSelector).css({
-                        "display": "flex",
+                $(section.span).html(file.name).css({
+                    color: "rgb(71 85 105)"
+                });
+                $(section.section).find('.flex.items-center').hide();
+                $(section.remove).show();
+                $(section.delete).val('');
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    $(section.img).attr('src', event.target.result);
+                };
+                reader.readAsDataURL(file);
+
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                $(section.input)[0].files = dataTransfer.files;
+
+                if (index < sections.length - 1) {
+                    $(sections[index + 1].section).css({
+                        display: "flex",
                         "flex-direction": "row"
                     });
                 }
             }
 
-            // image
-            $('#image').on('change', function() {
-                updatePreview(this, '#img', '#image_span', '#title_image', '#remove_image', null,
-                    '#upload_area_1');
-            });
-
-            $('#remove_image').on('click', function() {
-                removeFile('#image', '#img', '#image_span', '#upload_area_1', null, '#remove_image',
-                    '#upload_area, #title_image', '#image_remove');
-            });
-
-            // image 1
-            $('#image_1').on('change', function() {
-                updatePreview(this, '#img_1', '#image_span_1', '#title_image_1', '#remove_image_1',
-                    '#remove_image', '#upload_area_2');
-            });
-            $('#remove_image_1').on('click', function() {
-                removeFile('#image_1', '#img_1', '#image_span_1', '#upload_area_2', '#remove_image',
-                    '#remove_image_1', '#upload_area_1, #title_image_1', '#image_remove_1');
-            });
-
-            // image 2
-            $('#image_2').on('change', function() {
-                updatePreview(this, '#img_2', '#image_span_2', '#title_image_2', '#remove_image_2',
-                    '#remove_image_1', '#upload_area_3');
-            });
-            $('#remove_image_2').on('click', function() {
-                removeFile('#image_2', '#img_2', '#image_span_2', '#upload_area_3', '#remove_image_1',
-                    '#remove_image_2', '#upload_area_2, #title_image_2', '#image_remove_2');
-            });
-
-            // image 3
-            $('#image_3').on('change', function() {
-                updatePreview(this, '#img_3', '#image_span_3', '#title_image_3', '#remove_image_3',
-                    '#remove_image_2', '#upload_area_4');
-            });
-            $('#remove_image_3').on('click', function() {
-                removeFile('#image_3', '#img_3', '#image_span_3', '#upload_area_4', '#remove_image_2',
-                    '#remove_image_3', '#upload_area_3, #title_image_3', '#image_remove_3');
-            });
-
-            // image 4
-            $('#image_4').on('change', function() {
-                updatePreview(this, '#img_4', '#image_span_4', '#title_image_4', '#remove_image_4',
-                    '#remove_image_3', null);
-            });
-            $('#remove_image_4').on('click', function() {
-                removeFile('#image_4', '#img_4', '#image_span_4', null, '#remove_image_3',
-                    '#remove_image_4', '#upload_area_4, #title_image_4', '#image_remove_4');
-            });
-
-
-            ['#upload_area', '#upload_area_1', '#upload_area_2', '#upload_area_3', '#upload_area_4'].forEach(
-                function(sectionId) {
-                    const dropArea = $(sectionId);
-
-                    dropArea.on('dragover', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        $(this).addClass('bg-slate-100');
+            function setSectionFile(index, file) {
+                const section = sections[index];
+                if (!file) return;
+                if (file.size > maxSize) {
+                    $(section.span).html('Максимальный размер 2 МБ').css({
+                        color: "rgb(239 68 68)"
                     });
-
-                    dropArea.on('dragleave', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        $(this).removeClass('bg-slate-100');
-                    });
-
-                    dropArea.on('drop', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        $(this).removeClass('bg-slate-100');
-
-                        const files = e.originalEvent.dataTransfer.files;
-                        if (files.length > 0) {
-                            const currentInput = $(this).find('input[type="file"]:visible').get(0);
-                            const dataTransfer = new DataTransfer();
-                            dataTransfer.items.add(files[0]);
-                            currentInput.files = dataTransfer.files;
-                            $(currentInput).trigger('change');
-                        }
-                    });
+                    return;
+                }
+                $(section.span).html(file.name).css({
+                    color: "rgb(71 85 105)"
                 });
+                $(section.section).find('.flex.items-center').hide();
+                $(section.remove).show();
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    $(section.img).attr('src', event.target.result);
+                };
+                reader.readAsDataURL(file);
+
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                $(section.input)[0].files = dataTransfer.files;
+
+                if (index < sections.length - 1) {
+                    $(sections[index + 1].section).css({
+                        display: "flex",
+                        "flex-direction": "row"
+                    });
+                }
+            }
+
+            function resetSection(index) {
+                const section = sections[index];
+                $(section.input).val('');
+                $(section.img).attr('src', `{{ url('/image/no-image.png') }}`);
+                $(section.span).html('Выберите файл').css({
+                    color: "rgb(71 85 105)"
+                });
+                $(section.remove).hide();
+                $(section.delete).val('delete');
+                $(section.section).find('.flex.items-center').show();
+            }
+
+            function deleteImageAtIndex(index) {
+                for (let i = index; i < sections.length - 1; i++) {
+                    if ($(sections[i + 1].input)[0].files.length > 0) {
+                        let file = $(sections[i + 1].input)[0].files[0];
+                        setSectionFile(i, file);
+                    } else {
+                        resetSection(i);
+                        for (let j = i + 1; j < sections.length; j++) {
+                            $(sections[j].section).hide();
+                            resetSection(j);
+                        }
+                        return;
+                    }
+                }
+               resetSection(sections.length - 1);
+            }
+
+            function enableDragAndDrop(index) {
+                const section = sections[index];
+                $(section.section).on('dragover', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $(this).css('background-color', '#f1f5f9');
+                });
+                $(section.section).on('dragleave', function() {
+                    $(this).css('background-color', '');
+                });
+                $(section.section).on('drop', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $(this).css('background-color', '');
+                    const files = e.originalEvent?.dataTransfer?.files || [];
+                    if (files.length > 0) {
+                        handleFileInput(files[0], index);
+                    }
+                });
+            }
+
+            sections.forEach((section, index) => {
+                $(section.input).on('change', function() {
+                    handleFileInput(this.files[0], index);
+                });
+
+                $(section.remove).on('click', function() {
+                    deleteImageAtIndex(index);
+                });
+
+                enableDragAndDrop(index);
+            });
         });
     </script>
     @vite(['resources/js/mask_phone.js'])

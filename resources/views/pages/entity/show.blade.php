@@ -3,7 +3,7 @@
 @php
     $sitemap = App\Models\SiteMap::where('url', url()->current())->First();
 
-    $title = 'ВСЕ АРМЯНЕ';
+    $title = 'Все армяне';
     $description = 'Сообщество армян в России';
 
     if ($sitemap) {
