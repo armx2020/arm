@@ -45,11 +45,13 @@ class EntityAction
         for ($i = 1, $k = 0; $i < 21; $i++, $k++) {
             $image = "image_$i";
             $activitiImage = "activity_img_$i";
+            $checkedImage = "checked_img_$i";
 
             if ($request->$image) {
                 $entity->images()->create([
                     'path' => $request->file($image)->store('uploaded', 'public'),
-                    'activity' => $request->$activitiImage ?: 0
+                    'activity' => $request->$activitiImage ?: 0,
+                    'checked' => $request->$checkedImage ?: 0
                 ]);
                 Image::make('storage/' . $entity->images()->withoutGlobalScopes()->get()[$k]->path)->resize(400, null, function ($constraint) {
                     $constraint->aspectRatio();
@@ -119,15 +121,19 @@ class EntityAction
         for ($i = 1, $k = 0; $i < 21; $i++, $k++) {
             $image = "image_$i";
             $activitiImage = "activity_img_$i";
+            $checkedImage = "checked_img_$i";
+
             if ($request->$image) {
                 $entity->images()->create([
                     'path' => $request->file($image)->store('uploaded', 'public'),
-                    'activity' => $request->$activitiImage ?: 0
+                    'activity' => $request->$activitiImage ?: 0,
+                    'checked' => $request->$checkedImage ?: 0
                 ]);
                 Image::make('storage/' . $entity->images()->withoutGlobalScopes()->get()[$k]->path)->resize(400, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save();
             }
+
             if ($request->$activitiImage) {
                 if (isset($entity->images()->withoutGlobalScopes()->get()[$k])) {
                     $entity->images()->withoutGlobalScopes()->get()[$k]->update([
@@ -141,6 +147,21 @@ class EntityAction
                     ]);
                 }
             }
+
+            if ($request->$checkedImage) {
+                if (isset($entity->images()->withoutGlobalScopes()->get()[$k])) {
+                    $entity->images()->withoutGlobalScopes()->get()[$k]->update([
+                        'checked' => 1
+                    ]);
+                }
+            } else {
+                if (isset($entity->images()->withoutGlobalScopes()->get()[$k])) {
+                    $entity->images()->withoutGlobalScopes()->get()[$k]->update([
+                        'checked' => 0
+                    ]);
+                }
+            }
+
         }
 
         if ($request->fields) {

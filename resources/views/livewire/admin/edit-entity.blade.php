@@ -82,6 +82,18 @@
                                                     @if (empty($images[$k])) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $images[$k]->path) }}" @endif>
 
                                                 <div class="mx-auto">
+                                                    <label for="checked_img_{{ $i }}" class="inline-flex">
+                                                        <div>
+                                                            <input id="checked_img_{{ $i }}" type="checkbox"
+                                                                @checked(isset($images[$k]) && $images[$k]->checked) value="1"
+                                                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                                                name="checked_img_{{ $i }}">
+                                                        </div>
+                                                        <span class="ml-2 text-gray-700">проверено</span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="mx-auto">
                                                     <label for="activity_img_{{ $i }}" class="inline-flex">
                                                         <div>
                                                             <input id="activity_img_{{ $i }}"
@@ -93,6 +105,7 @@
                                                         <span class="ml-2 text-gray-700">активное</span>
                                                     </label>
                                                 </div>
+
 
                                                 <button type="button" id="remove_image_{{ $i }}"
                                                     class="absolute top-2 right-2"
@@ -434,7 +447,7 @@
                         return;
                     }
                 }
-               resetSection(sections.length - 1);
+                resetSection(sections.length - 1);
             }
 
             function enableDragAndDrop(index) {

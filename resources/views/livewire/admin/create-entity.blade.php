@@ -40,9 +40,21 @@
                                                     src="{{ url('/image/no-image.png') }}">
 
                                                 <div class="mx-auto">
+                                                    <label for="checked_img_{{ $i }}" class="inline-flex">
+                                                        <div>
+                                                            <input id="checked_img_{{ $i }}" type="checkbox" checked value="1"
+                                                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                                                name="checked_img_{{ $i }}">
+                                                        </div>
+                                                        <span class="ml-2 text-gray-700">проверено</span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="mx-auto">
                                                     <label for="activity_img_{{ $i }}" class="inline-flex">
                                                         <div>
-                                                            <input id="activity_img_{{ $i }}" type="checkbox" checked value="1"
+                                                            <input id="activity_img_{{ $i }}" type="checkbox"
+                                                                checked value="1"
                                                                 class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
                                                                 name="activity_img_{{ $i }}">
                                                         </div>
