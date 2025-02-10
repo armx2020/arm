@@ -48,7 +48,7 @@ class BasePage extends Component
 
         $entityShowRout = 'company.show';
         $categories = Category::active()->main()->orderByDesc('sort_id')->where('entity_type_id', $this->type)->get();
-        $entities = Entity::query()->with('fields', 'offers')->withCount('offers');
+        $entities = Entity::query()->active()->with('fields', 'offers')->withCount('offers');
 
         if ($this->type) {
             $entities = $entities->where('entity_type_id', $this->type);

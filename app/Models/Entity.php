@@ -21,8 +21,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 
-#[ScopedBy([ActiveScope::class])]
-
 class Entity extends Model
 {
     use HasFactory,
