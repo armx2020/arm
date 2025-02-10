@@ -38,33 +38,9 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
 
             $entity->images()->withOutGlobalScopes()->delete();
 
-            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/1.png")) {
+            if (Storage::disk('public')->exists("uploaded/doctor/$row[0]/$row[0].png")) {
                 $entity->images()->create([
-                    'path' => "uploaded/entity/$row[0]/1.png"
-                ]);
-            }
-
-            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/2.png")) {
-                $entity->images()->create([
-                    'path' => "uploaded/entity/$row[0]/2.png"
-                ]);
-            }
-
-            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/3.png")) {
-                $entity->images()->create([
-                    'path' => "uploaded/entity/$row[0]/3.png"
-                ]);
-            }
-
-            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/4.png")) {
-                $entity->images()->create([
-                    'path' => "uploaded/entity/$row[0]/4.png"
-                ]);
-            }
-
-            if (Storage::disk('public')->exists("uploaded/entity/$row[0]/5.png")) {
-                $entity->images()->create([
-                    'path' => "uploaded/entity/$row[0]/5.png"
+                    'path' => "uploaded/doctor/$row[0]/$row[0].png"
                 ]);
             }
         }
