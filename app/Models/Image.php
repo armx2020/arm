@@ -15,7 +15,7 @@ class Image extends Model
     use HasFactory;
 
     protected $fillable = [
-        'path', 'activity', 'sort_id'
+        'path', 'activity', 'sort_id', 'checked'
     ];
 
     public function imageable(): MorphTo

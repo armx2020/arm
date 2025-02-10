@@ -58,7 +58,8 @@ class Entity extends Model
         'category_id',
         'sort_id',
         'comment',
-        'started_at'
+        'started_at',
+        'checked'
     ];
 
     protected $searchable = [
