@@ -43,6 +43,7 @@ class SearchEntity extends BaseComponent
         $this->region         = $request->get('region');
         $this->category       = $request->get('category');
         $this->duplicatesField= $request->get('duplicatesField');
+        $this->double_id      = $request->get('double_id');
         $this->doubleRegion   = (bool) $request->get('doubleRegion', false);
         $this->doubleCity     = (bool) $request->get('doubleCity', false);
         if (!in_array($this->duplicatesField, $this->allowedFields, true)) {
@@ -84,6 +85,18 @@ class SearchEntity extends BaseComponent
             }
         } else {
             $entities = $entities->search($this->term);
+        }
+        if(isset($this->double_id)){
+            $doubleEntity = Entity::find($this->double_id);
+            if ($doubleEntity) {
+                $entities->where(function ($query) use ($doubleEntity) {
+                    foreach ($this->allowedFields as $field) {
+                        if (!empty($doubleEntity->{$field})) {
+                            $query->orWhere($field, $doubleEntity->{$field});
+                        }
+                    }
+                });
+            }
         }
 
         // --- Фильтр дублей ---
