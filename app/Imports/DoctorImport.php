@@ -36,6 +36,8 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
                 ]
             );
 
+            $entity->fields()->syncWithPivotValues([29], ['main_category_id' => 19]);
+
             $entity->images()->withOutGlobalScopes()->delete();
 
             if (Storage::disk('public')->exists("uploaded/doctor/$row[0]/$row[0].png")) {
