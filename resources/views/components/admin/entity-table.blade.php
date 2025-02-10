@@ -114,7 +114,7 @@
                                             <tr class="hover:bg-gray-200 {{ $rowClass }}">
                                                 @foreach ($selectedColumns as $column)
                                                     <td
-                                                        class="p-4 text-base text-left break-all max-w-[20rem] truncate">
+                                                        class="p-4 pt-2 pb-2 text-base text-left break-all max-w-[20rem] truncate">
                                                         @switch($column)
                                                             @case('city_id')
                                                                 {{ $entity->city->name }}
@@ -142,7 +142,7 @@
 
                                                             @case('img')
                                                                 @if(isset($entity->primaryImage->path))
-                                                                    <img src="{{ asset('storage/' . $entity->primaryImage->path) }}" alt="Image">
+                                                                    <img class="w-8 h-8 object-cover rounded-lg" src="{{ asset('storage/' . $entity->primaryImage->path) }}" alt="Image">
                                                                 @else
                                                                     -
                                                                 @endif

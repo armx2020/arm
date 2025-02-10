@@ -26,7 +26,7 @@ abstract class BaseComponent extends Component
         $this->filters = $entity->getFilters();
         $this->selectedFilters = $entity->getSelectedFilters();
     }
-    
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
