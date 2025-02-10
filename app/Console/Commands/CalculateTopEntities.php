@@ -29,21 +29,39 @@ class CalculateTopEntities extends Command
     public function handle() {
         $this->info('Calculating top entities...');
 
+
         DB::transaction(function () {
-            Entity::query()->update(['top' => 0]);
-            $allEntities = Entity::select('id', 'region_id', 'entity_type_id', 'fullness')
+            Entity::query()->update(['region_top' => 0, 'city_top' => 0]);
+
+            $allEntities = Entity::select('id', 'region_id', 'city_id', 'entity_type_id', 'fullness')
                 ->orderByDesc('fullness')
                 ->get();
-            $groupedEntities = $allEntities->groupBy(function ($item) {
+
+            $groupedByRegion = $allEntities->groupBy(function ($item) {
                 return $item->region_id . '-' . $item->entity_type_id;
             });
-            $topEntityIds = [];
-            foreach ($groupedEntities as $group) {
-                $topEntities = $group->take(3)->pluck('id')->toArray(); // Берем только 3 записи из каждой группы
-                $topEntityIds = array_merge($topEntityIds, $topEntities);
+
+            $regionUpdates = [];
+            foreach ($groupedByRegion as $group) {
+                foreach ($group->take(3) as $index => $entity) {
+                    $regionUpdates[$entity->id] = $index + 1;
+                }
             }
-            if (!empty($topEntityIds)) {
-                Entity::whereIn('id', $topEntityIds)->update(['top' => 1]);
+            $groupedByCity = $allEntities->groupBy(function ($item) {
+                return $item->city_id . '-' . $item->entity_type_id;
+            });
+
+            $cityUpdates = [];
+            foreach ($groupedByCity as $group) {
+                foreach ($group->take(3) as $index => $entity) {
+                    $cityUpdates[$entity->id] = $index + 1;
+                }
+            }
+            foreach ($regionUpdates as $id => $rank) {
+                Entity::where('id', $id)->update(['region_top' => $rank]);
+            }
+            foreach ($cityUpdates as $id => $rank) {
+                Entity::where('id', $id)->update(['city_top' => $rank]);
             }
         });
 

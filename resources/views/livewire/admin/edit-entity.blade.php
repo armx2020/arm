@@ -29,16 +29,21 @@
                                             {{ $entity->name }}</h3>
                                     </div>
                                     <div class="flex items-center pl-7">
-                                        @if (isset($duplicateExists) && $duplicateExists == true)
-                                            <div
-                                                class="mr-5 text-white bg-orange-700 font-medium rounded-lg text-sm px-2 px-3 py-2 text-center">
+                                        @if(isset($duplicateExists) && $duplicateExists == true)
+                                            <a href="{{ route('admin.entity.index', ['double_id' => $entity->id]) }}" class="mr-5 text-white bg-orange-700 font-medium rounded-lg text-sm px-2 px-3 py-2 text-center">
                                                 Дубль
-                                            </div>
+                                            </a>
                                         @endif
-                                        @if ($entity->top == 1)
+                                        @if ($entity->region_top == 1 || $entity->region_top == 2 || $entity->region_top == 3)
                                             <div
                                                 class="mr-5 text-white bg-sky-600 font-medium rounded-lg text-sm px-2 px-3 py-2 text-center">
-                                                Топ
+                                                Топ регион {{ $entity->region_top }}
+                                            </div>
+                                        @endif
+                                        @if ($entity->city_top == 1 || $entity->city_top == 2 || $entity->city_top == 3)
+                                            <div
+                                                class="mr-5 text-white bg-sky-600 font-medium rounded-lg text-sm px-2 px-3 py-2 text-center">
+                                                Топ город {{ $entity->city_top }}
                                             </div>
                                         @endif
                                         <div class="pr-5">

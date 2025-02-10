@@ -36,6 +36,9 @@ return [
     'company_id' => 'Компания',
     'entity_type_id' => 'Тип',
     'entity_id' => 'Сущность',
-    'message' => 'Сообщения'
+    'message' => 'Сообщения',
+    'region_top' => 'Топ по региону',
+    'city_top' => 'Топ по городу',
+    'double' => 'Дубль',
 
 ];
