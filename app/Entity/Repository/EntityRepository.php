@@ -9,6 +9,7 @@ class EntityRepository implements EntityColumnsInterface, EntityFiltersInterface
 {
     protected $allColumns = [
         'id',
+        'img',
         'name',
         'address',
         'phone',
@@ -30,6 +31,7 @@ class EntityRepository implements EntityColumnsInterface, EntityFiltersInterface
 
     protected $selectedColumns = [
         'id',
+        'img',
         'name',
         'entity_type_id',
         'category_id',

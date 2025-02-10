@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 
 #[ScopedBy([ActiveScope::class])]
@@ -131,5 +132,10 @@ class Entity extends Model
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function primaryImage(): MorphOne
+    {
+        return $this->morphOne(Image::class, 'imageable')->where('sort_id', 0);
     }
 }

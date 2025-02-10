@@ -73,7 +73,7 @@ class SearchEntity extends BaseComponent
         $emptyEntity = 'сущностей нет';
         $entityName  = 'entity';
 
-        $entities = Entity::query()->with('city','type');
+        $entities = Entity::query()->with('city','type', 'primaryImage');
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {

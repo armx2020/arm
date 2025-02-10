@@ -140,6 +140,14 @@
                                                                 {{ $entity->type ? $entity->type->name : '-' }}
                                                             @break
 
+                                                            @case('img')
+                                                                @if(isset($entity->primaryImage->path))
+                                                                    <img src="{{ asset('storage/' . $entity->primaryImage->path) }}" alt="Image">
+                                                                @else
+                                                                    -
+                                                                @endif
+                                                            @break
+
                                                             @case('parent_id')
                                                                 @isset($entity->parent)
                                                                     @if (isset($entity->parent->name))
