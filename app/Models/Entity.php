@@ -60,7 +60,8 @@ class Entity extends Model
         'sort_id',
         'comment',
         'started_at',
-        'checked'
+        'checked',
+        'clinic'
     ];
 
     protected $searchable = [
