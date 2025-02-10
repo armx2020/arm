@@ -165,6 +165,7 @@ class AppealAction
             $images_1 = $entity->images()->create([
                 'path' => $request->file('image_1')->store('uploaded', 'public'),
                 'activity' => false,
+                'checked' => false,
             ]);
             Image::make('storage/' . $images_1->path)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
@@ -174,7 +175,8 @@ class AppealAction
         if ($request->image_2) {
             $image_2 = $entity->images()->create([
                 'path' => $request->file('image_2')->store('uploaded', 'public'),
-                'activity' => false
+                'activity' => false,
+                'checked' => false,
             ]);
             Image::make('storage/' . $image_2->path)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
@@ -184,7 +186,8 @@ class AppealAction
         if ($request->image_3) {
             $image_3 = $entity->images()->create([
                 'path' => $request->file('image_3')->store('uploaded', 'public'),
-                'activity' => false
+                'activity' => false,
+                'checked' => false,
             ]);
             Image::make('storage/' . $image_3->path)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
@@ -194,7 +197,8 @@ class AppealAction
         if ($request->image_4) {
             $images_4 = $entity->images()->create([
                 'path' => $request->file('image_4')->store('uploaded', 'public'),
-                'activity' => false
+                'activity' => false,
+                'checked' => false,
             ]);
             Image::make('storage/' . $images_4->path)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
@@ -204,7 +208,8 @@ class AppealAction
         if ($request->image_5) {
             $images_5 = $entity->images()->create([
                 'path' => $request->file('image_5')->store('uploaded', 'public'),
-                'activity' => false
+                'activity' => false,
+                'checked' => false,
             ]);
             Image::make('storage/' . $images_5->path)->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
