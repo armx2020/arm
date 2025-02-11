@@ -25,7 +25,7 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     'link' => $row[1],
                     'phone' => $row[3],
                     'comment' => $row[4],
-                    'description' => $row[6],
+                    'description' => $this->parseDescription($row[6]),
                     'clinic' => $row[7],
                     'address' => mb_substr($row[8], 0, 128),
                     'city_id' => $this->getCityName($row[9]),
@@ -83,5 +83,19 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
         }
 
         return $region;
+    }
+
+    public function parseDescription($data)
+    {
+        $withoutTheLastLetters = mb_substr($data, 0, -40);
+
+         $position = strpos($withoutTheLastLetters, ". ");
+
+        $beforeSpace = substr($withoutTheLastLetters, 0, $position);
+        $afterSpace = substr($withoutTheLastLetters, $position + 2);
+
+        $withEnter = "$beforeSpace. \n$afterSpace";
+
+        return $withEnter;
     }
 }
