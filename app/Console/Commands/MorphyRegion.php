@@ -19,7 +19,7 @@ class MorphyRegion extends Command
         $cities = City::query();
 
         if ($this->option('dative')) {
-            $morphyService->setDative($regions);
+            $morphyService->setDative($cities);
            // $morphyService->setDative($cities);
         }
     }
