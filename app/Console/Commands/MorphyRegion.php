@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Libraries\NameCase\NCLNameCaseRu;
 use App\Models\City;
 use App\Models\Region;
 use App\Services\MorphyService;
