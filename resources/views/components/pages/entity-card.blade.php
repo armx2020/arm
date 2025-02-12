@@ -30,19 +30,19 @@
                     $imageGap = null;
 
                     switch (count($images)) {
+                        case 1:
+                            $imageClass = 'w-[9.2rem] h-[9.2rem] lg:w-[8.6rem] lg:h-[8.6rem]';
+                            $imageGap = 'gap-3';
+                            break;
                         case 2:
                             $imageClass = 'w-[9.2rem] h-[9.2rem] lg:w-[8.6rem] lg:h-[8.6rem]';
                             $imageGap = 'gap-3';
                             break;
                         case 3:
-                            $imageClass = 'w-[9.2rem] h-[9.2rem] lg:w-[8.6rem] lg:h-[8.6rem]';
-                            $imageGap = 'gap-3';
-                            break;
-                        case 4:
                             $imageClass = 'w-[6rem] h-[6rem] lg:w-[5.5rem] lg:h-[5.5rem]';
                             $imageGap = 'gap-x-4';
                             break;
-                        case 5:
+                        case 4:
                             $imageClass = 'w-[5rem] h-[5rem] lg:w-[4.1rem] lg:h-[4.1rem]';
                             $imageGap = 'gap-2';
                             break;
