@@ -128,9 +128,13 @@ class Entity extends Model
         return $this->hasMany(Appeal::class);
     }
 
-    public function images(): MorphMany
+    public function images($isWithScope = true): MorphMany
     {
-        return $this->morphMany(Image::class, 'imageable');
+        if ($isWithScope) {
+            return $this->morphMany(Image::class, 'imageable');
+        } else {
+            return $this->images()->withoutGlobalScopes();
+        }
     }
 
     public function primaryImage(): MorphOne

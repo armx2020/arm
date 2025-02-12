@@ -18,7 +18,7 @@
 
 
             @php
-                $images = $entity->images()->withoutGlobalScopes()->get();
+                $images = $entity->images()->get();
             @endphp
 
             @if ($images !== null)
