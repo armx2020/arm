@@ -18,9 +18,7 @@
 
 
             @php
-                $images = $entity->images()->withoutGlobalScopes()
-                    ? $entity->images()->withoutGlobalScopes()->get()
-                    : null;
+                $images = $entity->images()->withoutGlobalScopes()->get();
             @endphp
 
             @if ($images !== null)
@@ -30,19 +28,19 @@
                     $imageGap = null;
 
                     switch (count($images)) {
-                        case 1:
-                            $imageClass = 'w-[9.2rem] h-[9.2rem] lg:w-[8.6rem] lg:h-[8.6rem]';
-                            $imageGap = 'gap-3';
-                            break;
                         case 2:
                             $imageClass = 'w-[9.2rem] h-[9.2rem] lg:w-[8.6rem] lg:h-[8.6rem]';
                             $imageGap = 'gap-3';
                             break;
                         case 3:
+                            $imageClass = 'w-[9.2rem] h-[9.2rem] lg:w-[8.6rem] lg:h-[8.6rem]';
+                            $imageGap = 'gap-3';
+                            break;
+                        case 4:
                             $imageClass = 'w-[6rem] h-[6rem] lg:w-[5.5rem] lg:h-[5.5rem]';
                             $imageGap = 'gap-x-4';
                             break;
-                        case 4:
+                        case 5:
                             $imageClass = 'w-[5rem] h-[5rem] lg:w-[4.1rem] lg:h-[4.1rem]';
                             $imageGap = 'gap-2';
                             break;
@@ -121,7 +119,9 @@
         @if ($entity->description)
             <span class="sm:mx-4 text-sm font-semibold mt-4">Описание</span>
             <div class="max-h-16 md:max-h-36 lg:max-h-48 flex truncate sm:mx-4 max-w-[50rem]">
-                <p class="text-xs md:text-base font-normal text-gray-500 break-words whitespace-normal text-justify whitespace-pre-wrap">{{ $entity->description }}</p>
+                <p
+                    class="text-xs md:text-base font-normal text-gray-500 break-words whitespace-normal text-justify whitespace-pre-wrap">
+                    {{ $entity->description }}</p>
             </div>
         @endif
 
