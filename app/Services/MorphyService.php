@@ -19,9 +19,11 @@ class MorphyService
         $region->chunk(50, function (Collection $regions) {
 
             foreach ($regions as $region) {
-                $region->update([
-                    $region->name_dat = $this->to_prepositional($region->name)
-                ]);
+                if ($region->id !== 1) {
+                    $region->update([
+                        $region->name_dat = $this->nameCase->q($region->name)[5]
+                    ]);
+                }
             }
         });
     }

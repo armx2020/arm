@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Libraries\NameCase\NCLNameCaseRu;
 use App\Models\City;
 use App\Models\Region;
 use App\Services\MorphyService;
@@ -20,7 +21,7 @@ class MorphyRegion extends Command
 
         if ($this->option('dative')) {
             $morphyService->setDative($cities);
-           // $morphyService->setDative($cities);
+            $morphyService->setDative($regions);
         }
     }
 }
