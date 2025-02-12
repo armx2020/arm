@@ -4,11 +4,17 @@
         <div class="flex justify-between h-16">
             <div class="flex">
 
+
+
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 xl:flex">
-                    <x-nav-link :href="route('home')">
-                        <img src="{{ url('/image/logo.png') }}" class="h-7" alt="logo" />
-                    </x-nav-link>
+
+                    <div class="w-24 items-center flex">
+                        <a class="" href="{{ route('home') }}">
+                            <img src="{{ url('/image/logo.png') }}" class="" alt="logo" />
+                        </a>
+                    </div>
+
                     @foreach ($menu as $link)
                         @if (count($link['sub']) > 0)
                             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -54,7 +60,6 @@
                                             {{ $messagesCount }}
                                         @endif
                                     </div>
-
                                 @endif
                             </x-nav-link>
                         @endif
