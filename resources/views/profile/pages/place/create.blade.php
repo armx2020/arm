@@ -34,44 +34,24 @@
 
                         <div class="flex flex-row border-b" wire:ignore>
 
-                            <!-- image  -->
-                            <div class="flex flex-row" id="upload_area" wire:ignore>
-                                <div class="flex relative p-3">
-                                    <img class="h-20 w-20 rounded-lg mx-4 my-2 object-cover" id="img"
-                                        src="{{ url('/image/no-image.png') }}" alt="avatar">
-                                    <button type="button" id="remove_image" class="absolute top-2 right-2"
-                                        style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;"></button>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <label class="input-file relative inline-block">
-                                        <input name="image" type="file" accept=".jpg,.jpeg,.png" id="image"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span"
-                                            class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
 
                             <!-- image 1 -->
-                            <div class="hidden  flex flex-row" id="upload_area_1" wire:ignore>
+                            <div class="flex flex-row" id="upload_area_1" wire:ignore>
                                 <div class="flex relative p-3">
                                     <img class="h-20 w-20 rounded-lg mx-4 my-2 object-cover" id="img_1"
-                                        src="{{ url('/image/no-image.png') }}" alt="avatar">
+                                         src="{{ url('/image/no-image.png') }}" alt="avatar">
                                     <button type="button" id="remove_image_1" class="absolute top-2 right-2"
-                                        style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;"></button>
+                                            style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                                                        style="cursor:pointer;"></button>
                                 </div>
 
                                 <div class="flex items-center">
                                     <label class="input-file relative inline-block">
-                                        <input name="image_1" type="file" accept=".jpg,.jpeg,.png" id="image_1"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                        <input name="images[]" type="file" accept=".jpg,.jpeg,.png" id="image_1"
+                                               class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
                                         <span id="image_span_1"
-                                            class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
+                                              class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
+                                              style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                                     </label>
                                 </div>
                             </div>
@@ -80,19 +60,19 @@
                             <div class="hidden flex flex-row" id="upload_area_2" wire:ignore>
                                 <div class="flex relative p-3">
                                     <img class="h-20 w-20 rounded-lg mx-4 my-2 object-cover" id="img_2"
-                                        src="{{ url('/image/no-image.png') }}" alt="avatar">
+                                         src="{{ url('/image/no-image.png') }}" alt="avatar">
                                     <button type="button" id="remove_image_2" class="absolute top-2 right-2"
-                                        style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;"></button>
+                                            style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                                                        style="cursor:pointer;"></button>
                                 </div>
 
                                 <div class="flex items-center">
                                     <label class="input-file relative inline-block">
-                                        <input name="image_2" type="file" accept=".jpg,.jpeg,.png" id="image_2"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                        <input name="images[]" type="file" accept=".jpg,.jpeg,.png" id="image_2"
+                                               class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
                                         <span id="image_span_2"
-                                            class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
+                                              class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
+                                              style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                                     </label>
                                 </div>
                             </div>
@@ -101,19 +81,19 @@
                             <div class="hidden flex flex-row" id="upload_area_3" wire:ignore>
                                 <div class="flex relative p-3">
                                     <img class="h-20 w-20 rounded-lg mx-4 my-2 object-cover" id="img_3"
-                                        src="{{ url('/image/no-image.png') }}" alt="avatar">
+                                         src="{{ url('/image/no-image.png') }}" alt="avatar">
                                     <button type="button" id="remove_image_3" class="absolute top-2 right-2"
-                                        style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;"></button>
+                                            style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                                                        style="cursor:pointer;"></button>
                                 </div>
 
                                 <div class="flex items-center">
                                     <label class="input-file relative inline-block">
-                                        <input name="image_3" type="file" accept=".jpg,.jpeg,.png" id="image_3"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                        <input name="images[]" type="file" accept=".jpg,.jpeg,.png" id="image_3"
+                                               class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
                                         <span id="image_span_3"
-                                            class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
+                                              class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
+                                              style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                                     </label>
                                 </div>
                             </div>
@@ -122,19 +102,40 @@
                             <div class="hidden flex flex-row" id="upload_area_4" wire:ignore>
                                 <div class="flex relative p-3">
                                     <img class="h-20 w-20 rounded-lg mx-4 my-2 object-cover" id="img_4"
-                                        src="{{ url('/image/no-image.png') }}" alt="avatar">
+                                         src="{{ url('/image/no-image.png') }}" alt="avatar">
                                     <button type="button" id="remove_image_4" class="absolute top-2 right-2"
-                                        style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;"></button>
+                                            style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                                                        style="cursor:pointer;"></button>
                                 </div>
 
                                 <div class="flex items-center">
                                     <label class="input-file relative inline-block">
-                                        <input name="image_4" type="file" accept=".jpg,.jpeg,.png" id="image_4"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                        <input name="images[]" type="file" accept=".jpg,.jpeg,.png" id="image_4"
+                                               class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
                                         <span id="image_span_4"
-                                            class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
+                                              class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
+                                              style="cursor:pointer;">Выберите файл или перетащите сюда</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- image 5 -->
+                            <div class="hidden flex flex-row" id="upload_area_5" wire:ignore>
+                                <div class="flex relative p-3">
+                                    <img class="h-20 w-20 rounded-lg mx-4 my-2 object-cover" id="img_5"
+                                         src="{{ url('/image/no-image.png') }}" alt="avatar">
+                                    <button type="button" id="remove_image_5" class="absolute top-2 right-2"
+                                            style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                                                        style="cursor:pointer;"></button>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <label class="input-file relative inline-block">
+                                        <input name="images[]" type="file" accept=".jpg,.jpeg,.png" id="image_5"
+                                               class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                        <span id="image_span_5"
+                                              class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
+                                              style="cursor:pointer;">Выберите файл или перетащите сюда</span>
                                     </label>
                                 </div>
                             </div>
@@ -294,12 +295,13 @@
 
             // Максимальный размер файла – 2 МБ
             const maxSize = 2000000;
+
             const sections = [
-                { input: '#image',    img: '#img',    span: '#image_span',    remove: '#remove_image',    section: '#upload_area' },
                 { input: '#image_1',  img: '#img_1',  span: '#image_span_1',  remove: '#remove_image_1',  section: '#upload_area_1' },
                 { input: '#image_2',  img: '#img_2',  span: '#image_span_2',  remove: '#remove_image_2',  section: '#upload_area_2' },
                 { input: '#image_3',  img: '#img_3',  span: '#image_span_3',  remove: '#remove_image_3',  section: '#upload_area_3' },
-                { input: '#image_4',  img: '#img_4',  span: '#image_span_4',  remove: '#remove_image_4',  section: '#upload_area_4' }
+                { input: '#image_4',  img: '#img_4',  span: '#image_span_4',  remove: '#remove_image_4',  section: '#upload_area_4' },
+                { input: '#image_5',  img: '#img_5',  span: '#image_span_5',  remove: '#remove_image_5',  section: '#upload_area_5' }
             ];
 
             function handleFileInput(file, index) {
@@ -313,6 +315,7 @@
 
                 $(section.span).html(file.name).css({ color: "rgb(71 85 105)" });
                 $(section.section).find('.flex.items-center').hide();
+
                 $(section.remove).show();
 
                 const reader = new FileReader();

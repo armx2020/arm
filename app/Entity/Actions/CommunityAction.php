@@ -36,50 +36,23 @@ class CommunityAction
         $entity->user_id = $user_id ?: $request->user;
         $entity->category_id = $request->category;
 
-        if ($request->image) {
-            $entity->image = $request->file('image')->store('uploaded', 'public');
-            Image::make('storage/' . $entity->image)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
         $entity->save();
 
-        // images
-        if ($request->image_1) {
-            $entity->images()->create([
-                'path' => $request->file('image_1')->store('uploaded', 'public')
-            ]);
-            Image::make('storage/' . $entity->images()->get()[0]->path)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $sortId => $file) {
+                $path = $file->store('uploaded', 'public');
 
-        if ($request->image_2) {
-            $entity->images()->create([
-                'path' => $request->file('image_2')->store('uploaded', 'public')
-            ]);
-            Image::make('storage/' . $entity->images()->get()[1]->path)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
+                $imageEntity = $entity->images()->create([
+                    'path' => $path,
+                    'sort_id' => $sortId,
+                ]);
 
-        if ($request->image_3) {
-            $entity->images()->create([
-                'path' => $request->file('image_3')->store('uploaded', 'public')
-            ]);
-            Image::make('storage/' . $entity->images()->get()[2]->path)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image_4) {
-            $entity->images()->create([
-                'path' => $request->file('image_4')->store('uploaded', 'public')
-            ]);
-            Image::make('storage/' . $entity->images()->get()[3]->path)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
+                Image::make('storage/' . $imageEntity->path)
+                    ->resize(400, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })
+                    ->save();
+            }
         }
 
         return $entity;

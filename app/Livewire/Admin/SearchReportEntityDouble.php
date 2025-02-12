@@ -43,8 +43,6 @@ class SearchReportEntityDouble extends BaseComponent
         $title = 'Сводка по дублям';
         $table = [];
 
-        DB::table('entities')->update(['double' => false]);
-
         foreach ($this->fields as $field => $displayName) {
 
             $dupAll = DB::table('entities')
@@ -90,12 +88,6 @@ class SearchReportEntityDouble extends BaseComponent
                 ->groupBy($field)
                 ->havingRaw('COUNT(*) > 1')
                 ->pluck($field);
-
-            if ($dupValues->count() > 0) {
-                DB::table('entities')
-                    ->whereIn($field, $dupValues)
-                    ->update(['double' => true]);
-            }
 
             $table[] = [
                 'field'  => $displayName,
