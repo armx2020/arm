@@ -66,7 +66,7 @@ class SiteMapService
                 } else {
                     $url = 'https://vsearmyane.ru'  . '/' . $region->transcription;
                     $name = $region->name;
-                    $description = "Сообщество армян в России: {{ strtolower($region->name) }}";
+                    $description = "Сообщество армян в России: " . strtolower($region->name);
                     $site_map_type = $this->site_map_types['домашняя (область)'];
                 }
 
@@ -134,10 +134,56 @@ class SiteMapService
                                 $name =  "Сообщество армян в России - " . strtolower($type->name) . " - " . strtolower($category->name);
                                 $description = "Сообщество армян в России - " . strtolower($type->name) . " - " . strtolower($category->name);
                                 $site_map_type = $this->site_map_types['категория (общая)'];
+
+                                switch ($category->id) {
+                                    case 2:
+                                        $name =  "Армянские сообщества в России";
+                                        $description = "Армянские сообщества в России";
+                                        break;
+                                    case 3:
+                                        $name =  "Армянские кружки, школы в России";
+                                        $description = "Армянские кружки, школы в России";
+                                        break;
+                                    case 6:
+                                        $name =  "Армянские церкви в России";
+                                        $description = "Армянские церкви в России";
+                                        break;
+                                    case 7:
+                                        $name =  "Армянские консульства, посольства в России";
+                                        $description = "Армянские консульства, посольства в России";
+                                        break;
+                                    case 1:
+                                        $name =  "Армянские общины в России";
+                                        $description = "Армянские общины в России";
+                                        break;
+                                }
                             } else {
                                 $name = $region->name . " - " . strtolower($type->name) . " - " . strtolower($category->name);
                                 $description = $region->name . " - " . strtolower($type->name) . " - " . strtolower($category->name);
                                 $site_map_type = $this->site_map_types['категория (область)'];
+
+                                switch ($category->id) {
+                                    case 2:
+                                        $name =  "Армянские сообщества в $region->name_dat";
+                                        $description = "Армянские сообщества в $region->name_dat";
+                                        break;
+                                    case 3:
+                                        $name =  "Армянские кружки, школы в $region->name_dat";
+                                        $description = "Армянские кружки, школы в $region->name_dat";
+                                        break;
+                                    case 6:
+                                        $name =  "Армянские церкви в $region->name_dat";
+                                        $description = "Армянские церкви в $region->name_dat";
+                                        break;
+                                    case 7:
+                                        $name =  "Армянские консульства, посольства в $region->name_dat";
+                                        $description = "Армянские консульства, посольства в $region->name_dat";
+                                        break;
+                                    case 1:
+                                        $name =  "Армянские общины в $region->name_dat";
+                                        $description = "Армянские общины в $region->name_dat";
+                                        break;
+                                }
                             }
 
                             $count = Entity::active()
@@ -267,10 +313,57 @@ class SiteMapService
                                 $name =  "Сообщество армян в России - " . strtolower($type->name) . " - " . strtolower($category->name);
                                 $description = "Сообщество армян в России - " . strtolower($type->name) . " - " . strtolower($category->name);
                                 $site_map_type = $this->site_map_types['категория (общая)'];
+
+                                switch ($category->id) {
+                                    case 2:
+                                        $name =  "Армянские сообщества в России";
+                                        $description = "Армянские сообщества в России";
+                                        break;
+                                    case 3:
+                                        $name =  "Армянские кружки, школы в России";
+                                        $description = "Армянские кружки, школы в России";
+                                        break;
+                                    case 6:
+                                        $name =  "Армянские церкви в России";
+                                        $description = "Армянские церкви в России";
+                                        break;
+                                    case 7:
+                                        $name =  "Армянские консульства, посольства в России";
+                                        $description = "Армянские консульства, посольства в России";
+                                        break;
+                                    case 1:
+                                        $name =  "Армянские общины в России";
+                                        $description = "Армянские общины в России";
+                                        break;
+                                }
+
                             } else {
                                 $name = $city->name . " - " . strtolower($type->name) . " - " . strtolower($category->name);
                                 $description = $city->name . " - " . strtolower($type->name) . " - " . strtolower($category->name);
                                 $site_map_type = $this->site_map_types['категория (город)'];
+
+                                switch ($category->id) {
+                                    case 2:
+                                        $name =  "Армянские сообщества в $city->name_dat";
+                                        $description = "Армянские сообщества в $city->name_dat";
+                                        break;
+                                    case 3:
+                                        $name =  "Армянские кружки, школы в $city->name_dat";
+                                        $description = "Армянские кружки, школы в $city->name_dat";
+                                        break;
+                                    case 6:
+                                        $name =  "Армянские церкви в $city->name_dat";
+                                        $description = "Армянские церкви в $city->name_dat";
+                                        break;
+                                    case 7:
+                                        $name =  "Армянские консульства, посольства в $city->name_dat";
+                                        $description = "Армянские консульства, посольства в $city->name_dat";
+                                        break;
+                                    case 1:
+                                        $name =  "Армянские общины в $city->name_dat";
+                                        $description = "Армянские общины в $city->name_dat";
+                                        break;
+                                }
                             }
 
                             $count = Entity::active()
@@ -379,9 +472,9 @@ class SiteMapService
                 ->writeToFile($path);
 
             $sitemapGenerat = SM::create();
-          
+
             foreach ($sitemaps as $sitemap) {
-                $sitemapGenerat->add($sitemap->url);       
+                $sitemapGenerat->add($sitemap->url);
             }
 
             $sitemapGenerat->writeToFile(public_path("sitemap-$iteration.xml"));

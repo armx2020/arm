@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 
 class CreateSiteMap extends Command
 {
-    protected $signature = 'app:create-site-map {--create} {--truncate} ';
+    protected $signature = 'app:create-site-map {--create} {--truncate}';
 
     protected $description = 'создать карту сайта {--создать таблицу в бд} {--очистить таблицу в бд}';
 
