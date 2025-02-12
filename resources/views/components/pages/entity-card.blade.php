@@ -120,8 +120,7 @@
             <span class="sm:mx-4 text-sm font-semibold mt-4">Описание</span>
             <div class="max-h-16 md:max-h-36 lg:max-h-48 flex truncate sm:mx-4 max-w-[50rem]">
                 <p
-                    class="text-xs md:text-base font-normal text-gray-500 break-words whitespace-normal text-justify whitespace-pre-wrap">
-                    {{ $entity->description }}</p>
+                    class="text-xs md:text-base font-normal text-gray-500 break-words whitespace-normal text-justify whitespace-pre-wrap">{{ $entity->description }}</p>
             </div>
         @endif
 
