@@ -38,7 +38,7 @@
                             break;
                         case 4:
                             $imageClass = 'w-[6rem] h-[6rem] lg:w-[5.5rem] lg:h-[5.5rem]';
-                            $imageGap = 'gap-x-4';
+                            $imageGap = 'gap-x-3';
                             break;
                         case 5:
                             $imageClass = 'w-[5rem] h-[5rem] lg:w-[4.1rem] lg:h-[4.1rem]';
