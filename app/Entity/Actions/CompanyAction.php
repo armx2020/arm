@@ -78,85 +78,6 @@ class CompanyAction
     {
         $city = $this->getCity($request);
 
-        if ($request->image_remove == 'delete' || $request->image) {
-            if (isset($entity->image)) {
-                Storage::delete('public/' . $entity->image);
-                $entity->image = null;
-            }
-        }
-
-        if ($request->image_remove_1 == 'delete' || $request->image_1) {
-            if (isset($entity->images()->get()[0])) {
-                Storage::delete('public/' . $entity->images()->get()[0]->path);
-                $entity->images()->get()[0]->delete();
-            }
-        }
-
-        if ($request->image_remove_2 == 'delete'  || $request->image_2) {
-            if (isset($entity->images()->get()[1])) {
-                Storage::delete('public/' . $entity->images()->get()[1]->path);
-                $entity->images()->get()[1]->delete();
-            }
-        }
-
-        if ($request->image_remove_3 == 'delete'  || $request->image_3) {
-            if (isset($entity->images()->get()[2])) {
-                Storage::delete('public/' . $entity->images()->get()[2]->path);
-                $entity->images()->get()[2]->delete();
-            }
-        }
-
-        if ($request->image_remove_4 == 'delete' || $request->image_4) {
-            if (isset($entity->images()->get()[3])) {
-                Storage::delete('public/' . $entity->images()->get()[3]->path);
-                $entity->images()->get()[3]->delete();
-            }
-        }
-
-        // images
-        if ($request->image) {
-            $entity->image = $request->file('image')->store('uploaded', 'public');
-            Image::make('storage/' . $entity->image)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image_1) {
-            $entity->images()->create([
-                'path' => $request->file('image_1')->store('uploaded', 'public')
-            ]);
-            Image::make('storage/' . $entity->images()->get()[0]->path)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image_2) {
-            $entity->images()->create([
-                'path' => $request->file('image_2')->store('uploaded', 'public')
-            ]);
-            Image::make('storage/' . $entity->images()->get()[1]->path)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image_3) {
-            $entity->images()->create([
-                'path' => $request->file('image_3')->store('uploaded', 'public')
-            ]);
-            Image::make('storage/' . $entity->images()->get()[2]->path)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
-        if ($request->image_4) {
-            $entity->images()->create([
-                'path' => $request->file('image_4')->store('uploaded', 'public')
-            ]);
-            Image::make('storage/' . $entity->images()->get()[3]->path)->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-        }
-
         $entity->name = $request->name;
         $entity->address = $request->address;
         $entity->description = $request->description;
@@ -186,6 +107,51 @@ class CompanyAction
                         $entity->save();
                     }
                     $entity->fields()->attach($categoryID, ['main_category_id' => $categoryMain]);
+                }
+            }
+        }
+
+        $oldImages = $entity->images;
+        $imagesData = $request->input('images', []);
+        $oldIDs = $oldImages->pluck('id');
+
+        $incomingIDs = collect($imagesData)
+            ->filter(fn($item) => !str_starts_with($item['id'], 'new_'))
+            ->pluck('id');
+
+        $idsToDelete = $oldIDs->diff($incomingIDs);
+
+        if ($idsToDelete->isNotEmpty()) {
+            $entity->images()->whereIn('id', $idsToDelete)->delete();
+        }
+
+        $oldImagesMap = $oldImages->keyBy('id');
+
+        foreach ($imagesData as $index => $imgData) {
+            $sortId  = $imgData['sort_id'] ?? ($index + 1);
+            $imageId = $imgData['id'];
+
+            if (str_starts_with($imageId, 'new_')) {
+                $file = $request->file("images.$index.file");
+                if ($file) {
+                    $path = $file->store('uploads', 'public');
+
+                    $newImage = $entity->images()->create([
+                        'sort_id' => $sortId,
+                        'path'    => $path,
+                    ]);
+
+                    Image::make('storage/' . $newImage->path)
+                        ->resize(400, null, function($constraint){
+                            $constraint->aspectRatio();
+                        })
+                        ->save();
+                }
+            } else {
+                $oldImage = $oldImagesMap->get($imageId);
+                if ($oldImage) {
+                    $oldImage->sort_id = $sortId;
+                    $oldImage->save();
                 }
             }
         }

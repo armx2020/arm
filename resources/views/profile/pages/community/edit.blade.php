@@ -12,6 +12,7 @@
 @section('scripts')
     <script src="{{ url('/select2.min.js') }}"></script>
     <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
+    <script src="{{ url('/jquery-ui.min.js') }}"></script>
     @vite(['resources/css/select.css'])
     @livewireStyles
 @endsection
@@ -24,17 +25,10 @@
         <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
             <div class="flex flex-col basis-full">
                 <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
-                    <form method="post" action="{{ route('mycommunities.update', ['mycommunity' => $entity->id]) }}"
+                    <form id="card-form" method="post" action="{{ route('mycommunities.update', ['mycommunity' => $entity->id]) }}"
                         class="w-full" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
-                        <input name="image_remove_1" type="text" id="image_remove_1" class="hidden" style="z-index:-10;" />
-                        <input name="image_remove_2" type="text" id="image_remove_2" class="hidden"
-                            style="z-index:-10;" />
-                        <input name="image_remove_3" type="text" id="image_remove_3" class="hidden"
-                            style="z-index:-10;" />
-                        <input name="image_remove_4" type="text" id="image_remove_4" class="hidden"
-                            style="z-index:-10;" />
 
                         <div class="w-full">
                             <h2 class="text-xl">Редактировать сообщество</h2>
@@ -45,153 +39,9 @@
                             $images = $entity->images()->get();
                         @endphp
 
-                        <div class="flex flex-row border-b" wire:ignore>
-
-                            <!-- image  -->
-                            <div class="flex flex-row" id="upload_area">
-
-                                <div class="flex relative p-3">
-                                    <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img" alt="image"
-                                        @if (empty($entity->image)) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $entity->image) }}" @endif>
-
-                                    <button type="button" id="remove_image" class="absolute top-2 right-2"
-                                        @if (isset($entity->image) && empty($images[0])) style="display: block;" @else style="display: none;" @endif>
-
-                                        <img src="{{ url('/image/remove.png') }}" class="w-5 h-5" style="cursor:pointer;">
-                                    </button>
-                                </div>
-
-                                <div class="items-center" id="title_image"
-                                    @if (empty($entity->image)) style="display: flex;" @else style="display: none;" @endif>
-
-                                    <label class="input-file relative inline-block">
-                                        <input name="image" type="file" accept=".jpg,.jpeg,.png" id="image"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span"
-                                            class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-
-                            </div>
-
-                            <!-- image 1 -->
-                            <div class="flex flex-row" id="upload_area_1"
-                                @if (empty($entity->image)) style="display: none;" @else style="display: flex;" @endif>
-
-                                <div class="flex relative p-3">
-                                    <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img_1" alt="image"
-                                        @if (empty($images[0])) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $images[0]->path) }}" @endif>
-
-                                    <button type="button" id="remove_image_1" class="absolute top-2 right-2"
-                                        @if (isset($images[0]) && empty($images[1])) style="display: block;" @else style="display: none;" @endif>
-
-                                        <img src="{{ url('/image/remove.png') }}" class="w-5 h-5" style="cursor:pointer;">
-                                    </button>
-                                </div>
-
-                                <div class="items-center" id="title_image_1"
-                                    @if (empty($images[0])) style="display: flex;" @else style="display: none;" @endif>
-
-                                    <label class="input-file relative inline-block">
-                                        <input name="image_1" type="file" accept=".jpg,.jpeg,.png" id="image_1"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span_1"
-                                            class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-
-                            </div>
-
-                            <!-- image 2 -->
-                            <div class="flex-row" id="upload_area_2"
-                                @if (empty($images[0])) style="display: none;" @else style="display: flex;" @endif>
-
-                                <div class="flex relative p-3">
-
-                                    <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img_2" alt="image"
-                                        @if (empty($images[1])) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $images[1]->path) }}" @endif>
-
-                                    <button type="button" id="remove_image_2" class="absolute top-2 right-2"
-                                        @if (isset($images[1]) && empty($images[2])) style="display: block;" @else style="display: none;" @endif>
-
-                                        <img src="{{ url('/image/remove.png') }}" class="w-5 h-5" style="cursor:pointer;">
-                                    </button>
-                                </div>
-
-                                <div class="items-center" id="title_image_2"
-                                    @if (empty($images[1])) style="display: flex;" @else style="display: none;" @endif>
-
-                                    <label class="input-file relative inline-block">
-                                        <input name="image_2" type="file" accept=".jpg,.jpeg,.png" id="image_2"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span_2"
-                                            class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
-
-
-                            <!-- image 3 -->
-                            <div class="flex-row" id="upload_area_3"
-                                @if (empty($images[1])) style="display: none;" @else style="display: flex;" @endif>
-                                <div class="flex relative p-3">
-
-                                    <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img_3" alt="image"
-                                        @if (empty($images[2])) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $images[2]->path) }}" @endif>
-
-                                    <button type="button" id="remove_image_3" class="absolute top-2 right-2"
-                                        @if (isset($images[2]) && empty($images[3])) style="display: block;" @else style="display: none;" @endif>
-
-                                        <img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;">
-                                    </button>
-                                </div>
-
-                                <div class="items-center" id="title_image_3"
-                                    @if (empty($images[2])) style="display: flex;" @else style="display: none;" @endif>
-
-                                    <label class="input-file relative inline-block">
-                                        <input name="image_3" type="file" accept=".jpg,.jpeg,.png" id="image_3"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span_3"
-                                            class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- image 4 -->
-                            <div class="flex-row" id="upload_area_4"
-                                @if (empty($images[2])) style="display: none;" @else style="display: flex;" @endif>
-
-                                <div class="flex relative p-3">
-
-                                    <img class="h-20 w-20 rounded-lg m-4 object-cover" id="img_4" alt="image"
-                                        @if (empty($images[3])) src="{{ url('/image/no-image.png') }}" @else src="{{ asset('storage/' . $images[3]->path) }}" @endif>
-
-                                    <button type="button" id="remove_image_4" class="absolute top-2 right-2"
-                                        @if (isset($images[3])) style="display: block;" @else style="display: none;" @endif>
-
-                                        <img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                            style="cursor:pointer;">
-                                    </button>
-                                </div>
-
-                                <div class="items-center" id="title_image_4"
-                                    @if (empty($images[3])) style="display: flex;" @else style="display: none;" @endif>
-
-                                    <label class="input-file relative inline-block">
-                                        <input name="image_4" type="file" accept=".jpg,.jpeg,.png" id="image_4"
-                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span_4"
-                                            class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                            style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="border-b min-h-auto overflow-hidden pb-2" wire:ignore>
+                            <div id="sortable-slots"></div>
+                            <div id="add-slot-container"></div>
                         </div>
 
                         <div>
@@ -229,7 +79,7 @@
                                             <div class="flex">
                                                 @if (count($item->categories) < 1)
                                                     <input type="radio" name="category" value="{{ $item->id }}"
-                                                        @checked($offer->category_id == $item->id)
+                                                        @checked($entity->category_id == $item->id)
                                                         @if (is_array(old('category')) && in_array($item->id, old('category'))) checked @endif
                                                         class="checkbox-{{ $loop->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                                                         id="checkbox-{{ $item->id }}">
@@ -333,6 +183,24 @@
             </div>
         </div>
     </div>
+
+    <template id="image-slot-template">
+        <div class="image-slot border border-dashed border-gray-300 relative p-2 float-left
+                flex items-center space-x-2 rounded-md ml-2 my-1" data-id="">
+
+            <img class="preview-img w-20 h-20 object-cover rounded-md" src="{{ url('/image/no-image.png') }}">
+
+            <button type="button" class="remove-image-btn absolute top-3 right-3" style="display: none;">
+                <img src="{{ url('/image/remove.png') }}" class="w-5 h-5">
+            </button>
+
+            <label class="file-label cursor-pointer flex-grow text-center">
+                <input type="file" class="file-input hidden" accept=".jpg,.jpeg,.png">
+                <span class="text-sm text-gray-500">Выберите файл или перетащите сюда</span>
+            </label>
+        </div>
+    </template>
+
     <script type="text/javascript">
         $(document).ready(function() {
             if ($("#city").length > 0) {
@@ -365,149 +233,180 @@
                 });
             }
 
-            const maxSize = 2000000; // 2 MB
+            const maxSlots         = 20;
+            const maxSize          = 2 * 1024 * 1024; // 2MB
+            let newImageCounter    = 1;
 
-            function updatePreview(input, imgSelector, spanSelector, sectionSelector,
-                removeBtnSelectorShow,
-                removeBtnSelectorHide, nextSectionSelector) {
-                const file = input.files[0];
-                if (file.size > maxSize) {
-                    $(spanSelector).html('Максимальный размер 2 МБ').css("color", "rgb(239 68 68)");
-                    input.value = '';
+            const $sortable        = $('#sortable-slots');
+            const $addSlotContainer= $('#add-slot-container');
+            const $form            = $('#card-form');
+
+            let existingImages = @json($images);
+
+            existingImages = existingImages.sort((a,b) => (a.sort_id || 0) - (b.sort_id || 0));
+
+            existingImages.forEach(img => {
+                createExistingSlot(img);
+            });
+
+            createEmptySlot();
+
+            $sortable.sortable({
+                items: '.image-slot',
+                cancel: 'input, button, label'
+            });
+
+            function createExistingSlot(image) {
+                const $slot = cloneSlotTemplate();
+
+                $slot.attr('data-id', image.id);
+
+                $slot.find('.preview-img').attr('src', '/storage/' + image.path);
+
+                $slot.find('.file-label').addClass('hidden');
+
+                $slot.find('.remove-image-btn').show().on('click', function() {
+                    $slot.remove();
+                    maybeCreateEmptySlot();
+                });
+
+                initDragAndDrop($slot);
+                $sortable.append($slot);
+            }
+
+            function createEmptySlot() {
+                const slotCount = $sortable.find('.image-slot').length;
+                if (slotCount >= maxSlots) {
                     return;
                 }
 
+                $addSlotContainer.empty();
+
+                const $slot = cloneSlotTemplate();
+                initSlotForNew($slot, true);
+
+                $addSlotContainer.append($slot);
+            }
+
+            function createFilledSlot(file) {
+                const $slot = cloneSlotTemplate();
+                const newId = 'new_' + (newImageCounter++);
+                $slot.attr('data-id', newId);
+
+                initSlotForNew($slot, false);
+
+                const fileInput = $slot.find('.file-input')[0];
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
+
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    $(imgSelector).attr('src', e.target.result);
+                    $slot.find('.preview-img').attr('src', e.target.result);
                 };
                 reader.readAsDataURL(file);
 
-                $(spanSelector).html(file.name).css("color", "rgb(71 85 105)");
-                $(sectionSelector).css("display", "none");
-                $(removeBtnSelectorHide).css("display", "none");
-                $(removeBtnSelectorShow).css("display", "block");
-                $(nextSectionSelector).css({
-                    "display": "flex",
-                    "flex-direction": "row"
+                $slot.find('.file-label').addClass('hidden');
+                $slot.find('.remove-image-btn').show();
+
+                $sortable.append($slot);
+            }
+
+            function initSlotForNew($slot, isEmptySlot) {
+                const $fileInput = $slot.find('.file-input');
+                const $removeBtn = $slot.find('.remove-image-btn');
+                const $preview   = $slot.find('.preview-img');
+
+                if (isEmptySlot) {
+                    $removeBtn.hide();
+                }
+
+                $fileInput.on('change', function() {
+                    const file = this.files[0];
+                    if (!file) return;
+
+                    if (file.size > maxSize) {
+                        alert('Файл больше 2МБ!');
+                        $fileInput.val('');
+                        return;
+                    }
+
+                    if (isEmptySlot) {
+                        createFilledSlot(file);
+                        createEmptySlot();
+                        $slot.remove();
+                    } else {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            $preview.attr('src', e.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                $removeBtn.on('click', function() {
+                    $slot.remove();
+                    maybeCreateEmptySlot();
+                });
+
+                initDragAndDrop($slot);
+            }
+
+            function maybeCreateEmptySlot() {
+                const slotCount = $sortable.find('.image-slot').length;
+                if (slotCount < maxSlots) {
+                    if ($addSlotContainer.find('.image-slot').length === 0) {
+                        createEmptySlot();
+                    }
+                }
+            }
+
+            function initDragAndDrop($slot) {
+                $slot.on('dragover', function(e) {
+                    e.preventDefault();
+                    $slot.css('background-color', '#f1f5f9');
+                });
+                $slot.on('dragleave', function(e) {
+                    e.preventDefault();
+                    $slot.css('background-color', '');
+                });
+                $slot.on('drop', function(e) {
+                    e.preventDefault();
+                    $slot.css('background-color', '');
+                    const files = e.originalEvent.dataTransfer.files;
+                    if (files && files.length > 0) {
+                        $slot.find('.file-input')[0].files = files;
+                        $slot.find('.file-input').trigger('change');
+                    }
                 });
             }
 
-            function removeFile(inputSelector, imgSelector, spanSelector, sectionSelector,
-                removeBtnSelectorShow, removeBtnSelectorHide, prevSectionSelector, imageDelete) {
-                $(inputSelector).val('');
-                $(imgSelector).attr('src', `{{ url('/image/no-image.png') }}`);
-                $(spanSelector).html('Выберите файл или перетащите сюда').css("color",
-                    "rgb(71 85 105)");
-                $(sectionSelector).css("display", "none");
-                $(removeBtnSelectorHide).css("display", "none");
-                $(imageDelete).val('delete');
-                if (removeBtnSelectorShow) {
-                    $(removeBtnSelectorShow).css("display", "block");
-                }
-
-                if (prevSectionSelector) {
-                    $(prevSectionSelector).css({
-                        "display": "flex",
-                        "flex-direction": "row"
-                    });
-                }
+            function cloneSlotTemplate() {
+                const template = document.getElementById('image-slot-template');
+                return $(template.content.cloneNode(true)).find('.image-slot');
             }
 
-            // image
-            $('#image').on('change', function() {
-                updatePreview(this, '#img', '#image_span', '#title_image', '#remove_image',
-                    null,
-                    '#upload_area_1');
-            });
+            $form.on('submit', function(e) {
+                $form.find('input[type="hidden"][name^="images["]').remove();
 
-            $('#remove_image').on('click', function() {
-                removeFile('#image', '#img', '#image_span', '#upload_area_1', null,
-                    '#remove_image',
-                    '#upload_area, #title_image', '#image_remove');
-            });
+                const $slots = $sortable.find('.image-slot');
+                $slots.each(function(index) {
+                    const $slot = $(this);
+                    const slotId = $slot.attr('data-id');
+                    const sortId = index + 1;
 
-            // image 1
-            $('#image_1').on('change', function() {
-                updatePreview(this, '#img_1', '#image_span_1', '#title_image_1',
-                    '#remove_image_1',
-                    '#remove_image', '#upload_area_2');
-            });
-            $('#remove_image_1').on('click', function() {
-                removeFile('#image_1', '#img_1', '#image_span_1', '#upload_area_2',
-                    '#remove_image',
-                    '#remove_image_1', '#upload_area_1, #title_image_1', '#image_remove_1');
-            });
+                    const $idHidden = $(`<input type="hidden" name="images[${index}][id]" value="${slotId}">`);
+                    $form.append($idHidden);
 
-            // image 2
-            $('#image_2').on('change', function() {
-                updatePreview(this, '#img_2', '#image_span_2', '#title_image_2',
-                    '#remove_image_2',
-                    '#remove_image_1', '#upload_area_3');
-            });
-            $('#remove_image_2').on('click', function() {
-                removeFile('#image_2', '#img_2', '#image_span_2', '#upload_area_3',
-                    '#remove_image_1',
-                    '#remove_image_2', '#upload_area_2, #title_image_2', '#image_remove_2');
-            });
+                    const $sortIdHidden = $(`<input type="hidden" name="images[${index}][sort_id]" value="${sortId}">`);
+                    $form.append($sortIdHidden);
 
-            // image 3
-            $('#image_3').on('change', function() {
-                updatePreview(this, '#img_3', '#image_span_3', '#title_image_3',
-                    '#remove_image_3',
-                    '#remove_image_2', '#upload_area_4');
-            });
-            $('#remove_image_3').on('click', function() {
-                removeFile('#image_3', '#img_3', '#image_span_3', '#upload_area_4',
-                    '#remove_image_2',
-                    '#remove_image_3', '#upload_area_3, #title_image_3', '#image_remove_3');
-            });
-
-            // image 4
-            $('#image_4').on('change', function() {
-                updatePreview(this, '#img_4', '#image_span_4', '#title_image_4',
-                    '#remove_image_4',
-                    '#remove_image_3', null);
-            });
-            $('#remove_image_4').on('click', function() {
-                removeFile('#image_4', '#img_4', '#image_span_4', null, '#remove_image_3',
-                    '#remove_image_4', '#upload_area_4, #title_image_4', '#image_remove_4');
-            });
-
-
-            ['#upload_area', '#upload_area_1', '#upload_area_2', '#upload_area_3', '#upload_area_4']
-            .forEach(
-                function(sectionId) {
-                    const dropArea = $(sectionId);
-
-                    dropArea.on('dragover', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        $(this).addClass('bg-slate-100');
-                    });
-
-                    dropArea.on('dragleave', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        $(this).removeClass('bg-slate-100');
-                    });
-
-                    dropArea.on('drop', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        $(this).removeClass('bg-slate-100');
-
-                        const files = e.originalEvent.dataTransfer.files;
-                        if (files.length > 0) {
-                            const currentInput = $(this).find('input[type="file"]:visible')
-                                .get(0);
-                            const dataTransfer = new DataTransfer();
-                            dataTransfer.items.add(files[0]);
-                            currentInput.files = dataTransfer.files;
-                            $(currentInput).trigger('change');
-                        }
-                    });
+                    const $fileInput = $slot.find('.file-input');
+                    if ($fileInput.length) {
+                        $fileInput.attr('name', `images[${index}][file]`);
+                    }
                 });
+            });
         });
     </script>
 @endsection
