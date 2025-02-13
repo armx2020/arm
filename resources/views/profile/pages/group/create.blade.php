@@ -158,6 +158,23 @@
             </div>
         </div>
     </div>
+
+    <template id="image-slot-template">
+        <div class="image-slot border border-dashed border-gray-300 relative p-2 float-left flex items-center space-x-2 rounded-md ml-2 my-1">
+
+            <img class="preview-img w-20 h-20 object-cover rounded-md" src="{{ url('/image/no-image.png') }}">
+
+            <button type="button" class="remove-image-btn absolute top-3 right-3" style="display: none;">
+                <img src="{{ url('/image/remove.png') }}" class="w-5 h-5">
+            </button>
+
+            <label class="file-label cursor-pointer flex-grow text-center">
+                <input type="file" name="images[]" class="file-input hidden" accept=".jpg,.jpeg,.png">
+                <span class="text-sm text-gray-500">Выберите файл или перетащите сюда</span>
+            </label>
+        </div>
+    </template>
+
     <script type="text/javascript">
         $(document).ready(function() {
             if ($("#city").length > 0) {
