@@ -16,7 +16,7 @@ class StoreOfferRequest extends FormRequest
             'category'  => ['required'],
             'entity'    => ['nullable', 'integer'],
             'activity'  => ['nullable', 'in:1'],
-            'images'        => ['nullable', 'array', 'max:5'],
+            'images'        => ['nullable', 'array', 'max:20'],
             'images.*'      => ['image', 'mimes:jpg,bmp,png', 'max:2048'],
         ];
     }

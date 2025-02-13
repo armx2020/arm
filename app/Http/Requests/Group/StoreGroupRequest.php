@@ -26,7 +26,7 @@ class StoreGroupRequest extends FormRequest
             'city'          => ['integer'],
             'user'          => ['nullable', 'integer'],
             'category'      => ['required'],
-            'images'        => ['nullable', 'array', 'max:5'],
+            'images'        => ['nullable', 'array', 'max:20'],
             'images.*'      => ['image', 'mimes:jpg,bmp,png', 'max:2048'],
 
         ];

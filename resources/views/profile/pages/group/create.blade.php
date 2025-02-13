@@ -32,114 +32,9 @@
                             <hr class="w-full h-2 mt-2">
                         </div>
 
-                        <div class="flex flex-row border-b" wire:ignore>
-
-
-                            <!-- image 1 -->
-                            <div class="flex flex-row" id="upload_area_1" wire:ignore>
-                                <div class="flex relative p-3">
-                                    <img class="h-20 w-20 rounded-lg mx-4 my-2 object-cover" id="img_1"
-                                         src="{{ url('/image/no-image.png') }}" alt="avatar">
-                                    <button type="button" id="remove_image_1" class="absolute top-2 right-2"
-                                            style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                                        style="cursor:pointer;"></button>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <label class="input-file relative inline-block">
-                                        <input name="images[]" type="file" accept=".jpg,.jpeg,.png" id="image_1"
-                                               class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span_1"
-                                              class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                              style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- image 2 -->
-                            <div class="hidden flex flex-row" id="upload_area_2" wire:ignore>
-                                <div class="flex relative p-3">
-                                    <img class="h-20 w-20 rounded-lg mx-4 my-2 object-cover" id="img_2"
-                                         src="{{ url('/image/no-image.png') }}" alt="avatar">
-                                    <button type="button" id="remove_image_2" class="absolute top-2 right-2"
-                                            style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                                        style="cursor:pointer;"></button>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <label class="input-file relative inline-block">
-                                        <input name="images[]" type="file" accept=".jpg,.jpeg,.png" id="image_2"
-                                               class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span_2"
-                                              class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                              style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- image 3 -->
-                            <div class="hidden flex flex-row" id="upload_area_3" wire:ignore>
-                                <div class="flex relative p-3">
-                                    <img class="h-20 w-20 rounded-lg mx-4 my-2 object-cover" id="img_3"
-                                         src="{{ url('/image/no-image.png') }}" alt="avatar">
-                                    <button type="button" id="remove_image_3" class="absolute top-2 right-2"
-                                            style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                                        style="cursor:pointer;"></button>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <label class="input-file relative inline-block">
-                                        <input name="images[]" type="file" accept=".jpg,.jpeg,.png" id="image_3"
-                                               class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span_3"
-                                              class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                              style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- image 4 -->
-                            <div class="hidden flex flex-row" id="upload_area_4" wire:ignore>
-                                <div class="flex relative p-3">
-                                    <img class="h-20 w-20 rounded-lg mx-4 my-2 object-cover" id="img_4"
-                                         src="{{ url('/image/no-image.png') }}" alt="avatar">
-                                    <button type="button" id="remove_image_4" class="absolute top-2 right-2"
-                                            style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                                        style="cursor:pointer;"></button>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <label class="input-file relative inline-block">
-                                        <input name="images[]" type="file" accept=".jpg,.jpeg,.png" id="image_4"
-                                               class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span_4"
-                                              class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                              style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- image 5 -->
-                            <div class="hidden flex flex-row" id="upload_area_5" wire:ignore>
-                                <div class="flex relative p-3">
-                                    <img class="h-20 w-20 rounded-lg mx-4 my-2 object-cover" id="img_5"
-                                         src="{{ url('/image/no-image.png') }}" alt="avatar">
-                                    <button type="button" id="remove_image_5" class="absolute top-2 right-2"
-                                            style="display: none;"><img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                                        style="cursor:pointer;"></button>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <label class="input-file relative inline-block">
-                                        <input name="images[]" type="file" accept=".jpg,.jpeg,.png" id="image_5"
-                                               class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                        <span id="image_span_5"
-                                              class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                              style="cursor:pointer;">Выберите файл или перетащите сюда</span>
-                                    </label>
-                                </div>
-                            </div>
-
+                        <div class="border-b min-h-auto overflow-hidden pb-2" wire:ignore>
+                            <div id="sortable-slots"></div>
+                            <div id="add-slot-container"></div>
                         </div>
 
                         <div>
@@ -293,137 +188,135 @@
                 });
             }
 
-            // Максимальный размер файла – 2 МБ
-            const maxSize = 2000000;
+            const maxSlots = 20;
+            // Макс размер файла — 2MB
+            const maxSize  = 2 * 1024 * 1024;
 
-            const sections = [
-                { input: '#image_1',  img: '#img_1',  span: '#image_span_1',  remove: '#remove_image_1',  section: '#upload_area_1' },
-                { input: '#image_2',  img: '#img_2',  span: '#image_span_2',  remove: '#remove_image_2',  section: '#upload_area_2' },
-                { input: '#image_3',  img: '#img_3',  span: '#image_span_3',  remove: '#remove_image_3',  section: '#upload_area_3' },
-                { input: '#image_4',  img: '#img_4',  span: '#image_span_4',  remove: '#remove_image_4',  section: '#upload_area_4' },
-                { input: '#image_5',  img: '#img_5',  span: '#image_span_5',  remove: '#remove_image_5',  section: '#upload_area_5' }
-            ];
+            const $sortable = $('#sortable-slots');
+            const $addSlotContainer = $('#add-slot-container');
 
-            function handleFileInput(file, index) {
-                if (!file) return;
-                const section = sections[index];
-
-                if (file.size > maxSize) {
-                    $(section.span).html('Максимальный размер 2 МБ').css({ color: "rgb(239 68 68)" });
-                    return;
-                }
-
-                $(section.span).html(file.name).css({ color: "rgb(71 85 105)" });
-                $(section.section).find('.flex.items-center').hide();
-
-                $(section.remove).show();
-
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    $(section.img).attr('src', event.target.result);
-                };
-                reader.readAsDataURL(file);
-
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                $(section.input)[0].files = dataTransfer.files;
-
-                if (index < sections.length - 1) {
-                    $(sections[index + 1].section).css({
-                        display: "flex",
-                        "flex-direction": "row"
-                    });
-                }
-            }
-
-            function setSectionFile(index, file) {
-                const section = sections[index];
-                if (!file) return;
-                if (file.size > maxSize) {
-                    $(section.span).html('Максимальный размер 2 МБ').css({ color: "rgb(239 68 68)" });
-                    return;
-                }
-                $(section.span).html(file.name).css({ color: "rgb(71 85 105)" });
-                $(section.section).find('.flex.items-center').hide();
-                $(section.remove).show();
-
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    $(section.img).attr('src', event.target.result);
-                };
-                reader.readAsDataURL(file);
-
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                $(section.input)[0].files = dataTransfer.files;
-
-                if (index < sections.length - 1) {
-                    $(sections[index + 1].section).css({
-                        display: "flex",
-                        "flex-direction": "row"
-                    });
-                }
-            }
-
-            function resetSection(index) {
-                const section = sections[index];
-                $(section.input).val('');
-                $(section.img).attr('src', `{{ url('/image/no-image.png') }}`);
-                $(section.span).html('Выберите файл или перетащите сюда').css({ color: "rgb(71 85 105)" });
-                $(section.remove).hide();
-                $(section.section).find('.flex.items-center').show();
-            }
-
-            function deleteImageAtIndex(index) {
-                for (let i = index; i < sections.length - 1; i++) {
-                    if ($(sections[i + 1].input)[0].files.length > 0) {
-                        let file = $(sections[i + 1].input)[0].files[0];
-                        setSectionFile(i, file);
-                    } else {
-                        resetSection(i);
-                        for (let j = i + 1; j < sections.length; j++) {
-                            $(sections[j].section).hide();
-                            resetSection(j);
-                        }
-                        return;
-                    }
-                }
-                resetSection(sections.length - 1);
-            }
-
-            function enableDragAndDrop(index) {
-                const section = sections[index];
-                $(section.section).on('dragover', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    $(this).css('background-color', '#f1f5f9');
-                });
-                $(section.section).on('dragleave', function() {
-                    $(this).css('background-color', '');
-                });
-                $(section.section).on('drop', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    $(this).css('background-color', '');
-                    const files = e.originalEvent?.dataTransfer?.files || [];
-                    if (files.length > 0) {
-                        handleFileInput(files[0], index);
-                    }
-                });
-            }
-
-            sections.forEach((section, index) => {
-                $(section.input).on('change', function() {
-                    handleFileInput(this.files[0], index);
-                });
-
-                $(section.remove).on('click', function() {
-                    deleteImageAtIndex(index);
-                });
-
-                enableDragAndDrop(index);
+            $sortable.sortable({
+                items: '.image-slot',
+                cancel: 'input, button, label',
             });
 
+            createEmptySlot();
+
+            /**
+             * Создание пустого слота (поле добавки) в #add-slot-container.
+             */
+            function createEmptySlot() {
+                const slotCount = $sortable.find('.image-slot').length;
+                if (slotCount >= maxSlots) {
+                    return;
+                }
+
+                $addSlotContainer.empty();
+
+                const $slot = cloneSlotTemplate();
+
+                initSlot($slot, /* isEmptySlot */ true);
+
+                $addSlotContainer.append($slot);
+            }
+
+            /**
+             * Создание "обычного" слота (после выбора файла) в #sortable-slots.
+             */
+            function createFilledSlot(file) {
+                const $slot = cloneSlotTemplate();
+                initSlot($slot, false);
+
+                const fileInput = $slot.find('.file-input')[0];
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    $slot.find('.preview-img').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+
+                $slot.find('.file-label').addClass('hidden');
+
+                $slot.find('.remove-image-btn').show();
+
+                $sortable.append($slot);
+            }
+
+            function initSlot($slot, isEmptySlot) {
+                const $fileInput = $slot.find('.file-input');
+                const $removeBtn = $slot.find('.remove-image-btn');
+                const $img       = $slot.find('.preview-img');
+                const $labelSpan = $slot.find('.file-label span');
+
+                if (isEmptySlot) {
+                    $removeBtn.hide();
+                }
+
+                $fileInput.on('change', function(){
+                    const file = this.files[0];
+                    if (!file) {
+                        return;
+                    }
+                    if (file.size > maxSize) {
+                        alert('Файл больше 2МБ!');
+                        $fileInput.val('');
+                        return;
+                    }
+
+                    if (isEmptySlot) {
+                        createFilledSlot(file);
+                        createEmptySlot();
+
+                        $slot.remove();
+                    } else {
+                        const reader = new FileReader();
+                        reader.onload = function(e){
+                            $img.attr('src', e.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                        $labelSpan.text(file.name);
+
+                        $removeBtn.show();
+                    }
+                });
+
+                $removeBtn.on('click', function(){
+                    $slot.remove();
+
+                    const slotCount = $sortable.find('.image-slot').length;
+                    if (slotCount < maxSlots) {
+                        if ($addSlotContainer.find('.image-slot').length === 0) {
+                            createEmptySlot();
+                        }
+                    }
+                });
+
+                $slot.on('dragover', function(e) {
+                    e.preventDefault();
+                    $slot.css('background-color', '#f1f5f9');
+                });
+                $slot.on('dragleave', function(e) {
+                    e.preventDefault();
+                    $slot.css('background-color', '');
+                });
+                $slot.on('drop', function(e) {
+                    e.preventDefault();
+                    $slot.css('background-color', '');
+                    const files = e.originalEvent.dataTransfer.files;
+                    if (files && files.length > 0) {
+                        $fileInput[0].files = files;
+                        $fileInput.trigger('change');
+                    }
+                });
+            }
+
+            function cloneSlotTemplate() {
+                const template = document.getElementById('image-slot-template');
+                return $(template.content.cloneNode(true)).find('.image-slot');
+            }
 
         });
     </script>
