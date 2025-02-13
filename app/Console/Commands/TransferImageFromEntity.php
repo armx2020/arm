@@ -17,7 +17,6 @@ class TransferImageFromEntity extends Command
     {
         Entity::chunk(100, function(Collection $collections) {
             foreach ($collections as $collection) {
-                dd($collection->images()->get());
                 if($collection->image) {
                     $collection->images()->create([
                         'path' => $collection->image,
