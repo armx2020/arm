@@ -12,6 +12,7 @@
 @section('scripts')
     <script src="{{ url('/select2.min.js') }}"></script>
     <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
+    <script src="{{ url('/jquery-ui.min.js') }}"></script>
     @vite(['resources/css/select.css'])
     @livewireStyles
 @endsection
