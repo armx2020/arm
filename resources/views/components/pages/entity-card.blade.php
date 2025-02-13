@@ -13,10 +13,6 @@
             </div>
 
 
-
-
-
-
             @php
                 $images = $entity->images()->get();
             @endphp
@@ -58,10 +54,6 @@
                     <div class="flex">
                         @if (isset($images[0]))
                             <img src="{{ asset('storage/' . $images[0]->path) }}"
-                                class="h-[11rem] w-[27rem] lg:h-72 lg:w-72 rounded-lg object-cover mx-auto lg:mx-0"
-                                alt="{{ $entity->name }}">
-                        @elseif(isset($entity->image))
-                            <img src="{{ asset('storage/' . $entity->image) }}"
                                 class="h-[11rem] w-[27rem] lg:h-72 lg:w-72 rounded-lg object-cover mx-auto lg:mx-0"
                                 alt="{{ $entity->name }}">
                         @else
