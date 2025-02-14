@@ -134,19 +134,19 @@ class EntityAction
                 })->save();
             }
 
-            if ($request->$activitiImage) {
-                if (isset($entity->images()->withoutGlobalScopes()->get()[$k])) {
-                    $entity->images()->withoutGlobalScopes()->get()[$k]->update([
-                        'activity' => 1
-                    ]);
-                }
-            } else {
-                if (isset($entity->images()->withoutGlobalScopes()->get()[$k])) {
-                    $entity->images()->withoutGlobalScopes()->get()[$k]->update([
-                        'activity' => 0
-                    ]);
-                }
-            }
+//            if ($request->$activitiImage) {
+//                if (isset($entity->images()->withoutGlobalScopes()->get()[$k])) {
+//                    $entity->images()->withoutGlobalScopes()->get()[$k]->update([
+//                        'activity' => 1
+//                    ]);
+//                }
+//            } else {
+//                if (isset($entity->images()->withoutGlobalScopes()->get()[$k])) {
+//                    $entity->images()->withoutGlobalScopes()->get()[$k]->update([
+//                        'activity' => 0
+//                    ]);
+//                }
+//            }
 
             if ($request->$checkedImage) {
                 if (isset($entity->images()->withoutGlobalScopes()->get()[$k])) {
