@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\ActiveScope;
 use App\Models\Scopes\SortScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 
-#[ScopedBy([ActiveScope::class])]
 #[ScopedBy([SortScope::class])]
 
 class Image extends Model
@@ -30,8 +28,4 @@ class Image extends Model
         return $query->where('sort_id', 0);
     }
 
-    public function scopeActive($query)
-    {
-        return $query->where('activity', 1);
-    }
 }
