@@ -77,7 +77,7 @@
                                         alt="{{ $entity->name }}">
                                 </div>
 
-                                @if ($loop->iteration == 4)
+                                @if ($loop->iteration == 5)
                                 @break
                             @endif
                         @endforeach
