@@ -14,7 +14,7 @@
 
 
             @php
-                $images = $entity->images()->get();
+                $images = $entity->images(true)->get();
             @endphp
 
             @if ($images !== null)
@@ -50,8 +50,6 @@
                 @endphp
 
                 <div class="flex flex-col gap-2">
-
-                    <div class="hidden">{{ count($images) }}</div>
 
                     <div class="flex">
                         @if (isset($images[0]))

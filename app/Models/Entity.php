@@ -133,7 +133,7 @@ class Entity extends Model
         if ($isWithScope) {
             return $this->morphMany(Image::class, 'imageable');
         } else {
-            return $this->images()->withoutGlobalScopes();
+            return $this->images()->withoutGlobalScope(ActiveScope::class);
         }
     }
 
