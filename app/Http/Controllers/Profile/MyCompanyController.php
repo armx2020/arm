@@ -25,7 +25,7 @@ class MyCompanyController extends BaseController
         $entitiesName = 'mycompanies';
         $entityName = 'mycompany';
 
-        $companies = Auth::user()->entities()->companies()->orderByDesc('updated_at')->paginate(10);
+        $companies = Auth::user()->entities()->companies()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.company.index', [
             'region'   => $request->session()->get('regionTranslit'),

@@ -44,7 +44,7 @@
                     </div>
                     <div class="sm:basis-1/4 flex-initial text-right flex flex-col">
                         <div class="absolute top-[1.6rem] right-[1.6rem]">
-                            <a href="{{ route('mycompanies' . '.edit', ['mycompany' => $entity->id]) }}"
+                            <a href="{{ route('mycommunities' . '.edit', ['mycommunity' => $entity->id]) }}"
                                 class="inline rounded-md p-1 my-1" title="редактировать">
                                 <svg class="inline" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"

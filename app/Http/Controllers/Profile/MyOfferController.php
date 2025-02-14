@@ -25,7 +25,7 @@ class MyOfferController extends BaseController
         $entitiesName = 'myoffers';
         $entityName = 'myoffer';
 
-        $offers = Auth::user()->offers()->orderByDesc('updated_at')->paginate(10);
+        $offers = Auth::user()->offers()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.offer.index', [
             'region'   => $request->session()->get('regionTranslit'),

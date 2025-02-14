@@ -24,7 +24,7 @@ class MyPlacesController extends BaseController
         $entitiesName = 'myplaces';
         $entityName = 'myplace';
 
-        $groups = Auth::user()->entities()->places()->orderByDesc('updated_at')->paginate(10);
+        $groups = Auth::user()->entities()->places()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.place.index', [
             'region'   => $request->session()->get('regionTranslit'),
@@ -53,7 +53,7 @@ class MyPlacesController extends BaseController
 
         $group = $this->groupAction->store($request, Auth::user()->id);
 
-        return redirect()->route('myplaces.index')->with('success', 'Группа "' . $group->name . '" добавлена');
+        return redirect()->route('myplaces.index')->with('success', 'Место "' . $group->name . '" добавлено');
     }
 
     public function show(Request $request, $id)
@@ -61,7 +61,7 @@ class MyPlacesController extends BaseController
         $entity = Entity::where('user_id', '=', Auth::user()->id)->with('fields')->find($id);
 
         if (empty($entity)) {
-            return redirect()->route('myplaces.index')->with('alert', 'Сообщество не найдено');
+            return redirect()->route('myplaces.index')->with('alert', 'Место не найдено');
         }
 
         $sum =  ($entity->address ? 10 : 0) +
@@ -91,7 +91,7 @@ class MyPlacesController extends BaseController
         $entity = Entity::where('user_id', '=', Auth::user()->id)->with('fields')->find($id);
 
         if (empty($entity)) {
-            return redirect()->route('myplaces.index')->with('alert', 'Сообщество не найдено');
+            return redirect()->route('myplaces.index')->with('alert', 'Место не найдено');
         }
 
         $categories = Category::query()->places()->active()->orderBy('sort_id', 'asc')->get();
@@ -110,12 +110,12 @@ class MyPlacesController extends BaseController
         $entity = Entity::where('user_id', '=', Auth::user()->id)->with('fields')->find($id);
 
         if (empty($entity)) {
-            return redirect()->route('myplaces.index')->with('alert', 'Сообщество не найдено');
+            return redirect()->route('myplaces.index')->with('alert', 'Место не найдено');
         }
 
         $entity = $this->groupAction->update($request, $entity, Auth::user()->id);
 
-        return redirect()->route('myplaces.show', ['myplace' => $entity->id])->with('success', 'Сообщесвто "' . $entity->name . '" обнавлена');
+        return redirect()->route('myplaces.show', ['myplace' => $entity->id])->with('success', 'Место "' . $entity->name . '" обнавлено');
     }
 
     public function destroy($id)
@@ -123,11 +123,11 @@ class MyPlacesController extends BaseController
         $entity = Entity::where('user_id', '=', Auth::user()->id)->with('fields')->find($id);
 
         if (empty($entity)) {
-            return redirect()->route('myplaces.index')->with('alert', 'Сообщество не найдено');
+            return redirect()->route('myplaces.index')->with('alert', 'Место не найдено');
         }
 
         $this->groupAction->destroy($entity);
 
-        return redirect()->route('myplaces.index')->with('success', 'Сообщество удалено');
+        return redirect()->route('myplaces.index')->with('success', 'Место удалено');
     }
 }

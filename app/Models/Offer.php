@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Offer extends Model
 {
@@ -57,5 +58,15 @@ class Offer extends Model
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function primaryImage(): MorphOne
+    {
+        return $this->morphOne(Image::class, 'imageable')->where('sort_id', 0);
+    }
+
+    public function primaryImageView(): MorphOne
+    {
+        return $this->morphOne(Image::class, 'imageable')->orderByDesc('id')->where('checked', 1);
     }
 }

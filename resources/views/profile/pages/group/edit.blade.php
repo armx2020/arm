@@ -393,7 +393,7 @@
                 $slots.each(function(index) {
                     const $slot = $(this);
                     const slotId = $slot.attr('data-id');
-                    const sortId = index + 1;
+                    const sortId = index;
 
                     const $idHidden = $(`<input type="hidden" name="images[${index}][id]" value="${slotId}">`);
                     $form.append($idHidden);

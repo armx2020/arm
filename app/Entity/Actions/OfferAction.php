@@ -133,19 +133,25 @@ class OfferAction
         $idsToDelete = $oldIDs->diff($incomingIDs);
 
         if ($idsToDelete->isNotEmpty()) {
+            $images = $offer->images()->whereIn('id', $idsToDelete)->get();
+            foreach ($images as $image) {
+                if ($image->path) {
+                    Storage::delete('public/' . $image->path);
+                }
+            }
             $offer->images()->whereIn('id', $idsToDelete)->delete();
         }
 
         $oldImagesMap = $oldImages->keyBy('id');
 
         foreach ($imagesData as $index => $imgData) {
-            $sortId  = $imgData['sort_id'] ?? ($index + 1);
+            $sortId  = $imgData['sort_id'] ?? $index;
             $imageId = $imgData['id'];
 
             if (str_starts_with($imageId, 'new_')) {
                 $file = $request->file("images.$index.file");
                 if ($file) {
-                    $path = $file->store('uploads', 'public');
+                    $path = $file->store('uploaded', 'public');
 
                     $newImage = $offer->images()->create([
                         'sort_id' => $sortId,
@@ -172,29 +178,9 @@ class OfferAction
 
     public function destroy($offer): void
     {
-        if (isset($offer->image)) {
-            Storage::delete('public/' . $offer->image);
-            $offer->image = null;
-        }
-
-        if (isset($offer->images()->get()[0])) {
-            Storage::delete('public/' . $offer->images()->get()[0]->path);
-            $offer->images()->get()[0]->delete();
-        }
-
-        if (isset($offer->images()->get()[1])) {
-            Storage::delete('public/' . $offer->images()->get()[1]->path);
-            $offer->images()->get()[1]->delete();
-        }
-
-        if (isset($offer->images()->get()[2])) {
-            Storage::delete('public/' . $offer->images()->get()[2]->path);
-            $offer->images()->get()[2]->delete();
-        }
-
-        if (isset($offer->images()->get()[3])) {
-            Storage::delete('public/' . $offer->images()->get()[3]->path);
-            $offer->images()->get()[3]->delete();
+        foreach ($offer->images as $image) {
+            Storage::delete('public/' . $image->path);
+            $image->delete();
         }
 
         $offer->delete();

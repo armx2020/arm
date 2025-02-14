@@ -164,7 +164,7 @@
                 </div>
 
                 <div class="flex basis-full bg-gray-200 rounded-md p-5 my-6 text-sm">
-                    <form method="post" action="{{ route('mygroups.destroy', ['mygroup' => $entity->id]) }}"
+                    <form method="post" action="{{ route('mycommunities.destroy', ['mycommunity' => $entity->id]) }}"
                         class="w-full text-center">
                         @csrf
                         @method('delete')
@@ -393,7 +393,7 @@
                 $slots.each(function(index) {
                     const $slot = $(this);
                     const slotId = $slot.attr('data-id');
-                    const sortId = index + 1;
+                    const sortId = index;
 
                     const $idHidden = $(`<input type="hidden" name="images[${index}][id]" value="${slotId}">`);
                     $form.append($idHidden);

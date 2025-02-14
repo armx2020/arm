@@ -122,19 +122,25 @@ class CompanyAction
         $idsToDelete = $oldIDs->diff($incomingIDs);
 
         if ($idsToDelete->isNotEmpty()) {
+            $images = $entity->images()->whereIn('id', $idsToDelete)->get();
+            foreach ($images as $image) {
+                if ($image->path) {
+                    Storage::delete('public/' . $image->path);
+                }
+            }
             $entity->images()->whereIn('id', $idsToDelete)->delete();
         }
 
         $oldImagesMap = $oldImages->keyBy('id');
 
         foreach ($imagesData as $index => $imgData) {
-            $sortId  = $imgData['sort_id'] ?? ($index + 1);
+            $sortId  = $imgData['sort_id'] ?? $index;
             $imageId = $imgData['id'];
 
             if (str_starts_with($imageId, 'new_')) {
                 $file = $request->file("images.$index.file");
                 if ($file) {
-                    $path = $file->store('uploads', 'public');
+                    $path = $file->store('uploaded', 'public');
 
                     $newImage = $entity->images()->create([
                         'sort_id' => $sortId,
@@ -161,29 +167,9 @@ class CompanyAction
 
     public function destroy($entity): void
     {
-        if (isset($entity->image)) {
-            Storage::delete('public/' . $entity->image);
-            $entity->image = null;
-        }
-
-        if (isset($entity->images()->get()[0])) {
-            Storage::delete('public/' . $entity->images()->get()[0]->path);
-            $entity->images()->get()[0]->delete();
-        }
-
-        if (isset($entity->images()->get()[1])) {
-            Storage::delete('public/' . $entity->images()->get()[1]->path);
-            $entity->images()->get()[1]->delete();
-        }
-
-        if (isset($entity->images()->get()[2])) {
-            Storage::delete('public/' . $entity->images()->get()[2]->path);
-            $entity->images()->get()[2]->delete();
-        }
-
-        if (isset($entity->images()->get()[3])) {
-            Storage::delete('public/' . $entity->images()->get()[3]->path);
-            $entity->images()->get()[3]->delete();
+        foreach ($entity->images as $image) {
+            Storage::delete('public/' . $image->path);
+            $image->delete();
         }
 
         $entity->fields()->detach();

@@ -14,12 +14,12 @@
             <div class="flex flex-col basis-full">
                 <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
                     <div class="flex flex-col">
-                        @if ($entity->image == null)
+                        @if (!isset($entity->primaryImage))
                             <img class="h-64 w-64 rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png') }}"
                                 alt="image" />
                         @else
                             <img class="h-64 w-64 rounded-2xl p-2 flex object-cover"
-                                src="{{ asset('storage/' . $entity->image) }}" alt="image">
+                                src="{{ asset('storage/' . $entity->primaryImage->path) }}" alt="image">
                         @endif
                         <div class="p-5 w-64">
                             <div class="my-2 flex flex-row">

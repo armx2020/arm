@@ -141,4 +141,9 @@ class Entity extends Model
     {
         return $this->morphOne(Image::class, 'imageable')->where('sort_id', 0);
     }
+
+    public function primaryImageView(): MorphOne
+    {
+        return $this->morphOne(Image::class, 'imageable')->orderByDesc('id')->where('checked', 1);
+    }
 }

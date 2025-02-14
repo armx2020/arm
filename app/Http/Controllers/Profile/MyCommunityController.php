@@ -24,7 +24,7 @@ class MyCommunityController extends BaseController
         $entitiesName = 'mycommunities';
         $entityName = 'mycommunity';
 
-        $groups = Auth::user()->entities()->communities()->orderByDesc('updated_at')->paginate(10);
+        $groups = Auth::user()->entities()->communities()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.community.index', [
             'region'   => $request->session()->get('regionTranslit'),
@@ -61,7 +61,7 @@ class MyCommunityController extends BaseController
         $entity = Entity::where('user_id', '=', Auth::user()->id)->with('fields')->find($id);
 
         if (empty($entity)) {
-            return redirect()->route('mycommunities.index')->with('alert', 'Община не найдено');
+            return redirect()->route('mycommunities.index')->with('alert', 'Община не найдена');
         }
 
         $sum =  ($entity->address ? 10 : 0) +
@@ -110,12 +110,12 @@ class MyCommunityController extends BaseController
         $entity = Entity::where('user_id', '=', Auth::user()->id)->with('fields')->find($id);
 
         if (empty($entity)) {
-            return redirect()->route('mycommunities.index')->with('alert', 'Община не найдено');
+            return redirect()->route('mycommunities.index')->with('alert', 'Община не найдена');
         }
 
         $entity = $this->groupAction->update($request, $entity, Auth::user()->id);
 
-        return redirect()->route('mycommunities.show', ['mygroup' => $entity->id])->with('success', 'Сообщесвто "' . $entity->name . '" обнавлена');
+        return redirect()->route('mycommunities.show', ['mycommunity' => $entity->id])->with('success', 'Община "' . $entity->name . '" обнавлена');
     }
 
     public function destroy($id)
@@ -123,11 +123,11 @@ class MyCommunityController extends BaseController
         $entity = Entity::where('user_id', '=', Auth::user()->id)->with('fields')->find($id);
 
         if (empty($entity)) {
-            return redirect()->route('mycommunities.index')->with('alert', 'Община не найдено');
+            return redirect()->route('mycommunities.index')->with('alert', 'Община не найдена');
         }
 
         $this->groupAction->destroy($entity);
 
-        return redirect()->route('mycommunities.index')->with('success', 'Община удалено');
+        return redirect()->route('mycommunities.index')->with('success', 'Община удалена');
     }
 }
