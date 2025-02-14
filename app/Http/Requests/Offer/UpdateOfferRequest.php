@@ -16,16 +16,10 @@ class UpdateOfferRequest extends FormRequest
             'category'  => ['required'],
             'entity'    => ['nullable', 'integer'],
             'activity'  => ['nullable', 'in:1'],
-            'image'           => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'image_remove'    => ['nullable', 'in:delete'],
-            'image_1'         => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'image_remove_1'  => ['nullable', 'in:delete'],
-            'image_2'         => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'image_remove_2'  => ['nullable', 'in:delete'],
-            'image_3'         => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'image_remove_3'  => ['nullable', 'in:delete'],
-            'image_4'         => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20000'],
-            'image_remove_4'  => ['nullable', 'in:delete'],
+            'images'           => ['nullable', 'array', 'max:20'],
+            'images.*.id'      => ['required'],
+            'images.*.sort_id' => ['required', 'integer'],
+            'images.*.file'    => ['nullable', 'file', 'mimes:jpg,jpeg,png|max:2048'],
         ];
     }
 }
