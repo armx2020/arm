@@ -7,7 +7,7 @@
 
                         <div class="bg-white rounded-lg relative mb-8">
 
-                            <form method="POST" enctype="multipart/form-data" action="{{ route('admin.entity.store') }}">
+                            <form id="card-form" method="POST" enctype="multipart/form-data" action="{{ route('admin.entity.store') }}">
                                 @csrf
 
                                 <div class="flex justify-between p-5 border-b rounded-t">
@@ -28,63 +28,9 @@
                                     </div>
                                 </div>
 
-                                <div class="flex flex-wrap gap-4 border-b pb-3" wire:ignore>
-
-                                    @for ($i = 1; $i < 21; $i++)
-                                        <div class="flex flex-row" id="upload_area_{{ $i }}"
-                                            @if ($i > 1) style="display: none;" @else style="display: flex;" @endif>
-
-                                            <div class="flex flex-col relative p-3">
-                                                <img class="h-20 w-20 rounded-lg m-4 object-cover"
-                                                    id="img_{{ $i }}" alt="image"
-                                                    src="{{ url('/image/no-image.png') }}">
-
-                                                <div class="mx-auto">
-                                                    <label for="checked_img_{{ $i }}" class="inline-flex">
-                                                        <div>
-                                                            <input id="checked_img_{{ $i }}" type="checkbox" checked value="1"
-                                                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-                                                                name="checked_img_{{ $i }}">
-                                                        </div>
-                                                        <span class="ml-2 text-gray-700">проверено</span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="mx-auto">
-                                                    <label for="activity_img_{{ $i }}" class="inline-flex">
-                                                        <div>
-                                                            <input id="activity_img_{{ $i }}" type="checkbox"
-                                                                checked value="1"
-                                                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-                                                                name="activity_img_{{ $i }}">
-                                                        </div>
-                                                        <span class="ml-2 text-gray-700">активное</span>
-                                                    </label>
-                                                </div>
-
-                                                <button type="button" id="remove_image_{{ $i }}"
-                                                    class="absolute top-2 right-2" style="display: none;">
-
-                                                    <img src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                        style="cursor:pointer;">
-                                                </button>
-                                            </div>
-
-                                            <div class="flex items-center">
-
-                                                <label class="input-file relative inline-block">
-                                                    <input name="image_{{ $i }}" type="file"
-                                                        accept=".jpg,.jpeg,.png" id="image_{{ $i }}"
-                                                        class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                                    <span id="image_span_{{ $i }}"
-                                                        class="relative inline-block align-middle text-center p-2 rounded-lg w-full text-slate-600"
-                                                        style="cursor:pointer;">Выберите файл</span>
-                                                </label>
-                                            </div>
-
-                                        </div>
-                                    @endfor
-
+                                <div class="border-b min-h-auto overflow-hidden pb-2" wire:ignore>
+                                    <div id="sortable-slots"></div>
+                                    <div id="add-slot-container"></div>
                                 </div>
 
                                 <div>
@@ -286,156 +232,158 @@
             </div>
         </div>
     </div>
+
+    <template id="image-slot-template">
+        <div class="image-slot border border-dashed border-gray-300 relative p-2 float-left flex items-center space-x-2 rounded-md ml-2 my-1">
+
+            <img class="preview-img w-20 h-20 object-cover rounded-md" src="{{ url('/image/no-image.png') }}">
+
+            <button type="button" class="remove-image-btn absolute top-3 right-3" style="display: none;">
+                <img src="{{ url('/image/remove.png') }}" class="w-5 h-5">
+            </button>
+
+            <label class="file-label cursor-pointer flex-grow text-center">
+                <input type="file" name="images[]" class="file-input hidden" accept=".jpg,.jpeg,.png">
+                <span class="text-sm text-gray-500">Выберите файл или перетащите сюда</span>
+            </label>
+        </div>
+    </template>
+
     <script type="text/javascript">
         $(document).ready(function() {
 
-            $('#entity_delete').on("click", function() {
-                $('#entity_delete_form').submit()
+            const maxSlots = 20;
+            // Макс размер файла — 2MB
+            const maxSize  = 2 * 1024 * 1024;
+
+            const $sortable = $('#sortable-slots');
+            const $addSlotContainer = $('#add-slot-container');
+
+            $sortable.sortable({
+                items: '.image-slot',
+                cancel: 'input, button, label',
             });
 
-            const maxSize = 2000000; // 2 MB
+            createEmptySlot();
 
-            const sections = [];
-
-            for (let i = 1; i < 21; i++) {
-                sections.push({
-                    input: `#image_${i}`,
-                    img: `#img_${i}`,
-                    span: `#image_span_${i}`,
-                    remove: `#remove_image_${i}`,
-                    section: `#upload_area_${i}`
-                });
-            }
-
-            function handleFileInput(file, index) {
-                if (!file) return;
-                const section = sections[index];
-
-                if (file.size > maxSize) {
-                    $(section.span).html('Максимальный размер 2 МБ').css({
-                        color: "rgb(239 68 68)"
-                    });
+            /**
+             * Создание пустого слота (поле добавки) в #add-slot-container.
+             */
+            function createEmptySlot() {
+                const slotCount = $sortable.find('.image-slot').length;
+                if (slotCount >= maxSlots) {
                     return;
                 }
 
-                $(section.span).html(file.name).css({
-                    color: "rgb(71 85 105)"
-                });
-                $(section.section).find('.flex.items-center').hide();
-                $(section.remove).show();
+                $addSlotContainer.empty();
+
+                const $slot = cloneSlotTemplate();
+
+                initSlot($slot, /* isEmptySlot */ true);
+
+                $addSlotContainer.append($slot);
+            }
+
+            /**
+             * Создание "обычного" слота (после выбора файла) в #sortable-slots.
+             */
+            function createFilledSlot(file) {
+                const $slot = cloneSlotTemplate();
+                initSlot($slot, false);
+
+                const fileInput = $slot.find('.file-input')[0];
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
 
                 const reader = new FileReader();
-                reader.onload = function(event) {
-                    $(section.img).attr('src', event.target.result);
+                reader.onload = (e) => {
+                    $slot.find('.preview-img').attr('src', e.target.result);
                 };
                 reader.readAsDataURL(file);
 
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                $(section.input)[0].files = dataTransfer.files;
+                $slot.find('.file-label').addClass('hidden');
 
-                if (index < sections.length - 1) {
-                    $(sections[index + 1].section).css({
-                        display: "flex",
-                        "flex-direction": "row"
-                    });
-                }
+                $slot.find('.remove-image-btn').show();
+
+                $sortable.append($slot);
             }
 
-            function setSectionFile(index, file) {
-                const section = sections[index];
-                if (!file) return;
-                if (file.size > maxSize) {
-                    $(section.span).html('Максимальный размер 2 МБ').css({
-                        color: "rgb(239 68 68)"
-                    });
-                    return;
+            function initSlot($slot, isEmptySlot) {
+                const $fileInput = $slot.find('.file-input');
+                const $removeBtn = $slot.find('.remove-image-btn');
+                const $img       = $slot.find('.preview-img');
+                const $labelSpan = $slot.find('.file-label span');
+
+                if (isEmptySlot) {
+                    $removeBtn.hide();
                 }
-                $(section.span).html(file.name).css({
-                    color: "rgb(71 85 105)"
-                });
-                $(section.section).find('.flex.items-center').hide();
-                $(section.remove).show();
 
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    $(section.img).attr('src', event.target.result);
-                };
-                reader.readAsDataURL(file);
-
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                $(section.input)[0].files = dataTransfer.files;
-
-                if (index < sections.length - 1) {
-                    $(sections[index + 1].section).css({
-                        display: "flex",
-                        "flex-direction": "row"
-                    });
-                }
-            }
-
-            function resetSection(index) {
-                const section = sections[index];
-                $(section.input).val('');
-                $(section.img).attr('src', `{{ url('/image/no-image.png') }}`);
-                $(section.span).html('Выберите файл').css({
-                    color: "rgb(71 85 105)"
-                });
-                $(section.remove).hide();
-                $(section.section).find('.flex.items-center').show();
-            }
-
-            function deleteImageAtIndex(index) {
-                for (let i = index; i < sections.length - 1; i++) {
-                    if ($(sections[i + 1].input)[0].files.length > 0) {
-                        let file = $(sections[i + 1].input)[0].files[0];
-                        setSectionFile(i, file);
-                    } else {
-                        resetSection(i);
-                        for (let j = i + 1; j < sections.length; j++) {
-                            $(sections[j].section).hide();
-                            resetSection(j);
-                        }
+                $fileInput.on('change', function(){
+                    const file = this.files[0];
+                    if (!file) {
                         return;
                     }
-                }
-                resetSection(sections.length - 1);
-            }
+                    if (file.size > maxSize) {
+                        alert('Файл больше 2МБ!');
+                        $fileInput.val('');
+                        return;
+                    }
 
-            function enableDragAndDrop(index) {
-                const section = sections[index];
-                $(section.section).on('dragover', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    $(this).css('background-color', '#f1f5f9');
+                    if (isEmptySlot) {
+                        createFilledSlot(file);
+                        createEmptySlot();
+
+                        $slot.remove();
+                    } else {
+                        const reader = new FileReader();
+                        reader.onload = function(e){
+                            $img.attr('src', e.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                        $labelSpan.text(file.name);
+
+                        $removeBtn.show();
+                    }
                 });
-                $(section.section).on('dragleave', function() {
-                    $(this).css('background-color', '');
+
+                $removeBtn.on('click', function(){
+                    $slot.remove();
+
+                    const slotCount = $sortable.find('.image-slot').length;
+                    if (slotCount < maxSlots) {
+                        if ($addSlotContainer.find('.image-slot').length === 0) {
+                            createEmptySlot();
+                        }
+                    }
                 });
-                $(section.section).on('drop', function(e) {
+
+                $slot.on('dragover', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
-                    $(this).css('background-color', '');
-                    const files = e.originalEvent?.dataTransfer?.files || [];
-                    if (files.length > 0) {
-                        handleFileInput(files[0], index);
+                    $slot.css('background-color', '#f1f5f9');
+                });
+                $slot.on('dragleave', function(e) {
+                    e.preventDefault();
+                    $slot.css('background-color', '');
+                });
+                $slot.on('drop', function(e) {
+                    e.preventDefault();
+                    $slot.css('background-color', '');
+                    const files = e.originalEvent.dataTransfer.files;
+                    if (files && files.length > 0) {
+                        $fileInput[0].files = files;
+                        $fileInput.trigger('change');
                     }
                 });
             }
 
-            sections.forEach((section, index) => {
-                $(section.input).on('change', function() {
-                    handleFileInput(this.files[0], index);
-                });
+            function cloneSlotTemplate() {
+                const template = document.getElementById('image-slot-template');
+                return $(template.content.cloneNode(true)).find('.image-slot');
+            }
 
-                $(section.remove).on('click', function() {
-                    deleteImageAtIndex(index);
-                });
-
-                enableDragAndDrop(index);
-            });
         });
     </script>
     @vite(['resources/js/mask_phone.js'])
+    <script src="{{ url('/jquery-ui.min.js') }}"></script>
 </div>
