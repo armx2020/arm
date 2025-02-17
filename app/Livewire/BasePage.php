@@ -78,15 +78,6 @@ class BasePage extends Component
         $entities = $entities->orderByDesc('sort_id');
 
         if ($this->category !== 'Все') {
-            $entities = $entities
-                ->where(function (Builder $query) {
-                    $query
-                        ->where('category_id', $this->category)
-                        ->orWhereHas('fields', function ($que) {
-                            $que->where('category_entity.main_category_id', '=', $this->category);
-                        });
-                });
-
             if ($this->category == '19' || $this->category == '78') {
                 $entities = $entities
                     ->where(function (Builder $query) {
