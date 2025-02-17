@@ -18,8 +18,6 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
     {
         foreach ($rows as $row) {
 
-            $mainCategory = $this->getCategory($row[4]);
-
             $entity = Entity::updateOrCreate(
                 [
                     'name' => $row[2]
@@ -34,12 +32,12 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     'city_id' => $this->getCityName($row[9]),
                     'region_id' => $this->getRegionName($row[9]),
                     'activity' => false,
-                    'entity_type_id' => 11,
-                    'category_id' => $mainCategory->category_id ?: $mainCategory->id,
+                    'entity_type_id' => 1,
+                    'category_id' => 19,
                 ]
             );
 
-            $entity->fields()->syncWithPivotValues([$mainCategory->id], ['main_category_id' => $mainCategory->category_id ?: $mainCategory->id]);
+            $entity->fields()->syncWithPivotValues([29], ['main_category_id' => 19]);
 
             $entity->images()->withOutGlobalScopes()->delete();
 
