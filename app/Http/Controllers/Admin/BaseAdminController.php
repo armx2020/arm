@@ -98,6 +98,11 @@ abstract class BaseAdminController extends Controller
                         'route' => 'admin.import.doctor',
                         'routeIs' => 'admin.import.doctor.*',
                     ],
+                    [
+                        'name' => 'категории',
+                        'route' => 'admin.import.category',
+                        'routeIs' => 'admin.import.category.*',
+                    ],
                 ]
             ],
             [

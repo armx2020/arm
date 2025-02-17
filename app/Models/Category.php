@@ -22,7 +22,10 @@ class Category extends Model
         'id',
         'name',
         'activity',
-        'transcription'
+        'transcription',
+        'entity_type_id',
+        'category_id',
+        'sort_id'
     ];
 
     public function scopeMain($query)

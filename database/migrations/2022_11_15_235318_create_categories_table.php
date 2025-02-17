@@ -13,9 +13,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name', 255)->fulltext();
-            $table->integer('sort_id')->index();
+            $table->integer('sort_id')->index()->nullable();
             $table->boolean('activity')->default(true);
-            $table->enum('type', ['group', 'offer', 'event'])->nullable(); // TODO удалить после переноса сущностей
             $table->foreignId('entity_type_id')->nullable()->constrained();
             $table->foreignId('category_id')->nullable()->constrained();
             $table->string('image', 255)->nullable();

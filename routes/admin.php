@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryEntityController;
 use App\Http\Controllers\Admin\EntityController;
+use App\Http\Controllers\Admin\ImportCategoryController;
 use App\Http\Controllers\Admin\ImportChurchController;
 use App\Http\Controllers\Admin\ImportDoctorController;
 use App\Http\Controllers\Admin\ImportEntityController;
@@ -56,6 +57,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
         Route::get('/import-doctor', [ImportDoctorController::class, 'index'])->name('import.doctor');
         Route::post('/import-doctor', [ImportDoctorController::class, 'import']);
+
+        Route::get('/import-category', [ImportCategoryController::class, 'index'])->name('import.category');
+        Route::post('/import-category', [ImportCategoryController::class, 'import']);
     });
 
     require __DIR__ . '/admin-api.php';
