@@ -38,7 +38,7 @@ class MyCommunityController extends BaseController
 
     public function create(Request $request)
     {
-        $categories = Category::query()->communities()->active()->orderBy('sort_id', 'asc')->paginate(10);
+        $categories = Category::query()->communities()->active()->paginate(10);
 
         return view('profile.pages.community.create', [
             'region'   => $request->session()->get('regionTranslit'),
@@ -94,7 +94,7 @@ class MyCommunityController extends BaseController
             return redirect()->route('mycommunities.index')->with('alert', 'Община не найдено');
         }
 
-        $categories = Category::query()->communities()->active()->orderBy('sort_id', 'asc')->get();
+        $categories = Category::query()->communities()->active()->get();
 
         return view('profile.pages.community.edit', [
             'region'   => $request->session()->get('regionTranslit'),

@@ -38,7 +38,7 @@ class MyPlacesController extends BaseController
 
     public function create(Request $request)
     {
-        $categories = Category::query()->places()->active()->orderBy('sort_id', 'asc')->paginate(10);
+        $categories = Category::query()->places()->active()->paginate(10);
 
         return view('profile.pages.place.create', [
             'region'   => $request->session()->get('regionTranslit'),
@@ -94,7 +94,7 @@ class MyPlacesController extends BaseController
             return redirect()->route('myplaces.index')->with('alert', 'Место не найдено');
         }
 
-        $categories = Category::query()->places()->active()->orderBy('sort_id', 'asc')->get();
+        $categories = Category::query()->places()->active()->get();
 
         return view('profile.pages.place.edit', [
             'region'   => $request->session()->get('regionTranslit'),

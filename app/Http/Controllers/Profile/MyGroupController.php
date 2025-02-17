@@ -38,7 +38,7 @@ class MyGroupController extends BaseController
 
     public function create(Request $request)
     {
-        $categories = Category::query()->groups()->active()->orderBy('sort_id', 'asc')->paginate(10);
+        $categories = Category::query()->groups()->active()->paginate(10);
 
         return view('profile.pages.group.create', [
             'region'   => $request->session()->get('regionTranslit'),
@@ -94,7 +94,7 @@ class MyGroupController extends BaseController
             return redirect()->route('mygroups.index')->with('alert', 'Сообщество не найдено');
         }
 
-        $categories = Category::query()->groups()->active()->orderBy('sort_id', 'asc')->get();
+        $categories = Category::query()->groups()->active()->get();
 
         return view('profile.pages.group.edit', [
             'region'   => $request->session()->get('regionTranslit'),

@@ -39,7 +39,7 @@ class MyCompanyController extends BaseController
 
     public function create(Request $request)
     {
-        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
+        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->get();
 
         return view('profile.pages.company.create', [
             'region'   => $request->session()->get('regionTranslit'),
@@ -94,7 +94,7 @@ class MyCompanyController extends BaseController
             return redirect()->route('mycompanies.index')->with('alert', 'Компания не найдена');
         }
 
-        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
+        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->get();
 
         return view('profile.pages.company.edit', [
             'region'   => $request->session()->get('regionTranslit'),

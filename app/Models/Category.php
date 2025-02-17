@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\SortDescScope;
+use App\Models\Scopes\SortScope;
 use App\Models\Traits\Search;
 use App\Models\Traits\TranscriptName;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+
+#[ScopedBy([SortDescScope::class])]
 
 class Category extends Model
 {
@@ -59,31 +64,6 @@ class Category extends Model
         return $query->where('entity_type_id', 4);
     }
 
-    public function scopeEvent($query) // TODO удалить после переноса сущностей
-    {
-        return $query->where('type_old', 'event');
-    }
-
-    public function scopeOffer($query) // TODO удалить после переноса сущностей
-    {
-        return $query->where('type_old', 'offer');
-    }
-
-    public function events(): HasMany
-    {
-        return $this->hasMany(Event::class);
-    }
-
-    public function groups(): HasMany
-    {
-        return $this->hasMany(Group::class);
-    }
-
-    public function offers(): HasMany
-    {
-        return $this->hasMany(CompanyOffer::class);
-    }
-
     public function categories()
     {
         return $this->hasMany(Category::class);
@@ -97,11 +77,6 @@ class Category extends Model
     public function parent()
     {
         return $this->belongsTo(Category::class, 'category_id');
-    }
-
-    public function companies(): BelongsToMany
-    {
-        return $this->belongsToMany(Company::class);
     }
 
     public function type(): BelongsTo

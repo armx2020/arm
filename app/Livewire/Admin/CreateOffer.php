@@ -12,7 +12,7 @@ class CreateOffer extends Component
 
     public function render()
     {
-        $categories = Category::query()->active()->with('categories')->where('category_id', null)->orderBy('sort_id');
+        $categories = Category::query()->active()->with('categories')->where('category_id', null);
 
         if ($this->selectedType) {
             $entity = Entity::where('id', $this->selectedType)->First();

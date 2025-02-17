@@ -45,7 +45,7 @@ class MyOfferController extends BaseController
             return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте компанию.');
         }
 
-        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
+        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->get();
 
         return view('profile.pages.offer.create', [
             'region'   => $request->session()->get('regionTranslit'),
@@ -105,7 +105,7 @@ class MyOfferController extends BaseController
             return redirect()->route('mycompanies.index')->with('alert', 'У вас нет компаний! Сначала добавьте компанию.');
         }
 
-        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
+        $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->get();
 
         return view('profile.pages.offer.edit', [
             'region'   => $request->session()->get('regionTranslit'),
