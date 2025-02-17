@@ -18,6 +18,8 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
     {
         foreach ($rows as $row) {
 
+            $mainCategory = $this->getCategory($row[4]);
+
             $entity = Entity::updateOrCreate(
                 [
                     'name' => $row[2]
@@ -37,7 +39,7 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
                 ]
             );
 
-            $entity->fields()->syncWithPivotValues([29], ['main_category_id' => 19]);
+            $entity->fields()->syncWithPivotValues([$mainCategory->category_id ?: $mainCategory->id], ['main_category_id' => 19]);
 
             $entity->images()->withOutGlobalScopes()->delete();
 
