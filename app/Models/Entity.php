@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\ActiveScope;
+use App\Models\Scopes\CheckedScope;
 use App\Models\Traits\HasCity;
 use App\Models\Traits\HasEvents;
 use App\Models\Traits\HasNews;
@@ -133,7 +133,7 @@ class Entity extends Model
         if ($isWithScope) {
             return $this->morphMany(Image::class, 'imageable');
         } else {
-            return $this->images()->withoutGlobalScope(ActiveScope::class);
+            return $this->images()->withoutGlobalScope(CheckedScope::class);
         }
     }
 
