@@ -83,8 +83,8 @@ class BasePage extends Component
                     ->where(function (Builder $query) {
                         $query
                             ->where('category_id', $this->category)
-                            ->orWhereHas('fields', function ($que) {
-                                $que->where('category_entity.main_category_id', '=', $this->subCategory);
+                            ->whereHas('fields', function ($que) {
+                                $que->where('category_entity.category_id', '=', $this->subCategory);
                             });
                     });
 
