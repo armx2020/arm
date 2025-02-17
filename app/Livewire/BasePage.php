@@ -79,14 +79,16 @@ class BasePage extends Component
 
         if ($this->category !== 'Все') {
             if ($this->category == '19' || $this->category == '78') {
-                $entities = $entities
-                    ->where(function (Builder $query) {
-                        $query
-                            ->where('category_id', $this->category)
-                            ->whereHas('fields', function ($que) {
-                                $que->where('category_entity.category_id', '=', $this->subCategory);
-                            });
-                    });
+                if ($this->category !== 'Все') {
+                    $entities = $entities
+                        ->where(function (Builder $query) {
+                            $query
+                                ->where('category_id', $this->category)
+                                ->whereHas('fields', function ($que) {
+                                    $que->where('category_entity.category_id', '=', $this->subCategory);
+                                });
+                        });
+                }
 
                 $subCategories = Category::where('category_id', $this->category)->get();
             } else {
