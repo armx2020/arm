@@ -19,7 +19,7 @@ class CategoryImport implements ToCollection, WithUpserts, PersistRelations
                     'name' => $row[1]
                 ],
                 [
-                    'entity_type_id' => 1,
+                    'entity_type_id' => 11,
                     'category_id' => $this->getMainCategory($row[0]),
                     'activity' => 1,
                 ]
@@ -39,8 +39,8 @@ class CategoryImport implements ToCollection, WithUpserts, PersistRelations
                 'name' => $data
             ],
             [
-                'entity_type_id' => 1,
-                'category_id' => 78,
+                'entity_type_id' => 11,
+                'category_id' => null,
                 'activity' => 1,
             ]
         );
