@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -9,11 +10,17 @@ use Illuminate\Support\Facades\Hash;
 class CategoryLaywerSeeder extends Seeder
 {
     public $data = [
-        'Административное право' => ['Административное право', 'Правонарушения должностных лиц'],
-        'Арбитражные споры' =>
-        ['Арбитраж'],
-        'Банкротство' =>
-        ['Банкротство физических лиц', 'Банкротство юридических лиц'],
+        'Административное право' => [
+            'Административное право',
+            'Правонарушения должностных лиц'
+        ],
+        'Арбитражные споры' => [
+            'Арбитраж'
+        ],
+        'Банкротство' => [
+            'Банкротство физических лиц',
+            'Банкротство юридических лиц'
+        ],
         'Гражданское право' => [
             'Взыскание задолженности',
             'Возмещение ущерба',
@@ -43,8 +50,12 @@ class CategoryLaywerSeeder extends Seeder
             'Банковское право',
             'Обслуживание бизнеса'
         ],
-        'Миграционное право' => ['Миграционные вопросы'],
-        'Налоговое право' => ['Налоговое право'],
+        'Миграционное право' => [
+            'Миграционные вопросы'
+        ],
+        'Налоговое право' => [
+            'Налоговое право'
+        ],
         'Семейное право' => [
             'Алименты',
             'Заключение и расторжение брака',
@@ -58,7 +69,9 @@ class CategoryLaywerSeeder extends Seeder
             'Пенсии и пособия',
             'Социальное обеспечение'
         ],
-        'Уголовное право' => ['Уголовные дела'],
+        'Уголовное право' => [
+            'Уголовные дела'
+        ],
         'Прочее' => [
             'Автоюристы',
             'Военное право',
@@ -73,13 +86,33 @@ class CategoryLaywerSeeder extends Seeder
 
     public function run(): void
     {
-        // DB::table('admins')->insert([
-        //     'login' => 'root',
-        //     'password' => Hash::make('root'),
-        // ]);
-        // DB::table('admins')->insert([
-        //     'login' => 'root1',
-        //     'password' => Hash::make('root'),
-        // ]);
+        foreach ($this->data as $main => $rows) {
+            $mainCategory = Category::updateOrCreate(
+                [
+                    'name' => $main
+                ],
+                [
+                    'entity_type_id' => 1,
+                    'category_id' => 78,
+                    'activity' => 1,
+                ]
+            );
+
+            foreach($rows as $row) {
+                $category = Category::updateOrCreate(
+                    [
+                        'name' => $row
+                    ],
+                    [
+                        'entity_type_id' => 1,
+                        'category_id' => $mainCategory->id,
+                        'activity' => 1,
+                    ]
+                );
+            }
+
+        }
+
     }
+
 }
