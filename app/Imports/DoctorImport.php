@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Entity;
 use Illuminate\Support\Collection;
@@ -17,6 +18,8 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
     {
         foreach ($rows as $row) {
 
+            $mainCategory = $this->getCategory($row[4]);
+
             $entity = Entity::updateOrCreate(
                 [
                     'name' => $row[2]
@@ -31,12 +34,12 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     'city_id' => $this->getCityName($row[9]),
                     'region_id' => $this->getRegionName($row[9]),
                     'activity' => false,
-                    'entity_type_id' => 1,
-                    'category_id' => 19,
+                    'entity_type_id' => 11,
+                    'category_id' => $mainCategory->category_id ?: $mainCategory->id,
                 ]
             );
 
-            $entity->fields()->syncWithPivotValues([29], ['main_category_id' => 19]);
+            $entity->fields()->syncWithPivotValues([$mainCategory->id], ['main_category_id' => $mainCategory->category_id ?: $mainCategory->id]);
 
             $entity->images()->withOutGlobalScopes()->delete();
 
@@ -97,5 +100,20 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
         $withEnter = "$beforeSpace. \n$afterSpace";
 
         return $withEnter;
+    }
+
+    public function getCategory($data)
+    {
+        if(mb_strstr($data, ', ', true)) {
+            $data = mb_strstr($data, ', ', true);
+        }
+
+        $category = Category::with('parent')->where('name', 'LIKE', "$data")->First();
+
+        if(!$category) {
+            $category = Category::with('parent')->where('name', 'LIKE', 'Терапевт')->First();
+        }
+
+        return $category;
     }
 }
