@@ -20,6 +20,7 @@ class BasePage extends Component
     public $type = '';
     public $category = 'Все';
     public $categoryUri = null;
+    public $subCategory = 'Все';
 
     protected $quantityOfDisplayed = 20; // Количество отоброжаемых сущностей
 
@@ -48,6 +49,7 @@ class BasePage extends Component
 
         $entityShowRout = 'company.show';
         $categories = Category::active()->main()->where('entity_type_id', $this->type)->get();
+        $subCategories = null;
         $entities = Entity::query()->active()->with('fields', 'offers')->withCount('offers');
 
         if ($this->type) {
@@ -84,6 +86,28 @@ class BasePage extends Component
                             $que->where('category_entity.main_category_id', '=', $this->category);
                         });
                 });
+
+            if ($this->category == '19' || $this->category == '78') {
+                $entities = $entities
+                    ->where(function (Builder $query) {
+                        $query
+                            ->where('category_id', $this->category)
+                            ->orWhereHas('fields', function ($que) {
+                                $que->where('category_entity.main_category_id', '=', $this->subCategory);
+                            });
+                    });
+
+                $subCategories = Category::where('category_id', $this->category)->get();
+            } else {
+                $entities = $entities
+                    ->where(function (Builder $query) {
+                        $query
+                            ->where('category_id', $this->category)
+                            ->orWhereHas('fields', function ($que) {
+                                $que->where('category_entity.main_category_id', '=', $this->category);
+                            });
+                    });
+            }
         }
 
         $entities = $entities->paginate($this->quantityOfDisplayed);
@@ -97,6 +121,7 @@ class BasePage extends Component
             'regions' => $regions,
             'region' => $this->region,
             'categories' => $categories,
+            'subCategories' => $subCategories,
             'entityTypies' => $entityTypies,
         ]);
     }

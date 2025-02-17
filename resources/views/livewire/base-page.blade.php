@@ -10,7 +10,13 @@
                 @isset($categories)
                     <x-pages.category-select :categories=$categories />
                 @endisset
+
+
             </div>
+
+            @isset($subCategories)
+                <x-pages.sub-category-select :categories=$subCategories />
+            @endisset
 
         </div>
 
