@@ -41,13 +41,13 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
 
             $entity->fields()->syncWithPivotValues([$mainCategory->category_id ?: $mainCategory->id], ['main_category_id' => 19]);
 
-            $entity->images()->withOutGlobalScopes()->delete();
+           // $entity->images()->withOutGlobalScopes()->delete();
 
-            if (Storage::disk('public')->exists("uploaded/doctor/$row[0]/$row[0].png")) {
-                $entity->images()->create([
-                    'path' => "uploaded/doctor/$row[0]/$row[0].png"
-                ]);
-            }
+            // if (Storage::disk('public')->exists("uploaded/doctor/$row[0]/$row[0].png")) {
+            //     $entity->images()->create([
+            //         'path' => "uploaded/doctor/$row[0]/$row[0].png"
+            //     ]);
+            // }
         }
     }
 
@@ -108,7 +108,7 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
             $data = mb_strstr($data, ', ', true);
         }
 
-        $category = Category::with('parent')->where('name', 'LIKE', "$data")->First();
+        $category = Category::with('parent')->where('name', 'LIKE', "%$data%")->First();
 
         if(!$category) {
             $category = Category::with('parent')->where('name', 'LIKE', 'Терапевт')->First();
