@@ -43,7 +43,7 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
                 ]
             );
 
-            $entity->fields()->syncWithPivotValues([86, 87, 88, 91], ['main_category_id' => 78]);
+           $entity->fields()->syncWithPivotValues([86, 87, 88, 91], ['main_category_id' => 78]);
 
 
             if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/1.png")) {

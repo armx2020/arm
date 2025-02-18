@@ -79,7 +79,7 @@ class BasePage extends Component
 
         if ($this->category !== 'Все') {
             if ($this->category == '19' || $this->category == '78') {
-                if ($this->category !== 'Все') {
+                if ($this->subCategory !== 'Все') {
                     $entities = $entities
                         ->where(function (Builder $query) {
                             $query
