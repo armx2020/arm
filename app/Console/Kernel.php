@@ -12,6 +12,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('app:calculate-doubles')->dailyAt('00:00');
+        $schedule->command('app:calculate-fullness')->dailyAt('00:00');
+        $schedule->command('app:calculate-top-entities')->dailyAt('00:00');
         // $schedule->command('inspire')->hourly();
     }
 

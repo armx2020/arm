@@ -19,7 +19,7 @@ class calculateDoubles extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Calculate doubles for all entities';
 
     /**
      * Execute the console command.
