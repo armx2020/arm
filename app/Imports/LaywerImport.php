@@ -39,7 +39,7 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     'category_id' => 78,
 
                     'image' => null,
-                    'activity' => false,
+                    // 'activity' => false,
                 ]
             );
 

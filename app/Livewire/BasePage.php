@@ -88,6 +88,15 @@ class BasePage extends Component
                                     $que->where('category_entity.category_id', '=', $this->subCategory);
                                 });
                         });
+                } else {
+                    $entities = $entities
+                        ->where(function (Builder $query) {
+                            $query
+                                ->where('category_id', $this->category)
+                                ->orWhereHas('fields', function ($que) {
+                                    $que->where('category_entity.main_category_id', '=', $this->category);
+                                });
+                        });
                 }
 
                 $subCategories = Category::where('category_id', $this->category)->get();

@@ -33,7 +33,7 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     'address' => mb_substr($row[8], 0, 128),
                     'city_id' => $this->getCityName($row[9]),
                     'region_id' => $this->getRegionName($row[9]),
-                    'activity' => false,
+                  //  'activity' => false,
                     'entity_type_id' => 1,
                     'category_id' => 19,
                 ]
