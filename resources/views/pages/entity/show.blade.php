@@ -34,4 +34,6 @@
     @endif
 
     <x-pages.entity-card :$entity />
+
+    <x-inform-us.index/>
 @endsection

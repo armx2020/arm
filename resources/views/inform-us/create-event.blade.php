@@ -4,12 +4,7 @@
     <x-pages.breadcrumbs :$secondPositionUrl :$secondPositionName />
     <section>
         <div class="flex flex-col sm:justify-center items-center py-6">
-            <div>
-                <a class="" href="{{ route('home') }}">
-                    <img src="{{ url('/image/logo-app.png') }}" class="w-60" alt="logo" />
-                </a>
-            </div>
-
+       
             @if (session('success'))
                 <div class="mt-5 w-full sm:max-w-xl rounded-lg bg-green-100 px-6 py-5 text-base text-green-700"
                     role="alert">

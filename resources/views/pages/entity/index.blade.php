@@ -31,6 +31,8 @@
     <x-pages.breadcrumbs :$secondPositionUrl :$secondPositionName />
     <section>
         @livewire('base-page', ['region' => $region, 'type' => $type, 'categoryUri' => $categoryUri])
+        
+        <x-inform-us.index/>
     </section>
 @endsection
 

@@ -24,18 +24,14 @@
 
     <!-- Scripts -->
     <script src="{{ url('/jquery-3.7.0.min.js') }}"></script>
-    {{-- <script src="{{ url('/select2.min.js') }}"></script> --}}
-    {{-- <script src="{{ url('/jquery.maskedinput.min.js') }}"></script> --}}
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    {{-- @vite(['resources/css/select.css']) --}}
     @yield('scripts')
 
     @include('layouts.yandex')
 </head>
 
 <body class="antialiased w-full">
-    <div class="min-h-screen bg-[#F5F7FA]">
+    <div class="bg-[#F5F7FA]">
         @include('layouts.nav')
         <div class="w-11/12 lg:w-10/12 max-w-7xl mx-auto min-h-[40rem]">
             @yield('content')
@@ -43,7 +39,6 @@
         @include('layouts.footer')
     </div>
     @vite(['resources/js/scripts.js'])
-    {{-- @vite(['resources/js/mask_phone.js']) --}}
 
     @yield('body')
 
