@@ -14,6 +14,8 @@ use Maatwebsite\Excel\Concerns\WithUpserts;
 
 class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithStartRow
 {
+    public $comment = '';
+
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
@@ -25,23 +27,25 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     'name' => $row[2]
                 ],
                 [
-                    'link' => $row[1],
-                    'phone' => $row[3],
-                    'comment' => $row[4],
-                    'description' => $this->parseDescription($row[6]),
-                    'clinic' => $row[7],
-                    'address' => mb_substr($row[8], 0, 128),
-                    'city_id' => $this->getCityName($row[9]),
-                    'region_id' => $this->getRegionName($row[9]),
-                  //  'activity' => false,
-                    'entity_type_id' => 1,
+                    // 'link' => $row[1],
+                    // 'phone' => $row[3],
+                    'comment' => $this->comment,
+                    // 'description' => $this->parseDescription($row[6]),
+                    // 'clinic' => $row[7],
+                    // 'address' => mb_substr($row[8], 0, 128),
+                    // 'city_id' => $this->getCityName($row[9]),
+                    // 'region_id' => $this->getRegionName($row[9]),
+                    //  'activity' => false,
+                    //  'entity_type_id' => 1,
                     'category_id' => 19,
                 ]
             );
 
             $entity->fields()->syncWithPivotValues([$mainCategory->category_id ?: $mainCategory->id], ['main_category_id' => 19]);
 
-           // $entity->images()->withOutGlobalScopes()->delete();
+            $this->comment = '';
+
+            // $entity->images()->withOutGlobalScopes()->delete();
 
             // if (Storage::disk('public')->exists("uploaded/doctor/$row[0]/$row[0].png")) {
             //     $entity->images()->create([
@@ -92,7 +96,7 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
     {
         $withoutTheLastLetters = mb_substr($data, 0, -40);
 
-         $position = strpos($withoutTheLastLetters, ". ");
+        $position = strpos($withoutTheLastLetters, ". ");
 
         $beforeSpace = substr($withoutTheLastLetters, 0, $position);
         $afterSpace = substr($withoutTheLastLetters, $position + 2);
@@ -104,14 +108,20 @@ class DoctorImport implements ToCollection, WithUpserts, PersistRelations, WithS
 
     public function getCategory($data)
     {
-        if(mb_strstr($data, ', ', true)) {
+        if (mb_strstr($data, ', ', true)) {
             $data = mb_strstr($data, ', ', true);
         }
 
         $category = Category::with('parent')->where('name', 'LIKE', "%$data%")->First();
 
-        if(!$category) {
+        if (!$category) {
             $category = Category::with('parent')->where('name', 'LIKE', 'Терапевт')->First();
+
+            if ($this->comment == '') {
+                $this->comment = "Не найденные строки: " .  $data . "; ";
+            } else {
+                $this->comment = $this->comment .  $data . "; ";
+            }
         }
 
         return $category;
