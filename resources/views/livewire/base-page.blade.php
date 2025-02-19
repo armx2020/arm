@@ -14,9 +14,9 @@
 
             </div>
 
-            @isset($subCategories)
+            @if(isset($subCategories) && count($subCategories) > 0)
                 <x-pages.sub-category-select :categories=$subCategories />
-            @endisset
+            @endif
 
         </div>
 

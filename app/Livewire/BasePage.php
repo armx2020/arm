@@ -78,28 +78,15 @@ class BasePage extends Component
         $entities = $entities->orderByDesc('sort_id');
 
         if ($this->category !== 'Все') {
-            if ($this->category == '19' || $this->category == '78') {
-                if ($this->subCategory !== 'Все') {
-                    $entities = $entities
-                        ->where(function (Builder $query) {
-                            $query
-                                ->where('category_id', $this->category)
-                                ->whereHas('fields', function ($que) {
-                                    $que->where('category_entity.category_id', '=', $this->subCategory);
-                                });
-                        });
-                } else {
-                    $entities = $entities
-                        ->where(function (Builder $query) {
-                            $query
-                                ->where('category_id', $this->category)
-                                ->orWhereHas('fields', function ($que) {
-                                    $que->where('category_entity.main_category_id', '=', $this->category);
-                                });
-                        });
-                }
-
-                $subCategories = Category::where('category_id', $this->category)->get();
+            if ($this->subCategory !== 'Все') {
+                $entities = $entities
+                    ->where(function (Builder $query) {
+                        $query
+                            ->where('category_id', $this->category)
+                            ->whereHas('fields', function ($que) {
+                                $que->where('category_entity.category_id', '=', $this->subCategory);
+                            });
+                    });
             } else {
                 $entities = $entities
                     ->where(function (Builder $query) {
@@ -110,6 +97,8 @@ class BasePage extends Component
                             });
                     });
             }
+
+            $subCategories = Category::where('category_id', $this->category)->get();
         }
 
         $entities = $entities->paginate($this->quantityOfDisplayed);
@@ -131,5 +120,11 @@ class BasePage extends Component
     public function resetCategory()
     {
         $this->category = 'Все';
+        $this->subCategory = 'Все';
+    }
+
+    public function resetSubCategory()
+    {
+        $this->subCategory = 'Все';
     }
 }
