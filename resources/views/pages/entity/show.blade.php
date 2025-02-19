@@ -23,6 +23,13 @@
     <meta name="description" content="{{ $description }}">
 @endsection
 
+@section('scripts')
+    <link rel="stylesheet" href="{{ url('/swiper/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ url('/swiper/fancybox.css') }}">
+    <script src="{{ url('/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ url('/swiper/fancybox.umd.js') }}"></script>
+@endsection
+
 @section('content')
     <x-pages.breadcrumbs :$secondPositionUrl secondPositionName='{{ $entity->type->name }}' fourthPositionUrl=""
         fourthPositionName="{{ $entity->name }}" />
