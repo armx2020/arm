@@ -33,7 +33,7 @@ class UpdateEntityRequest extends FormRequest
             'images'           => ['nullable', 'array', 'max:20'],
             'images.*.id'      => ['required'],
             'images.*.sort_id' => ['required', 'integer'],
-            'images.*.file'    => ['nullable', 'file', 'mimes:jpg,jpeg,png|max:2048'],
+            'images.*.file'    => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'images.*.checked' => ['nullable', 'in:0,1']
         ];
     }
