@@ -34,17 +34,17 @@
                     <h4 class="text-xl font-semibold mt-6">Выберите, один из вариантов</h4>
                     <hr class="mb-4 mt-2">
                     <button type="button" id="select-form-button"
-                        class="uppercas w-full rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50">
+                        class="uppercas w-full text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50">
                         Добавьте информацию для справочника без регистрации
                     </button>
 
                     <a href="{{ route('register') }}"
-                        class="block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
+                        class="block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
                         Добавьте свою компанию, сообщество или событие
                     </a>
 
                     <a href="{{ route('inform-us.appeal') }}"
-                        class="block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
+                        class="block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
                         Написать нам, сообщить об ошибки, запросить помощь
                     </a>
                 </div>
@@ -54,22 +54,22 @@
                     <hr class="mb-4 mt-2">
 
                     <a href="{{ route('inform-us.company') }}"
-                        class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
+                        class="uppercase block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
                         Компанию
                     </a>
 
                     <a href="{{ route('inform-us.place') }}"
-                        class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
+                        class="uppercase block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
                         Интересное место
                     </a>
 
                     <a href="{{ route('inform-us.group') }}"
-                        class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
+                        class="uppercase block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
                         Кружок, сообщество
                     </a>
 
                     <a href="{{ route('inform-us.community') }}"
-                        class="uppercase block text-center rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-1">
+                        class="uppercase block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
                         Община
                     </a>
 
