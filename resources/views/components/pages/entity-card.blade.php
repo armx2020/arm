@@ -17,75 +17,56 @@
                 $images = $entity->images(true)->get();
             @endphp
 
-            @if ($images !== null)
+    <div class="flex flex-col gap-2">
 
-                @php
-                    $imagesClass = null;
-                    $imageGap = null;
+        <div class="group relative w-72 h-72" wire:ignore>
+            <div class="swiper mySwiper2 w-full h-full">
+                <div class="swiper-wrapper">
+                    @foreach($images as $image)
+                        <div class="swiper-slide flex">
+                            <a data-fancybox="gallery" href="{{ asset('storage/'.$image->path) }}" class="w-full h-full">
+                                <img class="w-full h-full object-cover rounded-lg" src="{{ asset('storage/'.$image->path) }}">
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
 
-                    switch (count($images)) {
-                        case 2:
-                            $imageClass = 'w-[9.2rem] h-[9.2rem] lg:w-[8.6rem] lg:h-[8.6rem]';
-                            $imageGap = 'gap-3';
-                            break;
-                        case 3:
-                            $imageClass = 'w-[9.2rem] h-[9.2rem] lg:w-[8.6rem] lg:h-[8.6rem]';
-                            $imageGap = 'gap-3';
-                            break;
-                        case 4:
-                            $imageClass = 'w-[6rem] h-[6rem] lg:w-[5.5rem] lg:h-[5.5rem]';
-                            $imageGap = 'gap-x-3';
-                            break;
-                        case 5:
-                            $imageClass = 'w-[5rem] h-[5rem] lg:w-[4.1rem] lg:h-[4.1rem]';
-                            $imageGap = 'gap-2';
-                            break;
+                <div
+                    class="swiper-pagination
+                   absolute bottom-2 left-1/2
+                   transform -translate-x-1/2
+                   !w-[70px] !left-[50%] !translate-x-[-50%] text-center !text-white
+                   bg-black/60 text-sm
+                   rounded-full py-1"
+                ></div>
 
-                        default:
-                            $imageClass = 'w-[5rem] h-[5rem] lg:w-[4.1rem] lg:h-[4.1rem]';
-                            $imageGap = 'gap-2';
-                            break;
-                    }
+                <div
+                    class="swiper-button-prev
+                   hidden group-hover:flex
+                   items-center
+                   absolute inset-y-0 left-2
+                   text-white z-10"
+                ></div>
+                <div
+                    class="swiper-button-next
+                   hidden group-hover:flex
+                   items-center
+                   absolute inset-y-0 right-2
+                   text-white z-10"
+                ></div>
+            </div>
+        </div>
 
-                @endphp
-
-                <div class="flex flex-col gap-2">
-
-                    <div class="flex">
-                        @if (isset($images[0]))
-                            <img src="{{ asset('storage/' . $images[0]->path) }}"
-                                class="h-[11rem] w-[27rem] lg:h-72 lg:w-72 rounded-lg object-cover mx-auto lg:mx-0"
-                                alt="{{ $entity->name }}">
-                        @else
-                            <img src="{{ url('/image/groups.png') }}"
-                                class="h-[11rem] w-[27rem] lg:h-72 lg:w-72 rounded-lg object-cover mx-auto lg:mx-0"
-                                alt="{{ $entity->name }}">
-                        @endif
+        <!-- Слайдер миниатюр (thumbs) -->
+        <div class="swiper mySwiper mt-2 w-72 h-22" wire:ignore>
+            <div class="swiper-wrapper cursor-pointer">
+                @foreach($images as $image)
+                    <div class="swiper-slide">
+                        <img class="w-full h-full object-cover rounded-lg" src="{{ asset('storage/'.$image->path) }}">
                     </div>
-
-                    @if (count($images) > 1)
-                        <div class="flex flex-row {{ $imageGap }}">
-
-                            @foreach ($images as $image)
-                                @if ($loop->iteration == 1)
-                                    @continue
-                                @endif
-
-                                <div class="flex">
-                                    <img src="{{ isset($image) ? asset('storage/' . $image->path) : url('/image/groups.png') }}"
-                                        class="{{ $imageClass }} rounded-lg object-cover mx-auto lg:mx-0"
-                                        alt="{{ $entity->name }}">
-                                </div>
-
-                                @if ($loop->iteration == 5)
-                                @break
-                            @endif
-                        @endforeach
-
-                    </div>
-                @endif
-
-        @endif
+                @endforeach
+            </div>
+        </div>
 
         <div class="flex justify-between my-3 pl-0 text-xs text-blue-600">
 
@@ -232,4 +213,66 @@
 @if ($entity->getTable() == 'companies')
     <x-pages.company-offers :$entity />
 @endif
+    <script>
+        $(document).ready(function() {
+            let swiperThumbs = new Swiper(".mySwiper", {
+                spaceBetween: 10,
+                slidesPerView: 3,
+                freeMode: true,
+                watchSlidesProgress: true,
+            });
+
+            let swiperMain = new Swiper(".mySwiper2", {
+                spaceBetween: 10,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                    type: 'fraction',
+                    renderFraction: (currentClass, totalClass) => {
+                        return '<span class="' + currentClass + '"></span>'
+                            + ' из '
+                            + '<span class="' + totalClass + '"></span>';
+                    }
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                thumbs: {
+                    swiper: swiperThumbs,
+                },
+            });
+
+            Fancybox.bind("[data-fancybox='gallery']", {
+                Thumbs: {
+                    autoStart: false,
+                },
+                animated: false,
+                showClass: "fancybox-fadeIn",
+                hideClass: "fancybox-fadeOut",
+            });
+
+            Livewire.hook('message.processed', () => {
+                swiperMain.update();
+                swiperThumbs.update();
+            });
+        });
+    </script>
+    <style>
+        .mySwiper .swiper-slide-thumb-active img {
+            @apply border-2 border-indigo-600 rounded-lg;
+            border: 2px solid #60A5FA;
+            transition: transform 0.2s;
+        }
+        .mySwiper2 .swiper-button-next,
+        .mySwiper2 .swiper-button-prev {
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .group:hover .swiper-button-next,
+        .group:hover .swiper-button-prev {
+            opacity: 1;
+        }
+    </style>
 </section>

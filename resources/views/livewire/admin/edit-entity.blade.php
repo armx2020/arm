@@ -337,11 +337,6 @@
                         </span>
                     `);
                     $slot.append($checkContainer);
-                } else {
-                    const $checkContainer = $(`
-                        <span class="mt-2 text-green-700 text-sm">Проверено</span>
-                    `);
-                    $slot.append($checkContainer);
                 }
                 initDragAndDrop($slot);
                 $sortable.append($slot);

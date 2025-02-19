@@ -7,6 +7,7 @@ use App\Http\Controllers\BaseController;
 use App\Models\Entity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image as Image;
 
 class EntityController extends BaseController
 {
@@ -349,6 +350,32 @@ class EntityController extends BaseController
 
         if (is_numeric($idOrTranscript)) {
             $entity = $entity->where('id', $idOrTranscript)->First();
+            if ($entity != null){
+                if ($request->hasFile('images')) {
+                    $images = $entity->images(false);
+                    $lastImage = $images->orderBy('sort_id', 'DESC')->first()->sort_id;
+                    $imagesCount = $images->count();
+                    if ((count($request->images) + $imagesCount) > 20){
+                        return redirect()->back()->with('error', 'Количество изображений превысило лимит');
+                    }
+                    foreach ($request->file('images') as $sortId => $file) {
+                        $sortId += ($lastImage + 1);
+                        $path = $file->store('uploaded', 'public');
+
+                        $imageEntity = $entity->images()->create([
+                            'path' => $path,
+                            'sort_id' => $sortId,
+                            'checked' => 0,
+                        ]);
+
+                        Image::make('storage/' . $imageEntity->path)
+                            ->resize(400, null, function ($constraint) {
+                                $constraint->aspectRatio();
+                            })
+                            ->save();
+                    }
+                }
+            }
         } else {
             $entity = $entity->where('transcription', $idOrTranscript)->First();
         }
@@ -358,7 +385,7 @@ class EntityController extends BaseController
         }
 
         $entity = $this->appealAction->storePhotoToEntity($request, $entity);
-  
+
         switch ($entity->entity_type_id) {
             case 4:
                 return redirect()->route('community.show', ['idOrTranscript' => $entity->id])->with('success', 'Ваша заявка успешно принята, изменения будут доступны после модерации');

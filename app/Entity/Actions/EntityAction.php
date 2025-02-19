@@ -124,7 +124,7 @@ class EntityAction
         }
 
         // images
-        $oldImages = $entity->images;
+        $oldImages = $entity->images(false)->get();
         $imagesData = $request->input('images', []);
         $oldIDs = $oldImages->pluck('id');
 
@@ -135,13 +135,13 @@ class EntityAction
         $idsToDelete = $oldIDs->diff($incomingIDs);
 
         if ($idsToDelete->isNotEmpty()) {
-            $images = $entity->images()->whereIn('id', $idsToDelete)->get();
+            $images = $entity->images(false)->whereIn('id', $idsToDelete)->get();
             foreach ($images as $image) {
                 if ($image->path) {
                     Storage::delete('public/' . $image->path);
                 }
             }
-            $entity->images()->whereIn('id', $idsToDelete)->delete();
+            $entity->images(false)->whereIn('id', $idsToDelete)->delete();
         }
 
         $oldImagesMap = $oldImages->keyBy('id');
