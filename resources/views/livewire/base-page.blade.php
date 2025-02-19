@@ -14,7 +14,7 @@
 
             </div>
 
-            @if(isset($subCategories) && count($subCategories) > 0)
+            @if (isset($subCategories) && count($subCategories) > 0)
                 <x-pages.sub-category-select :categories=$subCategories />
             @endif
 
@@ -32,14 +32,15 @@
                     <x-pages.absence-entity />
                 @else
                     <x-pages.grid :entities="$entities" :$entityShowRout />
+                    <div class="w-full  mx-auto py-3 lg:py-10">
+                        {{ $entities->onEachSide(2)->links() }}
+                    </div>
                 @endif
             </div>
 
         </div>
     </div>
 
-    <div class="w-full lg:w-11/12 mx-auto py-3 lg:py-6 px-6 lg:px-0">
-        {{ $entities->onEachSide(2)->links() }}
-    </div>
+
 
 </div>
