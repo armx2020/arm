@@ -78,10 +78,12 @@
         </div>
     </template>
 
+    <input type="hidden" id="maxSlots" value="{{ 20 - $entity->images(false)->count() }}">
+
     <script type="text/javascript">
         $(document).ready(function() {
 
-            const maxSlots = 20;
+            const maxSlots = parseInt($('#maxSlots').val(), 10);
             // Макс размер файла — 2MB
             const maxSize  = 2 * 1024 * 1024;
 

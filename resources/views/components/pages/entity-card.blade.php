@@ -19,7 +19,7 @@
 
     <div class="flex flex-col gap-2">
 
-        <div class="group relative w-72 h-72" wire:ignore>
+        <div class="group relative w-full sm:w-[320px] md:w-[380px] xl:w-[430px] h-32 es:h-40 ms:h-64 sm:h-48 md:h-64" wire:ignore>
             <div class="swiper mySwiper2 w-full h-full">
                 <div class="swiper-wrapper">
                     @foreach($images as $image)
@@ -58,11 +58,11 @@
         </div>
 
         <!-- Слайдер миниатюр (thumbs) -->
-        <div class="swiper mySwiper mt-2 w-72 h-22" wire:ignore>
+        <div class="swiper mySwiper mt-1 w-full sm:w-[320px] md:w-[380px] xl:w-[430px] h-22" wire:ignore>
             <div class="swiper-wrapper cursor-pointer">
                 @foreach($images as $image)
                     <div class="swiper-slide">
-                        <img class="w-full h-full object-cover rounded-lg" src="{{ asset('storage/'.$image->path) }}">
+                        <img class="w-full h-14 ms:h-16 ls:h-20 sm:h-16 md:h-20 object-cover rounded-lg" src="{{ asset('storage/'.$image->path) }}">
                     </div>
                 @endforeach
             </div>
