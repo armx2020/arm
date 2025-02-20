@@ -35,11 +35,11 @@
                         stroke-linecap="round" stroke-linejoin="round" />
                 </g>
             </svg>
-            <ul class="list-style-none mx-auto flex flex-col pl-0 text-center text-lg mt-10">
-                <li class="mb-4 my-2 p-1 flex border justify-center">
+            <ul class="list-style-none mx-auto flex flex-col pl-0 text-lg mt-10">
+                <li class="mb-4 my-2 p-1 flex border justify-start">
                     @auth
                         <div class="flex flex-row items-center">
-                            <a class="mx-6 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->firstname }}</a>
+                            <a class="mx-4 text-md" href="{{ route('dashboard') }}">{{ Auth::user()->firstname }}</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
@@ -53,7 +53,7 @@
 
                     @guest
                         <div class="flex flex-row items-center">
-                            <a class="mx-4" href="{{ route('login') }}">Войти</a>
+                            <a class="mx-4 ml-3" href="{{ route('login') }}">Войти</a>
                             <a class="mx-4" href="{{ route('register') }}">
                                 Регистрация
                             </a>
@@ -61,39 +61,39 @@
                     @endguest
                 </li>
                 @if (isset($regionName) && $regionName !== 'Россия')
-                    <li class="mb-2">
+                    <li class="mb-2 pl-4">
                         <a class="" href="{{ route('region.companies', ['regionTranslit' => $region]) }}">Бизнес
                             справочник</a>
                     </li>
-                    <li class="mb-2">
+                    <li class="mb-2 pl-4">
                         <a class="" href="{{ route('region.groups', ['regionTranslit' => $region]) }}">Кружки и
                             сообщества</a>
                     </li>
-                    <li class="mb-2">
+                    <li class="mb-2 pl-4">
                         <a class="" href="{{ route('region.places', ['regionTranslit' => $region]) }}">Интересные
                             места</a>
                     </li>
-                    <li class="mb-2">
+                    <li class="mb-2 pl-4">
                         <a class=""
                             href="{{ route('region.communities', ['regionTranslit' => $region]) }}">Общины,
                             констульства</a>
                     </li>
                 @else
-                    <li class="mb-2">
+                    <li class="mb-2 pl-4">
                         <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
                     </li>
-                    <li class="mb-2">
+                    <li class="mb-2 pl-4">
                         <a class="" href="{{ route('groups.index') }}">Кружки и сообщества</a>
                     </li>
-                    <li class="mb-2">
+                    <li class="mb-2 pl-4">
                         <a class="" href="{{ route('places.index') }}">Интересные места</a>
                     </li>
-                    <li class="mb-2">
+                    <li class="mb-2 pl-4">
                         <a class="" href="{{ route('communities.index') }}">Общины, констульства</a>
                     </li>
                 @endif
                 <li class="mb-2">
-                    <div class="flex flex-row items-center justify-center my-4">
+                    <div class="flex flex-row items-start justify-start my-4 pl-2">
                         <a class="mx-2" href="https://t.me/+79786502200">
                             <svg width="37" height="37" viewBox="0 0 513 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="256" cy="256" r="256" fill="white"/>
