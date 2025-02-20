@@ -90,10 +90,14 @@
         </h3>
 
         @if ($entity->description)
-            <span class="sm:mx-4 text-sm font-semibold mt-4">Описание</span>
-            <div class="max-h-16 md:max-h-36 lg:max-h-48 flex truncate sm:mx-4 max-w-[50rem]">
-                <p
-                    class="text-xs md:text-base font-normal text-gray-500 break-words whitespace-normal text-justify whitespace-pre-wrap">{{ $entity->description }}</p>
+            <span class="sm:mx-4 text-sm font-semibold mt-4 block">Описание</span>
+            <div class="description-container sm:mx-4 max-w-[50rem]">
+                <p class="description-content text-xs md:text-base font-normal text-gray-500 break-words whitespace-normal text-justify overflow-hidden transition-all duration-300 line-clamp-5">
+                    {{ $entity->description }}
+                </p>
+                <button type="button" class="toggle-button inline text-sm text-blue-500 hover:underline focus:outline-none">
+                    Показать еще
+                </button>
             </div>
         @endif
 
@@ -215,6 +219,29 @@
 @endif
     <script>
         $(document).ready(function() {
+            $('.description-container').each(function(){
+                var paragraph = $(this).find('.description-content')[0];
+                var toggleButton = $(this).find('.toggle-button');
+                if (paragraph.scrollHeight <= $(paragraph).height()){
+                    toggleButton.hide();
+                }
+            });
+
+            $('.toggle-button').click(function(){
+                var container = $(this).closest('.description-container');
+                var paragraph = container.find('.description-content');
+
+                if (container.hasClass('expanded')) {
+                    container.removeClass('expanded');
+                    paragraph.addClass('line-clamp-5');
+                    $(this).text('Показать еще');
+                } else {
+                    container.addClass('expanded');
+                    paragraph.removeClass('line-clamp-5');
+                    $(this).text('Скрыть');
+                }
+            });
+
             let swiperThumbs = new Swiper(".mySwiper", {
                 spaceBetween: 10,
                 slidesPerView: 3,
@@ -230,7 +257,7 @@
                     type: 'fraction',
                     renderFraction: (currentClass, totalClass) => {
                         return '<span class="' + currentClass + '"></span>'
-                            + ' из '
+                            + ' / '
                             + '<span class="' + totalClass + '"></span>';
                     }
                 },
@@ -256,7 +283,9 @@
                 swiperMain.update();
                 swiperThumbs.update();
             });
+
         });
+
     </script>
     <style>
         .mySwiper .swiper-slide-thumb-active img {
