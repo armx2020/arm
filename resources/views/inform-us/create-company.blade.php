@@ -15,7 +15,7 @@
     <x-pages.breadcrumbs :$secondPositionUrl :$secondPositionName />
     <section>
         <div class="flex flex-col sm:justify-center items-center py-6">
-        
+
             @if (session('success'))
                 <div class="mt-5 w-full sm:max-w-xl rounded-lg bg-green-100 px-6 py-5 text-base text-green-700"
                     role="alert">
@@ -105,8 +105,7 @@
                         <div class="mt-4">
                             <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
                             <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone"
-                                class="mt-1 block w-full mask-phone" placeholder='+7 (***) ***-**-**' :value="old('phone')"
-                                required />
+                                class="mt-1 block w-full mask-phone" placeholder='+7 (***) ***-**-**' :value="old('phone')" />
                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                         </div>
 
@@ -239,32 +238,41 @@
 
     <script type='text/javascript'>
         $(document).ready(function() {
+            
             $('#next-to-step-two').on('click', function() {
-                $('.step-two').show();
-                $('.step-one').hide();
-                $('.step-three').hide();
-                $(this).preventDefault();
+                if ($('input[name="fields[]"]:checked').length > 0) {
+                    $('.step-two').show();
+                    $('.step-one').hide();
+                    $('.step-three').hide();
+                    $('#checkbox-group').css("border-color", "#e5e7eb");
+                } else {
+                    $('#checkbox-group').css("border-color", "red");
+                }
+
             });
 
             $('#back-to-step-one').on('click', function() {
                 $('.step-one').show();
                 $('.step-two').hide();
                 $('.step-three').hide();
-                $(this).preventDefault();
             });
 
             $('#next-to-step-three').on('click', function() {
-                $('.step-three').show();
-                $('.step-one').hide();
-                $('.step-two').hide();
-                $(this).preventDefault();
+                if ($('#name').val()) {
+                    $('.step-three').show();
+                    $('.step-one').hide();
+                    $('.step-two').hide();
+                    $('#name').css("border-color", "#e5e7eb");
+                } else {
+                    $('#name').css("border-color", "red");
+                }
+
             });
 
             $('#back-to-step-two').on('click', function() {
                 $('.step-two').show();
                 $('.step-one').hide();
                 $('.step-three').hide();
-                $(this).preventDefault();
             });
 
             if ($("#city").length > 0) {
