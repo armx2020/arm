@@ -142,7 +142,7 @@
                                         <div class="col-span-6">
                                             <label for="description"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Описание</label>
-                                            <textarea type="text" name="description" id="description"
+                                            <textarea type="text" name="description" id="description" rows="10"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">{{ old('description') ?? old('description') }}</textarea>
                                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
                                         </div>
@@ -244,7 +244,10 @@
 
             <label class="file-label cursor-pointer flex-grow text-center">
                 <input type="file" name="images[]" class="file-input hidden" accept=".jpg,.jpeg,.png">
-                <span class="text-sm text-gray-500">Выберите файл или перетащите сюда</span>
+                <span class="text-sm text-gray-500">
+                    <div class="text-left px-2">Выберите файл или</div>
+                    <div class="text-left px-2">перетащите сюда</div>
+                </span>
             </label>
         </div>
     </template>

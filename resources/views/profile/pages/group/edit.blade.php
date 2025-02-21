@@ -196,7 +196,10 @@
 
             <label class="file-label cursor-pointer flex-grow text-center">
                 <input type="file" class="file-input hidden" accept=".jpg,.jpeg,.png">
-                <span class="text-sm text-gray-500">Выберите файл или перетащите сюда</span>
+                <span class="text-sm text-gray-500">
+                    <div class="text-left px-2">Выберите файл или</div>
+                    <div class="text-left px-2">перетащите сюда</div>
+                </span>
             </label>
         </div>
     </template>

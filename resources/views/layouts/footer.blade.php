@@ -19,8 +19,8 @@
             <div class="my-2">
                 <button class="text-blue-600 text-sm lg:text-md hover:text-blue-400 locationButton" id="locationButton">
                     <img src="{{ url('/image/location-marker.png') }}" class="w-4 h-4 inline" />
-                    @if ($region)
-                        {{ preg_replace('/\([^)]+\)/', '', $region) }}
+                    @if ($regionName)
+                        {{ preg_replace('/\([^)]+\)/', '', $regionName) }}
                     @else
                         Вся Россия
                     @endif

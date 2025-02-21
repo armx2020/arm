@@ -19,11 +19,11 @@
 
     <div class="flex flex-col gap-2">
 
-        <div class="group relative w-full sm:w-[320px] md:w-[380px] xl:w-[430px] h-32 es:h-40 ms:h-64 sm:h-48 md:h-64" wire:ignore>
+        <div class="group relative max-w-full aspect-[16/11] sm:max-w-[320px] md:max-w-[380px] xl:max-w-[430px]" wire:ignore>
             <div class="swiper mySwiper2 w-full h-full">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper w-full h-full">
                     @foreach($images as $image)
-                        <div class="swiper-slide flex">
+                        <div class="swiper-slide flex w-full h-full">
                             <a data-fancybox="gallery" href="{{ asset('storage/'.$image->path) }}" class="w-full h-full">
                                 <img class="w-full h-full object-cover rounded-lg" src="{{ asset('storage/'.$image->path) }}">
                             </a>
@@ -35,8 +35,8 @@
                     class="swiper-pagination
                    absolute bottom-2 left-1/2
                    transform -translate-x-1/2
-                   !w-[70px] !left-[50%] !translate-x-[-50%] text-center !text-white
-                   bg-black/60 text-sm
+                   !w-[48px] h-6 !left-[50%] !translate-x-[-50%] text-center !text-white
+                   bg-black/60 text-xs
                    rounded-full py-1"
                 ></div>
 
@@ -91,13 +91,18 @@
 
         @if ($entity->description)
             <span class="sm:mx-4 text-sm font-semibold mt-4 block">Описание</span>
-            <div class="description-container sm:mx-4 max-w-[50rem]">
-                <p class="description-content text-xs md:text-base font-normal text-gray-500 break-words whitespace-normal text-justify overflow-hidden transition-all duration-300 line-clamp-5">
-                    {{ $entity->description }}
+            <div class="description-container relative max-w-prose sm:mx-4">
+                <p class="description-content
+                   text-base font-normal text-gray-700
+                   break-words whitespace-normal text-justify
+                   overflow-hidden transition-all duration-300
+                   line-clamp-5">
+                {{ $entity->description }}
                 </p>
-                <button type="button" class="toggle-button inline text-sm text-blue-500 hover:underline focus:outline-none">
-                    Показать еще
-                </button>
+                <div type="button" class="toggle-button absolute bottom-0 right-0 z-10 hidden cursor-pointer text-base focus:outline-none bg-white px-0">
+                    <span>...</span>
+                    <span class="hover:underline text-blue-600">Показать ещё</span>
+                </div>
             </div>
         @endif
 
@@ -135,7 +140,7 @@
 
         @if ($entity->phone)
             <span class="sm:mx-4 text-sm mt-4">Телефон:</span>
-            <p class="flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-all">
+            <p class="phone flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-all">
                 {{ mb_substr($entity->phone, 0, 400, 'UTF-8') }}
             </p>
         @endif
@@ -219,27 +224,39 @@
 @endif
     <script>
         $(document).ready(function() {
-            $('.description-container').each(function(){
-                var paragraph = $(this).find('.description-content')[0];
-                var toggleButton = $(this).find('.toggle-button');
-                if (paragraph.scrollHeight <= $(paragraph).height()){
-                    toggleButton.hide();
+            $('.phone').each(function() {
+                var $p = $(this);
+                var phoneFull = $p.text().trim();
+
+                if (phoneFull.length > 5) {
+                    var masked = phoneFull.slice(0, 3) + '*****' + phoneFull.slice(-2);
+                    $p.html('');
+
+                    var $maskedSpan = $('<span>').addClass('phone-masked text-gray-500 mr-2').text(masked);
+                    var $fullSpan = $('<span>').addClass('phone-full hidden text-gray-500 mr-2').text(phoneFull);
+                    var $button = $('<button>').addClass('show-phone text-blue-500 hover:underline text-sm').text('Показать телефон');
+                    $p.append($maskedSpan, $fullSpan, $button);
+                    $button.on('click', function() {
+                        $maskedSpan.addClass('hidden');
+                        $fullSpan.removeClass('hidden');
+                        $(this).remove();
+                    });
                 }
             });
 
-            $('.toggle-button').click(function(){
-                var container = $(this).closest('.description-container');
-                var paragraph = container.find('.description-content');
+            $('.description-container').each(function() {
+                var $container = $(this);
+                var $paragraph = $container.find('.description-content');
+                var $toggleBtn = $container.find('.toggle-button');
 
-                if (container.hasClass('expanded')) {
-                    container.removeClass('expanded');
-                    paragraph.addClass('line-clamp-5');
-                    $(this).text('Показать еще');
-                } else {
-                    container.addClass('expanded');
-                    paragraph.removeClass('line-clamp-5');
-                    $(this).text('Скрыть');
+                if ($paragraph[0].scrollHeight > $paragraph.outerHeight()) {
+                    $toggleBtn.removeClass('hidden');
                 }
+
+                $toggleBtn.on('click', function() {
+                    $paragraph.removeClass('line-clamp-5');
+                    $toggleBtn.remove();
+                });
             });
 
             let swiperThumbs = new Swiper(".mySwiper", {
