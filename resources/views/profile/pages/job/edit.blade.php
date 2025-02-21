@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Все армяне - Мои места</title>
+    <title>Все армяне - Работа и вакансии</title>
 @endsection
 
 @section('meta')
@@ -14,7 +14,6 @@
     <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
     <script src="{{ url('/jquery-ui.min.js') }}"></script>
     @vite(['resources/css/select.css'])
-    @livewireStyles
 @endsection
 
 @section('content')
@@ -25,8 +24,8 @@
         <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
             <div class="flex flex-col basis-full">
                 <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
-                    <form id="card-form" method="post" action="{{ route('myjobs.update', ['myjob' => $entity->id]) }}" class="w-full"
-                        enctype="multipart/form-data">
+                    <form id="card-form" method="post" action="{{ route('myjobs.update', ['myjob' => $entity->id]) }}"
+                        class="w-full" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
 
@@ -39,7 +38,7 @@
                             $images = $entity->images()->get();
                         @endphp
 
-                        <div class="border-b min-h-auto overflow-hidden pb-2" wire:ignore>
+                        <div class="border-b min-h-auto overflow-hidden pb-2">
                             <div id="sortable-slots"></div>
                             <div id="add-slot-container"></div>
                         </div>
@@ -417,5 +416,4 @@
 
 @section('body')
     @vite(['resources/js/mask_phone.js'])
-    @livewireScripts
 @endsection

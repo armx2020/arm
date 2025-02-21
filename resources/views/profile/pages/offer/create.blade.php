@@ -14,7 +14,6 @@
     <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
     <script src="{{ url('/jquery-ui.min.js') }}"></script>
     @vite(['resources/css/select.css'])
-    @livewireStyles
 @endsection
 
 @section('content')
@@ -321,5 +320,4 @@
 
 @section('body')
     @vite(['resources/js/mask_phone.js'])
-    @livewireScripts
 @endsection

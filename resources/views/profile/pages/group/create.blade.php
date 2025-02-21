@@ -14,7 +14,6 @@
     <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
     <script src="{{ url('/jquery-ui.min.js') }}"></script>
     @vite(['resources/css/select.css'])
-    @livewireStyles
 @endsection
 
 @section('content')
@@ -161,7 +160,8 @@
     </div>
 
     <template id="image-slot-template">
-        <div class="image-slot border border-dashed border-gray-300 relative p-2 float-left flex items-center space-x-2 rounded-md ml-2 my-1">
+        <div
+            class="image-slot border border-dashed border-gray-300 relative p-2 float-left flex items-center space-x-2 rounded-md ml-2 my-1">
 
             <img class="preview-img w-20 h-20 object-cover rounded-md" src="{{ url('/image/no-image.png') }}">
 
@@ -188,14 +188,14 @@
                         type: "GET",
                         delay: 250,
                         dataType: 'json',
-                        data: function (params) {
+                        data: function(params) {
                             return {
                                 query: params.term || '',
                                 page: params.page || 1,
                                 "_token": "{{ csrf_token() }}"
                             };
                         },
-                        processResults: function (response, params) {
+                        processResults: function(response, params) {
                             params.page = params.page || 1;
                             return {
                                 results: response.results,
@@ -211,7 +211,7 @@
 
             const maxSlots = 20;
             // Макс размер файла — 2MB
-            const maxSize  = 2 * 1024 * 1024;
+            const maxSize = 2 * 1024 * 1024;
 
             const $sortable = $('#sortable-slots');
             const $addSlotContainer = $('#add-slot-container');
@@ -269,14 +269,14 @@
             function initSlot($slot, isEmptySlot) {
                 const $fileInput = $slot.find('.file-input');
                 const $removeBtn = $slot.find('.remove-image-btn');
-                const $img       = $slot.find('.preview-img');
+                const $img = $slot.find('.preview-img');
                 const $labelSpan = $slot.find('.file-label span');
 
                 if (isEmptySlot) {
                     $removeBtn.hide();
                 }
 
-                $fileInput.on('change', function(){
+                $fileInput.on('change', function() {
                     const file = this.files[0];
                     if (!file) {
                         return;
@@ -294,7 +294,7 @@
                         $slot.remove();
                     } else {
                         const reader = new FileReader();
-                        reader.onload = function(e){
+                        reader.onload = function(e) {
                             $img.attr('src', e.target.result);
                         };
                         reader.readAsDataURL(file);
@@ -304,7 +304,7 @@
                     }
                 });
 
-                $removeBtn.on('click', function(){
+                $removeBtn.on('click', function() {
                     $slot.remove();
 
                     const slotCount = $sortable.find('.image-slot').length;
@@ -345,5 +345,4 @@
 
 @section('body')
     @vite(['resources/js/mask_phone.js'])
-    @livewireScripts
 @endsection

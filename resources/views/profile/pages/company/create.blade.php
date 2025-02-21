@@ -14,7 +14,6 @@
     <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
     <script src="{{ url('/jquery-ui.min.js') }}"></script>
     @vite(['resources/css/select.css'])
-    @livewireStyles
 @endsection
 
 @section('content')
@@ -34,7 +33,7 @@
                             <hr class="w-full h-2 mt-2">
                         </div>
 
-                        <div class="border-b min-h-auto overflow-hidden pb-2" wire:ignore>
+                        <div class="border-b min-h-auto overflow-hidden pb-2">
                             <div id="sortable-slots"></div>
                             <div id="add-slot-container"></div>
                         </div>
@@ -344,5 +343,4 @@
 
 @section('body')
     @vite(['resources/js/mask_phone.js'])
-    @livewireScripts
 @endsection
