@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-    <div class="pt-6 px-4 max-w-7xl mx-auto mb-4 flex flex-coll">
+    <div class="pt-6 px-4 xl:pl-10 xl:pr-0 max-w-7xl mx-auto mb-4 flex flex-coll">
         <div class="overflow-x-auto w-full">
             <div class="align-middle inline-block min-w-full">
                 <div class="shadow overflow-hidden">
