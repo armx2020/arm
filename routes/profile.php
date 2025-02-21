@@ -6,6 +6,7 @@ use App\Http\Controllers\Profile\MyProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Profile\MyCompanyController;
 use App\Http\Controllers\Profile\MyGroupController;
+use App\Http\Controllers\Profile\MyJobController;
 use App\Http\Controllers\Profile\MyOfferController;
 use App\Http\Controllers\Profile\MyPlacesController;
 
@@ -24,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'mycompanies'   =>  MyCompanyController::class,
         'myoffers'      =>  MyOfferController::class,
         'myplaces'      =>  MyPlacesController::class,
-        'mycommunities' =>  MyCommunityController::class
+        'mycommunities' =>  MyCommunityController::class,
+        'myjobs'        =>  MyJobController::class
     ]);
 });

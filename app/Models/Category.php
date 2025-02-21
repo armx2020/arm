@@ -48,7 +48,6 @@ class Category extends Model
         return $query->where('entity_type_id', 1);
     }
 
-
     public function scopeGroups($query)
     {
         return $query->where('entity_type_id', 2);
@@ -62,6 +61,11 @@ class Category extends Model
     public function scopeCommunities($query)
     {
         return $query->where('entity_type_id', 4);
+    }
+
+    public function scopeJobs($query)
+    {
+        return $query->where('entity_type_id', 7);
     }
 
     public function categories()

@@ -65,6 +65,9 @@ class BasePage extends Component
                 case '4':
                     $entityShowRout = 'community.show';
                     break;
+                case '7':
+                    $entityShowRout = 'job.show';
+                    break;
                 default:
                     $entityShowRout = 'company.show';
                     break;

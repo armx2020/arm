@@ -32,6 +32,10 @@
                     href="{{ route('mycommunities.index') }}">Мои общины</a>
             </li>
 
+            <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('myjobs.*')) bg-gray-100 @endif"><a
+                    href="{{ route('myjobs.index') }}">Работа, вакансии</a>
+            </li>
+
             <hr class="mt-3 mb-2">
 
             <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('profile.*')) bg-gray-100 @endif"><a

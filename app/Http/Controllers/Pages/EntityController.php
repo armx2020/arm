@@ -119,6 +119,32 @@ class EntityController extends BaseController
         ]);
     }
 
+    public function jobs(Request $request, $regionTranslit = null)
+    {
+        $region = $this->getRegion($request, $regionTranslit);
+
+        if (!$region) {
+            return redirect()->route('home');
+        }
+
+        $secondPositionUrl = 'jobs.index';
+        $secondPositionName = 'Работа и вакансии';
+        $entity = 'jobs';
+
+        $type = 7;
+
+        return view('pages.entity.index', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'categoryUri' => null,
+            'regions' => $this->regions,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entity' => $entity,
+            'type' => $type
+        ]);
+    }
+
     public function company(Request $request, $idOrTranscript)
     {
         $secondPositionUrl = 'companies.index';
@@ -214,6 +240,36 @@ class EntityController extends BaseController
         $secondPositionUrl = 'communities.index';
         $secondPositionName = 'Общины и консульства';
         $entityName = 'communities';
+
+        $entity = Entity::query()->active();
+
+        if (is_numeric($idOrTranscript)) {
+            $entity = $entity->where('id', $idOrTranscript)->First();
+        } else {
+            $entity = $entity->where('transcription', $idOrTranscript)->First();
+        }
+
+        if (!$entity) {
+            return redirect()->route('home');
+        }
+
+        return view('pages.entity.show', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'categoryUri' => null,
+            'regions' => $this->regions,
+            'secondPositionUrl' => $secondPositionUrl,
+            'secondPositionName' => $secondPositionName,
+            'entityName' => $entityName,
+            'entity' => $entity,
+        ]);
+    }
+
+    public function job(Request $request, $idOrTranscript)
+    {
+        $secondPositionUrl = 'jobs.index';
+        $secondPositionName = 'Работа, вакансии';
+        $entityName = 'jobs';
 
         $entity = Entity::query()->active();
 
