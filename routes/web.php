@@ -52,11 +52,14 @@ Route::name('region.')->prefix('/{regionTranslit}')->group(function () {
     Route::get('/groups', [EntityController::class, 'groups'])->name('groups');
     Route::get('/places', [EntityController::class, 'places'])->name('places');
     Route::get('/communities', [EntityController::class, 'communities'])->name('communities');
+    Route::get('/jobs', [EntityController::class, 'jobs'])->name('jobs');
+
 
     Route::get('/companies/{category}', [EntityWithCategoryAndRegionController::class, 'companies'])->name('companies.category.index');
     Route::get('/groups/{category}', [EntityWithCategoryAndRegionController::class, 'groups'])->name('groups.category.index');
     Route::get('/places/{category}', [EntityWithCategoryAndRegionController::class, 'places'])->name('places.category.index');
     Route::get('/communities/{category}', [EntityWithCategoryAndRegionController::class, 'communities'])->name('communities.category.index');
+    Route::get('/jobs/{category}', [EntityController::class, 'jobs'])->name('jobs.category.index');
 });
 
 Route::get('/user/{id}', [ProfileController::class, 'show'])->name('user.show');

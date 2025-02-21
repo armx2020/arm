@@ -136,7 +136,7 @@
                     class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-0 hidden lg:block">
                     <div class="bg-[#feecdc] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
                         <a
-                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('region.companies', ['regionTranslit' => $region]) }}" @else  href="{{ route('companies.index') }}" @endif>
+                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('region.jobs', ['regionTranslit' => $region]) }}" @else  href="{{ route('jobs.index') }}" @endif>
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Поиск работы</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Найти работу или разместить вакансию
