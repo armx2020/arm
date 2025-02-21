@@ -12,8 +12,8 @@ class AppealAction
     {
         $appeal = new Appeal();
 
-        $appeal->name = $request->name;
-        $appeal->phone = $request->phone;
+        $appeal->name = $request->name ?: 'не указано';
+        $appeal->phone = $request->phone?: 'не указано';
         $appeal->message = $request->message;
         $appeal->entity_id = $entityId;
         $appeal->user_id = $userId;

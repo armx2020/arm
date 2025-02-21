@@ -27,7 +27,6 @@
 
                 <h3 class="text-xl font-semibold">Исправить неточность - <br>{{ $entity->name }}</h3>
                 <p class="text-sm my-1">Опишите нам что исправить</p>
-                <hr class="mt-4">
 
                 <!-- Session Status -->
 
@@ -41,21 +40,6 @@
                     @if (session('error'))
                         <x-input-error :messages="session('error')" class="mt-2 mb-3" />
                     @endif
-
-                    <!-- name -->
-                    <div class="mt-4">
-                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
-                            :value="old('name')" placeholder="Ваше имя" />
-                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                    </div>
-
-                    <!-- phone -->
-                    <div class="mt-4">
-                        <x-text-input id="phone" class="block mt-1 w-full mask-phone" type="text" name="phone"
-                            :value="old('phone')" placeholder="Ваш телефон" />
-                        <x-input-error :messages="$errors->get('phone')" class="mt-2" />
-                    </div>
-
 
                     <!-- message -->
                     <div class="mt-4">
