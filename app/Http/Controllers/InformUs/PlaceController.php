@@ -36,6 +36,6 @@ class PlaceController extends BaseInformUsController
     {
         $place = $this->placeAction->store($request, null, false);
 
-        return redirect()->route('inform-us.place')->with('success', 'Ваша заявка успешно принята');
+        return redirect()->route('inform-us.place')->with('success', "Спасибо, что делитесь полезной информацией! Благодаря вам наше сообщество становится более полезным и дружным. Мы рады, что вы с нами!");
     }
 }

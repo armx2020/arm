@@ -36,6 +36,6 @@ class GroupController extends BaseInformUsController
     {
         $group = $this->groupAction->store($request, null, false);
 
-        return redirect()->route('inform-us.group')->with('success', 'Ваша заявка успешно принята');
+        return redirect()->route('inform-us.group')->with('success', "Спасибо, что делитесь полезной информацией! Благодаря вам наше сообщество становится более полезным и дружным. Мы рады, что вы с нами!");
     }
 }

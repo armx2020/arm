@@ -36,6 +36,6 @@ class CommunityController extends BaseInformUsController
     {
         $community = $this->communityAction->store($request, null, false);
 
-        return redirect()->route('inform-us.community')->with('success', 'Ваша заявка успешно принята');
+        return redirect()->route('inform-us.community')->with('success', "Спасибо, что делитесь полезной информацией! Благодаря вам наше сообщество становится более полезным и дружным. Мы рады, что вы с нами!");
     }
 }
