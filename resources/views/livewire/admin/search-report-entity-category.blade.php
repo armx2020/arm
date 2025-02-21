@@ -1,5 +1,5 @@
 <div>
-    <div class="py-6 px-4 max-w-7xl mx-auto rounded-t-lg">
+    <div class="py-6 px-4 xl:pl-10 xl:pr-0 max-w-7xl mx-auto rounded-t-lg">
         <x-admin.alert />
 
         <div class="p-4 bg-white block shadow sm:flex items-center justify-between border-b border-gray-200">
