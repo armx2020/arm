@@ -27,7 +27,7 @@ class StoreCompanyRequest extends FormRequest
             'user'          => ['nullable', 'integer'],
             'fields'        => ['required'],
             'images'        => ['nullable', 'array', 'max:20'],
-            'images.*'      => ['image', 'mimes:jpg,bmp,png', 'max:2048'],
+            'images.*'      => ['image', 'mimes:jpg,bmp,png', 'max:20480'],
         ];
     }
 }

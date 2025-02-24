@@ -27,9 +27,9 @@ class UpdateCompanyRequest extends FormRequest
             'user'             => ['nullable', 'integer'],
             'fields'           => ['required'],
             'images'           => ['nullable', 'array', 'max:20'],
-            'images.*.id'      => ['required'],
-            'images.*.sort_id' => ['required', 'integer'],
-            'images.*.file'    => ['nullable', 'file', 'mimes:jpg,jpeg,png|max:2048'],
+            'images.*.id'      => ['sometimes', 'required'],
+            'images.*.sort_id' => ['sometimes', 'required', 'integer'],
+            'images.*.file'    => ['sometimes', 'nullable', 'file', 'mimes:jpg,jpeg,png', 'max:20480'],
         ];
     }
 }

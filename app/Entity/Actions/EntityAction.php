@@ -48,8 +48,7 @@ class EntityAction
 
                 $imageEntity = $entity->images()->create([
                     'path' => $path,
-                    'sort_id' => $sortId,
-                    'checked' => 0,
+                    'sort_id' => $sortId
                 ]);
 
                 Image::make('storage/' . $imageEntity->path)
