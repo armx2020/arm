@@ -209,8 +209,7 @@
             }
 
             const maxSlots = 20;
-            // Макс размер файла — 2MB
-            const maxSize  = 2 * 1024 * 1024;
+            const maxSize  = 20 * 1024 * 1024; // 2MB
 
             const $sortable = $('#sortable-slots');
             const $addSlotContainer = $('#add-slot-container');
@@ -222,96 +221,119 @@
 
             createEmptySlot();
 
-            /**
-             * Создание пустого слота (поле добавки) в #add-slot-container.
-             */
-            function createEmptySlot() {
-                const slotCount = $sortable.find('.image-slot').length;
-                if (slotCount >= maxSlots) {
+            // При клике по контейнеру пустого слота – открываем диалог выбора
+            $addSlotContainer.on('click', function(e) {
+                if (e.target === this) {
+                    let $emptySlot = $(this).find('.image-slot').first();
+                    if ($emptySlot.length === 0) {
+                        createEmptySlot();
+                        $emptySlot = $(this).find('.image-slot').first();
+                    }
+                    $emptySlot.find('.file-input').trigger('click');
+                }
+            });
+
+            $(document).on('paste', function(e) {
+                let totalCount = $sortable.find('.image-slot').length;
+                if (totalCount >= maxSlots) {
+                    $addSlotContainer.hide();
                     return;
                 }
+                const clipboardItems = (e.originalEvent.clipboardData || e.clipboardData).items;
+                if (clipboardItems) {
+                    for (let i = 0; i < clipboardItems.length; i++) {
+                        if (clipboardItems[i].type.indexOf("image") !== -1) {
+                            const file = clipboardItems[i].getAsFile();
+                            if (file) {
+                                if (file.size > maxSize) {
+                                    alert('Файл больше 2МБ!');
+                                    return;
+                                }
+                                totalCount = $sortable.find('.image-slot').length;
+                                if (totalCount >= maxSlots) {
+                                    $addSlotContainer.hide();
+                                    return;
+                                }
+                                createFilledSlot(file);
+                                maybeCreateEmptySlot();
+                            }
+                        }
+                    }
+                }
+            });
 
-                $addSlotContainer.empty();
-
+            function createEmptySlot() {
+                const slotCount = $sortable.find('.image-slot').length;
+                if (slotCount >= maxSlots) return;
+                $addSlotContainer.empty().show();
                 const $slot = cloneSlotTemplate();
-
-                initSlot($slot, /* isEmptySlot */ true);
-
+                initSlotForNew($slot, true);
                 $addSlotContainer.append($slot);
             }
 
-            /**
-             * Создание "обычного" слота (после выбора файла) в #sortable-slots.
-             */
             function createFilledSlot(file) {
                 const $slot = cloneSlotTemplate();
-                initSlot($slot, false);
-
+                initSlotForNew($slot, false);
+                const newId = 'new_' + (newImageCounter++);
+                $slot.attr('data-id', newId);
                 const fileInput = $slot.find('.file-input')[0];
                 const dataTransfer = new DataTransfer();
                 dataTransfer.items.add(file);
                 fileInput.files = dataTransfer.files;
-
                 const reader = new FileReader();
-                reader.onload = (e) => {
+                reader.onload = function(e) {
                     $slot.find('.preview-img').attr('src', e.target.result);
                 };
                 reader.readAsDataURL(file);
-
                 $slot.find('.file-label').addClass('hidden');
-
                 $slot.find('.remove-image-btn').show();
-
                 $sortable.append($slot);
             }
 
-            function initSlot($slot, isEmptySlot) {
+            function initSlotForNew($slot, isEmptySlot) {
                 const $fileInput = $slot.find('.file-input');
                 const $removeBtn = $slot.find('.remove-image-btn');
-                const $img       = $slot.find('.preview-img');
+                const $preview = $slot.find('.preview-img');
                 const $labelSpan = $slot.find('.file-label span');
+
+                // Сохраняем флаг пустоты слота
+                $slot.data('isEmpty', isEmptySlot);
+
+                $fileInput.on('click', function(e) {
+                    e.stopPropagation();
+                });
 
                 if (isEmptySlot) {
                     $removeBtn.hide();
                 }
 
-                $fileInput.on('change', function(){
+                $fileInput.on('change', function() {
                     const file = this.files[0];
-                    if (!file) {
-                        return;
-                    }
+                    if (!file) return;
                     if (file.size > maxSize) {
                         alert('Файл больше 2МБ!');
                         $fileInput.val('');
                         return;
                     }
-
                     if (isEmptySlot) {
                         createFilledSlot(file);
                         createEmptySlot();
-
                         $slot.remove();
                     } else {
                         const reader = new FileReader();
-                        reader.onload = function(e){
-                            $img.attr('src', e.target.result);
+                        reader.onload = function(e) {
+                            $preview.attr('src', e.target.result);
                         };
                         reader.readAsDataURL(file);
                         $labelSpan.text(file.name);
-
                         $removeBtn.show();
                     }
                 });
 
-                $removeBtn.on('click', function(){
+                $removeBtn.on('click', function(e) {
+                    e.stopPropagation();
                     $slot.remove();
-
-                    const slotCount = $sortable.find('.image-slot').length;
-                    if (slotCount < maxSlots) {
-                        if ($addSlotContainer.find('.image-slot').length === 0) {
-                            createEmptySlot();
-                        }
-                    }
+                    maybeCreateEmptySlot();
                 });
 
                 $slot.on('dragover', function(e) {
@@ -331,8 +353,27 @@
                         $fileInput.trigger('change');
                     }
                 });
+
+                $slot.on('click', function(e) {
+                    if ($slot.data('isEmpty') && !$(e.target).closest('.remove-image-btn, .file-input, label').length) {
+                        $fileInput.trigger('click');
+                    }
+                });
             }
 
+            function maybeCreateEmptySlot() {
+                const slotCount = $sortable.find('.image-slot').length;
+                if (slotCount < maxSlots) {
+                    $addSlotContainer.show();
+                    if ($addSlotContainer.find('.image-slot').length === 0) {
+                        createEmptySlot();
+                    }
+                } else {
+                    $addSlotContainer.hide();
+                }
+            }
+
+            let newImageCounter = 1;
             function cloneSlotTemplate() {
                 const template = document.getElementById('image-slot-template');
                 return $(template.content.cloneNode(true)).find('.image-slot');

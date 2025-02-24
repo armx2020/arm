@@ -236,22 +236,19 @@
                 });
             }
 
-            const maxSlots         = 20;
-            const maxSize          = 2 * 1024 * 1024; // 2MB
-            let newImageCounter    = 1;
+            const maxSlots = 20;
+            const maxSize  = 20 * 1024 * 1024; // 2MB
+            let newImageCounter = 1;
 
-            const $sortable        = $('#sortable-slots');
-            const $addSlotContainer= $('#add-slot-container');
-            const $form            = $('#card-form');
+            const $sortable = $('#sortable-slots');
+            const $addSlotContainer = $('#add-slot-container');
+            const $form = $('#card-form');
 
             let existingImages = @json($images);
-
-            existingImages = existingImages.sort((a,b) => (a.sort_id || 0) - (b.sort_id || 0));
-
+            existingImages = existingImages.sort((a, b) => (a.sort_id || 0) - (b.sort_id || 0));
             existingImages.forEach(img => {
                 createExistingSlot(img);
             });
-
             createEmptySlot();
 
             $sortable.sortable({
@@ -259,66 +256,98 @@
                 cancel: 'input, button, label'
             });
 
+            $addSlotContainer.on('click', function(e) {
+                if (e.target === this) {
+                    let $emptySlot = $(this).find('.image-slot').first();
+                    if ($emptySlot.length === 0) {
+                        createEmptySlot();
+                        $emptySlot = $(this).find('.image-slot').first();
+                    }
+                    $emptySlot.find('.file-input').trigger('click');
+                }
+            });
+
+            $(document).on('paste', function(e) {
+                let totalCount = $sortable.find('.image-slot').length;
+                if (totalCount >= maxSlots) {
+                    $addSlotContainer.hide();
+                    return;
+                }
+                const clipboardItems = (e.originalEvent.clipboardData || e.clipboardData).items;
+                if (clipboardItems) {
+                    for (let i = 0; i < clipboardItems.length; i++) {
+                        if (clipboardItems[i].type.indexOf("image") !== -1) {
+                            const file = clipboardItems[i].getAsFile();
+                            if (file) {
+                                if (file.size > maxSize) {
+                                    alert('Файл больше 2МБ!');
+                                    return;
+                                }
+                                totalCount = $sortable.find('.image-slot').length;
+                                if (totalCount >= maxSlots) {
+                                    $addSlotContainer.hide();
+                                    return;
+                                }
+                                createFilledSlot(file);
+                                maybeCreateEmptySlot();
+                            }
+                        }
+                    }
+                }
+            });
+
             function createExistingSlot(image) {
                 const $slot = cloneSlotTemplate();
-
                 $slot.attr('data-id', image.id);
-
                 $slot.find('.preview-img').attr('src', '/storage/' + image.path);
-
                 $slot.find('.file-label').addClass('hidden');
-
-                $slot.find('.remove-image-btn').show().on('click', function() {
+                $slot.find('.remove-image-btn').show().on('click', function(e) {
+                    e.stopPropagation();
                     $slot.remove();
                     maybeCreateEmptySlot();
                 });
-
                 initDragAndDrop($slot);
                 $sortable.append($slot);
             }
 
             function createEmptySlot() {
                 const slotCount = $sortable.find('.image-slot').length;
-                if (slotCount >= maxSlots) {
-                    return;
-                }
-
-                $addSlotContainer.empty();
-
+                if (slotCount >= maxSlots) return;
+                $addSlotContainer.empty().show();
                 const $slot = cloneSlotTemplate();
                 initSlotForNew($slot, true);
-
                 $addSlotContainer.append($slot);
             }
 
             function createFilledSlot(file) {
                 const $slot = cloneSlotTemplate();
+                initSlotForNew($slot, false);
                 const newId = 'new_' + (newImageCounter++);
                 $slot.attr('data-id', newId);
-
-                initSlotForNew($slot, false);
-
                 const fileInput = $slot.find('.file-input')[0];
                 const dataTransfer = new DataTransfer();
                 dataTransfer.items.add(file);
                 fileInput.files = dataTransfer.files;
-
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     $slot.find('.preview-img').attr('src', e.target.result);
                 };
                 reader.readAsDataURL(file);
-
                 $slot.find('.file-label').addClass('hidden');
                 $slot.find('.remove-image-btn').show();
-
                 $sortable.append($slot);
             }
 
             function initSlotForNew($slot, isEmptySlot) {
                 const $fileInput = $slot.find('.file-input');
                 const $removeBtn = $slot.find('.remove-image-btn');
-                const $preview   = $slot.find('.preview-img');
+                const $preview = $slot.find('.preview-img');
+
+                $slot.data('isEmpty', isEmptySlot);
+
+                $fileInput.on('click', function(e) {
+                    e.stopPropagation();
+                });
 
                 if (isEmptySlot) {
                     $removeBtn.hide();
@@ -327,41 +356,53 @@
                 $fileInput.on('change', function() {
                     const file = this.files[0];
                     if (!file) return;
-
                     if (file.size > maxSize) {
                         alert('Файл больше 2МБ!');
                         $fileInput.val('');
                         return;
                     }
-
                     if (isEmptySlot) {
                         createFilledSlot(file);
                         createEmptySlot();
                         $slot.remove();
                     } else {
                         const reader = new FileReader();
-                        reader.onload = (e) => {
+                        reader.onload = function(e) {
                             $preview.attr('src', e.target.result);
                         };
                         reader.readAsDataURL(file);
                     }
                 });
 
-                $removeBtn.on('click', function() {
+                $removeBtn.on('click', function(e) {
+                    e.stopPropagation();
                     $slot.remove();
                     maybeCreateEmptySlot();
                 });
 
-                initDragAndDrop($slot);
-            }
-
-            function maybeCreateEmptySlot() {
-                const slotCount = $sortable.find('.image-slot').length;
-                if (slotCount < maxSlots) {
-                    if ($addSlotContainer.find('.image-slot').length === 0) {
-                        createEmptySlot();
+                $slot.on('dragover', function(e) {
+                    e.preventDefault();
+                    $slot.css('background-color', '#f1f5f9');
+                });
+                $slot.on('dragleave', function(e) {
+                    e.preventDefault();
+                    $slot.css('background-color', '');
+                });
+                $slot.on('drop', function(e) {
+                    e.preventDefault();
+                    $slot.css('background-color', '');
+                    const files = e.originalEvent.dataTransfer.files;
+                    if (files && files.length > 0) {
+                        $fileInput[0].files = files;
+                        $fileInput.trigger('change');
                     }
-                }
+                });
+
+                $slot.on('click', function(e) {
+                    if ($slot.data('isEmpty') && !$(e.target).closest('.remove-image-btn, .file-input, label').length) {
+                        $fileInput.trigger('click');
+                    }
+                });
             }
 
             function initDragAndDrop($slot) {
@@ -391,19 +432,13 @@
 
             $form.on('submit', function(e) {
                 $form.find('input[type="hidden"][name^="images["]').remove();
-
                 const $slots = $sortable.find('.image-slot');
                 $slots.each(function(index) {
                     const $slot = $(this);
                     const slotId = $slot.attr('data-id');
                     const sortId = index;
-
-                    const $idHidden = $(`<input type="hidden" name="images[${index}][id]" value="${slotId}">`);
-                    $form.append($idHidden);
-
-                    const $sortIdHidden = $(`<input type="hidden" name="images[${index}][sort_id]" value="${sortId}">`);
-                    $form.append($sortIdHidden);
-
+                    $form.append(`<input type="hidden" name="images[${index}][id]" value="${slotId}">`);
+                    $form.append(`<input type="hidden" name="images[${index}][sort_id]" value="${sortId}">`);
                     const $fileInput = $slot.find('.file-input');
                     if ($fileInput.length) {
                         $fileInput.attr('name', `images[${index}][file]`);

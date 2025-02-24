@@ -15,7 +15,7 @@
                 <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
                     <div class="flex flex-col">
                         @if ($entity->image == null)
-                            <img class="h-64 w-64 rounded-2xl p-2 flex object-cover" src="{{ url('/image/no-image.png') }}"
+                            <img class="h-64 w-64 rounded-2xl p-2 flex object-cover" src="{{ url('/image/no_photo.jpg') }}"
                                 alt="image" />
                         @else
                             <img class="h-64 w-64 rounded-2xl p-2 flex object-cover"

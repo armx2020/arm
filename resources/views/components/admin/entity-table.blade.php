@@ -13,7 +13,6 @@
 
                     <div class="flex space-x-1">
                         <x-admin.columns :allColumns=$allColumns />
-                        <x-admin.filters :filters=$filters />
                     </div>
 
                     <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
@@ -45,6 +44,9 @@
 
                 </div>
             </div>
+        </div>
+        <div class="w-full bg-white">
+            <x-admin.filters :filters=$filters />
         </div>
 
         <div wire:loading class="w-full">

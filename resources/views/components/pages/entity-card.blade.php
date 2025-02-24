@@ -19,6 +19,7 @@
 
     <div class="flex flex-col gap-2">
 
+        @if($images->count() > 0)
         <div class="group relative max-w-full aspect-[16/11] sm:max-w-[320px] md:max-w-[380px] xl:max-w-[430px]" wire:ignore>
             <div class="swiper mySwiper2 w-full h-full">
                 <div class="swiper-wrapper w-full h-full">
@@ -57,7 +58,6 @@
             </div>
         </div>
 
-        <!-- Слайдер миниатюр (thumbs) -->
         <div class="swiper mySwiper mt-1 w-full sm:w-[320px] md:w-[380px] xl:w-[430px] h-22" wire:ignore>
             <div class="swiper-wrapper cursor-pointer">
                 @foreach($images as $image)
@@ -67,6 +67,15 @@
                 @endforeach
             </div>
         </div>
+        @else
+            <div class="group relative max-w-full aspect-[16/11] sm:max-w-[320px] md:max-w-[380px] xl:max-w-[430px]" wire:ignore>
+                <div class="w-full h-full">
+                    <div class="swiper-slide flex w-full h-full">
+                        <img class="w-full h-full object-cover rounded-lg" src="{{ url('/image/no_photo.jpg') }}">
+                    </div>
+                </div>
+            </div>
+        @endif
 
         <div class="flex justify-between my-3 pl-0 text-xs text-blue-600">
 
@@ -84,7 +93,7 @@
 
     </div>
 
-    <div class="flex flex-col px-0 lg:px-6 mt-3 sm:mt-0 justify-start break-all">
+    <div class="flex flex-col px-0 lg:px-6 mt-3 sm:mt-0 justify-start break-keep">
         <h3 class="block text-left text-md font-semibold sm:mx-4">
             {{ mb_substr($entity->name, 0, 90, 'UTF-8') }}
         </h3>
@@ -94,7 +103,7 @@
             <div class="description-container relative max-w-prose sm:mx-4">
                 <p class="description-content
                    text-base font-normal text-gray-700
-                   break-words whitespace-normal text-justify
+                   break-keep whitespace-normal text-justify
                    overflow-hidden transition-all duration-300
                    line-clamp-5">
                 {{ $entity->description }}
@@ -110,14 +119,14 @@
             @if ($entity->fields && count($entity->fields) > 3)
                 <span class="sm:mx-4 text-sm font-semibold mt-4">Деятельность</span>
                 @foreach ($entity->fields as $category)
-                    <p class="flex text-left text-sm sm:mx-4 text-gray-500 break-all">
+                    <p class="flex text-left text-sm sm:mx-4 text-gray-500 break-keep">
                         &bull; {{ $category->name }}
                     </p>
                 @endforeach
             @elseif ($entity->offers && count($entity->offers) > 0)
                 <span class="sm:mx-4 text-sm font-semibold mt-4">Деятельность</span>
                 @foreach ($entity->offers as $offer)
-                    <p class="flex text-left text-sm sm:mx-4 text-gray-500 break-all">
+                    <p class="flex text-left text-sm sm:mx-4 text-gray-500 break-keep">
                         &bull; {{ $offer->name }}
                     </p>
                 @endforeach
@@ -126,23 +135,30 @@
 
         @if ($entity->city)
             <span class="sm:mx-4 text-sm mt-4">Город:</span>
-            <p class="flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-all">
+            <p class="@if($entity->city->id != 1) masked-data @endif flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-keep">
                 {{ mb_substr($entity->city->name, 0, 400, 'UTF-8') }}
             </p>
         @endif
 
         @if ($entity->address)
             <span class="sm:mx-4 text-sm mt-4">Адрес:</span>
-            <p class="flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-all">
+            <p class="masked-data flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-keep">
                 {{ mb_substr($entity->address, 0, 400, 'UTF-8') }}
             </p>
         @endif
 
         @if ($entity->phone)
             <span class="sm:mx-4 text-sm mt-4">Телефон:</span>
-            <p class="phone flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-all">
+            <p class="masked-data phone flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-keep">
                 {{ mb_substr($entity->phone, 0, 400, 'UTF-8') }}
             </p>
+        @endif
+
+        @if ($entity->web)
+            <span class="sm:mx-4 text-sm mt-4">Сайт:</span>
+            <a href="{{ mb_substr($entity->web, 0, 400, 'UTF-8') }}" class="masked-data flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-keep">
+                {{ mb_substr($entity->web, 0, 400, 'UTF-8') }}
+            </a>
         @endif
 
         <div class="my-3 sm:pl-4">
@@ -224,24 +240,26 @@
 @endif
     <script>
         $(document).ready(function() {
-            $('.phone').each(function() {
-                var $p = $(this);
-                var phoneFull = $p.text().trim();
-
-                if (phoneFull.length > 5) {
-                    var masked = phoneFull.slice(0, 3) + '*****' + phoneFull.slice(-2);
-                    $p.html('');
-
-                    var $maskedSpan = $('<span>').addClass('phone-masked text-gray-500 mr-2').text(masked);
-                    var $fullSpan = $('<span>').addClass('phone-full hidden text-gray-500 mr-2').text(phoneFull);
-                    var $button = $('<button>').addClass('show-phone text-blue-500 hover:underline text-sm').text('Показать телефон');
-                    $p.append($maskedSpan, $fullSpan, $button);
-                    $button.on('click', function() {
-                        $maskedSpan.addClass('hidden');
-                        $fullSpan.removeClass('hidden');
-                        $(this).remove();
-                    });
+            $('.masked-data').each(function() {
+                var $element = $(this);
+                var fullText = $.trim($element.text());
+                var isPhone = $element.hasClass('phone');
+                var threshold = isPhone ? 8 : 4;
+                if (fullText.length <= threshold) {
+                    return;
                 }
+                var maskedText = fullText.slice(0, threshold) + '********';
+                $element.empty();
+                var $maskedSpan = $('<span>').addClass('masked-part text-gray-500 mr-2').text(maskedText);
+                var $fullSpan = $('<span>').addClass('full-part hidden text-gray-500 mr-2').text(fullText);
+                var $button = $('<button>').addClass('show-full text-blue-500 hover:underline text-sm').text('Показать');
+                $element.append($maskedSpan, $fullSpan, $button);
+                $button.on('click', function(e) {
+                    e.preventDefault();
+                    $maskedSpan.addClass('hidden');
+                    $fullSpan.removeClass('hidden');
+                    $(this).remove();
+                });
             });
 
             $('.description-container').each(function() {
@@ -289,7 +307,7 @@
 
             Fancybox.bind("[data-fancybox='gallery']", {
                 Thumbs: {
-                    autoStart: false,
+                    autoStart: true,
                 },
                 animated: false,
                 showClass: "fancybox-fadeIn",

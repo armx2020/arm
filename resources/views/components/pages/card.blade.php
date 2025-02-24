@@ -3,7 +3,7 @@
     <a href="{{ route($entityShowRout, ['idOrTranscript' => $entity->id]) }}">
         <img class="h-32 w-32 min-h-32 min-w-32 md:h-56 md:w-56 md:min-h-56 md:min-w-56 lg:h-72 lg:w-72 lg:min-h-72 lg:min-w-72 rounded-lg object-cover"
         @if(isset($entity->images()->get()[0])) src={{ asset('storage/' . $entity->images()->get()[0]->path) }}
-        @else src={{ url('/image/groups.png') }} 
+        @else src={{ url('/image/no_photo.jpg') }}
         @endif
             alt="{{ $entity->name }}" />
     </a>
@@ -93,11 +93,27 @@
     @if (isset($entity->phone) || $entity->city_id !== 1)
         <div class="hidden xl:flex flex-initial text-right flex flex-col w-44 text-wrap whitespace-normal">
             <p class="mb-1 font-medium">
-                @isset($entity->phone)
-                    <a href="tel:{{ $entity->phone }}" class="text-blue-600">
-                        {{ $entity->phone }}
+                @if($entity->phone && $entity->phone != '')
+                    @php
+                        $phoneFull = trim($entity->phone);
+                        $VISIBLE_COUNT = 8;
+
+                        if (mb_strlen($phoneFull) <= $VISIBLE_COUNT) {
+                            $phoneMasked = $phoneFull;
+                        } else {
+                            $phoneMasked = mb_substr($phoneFull, 0, $VISIBLE_COUNT, 'UTF-8') . '********';
+                        }
+                    @endphp
+                <div class="flex items-center justify-end gap-2">
+                    <a href="tel:{{ $phoneFull }}" data-phone="{{ $phoneFull }}" class="full-phone text-blue-600 whitespace-nowrap font-medium">
+                        {{ $phoneMasked }}
                     </a>
-                @endisset
+
+                    <button type="button" class="show-phone text-blue-500 hover:underline text-sm whitespace-nowrap">
+                        Показать
+                    </button>
+                </div>
+                @endif
 
                 @if ($entity->city_id && $entity->city_id !== 1)
                     <p class="break-words font-medium text-blue-500 hidden lg:block">
@@ -111,6 +127,14 @@
 
 <script type='text/javascript'>
     $(document).ready(function() {
+        $(document).on('click', '.show-phone', function(e) {
+            e.preventDefault();
+            const $link = $(this).siblings('.full-phone');
+            const phoneFull = $link.data('phone');
+            $link.text(phoneFull);
+            $(this).remove();
+        });
+
         $('#{!! $entity->id !!}_card').on('click', function() {
             const mobileWidthMediaQuery = window.matchMedia('(max-width: 768px)')
 
