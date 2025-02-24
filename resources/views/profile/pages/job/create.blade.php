@@ -75,23 +75,23 @@
                                                 @if (count($item->categories) < 1)
                                                     <input type="radio" name="category" value="{{ $item->id }}"
                                                         @if (is_array(old('category')) && in_array($item->id, old('category'))) checked @endif
-                                                        class="checkbox-{{ $loop->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                        class="checkbox-{{ $loop->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                                         id="checkbox-{{ $item->id }}">
                                                     <label for="checkbox-{{ $item->id }}"
-                                                        class="text-sm text-gray-500 ms-3 dark:text-neutral-400">{{ $item->name }}</label>
+                                                        class="text-sm text-gray-500 ms-3">{{ $item->name }}</label>
                                                 @else
                                                     <label for="checkbox-group-{{ $loop->iteration }}"
-                                                        class="text-base text-black ms-3 dark:text-neutral-400">{{ $item->name }}</label>
+                                                        class="text-base text-black ms-3">{{ $item->name }}</label>
                                                 @endif
                                             </div>
                                             @foreach ($item->categories as $child)
                                                 <div class="flex">
                                                     <input type="radio" name="category" value="{{ $child->id }}"
                                                         @if (is_array(old('category')) && in_array($child->id, old('category'))) checked @endif
-                                                        class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                        class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                                         id="checkbox-{{ $child->id }}">
                                                     <label for="checkbox-{{ $child->id }}"
-                                                        class="text-sm text-gray-500 ms-3 dark:text-neutral-400">{{ $child->name }}</label>
+                                                        class="text-sm text-gray-500 ms-3">{{ $child->name }}</label>
                                                 </div>
                                             @endforeach
                                         </div>

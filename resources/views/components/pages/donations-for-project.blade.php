@@ -8,8 +8,8 @@
 @endphp
 
 <div class="m-5">
-    <div class="mb-1 text-lg font-medium dark:text-white">{{ $entity->donations_need }} руб.</div>
-    <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
-        <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500" style="width: {{ $fullness }}%"></div>
+    <div class="mb-1 text-lg font-medium">{{ $entity->donations_need }} руб.</div>
+    <div class="w-full h-4 mb-4 bg-gray-200 rounded-full">
+        <div class="h-4 bg-blue-600 rounded-full" style="width: {{ $fullness }}%"></div>
     </div>
 </div>
