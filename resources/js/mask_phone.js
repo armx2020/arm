@@ -1,5 +1,5 @@
 $(document).ready(function ($) {
-	$.mask.definitions['h'] = "[0|1|2|3|4|5|6|9]"
+	$.mask.definitions['h'] = "[0|1|2|3|4|5|6|7|9]"
 
 	$(".mask-phone").click(function () {
 		$(this).setCursorPosition(3);
