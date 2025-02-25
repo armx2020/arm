@@ -150,6 +150,7 @@ class EntityController extends BaseController
         $secondPositionUrl = 'companies.index';
         $secondPositionName = 'Бизнес - справочник';
         $entityName = 'companies';
+        $entityShowRout = 'company.show';
 
         $entity = Entity::query()->active();
 
@@ -163,6 +164,8 @@ class EntityController extends BaseController
             return redirect()->route('home');
         }
 
+        $otherEntities = $entity->getSimilarEntities();
+
         return view('pages.entity.show', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
@@ -172,6 +175,8 @@ class EntityController extends BaseController
             'secondPositionName' => $secondPositionName,
             'entityName' => $entityName,
             'entity' => $entity,
+            'otherEntities' => $otherEntities,
+            'entityShowRout' => $entityShowRout
         ]);
     }
 
@@ -180,6 +185,7 @@ class EntityController extends BaseController
         $secondPositionUrl = 'groups.index';
         $secondPositionName = 'Общины и консульства';
         $entityName = 'groups';
+        $entityShowRout = 'group.show';
 
         $entity = Entity::query()->active();
 
@@ -193,6 +199,8 @@ class EntityController extends BaseController
             return redirect()->route('home');
         }
 
+        $otherEntities = $entity->getSimilarEntities();
+
         return view('pages.entity.show', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
@@ -202,6 +210,8 @@ class EntityController extends BaseController
             'secondPositionName' => $secondPositionName,
             'entityName' => $entityName,
             'entity' => $entity,
+            'otherEntities' => $otherEntities,
+            'entityShowRout' => $entityShowRout
         ]);
     }
 
@@ -210,6 +220,7 @@ class EntityController extends BaseController
         $secondPositionUrl = 'places.index';
         $secondPositionName = 'Места и церкви';
         $entityName = 'places';
+        $entityShowRout = 'place.show';
 
         $entity = Entity::query()->active();
 
@@ -223,6 +234,8 @@ class EntityController extends BaseController
             return redirect()->route('home');
         }
 
+        $otherEntities = $entity->getSimilarEntities();
+
         return view('pages.entity.show', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
@@ -232,6 +245,8 @@ class EntityController extends BaseController
             'secondPositionName' => $secondPositionName,
             'entityName' => $entityName,
             'entity' => $entity,
+            'otherEntities' => $otherEntities,
+            'entityShowRout' => $entityShowRout
         ]);
     }
 
@@ -240,6 +255,7 @@ class EntityController extends BaseController
         $secondPositionUrl = 'communities.index';
         $secondPositionName = 'Общины и консульства';
         $entityName = 'communities';
+        $entityShowRout = 'community.show';
 
         $entity = Entity::query()->active();
 
@@ -253,6 +269,8 @@ class EntityController extends BaseController
             return redirect()->route('home');
         }
 
+        $otherEntities = $entity->getSimilarEntities();
+
         return view('pages.entity.show', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
@@ -262,6 +280,8 @@ class EntityController extends BaseController
             'secondPositionName' => $secondPositionName,
             'entityName' => $entityName,
             'entity' => $entity,
+            'otherEntities' => $otherEntities,
+            'entityShowRout' => $entityShowRout
         ]);
     }
 
@@ -270,6 +290,7 @@ class EntityController extends BaseController
         $secondPositionUrl = 'jobs.index';
         $secondPositionName = 'Работа, вакансии';
         $entityName = 'jobs';
+        $entityShowRout = 'job.show';
 
         $entity = Entity::query()->active();
 
@@ -283,6 +304,8 @@ class EntityController extends BaseController
             return redirect()->route('home');
         }
 
+        $otherEntities = $entity->getSimilarEntities();
+
         return view('pages.entity.show', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
@@ -292,6 +315,8 @@ class EntityController extends BaseController
             'secondPositionName' => $secondPositionName,
             'entityName' => $entityName,
             'entity' => $entity,
+            'otherEntities' => $otherEntities,
+            'entityShowRout' => $entityShowRout
         ]);
     }
 

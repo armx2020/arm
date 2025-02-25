@@ -42,5 +42,7 @@
 
     <x-pages.entity-card :$entity />
 
+    <x-pages.other-entities :$otherEntities :$entityShowRout />
+
     <x-inform-us.index/>
 @endsection

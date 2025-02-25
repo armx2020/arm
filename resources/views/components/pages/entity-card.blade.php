@@ -134,31 +134,39 @@
         @endif
 
         @if ($entity->city)
-            <span class="sm:mx-4 text-sm mt-4">Город:</span>
-            <p class="@if($entity->city->id != 1) masked-data @endif flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-keep">
-                {{ mb_substr($entity->city->name, 0, 400, 'UTF-8') }}
-            </p>
+            <div class="flex items-center sm:mx-4 mt-4">
+                <span class="text-sm">Город:</span>
+                <p class="text-sm my-1 text-gray-500 break-keep ml-1">
+                    {{ mb_substr($entity->city->name, 0, 400, 'UTF-8') }}
+                </p>
+            </div>
         @endif
 
         @if ($entity->address)
-            <span class="sm:mx-4 text-sm mt-4">Адрес:</span>
-            <p class="masked-data flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-keep">
-                {{ mb_substr($entity->address, 0, 400, 'UTF-8') }}
-            </p>
+            <div class="flex items-center sm:mx-4 mt-4">
+                <span class="text-sm">Адрес:</span>
+                <p class="text-sm my-1 text-gray-500 break-keep ml-1">
+                    {{ mb_substr($entity->address, 0, 400, 'UTF-8') }}
+                </p>
+            </div>
         @endif
 
         @if ($entity->phone)
-            <span class="sm:mx-4 text-sm mt-4">Телефон:</span>
-            <p class="masked-data phone flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-keep">
-                {{ mb_substr($entity->phone, 0, 400, 'UTF-8') }}
-            </p>
+            <div class="flex items-center sm:mx-4 mt-4">
+                <span class="text-sm">Телефон:</span>
+                <p class="masked-data phone text-sm my-1 text-gray-500 break-keep ml-1">
+                    {{ mb_substr($entity->phone, 0, 400, 'UTF-8') }}
+                </p>
+            </div>
         @endif
 
         @if ($entity->web)
-            <span class="sm:mx-4 text-sm mt-4">Сайт:</span>
-            <a href="{{ mb_substr($entity->web, 0, 400, 'UTF-8') }}" class="masked-data flex text-left text-sm sm:mx-4 my-1 text-gray-500 break-keep">
-                {{ mb_substr($entity->web, 0, 400, 'UTF-8') }}
-            </a>
+            <div class="flex items-center sm:mx-4 mt-4">
+                <span class="text-sm">Сайт:</span>
+                <a href="{{ mb_substr($entity->web, 0, 400, 'UTF-8') }}" class="text-sm my-1 text-gray-500 break-keep ml-1">
+                    {{ mb_substr($entity->web, 0, 400, 'UTF-8') }}
+                </a>
+            </div>
         @endif
 
         <div class="my-3 sm:pl-4">

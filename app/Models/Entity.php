@@ -133,6 +133,16 @@ class Entity extends Model
         return $this->hasMany(Appeal::class);
     }
 
+    public function getSimilarEntities($limit = 3)
+    {
+        return self::query()
+            ->where('entity_type_id', $this->entity_type_id)
+            ->where('id', '!=', $this->id)
+            ->inRandomOrder()
+            ->limit($limit)
+            ->get();
+    }
+
     public function images($isWithScope = true): MorphMany
     {
         if ($isWithScope) {
