@@ -57,8 +57,10 @@
 
                         <div class="my-3">
                             <x-input-label for="description" :value="__('Описание')" />
-                            <x-text-input id="description" name="description" type="text" class="mt-1 block w-full"
-                                :error="$errors->get('description')" :value="old('description')" />
+                            <x-textarea id="description" name="description" class="mt-1 block w-full"
+                                        :error="$errors->get('description')">
+                                {{ old('description') }}
+                            </x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 

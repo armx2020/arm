@@ -94,22 +94,22 @@
         <div class="hidden xl:flex flex-initial text-right flex flex-col w-44 text-wrap whitespace-normal">
             <p class="mb-1 font-medium">
                 @if($entity->phone && $entity->phone != '')
-                    @php
-                        $phoneFull = trim($entity->phone);
-                        $VISIBLE_COUNT = 8;
+                @php
+                    $phoneFull = trim($entity->phone);
+                    $VISIBLE_COUNT = 8;
 
-                        if (mb_strlen($phoneFull) <= $VISIBLE_COUNT) {
-                            $phoneMasked = $phoneFull;
-                        } else {
-                            $phoneMasked = mb_substr($phoneFull, 0, $VISIBLE_COUNT, 'UTF-8') . '********';
-                        }
-                    @endphp
-                <div class="flex items-center justify-end gap-2">
+                    if (mb_strlen($phoneFull) <= $VISIBLE_COUNT) {
+                        $phoneMasked = $phoneFull;
+                    } else {
+                        $phoneMasked = mb_substr($phoneFull, 0, $VISIBLE_COUNT, 'UTF-8');
+                    }
+                @endphp
+                <div class="flex items-center justify-end gap-1">
                     <a href="tel:{{ $phoneFull }}" data-phone="{{ $phoneFull }}" class="full-phone text-blue-600 whitespace-nowrap font-medium">
                         {{ $phoneMasked }}
                     </a>
 
-                    <button type="button" class="show-phone text-blue-500 hover:underline text-sm whitespace-nowrap">
+                    <button type="button" class="show-phone font-medium text-blue-600 hover:underline text-sm whitespace-nowrap">
                         Показать
                     </button>
                 </div>
