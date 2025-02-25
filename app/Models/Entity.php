@@ -137,6 +137,7 @@ class Entity extends Model
     {
         return self::query()
             ->where('entity_type_id', $this->entity_type_id)
+            ->where('activity', 1)
             ->where('id', '!=', $this->id)
             ->inRandomOrder()
             ->limit($limit)
