@@ -170,7 +170,7 @@
         @endif
 
         <div class="my-3 sm:pl-4">
-            <x-pages.social :entity=$entity />
+            <x-pages.social :entity=$entity :coloric="true" />
         </div>
 
         <div class="flex space-x-2 my-3 pl-0 pl-0 sm:pl-4 max-w-[400px]">
