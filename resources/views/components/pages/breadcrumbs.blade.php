@@ -36,7 +36,7 @@
             </li>
             <li class="text-neutral-500">
                 <a href="{{ $fourthPositionUrl }}" class="truncate">
-                    {{ $fourthPositionName }}
+                    {{ html_entity_decode($fourthPositionName, ENT_QUOTES, 'UTF-8') }}
                 </a>
             </li>
         @endisset
