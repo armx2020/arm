@@ -9,6 +9,8 @@ use App\Models\Region;
 abstract class BaseController extends Controller
 {
     protected $regions = [];
+    
+    protected $quantityOfDisplayed = 20; // Количество отоброжаемых сущностей
 
     public function __construct()
     {

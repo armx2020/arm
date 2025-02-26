@@ -8,7 +8,7 @@ use App\Models\Entity;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class GroupController extends BaseController
+class CommunityController extends BaseController
 {
     public function __construct()
     {
@@ -17,14 +17,14 @@ class GroupController extends BaseController
 
     public function index(Request $request, $category = null, $subCategory = null)
     {
-        $region = $this->getRegion($request, null);
+        $region = $this->getRegion($request, 'russia');
 
-        $entities = Entity::query()->active()->groups()->with('fields', 'offers')->withCount('offers');
-        $categories = Category::query()->main()->active()->groups()->get();
+        $entities = Entity::query()->active()->communities()->with('fields', 'offers')->withCount('offers');
+        $categories = Category::query()->main()->active()->communities()->get();
         $subCategories = null;
 
         if ($category) {
-            $category = Category::active()->main()->groups()->select('id', 'transcription')->where('transcription', $category)->First();
+            $category = Category::active()->main()->communities()->select('id', 'transcription')->where('transcription', $category)->First();
 
             if ($category) {
                 $category_id = $category->id;
@@ -34,7 +34,7 @@ class GroupController extends BaseController
             }
 
             if ($subCategory) {
-                $subCategory = Category::active()->groups()->select('id', 'transcription')->where('transcription', $subCategory)->First();
+                $subCategory = Category::active()->communities()->select('id', 'transcription')->where('transcription', $subCategory)->First();
 
                 if ($subCategory) {
                     $subCategory_id = $subCategory->id;
@@ -64,10 +64,10 @@ class GroupController extends BaseController
 
         $entities = $entities->orderByDesc('sort_id')->paginate($this->quantityOfDisplayed);
 
-        $secondPositionUrl = 'groups.index';
-        $secondPositionName = 'Группы';
-        $entityName = 'groups';
-        $entityShowRout = 'group.show';
+        $secondPositionUrl = 'companies.index';
+        $secondPositionName = 'Компании';
+        $entityName = 'companies';
+        $entityShowRout = 'company.show';
 
         return view('pages.entity.index', [
             'region'   => $request->session()->get('regionTranslit'),
@@ -94,8 +94,8 @@ class GroupController extends BaseController
             return redirect()->route('home');
         }
 
-        $entities = Entity::query()->active()->groups()->with('fields', 'offers')->withCount('offers');
-        $categories = Category::query()->main()->active()->groups()->get();
+        $entities = Entity::query()->active()->communities()->with('fields', 'offers')->withCount('offers');
+        $categories = Category::query()->main()->active()->communities()->get();
         $subCategories = null;
 
         if ($regionTranslit) {
@@ -103,7 +103,7 @@ class GroupController extends BaseController
         }
 
         if ($category) {
-            $category = Category::active()->main()->groups()->select('id', 'transcription')->where('transcription', $category)->First();
+            $category = Category::active()->main()->communities()->select('id', 'transcription')->where('transcription', $category)->First();
 
             if ($category) {
                 $category_id = $category->id;
@@ -113,7 +113,7 @@ class GroupController extends BaseController
             }
 
             if ($subCategory) {
-                $subCategory = Category::active()->groups()->select('id', 'transcription')->where('transcription', $subCategory)->First();
+                $subCategory = Category::active()->communities()->select('id', 'transcription')->where('transcription', $subCategory)->First();
 
                 if ($subCategory) {
                     $subCategory_id = $subCategory->id;
@@ -143,10 +143,10 @@ class GroupController extends BaseController
 
         $entities = $entities->orderByDesc('sort_id')->paginate($this->quantityOfDisplayed);
 
-        $secondPositionUrl = 'groups.index';
-        $secondPositionName = 'Группы';
-        $entityName = 'groups';
-        $entityShowRout = 'group.show';
+        $secondPositionUrl = 'companies.index';
+        $secondPositionName = 'Компании';
+        $entityName = 'companies';
+        $entityShowRout = 'company.show';
 
         return view('pages.entity.index', [
             'region'   => $request->session()->get('regionTranslit'),
