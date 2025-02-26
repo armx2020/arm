@@ -105,7 +105,7 @@
                             wire:model.live="selectedFilters.{{ $name }}.="
                         >
                             <option value=""> - все города - </option>
-                            @foreach (\App\Models\City::all() as $city)
+                            @foreach (\App\Models\City::orderBy('name')->get() as $city)
                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
                             @endforeach
                         </select>
