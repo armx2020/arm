@@ -76,19 +76,26 @@
                                     <thead class="bg-gray-200">
                                         <tr>
                                             @foreach ($selectedColumns as $column)
-                                                <th scope="col"
-                                                    class="p-4 text-left text-xs font-medium text-gray-500 uppercase max-w-[20rem] truncate">
-                                                    <button wire:click.prevent='sortBy("{{ $column }}")'
-                                                        role="button">
-                                                        {{ __('column.' . $column) }}</button>
-                                                    @if ($this->sortField == $column)
-                                                        @if ($this->sortAsc)
-                                                            &#8593
-                                                        @else
-                                                            &#8595
+                                                @if($column != 'img')
+                                                    <th scope="col"
+                                                        class="p-4 text-left text-xs font-medium text-gray-500 uppercase max-w-[20rem] truncate">
+                                                        <button wire:click.prevent='sortBy("{{ $column }}")'
+                                                            role="button">
+                                                            {{ __('column.' . $column) }}</button>
+                                                        @if ($this->sortField == $column)
+                                                            @if ($this->sortAsc)
+                                                                &#8593
+                                                            @else
+                                                                &#8595
+                                                            @endif
                                                         @endif
-                                                    @endif
-                                                </th>
+                                                    </th>
+                                                @else
+                                                    <th scope="col"
+                                                        class="p-4 text-left text-xs font-medium text-gray-500 max-w-[20rem] truncate cursor-default">
+                                                            {{ __('column.' . $column) }}
+                                                    </th>
+                                                @endif
                                             @endforeach
 
                                             <th scope="col" class="p-4">

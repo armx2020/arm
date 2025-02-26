@@ -105,8 +105,25 @@
                             wire:model.live="selectedFilters.{{ $name }}.="
                         >
                             <option value=""> - все города - </option>
-                            @foreach (\App\Models\City::all() as $city)
+                            @foreach (\App\Models\City::orderBy('name')->get() as $city)
                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
+                            @endforeach
+                        </select>
+                    @endif
+
+                    {{-- category_id --}}
+                    @if ($name == 'category_id')
+                        <div class="mb-1 font-semibold">
+                            {{ __('column.' . $name) }}
+                        </div>
+                        <select
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg
+                                   focus:ring-cyan-600 focus:border-cyan-600 p-2.5 w-full"
+                            wire:model.live="selectedFilters.{{ $name }}.="
+                        >
+                            <option value=""> - все города - </option>
+                            @foreach (\App\Models\Category::orderBy('name')->get() as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                     @endif
