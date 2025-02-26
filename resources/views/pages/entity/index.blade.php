@@ -224,7 +224,7 @@
                                     });
                                 </script>
 
-                                @if ($category->id == '19' || $category->id == '78')
+                                @if ($selectedCategory->id == '19' || $selectedCategory->id == '78')
                                     <div class="bg-white mt-3 basis-full rounded-md block lg:hidden">
                                         <select id="sub_category_select" class="w-full border-0 rounded-md"
                                             autocomplete="off">
