@@ -18,7 +18,7 @@ class CacheRegions extends Command
                 return mb_substr($item->name, 0, 1);
             });
 
-        Cache::put('regions', $regions, now()->addHours(24));
+        Cache::put('regions', $regions);
 
         $this->info('Regions data saved successfully.');
     }

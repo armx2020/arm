@@ -30,8 +30,8 @@ class UpdateDynamicRoutes extends Command
 
         $collection = collect($items)->toArray();
 
-        // Сохраняем данные в кэше на 24 часа
-        Cache::put('dynamic_routes', $collection, now()->addHours(24));
+        // Сохраняем данные в кэше
+        Cache::put('dynamic_routes', $collection);
         dump($collection);
         $this->info('Dynamic routes data updated successfully.');
     }
