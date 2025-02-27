@@ -43,7 +43,7 @@
                                     autocomplete="off">
                                     @foreach (App\Models\Region::all() as $reg)
                                         @php
-                                            $routeNameForRegionSelect = route('region.' . $entityName, [
+                                            $routeNameForRegionSelect = route("$entityName.region", [
                                                 'regionTranslit' => $reg->transcription,
                                             ]);
 
@@ -95,7 +95,7 @@
 
                                                     if ($region && $region !== 'russia') {
                                                         $routeNameForEntityTypeSelect = route(
-                                                            'region.' . $type->transcription,
+                                                            "$type->transcription.region",
                                                             ['regionTranslit' => $region],
                                                         );
                                                     }
@@ -124,7 +124,7 @@
                                 $routeName = route($entityName . '.index');
 
                                 if ($region && $region !== 'russia') {
-                                    $routeName = route('region.' . $entityName, ['regionTranslit' => $region]);
+                                    $routeName = route( "$entityName.region", ['regionTranslit' => $region]);
                                 }
                             @endphp
                             <div class="flex flex-col basis-1/2 lg:basis-1/5 max-w-56 pl-1 md:pl-0">

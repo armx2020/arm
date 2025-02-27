@@ -64,7 +64,7 @@
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pr-4 lg:pr-2">
                     <div class="bg-[#f0e7ce] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
                         <a
-                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('region.places', ['regionTranslit' => $region]) }}" @else  href="{{ route('places.index') }}" @endif>
+                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('places.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('places.index') }}" @endif>
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Интересные
                                     места, церкви</p>
@@ -82,7 +82,7 @@
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-2">
                     <div class="bg-[#d7e6d8] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
                         <a
-                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('region.groups', ['regionTranslit' => $region]) }}" @else  href="{{ route('groups.index') }}" @endif>
+                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('groups.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('groups.index') }}" @endif>
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Кружки,
                                     сообщества</p>
@@ -100,7 +100,7 @@
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pr-4 lg:pr-2">
                     <div class="bg-[#dbe6fb] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
                         <a
-                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('region.companies', ['regionTranslit' => $region]) }}" @else  href="{{ route('companies.index') }}" @endif>
+                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('companies.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('companies.index') }}" @endif>
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Бизнес
                                     справочник</p>
@@ -118,7 +118,7 @@
                 <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-2">
                     <div class="bg-[#e6c6c9] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72 ">
                         <a
-                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('region.communities', ['regionTranslit' => $region]) }}" @else  href="{{ route('communities.index') }}" @endif>
+                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('communities.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('communities.index') }}" @endif>
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-base font-bold">Общины консульства</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Каталог товаров/услуг </p>
@@ -136,7 +136,7 @@
                     class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-0 hidden lg:block">
                     <div class="bg-[#feecdc] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
                         <a
-                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('region.jobs', ['regionTranslit' => $region]) }}" @else  href="{{ route('jobs.index') }}" @endif>
+                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('jobs.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('jobs.index') }}" @endif>
                             <div class="flex flex-col h-full w-full relative">
                                 <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Поиск работы</p>
                                 <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Найти работу или разместить вакансию

@@ -68,20 +68,20 @@
                 </li>
                 @if (isset($regionName) && $regionName !== 'Россия')
                     <li class="mb-2 pl-4">
-                        <a class="" href="{{ route('region.companies', ['regionTranslit' => $region]) }}">Бизнес
+                        <a class="" href="{{ route('companies.region', ['regionTranslit' => $region]) }}">Бизнес
                             справочник</a>
                     </li>
                     <li class="mb-2 pl-4">
-                        <a class="" href="{{ route('region.groups', ['regionTranslit' => $region]) }}">Кружки и
+                        <a class="" href="{{ route('groups.region', ['regionTranslit' => $region]) }}">Кружки и
                             сообщества</a>
                     </li>
                     <li class="mb-2 pl-4">
-                        <a class="" href="{{ route('region.places', ['regionTranslit' => $region]) }}">Интересные
+                        <a class="" href="{{ route('places.region', ['regionTranslit' => $region]) }}">Интересные
                             места</a>
                     </li>
                     <li class="mb-2 pl-4">
                         <a class=""
-                            href="{{ route('region.communities', ['regionTranslit' => $region]) }}">Общины,
+                            href="{{ route('communities.region', ['regionTranslit' => $region]) }}">Общины,
                             констульства</a>
                     </li>
                 @else
@@ -148,21 +148,21 @@
                 @if (isset($regionName) && $regionName !== 'Россия')
                     <li class="mb-4 lg:mb-0 lg:pr-4">
                         <a class=""
-                            href="{{ route('region.companies', ['regionTranslit' => $region]) }}">Бизнес
+                            href="{{ route('companies.region', ['regionTranslit' => $region]) }}">Бизнес
                             справочник</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4">
-                        <a class="" href="{{ route('region.groups', ['regionTranslit' => $region]) }}">Кружки и
+                        <a class="" href="{{ route('groups.region', ['regionTranslit' => $region]) }}">Кружки и
                             сообщества</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4">
                         <a class=""
-                            href="{{ route('region.places', ['regionTranslit' => $region]) }}">Интересные
+                            href="{{ route('places.region', ['regionTranslit' => $region]) }}">Интересные
                             места</a>
                     </li>
                     <li class="mb-4 lg:mb-0 lg:pr-4">
                         <a class=""
-                            href="{{ route('region.communities', ['regionTranslit' => $region]) }}">Общины</a>
+                            href="{{ route('communities.region', ['regionTranslit' => $region]) }}">Общины</a>
                     </li>
                 @else
                     <li class="mb-4 lg:mb-0 lg:pr-4">
@@ -247,22 +247,22 @@
                                 <a href="{{ route('home', ['regionTranslit' => $region->transcription]) }}">
                                     {{ $region->name }}
                                 </a>
-                            @elseif (Route::is('companies') || Route::is('region.companies'))
+                            @elseif (Route::is('companies') || Route::is('companies.region'))
                                 <a
-                                    href="{{ route('region.companies', ['regionTranslit' => $region->transcription]) }}">
+                                    href="{{ route('companies.region', ['regionTranslit' => $region->transcription]) }}">
                                     {{ $region->name }}
                                 </a>
-                            @elseif (Route::is('groups') || Route::is('region.groups'))
-                                <a href="{{ route('region.groups', ['regionTranslit' => $region->transcription]) }}">
+                            @elseif (Route::is('groups') || Route::is('groups.region'))
+                                <a href="{{ route('groups.region', ['regionTranslit' => $region->transcription]) }}">
                                     {{ $region->name }}
                                 </a>
-                            @elseif (Route::is('places') || Route::is('region.places'))
-                                <a href="{{ route('region.places', ['regionTranslit' => $region->transcription]) }}">
+                            @elseif (Route::is('places') || Route::is('places.region'))
+                                <a href="{{ route('places.region', ['regionTranslit' => $region->transcription]) }}">
                                     {{ $region->name }}
                                 </a>
-                            @elseif (Route::is('communities') || Route::is('region.communities'))
+                            @elseif (Route::is('communities') || Route::is('communities.region'))
                                 <a
-                                    href="{{ route('region.communities', ['regionTranslit' => $region->transcription]) }}">
+                                    href="{{ route('communities.region', ['regionTranslit' => $region->transcription]) }}">
                                     {{ $region->name }}
                                 </a>
                             @else

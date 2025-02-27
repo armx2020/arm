@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('app:calculate-doubles')->dailyAt('00:00');
         $schedule->command('app:calculate-fullness')->dailyAt('00:00');
         $schedule->command('app:calculate-top-entities')->dailyAt('00:00');
+        $schedule->command('routes:update')->dailyAt('04:00');
         // $schedule->command('inspire')->hourly();
     }
 
