@@ -38,6 +38,7 @@ class UserController extends BaseAdminController
     {
         $entities = $user->entities()->with('primaryImage', 'city', 'region', 'category', 'type')->paginate(20);
         $entityName  = 'entity';
+        $emptyEntity = 'сущностей нет';
         $selectedColumns = [
             'id',
             'img',
@@ -55,7 +56,8 @@ class UserController extends BaseAdminController
             'menu' => $this->menu,
             'entities' => $entities,
             'selectedColumns' => $selectedColumns,
-            'entityName' => $entityName
+            'entityName' => $entityName,
+            'emptyEntity' => $emptyEntity
         ]);
     }
 
