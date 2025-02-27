@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Region;
+use Illuminate\Support\Facades\Cache;
 
 abstract class BaseController extends Controller
 {
@@ -14,26 +15,23 @@ abstract class BaseController extends Controller
 
     public function __construct()
     {
-        $this->regions = Region::whereNot('code', 0)->get()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
+        $this->regions = Cache::get('regions', []);
     }
 
     public function getRegion($request, $regionTranslit = null)
     {
         if ($regionTranslit == null) {
-            $region = Region::find(1);
+            $region = Region::select('id', 'name', 'transcription')->find(1);
             $request->session()->put('regionName', $region->name);
             $request->session()->put('regionTranslit', $region->transcription);
         } else {
-            $region = Region::where('transcription', 'like', $regionTranslit)->First();
+            $region = Region::select('id', 'name', 'transcription')->where('transcription', 'like', $regionTranslit)->First();
 
             if ($region) {
                 $request->session()->put('regionName', $region->name);
                 $request->session()->put('regionTranslit', $region->transcription);
             } else {
-                $city = City::where('transcription', 'like', $regionTranslit)->First();
+                $city = City::select('id', 'name', 'transcription')->where('transcription', 'like', $regionTranslit)->First();
 
                 if ($city) {
                     $request->session()->put('regionName', $city->region->name);
