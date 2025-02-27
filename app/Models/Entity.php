@@ -108,6 +108,11 @@ class Entity extends Model
         return $this->belongsTo(Region::class);
     }
 
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
     public function fields(): BelongsToMany
     {
         return $this->belongsToMany(Category::class)->withTimestamps();

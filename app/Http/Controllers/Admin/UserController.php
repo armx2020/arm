@@ -36,7 +36,27 @@ class UserController extends BaseAdminController
 
     public function edit(User $user)
     {
-        return view('admin.user.edit', ['user' => $user, 'menu' => $this->menu]);
+        $entities = $user->entities()->with('primaryImage', 'city', 'region', 'category', 'type')->paginate(20);
+        $entityName  = 'entity';
+        $selectedColumns = [
+            'id',
+            'img',
+            'name',
+            'type',
+            'category_id',
+            'city_id',
+            'sort_id',
+            'region_id',
+            'address',
+            'phone'
+        ];
+        return view('admin.user.edit', [
+            'user' => $user,
+            'menu' => $this->menu,
+            'entities' => $entities,
+            'selectedColumns' => $selectedColumns,
+            'entityName' => $entityName
+        ]);
     }
 
     public function update(UpdateUserRequest $request, User $user)
