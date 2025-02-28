@@ -59,7 +59,8 @@ class Entity extends Model
         'comment',
         'started_at',
         'checked',
-        'clinic'
+        'clinic',
+        'paymant_link'
     ];
 
     protected $searchable = [
