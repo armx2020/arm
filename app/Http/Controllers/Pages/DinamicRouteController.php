@@ -36,6 +36,10 @@ class DinamicRouteController extends BaseController
             $subCategory = $parameters[2] ?? null;
 
             return $this->region($methodArray[0], $regionTranslit, $category, $subCategory,);
+        } elseif (isset($methodArray[1]) && $methodArray[1] == 'show') {
+            $idOrTranscript = $parameters[0] ?? null;
+
+            return $this->show($methodArray[0], $idOrTranscript);
         } else {
 
             $category = $parameters[0] ?? null;
@@ -211,18 +215,20 @@ class DinamicRouteController extends BaseController
         ]);
     }
 
-    public function show(Request $request, $singular, $idOrTranscript)
+    public function show($plural, $idOrTranscript)
     {
-        $type = EntityType::where('transcription', $singular)->First();
+        $type = EntityType::where('transcription', $plural)->First();
 
         if (!$type) {
-            return redirect()->route('home', ['regionTranslit' => $request->session()->get('regionTranslit') ?: null]);
+            return redirect()->route('home', ['regionTranslit' => $this->request->session()->get('regionTranslit') ?: null]);
         }
+
+        $entitySingular = $this->inflector->singularize($type->transcription);
 
         $secondPositionUrl = "$type->transcription.index";
         $secondPositionName = "$type->name";
         $entityName = "$type->transcription";
-        $entityShowRout = "$this->inflector->singularize($type->transcription).show";
+        $entityShowRout = "$entitySingular.show";
 
         $entity = Entity::query()->active();
 
@@ -239,8 +245,8 @@ class DinamicRouteController extends BaseController
         $otherEntities = $entity->getSimilarEntities();
 
         return view('pages.entity.show', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
+            'region'   => $this->request->session()->get('regionTranslit'),
+            'regionName' => $this->request->session()->get('regionName'),
             'categoryUri' => null,
             'regions' => $this->regions,
             'secondPositionUrl' => $secondPositionUrl,

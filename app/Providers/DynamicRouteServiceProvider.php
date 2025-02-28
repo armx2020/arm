@@ -40,7 +40,7 @@ class DynamicRouteServiceProvider extends ServiceProvider
             Route::middleware('web')->group(function () use ($plural, $singular) {
                 Route::get("/{$plural}/{category?}/{subCategory?}", [DinamicRouteController::class, $plural])->name("{$plural}.index");
                 Route::get("/{regionTranslit}/{$plural}/{category?}/{subCategory?}", [DinamicRouteController::class, "$plural-region"])->name("{$plural}.region");
-                Route::get("/{$singular}/{idOrTranscript}", [DinamicRouteController::class, 'show'])->name("$singular.show");
+                Route::get("/{$singular}/{idOrTranscript}", [DinamicRouteController::class, "$plural-show"])->name("$singular.show");
             });
 
 
