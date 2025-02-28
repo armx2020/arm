@@ -5,7 +5,7 @@
         <div class="rounded-lg bg-white p-2 md:p-4 relative drop-shadow-sm hover:drop-shadow-md flex flex-col"
              id="{{ $entity->id }}_card">
 
-            <a href="{{ route($entityShowRout, ['idOrTranscript' => $entity->id]) }}">
+            <a href="{{ route($entityShowRoute, ['idOrTranscript' => $entity->id]) }}">
                 <img class="mx-auto aspect-[15/10] w-full rounded-lg object-cover"
                      @if(isset($entity->images()->get()[0]))
                      src="{{ asset('storage/' . $entity->images()->get()[0]->path) }}"
@@ -17,7 +17,7 @@
             </a>
 
             <div class="mt-3">
-                <a href="{{ route($entityShowRout, ['idOrTranscript' => $entity->id]) }}">
+                <a href="{{ route($entityShowRoute, ['idOrTranscript' => $entity->id]) }}">
                     <h2 class="text-xs md:text-base lg:text-xl font-bold leading-tight text-neutral-700 break-words line-clamp-2">
                         {{ $entity->name }}
                     </h2>
@@ -129,7 +129,7 @@
         $('#{!! $entity->id !!}_card').on('click', function() {
             const mobileWidthMediaQuery = window.matchMedia('(max-width: 768px)');
             if (mobileWidthMediaQuery.matches) {
-                window.location.href = "{!! route($entityShowRout, ['idOrTranscript' => $entity->id]) !!}";
+                window.location.href = "{!! route($entityShowRoute, ['idOrTranscript' => $entity->id]) !!}";
             }
         });
         @endforeach

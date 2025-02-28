@@ -13,7 +13,48 @@
 @endsection
 
 @section('content')
-    <x-pages.breadcrumbs :$secondPositionUrl :$secondPositionName />
+    {{--  Хлебные крошки --}}
+    <nav class="hidden md:block mb-2 mt-3 lg:mt-5 rounded-md mx-auto text-xs sm:text-sm md:text-md px-1">
+
+        @php
+            $homeUrl = route('home');
+            $entityTypeUrl = route("$entityTranscription.index");
+
+            if ($region && $region !== 'russia') {
+                $homeUrl = route('home', ['regionTranslit' => $region]);
+                $entityTypeUrl = route("$entityTranscription.region", ['regionTranslit' => $region]);
+            }
+        @endphp
+
+        <ol class="list-reset flex flex-nowrap overflow-hidden">
+            <li class="text-neutral-500">
+                <a href="{{ $homeUrl }}" class="truncate">
+                    Главная
+                </a>
+            </li>
+            <li>
+                <a href="{{ $homeUrl }}">
+                    <span class="mx-2 text-neutral-500">/</span>
+                </a>
+            </li>
+            <li class="text-neutral-500">
+                <a href="{{ $entityTypeUrl }}" class="truncate">
+                    {{ $entityName }}
+                </a>
+            </li>
+            <li>
+                <a href="{{ $entityTypeUrl }}">
+                    <span class="mx-2 text-neutral-500">/</span>
+                </a>
+            </li>
+            <li class="text-neutral-500">
+                <a href="{{ route($entityShowRoute, ['idOrTranscript' => $entity->id]) }}" class="truncate">
+                    {{ $entity->name }}
+                </a>
+            </li>
+        </ol>
+    </nav>
+
     <section>
         <div class="flex flex-col sm:justify-center items-center py-6">
 
@@ -63,7 +104,8 @@
     </section>
 
     <template id="image-slot-template">
-        <div class="image-slot border border-dashed border-gray-300 relative p-2 float-left flex items-center space-x-2 rounded-md ml-2 my-1">
+        <div
+            class="image-slot border border-dashed border-gray-300 relative p-2 float-left flex items-center space-x-2 rounded-md ml-2 my-1">
 
             <img class="preview-img w-12 h-12 object-cover rounded-md" src="{{ url('/image/no-image.png') }}">
 
@@ -88,7 +130,7 @@
 
             const maxSlots = parseInt($('#maxSlots').val(), 10);
             // Макс размер файла — 2MB
-            const maxSize  = 2 * 1024 * 1024;
+            const maxSize = 2 * 1024 * 1024;
 
             const $sortable = $('#sortable-slots');
             const $addSlotContainer = $('#add-slot-container');
@@ -146,14 +188,14 @@
             function initSlot($slot, isEmptySlot) {
                 const $fileInput = $slot.find('.file-input');
                 const $removeBtn = $slot.find('.remove-image-btn');
-                const $img       = $slot.find('.preview-img');
+                const $img = $slot.find('.preview-img');
                 const $labelSpan = $slot.find('.file-label span');
 
                 if (isEmptySlot) {
                     $removeBtn.hide();
                 }
 
-                $fileInput.on('change', function(){
+                $fileInput.on('change', function() {
                     const file = this.files[0];
                     if (!file) {
                         return;
@@ -171,7 +213,7 @@
                         $slot.remove();
                     } else {
                         const reader = new FileReader();
-                        reader.onload = function(e){
+                        reader.onload = function(e) {
                             $img.attr('src', e.target.result);
                         };
                         reader.readAsDataURL(file);
@@ -181,7 +223,7 @@
                     }
                 });
 
-                $removeBtn.on('click', function(){
+                $removeBtn.on('click', function() {
                     $slot.remove();
 
                     const slotCount = $sortable.find('.image-slot').length;
@@ -218,7 +260,6 @@
 
         });
     </script>
-
 @endsection
 
 @section('body')

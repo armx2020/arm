@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 
 class EntityCard extends Component
 {
-    public function __construct(public $entity)
+    public function __construct(public $entity, public $entityTypeUrl)
     {
         //
     }

@@ -19,6 +19,6 @@
                 $isNeedRecomendation = false;
             @endphp
         @endif --}}
-        <x-pages.card :entity="$entity" :$entityShowRout />
+        <x-pages.card :entity="$entity" :$entityShowRoute />
     @endforeach
 </div>

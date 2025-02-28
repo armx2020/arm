@@ -106,20 +106,18 @@ class DinamicRouteController extends BaseController
 
         $entitySingular = $this->inflector->singularize($type->transcription);
 
-        $secondPositionUrl = "$type->transcription.index";
-        $secondPositionName = "$type->name";
-        $entityName = "$type->transcription";
-        $entityShowRout = "$entitySingular.show";
+        $entityName = "$type->name";
+        $entityTranscription = "$type->transcription";
+        $entityShowRoute = "$entitySingular.show";
 
         return view('pages.entity.index', [
             'region'   => $this->request->session()->get('regionTranslit'),
             'regionName' => $this->request->session()->get('regionName'),
             'categoryUri' => null,
             'regions' => $this->regions,
-            'secondPositionUrl' => $secondPositionUrl,
-            'secondPositionName' => $secondPositionName,
             'entityName' => $entityName,
-            'entityShowRout' => $entityShowRout,
+            'entityTranscription' => $entityTranscription,
+            'entityShowRoute' => $entityShowRoute,
             'entities' => $entities,
             'selectedCategory' => $category,
             'categories' => $categories,
@@ -193,20 +191,18 @@ class DinamicRouteController extends BaseController
 
         $entitySingular = $this->inflector->singularize($type->transcription);
 
-        $secondPositionUrl = "$type->transcription.index";
-        $secondPositionName = "$type->name";
-        $entityName = "$type->transcription";
-        $entityShowRout = "$entitySingular.show";
+        $entityName = "$type->name";
+        $entityTranscription = "$type->transcription";
+        $entityShowRoute = "$entitySingular.show";
 
         return view('pages.entity.index', [
             'region'   => $this->request->session()->get('regionTranslit'),
             'regionName' => $this->request->session()->get('regionName'),
             'categoryUri' => null,
             'regions' => $this->regions,
-            'secondPositionUrl' => $secondPositionUrl,
-            'secondPositionName' => $secondPositionName,
             'entityName' => $entityName,
-            'entityShowRout' => $entityShowRout,
+            'entityTranscription' => $entityTranscription,
+            'entityShowRoute' => $entityShowRoute,
             'entities' => $entities,
             'selectedCategory' => $category,
             'categories' => $categories,
@@ -225,10 +221,9 @@ class DinamicRouteController extends BaseController
 
         $entitySingular = $this->inflector->singularize($type->transcription);
 
-        $secondPositionUrl = "$type->transcription.index";
-        $secondPositionName = "$type->name";
-        $entityName = "$type->transcription";
-        $entityShowRout = "$entitySingular.show";
+        $entityName = "$type->name";
+        $entityTranscription = "$type->transcription";
+        $entityShowRoute = "$entitySingular.show";
 
         $entity = Entity::query()->active();
 
@@ -249,12 +244,11 @@ class DinamicRouteController extends BaseController
             'regionName' => $this->request->session()->get('regionName'),
             'categoryUri' => null,
             'regions' => $this->regions,
-            'secondPositionUrl' => $secondPositionUrl,
-            'secondPositionName' => $secondPositionName,
             'entityName' => $entityName,
+            'entityTranscription' => $entityTranscription,
             'entity' => $entity,
             'otherEntities' => $otherEntities,
-            'entityShowRout' => $entityShowRout
+            'entityShowRoute' => $entityShowRoute
         ]);
     }
 }

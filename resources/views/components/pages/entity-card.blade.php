@@ -61,7 +61,7 @@
                         </div>
                     </div>
 
-                    <div class="swiper mySwiper mt-1 w-full sm:w-[320px] md:w-[380px] xl:w-[430px] h-22" wire:ignore>
+                    <div class="swiper mySwiper mt-1 w-full sm:w-[320px] md:w-[380px] xl:w-[430px] h-22">
                         <div class="swiper-wrapper cursor-pointer">
                             @foreach ($images as $image)
                                 <div class="swiper-slide">
@@ -72,8 +72,8 @@
                         </div>
                     </div>
                 @else
-                    <div class="group relative max-w-full aspect-[16/11] sm:max-w-[320px] md:max-w-[380px] xl:max-w-[430px]"
-                        wire:ignore>
+                    <div
+                        class="group relative max-w-full aspect-[16/11] sm:max-w-[320px] md:max-w-[380px] xl:max-w-[430px]">
                         <div class="w-full h-full">
                             <div class="swiper-slide flex w-full h-full">
                                 <img class="w-full h-full object-cover rounded-lg"
@@ -112,7 +112,8 @@
                    text-base font-normal text-gray-700
                    break-keep whitespace-normal text-justify
                    overflow-hidden transition-all duration-300
-                   line-clamp-5">{{ $entity->description }}
+                   line-clamp-5">
+                            {{ $entity->description }}
                         </p>
                         <div type="button"
                             class="toggle-button absolute bottom-0 right-0 z-10 hidden cursor-pointer text-base focus:outline-none bg-white px-0">
@@ -232,32 +233,13 @@
                 @endrole
 
                 <div class="hidden lg:block absolute right-4 w-4 h-4">
-
-                    @php
-                        switch ($entity->entity_type_id) {
-                            // case 4:
-                            //     $routeBack = null;
-                            //     break;
-                            // case 3:
-                            //     $routeBack = null;
-                            //     break;
-                            // case 2:
-                            //     $routeBack = null;
-                            //     break;
-                            default:
-                                $routeBack = url()->previous();
-                                break;
-                        }
-                    @endphp
-
-                    <a href="{{ $routeBack }}" class="[&>svg]:fill-[#a1b4c2]">
+                    <a href="{{ $entityTypeUrl }}" class="[&>svg]:fill-[#a1b4c2]">
                         <svg xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            viewBox="0 0 384 512">
                             <path
                                 d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" />
                         </svg>
                     </a>
-
                 </div>
 
             </div>

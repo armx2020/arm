@@ -27,7 +27,39 @@
 @endsection
 
 @section('content')
-    <x-pages.breadcrumbs :$secondPositionUrl :$secondPositionName />
+
+    {{--  Хлебные крошки --}}
+    <nav class="hidden md:block mb-2 mt-3 lg:mt-5 rounded-md mx-auto text-xs sm:text-sm md:text-md px-1">
+
+        @php
+            $homeUrl = route('home');
+            $entityTypeUrl = route("$entityTranscription.index");
+
+            if ($region && $region !== 'russia') {
+                $homeUrl = route('home', ['regionTranslit' => $region]);
+                $entityTypeUrl = route("$entityTranscription.region", ['regionTranslit' => $region]);
+            }
+        @endphp
+
+        <ol class="list-reset flex flex-nowrap overflow-hidden">
+            <li class="text-neutral-500">
+                <a href="{{ $homeUrl }}" class="truncate">
+                    Главная
+                </a>
+            </li>
+            <li>
+                <a href="{{ $homeUrl }}">
+                    <span class="mx-2 text-neutral-500">/</span>
+                </a>
+            </li>
+            <li class="text-neutral-500">
+                <a href="{{ $entityTypeUrl }}" class="truncate">
+                    {{ $entityName }}
+                </a>
+            </li>
+
+        </ol>
+    </nav>
 
     <section>
         <div>
@@ -43,7 +75,7 @@
                                     autocomplete="off">
                                     @foreach (App\Models\Region::all() as $reg)
                                         @php
-                                            $routeNameForRegionSelect = route("$entityName.region", [
+                                            $routeNameForRegionSelect = route("$entityTranscription.region", [
                                                 'regionTranslit' => $reg->transcription,
                                             ]);
 
@@ -56,13 +88,10 @@
                                             }
 
                                             // Проверяем, если регион "Россия" — подставляем другое название для отображения
-                                            $displayName = ($reg->name === 'Россия') ? 'Все регионы' : $reg->name;
+                                            $displayName = $reg->name === 'Россия' ? 'Все регионы' : $reg->name;
                                         @endphp
 
-                                        <option
-                                            @selected($reg->transcription == $region)
-                                            value="{{ $routeNameForRegionSelect }}"
-                                            >
+                                        <option @selected($reg->transcription == $region) value="{{ $routeNameForRegionSelect }}">
                                             {{ $displayName }}
                                         </option>
                                     @endforeach
@@ -75,7 +104,6 @@
                         $(document).ready(function() {
                             $('#region-select').change(function() {
                                 window.location.href = $(this).val();
-                                //alert($(this).val())
                             });
                         });
                     </script>
@@ -102,7 +130,7 @@
                                                         );
                                                     }
                                                 @endphp
-                                                <option @selected($type->transcription == $entityName)
+                                                <option @selected($type->transcription == $entityTranscription)
                                                     value="{{ $routeNameForEntityTypeSelect }}">{{ $type->name }}
                                                 </option>
                                             @endif
@@ -115,7 +143,6 @@
                             $(document).ready(function() {
                                 $('#entity-types-select').change(function() {
                                     window.location.href = $(this).val();
-                                    //alert($(this).val())
                                 });
                             });
                         </script>
@@ -123,10 +150,10 @@
                         {{--  Выбор категории --}}
                         @isset($categories)
                             @php
-                                $routeName = route($entityName . '.index');
+                                $routeName = route($entityTranscription . '.index');
 
                                 if ($region && $region !== 'russia') {
-                                    $routeName = route( "$entityName.region", ['regionTranslit' => $region]);
+                                    $routeName = route("$entityTranscription.region", ['regionTranslit' => $region]);
                                 }
                             @endphp
                             <div class="flex flex-col basis-1/2 lg:basis-1/5 max-w-56 pl-1 md:pl-0">
@@ -260,7 +287,7 @@
                         @if ($entities->isEmpty())
                             <x-pages.absence-entity />
                         @else
-                            <x-pages.grid :entities="$entities" :$entityShowRout />
+                            <x-pages.grid :entities="$entities" :$entityShowRoute />
                             <div class="w-full  mx-auto py-3 lg:py-10">
                                 {{ $entities->onEachSide(2)->links() }}
                             </div>

@@ -5,21 +5,25 @@ namespace App\Http\Controllers\Pages;
 use App\Entity\Actions\AppealAction;
 use App\Http\Controllers\BaseController;
 use App\Models\Entity;
+use Doctrine\Inflector\InflectorFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as Image;
 
 class EntityController extends BaseController
 {
+    protected $inflector;
+
     public function __construct(private AppealAction $appealAction)
     {
         parent::__construct();
         $this->appealAction = $appealAction;
+        $this->inflector = InflectorFactory::create()->build();
     }
 
     public function edit(Request $request, $idOrTranscript)
     {
-        $entity = Entity::query()->active();
+        $entity = Entity::query()->active()->with('type');
 
         if (is_numeric($idOrTranscript)) {
             $entity = $entity->where('id', $idOrTranscript)->First();
@@ -31,16 +35,22 @@ class EntityController extends BaseController
             return redirect()->route('home');
         }
 
-        $secondPositionUrl = "home";
-        $secondPositionName = 'Исправить неточность';
+        $type = $entity->type()->First();
+
+        $entitySingular = $this->inflector->singularize($type->transcription);
+
+        $entityName = "$type->name";
+        $entityTranscription = "$type->transcription";
+        $entityShowRoute = "$entitySingular.show";
 
         return view('pages.entity.edit', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'categoryUri' => null,
             'regions' => $this->regions,
-            'secondPositionUrl' => $secondPositionUrl,
-            'secondPositionName' => $secondPositionName,
+            'entityName' => $entityName,
+            'entityTranscription' => $entityTranscription,
+            'entityShowRoute' => $entityShowRoute,
             'entity' => $entity,
         ]);
     }
@@ -96,7 +106,7 @@ class EntityController extends BaseController
 
     public function editPhoto(Request $request, $idOrTranscript)
     {
-        $entity = Entity::query()->active();
+        $entity = Entity::query()->active()->with('type');
 
         if (is_numeric($idOrTranscript)) {
             $entity = $entity->where('id', $idOrTranscript)->First();
@@ -108,16 +118,22 @@ class EntityController extends BaseController
             return redirect()->route('home');
         }
 
-        $secondPositionUrl = "home";
-        $secondPositionName = 'Добавить фото';
+        $type = $entity->type()->First();
+
+        $entitySingular = $this->inflector->singularize($type->transcription);
+
+        $entityName = "$type->name";
+        $entityTranscription = "$type->transcription";
+        $entityShowRoute = "$entitySingular.show";
 
         return view('pages.entity.photo', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'categoryUri' => null,
             'regions' => $this->regions,
-            'secondPositionUrl' => $secondPositionUrl,
-            'secondPositionName' => $secondPositionName,
+            'entityName' => $entityName,
+            'entityTranscription' => $entityTranscription,
+            'entityShowRoute' => $entityShowRoute,
             'entity' => $entity,
         ]);
     }
@@ -128,12 +144,12 @@ class EntityController extends BaseController
 
         if (is_numeric($idOrTranscript)) {
             $entity = $entity->where('id', $idOrTranscript)->First();
-            if ($entity != null){
+            if ($entity != null) {
                 if ($request->hasFile('images')) {
                     $images = $entity->images(false);
                     $lastImage = $images->orderBy('sort_id', 'DESC')->first()->sort_id;
                     $imagesCount = $images->count();
-                    if ((count($request->images) + $imagesCount) > 20){
+                    if ((count($request->images) + $imagesCount) > 20) {
                         return redirect()->back()->with('error', 'Количество изображений превысило лимит');
                     }
                     foreach ($request->file('images') as $sortId => $file) {
