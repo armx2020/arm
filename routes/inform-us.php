@@ -4,6 +4,7 @@ use App\Http\Controllers\InformUs\AppealController;
 use App\Http\Controllers\InformUs\CommunityController;
 use App\Http\Controllers\InformUs\CompanyController;
 use App\Http\Controllers\InformUs\GroupController;
+use App\Http\Controllers\InformUs\JobController;
 use App\Http\Controllers\InformUs\PlaceController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,9 @@ Route::name('inform-us.')->group(function () {
 
     Route::get('/inform-us/community', [CommunityController::class, 'index'])->name('community');
     Route::post('/inform-us/community', [CommunityController::class, 'store']);
+
+    Route::get('/inform-us/job', [JobController::class, 'index'])->name('job');
+    Route::post('/inform-us/job', [JobController::class, 'store']);
 
     Route::get('/inform-us/appeal', [AppealController::class, 'index'])->name('appeal');
     Route::post('/inform-us/appeal', [AppealController::class, 'store']);
