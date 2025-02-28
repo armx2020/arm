@@ -48,20 +48,22 @@
                                             ]);
 
                                             if ($selectedCategory) {
-                                                $routeNameForRegionSelect =
-                                                    $routeNameForRegionSelect . '/' . $selectedCategory->transcription;
+                                                $routeNameForRegionSelect .= '/' . $selectedCategory->transcription;
                                             }
 
                                             if ($selectedSubCategory) {
-                                                $routeNameForRegionSelect =
-                                                    $routeNameForRegionSelect .
-                                                    '/' .
-                                                    $selectedSubCategory->transcription;
+                                                $routeNameForRegionSelect .= '/' . $selectedSubCategory->transcription;
                                             }
+
+                                            // Проверяем, если регион "Россия" — подставляем другое название для отображения
+                                            $displayName = ($reg->name === 'Россия') ? 'Все регионы' : $reg->name;
                                         @endphp
 
-                                        <option @selected($reg->transcription == $region) value="{{ $routeNameForRegionSelect }}">
-                                            {{ $reg->name }}
+                                        <option
+                                            @selected($reg->transcription == $region)
+                                            value="{{ $routeNameForRegionSelect }}"
+                                            >
+                                            {{ $displayName }}
                                         </option>
                                     @endforeach
 
