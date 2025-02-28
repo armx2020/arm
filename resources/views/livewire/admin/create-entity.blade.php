@@ -167,6 +167,14 @@
                                     <div class="grid grid-cols-6 gap-4">
 
                                         <div class="col-span-6">
+                                            <x-input-label for="paymant_link" :value="__('Платёжная ссылка')" />
+                                            <x-text-input id="paymant_link" name="paymant_link" type="text"
+                                                class="mt-1 block w-full bg-gray-50"
+                                                placeholder='https://*************' :value="old('paymant_link')" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('paymant_link')" />
+                                        </div>
+
+                                        <div class="col-span-6">
                                             <x-input-label for="web" :value="__('Веб')" />
                                             <x-text-input id="web" name="web" type="text"
                                                 class="mt-1 block w-full bg-gray-50"

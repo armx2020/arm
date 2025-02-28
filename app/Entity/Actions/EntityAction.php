@@ -5,6 +5,7 @@ namespace App\Entity\Actions;
 use App\Entity\Actions\Traits\GetCity;
 use App\Models\Category;
 use App\Models\Entity;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
@@ -38,6 +39,10 @@ class EntityAction
         $entity->user_id = $user_id ?: $request->user;
         $entity->activity = $request->activity ? 1 : 0;
         $entity->sort_id = $request->sort_id;
+
+        if ($request->paymant_link && Auth::user() && Auth::user()->hasRole('super-admin')) {
+            $entity->paymant_link = $request->paymant_link;
+        }
 
         $entity->save();
 
@@ -100,6 +105,10 @@ class EntityAction
         $entity->activity = $request->activity ? 1 : 0;
         $entity->category_id = null;
         $entity->sort_id = $request->sort_id;
+
+        if ($request->paymant_link && Auth::user() && Auth::user()->hasRole('super-admin')) {
+            $entity->paymant_link = $request->paymant_link;
+        }
 
         $entity->save();
 
@@ -164,7 +173,7 @@ class EntityAction
                     }
 
                     Image::make('storage/' . $newImage->path)
-                        ->resize(400, null, function($constraint){
+                        ->resize(400, null, function ($constraint) {
                             $constraint->aspectRatio();
                         })
                         ->save();

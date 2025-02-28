@@ -18,6 +18,7 @@ class StoreEntityRequest extends FormRequest
             'address'         => ['nullable', 'string', 'max:128'],
             'phone'           => ['nullable', 'string', 'max:36'],
             'description'     => ['nullable', 'string'],
+            'paymant_link'    => ['nullable', new WebUrl],
             'web'             => ['nullable', new WebUrl],
             'whatsapp'        => ['nullable', new WhatsappUrl],
             'telegram'        => ['nullable', new TelegramUrl],

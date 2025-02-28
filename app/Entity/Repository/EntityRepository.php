@@ -27,6 +27,7 @@ class EntityRepository implements EntityColumnsInterface, EntityFiltersInterface
         'city_id',
         'sort_id',
         'region_id',
+        'paymant_link'
     ];
 
     protected $selectedColumns = [
