@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @php
-    $sitemap = App\Models\SiteMap::where('url', url()->current())->First();
+    $sitemap = App\Models\SiteMap::select('url', 'title', 'description')->where('url', url()->current())->First();
 
     $title = 'Все армяне';
     $description = 'Сообщество армян в России';
@@ -73,7 +73,16 @@
                             <div class="bg-white mt-3 basis-full rounded-md">
                                 <select name="region" id="region-select" class="w-full border-0 rounded-md"
                                     autocomplete="off">
-                                    @foreach (App\Models\Region::all() as $reg)
+
+                                    @php
+                                        $regionsCollect = collect(Cache::get('all_regions', []));
+
+                                        if ($regionsCollect->isEmpty()) {
+                                            $regionsCollect = App\Models\Region::all();
+                                        }
+                                    @endphp
+
+                                    @foreach ($regionsCollect as $reg)
                                         @php
                                             $routeNameForRegionSelect = route("$entityTranscription.region", [
                                                 'regionTranslit' => $reg->transcription,
@@ -287,7 +296,7 @@
                         @if ($entities->isEmpty())
                             <x-pages.absence-entity />
                         @else
-                            <x-pages.grid :entities="$entities" :$entityShowRoute />
+                            <x-pages.grid :entities="$entities" :$entityShowRoute :$region />
                             <div class="w-full  mx-auto py-3 lg:py-10">
                                 {{ $entities->onEachSide(2)->links() }}
                             </div>

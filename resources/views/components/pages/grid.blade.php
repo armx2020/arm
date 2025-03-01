@@ -5,7 +5,7 @@
     @endphp
 
     @foreach ($entities as $entity)
-        {{-- @if ($isNeedRecomendation && "$entity->region_id" !== $this->region && $this->region !== '1')
+        @if ($isNeedRecomendation && "$entity->region()->transcription" !== $region && $region !== 'russia')
             @if ($loop->iteration == 1)
                 <x-pages.absence-recomendation />
             @else
@@ -14,11 +14,10 @@
                 </div>
             @endif
 
-
             @php
                 $isNeedRecomendation = false;
             @endphp
-        @endif --}}
+        @endif
         <x-pages.card :entity="$entity" :$entityShowRoute />
     @endforeach
 </div>

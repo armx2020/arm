@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Region;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 
 abstract class BaseController extends Controller
 {
     protected $regions = [];
-    
+
     protected $quantityOfDisplayed = 20; // Количество отоброжаемых сущностей
 
     public function __construct()
@@ -20,18 +21,30 @@ abstract class BaseController extends Controller
 
     public function getRegion($request, $regionTranslit = null)
     {
+        $regionsCollect = collect(Cache::get('all_regions', []));
+
+        if ($regionsCollect->isEmpty()) {
+            Artisan::call('cache-regions');
+        }
+
         if ($regionTranslit == null) {
-            $region = Region::select('id', 'name', 'transcription')->find(1);
+
+            $region = $regionsCollect->firstWhere('transcription', 'like', 'russia');
+
             $request->session()->put('regionName', $region->name);
             $request->session()->put('regionTranslit', $region->transcription);
         } else {
-            $region = Region::select('id', 'name', 'transcription')->where('transcription', 'like', $regionTranslit)->First();
+
+            $region = $regionsCollect->firstWhere('transcription', 'like', $regionTranslit);
 
             if ($region) {
                 $request->session()->put('regionName', $region->name);
                 $request->session()->put('regionTranslit', $region->transcription);
             } else {
-                $city = City::select('id', 'name', 'transcription')->where('transcription', 'like', $regionTranslit)->First();
+                $city = City::select('id', 'name', 'transcription', 'region_id')->with('region')->where('transcription', 'like', $regionTranslit)->First();
+
+                $citiesCollect = collect(Cache::get('all_cities', []));
+                $city = $citiesCollect->firstWhere('transcription', 'like', $regionTranslit);
 
                 if ($city) {
                     $request->session()->put('regionName', $city->region->name);

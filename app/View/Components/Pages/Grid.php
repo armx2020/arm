@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 
 class Grid extends Component
 {
-    public function __construct(public $entities, public $entityShowRoute)
+    public function __construct(public $entities, public $entityShowRoute, public $region)
     {
         //
     }

@@ -2,7 +2,7 @@
     id="{{ $entity->id }}_card">
     <a href="{{ route($entityShowRoute, ['idOrTranscript' => $entity->id]) }}">
         <img class="h-32 w-32 min-h-32 min-w-32 md:h-56 md:w-56 md:min-h-56 md:min-w-56 lg:h-72 lg:w-72 lg:min-h-72 lg:min-w-72 rounded-lg object-cover"
-        @if(isset($entity->images()->get()[0])) src={{ asset('storage/' . $entity->images()->get()[0]->path) }}
+        @if(isset($entity->images[0])) src={{ asset('storage/' . $entity->images[0]->path) }}
         @else src={{ url('/image/no_photo.jpg') }}
         @endif
             alt="{{ $entity->name }}" />

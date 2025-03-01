@@ -59,7 +59,7 @@ class DinamicRouteController extends BaseController
             return redirect()->route('home', ['regionTranslit' => $region->transcription]);
         }
 
-        $entities = Entity::query()->active()->where('entity_type_id', $type->id)->with('fields', 'offers')->withCount('offers');
+        $entities = Entity::query()->active()->where('entity_type_id', $type->id)->with('fields', 'offers', 'images', 'city', 'region')->withCount('offers');
         $categories = Category::query()->main()->active()->where('entity_type_id', $type->id)->get();
         $subCategories = null;
 
@@ -140,7 +140,7 @@ class DinamicRouteController extends BaseController
             return redirect()->route('home', ['regionTranslit' => $region->transcription]);
         }
 
-        $entities = Entity::query()->active()->where('entity_type_id', $type->id)->with('fields', 'offers')->withCount('offers');
+        $entities = Entity::query()->active()->where('entity_type_id', $type->id)->with('fields', 'offers', 'images', 'city', 'region')->withCount('offers');
         $categories = Category::query()->main()->active()->where('entity_type_id', $type->id)->get();
         $subCategories = null;
 
