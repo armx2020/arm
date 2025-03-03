@@ -56,7 +56,7 @@ class DinamicRouteController extends BaseController
         $type = EntityType::where('transcription', $plural)->First();
 
         if (!$type) {
-            return redirect()->route('home', ['regionTranslit' => $region->transcription]);
+            return redirect()->route('home');
         }
 
         $entities = Entity::query()->active()->where('entity_type_id', $type->id)->with('fields', 'offers', 'images', 'city', 'region')->withCount('offers');
@@ -234,7 +234,7 @@ class DinamicRouteController extends BaseController
         }
 
         if (!$entity) {
-            return redirect()->route('home');
+            return redirect()->route('home', ['regionTranslit' => $this->request->session()->get('regionTranslit') ?: null]);
         }
 
         $otherEntities = $entity->getSimilarEntities();
