@@ -5,7 +5,7 @@
     @endphp
 
     @foreach ($entities as $entity)
-        @if ($isNeedRecomendation && "$entity->region()->transcription" !== $region && $region !== 'russia')
+        @if ($isNeedRecomendation && $entity->region->transcription !== $region && $region !== 'russia')
             @if ($loop->iteration == 1)
                 <x-pages.absence-recomendation />
             @else
