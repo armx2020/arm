@@ -22,7 +22,7 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
     {
         foreach ($rows as $row) {
 
-            $this->getCategories([$row[12], $row[13], $row[14], $row[15], $row[16], $row[17], $row[18], $row[18]]);
+            //$this->getCategories([$row[12], $row[13], $row[14], $row[15], $row[16], $row[17], $row[18], $row[18]]);
 
             $entity = Entity::updateOrCreate(
                 [
@@ -35,25 +35,26 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     // 'region_id' => $this->getRegionName($row[4] == '_' ? null : $row[4]),
                     // 'address' => $this->getAddress($row[5]),
                     // 'phone' => $row[6] == '_' ? null : $row[6],
-                    // 'whatsapp' => $row[7] == '_' ? null : $row[7],
+                    'whatsapp' => $this->getWhatsapp($row[7]),
                     // 'email' =>  $row[8] == '_' ? null : $row[8],
                     // 'web' => $row[9] == '_' ? null : $row[9],
                     // 'telegram' => $row[10] == '_' ? null : $row[10],
                     // 'vkontakte' => $row[11] == '_' ? null : $row[11],
 
-                    'comment' => $this->comment,
-                    'entity_type_id' => 1,
-                    'category_id' => 78,
+                    // 'entity_type_id' => 1,
+                    // 'category_id' => 78,
+                    // 'comment' => $this->comment,
+
 
                     //    'image' => null,
                     // 'activity' => false,
                 ]
             );
 
-            $entity->fields()->syncWithPivotValues($this->result, ['main_category_id' => 78]);
+            // $entity->fields()->syncWithPivotValues($this->result, ['main_category_id' => 78]);
 
-            $this->comment = '';
-            $this->result = [];
+            // $this->comment = '';
+            // $this->result = [];
 
 
             // if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/1.png")) {
@@ -102,6 +103,21 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
     public function batchSize(): int
     {
         return 200;
+    }
+
+    public function getWhatsapp($data)
+    {
+        if ($data == '_') {
+            return null;
+        }
+
+        if ((strpos($data, "&"))) {
+            $result = explode("&", $data);
+
+            $data = $result[0];
+        }
+
+        return $data;
     }
 
     public function getCityName($data)
@@ -164,11 +180,11 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     }
                 }
 
-                if(!$isFind) {
-                    if($this->comment == '') {
-                        $this->comment = "Не найденные строки: " .  $row. "; ";
+                if (!$isFind) {
+                    if ($this->comment == '') {
+                        $this->comment = "Не найденные строки: " .  $row . "; ";
                     } else {
-                        $this->comment = $this->comment .  $row. "; ";
+                        $this->comment = $this->comment .  $row . "; ";
                     }
                 }
             }
