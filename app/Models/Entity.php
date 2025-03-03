@@ -43,7 +43,6 @@ class Entity extends Model
         'link',
         'email',
         'director',
-        'image',
         'description',
         'phone',
         'web',
