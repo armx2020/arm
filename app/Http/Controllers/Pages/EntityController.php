@@ -182,16 +182,16 @@ class EntityController extends BaseController
 
         switch ($entity->entity_type_id) {
             case 4:
-                return redirect()->route('community.show', ['idOrTranscript' => $entity->id])->with('success', 'Ваша заявка успешно принята, изменения будут доступны после модерации');
+                return redirect()->route('community.show', ['idOrTranscript' => $entity->id])->with('success', "Спасибо за ваш вклад в наше сообщество! Ваша информация поможет многим найти надежные компании и услуги. Мы ценим вашу активность и заботу о наших земляках!");
                 break;
             case 3:
-                return redirect()->route('place.show', ['idOrTranscript' => $entity->id])->with('success', 'Ваша заявка успешно принята, изменения будут доступны после модерации');
+                return redirect()->route('place.show', ['idOrTranscript' => $entity->id])->with('success', "Спасибо за ваш вклад в наше сообщество! Ваша информация поможет многим найти надежные компании и услуги. Мы ценим вашу активность и заботу о наших земляках!");
                 break;
             case 2:
-                return redirect()->route('group.show', ['idOrTranscript' => $entity->id])->with('success', 'Ваша заявка успешно принята, изменения будут доступны после модерации');
+                return redirect()->route('group.show', ['idOrTranscript' => $entity->id])->with('success', "Спасибо за ваш вклад в наше сообщество! Ваша информация поможет многим найти надежные компании и услуги. Мы ценим вашу активность и заботу о наших земляках!");
                 break;
             default:
-                return redirect()->route('company.show', ['idOrTranscript' => $entity->id])->with('success', 'Ваша заявка успешно принята, изменения будут доступны после модерации');
+                return redirect()->route('company.show', ['idOrTranscript' => $entity->id])->with('success', "Спасибо за ваш вклад в наше сообщество! Ваша информация поможет многим найти надежные компании и услуги. Мы ценим вашу активность и заботу о наших земляках!");
                 break;
         }
     }

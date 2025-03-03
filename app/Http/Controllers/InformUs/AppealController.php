@@ -30,6 +30,6 @@ class AppealController extends BaseInformUsController
     {
         $appeal = $this->appealAction->store($request);
 
-        return redirect()->route('inform-us.appeal')->with('success', 'Ваша заявка успешно принята');
+        return redirect()->route('inform-us.appeal')->with('success', "Спасибо за ваш вклад в наше сообщество! Ваша информация поможет многим найти надежные компании и услуги. Мы ценим вашу активность и заботу о наших земляках!");
     }
 }
