@@ -60,17 +60,84 @@
         <div>
             <div class="flex flex-wrap mx-auto pt-4 lg:pt-10 md:flex-wrap">
 
+                <!-- Бизнес справочник -->
+                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/6 pr-2 md:pr-3 xl:pr-2">
+                    <div class="bg-[#DBE6FB] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
+                        <a
+                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('companies.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('companies.index') }}" @endif>
+                            <div class="flex flex-col h-full w-full relative">
+                                <p class="m-1 lg:m-2 text-sm md:text-lg font-bold" style="line-height:1.25rem;">Справочник услуг</p>
+                                <p class="mx-1 lg:mx-2 text-xs md:text-base font-light">Каталог товаров/услуг</p>
+                                <div class="absolute bottom-0 w-full">
+                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[70%] md:w-[84%] sm:w-[95%] ls:w-[75%] ms:w-[95%] es:w-[100%]"
+                                         src="{{ url('/image/building.png') }}" alt="banner">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Общины консульства -->
+                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/6 pl-2 sm:pl-1 sm:pr-1 md:pl-1.5 md:pr-1.5 xl:pr-2 xl:pl-0">
+                    <div class="bg-[#E7E6E4] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72 ">
+                        <a
+                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('communities.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('communities.index') }}" @endif>
+                            <div class="flex flex-col h-full w-full relative">
+                                <p class="m-1 lg:m-2 text-sm md:text-base font-bold">Армянские общины</p>
+                                <p class="mx-1 lg:mx-2 text-xs md:text-base font-light">Каталог товаров/услуг </p>
+                                <div class="absolute bottom-0 w-full">
+                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[70%] md:w-[75%] sm:w-[84%] ls:w-[75%] ms:w-[90%] es:w-[100%]"
+                                         src="{{ url('/image/university.png') }}" alt="like">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Поиск работы -->
+                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/6 pr-2 sm:pr-0 sm:pl-2 md:pl-3 xl:pr-2 xl:pl-0">
+                    <div class="bg-[#E7EEF1] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
+                        <a
+                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('jobs.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('jobs.index') }}" @endif>
+                            <div class="flex flex-col h-full w-full relative">
+                                <p class="m-1 lg:m-2 text-sm md:text-lg font-bold">Поиск работы</p>
+                                <p class="mx-1 lg:mx-2 text-xs md:text-base font-light">Найти работу или разместить вакансию</p>
+                                <div class="absolute bottom-0 w-full">
+                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[70%] md:w-[84%] sm:w-[100%] ls:w-[93%] ms:w-[95%] es:w-[100%]"
+                                         src="{{ url('/image/to_find_job.png') }}" alt="banner">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Проекты помощи -->
+                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/6 pl-2 sm:pl-0 sm:pr-2 md:pl-0 md:pr-3 xl:pr-2 xl:pl-0">
+                    <div class="bg-[#D6EBEE] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
+                        <a
+                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('groups.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('groups.index') }}" @endif>
+                            <div class="flex flex-col h-full w-full relative">
+                                <p class="m-1 lg:m-2 text-sm md:text-lg font-bold">Проекты помощи</p>
+                                <p class="mx-1 lg:mx-2 text-xs md:text-base font-light">Помощь нуждающимся</p>
+                                <div class="absolute bottom-0 w-full">
+                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[70%] md:w-[80%] sm:w-[87%] ls:w-[75%] ms:w-[95%] es:w-[100%]"
+                                         src="{{ url('/image/help.png') }}" alt="banner">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
                 <!-- Интересные места -->
-                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pr-4 lg:pr-2">
-                    <div class="bg-[#f0e7ce] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
+                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/6 pr-2 sm:pr-1 sm:pl-1 md:pl-1.5 md:pr-1.5 xl:pr-2 xl:pl-0">
+                    <div class="bg-[#F0E7CE] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
                         <a
                             @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('places.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('places.index') }}" @endif>
                             <div class="flex flex-col h-full w-full relative">
-                                <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Интересные
-                                    места, церкви</p>
-                                <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Интересные места</p>
+                                <p class="m-1 lg:m-2 text-sm md:text-lg font-bold" style="line-height:1.25rem;">Интересные места, Церкви</p>
+                                <p class="mx-1 lg:mx-2 text-xs md:text-base font-light">Интересные места</p>
                                 <div class="absolute bottom-0 w-full">
-                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[100%] md:w-[95%] sm:w-[62%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
+                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[70%] md:w-[72%] sm:w-[77%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
                                         src="{{ url('/image/church.png') }}" alt="banner">
                                 </div>
                             </div>
@@ -79,16 +146,15 @@
                 </div>
 
                 <!-- Кружки сообщества -->
-                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-2">
-                    <div class="bg-[#d7e6d8] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
+                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/6 pl-2 md:pl-0 md:pl-3 xl:pl-0">
+                    <div class="bg-[#D7E6D8] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
                         <a
                             @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('groups.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('groups.index') }}" @endif>
                             <div class="flex flex-col h-full w-full relative">
-                                <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Кружки,
-                                    сообщества</p>
-                                <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Сообщества, группы по интересам</p>
+                                <p class="m-1 lg:m-2 text-sm md:text-lg font-bold" style="line-height:1.25rem;">Кружки, сообщества</p>
+                                <p class="mx-1 lg:mx-2 text-xs md:text-base font-light">Сообщества, группы по интересам</p>
                                 <div class="absolute bottom-0 w-full">
-                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[100%] md:w-[95%] sm:w-[62%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
+                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[70%] md:w-[95%] sm:w-[100%] ls:w-[95%] ms:w-[100%] es:w-[100%]"
                                         src="{{ url('/image/group-of-young-people-waving-hand.png') }}" alt="friends">
                                 </div>
                             </div>
@@ -96,59 +162,6 @@
                     </div>
                 </div>
 
-                <!-- Бизнес справочник -->
-                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pr-2 md:pr-4 lg:pr-2">
-                    <div class="bg-[#dbe6fb] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
-                        <a
-                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('companies.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('companies.index') }}" @endif>
-                            <div class="flex flex-col h-full w-full relative">
-                                <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold" style="line-height:1.25rem;">Бизнес
-                                    справочник</p>
-                                <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Каталог товаров/услуг</p>
-                                <div class="absolute bottom-0 w-full">
-                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[100%] md:w-[95%] sm:w-[62%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
-                                        src="{{ url('/image/building.png') }}" alt="banner">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Общины консульства -->
-                <div class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-2">
-                    <div class="bg-[#e6c6c9] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72 ">
-                        <a
-                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('communities.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('communities.index') }}" @endif>
-                            <div class="flex flex-col h-full w-full relative">
-                                <p class="m-1 lg:m-2 text-sm lg:text-base font-bold">Общины консульства</p>
-                                <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Каталог товаров/услуг </p>
-                                <div class="absolute bottom-0 w-full">
-                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[100%] md:w-[95%] sm:w-[62%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
-                                        src="{{ url('/image/university.png') }}" alt="like">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Поиск работы -->
-                <div
-                    class="CEB__wrapTable mb-5 w-1/2 sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 pl-2 md:pl-0 md:pr-4 lg:pr-0 hidden lg:block">
-                    <div class="bg-[#feecdc] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
-                        <a
-                            @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('jobs.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('jobs.index') }}" @endif>
-                            <div class="flex flex-col h-full w-full relative">
-                                <p class="m-1 lg:m-2 text-sm lg:text-lg font-bold">Поиск работы</p>
-                                <p class="mx-1 lg:mx-2 text-xs lg:text-base font-light">Найти работу или разместить вакансию
-                                </p>
-                                <div class="absolute bottom-0 w-full">
-                                    <img class="mb-2 flex self-center m-auto rounded-xl xl:w-[90%] lg:w-[100%] md:w-[95%] sm:w-[62%] ls:w-[75%] ms:w-[87%] es:w-[100%]"
-                                        src="{{ url('/image/to_find_job.png') }}" alt="banner">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
 
             </div>
         </div>
