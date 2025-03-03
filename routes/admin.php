@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryEntityController;
 use App\Http\Controllers\Admin\EntityController;
+use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\ImportCategoryController;
 use App\Http\Controllers\Admin\ImportChurchController;
 use App\Http\Controllers\Admin\ImportDoctorController;
@@ -33,9 +34,15 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('entity', EntityController::class)->except([
             'show'
         ]);
+
+        Route::resource('image', ImageController::class)->except([
+             'show', 'create', 'store', 'update'
+        ]);
+
         Route::resource('offer', OfferController::class)->except([
             'show'
         ]);
+
         Route::resource('appeal', AppealController::class)->except([
             'show', 'create', 'store'
         ]);

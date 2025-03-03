@@ -54,6 +54,11 @@ abstract class BaseAdminController extends Controller
                         'route' => 'admin.entity.report-double',
                         'routeIs' => 'admin.entity.report-double.*',
                     ],
+                    [
+                        'name' => 'Реестр изображени',
+                        'route' => 'admin.image.index',
+                        'routeIs' => 'admin.image.*',
+                    ],
                 ]
             ],
             [

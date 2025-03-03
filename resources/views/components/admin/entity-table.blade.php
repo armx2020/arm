@@ -26,7 +26,7 @@
                         </form>
                     </div>
 
-                    @if ($entityName !== 'appeal')
+                    @if ($entityName !== 'appeal' && $entityName !== 'image')
                         <div class="flex items-center space-x-1 lg:space-x-2">
                             <a href="{{ route('admin.' . $entityName . '.create') }}"
                                 data-modal-toggle="add-{{ $entityName }}-modal"
@@ -76,7 +76,7 @@
                                     <thead class="bg-gray-200">
                                         <tr>
                                             @foreach ($selectedColumns as $column)
-                                                @if($column != 'img')
+                                                @if ($column != 'img')
                                                     <th scope="col"
                                                         class="p-4 text-left text-xs font-medium text-gray-500 uppercase max-w-[20rem] truncate">
                                                         <button wire:click.prevent='sortBy("{{ $column }}")'
@@ -93,7 +93,7 @@
                                                 @else
                                                     <th scope="col"
                                                         class="p-4 text-left text-xs font-medium text-gray-500 max-w-[20rem] truncate cursor-default">
-                                                            {{ __('column.' . $column) }}
+                                                        {{ __('column.' . $column) }}
                                                     </th>
                                                 @endif
                                             @endforeach
@@ -113,10 +113,18 @@
                                                         ' ' .
                                                         ($entity->activity ? 'text-gray-900' : 'text-gray-600');
                                                 } else {
-                                                    if ($entity->activity) {
-                                                        $rowClass = 'bg-white text-gray-900';
+                                                    if ($entityName == 'image') {
+                                                        if ($entity->checked) {
+                                                            $rowClass = 'bg-white text-gray-900';
+                                                        } else {
+                                                            $rowClass = 'bg-gray-300 text-gray-600';
+                                                        }
                                                     } else {
-                                                        $rowClass = 'bg-gray-300 text-gray-600';
+                                                        if ($entity->activity) {
+                                                            $rowClass = 'bg-white text-gray-900';
+                                                        } else {
+                                                            $rowClass = 'bg-gray-300 text-gray-600';
+                                                        }
                                                     }
                                                 }
                                             @endphp
@@ -150,8 +158,10 @@
                                                             @break
 
                                                             @case('img')
-                                                                @if(isset($entity->primaryImage->path))
-                                                                    <img class="w-8 h-8 object-cover rounded-lg" src="{{ asset('storage/' . $entity->primaryImage->path) }}" alt="Image">
+                                                                @if (isset($entity->primaryImage->path))
+                                                                    <img class="w-8 h-8 object-cover rounded-lg"
+                                                                        src="{{ asset('storage/' . $entity->primaryImage->path) }}"
+                                                                        alt="Image">
                                                                 @else
                                                                     -
                                                                 @endif
@@ -168,6 +178,34 @@
                                                                         </a>
                                                                     @endif
                                                                 @endisset
+                                                            @break
+
+                                                            @case('imageable_type')
+                                                                @isset($entity->imageable->type)
+                                                                    <a class="text-blue-800 hover:text-blue-600"
+                                                                        href="{{ route('admin.type.edit', ['type' => $entity->imageable->type->id]) }}">
+                                                                        {{ $entity->imageable->type->name }}
+                                                                    </a>
+                                                                @endisset
+                                                            @break
+
+                                                            @case('imageable_id')
+                                                                @isset($entity->imageable)
+                                                                    <a class="text-blue-800 hover:text-blue-600"
+                                                                        href="{{ route('admin.entity.edit', ['entity' => $entity->imageable->id]) }}">
+                                                                        {{ $entity->imageable->name }}
+                                                                    </a>
+                                                                @endisset
+                                                            @break
+
+                                                            @case('path')
+                                                                @if (isset($entity->path))
+                                                                    <img class="w-8 h-8 object-cover rounded-lg"
+                                                                        src="{{ asset('storage/' . $entity->path) }}"
+                                                                        alt="Image">
+                                                                @else
+                                                                    -
+                                                                @endif
                                                             @break
 
                                                             @default
