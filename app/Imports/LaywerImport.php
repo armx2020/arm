@@ -29,21 +29,21 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
             if ($entity) {
                 $entity->update(
                     [
-                        'link' => $row[1] == '_' ? null : $row[1],
-                        'description' => $row[3] == '_' ? null : $row[3],
-                        'city_id' => $this->getCityName($row[4] == '_' ? null : $row[4]),
-                        'region_id' => $this->getRegionName($row[4] == '_' ? null : $row[4]),
-                        'address' => $this->getAddress($row[5]),
-                        'phone' => $row[6] == '_' ? null : $row[6],
+                        // 'link' => $row[1] == '_' ? null : $row[1],
+                        // 'description' => $row[3] == '_' ? null : $row[3],
+                        // 'city_id' => $this->getCityName($row[4] == '_' ? null : $row[4]),
+                        // 'region_id' => $this->getRegionName($row[4] == '_' ? null : $row[4]),
+                        // 'address' => $this->getAddress($row[5]),
+                        // 'phone' => $row[6] == '_' ? null : $row[6],
                         'whatsapp' => $this->getWhatsapp($row[7]),
                         'email' =>  $row[8] == '_' ? null : $row[8],
                         'web' => $row[9] == '_' ? null : $row[9],
                         'telegram' => $row[10] == '_' ? null : $row[10],
                         'vkontakte' => $row[11] == '_' ? null : $row[11],
 
-                        'entity_type_id' => 1,
-                        'category_id' => 78,
-                        'comment' => $this->comment,
+                        // 'entity_type_id' => 1,
+                        // 'category_id' => 78,
+                        // 'comment' => $this->comment,
 
 
                         //    'image' => null,
