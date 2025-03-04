@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Все армяне - Настройки</title>
+    <title>Армянский справочник для армян России и мира - Настройки</title>
 @endsection
 
 @section('scripts')

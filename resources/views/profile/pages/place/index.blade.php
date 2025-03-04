@@ -1,4 +1,14 @@
 @extends('layouts.app')
+
+@section('title')
+    <title>Армянский справочник для армян России и мира - Мои места</title>
+@endsection
+
+@section('meta')
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Армянский справочник для армян России и мира - Мои места">
+@endsection
+
 @section('content')
     <div class="flex flex-col lg:flex-row mx-auto my-10">
         @include('profile.menu')

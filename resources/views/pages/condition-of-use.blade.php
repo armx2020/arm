@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Все армяне - Условия использование  </title>
+    <title>Армянский справочник для армян России и мира - Условия использования</title>
 @endsection
 
 @section('meta')
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Армянский справочник для армян России и мира - Условия использования">
 @endsection
 
 @section('content')
@@ -18,7 +20,7 @@
         </li>
         <li class="text-neutral-500">
             <a href="{{ route('condition-of-use') }}">
-                Условия использование</a>
+                Условия использования</a>
         </li>
     </ol>
 </nav>

@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Исправить неточность - {{ $entity->name }}
-    </title>
+    <title>Исправить неточность - {{ $entity->name }}</title>
+@endsection
+
+@section('meta')
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Исправить неточность - {{ $entity->name }}">
 @endsection
 
 @section('scripts')

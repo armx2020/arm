@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Все армяне - Сообщите нам о сообществе</title>
+    <title>Армянский справочник для армян России и мира</title>
 @endsection
 
+@section('meta')
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Армянский справочник для армян России и мираУ">
+@endsection
 
 @section('scripts')
     <script src="{{ url('/select2.min.js') }}"></script>

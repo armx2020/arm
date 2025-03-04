@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Все армяне - Частые вопросы</title>
+    <title>Армянский справочник для армян России и мира - частые вопросы</title>
 @endsection
 
+@section('meta')
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Армянский справочник для армян России и мира - частые вопросы">
+@endsection
 @section('content')
 
 <div class="flex flex-col lg:flex-row mx-auto my-10">

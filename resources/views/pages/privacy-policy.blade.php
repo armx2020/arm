@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Все армяне -  Политика конфидициальности </title>
+    <title>Армянский справочник для армян России и мира -  Политика конфидициальности</title>
 @endsection
 
 @section('meta')
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Армянский справочник для армян России и мира - Политика конфидициальности">
 @endsection
 
 @section('content')

@@ -1,5 +1,14 @@
 @extends('layouts.app')
-@section('title', '- ОСТАВЬТЕ НАМ СВОЮ ЗАЯВКУ')
+
+@section('title')
+    <title>Армянский справочник для армян России и мира</title>
+@endsection
+
+@section('meta')
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Армянский справочник для армян России и мираУ">
+@endsection
+
 @section('content')
     <x-pages.breadcrumbs :$secondPositionUrl :$secondPositionName />
     <section>

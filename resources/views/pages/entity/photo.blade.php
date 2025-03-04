@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Добавить фото - {{ $entity->name }}
-    </title>
+    <title>Добавить фото - {{ $entity->name }}</title>
+@endsection
+
+@section('meta')
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Добавить фото - {{ $entity->name }}">
 @endsection
 
 @section('scripts')
