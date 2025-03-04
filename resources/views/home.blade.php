@@ -1,17 +1,26 @@
 @extends('layouts.app')
 
+@php
+    $sitemap = App\Models\SiteMap::select('url', 'title', 'description')->where('url', url()->current())->First();
+
+    $title = 'Все армяне';
+    $description = 'Сообщество армян в России';
+
+    if ($sitemap) {
+        $title = $sitemap->title;
+        $description = $sitemap->description;
+    }
+
+@endphp
+
 @section('title')
-    <title>Все армяне
-        @if (isset($regionName) && $regionName !== 'Россия')
-            {{ ' - ' . $regionName }}
-        @endif
+    <title>{{ $title }}
     </title>
 @endsection
 
 @section('meta')
     <meta name="robots" content="index, follow" />
-    <meta name="description"
-        content="Сообщество армян в России: актуальные новости, культурные события и полезная информация для вас!">
+    <meta name="description" content="{{ $description }}">
 @endsection
 
 @section('content')

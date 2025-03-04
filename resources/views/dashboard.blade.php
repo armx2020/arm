@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Все армяне - Мой профиль </title>
+    <title>Армянский справочник для армян России и мира - Мой профиль </title>
 @endsection
 
 @section('meta')
     <meta name="robots" content="index, follow" />
-    <meta name="description" content="Сообщество армян в России: актуальные новости, культурные события и полезная информация для вас!">
+    <meta name="description" content="Армянский справочник для армян России и мира">
 @endsection
 
 
