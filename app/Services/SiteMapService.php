@@ -60,13 +60,13 @@ class SiteMapService
 
                 if ($region->id == 1) {
                     $url = 'https://vsearmyane.ru';
-                    $name = 'Сообщество армян в России';
-                    $description = "Сообщество армян в России";
+                    $name = 'Армянский справочник для армян России и мира';
+                    $description = 'Армянский справочник для армян России и мира';
                     $site_map_type = $this->site_map_types['домашняя (общая)'];
                 } else {
                     $url = 'https://vsearmyane.ru'  . '/' . $region->transcription;
-                    $name = $region->name;
-                    $description = "Сообщество армян в России: " . strtolower($region->name);
+                    $name = "Армянский справочник для армян России и мира " . $region->name_dat;
+                    $description = "Армянский справочник для армян России и мира " . $region->name_dat;
                     $site_map_type = $this->site_map_types['домашняя (область)'];
                 }
 
@@ -92,15 +92,10 @@ class SiteMapService
                 // Типы сущностей в регионе
                 foreach ($entity_types as $type) {
 
-                    if ($region->id == 1) {
-                        $name =  "Сообщество армян в России - " . strtolower($type->name);
-                        $description = "Сообщество армян в России - " . strtolower($type->name);
-                        $site_map_type = $this->site_map_types['тип сущности (общая)'];
-                    } else {
-                        $name = $region->name . " - " . strtolower($type->name);
-                        $description = $region->name . " - " . strtolower($type->name);
-                        $site_map_type = $this->site_map_types['тип сущности (область)'];
-                    }
+                    $name = "Армянские " . mb_strtolower($type->name) . " " . $region->name_dat;
+                    $description = "Армянские " . mb_strtolower($type->name) . " " . $region->name_dat;
+                    $site_map_type = $this->site_map_types['тип сущности (область)'];
+
 
                     $count = Entity::active()
                         ->where('entity_type_id', $type->id)
@@ -130,61 +125,9 @@ class SiteMapService
                     foreach ($type->categories as $category) {
                         if ($category->activity && $category->category_id == null) {
 
-                            if ($region->id == 1) {
-                                $name =  "Сообщество армян в России - " . strtolower($type->name) . " - " . strtolower($category->name);
-                                $description = "Сообщество армян в России - " . strtolower($type->name) . " - " . strtolower($category->name);
-                                $site_map_type = $this->site_map_types['категория (общая)'];
-
-                                switch ($category->id) {
-                                    case 2:
-                                        $name =  "Армянские сообщества в России";
-                                        $description = "Армянские сообщества в России";
-                                        break;
-                                    case 3:
-                                        $name =  "Армянские кружки, школы в России";
-                                        $description = "Армянские кружки, школы в России";
-                                        break;
-                                    case 6:
-                                        $name =  "Армянские церкви в России";
-                                        $description = "Армянские церкви в России";
-                                        break;
-                                    case 7:
-                                        $name =  "Армянские консульства, посольства в России";
-                                        $description = "Армянские консульства, посольства в России";
-                                        break;
-                                    case 1:
-                                        $name =  "Армянские общины в России";
-                                        $description = "Армянские общины в России";
-                                        break;
-                                }
-                            } else {
-                                $name = $region->name . " - " . strtolower($type->name) . " - " . strtolower($category->name);
-                                $description = $region->name . " - " . strtolower($type->name) . " - " . strtolower($category->name);
-                                $site_map_type = $this->site_map_types['категория (область)'];
-
-                                switch ($category->id) {
-                                    case 2:
-                                        $name =  "Армянские сообщества в $region->name_dat";
-                                        $description = "Армянские сообщества в $region->name_dat";
-                                        break;
-                                    case 3:
-                                        $name =  "Армянские кружки, школы в $region->name_dat";
-                                        $description = "Армянские кружки, школы в $region->name_dat";
-                                        break;
-                                    case 6:
-                                        $name =  "Армянские церкви в $region->name_dat";
-                                        $description = "Армянские церкви в $region->name_dat";
-                                        break;
-                                    case 7:
-                                        $name =  "Армянские консульства, посольства в $region->name_dat";
-                                        $description = "Армянские консульства, посольства в $region->name_dat";
-                                        break;
-                                    case 1:
-                                        $name =  "Армянские общины в $region->name_dat";
-                                        $description = "Армянские общины в $region->name_dat";
-                                        break;
-                                }
-                            }
+                            $name = "Армянские " . mb_strtolower($type->name) . " " . $region->name_dat . " " . " - " . mb_strtolower($category->name);
+                            $description = "Армянские " . mb_strtolower($type->name) . " " . $region->name_dat . " " . " - " . mb_strtolower($category->name);
+                            $site_map_type = $this->site_map_types['категория (область)'];
 
                             $count = Entity::active()
                                 ->where('entity_type_id', $type->id)
@@ -239,13 +182,13 @@ class SiteMapService
 
                 if ($city->id == 1) {
                     $url = 'https://vsearmyane.ru';
-                    $name = 'Сообщество армян в России';
-                    $description = "Сообщество армян в России";
+                    $name = 'Армянский справочник для армян России и мира';
+                    $description = 'Армянский справочник для армян России и мира';
                     $site_map_type = $this->site_map_types['домашняя (общая)'];
                 } else {
                     $url = 'https://vsearmyane.ru'  . '/' . $city->transcription;
-                    $name = $city->name;
-                    $description = "Сообщество армян в России: - " . $city->name;
+                    $name = "Армянский справочник для армян России и мира " . $city->name_dat;
+                    $description = "Армянский справочник для армян России и мира " . $city->name_dat;
                     $site_map_type = $this->site_map_types['домашняя (город)'];
                 }
 
@@ -272,12 +215,12 @@ class SiteMapService
                 foreach ($entity_types as $type) {
 
                     if ($city->id == 1) {
-                        $name =  "Сообщество армян в России - " . strtolower($type->name);
-                        $description = "Сообщество армян в России - " . strtolower($type->name);
+                        $name =  "Армянские " . mb_strtolower($type->name) . ' в России';
+                        $description = "Армянские " . mb_strtolower($type->name) . ' в России';
                         $site_map_type = $this->site_map_types['тип сущности (общая)'];
                     } else {
-                        $name = $city->name . " - " . strtolower($type->name);
-                        $description = $city->name . " - " . strtolower($type->name);
+                        $name = "Армянские " . mb_strtolower($type->name) . " " . $city->name_dat;
+                        $description = "Армянские " . mb_strtolower($type->name) . " " . $city->name_dat;
                         $site_map_type = $this->site_map_types['тип сущности (город)'];
                     }
 
@@ -310,60 +253,13 @@ class SiteMapService
                         if ($category->activity && $category->category_id == null) {
 
                             if ($city->id == 1) {
-                                $name =  "Сообщество армян в России - " . strtolower($type->name) . " - " . strtolower($category->name);
-                                $description = "Сообщество армян в России - " . strtolower($type->name) . " - " . strtolower($category->name);
+                                $name =  "Армянские " . mb_strtolower($type->name) . ' в России' . " - " . mb_strtolower($category->name);
+                                $description = "Армянские " . mb_strtolower($type->name) . ' в России' . " - " . mb_strtolower($category->name);
                                 $site_map_type = $this->site_map_types['категория (общая)'];
-
-                                switch ($category->id) {
-                                    case 2:
-                                        $name =  "Армянские сообщества в России";
-                                        $description = "Армянские сообщества в России";
-                                        break;
-                                    case 3:
-                                        $name =  "Армянские кружки, школы в России";
-                                        $description = "Армянские кружки, школы в России";
-                                        break;
-                                    case 6:
-                                        $name =  "Армянские церкви в России";
-                                        $description = "Армянские церкви в России";
-                                        break;
-                                    case 7:
-                                        $name =  "Армянские консульства, посольства в России";
-                                        $description = "Армянские консульства, посольства в России";
-                                        break;
-                                    case 1:
-                                        $name =  "Армянские общины в России";
-                                        $description = "Армянские общины в России";
-                                        break;
-                                }
-
                             } else {
-                                $name = $city->name . " - " . strtolower($type->name) . " - " . strtolower($category->name);
-                                $description = $city->name . " - " . strtolower($type->name) . " - " . strtolower($category->name);
+                                $name = "Армянские " . mb_strtolower($type->name) . " " . $city->name_dat . " " . " - " . mb_strtolower($category->name);
+                                $description = "Армянские " . mb_strtolower($type->name) . " " . $city->name_dat . " " . " - " . mb_strtolower($category->name);
                                 $site_map_type = $this->site_map_types['категория (город)'];
-
-                                switch ($category->id) {
-                                    case 2:
-                                        $name =  "Армянские сообщества в $city->name_dat";
-                                        $description = "Армянские сообщества в $city->name_dat";
-                                        break;
-                                    case 3:
-                                        $name =  "Армянские кружки, школы в $city->name_dat";
-                                        $description = "Армянские кружки, школы в $city->name_dat";
-                                        break;
-                                    case 6:
-                                        $name =  "Армянские церкви в $city->name_dat";
-                                        $description = "Армянские церкви в $city->name_dat";
-                                        break;
-                                    case 7:
-                                        $name =  "Армянские консульства, посольства в $city->name_dat";
-                                        $description = "Армянские консульства, посольства в $city->name_dat";
-                                        break;
-                                    case 1:
-                                        $name =  "Армянские общины в $city->name_dat";
-                                        $description = "Армянские общины в $city->name_dat";
-                                        break;
-                                }
                             }
 
                             $count = Entity::active()

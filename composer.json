@@ -17,7 +17,8 @@
         "spatie/laravel-permission": "^6.10",
         "spatie/laravel-sitemap": "^7.0",
         "staudenmeir/belongs-to-through": "^2.13",
-        "stevebauman/location": "^6.6"
+        "stevebauman/location": "^6.6",
+        "wapmorgan/morphos": "^3.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",
