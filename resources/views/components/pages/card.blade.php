@@ -23,7 +23,7 @@
                 </p>
             </div>
         @else
-            <div class="max-h-16 md:max-h-36 lg:max-h-48">
+            <div class="max-h-16 md:max-h-36 lg:max-h-48 overflow-hidden">
                 <p class="text-xs md:text-base font-normal text-gray-500 break-word">
                     {{ $entity->description }}
                 </p>
