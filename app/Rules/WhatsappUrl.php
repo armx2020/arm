@@ -19,7 +19,7 @@ class WhatsappUrl implements ValidationRule
 
         $parse = parse_url($url);
 
-        if ($parse["host"] !== 'wa.me') {
+        if ($parse["host"] !== 'wa.me' && $parse["host"] !== 'api.whatsapp.com') {
             $fail('Неверный формат :attribute');
         }
 
