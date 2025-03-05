@@ -21,14 +21,11 @@ class CommunityController extends BaseInformUsController
         $categories = Category::query()->communities()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('inform-us.create-community', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'cities' => $this->cities,
-            'secondPositionUrl' => 'inform-us.community',
-            'secondPositionName' => $this->secondPositionName,
             'categories' => $categories,
-
         ]);
     }
 

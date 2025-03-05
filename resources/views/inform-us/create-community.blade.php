@@ -17,7 +17,37 @@
 @endsection
 
 @section('content')
-    <x-pages.breadcrumbs :$secondPositionUrl :$secondPositionName />
+    {{--  Хлебные крошки --}}
+    <nav class="hidden md:block mb-2 mt-3 lg:mt-5 rounded-md mx-auto text-xs sm:text-sm md:text-md px-1">
+
+        @php
+            $homeUrl = route('home');
+            $entityTypeUrl = route('inform-us.community');
+
+            if ($region && $region !== 'russia') {
+                $homeUrl = route('home', ['regionTranslit' => $region]);
+            }
+        @endphp
+
+        <ol class="list-reset flex flex-nowrap overflow-hidden">
+            <li class="text-neutral-500">
+                <a href="{{ $homeUrl }}" class="truncate">
+                    Главная
+                </a>
+            </li>
+            <li>
+                <a href="{{ $homeUrl }}">
+                    <span class="mx-2 text-neutral-500">/</span>
+                </a>
+            </li>
+            <li class="text-neutral-500">
+                <a href="{{ $entityTypeUrl }}" class="truncate">
+                    Сообщите нам об общине
+                </a>
+            </li>
+        </ol>
+    </nav>
+
     <section>
         <div class="flex flex-col sm:justify-center items-center py-6">
 
@@ -30,7 +60,7 @@
 
             <div class="w-full sm:max-w-xl my-6 px-6 py-6 bg-white overflow-hidden sm:rounded-lg">
 
-                <h3 class="text-xl font-semibold">Добавить место</h3>
+                <h3 class="text-xl font-semibold">Добавить общину</h3>
                 <p class="text-sm">Укажите данные места. После проверки, он окажеться на портале</p>
                 <hr class="mt-4">
 
@@ -113,7 +143,7 @@
                         <div class="mt-4">
                             <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
                             <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone"
-                                class="mt-1 block w-full mask-phone" placeholder='+7 (***) ***-**-**' :value="old('phone')"/>
+                                class="mt-1 block w-full mask-phone" placeholder='+7 (***) ***-**-**' :value="old('phone')" />
                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                         </div>
 

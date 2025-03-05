@@ -22,14 +22,11 @@ class JobController extends BaseInformUsController
         $categories = Category::query()->jobs()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('inform-us.create-job', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'cities' => $this->cities,
-            'secondPositionUrl' => 'inform-us.job',
-            'secondPositionName' => $this->secondPositionName,
             'categories' => $categories,
-
         ]);
     }
 

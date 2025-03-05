@@ -18,11 +18,9 @@ class AppealController extends BaseInformUsController
     public function index(Request $request)
     {
         return view('inform-us.appeal', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
-            'secondPositionUrl' => 'inform-us.appeal',
-            'secondPositionName' => $this->secondPositionName,
         ]);
     }
 

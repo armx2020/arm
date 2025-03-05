@@ -21,14 +21,11 @@ class CompanyController extends BaseInformUsController
         $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('inform-us.create-company', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'cities' => $this->cities,
-            'secondPositionUrl' => 'inform-us.company',
-            'secondPositionName' => $this->secondPositionName,
             'categories' => $categories,
-
         ]);
     }
 

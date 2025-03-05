@@ -8,8 +8,6 @@ use App\Models\City;
 
 abstract class BaseInformUsController extends BaseController
 {
-    public $secondPositionUrl = 'inform-us';
-    public $secondPositionName = 'Сообщите нам';
     public $cities;
 
     public function __construct()

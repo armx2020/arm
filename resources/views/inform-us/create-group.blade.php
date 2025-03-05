@@ -18,7 +18,37 @@
 @endsection
 
 @section('content')
-    <x-pages.breadcrumbs :$secondPositionUrl :$secondPositionName />
+    {{--  Хлебные крошки --}}
+    <nav class="hidden md:block mb-2 mt-3 lg:mt-5 rounded-md mx-auto text-xs sm:text-sm md:text-md px-1">
+
+        @php
+            $homeUrl = route('home');
+            $entityTypeUrl = route('inform-us.group');
+
+            if ($region && $region !== 'russia') {
+                $homeUrl = route('home', ['regionTranslit' => $region]);
+            }
+        @endphp
+
+        <ol class="list-reset flex flex-nowrap overflow-hidden">
+            <li class="text-neutral-500">
+                <a href="{{ $homeUrl }}" class="truncate">
+                    Главная
+                </a>
+            </li>
+            <li>
+                <a href="{{ $homeUrl }}">
+                    <span class="mx-2 text-neutral-500">/</span>
+                </a>
+            </li>
+            <li class="text-neutral-500">
+                <a href="{{ $entityTypeUrl }}" class="truncate">
+                    Сообщите нам об группе
+                </a>
+            </li>
+        </ol>
+    </nav>
+
     <section>
         <div class="flex flex-col sm:justify-center items-center py-6">
 

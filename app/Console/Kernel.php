@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('app:calculate-top-entities')->dailyAt('00:00');
         $schedule->command('routes:update')->dailyAt('04:00');
         $schedule->command('cache-regions')->dailyAt('04:00');
+        $schedule->command('app:create-site-map --create --truncate')->dailyAt('03:00');
         // $schedule->command('inspire')->hourly();
     }
 
