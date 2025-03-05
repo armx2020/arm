@@ -79,9 +79,10 @@
         </div>
     @endif
 
-    <x-pages.entity-card :$entity :$entityTypeUrl/>
+    <x-pages.entity-card :$entity :$entityTypeUrl />
 
-    <x-pages.other-entities :$otherEntities :$entityShowRoute />
+    <div class="text-2xl font-medium mb-3 px-1">Другие</div>
+    <x-pages.grid :entities="$otherEntities" :$entityShowRoute :$region />
 
     <x-inform-us.index />
 @endsection
