@@ -139,7 +139,7 @@
 
                 <!-- Интересные места -->
                 <div class="CEB__wrapTable mb-5 w-1/2 lg:w-1/3 xl:w-1/6 pr-1 sm:pr-1 sm:pl-1 md:pl-1.5 md:pr-1.5 xl:pr-2 xl:pl-0">
-                    <div class="bg-[#F0E7CE] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
+                    <div class="bg-[#F0E7CE] rounded-xl p-2 lg:p-4 h-56 es:h-[190px] md:h-[250px] lg:h-72">
                         <a
                             @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('places.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('places.index') }}" @endif>
                             <div class="flex flex-col h-full w-full relative">
@@ -156,7 +156,7 @@
 
                 <!-- Кружки сообщества -->
                 <div class="CEB__wrapTable mb-5 w-1/2 lg:w-1/3 xl:w-1/6 pl-1 xl:pl-0">
-                    <div class="bg-[#D7E6D8] rounded-xl p-2 lg:p-4 h-56 es:h-[215px] md:h-[250px] lg:h-72">
+                    <div class="bg-[#D7E6D8] rounded-xl p-2 lg:p-4 h-56 es:h-[190px] md:h-[250px] lg:h-72">
                         <a
                             @if (isset($regionName) && $regionName !== 'Россия') href="{{ route('groups.region', ['regionTranslit' => $region]) }}" @else  href="{{ route('groups.index') }}" @endif>
                             <div class="flex flex-col h-full w-full relative">
