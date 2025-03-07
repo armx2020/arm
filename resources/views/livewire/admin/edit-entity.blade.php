@@ -378,6 +378,17 @@
                     $slot.remove();
                     maybeCreateEmptySlot();
                 });
+                if (parseInt(image.checked) === 0) {
+                    const $checkContainer = $(`
+                        <span class="flex flex-col items-start mt-2">
+                            <label class="inline-flex items-center space-x-2">
+                                <input type="checkbox" class="check-verified rounded" />
+                                <span class="text-sm text-gray-600 w-[17px]"></span>
+                            </label>
+                        </span>
+                    `);
+                    $slot.append($checkContainer);
+                }
                 initDragAndDrop($slot);
                 $sortable.append($slot);
             }
@@ -514,6 +525,10 @@
                     const $fileInput = $slot.find('.file-input');
                     if ($fileInput.length) {
                         $fileInput.attr('name', `images[${index}][file]`);
+                    }
+                    const $checkBox = $slot.find('.check-verified');
+                    if ($checkBox.length && $checkBox.is(':checked')) {
+                        $form.append(`<input type="hidden" name="images[${index}][checked]" value="1">`);
                     }
                 });
             });
