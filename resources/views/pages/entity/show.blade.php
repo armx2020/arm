@@ -81,8 +81,7 @@
 
     <x-pages.entity-card :$entity :$entityTypeUrl />
 
-    <div class="text-2xl font-medium mb-3 px-1">Другие</div>
-    <x-pages.grid :entities="$otherEntities" :$entityShowRoute :$region />
+    <x-pages.other-entities :entities="$otherEntities" :$entityShowRoute :$region />
 
     <x-inform-us.index />
 @endsection
