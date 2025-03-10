@@ -7,6 +7,7 @@ use App\Livewire\Admin\BaseComponent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Entity;
+use Illuminate\Contracts\Database\Query\Builder;
 
 class SearchEntity extends BaseComponent
 {
@@ -15,9 +16,11 @@ class SearchEntity extends BaseComponent
     public $type;
     public $region;
     public $category;
+    public $field;
     public $duplicatesField = null;
     public $doubleRegion = false;
     public $doubleCity   = false;
+    public $double_id = null;
 
     protected array $allowedFields = [
         'name',
@@ -42,7 +45,8 @@ class SearchEntity extends BaseComponent
         $this->type           = $request->get('type');
         $this->region         = $request->get('region');
         $this->category       = $request->get('category');
-        $this->duplicatesField= $request->get('duplicatesField');
+        $this->field          = $request->get('field');
+        $this->duplicatesField = $request->get('duplicatesField');
         $this->double_id      = $request->get('double_id');
         $this->doubleRegion   = (bool) $request->get('doubleRegion', false);
         $this->doubleCity     = (bool) $request->get('doubleCity', false);
@@ -68,25 +72,43 @@ class SearchEntity extends BaseComponent
         if (isset($this->category)) {
             $this->selectedFilters['category_id']['='] = $this->category;
         }
+        if (isset($this->field)) {
+            $this->selectedFilters['fields']['='] = $this->category;
+        }
 
         $title       = 'Все сущности';
         $emptyEntity = 'сущностей нет';
         $entityName  = 'entity';
 
-        $entities = Entity::query()->withoutGlobalScopes()->with('city','type', 'primaryImage');
+        $entities = Entity::query()->withoutGlobalScopes()->with('city', 'type', 'primaryImage');
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {
+
                 if ($filterValue) {
+
                     $operator = array_key_first($filterValue);
                     $val = $filterValue[$operator];
-                    $entities->where($filterName, $operator, $val);
+
+                    if ($val) {
+                        if ($filterName == 'field') {
+                            $entities = $entities
+                                ->where(function (Builder $query) use ($filterValue) {
+                                    $query
+                                        ->WhereHas('fields', function ($que) use ($filterValue) {
+                                            $que->where('category_entity.category_id', '=', $filterValue); // ID категории
+                                        });
+                                });
+                        } else {
+                            $entities->where($filterName, $operator, $val);
+                        }
+                    }
                 }
             }
         } else {
             $entities = $entities->search($this->term);
         }
-        if(isset($this->double_id)){
+        if (isset($this->double_id)) {
             $doubleEntity = Entity::find($this->double_id);
             if ($doubleEntity) {
                 $entities->where(function ($query) use ($doubleEntity) {
@@ -102,7 +124,7 @@ class SearchEntity extends BaseComponent
         // --- Фильтр дублей ---
         if ($this->duplicatesField) {
             if ($this->doubleRegion) {
-                $entities->whereIn('id', function($sub) {
+                $entities->whereIn('id', function ($sub) {
                     $sub->select('e.id')
                         ->distinct()
                         ->from('entities as e')
@@ -113,14 +135,13 @@ class SearchEntity extends BaseComponent
                               AND ' . $this->duplicatesField . ' IS NOT NULL
                             GROUP BY region_id, ' . $this->duplicatesField . '
                             HAVING COUNT(*) > 1
-                        ) grp'), function($join) {
+                        ) grp'), function ($join) {
                             $join->on('e.region_id', '=', 'grp.rid')
                                 ->on('e.' . $this->duplicatesField, '=', 'grp.val');
                         });
                 });
-            }
-            elseif ($this->doubleCity) {
-                $entities->whereIn('id', function($sub) {
+            } elseif ($this->doubleCity) {
+                $entities->whereIn('id', function ($sub) {
                     $sub->select('e.id')
                         ->distinct()
                         ->from('entities as e')
@@ -131,14 +152,13 @@ class SearchEntity extends BaseComponent
                               AND ' . $this->duplicatesField . ' IS NOT NULL
                             GROUP BY city_id, ' . $this->duplicatesField . '
                             HAVING COUNT(*) > 1
-                        ) grp'), function($join) {
+                        ) grp'), function ($join) {
                             $join->on('e.city_id', '=', 'grp.cid')
                                 ->on('e.' . $this->duplicatesField, '=', 'grp.val');
                         });
                 });
-            }
-            else {
-                $entities->whereIn('id', function($sub) {
+            } else {
+                $entities->whereIn('id', function ($sub) {
                     $sub->select('e.id')
                         ->distinct()
                         ->from('entities as e')
@@ -149,13 +169,12 @@ class SearchEntity extends BaseComponent
                               AND ' . $this->duplicatesField . ' IS NOT NULL
                             GROUP BY ' . $this->duplicatesField . '
                             HAVING COUNT(*) > 1
-                        ) grp'), function($join) {
+                        ) grp'), function ($join) {
                             $join->on('e.' . $this->duplicatesField, '=', 'grp.val');
                         });
                 });
             }
-        }
-        else {
+        } else {
             $entities->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
         }
 
@@ -165,7 +184,7 @@ class SearchEntity extends BaseComponent
         if ($this->duplicatesField) {
             $items = collect($entities->items());
 
-            $groups = $items->groupBy(function($e) {
+            $groups = $items->groupBy(function ($e) {
                 $key = $e->{$this->duplicatesField} ?: '';
                 if ($this->doubleRegion) {
                     $key .= '|region=' . $e->region_id;
@@ -176,7 +195,7 @@ class SearchEntity extends BaseComponent
                 return $key;
             });
 
-            $groups = $groups->filter(function($grp) {
+            $groups = $groups->filter(function ($grp) {
                 return $grp->count() > 1;
             });
 

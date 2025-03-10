@@ -55,6 +55,7 @@ class EntityRepository implements EntityColumnsInterface, EntityFiltersInterface
         'region_top' => 'select',
         'city_top' => 'select',
         'category_id' => 'select',
+        'field' => 'select'
     ];
 
     protected $selectedFilters = [];

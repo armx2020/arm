@@ -44,6 +44,7 @@ return [
     'imageable_type' => 'Тип родителя',
     'imageable_id' => 'ID родителя',
     'path' => 'Путь',
-    'checked' => 'Проверено'
+    'checked' => 'Проверено',
+    'field' => 'Направление'
 
 ];

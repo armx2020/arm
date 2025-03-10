@@ -121,8 +121,25 @@
                                    focus:ring-cyan-600 focus:border-cyan-600 p-2.5 w-full"
                             wire:model.live="selectedFilters.{{ $name }}.="
                         >
-                            <option value=""> - все города - </option>
-                            @foreach (\App\Models\Category::orderBy('name')->get() as $category)
+                            <option value=""> - все категории - </option>
+                            @foreach (\App\Models\Category::orderBy('name')->main()->get() as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    @endif
+
+                    {{-- field_id --}}
+                    @if ($name == 'field')
+                        <div class="mb-1 font-semibold">
+                            {{ __('column.' . $name) }}
+                        </div>
+                        <select
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg
+                                   focus:ring-cyan-600 focus:border-cyan-600 p-2.5 w-full"
+                            wire:model.live="selectedFilters.{{ $name }}.="
+                        >
+                            <option value=""> - все направления - </option>
+                            @foreach (\App\Models\Category::orderBy('name')->whereNotNull('category_id')->get() as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
