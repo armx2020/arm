@@ -1,5 +1,5 @@
-<div class="w-full mt-3">
-    <select name="entity" style="border-color: rgb(209 213 219); width: 20rem" id="entity">
+<div class="w-[20rem] lg:w-[25rem] xl:w-[35rem] mt-3 flex">
+    <select name="entity" style="border-color: rgb(209 213 219); width: 100%" id="entity">
         <option value=''>Поиск по номеру лота или слову</option>
     </select>
 </div>
