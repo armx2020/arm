@@ -161,7 +161,7 @@ class Entity extends Model
 
     public function primaryImage(): MorphOne
     {
-        return $this->morphOne(Image::class, 'imageable')->where('sort_id', 0);
+        return $this->morphOne(Image::class, 'imageable')->orderBy('id');
     }
 
     public function primaryImageView(): MorphOne
