@@ -17,9 +17,9 @@ class EntityForHomePageController extends Controller
         $inflector = InflectorFactory::create()->build();
 
         if (!empty($input['query'])) {
-            $data = Entity::select('id', 'name', 'entity_type_id')->active()->where("name", "LIKE", "%{$input['query']}%")->orWhere("id", "=", "{$input['query']}")->limit(5)->get();
+            $data = Entity::select('id', 'name', 'entity_type_id')->active()->where("name", "LIKE", "%{$input['query']}%")->orWhere("id", "=", "{$input['query']}")->orWhere("description", "LIKE", "%{$input['query']}%")->limit(10)->get();
         } else {
-            $data = Entity::select('id', 'name', 'entity_type_id')->active()->simplePaginate(5);
+            $data = Entity::select('id', 'name', 'entity_type_id')->active()->simplePaginate(10);
 
             $pagination_obj = json_encode($data);
 

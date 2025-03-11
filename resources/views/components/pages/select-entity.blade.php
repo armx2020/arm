@@ -1,6 +1,6 @@
 <div class="w-[20rem] lg:w-[25rem] xl:w-[35rem] mt-3 flex">
     <select name="entity" style="border-color: rgb(209 213 219); width: 100%" id="entity">
-        <option value=''>Поиск по номеру лота или слову</option>
+        <option></option>
     </select>
 </div>
 
@@ -9,12 +9,16 @@
 
         if ($("#entity").length > 0) {
             $("#entity").select2({
+                placeholder: "Поиск по справочнику",
                 language: {
                     noResults: function() {
-                        return "Ничего не найдено"; // Ваш кастомный текст
+                        return "Ничего не найдено";
                     },
                     searching: function() {
                         return "Идет поиск...";
+                    },
+                    errorLoading: function() {
+                        return "Не удалось загрузить результаты";
                     }
                 },
                 ajax: {
