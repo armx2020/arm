@@ -1,5 +1,5 @@
 <div class="w-[20rem] lg:w-[25rem] xl:w-[35rem] mt-3 flex">
-    <select name="entity" style="border-color: rgb(209 213 219); width: 100%" id="entity">
+    <select name="entity" style="border-color:rgb(209 213 219);width:100%" id="entity">
         <option></option>
     </select>
 </div>
@@ -52,3 +52,18 @@
         });
     });
 </script>
+
+<style>
+    .select2-container--default .select2-selection--single {
+        background-color: #F5F7FA;
+        border: 1px solid #F5F7FA;
+        border-radius: 4px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__placeholder {
+        color: #747678;
+        font-size: 1rem; /* 18px */
+        line-height: 1.5rem; /* 28px */
+        font-weight: 500;
+    }
+</style>
