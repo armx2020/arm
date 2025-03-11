@@ -17,13 +17,13 @@
         </div>
 
         @if ($entity->entity_type_id == 1)
-            <div class="hidden lg:flex max-h-12 md:max-h-[4.5rem] overflow-hidden mb-2 max-w-[6.5rem] md:max-w-none">
+            <div class="hidden lg:flex max-h-12 md:max-h-[4.5rem] overflow-hidden mb-2 max-w-[6.5rem] sm:max-w-none">
                 <p class="text-xs md:text-base font-normal text-gray-500 break-words">
                     {{ $entity->description }}
                 </p>
             </div>
         @else
-            <div class="max-h-16 md:max-h-36 lg:max-h-48 overflow-hidden max-w-[6.5rem] md:max-w-none">
+            <div class="max-h-16 md:max-h-36 lg:max-h-48 overflow-hidden max-w-[6.5rem] sm:max-w-none">
                 <p class="text-xs md:text-base font-normal text-gray-500 break-word">
                     {{ $entity->description }}
                 </p>
