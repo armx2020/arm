@@ -6,9 +6,8 @@ use App\Models\Country;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use morphos\Russian\GeographicalNamesInflection;
-use Rinvex\Country\Loader;
 
-class LocationSeeder extends Seeder
+class RegionSeeder extends Seeder
 {
     private $converter = array(
         'а' => 'a',
@@ -1267,22 +1266,6 @@ class LocationSeeder extends Seeder
 
     public function run(): void
     {
-        $countryLoader = new Loader();
-        $countries = $countryLoader->countries(true, 'ru');
-
-        foreach ($countries as $code => $country) {
-            if (isset($country->getTranslations()['rus'])) {
-                DB::table('countries')->updateOrInsert(
-                    ['name_ru' => $country->getTranslations()['rus']['common']],
-                    [
-                        'name_ru_locative' => $this->name_ru_locative($country->getTranslations()['rus']['common']),
-                        'name_en' => $country->getName(),
-                        'code' => $code,
-                    ]
-                );
-            }
-        }
-
         $countryID = Country::where('name_en', 'Russia')->First()?->id;
 
         foreach ($this->regions as $region) {
