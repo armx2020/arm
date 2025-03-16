@@ -39,8 +39,8 @@ class SmsService
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
-                "api_id" => "AF091A73-77E1-9945-9455-280D8014D741",  // Ars
-                //    "api_id" => "30BDE851-15F1-8E98-00D5-2097A2054570",     // Sevak
+                // "api_id" => "AF091A73-77E1-9945-9455-280D8014D741",  // Ars
+                "api_id" => "30BDE851-15F1-8E98-00D5-2097A2054570",     // Sevak
                 "to" => $phone,
                 "msg" => $message,
                 "json" => 1,
