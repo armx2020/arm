@@ -17,7 +17,7 @@ class FromLocation
             $ip = $_SERVER['REMOTE_ADDR'];
             $data = Location::get($ip);
 
-            $regionName = $data ? $data->regionName : 'Russia';
+            $regionName = $data ? $data->regionName : 'russia';
 
             $region = Region::where('transcription', 'like', $regionName)->First();
 

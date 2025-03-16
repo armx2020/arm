@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 
@@ -17,7 +16,7 @@ abstract class BaseController extends Controller
     {
         $this->regions = Cache::get('regions', []);
 
-        if(empty($this->regions)) {
+        if (empty($this->regions)) {
             Artisan::call('cache-regions');
         }
     }
@@ -44,8 +43,6 @@ abstract class BaseController extends Controller
                 $request->session()->put('regionName', $region->name);
                 $request->session()->put('regionTranslit', $region->transcription);
             } else {
-                $city = City::select('id', 'name', 'transcription', 'region_id')->with('region')->where('transcription', 'like', $regionTranslit)->First();
-
                 $citiesCollect = collect(Cache::get('all_cities', []));
                 $city = $citiesCollect->firstWhere('transcription', 'like', $regionTranslit);
 
@@ -55,7 +52,23 @@ abstract class BaseController extends Controller
 
                     $region = $city->region;
                 } else {
-                    return null;
+
+                    $region = $regionsCollect->firstWhere('id', 1);
+
+                    $countriesCollect = collect(Cache::get('all_countries', []));
+                    $country = $countriesCollect->firstWhere('code', 'like', $regionTranslit);
+
+                    if ($country) {
+                        if ($country->code == 'ru') {
+                            $request->session()->put('regionName', $region->name);
+                            $request->session()->put('regionTranslit', $region->transcription);
+                        } else {
+                            $request->session()->put('regionName', $country->name_ru);
+                            $request->session()->put('regionTranslit', $country->code);
+                        }
+                    } else {
+                        return null;
+                    }
                 }
             }
         }
