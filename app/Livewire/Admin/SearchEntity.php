@@ -98,7 +98,7 @@ class SearchEntity extends BaseComponent
                                         $que->where('category_entity.category_id', '=', $filterValue); // ID категории
                                     });
                             });
-                    } elseif ($filterName == 'activity' && !empty($callable)) {
+                    } elseif ($filterName == 'activity' && $callable !== '') {
                         $entities->where($filterName, $operator, $callable);
                     } else {
                         if ($callable) {
