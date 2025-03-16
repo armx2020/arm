@@ -142,7 +142,7 @@
                 @endif
 
                 @if ($entity->city)
-                    <div class="flex sm:mx-4 mt-4 max-w-prose">
+                    <div class="flex sm:mx-4 mt-4 max-w-prose overflow-hidden">
                         <span class="text-sm">Город:</span>
                         <p class="text-sm text-gray-500 break-keep ml-1">
                             {{ mb_substr($entity->city->name, 0, 400, 'UTF-8') }}
@@ -151,7 +151,7 @@
                 @endif
 
                 @if ($entity->address)
-                    <div class="flex sm:mx-4 mt-4 max-w-prose">
+                    <div class="flex sm:mx-4 mt-4 max-w-prose overflow-hidden">
                         <span class="text-sm">Адрес:</span>
                         <p class="text-sm text-gray-500 break-keep ml-1">
                             {{ mb_substr($entity->address, 0, 400, 'UTF-8') }}
@@ -160,7 +160,7 @@
                 @endif
 
                 @if ($entity->phone)
-                    <div class="flex sm:mx-4 mt-4 max-w-prose">
+                    <div class="flex sm:mx-4 mt-4 max-w-prose overflow-hidden">
                         <span class="text-sm">Телефон:</span>
                         <p class="masked-data phone text-sm text-gray-500 break-keep ml-1">
                             {{ mb_substr($entity->phone, 0, 400, 'UTF-8') }}
@@ -169,7 +169,7 @@
                 @endif
 
                 @if ($entity->web)
-                    <div class="flex sm:mx-4 mt-4 max-w-prose">
+                    <div class="flex sm:mx-4 mt-4 max-w-prose overflow-hidden">
                         <span class="text-sm">Сайт:</span>
                         <a href="{{ mb_substr($entity->web, 0, 400, 'UTF-8') }}"
                             class="text-sm text-gray-500 break-keep ml-1">
