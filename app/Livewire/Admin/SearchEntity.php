@@ -80,7 +80,7 @@ class SearchEntity extends BaseComponent
         $emptyEntity = 'сущностей нет';
         $entityName  = 'entity';
 
-        $entities = Entity::query()->withoutGlobalScopes()->with('city', 'type', 'primaryImage');
+        $entities = Entity::query()->withoutGlobalScopes()->with('city', 'type', 'primaryImage', 'region', 'category', 'user');
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {
@@ -88,19 +88,21 @@ class SearchEntity extends BaseComponent
                 if ($filterValue) {
 
                     $operator = array_key_first($filterValue);
-                    $val = $filterValue[$operator];
+                    $callable = $filterValue[array_key_first($filterValue)];
 
-                    if ($val) {
-                        if ($filterName == 'field') {
-                            $entities = $entities
-                                ->where(function (Builder $query) use ($filterValue) {
-                                    $query
-                                        ->WhereHas('fields', function ($que) use ($filterValue) {
-                                            $que->where('category_entity.category_id', '=', $filterValue); // ID категории
-                                        });
-                                });
-                        } else {
-                            $entities->where($filterName, $operator, $val);
+                    if ($filterName == 'field') {
+                        $entities = $entities
+                            ->where(function (Builder $query) use ($filterValue) {
+                                $query
+                                    ->whereHas('fields', function ($que) use ($filterValue) {
+                                        $que->where('category_entity.category_id', '=', $filterValue); // ID категории
+                                    });
+                            });
+                    } elseif ($filterName == 'activity' && !empty($callable)) {
+                        $entities->where($filterName, $operator, $callable);
+                    } else {
+                        if ($callable) {
+                            $entities->where($filterName, $operator, $callable);
                         }
                     }
                 }
@@ -108,7 +110,8 @@ class SearchEntity extends BaseComponent
         } else {
             $entities = $entities->search($this->term);
         }
-        if (isset($this->double_id)) {
+
+        if (isset($this->double_id) && $this->double_id !== '') {
             $doubleEntity = Entity::find($this->double_id);
             if ($doubleEntity) {
                 $entities->where(function ($query) use ($doubleEntity) {

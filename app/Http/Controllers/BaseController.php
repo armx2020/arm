@@ -28,7 +28,7 @@ abstract class BaseController extends Controller
 
         if ($regionTranslit == null) {
 
-            $region = $regionsCollect->firstWhere('transcription', 'like', 'russia');
+            $region = $regionsCollect->firstWhere('id', 1);
 
             $request->session()->put('regionName', $region->name);
             $request->session()->put('regionTranslit', $region->transcription);
