@@ -16,6 +16,10 @@ abstract class BaseController extends Controller
     public function __construct()
     {
         $this->regions = Cache::get('regions', []);
+
+        if(empty($this->regions)) {
+            Artisan::call('cache-regions');
+        }
     }
 
     public function getRegion($request, $regionTranslit = null)
