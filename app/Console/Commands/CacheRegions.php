@@ -15,7 +15,7 @@ class CacheRegions extends Command
 
     public function handle()
     {
-        $regionsSortByName = Region::whereNot('code', 0)->get()->sortBy('name')
+        $regionsSortByName = Region::whereNot('id', 1)->get()->sortBy('name')
             ->groupBy(function ($item) {
                 return mb_substr($item->name, 0, 1);
             });
