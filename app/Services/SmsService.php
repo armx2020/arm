@@ -7,6 +7,8 @@ class SmsService
     public static function callTo($phone, $ip, $active = false) // false -> для теста (код 0000)
     {
         $result = [];
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+        
         if ($active == true) {
             $ch = curl_init("https://sms.ru/code/call");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
