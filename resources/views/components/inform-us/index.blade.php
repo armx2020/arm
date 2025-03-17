@@ -33,19 +33,20 @@
                 <div id="select-inform">
                     <h4 class="text-xl font-semibold mt-6">Выберите, один из вариантов</h4>
                     <hr class="mb-4 mt-2">
-                    <button type="button" id="select-form-button"
-                        class="uppercas w-full text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50">
-                        Добавьте информацию для справочника без регистрации
-                    </button>
 
                     <a href="{{ route('register') }}"
                         class="block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
-                        Добавьте свою компанию, сообщество или событие
+                        Добавить <span class="font-bold">свой</span> проект, услугу, место
                     </a>
+
+                    <button type="button" id="select-form-button"
+                        class="uppercas w-full text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50">
+                        Добавить информацию о <span class="font-bold uppercase">чужом</span> проекте, компании, месте <span class="font-bold uppercase">без регистрации</span>
+                    </button>
 
                     <a href="{{ route('inform-us.appeal') }}"
                         class="block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
-                        Написать нам, сообщить об ошибки, запросить помощь
+                        Написать нам, сообщить об ошибке или запросить помощь
                     </a>
                 </div>
 
