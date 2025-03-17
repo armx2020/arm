@@ -36,7 +36,7 @@
 
                     <a href="{{ route('register') }}"
                         class="block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
-                        Добавить <span class="font-bold">свой</span> проект, услугу, место
+                        Добавить <span class="font-bold uppercase">свой</span> проект, услугу, место
                     </a>
 
                     <button type="button" id="select-form-button"
