@@ -24,6 +24,7 @@ class GroupController extends BaseInformUsController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'cities' => $this->cities,
             'categories' => $categories,
         ]);

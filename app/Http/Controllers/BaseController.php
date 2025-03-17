@@ -9,14 +9,16 @@ use Illuminate\Support\Facades\Cache;
 abstract class BaseController extends Controller
 {
     protected $regions = [];
+    protected $countries = [];
 
     protected $quantityOfDisplayed = 20; // Количество отоброжаемых сущностей
 
     public function __construct()
     {
         $this->regions = Cache::get('regions', []);
+        $this->countries = Cache::get('countries', []);
 
-        if (empty($this->regions)) {
+        if (empty($this->regions) || empty($this->countries)) {
             Artisan::call('cache-regions');
         }
     }

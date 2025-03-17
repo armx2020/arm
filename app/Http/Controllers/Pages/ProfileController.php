@@ -26,6 +26,7 @@ class ProfileController extends BaseController
             'user' => $request->user(),
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'regionCode' => $request->session()->get('regionId')
         ]);
     }
@@ -51,6 +52,7 @@ class ProfileController extends BaseController
         return view('pages.user.user', [
             'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'user' => $user,
             'fullness' => $fullness,
             'regionCode' => $request->session()->get('regionId')

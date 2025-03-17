@@ -38,6 +38,7 @@ class HomeController extends BaseController
             'regionName' => $request->session()->get('regionName'),
             'group' => $group,
             'regions' => $this->regions,
+            'countries' => $this->countries
         ]);
     }
 
@@ -47,6 +48,7 @@ class HomeController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries
         ]);
     }
 
@@ -56,6 +58,7 @@ class HomeController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries
         ]);
     }
 }

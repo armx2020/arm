@@ -231,50 +231,105 @@
                 {{ __('Закрыть') }}
             </x-secondary-button>
             <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                <div class="px-1 hover:text-gray-500">
+                <div class="px-1 hover:text-gray-500" id="div_all_regions">
                     <a href="{{ route('home') }}">
                         Вся Россия
                     </a>
                 </div>
+                <div class="px-1 hover:text-gray-500 hidden" id="div_regions_russia">
+                    <button id="regions_russia">
+                        Россия
+                    </button>
+                </div>
+                <div class="px-1 hover:text-gray-500" id="div_all_countries">
+                    <button id="all_countries">
+                        Другие страны
+                    </button>
+                </div>
             </div>
             <hr class="my-4">
-            @foreach ($regions as $letter => $letterCities)
-                <h3 class="text-xl font-bold my-2">{{ $letter }}</h3>
-                <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    @foreach ($letterCities as $region)
-                        <div class="px-1 hover:text-gray-500">
-                            @if (Route::is('home'))
-                                <a href="{{ route('home', ['regionTranslit' => $region->transcription]) }}">
-                                    {{ $region->name }}
-                                </a>
-                            @elseif (Route::is('companies') || Route::is('companies.region'))
-                                <a
-                                    href="{{ route('companies.region', ['regionTranslit' => $region->transcription]) }}">
-                                    {{ $region->name }}
-                                </a>
-                            @elseif (Route::is('groups') || Route::is('groups.region'))
-                                <a href="{{ route('groups.region', ['regionTranslit' => $region->transcription]) }}">
-                                    {{ $region->name }}
-                                </a>
-                            @elseif (Route::is('places') || Route::is('places.region'))
-                                <a href="{{ route('places.region', ['regionTranslit' => $region->transcription]) }}">
-                                    {{ $region->name }}
-                                </a>
-                            @elseif (Route::is('communities') || Route::is('communities.region'))
-                                <a
-                                    href="{{ route('communities.region', ['regionTranslit' => $region->transcription]) }}">
-                                    {{ $region->name }}
-                                </a>
-                            @else
-                                <a href="{{ route('home', ['regionTranslit' => $region->transcription]) }}">
-                                    {{ $region->name }}
-                                </a>
-                            @endif
-                        </div>
-                    @endforeach
-                </div>
-                <hr class="my-4">
-            @endforeach
+            <div id="regions">
+                @foreach ($regions as $letter => $letterCities)
+                    <h3 class="text-xl font-bold my-2">{{ $letter }}</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        @foreach ($letterCities as $region)
+                            <div class="px-1 hover:text-gray-500">
+                                @if (Route::is('home'))
+                                    <a href="{{ route('home', ['regionTranslit' => $region->transcription]) }}">
+                                        {{ $region->name }}
+                                    </a>
+                                @elseif (Route::is('companies') || Route::is('companies.region'))
+                                    <a
+                                        href="{{ route('companies.region', ['regionTranslit' => $region->transcription]) }}">
+                                        {{ $region->name }}
+                                    </a>
+                                @elseif (Route::is('groups') || Route::is('groups.region'))
+                                    <a
+                                        href="{{ route('groups.region', ['regionTranslit' => $region->transcription]) }}">
+                                        {{ $region->name }}
+                                    </a>
+                                @elseif (Route::is('places') || Route::is('places.region'))
+                                    <a
+                                        href="{{ route('places.region', ['regionTranslit' => $region->transcription]) }}">
+                                        {{ $region->name }}
+                                    </a>
+                                @elseif (Route::is('communities') || Route::is('communities.region'))
+                                    <a
+                                        href="{{ route('communities.region', ['regionTranslit' => $region->transcription]) }}">
+                                        {{ $region->name }}
+                                    </a>
+                                @else
+                                    <a href="{{ route('home', ['regionTranslit' => $region->transcription]) }}">
+                                        {{ $region->name }}
+                                    </a>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                    <hr class="my-4">
+                @endforeach
+            </div>
+            <div id="countries" class="hidden">
+                @foreach ($countries as $letter => $letterCities)
+                    <h3 class="text-xl font-bold my-2">{{ $letter }}</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        @foreach ($letterCities as $region)
+                            <div class="px-1 hover:text-gray-500">
+                                @if (Route::is('home'))
+                                    <a href="{{ route('home', ['regionTranslit' => $region->code]) }}">
+                                        {{ $region->name_ru }}
+                                    </a>
+                                @elseif (Route::is('companies') || Route::is('companies.region'))
+                                    <a
+                                        href="{{ route('companies.region', ['regionTranslit' => $region->code]) }}">
+                                        {{ $region->name_ru }}
+                                    </a>
+                                @elseif (Route::is('groups') || Route::is('groups.region'))
+                                    <a
+                                        href="{{ route('groups.region', ['regionTranslit' => $region->code]) }}">
+                                        {{ $region->name_ru }}
+                                    </a>
+                                @elseif (Route::is('places') || Route::is('places.region'))
+                                    <a
+                                        href="{{ route('places.region', ['regionTranslit' => $region->code]) }}">
+                                        {{ $region->name_ru }}
+                                    </a>
+                                @elseif (Route::is('communities') || Route::is('communities.region'))
+                                    <a
+                                        href="{{ route('communities.region', ['regionTranslit' => $region->code]) }}">
+                                        {{ $region->name_ru }}
+                                    </a>
+                                @else
+                                    <a href="{{ route('home', ['regionTranslit' => $region->code]) }}">
+                                        {{ $region->name_ru }}
+                                    </a>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                    <hr class="my-4">
+                @endforeach
+            </div>
         </div>
     </div>
 </div>
@@ -288,6 +343,18 @@
         $(".location-close").click(function() {
             $("#location_form").toggle();
             $('body, html').css('overflow', 'visible')
+        });
+        $("#all_countries").click(function() {
+            $("#regions").toggle();
+            $("#countries").toggle();
+            $("#div_all_regions").toggle();
+            $("#div_regions_russia").toggle();
+        });
+        $("#regions_russia").click(function() {
+            $("#regions").toggle();
+            $("#countries").toggle();
+            $("#div_all_regions").toggle();
+            $("#div_regions_russia").toggle();
         });
     });
 </script>

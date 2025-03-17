@@ -21,6 +21,7 @@ class AppealController extends BaseInformUsController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
         ]);
     }
 

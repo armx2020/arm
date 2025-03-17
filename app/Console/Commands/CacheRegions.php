@@ -20,11 +20,18 @@ class CacheRegions extends Command
                 return mb_substr($item->name, 0, 1);
             });
 
+        $countriesSortByName = Country::whereNot('id', 190)->get()->sortBy('name_ru')
+            ->groupBy(function ($item) {
+                return mb_substr($item->name_ru, 0, 1);
+            });
+
         $all_regions = Region::get();
         $all_cities = City::get();
         $all_countries = Country::get();
 
         Cache::put('regions', $regionsSortByName); // Для меню
+        Cache::put('countries', $countriesSortByName);// Для меню
+
         Cache::put('all_regions', $all_regions);
         Cache::put('all_cities', $all_cities);
         Cache::put('all_countries', $all_countries);
