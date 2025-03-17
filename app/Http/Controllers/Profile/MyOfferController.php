@@ -31,6 +31,7 @@ class MyOfferController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'entities' => $offers,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
@@ -53,6 +54,7 @@ class MyOfferController extends BaseController
             'companies' => $companies,
             'categories' => $categories,
             'regions' => $this->regions,
+            'countries' => $this->countries,
         ]);
     }
 
@@ -83,6 +85,7 @@ class MyOfferController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'entity' => $offer,
         ]);
     }
@@ -111,6 +114,7 @@ class MyOfferController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'offer' => $offer,
             'categories' => $categories,
             'companies' => $companies,

@@ -29,6 +29,7 @@ class DashboardController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'fullness' => $fullness,
         ]);
     }
@@ -39,6 +40,7 @@ class DashboardController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
         ]);
     }
 }

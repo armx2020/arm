@@ -31,6 +31,7 @@ class MyCompanyController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'entities' => $companies,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
@@ -46,6 +47,7 @@ class MyCompanyController extends BaseController
             'regionName' => $request->session()->get('regionName'),
             'categories' => $categories,
             'regions' => $this->regions,
+            'countries' => $this->countries,
         ]);
     }
 
@@ -81,6 +83,7 @@ class MyCompanyController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'entity' => $entity,
             'fullness' => $fullness,
         ]);
@@ -101,6 +104,7 @@ class MyCompanyController extends BaseController
             'regionName' => $request->session()->get('regionName'),
             'categories' => $categories,
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'entity' => $entity,
         ]);
     }

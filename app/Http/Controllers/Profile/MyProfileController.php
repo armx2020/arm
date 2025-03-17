@@ -31,6 +31,7 @@ class MyProfileController extends BaseController
             'regionName' => $request->session()->get('regionName'),
             'user' => $request->user(),
             'regions' => $this->regions,
+            'countries' => $this->countries,
         ]);
     }
 
@@ -55,6 +56,7 @@ class MyProfileController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'user' => $user,
             'fullness' => $fullness,
         ]);

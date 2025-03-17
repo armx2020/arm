@@ -30,6 +30,7 @@ class MyCommunityController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'entities' => $groups,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
@@ -44,6 +45,7 @@ class MyCommunityController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'categories' => $categories,
         ]);
     }
@@ -81,6 +83,7 @@ class MyCommunityController extends BaseController
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'entity' => $entity,
             'fullness' => $fullness,
         ]);
@@ -101,6 +104,7 @@ class MyCommunityController extends BaseController
             'regionName' => $request->session()->get('regionName'),
             'categories' => $categories,
             'regions' => $this->regions,
+            'countries' => $this->countries,
             'entity' => $entity,
         ]);
     }
