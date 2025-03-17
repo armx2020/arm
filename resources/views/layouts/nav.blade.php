@@ -232,16 +232,19 @@
             </x-secondary-button>
             <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 <div class="px-1 hover:text-gray-500" id="div_all_regions">
+                    <img src="{{ url('/image/russian-flag.png') }}" class="w-6 h-6 inline align-middle pb-1" />
                     <a href="{{ route('home') }}">
                         Вся Россия
                     </a>
                 </div>
                 <div class="px-1 hover:text-gray-500 hidden" id="div_regions_russia">
+                    <img src="{{ url('/image/russian-flag.png') }}" class="w-6 h-6 inline align-middle mr-1 pb-1" />
                     <button id="regions_russia">
                         Россия
                     </button>
                 </div>
                 <div class="px-1 hover:text-gray-500" id="div_all_countries">
+                    <img src="{{ url('/image/world.png') }}" class="w-6 h-6 inline align-middle mr-1" />
                     <button id="all_countries">
                         Другие страны
                     </button>
