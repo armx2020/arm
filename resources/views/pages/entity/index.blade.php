@@ -68,90 +68,7 @@
 
                 <div class="flex-col text-xs md:text-sm">
 
-                    {{--  Выбор региона --}}
-                    <div class="flex flex-col basis-full lg:basis-1/5 max-w-56">
-                        <div class="flex flex-row gap-3">
-                            <div class="bg-white mt-3 basis-full rounded-md">
-                                <select name="region" id="region-select" class="w-full border-0 rounded-md"
-                                    autocomplete="off">
-
-                                    @php
-                                        if (
-                                            isset(request()->route()->parameters['regionTranslit']) &&
-                                            mb_strlen(request()->route()->parameters['regionTranslit']) == 2
-                                        ) {
-                                            $regionsCollect = collect(Cache::get('all_countries', []));
-                                            $isCountry = true;
-                                        } else {
-                                            $regionsCollect = collect(Cache::get('all_regions', []));
-                                            $isCountry = false;
-                                        }
-
-                                        if ($regionsCollect->isEmpty()) {
-                                            $regionsCollect = App\Models\Region::all();
-                                        }
-                                    @endphp
-
-                                    @if ($isCountry)
-                                        @foreach ($regionsCollect as $reg)
-                                            @php
-                                                $routeNameForRegionSelect = route("$entityTranscription.region", [
-                                                    'regionTranslit' => $reg->code,
-                                                ]);
-
-                                                if ($selectedCategory) {
-                                                    $routeNameForRegionSelect .= '/' . $selectedCategory->transcription;
-                                                }
-
-                                                if ($selectedSubCategory) {
-                                                    $routeNameForRegionSelect .=
-                                                        '/' . $selectedSubCategory->transcription;
-                                                }
-
-                                                $displayName = $reg->name_ru;
-
-                                            @endphp
-
-                                            <option @selected($reg->code == request()->route()->parameters['regionTranslit']) value="{{ $routeNameForRegionSelect }}">
-                                                {{ $displayName }}
-                                            </option>
-                                        @endforeach
-                                    @else
-                                        @foreach ($regionsCollect as $reg)
-                                            @php
-                                                $routeNameForRegionSelect = route("$entityTranscription.region", [
-                                                    'regionTranslit' => $reg->transcription,
-                                                ]);
-
-                                                if ($selectedCategory) {
-                                                    $routeNameForRegionSelect .= '/' . $selectedCategory->transcription;
-                                                }
-
-                                                if ($selectedSubCategory) {
-                                                    $routeNameForRegionSelect .=
-                                                        '/' . $selectedSubCategory->transcription;
-                                                }
-
-                                                // Проверяем, если регион "Россия" — подставляем другое название для отображения
-                                                $displayName = $reg->name === 'Россия' ? 'Все регионы' : $reg->name;
-                                            @endphp
-
-                                            <option @selected($reg->transcription == $region) value="{{ $routeNameForRegionSelect }}">
-                                                {{ $displayName }}
-                                            </option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <script>
-                        $(document).ready(function() {
-                            $('#region-select').change(function() {
-                                window.location.href = $(this).val();
-                            });
-                        });
-                    </script>
+                    
 
                     <div class="flex flex-row lg:flex-col">
 
@@ -258,6 +175,91 @@
                         @endif
 
                     </div>
+
+                    {{--  Выбор региона --}}
+                    <div class="flex flex-col basis-full lg:basis-1/5 max-w-56">
+                        <div class="flex flex-row gap-3">
+                            <div class="bg-white mt-3 basis-full rounded-md">
+                                <select name="region" id="region-select" class="w-full border-0 rounded-md"
+                                    autocomplete="off">
+
+                                    @php
+                                        if (
+                                            isset(request()->route()->parameters['regionTranslit']) &&
+                                            mb_strlen(request()->route()->parameters['regionTranslit']) == 2
+                                        ) {
+                                            $regionsCollect = collect(Cache::get('all_countries', []));
+                                            $isCountry = true;
+                                        } else {
+                                            $regionsCollect = collect(Cache::get('all_regions', []));
+                                            $isCountry = false;
+                                        }
+
+                                        if ($regionsCollect->isEmpty()) {
+                                            $regionsCollect = App\Models\Region::all();
+                                        }
+                                    @endphp
+
+                                    @if ($isCountry)
+                                        @foreach ($regionsCollect as $reg)
+                                            @php
+                                                $routeNameForRegionSelect = route("$entityTranscription.region", [
+                                                    'regionTranslit' => $reg->code,
+                                                ]);
+
+                                                if ($selectedCategory) {
+                                                    $routeNameForRegionSelect .= '/' . $selectedCategory->transcription;
+                                                }
+
+                                                if ($selectedSubCategory) {
+                                                    $routeNameForRegionSelect .=
+                                                        '/' . $selectedSubCategory->transcription;
+                                                }
+
+                                                $displayName = $reg->name_ru;
+
+                                            @endphp
+
+                                            <option @selected($reg->code == request()->route()->parameters['regionTranslit']) value="{{ $routeNameForRegionSelect }}">
+                                                {{ $displayName }}
+                                            </option>
+                                        @endforeach
+                                    @else
+                                        @foreach ($regionsCollect as $reg)
+                                            @php
+                                                $routeNameForRegionSelect = route("$entityTranscription.region", [
+                                                    'regionTranslit' => $reg->transcription,
+                                                ]);
+
+                                                if ($selectedCategory) {
+                                                    $routeNameForRegionSelect .= '/' . $selectedCategory->transcription;
+                                                }
+
+                                                if ($selectedSubCategory) {
+                                                    $routeNameForRegionSelect .=
+                                                        '/' . $selectedSubCategory->transcription;
+                                                }
+
+                                                // Проверяем, если регион "Россия" — подставляем другое название для отображения
+                                                $displayName = $reg->name === 'Россия' ? 'Все регионы' : $reg->name;
+                                            @endphp
+
+                                            <option @selected($reg->transcription == $region) value="{{ $routeNameForRegionSelect }}">
+                                                {{ $displayName }}
+                                            </option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $(document).ready(function() {
+                            $('#region-select').change(function() {
+                                window.location.href = $(this).val();
+                            });
+                        });
+                    </script>
 
                     {{--  Выбор подкатегории --}}
                     @if ($subCategories && count($subCategories) > 0)
