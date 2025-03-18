@@ -48,21 +48,21 @@
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="name" :value="__('Название *')" />
+                            <x-input-label for="name" :value="__('Название')" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                 :value="old('name', $offer->name)" required autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="address" :value="__('Адрес')" />
+                            <x-input-label for="address" :value="__('Адрес (не обязательно)')" />
                             <x-text-input id="address" name="address" type="text" class="mt-1 block w-full"
                                 :value="old('address', $offer->address)" />
                             <x-input-error class="mt-2" :messages="$errors->get('address')" />
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="description" :value="__('Описание')" />
+                            <x-input-label for="description" :value="__('Описание (не обязательно)')" />
                             <x-textarea id="description" name="description" class="mt-1 block w-full">
                                 {{ old('description', $entity->description) }}
                             </x-textarea>

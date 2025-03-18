@@ -134,7 +134,7 @@
 
                         <!-- address -->
                         <div class="mt-4">
-                            <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
+                            <label for="address" class="text-sm font-medium text-gray-900 block mb-2">Адрес (не обязательно)</label>
                             <x-text-input id="address" class="block mt-1 w-full" type="text" name="address"
                                 :value="old('address')" />
                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
@@ -142,7 +142,7 @@
 
                         <!-- phone -->
                         <div class="mt-4">
-                            <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Телефон</label>
+                            <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Телефон (не обязательно)</label>
                             <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone"
                                 class="mt-1 block w-full mask-phone" placeholder='+7 (***) ***-**-**' :value="old('phone')"/>
                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
@@ -150,7 +150,7 @@
 
                         <!-- web -->
                         <div class="mt-4">
-                            <label for="web" class="text-sm font-medium text-gray-900 block mb-2">Веб-сайт</label>
+                            <label for="web" class="text-sm font-medium text-gray-900 block mb-2">Веб-сайт (не обязательно)</label>
                             <x-text-input id="web" class="block mt-1 w-full" type="text" name="web"
                                 placeholder='https://***********.**' :value="old('web')" />
                             <x-input-error :messages="$errors->get('web')" class="mt-2" />
@@ -158,7 +158,7 @@
 
                         <!-- telegram -->
                         <div class="mt-4">
-                            <label for="telegram" class="text-sm font-medium text-gray-900 block mb-2">Telegram</label>
+                            <label for="telegram" class="text-sm font-medium text-gray-900 block mb-2">Telegram (не обязательно)</label>
                             <x-text-input id="telegram" class="block mt-1 w-full" type="text" name="telegram"
                                 placeholder='https://t.me/******' :value="old('telegram')" />
                             <x-input-error :messages="$errors->get('telegram')" class="mt-2" />
@@ -167,7 +167,7 @@
 
                         <!-- whatsapp -->
                         <div class="mt-4">
-                            <label for="whatsapp" class="text-sm font-medium text-gray-900 block mb-2">Whatsapp</label>
+                            <label for="whatsapp" class="text-sm font-medium text-gray-900 block mb-2">Whatsapp (не обязательно)</label>
                             <x-text-input id="whatsapp" class="block mt-1 w-full" type="text" name="whatsapp"
                                 placeholder='https://wa.me/***********' :value="old('whatsapp')" />
                             <x-input-error :messages="$errors->get('whatsapp')" class="mt-2" />
@@ -175,7 +175,7 @@
 
                         <!-- vkontakte -->
                         <div class="mt-4">
-                            <label for="vkontakte" class="text-sm font-medium text-gray-900 block mb-2">Vkontakte</label>
+                            <label for="vkontakte" class="text-sm font-medium text-gray-900 block mb-2">Vkontakte (не обязательно)</label>
                             <x-text-input id="vkontakte" class="block mt-1 w-full" type="text" name="vkontakte"
                                 placeholder='https://vk.com/***********' :value="old('vkontakte')" />
                             <x-input-error :messages="$errors->get('vkontakte')" class="mt-2" />
@@ -183,7 +183,7 @@
 
                         <!-- instagram -->
                         <div class="mt-4">
-                            <label for="instagram" class="text-sm font-medium text-gray-900 block mb-2">Instagram</label>
+                            <label for="instagram" class="text-sm font-medium text-gray-900 block mb-2">Instagram (не обязательно)</label>
                             <x-text-input id="instagram" class="block mt-1 w-full" type="text" name="instagram"
                                 placeholder='https://instagram.com/*******' :value="old('instagram')" />
                             <x-input-error :messages="$errors->get('instagram')" class="mt-2" />
@@ -193,7 +193,7 @@
                         <div class="mt-4">
                             <textarea id="description"
                                 class="block mt-1 w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500" type="text"
-                                name="description" :value="old('description')" placeholder="Описание"></textarea>
+                                name="description" :value="old('description')" placeholder="Описание (не обязательно)"></textarea>
                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
                     </div>

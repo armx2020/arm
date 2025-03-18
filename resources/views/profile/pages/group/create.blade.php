@@ -42,21 +42,21 @@
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="name" :value="__('Название*')" />
+                            <x-input-label for="name" :value="__('Название')" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                 :error="$errors->get('name')" :value="old('name')" required autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="address" :value="__('Адрес')" />
+                            <x-input-label for="address" :value="__('Адрес (не обязательно)')" />
                             <x-text-input id="address" name="address" type="text" class="mt-1 block w-full"
                                 :error="$errors->get('address')" :value="old('address')" />
                             <x-input-error class="mt-2" :messages="$errors->get('address')" />
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="description" :value="__('Описание')" />
+                            <x-input-label for="description" :value="__('Описание (не обязательно)')" />
                             <x-textarea id="description" name="description" class="mt-1 block w-full"
                                         :error="$errors->get('description')">
                                 {{ old('description') }}
@@ -104,42 +104,42 @@
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="phone" :value="__('Телефон')" />
+                            <x-input-label for="phone" :value="__('Телефон (не обязательно)')" />
                             <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full"
                                 :error="$errors->get('phone')" :value="old('phone')" />
                             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="whatsapp" :value="__('Whatsapp')" />
+                            <x-input-label for="whatsapp" :value="__('Whatsapp (не обязательно)')" />
                             <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full"
                                 :error="$errors->get('whatsapp')" :value="old('whatsapp')" />
                             <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="web" :value="__('Веб')" />
+                            <x-input-label for="web" :value="__('Веб (не обязательно)')" />
                             <x-text-input id="web" name="web" type="text" class="mt-1 block w-full"
                                 :error="$errors->get('web')" :value="old('web')" />
                             <x-input-error class="mt-2" :messages="$errors->get('web')" />
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="telegram" :value="__('Телеграм')" />
+                            <x-input-label for="telegram" :value="__('Телеграм (не обязательно)')" />
                             <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full"
                                 :error="$errors->get('telegram')" :value="old('telegram')" />
                             <x-input-error class="mt-2" :messages="$errors->get('telegram')" />
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="vkontakte" :value="__('Вконтакте')" />
+                            <x-input-label for="vkontakte" :value="__('Вконтакте (не обязательно)')" />
                             <x-text-input id="vkontakte" name="vkontakte" type="text" class="mt-1 block w-full"
                                 :error="$errors->get('vkontakte')" :value="old('vkontakte')" />
                             <x-input-error class="mt-2" :messages="$errors->get('vkontakte')" />
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="instagram" :value="__('Инстаграм')" />
+                            <x-input-label for="instagram" :value="__('Инстаграм (не обязательно)')" />
                             <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full"
                                 :error="$errors->get('instagram')" :value="old('instagram')" />
                             <x-input-error class="mt-2" :messages="$errors->get('instagram')" />
