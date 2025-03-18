@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\CategoryForOfferController;
-use App\Http\Controllers\Api\CityController;
-use App\Http\Controllers\Api\EntityForHomePageController;
 use App\Http\Controllers\Pages\EntityController;
 use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Pages\ProfileController;
@@ -15,10 +12,6 @@ require __DIR__ . '/inform-us.php';
 
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/condition-of-use', [HomeController::class, 'conditionOfUse'])->name('condition-of-use');
-
-Route::get('/cities', [CityController::class, 'get'])->name('cities');
-Route::post('/actions', [CategoryForOfferController::class, 'get'])->name('actions');
-Route::get('/entities', [EntityForHomePageController::class, 'get'])->name('entities');
 
 Route::get('/edit/{idOrTranscript}', [EntityController::class, 'edit'])->name('entity.edit');
 Route::patch('/{idOrTranscript}', [EntityController::class, 'update'])->name('entity.update');

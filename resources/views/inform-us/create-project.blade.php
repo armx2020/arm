@@ -42,7 +42,7 @@
             </li>
             <li class="text-neutral-500">
                 <a href="{{ $entityTypeUrl }}" class="truncate">
-                    Сообщите нам об общине
+                    Сообщите нам о проекте помощи
                 </a>
             </li>
         </ol>
@@ -60,15 +60,15 @@
 
             <div class="w-full sm:max-w-xl my-6 px-6 py-6 bg-white overflow-hidden sm:rounded-lg">
 
-                <h3 class="text-xl font-semibold">Добавить общину</h3>
-                <p class="text-sm">Укажите данные места. После проверки, он окажеться на портале</p>
+                <h3 class="text-xl font-semibold">Добавить проект</h3>
+                <p class="text-sm">Укажите данные проекта. После проверки, он окажеться на портале</p>
                 <hr class="mt-4">
 
                 <!-- Session Status -->
 
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                <form method="POST" action="{{ route('inform-us.community') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('inform-us.project') }}" enctype="multipart/form-data">
                     @csrf
 
                     @if (session('error'))
@@ -79,42 +79,7 @@
                         {!! implode('', $errors->all("<div class='text-red-500'>:message</div>")) !!}
                     @endif
 
-                    <div class="step-one">
-                        <div class="mt-4">
-                            <x-input-label for="checkbox-group" :value="__('Выберите категорию *')" />
-                            <div class="flex border-2 rounded-lg p-4 mt-1 @if (count($errors->get('fields')) > 0) border-1 border-red-300 @endif"
-                                id="checkbox-group">
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-
-                                    @foreach ($categories as $item)
-                                        <div class="flex flex-col gap-1">
-                                            <div class="flex">
-                                                <input type="radio" name="category" value="{{ $item->id }}"
-                                                    @if (is_array(old('category')) && in_array($item->id, old('category'))) checked @endif
-                                                    class="checkbox-{{ $item->id }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                    id="checkbox-{{ $item->id }}">
-                                                <label for="checkbox-group-{{ $item->id }}"
-                                                    class="text-base text-black ms-3">{{ $item->name }}</label>
-                                            </div>
-                                            @foreach ($item->categories as $child)
-                                                <div class="flex">
-                                                    <input type="radio" name="category" value="{{ $item->id }}"
-                                                        @if (is_array(old('category')) && in_array($child->id, old('category'))) checked @endif
-                                                        class="checkbox-{{ $loop->parent->iteration }} shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                        id="checkbox-{{ $item->id }}">
-                                                    <label for="checkbox-{{ $item->id }}"
-                                                        class="text-sm text-gray-500 ms-3">{{ $child->name }}</label>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    @endforeach
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="step-two hidden">
+                    <div class="step-two">
                         <!-- сity -->
                         <div class="my-3">
                             <label for="city" class="text-sm font-medium text-gray-900 block mb-2">Город</label>
@@ -197,6 +162,7 @@
                         </div>
                     </div>
 
+
                     <div class="step-three hidden">
                         <div class="border-b min-h-auto overflow-hidden pb-2">
                             <div id="sortable-slots"></div>
@@ -207,24 +173,8 @@
 
                     <div class="flex items-center justify-between mt-4">
 
-                        <div class="step-one w-full">
-                            <div class="flex items-center justify-start">
-                                <button id="next-to-step-two" type="button"
-                                    class="px-3 inline-flex items-center py-2 border border-blue-500 rounded-md font-semibold text-xs text-blue-500 uppercase tracking-widest hover:bg-blue-800 focus:bg-blue-800 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 px-3">
-                                    {{ __('далее') }}
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="step-two hidden w-full">
+                        <div class="step-two w-full">
                             <div class="flex justify-between">
-                                <div class="flex items-center justify-start">
-                                    <button id="back-to-step-one" type="button"
-                                        class="px-3 inline-flex items-center py-2 border border-blue-500 rounded-md font-semibold text-xs text-blue-500 uppercase tracking-widest hover:bg-blue-800 focus:bg-blue-800 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 px-3">
-                                        {{ __('назад') }}
-                                    </button>
-                                </div>
-
                                 <div class="flex items-center justify-start">
                                     <button id="next-to-step-three" type="button"
                                         class="px-3 inline-flex items-center py-2 border border-blue-500 rounded-md font-semibold text-xs text-blue-500 uppercase tracking-widest hover:bg-blue-800 focus:bg-blue-800 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 px-3">
@@ -279,23 +229,6 @@
 
     <script type='text/javascript'>
         $(document).ready(function() {
-            $('#next-to-step-two').on('click', function() {
-                if ($('input[name="category"]').is(':checked')) {
-                    $('.step-two').show();
-                    $('.step-one').hide();
-                    $('.step-three').hide();
-                    $('#checkbox-group').css("border-color", "#e5e7eb");
-                } else {
-                    $('#checkbox-group').css("border-color", "red");
-                }
-
-            });
-
-            $('#back-to-step-one').on('click', function() {
-                $('.step-one').show();
-                $('.step-two').hide();
-                $('.step-three').hide();
-            });
 
             $('#next-to-step-three').on('click', function() {
                 if ($('#name').val()) {

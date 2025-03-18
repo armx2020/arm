@@ -46,7 +46,7 @@
 
                     <a href="{{ route('inform-us.appeal') }}"
                         class="block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
-                        Написать нам, сообщить об ошибке или запросить помощь
+                        Написать нам если у вас есть идея или вы нашли ошибку
                     </a>
                 </div>
 
@@ -77,6 +77,11 @@
                     <a href="{{ route('inform-us.job') }}"
                         class="uppercase block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
                         Вакансию или резюме
+                    </a>
+
+                    <a href="{{ route('inform-us.project') }}"
+                        class="uppercase block text-left rounded border-2 border-primary-100 px-6 py-4 text-sm font-medium leading-normal text-primary-700 transition hover:border-primary-accent-200 hover:bg-secondary-50/50 my-2">
+                        Проекты помощи
                     </a>
 
                 </div>

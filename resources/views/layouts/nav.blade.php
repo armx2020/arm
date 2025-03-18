@@ -84,6 +84,10 @@
                             href="{{ route('communities.region', ['regionTranslit' => $region]) }}">Общины,
                             констульства</a>
                     </li>
+                    <li class="mb-2 pl-4">
+                        <a class=""
+                            href="{{ route('projects.region', ['regionTranslit' => $region]) }}">Проекты помощи</a>
+                    </li>
                 @else
                     <li class="mb-2 pl-4">
                         <a class="" href="{{ route('companies.index') }}">Бизнес справочник</a>
@@ -96,6 +100,9 @@
                     </li>
                     <li class="mb-2 pl-4">
                         <a class="" href="{{ route('communities.index') }}">Общины, констульства</a>
+                    </li>
+                    <li class="mb-2 pl-4">
+                        <a class="" href="{{ route('projects.index') }}">Проекты помощи</a>
                     </li>
                 @endif
                 <li class="mb-2">
@@ -132,6 +139,7 @@
                 </li>
             </ul>
         </div>
+
         <div class="hidden flex-grow items-center xl:flex pr-3">
             @if (isset($regionName) && $regionName !== 'Россия')
                 <a class="" href="{{ route('home', ['regionTranslit' => $region]) }}">

@@ -156,7 +156,7 @@
                     <div class="flex flex-row lg:flex-col">
 
                         {{--  Выбор типа сущности --}}
-                        <div class="flex flex-col basis-1/2 lg:basis-1/5 max-w-56">
+                        <div class="flex flex-col @if(isset($categories) && count($categories) > 0) basis-1/2 @else basis-full @endif lg:basis-1/5 max-w-56">
                             <div class="flex flex-row gap-3">
                                 <div class="bg-white mt-3 basis-full rounded-md">
                                     <select name="type" class="w-full border-0 rounded-md" autocomplete="off"
@@ -193,7 +193,7 @@
                         </script>
 
                         {{--  Выбор категории --}}
-                        @isset($categories)
+                        @if(isset($categories) && count($categories) > 0)
                             @php
                                 $routeName = route($entityTranscription . '.index');
 
@@ -255,7 +255,7 @@
                                     </script>
                                 </div>
                             </div>
-                        @endisset
+                        @endif
 
                     </div>
 
