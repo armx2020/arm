@@ -1,10 +1,10 @@
 <div class="flex flex-col basis-full lg:basis-1/5 ">
     <div class="flex flex-row">
         <div class="bg-white p-2 rounded-md my-1 basis-full flex lg:hidden" id="button-profile-menu">
-            <p class="mx-auto text-lg uppercase" id="p-profile-menu">меню</p>
+            <p class="mx-auto text-lg uppercase" id="p-profile-menu">Закрыть</p>
         </div>
     </div>
-    <div class="bg-white rounded-md pb-3 lg:m-3 my-3 hidden lg:block" id="select-profile-menu">
+    <div class="bg-white rounded-md pb-3 lg:m-3 my-3 block" id="select-profile-menu">
         <ul class="m-6 text-sm">
 
             <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('dashboard')) bg-gray-100 @endif"><a
@@ -56,3 +56,19 @@
         </ul>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $("#button-profile-menu").click(function() {
+            $("#select-profile-menu").toggle();
+            $("#button-profile-menu").css({
+                'background-color': 'rgb(226 232 240)'
+            })
+
+            if ($('#p-profile-menu').text() == 'меню') {
+                $("#p-profile-menu").text('закрыть')
+            } else {
+                $("#p-profile-menu").text('меню')
+            }
+        });
+    })
+</script>
