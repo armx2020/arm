@@ -159,6 +159,16 @@
                     </div>
                 @endif
 
+                @if ($entity->director)
+                    <div class="flex sm:mx-4 mt-4 max-w-prose overflow-hidden">
+                        <span class="text-sm">Руководитель:</span>
+                        <a href="{{ mb_substr($entity->director, 0, 400, 'UTF-8') }}"
+                            class="text-sm text-gray-500 break-keep ml-1">
+                            {{ mb_substr($entity->director, 0, 400, 'UTF-8') }}
+                        </a>
+                    </div>
+                @endif
+
                 @if ($entity->phone)
                     <div class="flex sm:mx-4 mt-4 max-w-prose overflow-hidden">
                         <span class="text-sm">Телефон:</span>

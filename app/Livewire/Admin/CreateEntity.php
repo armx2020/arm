@@ -9,6 +9,7 @@ use Livewire\Component;
 class CreateEntity extends Component
 {
     public $selectedType = null;
+    public $isCreatUser = null;
 
     public function render()
     {

@@ -2,7 +2,7 @@
 
 <div class="col-span-6" id="user_div" wire:ignore>
     <label for="user" class="text-sm font-medium text-gray-900 block mb-2">Пользователь</label>
-    <select name="user" class="w-full" id="user">
+    <select name="user" class="w-full" id="user" wire:model.live="isCreatUser">
         @if (isset($selectedUser))
             <option value="{{ $selectedUser->id }}"> {{ $selectedUser->firstname }} {{ $selectedUser->phone }}</option>
         @else

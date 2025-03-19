@@ -7,7 +7,8 @@
 
                         <div class="bg-white rounded-lg relative mb-8">
 
-                            <form id="card-form" method="POST" enctype="multipart/form-data" action="{{ route('admin.entity.store') }}">
+                            <form id="card-form" method="POST" enctype="multipart/form-data"
+                                action="{{ route('admin.entity.store') }}">
                                 @csrf
 
                                 <div class="flex justify-between p-5 border-b rounded-t">
@@ -160,6 +161,36 @@
 
                                         {{-- Пользователь --}}
                                         <x-admin.select-user />
+
+                                        {{-- @if ($this->isCreatUser == null)
+                                            <div class="col-span-3">
+                                                <label for="sort_id"
+                                                    class="text-sm font-medium text-gray-900 block mb-2">Пользователь
+                                                    *</label>
+                                                <input type="number" name="sort_id" id="sort_id"
+                                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                    value=0 required>
+                                                <x-input-error :messages="$errors->get('sort_id')" class="mt-2" />
+                                            </div>
+                                            <div class="col-span-2">
+                                                <label for="sort_id"
+                                                    class="text-sm font-medium text-gray-900 block mb-2">Пароль
+                                                    *</label>
+                                                <input type="number" name="sort_id" id="sort_id"
+                                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                    value=0 required>
+                                                <x-input-error :messages="$errors->get('sort_id')" class="mt-2" />
+                                            </div>
+                                            <div class="col-span-1">
+                                                <label for="sort_id"
+                                                    class="text-sm font-medium text-gray-900 block mb-2">Сортировка
+                                                    *</label>
+                                                <input type="number" name="sort_id" id="sort_id"
+                                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                    value=0 required>
+                                                <x-input-error :messages="$errors->get('sort_id')" class="mt-2" />
+                                            </div>
+                                        @endif  --}}
                                     </div>
 
                                     {{-- Соц. ссылки --}}
@@ -242,7 +273,8 @@
     </div>
 
     <template id="image-slot-template">
-        <div class="image-slot border border-dashed border-gray-300 relative p-2 float-left flex items-center space-x-2 rounded-md ml-2 my-1">
+        <div
+            class="image-slot border border-dashed border-gray-300 relative p-2 float-left flex items-center space-x-2 rounded-md ml-2 my-1">
 
             <img class="preview-img w-20 h-20 object-cover rounded-md" src="{{ url('/image/no-image.png') }}">
 
@@ -264,7 +296,7 @@
         $(document).ready(function() {
 
             const maxSlots = 20;
-            const maxSize  = 20 * 1024 * 1024; // 2MB
+            const maxSize = 20 * 1024 * 1024; // 2MB
 
             const $sortable = $('#sortable-slots');
             const $addSlotContainer = $('#add-slot-container');
@@ -410,7 +442,8 @@
                 });
 
                 $slot.on('click', function(e) {
-                    if ($slot.data('isEmpty') && !$(e.target).closest('.remove-image-btn, .file-input, label').length) {
+                    if ($slot.data('isEmpty') && !$(e.target).closest(
+                            '.remove-image-btn, .file-input, label').length) {
                         $fileInput.trigger('click');
                     }
                 });
@@ -429,6 +462,7 @@
             }
 
             let newImageCounter = 1;
+
             function cloneSlotTemplate() {
                 const template = document.getElementById('image-slot-template');
                 return $(template.content.cloneNode(true)).find('.image-slot');
