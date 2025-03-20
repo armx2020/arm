@@ -25,7 +25,7 @@ class UpdateEntityRequest extends FormRequest
             'instagram'        => ['nullable', new InstagramUrl],
             'vkontakte'        => ['nullable', new VkontakteUrl],
             'city'             => ['integer'],
-            'user'             => ['nullable', 'integer'],
+            'user'             => ['nullable'],
             'type'             => ['required', 'integer'],
             'category'         => ['nullable'],
             'fields'           => ['nullable'],
