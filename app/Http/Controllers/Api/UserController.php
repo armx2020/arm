@@ -14,7 +14,7 @@ class UserController extends Controller
         $morePages = false;
 
         if (!empty($input['query'])) {
-            $data = User::where("firstname", "LIKE", "%{$input['query']}%")->get();
+            $data = User::where("firstname", "LIKE", "%{$input['query']}%")->orWhere("phone", "LIKE", "%{$input['query']}%")->get();
         } else {
             $data = User::orderBy('firstname')->simplePaginate(10);
 
