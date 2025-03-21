@@ -21,7 +21,6 @@ jobs:
             cd ${{ secrets.PROJECT_PATH }}
             git pull
             composer install --no-dev --optimize-autoloader
-            php artisan livewire:discover
             php artisan migrate --force
             php artisan config:cache
             php artisan event:cache

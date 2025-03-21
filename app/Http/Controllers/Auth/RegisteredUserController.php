@@ -36,7 +36,7 @@ class RegisteredUserController extends Controller
         $request->session()->put('password', $request->password);
 
         $code = mt_rand(1111, 9999);
-        $message = `VSEARMYANE: $code. Никому не передавайте этот код`;
+        $message = `Никому не передавайте этот код: $code.`;
 
         $json = SmsService::sendTo($request->phone, $message, true);
 
@@ -52,7 +52,7 @@ class RegisteredUserController extends Controller
                         Log::info("Код ошибки: $data->status_code. ");
                         Log::info("Текст ошибки: $data->status_text. ");
 
-                        return redirect()->route('register')->with('error',  "Сообщение не передано." . $data->status_text);
+                        return redirect()->route('register')->with('error',  "Сообщение не передано. " . $data->status_text);
                     }
                 }
             } else {
