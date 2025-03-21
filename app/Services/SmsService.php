@@ -34,6 +34,7 @@ class SmsService
     public static function sendTo($phone, $message, $active = false)
     {
         $result = [];
+        $phone = preg_replace('/[^0-9]/', '', $phone);
 
         if ($active == true) {
 
