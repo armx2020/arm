@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Services\SmsService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -46,17 +47,18 @@ class RegisteredUserController extends Controller
                         $request->session()->put('code', $code);
                         $request->session()->put('count', '3');
                         return view('auth.confirm', ['message' => [], 'count' => 3]);
-                    } else { // Ошибка в отправке
-                        echo "Сообщение на номер $phone не отправлено. ";
-                        echo "Код ошибки: $data->status_code. ";
-                        echo "Текст ошибки: $data->status_text. ";
-                        echo "";
+                    } else {
+                        Log::info("Сообщение на номер $phone не отправлено. ");
+                        Log::info("Код ошибки: $data->status_code. ");
+                        Log::info("Текст ошибки: $data->status_text. ");
+
                         return redirect()->route('register')->with('error',  "Сообщение не передано." . $data->status_text);
                     }
                 }
-                return view('auth.confirm', ['message' => [], 'count' => 3]);
             } else {
-                return redirect()->route('register')->with('error',  "Сообщение не передано." . $json->status_text);
+                Log::info("Код ошибки: $json->status_code. ");
+                Log::info("Текст ошибки: $json->status_text. ");
+                return redirect()->route('register')->with('error',  "Сообщение не передано. " . $json->status_text);
             }
         } else {
             return redirect()->route('register')->with('error',  "Запрос не выполнился. Не удалось установить связь с сервером. ");
