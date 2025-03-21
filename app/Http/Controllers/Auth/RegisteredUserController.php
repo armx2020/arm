@@ -34,17 +34,29 @@ class RegisteredUserController extends Controller
         $request->session()->put('phone', $request->phone);
         $request->session()->put('password', $request->password);
 
-        $json = SmsService::callTo($request->phone, $_SERVER["REMOTE_ADDR"], false);
+        $code = mt_rand(1111, 9999);
+        $message = `VSEARMYANE: $code. Никому не передавайте этот код`;
+
+        $json = SmsService::sendTo($request->phone, $message, true);
 
         if ($json) {
             if ($json->status == "OK") {
-
-                $request->session()->put('code', $json->code);
-                $request->session()->put('count', '3');
-
+                foreach ($json->sms as $phone => $data) {
+                    if ($data->status == "OK") {
+                        $request->session()->put('code', $code);
+                        $request->session()->put('count', '3');
+                        return view('auth.confirm', ['message' => [], 'count' => 3]);
+                    } else { // Ошибка в отправке
+                        echo "Сообщение на номер $phone не отправлено. ";
+                        echo "Код ошибки: $data->status_code. ";
+                        echo "Текст ошибки: $data->status_text. ";
+                        echo "";
+                        return redirect()->route('register')->with('error',  "Сообщение не передано." . $data->status_text);
+                    }
+                }
                 return view('auth.confirm', ['message' => [], 'count' => 3]);
             } else {
-                return redirect()->route('register')->with('error',  "Звонок не может быть выполнен." . $json->status_text);
+                return redirect()->route('register')->with('error',  "Сообщение не передано." . $json->status_text);
             }
         } else {
             return redirect()->route('register')->with('error',  "Запрос не выполнился. Не удалось установить связь с сервером. ");
