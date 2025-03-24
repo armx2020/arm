@@ -49,6 +49,11 @@
                         </p>
                         <p class="text-left text-sm mx-4 my-1 text-gray-500 break-all">{{ $entity->description }}</p>
 
+                        @if ($entity->director)
+                            <p class="text-left text-sm mx-4 my-1 text-gray-500 break-all">Руководитель:
+                                {{ mb_substr($entity->director, 0, 400, 'UTF-8') }}</p>
+                        @endif
+                        
                         <hr class="mt-3 mb-3">
                         <x-pages.social :entity=$entity />
                     </div>

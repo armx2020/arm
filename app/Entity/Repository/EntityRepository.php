@@ -14,6 +14,7 @@ class EntityRepository implements EntityColumnsInterface, EntityFiltersInterface
         'address',
         'phone',
         'description',
+        'director',
         'activity',
         'entity_type_id',
         'created_at',
