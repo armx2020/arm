@@ -31,7 +31,7 @@
         @endif
 
         @if ($entity->entity_type_id == 1)
-            <div class="max-h-16 md:max-h-36 lg:max-h-48">
+            <div class="max-h-16 md:max-h-36 lg:max-h-48 overflow-hidden">
                 @php
                     $count = 0;
                 @endphp
