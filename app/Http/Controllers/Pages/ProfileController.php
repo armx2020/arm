@@ -19,7 +19,7 @@ class ProfileController extends BaseController
     {
         parent::__construct();
     }
-    
+
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -36,7 +36,12 @@ class ProfileController extends BaseController
         $user = User::find($id);
 
         if (empty($user)) {
-            return redirect()->route('welcome')->with('alert', 'Товар не найден');
+
+            if ($request->session()->get('region') && $request->session()->get('region') !== 'russia') {
+                return redirect()->route('home', ['regionTranslit' => $request->session()->get('region')])->with('alert', 'Пользователь не найден');
+            } else {
+                return redirect()->route('home')->with('alert', 'Пользователь не найден');
+            }
         }
 
         $sum =  ($user->image ? 10 : 0) +
@@ -50,7 +55,8 @@ class ProfileController extends BaseController
         $fullness = (round(($sum / 45) * 100));
 
         return view('pages.user.user', [
-            'region'   => $request->session()->get('region'),
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
             'countries' => $this->countries,
             'user' => $user,
