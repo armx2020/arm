@@ -32,27 +32,7 @@ class EntityController extends BaseAdminController
     {
         $user_id = null;
 
-        if (is_int($request->user)) {
-            $user_id = $request->user;
-        } else {
-
-            $userData = explode(' ', $request->user);
-
-            if (count($userData) > 1) {
-                $user = new User();
-
-                $user->firstname = $userData[0];
-                $user->phone = $userData[1];
-                $user->email = isset($userData[2]) ?: null;
-                $user->password = Hash::make(isset($userData[3]) ?: $userData[0]);
-
-                $user->save();
-
-                $user_id = $user->id;
-            } else {
-                return redirect()->route('admin.entity.index')->with('alert', 'неверный формат данных у нового пользователя');
-            }
-        }
+        $user_id = $request->user;
 
         $this->entityAction->store($request, $user_id ?: 1);
 
@@ -68,27 +48,7 @@ class EntityController extends BaseAdminController
     {
         $user_id = null;
 
-        if (is_int($request->user)) {
-            $user_id = $request->user;
-        } else {
-
-            $userData = explode(' ', $request->user);
-
-            if (count($userData) > 1) {
-                $user = new User();
-
-                $user->firstname = $userData[0];
-                $user->phone = $userData[1];
-                $user->email = isset($userData[2]) ?: null;
-                $user->password = Hash::make(isset($userData[3]) ?: $userData[0]);
-
-                $user->save();
-
-                $user_id = $user->id;
-            } else {
-                return redirect()->route('admin.entity.edit', ['entity' => $entity->id])->with('alert', 'неверный формат данных у нового пользователя');
-            }
-        }
+        $user_id = $request->user;
 
         $entity = $this->entityAction->update($request, $entity, $user_id ?: 1);
 

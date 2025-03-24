@@ -181,6 +181,15 @@
                                             @endif
                                         @endisset
 
+                                        {{-- Директор --}}
+                                        <div class="col-span-6">
+                                            <x-input-label for="director" :value="__('Директор')" />
+                                            <x-text-input id="director" name="director" type="text"
+                                                class="mt-2 block w-full bg-gray-50" :error="$errors->get('director')"
+                                                value="{{ old('director', $entity->director) }}" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('director')" />
+                                        </div>
+
                                         {{-- Описание --}}
                                         <div class="col-span-6">
                                             <label for="description"

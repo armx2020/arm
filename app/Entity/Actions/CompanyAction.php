@@ -26,6 +26,7 @@ class CompanyAction
         $entity->name = $request->name;
         $entity->address = $request->address;
         $entity->description = $request->description;
+        $entity->director = $request->director;
         $entity->city_id = $city->id;
         $entity->region_id = $city->region->id;
         $entity->phone = $request->phone;
@@ -81,6 +82,7 @@ class CompanyAction
         $entity->name = $request->name;
         $entity->address = $request->address;
         $entity->description = $request->description;
+        $entity->director = $request->director;
         $entity->city_id = $city->id;
         $entity->region_id = $city->region->id;
         $entity->phone = $request->phone;

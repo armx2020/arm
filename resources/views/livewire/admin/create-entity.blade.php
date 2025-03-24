@@ -78,6 +78,7 @@
                                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                         </div>
 
+
                                         {{-- Тип сущности --}}
                                         <div class="col-span-6 ms:col-span-3">
                                             <label for="selectedType"
@@ -140,6 +141,14 @@
                                             @endif
                                         @endisset
 
+                                        {{-- Директор --}}
+                                        <div class="col-span-6">
+                                            <x-input-label for="director" :value="__('Директор')" />
+                                            <x-text-input id="director" name="director" type="text"
+                                                class="mt-2 block w-full bg-gray-50" :error="$errors->get('director')"
+                                                :value="old('director')" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('director')" />
+                                        </div>
 
                                         {{-- Описание --}}
                                         <div class="col-span-6">

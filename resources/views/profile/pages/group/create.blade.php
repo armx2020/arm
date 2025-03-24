@@ -65,6 +65,13 @@
                         </div>
 
                         <div class="my-3">
+                            <x-input-label for="director" :value="__('Директор')" />
+                            <x-text-input id="director" name="director" type="text" class="mt-1 block w-full"
+                                :error="$errors->get('director')" :value="old('director')"/>
+                            <x-input-error class="mt-2" :messages="$errors->get('director')" />
+                        </div>
+
+                        <div class="my-3">
                             <x-input-label for="checkbox-group" :value="__('Выберите деятельность *')" />
                             <div class="flex border-2 rounded-lg p-4 mt-1 @if (count($errors->get('fields')) > 0) border-1 border-red-300 @endif"
                                 id="checkbox-group">
