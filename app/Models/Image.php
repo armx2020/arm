@@ -16,7 +16,7 @@ class Image extends Model
     use HasFactory;
 
     protected $fillable = [
-        'path', 'sort_id', 'checked'
+        'path', 'sort_id', 'checked', 'is_logo'
     ];
 
     public function imageable(): MorphTo
@@ -27,6 +27,11 @@ class Image extends Model
     public function scopeMain($query)
     {
         return $query->where('sort_id', 0);
+    }
+
+    public function scopeLogo($query)
+    {
+        return $query->where('is_logo', 1);
     }
 
 }
