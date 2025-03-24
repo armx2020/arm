@@ -50,16 +50,15 @@
                                             <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
                                         </div>
 
-                                        <div class="col-span-6 sm:col-span-3" id="city_div" wire:ignore>
+                                        <div class="col-span-6 sm:col-span-3" wire:ignore>
                                             <x-admin.select-city />
                                         </div>
 
                                         <div class="col-span-6 sm:col-span-3">
-                                            <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Email
-                                                *</label>
+                                            <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Email</label>
                                             <input type="email" name="email" id="email"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                :value="old('email')" required>
+                                                :value="old('email')">
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
 
@@ -74,9 +73,8 @@
 
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="password"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Пароль
-                                                (password)*</label>
-                                            <input type="password" name="password" id="password" value="password"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Пароль *</label>
+                                            <input type="text" name="password" id="password" value="12345678"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                                 required>
                                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -85,9 +83,9 @@
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="password_confirmation"
                                                 class="text-sm font-medium text-gray-900 block mb-2">Подтвердите
-                                                Пароль*</label>
-                                            <input type="password" name="password_confirmation" id="password_confirmation"
-                                                value="password"
+                                                Пароль *</label>
+                                            <input type="text" name="password_confirmation" id="password_confirmation"
+                                                value="12345678"
                                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                                 required>
                                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />

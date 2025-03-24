@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Entity\Actions\UserAction;
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\Admin\User\StoreUserRequest;
+use App\Http\Requests\Admin\User\UpdateUserPasswordRequest;
+use App\Http\Requests\Admin\User\UpdateUserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends BaseAdminController
@@ -67,6 +69,14 @@ class UserController extends BaseAdminController
 
         return redirect()->route('admin.user.edit', ['user' => $user->id])
             ->with('success', "Пользователь обнавлён");
+    }
+
+    public function updateUserPassword(UpdateUserPasswordRequest $request, User $user)
+    {
+        $user->password = Hash::make($request->password);
+
+        return redirect()->route('admin.user.edit', ['user' => $user->id])
+            ->with('success', "Пароль пользователя обнавлён");
     }
 
     public function destroy(string $id)

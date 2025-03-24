@@ -25,6 +25,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('user', UserController::class)->except([
             'show'
         ]);
+
+        Route::put('user/update-password/{user}', [UserController::class, 'updateUserPassword'])->name('user.update-password');
         Route::resource('category', CategoryController::class)->except([
             'show'
         ]);

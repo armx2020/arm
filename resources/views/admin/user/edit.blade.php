@@ -65,8 +65,8 @@
                                             <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
                                         </div>
 
-                                        <div class="col-span-6 sm:col-span-3" id="city_div" wire:ignore>
-                                            <x-admin.select-city />
+                                        <div class="col-span-6 sm:col-span-3" wire:ignore>
+                                            <x-admin.select-city :selectedCity="$user->city"/>
                                         </div>
 
                                         <div class="col-span-6 sm:col-span-3">
@@ -86,26 +86,6 @@
                                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                         </div>
 
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="password"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Пароль
-                                                (password)*</label>
-                                            <input type="password" name="password" id="password" value="password"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                required>
-                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                                        </div>
-
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="password_confirmation"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Подтвердите
-                                                Пароль*</label>
-                                            <input type="password" name="password_confirmation" id="password_confirmation"
-                                                value="password"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                required>
-                                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                                        </div>
                                     </div>
 
                                     <hr class="my-5">
@@ -150,6 +130,49 @@
                                             <x-input-error :messages="$errors->get('vkontakte')" class="mt-2" />
                                         </div>
                                     </div>
+                                    <div class="items-center py-6 border-gray-200 rounded-b">
+                                        <button
+                                            class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                            type="submit">Сохранить</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="bg-white rounded-lg relative my-5">
+
+                            <form method="POST" enctype="multipart/form-data"
+                                action="{{ route('admin.user.update-password', ['user' => $user->id]) }}">
+                                @csrf
+                                @method('PUT')
+
+                                <div class="p-6 space-b-6">
+
+                                    <div class="grid grid-cols-6 gap-6">
+
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="password"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Новый пароль
+                                                (8 символов)</label>
+                                            <input type="text" name="password" id="password" value="12345678"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                required>
+                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                        </div>
+
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="password_confirmation"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Подтвердите
+                                                новый пароль</label>
+                                            <input type="text" name="password_confirmation" id="password_confirmation"
+                                                value="12345678"
+                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                required>
+                                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                        </div>
+
+                                    </div>
+
                                     <div class="items-center py-6 border-gray-200 rounded-b">
                                         <button
                                             class="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"

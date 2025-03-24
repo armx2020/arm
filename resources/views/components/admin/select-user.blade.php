@@ -18,7 +18,7 @@
             <option value="{{ $selectedUser->id }}" data-url="{{ route('admin.user.edit', ['user' => 1]) }}">
                 {{ $selectedUser->firstname }} {{ $selectedUser->phone }}</option>
         @else
-            <option value=''>ИМЯ ТЕЛЕФОН ПАРОЛЬ(если не ввести, то паролем будет ИМЯ ПОЛЬЗОВАТЕЛЯ)</option>
+            <option value=''>Введите имя или номер</option>
         @endif
     </select>
 </div>
@@ -26,7 +26,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#user").select2({
-            tags: true,
+            //    tags: true,
             ajax: {
                 url: "{{ route('admin.get-user') }}",
                 type: "get",
@@ -79,7 +79,7 @@
 
         if (selectedOption) {
             userLink.attr('href', 'https://vsearmyane.ru/admin/user/' + selectedOption + '/edit');
-            userLink.show(); 
+            userLink.show();
         } else {
             userLink.hide();
         }
