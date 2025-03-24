@@ -64,7 +64,7 @@
                         <div class="my-3">
                             <x-input-label for="description" :value="__('Описание (не обязательно)')" />
                             <x-textarea id="description" name="description" class="mt-1 block w-full">
-                                {{ old('description', $entity->description) }}
+                                {{ old('description', $offer->description) }}
                             </x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
