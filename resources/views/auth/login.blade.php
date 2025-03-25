@@ -10,6 +10,9 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ url('/jquery-3.7.0.min.js') }}"></script>
+    <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 @endsection
 
 @section('content')
@@ -71,4 +74,5 @@
 @endsection
 
 @section('body')
+    @vite(['resources/js/mask_phone.js'])
 @endsection
