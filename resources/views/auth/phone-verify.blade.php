@@ -15,7 +15,7 @@
 @section('content')
     <div class="w-full sm:max-w-lg p-4 bg-white overflow-hidden sm:rounded-lg z-50 mx-auto my-10 md:my-20">
         <div class="items-center justify-between">
-            <a href="callto:78005008275" class="text-lg text-gray-900">
+            <a href="callto:{{ preg_replace('/[^0-9]/', '', $phoneForeVerification) }}" class="text-lg text-gray-900">
                 Для завершения регистрации, пожалуйста позвоните по этому номеру <span
                     class="font-bold">{{ $phoneForeVerification }}</span> в течении <span id="timer"
                     class="font-bold">{{ $timeForeVerification }}</span>

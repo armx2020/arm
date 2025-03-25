@@ -22,6 +22,9 @@ class UserAction
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->phone_verified_at = now();
+        $user->phone_fore_verification = null;
+        $user->check_id = null;
         $user->city_id = $request->city;
         $user->region_id = $city->region->id;
         $user->whatsapp = $request->whatsapp;

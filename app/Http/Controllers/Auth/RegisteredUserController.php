@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -12,12 +12,21 @@ use Illuminate\Support\Facades\Hash;
 use App\Services\SmsService;
 use Illuminate\Validation\Rules;
 
-class RegisteredUserController extends Controller
+class RegisteredUserController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function create(Request $request)
     {
-        // TODO
-        return view('auth.register');
+        return view('auth.register', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'regions' => $this->regions,
+            'countries' => $this->countries,
+        ]);
     }
 
     public function store(Request $request)

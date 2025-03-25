@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 
-class AuthenticatedSessionController extends Controller
+class AuthenticatedSessionController extends BaseController
 {
-    public function create()
+    public function __construct()
     {
-        return view('auth.login');
+        parent::__construct();
+    }
+
+    public function create(Request $request)
+    {
+        return view('auth.login', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'regions' => $this->regions,
+            'countries' => $this->countries,
+        ]);
     }
 
     public function store(LoginRequest $request): RedirectResponse

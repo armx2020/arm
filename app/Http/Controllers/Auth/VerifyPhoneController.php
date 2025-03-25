@@ -6,7 +6,6 @@ use App\Http\Controllers\BaseController;
 use App\Providers\RouteServiceProvider;
 use App\Services\SmsService;
 use Carbon\Carbon;
-use DateTime;
 use Illuminate\Http\Request;
 
 class VerifyPhoneController extends BaseController
