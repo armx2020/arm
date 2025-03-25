@@ -2,62 +2,61 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+
 class SmsService
 {
-    public static function callTo($phone, $ip, $active = false) // false -> для теста (код 0000)
+    private $active;
+    private $api_id;
+
+    public function __construct($active = false)
     {
-        $result = [];
-        $phone = preg_replace('/[^0-9]/', '', $phone);
-        
-        if ($active == true) {
-            $ch = curl_init("https://sms.ru/code/call");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
-                "phone" => $phone,
-                "ip" => $ip,
-                //    "api_id" => "AF091A73-77E1-9945-9455-280D8014D741",  // Ars
-                "api_id" => "30BDE851-15F1-8E98-00D5-2097A2054570",     // Sevak
-            )));
+        $this->active = $active;
 
-            $body = curl_exec($ch);
-            curl_close($ch);
+        $optionsCollect = Cache::get('options', []);
 
-            $result = json_decode($body);
+        if ($active) {
+            $this->api_id =  $optionsCollect->firstWhere('name_en', '=', 'api_id_active')['value'];
         } else {
-            $result = (object) array('status' => 'OK', 'code' => 0000);
+            $this->api_id =  $optionsCollect->firstWhere('name_en', '=', 'api_id_deactive')['value'];
         }
-
-        return $result;
     }
 
-    public static function sendTo($phone, $message, $active = false)
+    public function checkPhone($phone)
     {
-        $result = [];
-        $phone = preg_replace('/[^0-9]/', '', $phone);
-
-        if ($active == true) {
-
-            $ch = curl_init("https://sms.ru/sms/send");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
-                // "api_id" => "AF091A73-77E1-9945-9455-280D8014D741",  // Ars
-                "api_id" => "30BDE851-15F1-8E98-00D5-2097A2054570",     // Sevak
-                "to" => $phone,
-                "msg" => $message,
-                "json" => 1,
-            )));
-
-            $body = curl_exec($ch);
-            curl_close($ch);
-
-            $result = json_decode($body);
-        } else {
-            $sms = (object) array('status' => 'OK');
-            $result = (object) array('status' => 'OK', 'sms' => $sms);
+        if (!$this->active) {
+            return (object) array('status' => 'OK', "status_code" => 100, "call_phone" =>  "79397524410", "call_phone_pretty" => "+7 (939) 752-4410", 'check_id' => 777);
         }
 
-        return $result;
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+
+        $ch = curl_init("https://sms.ru/callcheck/add");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+            "api_id" => $this->api_id,
+            "phone" => $phone, // Номер телефона, который надо проверить (с которого мы будем ожидать звонок)
+            "json" => 1
+        ));
+
+        $body = curl_exec($ch);
+        curl_close($ch);
+
+        $json = json_decode($body);
+
+        if ($json) {
+            if ($json->status == "OK") {
+               return $json;
+            } else {
+                Log::info("Сообщение на номер $phone не отправлено. ");
+                Log::info("Код ошибки: $json->status_code. ");
+                Log::info("Текст ошибки: $json->status_text. ");
+                return false;
+            }
+        } else {
+            Log::info("Запрос не выполнился Не удалось установить связь с сервером");
+            return false;
+        }
     }
 }

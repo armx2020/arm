@@ -10,7 +10,7 @@ use App\Http\Controllers\Profile\MyJobController;
 use App\Http\Controllers\Profile\MyOfferController;
 use App\Http\Controllers\Profile\MyPlacesController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verificate_phone'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/questions', [DashboardController::class, 'questions'])->name('questions');

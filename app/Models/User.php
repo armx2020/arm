@@ -57,7 +57,10 @@ class User extends Authenticatable
         'last_active_at',
         'activity',
         'city_id',
-        'region_id'
+        'region_id',
+        'phone_verified_at',
+        'phone_fore_verification',
+        'check_id'
     ];
 
     protected $hidden = [
@@ -67,7 +70,13 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
         'password' => 'hashed',
         'last_active_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public function hasVerifiedPhone()
+    {
+        return !is_null($this->phone_verified_at);
+    }
 }
