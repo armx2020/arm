@@ -26,7 +26,7 @@ class VerifyPhoneController extends BaseController
         $smsResult = $smsService->checkPhone($request->user()->phone);
 
         if ($smsResult) {
-            if ($smsResult->status_code == 400) {
+            if ($smsResult->status_code == 401) {
                 
                 $user = $request->user();
 
