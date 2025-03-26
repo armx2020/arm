@@ -13,24 +13,18 @@ Route::middleware('guest')->group(function () {
     // Регистрация
     Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('register', [RegisteredUserController::class, 'store']);
-    
+
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     // Сброс пароля
     Route::get('forgot-password', [PasswordResetPhoneController::class, 'create'])
-        ->name('password.request');
+        ->name('forgot-password');
 
     Route::post('forgot-password', [PasswordResetPhoneController::class, 'store'])
-        ->name('password.phone');
+        ->name('forgot-password');
 
-    Route::post('confirm-phone', [PasswordResetPhoneController::class, 'confirm'])->name('confirm-phone');
-
-    // Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
-    //             ->name('password.reset');
-
-    // Route::post('reset-password', [NewPasswordController::class, 'store'])
-    //             ->name('password.store');
+    Route::get('confirm-phone', [PasswordResetPhoneController::class, 'confirmPhone'])->name('confirm-phone');
 });
 
 Route::middleware('auth')->group(function () {
@@ -39,10 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::get('phone-verify', [VerifyPhoneController::class, 'index'])->name('phone.verify');
     Route::post('phone-verify', [VerifyPhoneController::class, 'store']);
 
-    Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
-        ->name('password.confirm');
+    // Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
+    //     ->name('password.confirm');
 
-    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
+    // Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 

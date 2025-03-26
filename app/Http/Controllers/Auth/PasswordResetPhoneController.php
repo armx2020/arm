@@ -2,93 +2,173 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Services\SmsService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
-class PasswordResetPhoneController extends Controller
+class PasswordResetPhoneController extends BaseController
 {
     public function create(Request $request): View
     {
-        $request->session()->forget('count');
-        $request->session()->forget('code');
+        $request->session()->forget('reset_phone');
+        $request->session()->forget('check_id_phone');
+        $request->session()->forget('call_phone_pretty');
+        $request->session()->forget('time_to_reset_phone');
 
-        return view('auth.forgot-password');
+        return view('auth.forgot-password', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'regions' => $this->regions,
+            'countries' => $this->countries,
+        ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'phone' => ['required', 'max:32'],
+            'phone' => [
+                'required',
+                'max:32',
+                function ($attribute, $value, $fail) {
+                    if (!DB::table('users')->where('phone', $value)->exists()) {
+                        $fail('Данный номер не зарегистрирован.');
+                    }
+                },
+            ],
         ]);
 
-        $json = SmsService::callTo($request->phone, $_SERVER["REMOTE_ADDR"], true);
+        $user = User::where('phone', $request->phone)->exists();
 
-        if ($json) {
-            if ($json->status == "OK") {
-
-                $request->session()->put('phone', $request->phone);
-                $request->session()->put('code', $json->code);
-                $request->session()->put('count', '3');
-
-                return view('auth.confirm-new-password', ['message' => [], 'count' => 3]);
-            } else {
-                return redirect()->route('register')->with('error',  "Звонок не может быть выполнен." . $json->status_text);
-            }
-        } else {
-            return redirect()->route('register')->with('error',  "Запрос не выполнился. Не удалось установить связь с сервером. ");
+        if (!$user) {
+            return redirect()->route('forgot-password')->with('error',  "Мы не нашли пользователей с такими данными.");
         }
+
+        $smsService = new SmsService(true);
+
+        $smsResult = $smsService->checkPhone($request->phone);
+
+        if (!$smsResult) {
+            return redirect()->route('forgot-password')->with('error',  "Запрос не выполнился. Попробуйте позже");
+        }
+
+        if ($smsResult) {
+            if ($smsResult->status_code == 100) {
+                $request->session()->put('reset_phone', $request->phone);
+                $request->session()->put('check_id_phone', $smsResult->check_id);
+                $request->session()->put('call_phone_pretty', $smsResult->call_phone_pretty);
+                $request->session()->put('time_to_reset_phone', Carbon::parse(date('Y-m-d H:i:s')));
+
+                return redirect()->route('confirm-phone');
+            }
+
+            if ($smsResult->status_code == 202) {
+                return redirect()->route('forgot-password')->with('warning', 'Номер указан неверно, пожалуйста повторите попытку');
+            }
+        }
+
+        return redirect()->route('forgot-password')->with('error',  "Запрос не выполнился. Попробуйте позже");
     }
 
-    public function confirm(Request $request)
+    public function confirmPhone(Request $request)
     {
-        if ($request->session()->get('count') <= 1) {
-            $request->session()->forget('count');
-            $request->session()->forget('code');
-            return redirect()->route('password.request')->with('error',  "Количество попыток превышено, попробуйте через 10 мин.");
+        if (!$request->session()->get('check_id_phone')) {
+            return redirect()->route('forgot-password');
         }
 
-        if ($request->code == $request->session()->get('code')) {
+        $smsService = new SmsService(true);
 
-            $request->session()->forget('count');
-            $request->session()->forget('code');
+        $smsResult = $smsService->checkId($request->session()->get('check_id_phone'));
 
-            $user = User::where('phone', $request->session()->get('phone'))->first();
+        if ($smsResult) {
+            if ($smsResult->check_status == 401) {
 
-            if (!$user) {
-                return redirect()->route('password.request')->with('error',  "Что-то пошло не так, повторите попытку позже...");
+                $user = User::where('phone', $request->session()->get('reset_phone'))->first();
+
+                if (!$user) {
+                    $request->session()->forget('reset_phone');
+                    $request->session()->forget('check_id_phone');
+                    $request->session()->forget('call_phone_pretty');
+                    $request->session()->forget('time_to_reset_phone');
+                    return redirect()->route('forgot-password')->with('error',  "Мы не нашли пользователей с такими данными.");
+                }
+
+                $user->phone_verified_at = now();
+                $user->save();
+
+                Auth::login($user);
+
+                return redirect()->route('new-password');
             }
 
-            $request->session()->forget('count');
-            $request->session()->forget('code');
+            if ($smsResult->check_status == 402) {
+                $request->session()->forget('reset_phone');
+                $request->session()->forget('check_id_phone');
+                $request->session()->forget('call_phone_pretty');
+                $request->session()->forget('time_to_reset_phone');
 
-            Auth::login($user);
-            
-            return redirect()->route('new-password');
-        } else {
-
-            if ($request->session()->has('count')) {
-                $request->session()->decrement('count');
-            } else {
-                $request->session()->put('count', '3');
+                return redirect()->route('forgot-password')->with('warning', 'Время для подтверждения вышло, пожалуйста повторите попытку');
             }
-
-            return view('auth.confirm-new-password', ['message' => 'Неверный код. Попробуйте еще раз.', 'count' => $request->session()->get('count')]);
         }
+
+        $phoneForeVerification = $request->session()->get('call_phone_pretty');
+
+        $now_date = Carbon::parse(date('Y-m-d H:i:s'));    //время сейчас
+        $old_date = Carbon::parse($request->session()->get('time_to_reset_phone')); //дата с которой отчитываем 
+
+        $endTimeForeVerification = $old_date->addMinutes(5);
+
+        if ($now_date->getTimestamp() - Carbon::parse($old_date)->getTimestamp() > 300) {
+            $request->session()->forget('reset_phone');
+            $request->session()->forget('check_id_phone');
+            $request->session()->forget('call_phone_pretty');
+            $request->session()->forget('time_to_reset_phone');
+
+            return redirect()->route('forgot-password')->with('warning', 'Время для подтверждения вышло, пожалуйста повторите попытку');
+        }
+
+        $timeForeVerification = $endTimeForeVerification->diffInSeconds($now_date);
+        $timeForeVerification = gmdate('i:s', $timeForeVerification);
+
+        return view('auth.phone-verify', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'regions' => $this->regions,
+            'countries' => $this->countries,
+            'phoneForeVerification' => $phoneForeVerification,
+            'timeForeVerification' => $timeForeVerification
+        ]);
     }
+
 
     public function newPassword(Request $request)
     {
-        $request->session()->forget('count');
-        $request->session()->forget('code');
+        if ($request->user() && !$request->user()->hasVerifiedPhone()) {
+            return redirect(RouteServiceProvider::HOME);
+        }
 
-        return view('auth.new-password');
+        if (!$request->session()->get('check_id_phone')) {
+            return redirect(RouteServiceProvider::HOME);
+        }
+
+        $request->session()->forget('reset_phone');
+        $request->session()->forget('check_id_phone');
+        $request->session()->forget('call_phone_pretty');
+        $request->session()->forget('time_to_reset_phone');
+
+        return view('auth.new-password', [
+            'region'   => $request->session()->get('regionTranslit'),
+            'regionName' => $request->session()->get('regionName'),
+            'regions' => $this->regions,
+            'countries' => $this->countries,
+        ]);
     }
 
     public function newPasswordStore(Request $request)

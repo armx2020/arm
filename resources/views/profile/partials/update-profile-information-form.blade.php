@@ -6,10 +6,6 @@
         <hr class="w-full h-2 mt-2">
     </header>
 
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-        @csrf
-    </form>
-
     <form method="post" action="{{ route('profile.update') }}" class="space-y-4 w-full" enctype="multipart/form-data">
         @csrf
         @method('patch')

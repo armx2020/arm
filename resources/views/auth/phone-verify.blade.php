@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Армянский справочник для армян России и мира - Мои общины</title>
+    <title>Армянский справочник для армян России и мира - Подтвердите телефон</title>
 @endsection
 
 @section('meta')
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="description" content="Армянский справочник для армян России и мира - Мои общины">
+    <meta name="description" content="Армянский справочник для армян России и мира - Подтвердите телефон">
 @endsection
 
 @section('scripts')
@@ -14,9 +14,18 @@
 
 @section('content')
     <div class="w-full sm:max-w-lg p-4 bg-white overflow-hidden sm:rounded-lg z-50 mx-auto my-10 md:my-20">
+
+        <div class="flex items-center justify-between mb-2">
+            <p class="text-lg font-bold text-gray-900">
+                Подтвердите телефон
+            </p>
+        </div>
+
+        <hr class="my-4">
+
         <div class="items-center justify-between">
             <a href="callto:{{ preg_replace('/[^0-9]/', '', $phoneForeVerification) }}" class="text-lg text-gray-900">
-                Для завершения регистрации, пожалуйста позвоните по этому номеру <span
+                Для завершения, пожалуйста позвоните по этому номеру <span
                     class="font-bold">{{ $phoneForeVerification }}</span> в течении <span id="timer"
                     class="font-bold">{{ $timeForeVerification }}</span>
             </a>
@@ -49,11 +58,11 @@
 
                 if (minutes === 0 && seconds === 0) {
                     clearInterval(timerInterval);
-                        setTimeout(() => location.reload(), 1000);
+                    setTimeout(() => location.reload(), 1000);
                     return;
                 }
 
-                 if (seconds === 0) {
+                if (seconds === 0) {
                     minutes--;
                     seconds = 59;
                 } else {

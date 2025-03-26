@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Армянский справочник для армян России и мира - Мои общины</title>
+    <title>Армянский справочник для армян России и мира - ВХОД</title>
 @endsection
 
 @section('meta')
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="description" content="Армянский справочник для армян России и мира - Мои общины">
+    <meta name="description" content="Армянский справочник для армян России и мира - ВХОД">
 @endsection
 
 @section('scripts')
@@ -17,6 +17,15 @@
 
 @section('content')
     <div class="w-full sm:max-w-lg p-4 bg-white overflow-hidden sm:rounded-lg z-50 mx-auto my-10 md:my-20">
+
+        <div class="flex items-center justify-between mb-2">
+            <p class="text-lg font-bold text-gray-900">
+                ВХОД
+            </p>
+        </div>   
+
+        <hr class="my-4">
+        
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -56,9 +65,9 @@
                 </div>
 
                 <div class="flex items-center justify-end">
-                    @if (Route::has('password.request'))
+                    @if (Route::has('forgot-password'))
                         <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            href="{{ route('password.request') }}">
+                            href="{{ route('forgot-password') }}">
                             {{ __('Забыли пароль?') }}
                         </a>
                     @endif
