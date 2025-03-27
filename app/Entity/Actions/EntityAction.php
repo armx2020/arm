@@ -65,6 +65,21 @@ class EntityAction
             }
         }
 
+        // logo
+        if ($request->hasFile('logotype')) {
+
+            $path = $request->file('logotype')->store('uploaded', 'public');
+            $imageEntity = $entity->images()->create([
+                'path' => $path,
+                'is_logo' => 1
+            ]);
+            Image::make('storage/' . $imageEntity->path)
+                ->resize(400, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save();
+        }
+
         // fields
         if ($request->fields) {
             foreach ($request->fields as $categoryID) {
@@ -190,6 +205,25 @@ class EntityAction
                     $oldImage->save();
                 }
             }
+        }
+
+        // logo
+        if ($request->logotype_remove == 'delete') {
+           $entity->deleteLogo();
+        }
+
+        if ($request->hasFile('logotype')) {
+            $entity->deleteLogo();
+            $path = $request->file('logotype')->store('uploaded', 'public');
+            $imageEntity = $entity->images()->create([
+                'path' => $path,
+                'is_logo' => 1
+            ]);
+            Image::make('storage/' . $imageEntity->path)
+                ->resize(400, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save();
         }
 
         return $entity;

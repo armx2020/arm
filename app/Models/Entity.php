@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Facades\Storage;
 
 class Entity extends Model
 {
@@ -153,19 +154,34 @@ class Entity extends Model
     public function images($isWithScope = true): MorphMany
     {
         if ($isWithScope) {
-            return $this->morphMany(Image::class, 'imageable');
+            return $this->morphMany(Image::class, 'imageable')->where('is_logo', 0);
         } else {
-            return $this->images()->withoutGlobalScope(CheckedScope::class);
+            return $this->images()->withoutGlobalScope(CheckedScope::class)->where('is_logo', 0);
         }
+    }
+
+    public function logo()
+    {
+        return $this->morphOne(Image::class, 'imageable')->where('is_logo', 1);
+    }
+
+    public function deleteLogo(): bool
+    {
+        if ($this->logo) {
+            Storage::delete('public/' . $this->logo->path);
+            return $this->logo->delete();
+        }
+
+        return false;
     }
 
     public function primaryImage(): MorphOne
     {
-        return $this->morphOne(Image::class, 'imageable')->orderBy('id');
+        return $this->morphOne(Image::class, 'imageable')->orderBy('id')->where('is_logo', 0);
     }
 
     public function primaryImageView(): MorphOne
     {
-        return $this->morphOne(Image::class, 'imageable')->orderByDesc('id')->where('checked', 1);
+        return $this->morphOne(Image::class, 'imageable')->orderByDesc('id')->where('checked', 1)->where('is_logo', 0);
     }
 }

@@ -34,7 +34,7 @@ class StoreEntityRequest extends FormRequest
             'sort_id'         => ['required'],
             'images'          => ['nullable', 'array', 'max:20'],
             'images.*'        => ['image', 'mimes:jpg,bmp,png', 'max:20480'],
-            'logo'            => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20480']
+            'logotype'        => ['nullable', 'image', 'mimes:jpg,bmp,png', 'max:20480']
         ];
     }
 }
