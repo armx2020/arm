@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\UserController;
 
 Route::name('admin.')->prefix('admin')->group(function () {
 
-    Route::middleware(['verified', 'role:super-admin'])->group(function () {
+    Route::middleware(['role:super-admin'])->group(function () {
 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
