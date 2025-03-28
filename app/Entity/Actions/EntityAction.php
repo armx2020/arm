@@ -243,7 +243,8 @@ class EntityAction
             Storage::delete('public/' . $image->path);
             $image->delete();
         }
-
+        
+        $entity->deleteLogo();
         $entity->delete();
     }
 }

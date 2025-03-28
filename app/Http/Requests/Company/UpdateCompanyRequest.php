@@ -30,6 +30,8 @@ class UpdateCompanyRequest extends FormRequest
             'images.*.id'      => ['sometimes', 'required'],
             'images.*.sort_id' => ['sometimes', 'required', 'integer'],
             'images.*.file'    => ['sometimes', 'nullable', 'file', 'mimes:jpg,jpeg,png', 'max:20480'],
+            'logotype'         => ['sometimes', 'nullable', 'image', 'mimes:jpg,bmp,png', 'max:20480'],
+            'logotype_remove'     => ['nullable', 'in:delete'],
         ];
     }
 }

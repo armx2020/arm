@@ -38,6 +38,28 @@
                             <div id="add-slot-container"></div>
                         </div>
 
+                        <!-- Logo  -->
+                        <div class="flex flex-row border-b" id="upload_area" wire:ignore>
+                            <div class="flex relative">
+                                <img class="h-10 w-10 rounded-lg m-4  object-cover" id="logo"
+                                    src="{{ url('/image/no-image.png') }}" alt="image">
+                                <button type="button" id="remove_logo"
+                                    class="absolute top-2 right-2 hidden"><img
+                                        src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                        style="cursor:pointer;"></button>
+                            </div>
+
+                            <div class="flex items-center">
+                                <label class="input-file relative inline-block">
+                                    <input name="logotype" type="file" accept=".jpg,.jpeg,.png" id="logotype"
+                                        class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                    <span
+                                        class="relative inline-blockalign-middle text-center p-2 w-full text-slate-600"
+                                        style="cursor:pointer;">Выберите логотип</span>
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="my-3">
                             <x-input-label for="name" :value="__('Название')" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
@@ -386,6 +408,81 @@
                 const template = document.getElementById('image-slot-template');
                 return $(template.content.cloneNode(true)).find('.image-slot');
             }
+
+            // Логотип
+            function previewImage(file) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    $('#logo').attr('src', event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            function handleFile(file) {
+                var fileSize = file.size;
+                var maxSize = 2000000; // 2 MB
+
+                if (fileSize > maxSize) {
+                    $('.input-file input[type=file]').next().html('максимальный размер 2 мб');
+                    $('.input-file input[type=file]').next().css({
+                        "color": "rgb(239 68 68)"
+                    });
+                    $('#logo').attr('src', `{{ url('/image/no-image.png') }}`);
+                    $('#remove_logo').css({
+                        "display": "none"
+                    });
+                } else {
+                    $('.input-file input[type=file]').next().html(file.name);
+                    $('.input-file input[type=file]').next().css({
+                        "color": "rgb(71 85 105)"
+                    });
+                    $('#remove_logo').css({
+                        "display": "block"
+                    });
+                    previewImage(file);
+                }
+            }
+
+            $('#logotype').on('change', function(event) {
+                var selectedFile = event.target.files[0];
+                handleFile(selectedFile);
+            });
+
+            $('#remove_logo').on('click', function() {
+                $('#logotype').val('');
+                $('#logo').attr('src', `{{ url('/image/no-image.png') }}`);
+                $('.input-file input[type=file]').next().html('Выберите логотип');
+                $('#remove_logo').css({
+                    "display": "none"
+                });
+            });
+
+            var uploadArea = $('#upload_area');
+
+            uploadArea.on('dragover', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                uploadArea.addClass('bg-gray-200');
+            });
+
+            uploadArea.on('dragleave', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                uploadArea.removeClass('bg-gray-200');
+            });
+
+            uploadArea.on('drop', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                uploadArea.removeClass('bg-gray-200');
+
+                var files = event.originalEvent.dataTransfer.files;
+                if (files.length > 0) {
+                    var file = files[0];
+                    handleFile(file);
+                    $('#logotype').prop('files', files);
+                }
+            });
 
         });
     </script>
