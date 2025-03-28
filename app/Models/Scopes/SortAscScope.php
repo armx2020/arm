@@ -10,6 +10,6 @@ class SortAscScope implements Scope
 {
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->orderBy ('sort_id', 'asc');
+        $builder->orderBy('sort_id', 'asc');
     }
 }

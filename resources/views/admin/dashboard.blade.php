@@ -140,6 +140,54 @@
             </div>
         </div>
 
+        <div class="w-full pb-20">
+            <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold leading-none text-gray-900">Новые непроверенные изображения</h3>
+                    <a href="{{ route('admin.image.index') }}"
+                        class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2">
+                        посмотреть все
+                    </a>
+                </div>
+                <div class="flow-root">
+                    <ul role="list" class="divide-y divide-gray-200">
+                        @if (count($images) === 0)
+                            <li class="text-center py-3 sm:py-4">
+                                нет непроверенных изображений
+                            </li>
+                        @else
+                            @foreach ($images as $image)
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <a
+                                                href="{{ route('admin.entity.edit', ['entity' => $image->imageable->id]) }}">
+                                                {{ $image->id }}
+                                            </a>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <img class="w-8 h-8 object-cover rounded-lg"
+                                                src="{{ asset('storage/' . $image->path) }}" alt="Image">
+                                        </div>
+
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm text-gray-500 truncate">
+                                                {{ $image->imageable->type->name }}
+                                            </p>
+                                            <a
+                                                href="{{ route('admin.entity.edit', ['entity' => $image->imageable->id]) }}">
+                                                {{ $image->imageable->name }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 

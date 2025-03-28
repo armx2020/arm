@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Appeal;
 use App\Models\Entity;
-use App\Models\Event;
+use App\Models\Image;
+use App\Models\Scopes\CheckedScope;
+use App\Models\Scopes\SortAscScope;
 use App\Models\User;
 
 
@@ -24,6 +26,7 @@ class DashboardController extends BaseAdminController
 
         $users = User::orderBy('id', 'desc')->limit(5)->get();
         $appeals = Appeal::active()->orderBy('id', 'desc')->limit(5)->get();
+        $images = Image::query()->withOutGlobalScopes([SortAscScope::class, CheckedScope::class])->limit(10)->with('imageable')->where('checked', false)->orderByDesc('id')->get();
 
         return view('admin.dashboard', [
             'countUsersAll' => $countUsersAll,
@@ -34,6 +37,7 @@ class DashboardController extends BaseAdminController
             'countGroupsToday' => $countGroupsToday,
             'users' => $users,
             'appeals' => $appeals,
+            'images' => $images,
             'menu' => $this->menu
         ]);
     }
