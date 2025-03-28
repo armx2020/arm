@@ -157,30 +157,32 @@
                             </li>
                         @else
                             @foreach ($images as $image)
-                                <li class="py-3 sm:py-4">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="flex-1 min-w-0">
-                                            <a
-                                                href="{{ route('admin.entity.edit', ['entity' => $image->imageable->id]) }}">
-                                                {{ $image->id }}
-                                            </a>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <img class="w-8 h-8 object-cover rounded-lg"
-                                                src="{{ asset('storage/' . $image->path) }}" alt="Image">
-                                        </div>
+                                @if ($image->imageable)
+                                    <li class="py-3 sm:py-4">
+                                        <div class="flex items-center space-x-4">
+                                            <div class="flex-1 min-w-0">
+                                                <a
+                                                    href="{{ route('admin.entity.edit', ['entity' => $image->imageable->id]) }}">
+                                                    {{ $image->id }}
+                                                </a>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <img class="w-8 h-8 object-cover rounded-lg"
+                                                    src="{{ asset('storage/' . $image->path) }}" alt="Image">
+                                            </div>
 
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm text-gray-500 truncate">
-                                                {{ $image->imageable->type->name }}
-                                            </p>
-                                            <a
-                                                href="{{ route('admin.entity.edit', ['entity' => $image->imageable->id]) }}">
-                                                {{ $image->imageable->name }}
-                                            </a>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm text-gray-500 truncate">
+                                                    {{ $image->imageable->type->name }}
+                                                </p>
+                                                <a
+                                                    href="{{ route('admin.entity.edit', ['entity' => $image->imageable->id]) }}">
+                                                    {{ $image->imageable->name }}
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                @endif
                             @endforeach
                         @endif
                     </ul>
