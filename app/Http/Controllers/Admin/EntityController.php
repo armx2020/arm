@@ -60,7 +60,7 @@ class EntityController extends BaseAdminController
     {
         $entity = $this->entityAction->destroy($entity);
 
-        return redirect()->back()->with('success', 'Сущность удалена');
+        return redirect()->route('admin.entity.index')->with('success', 'Сущность удалена');
     }
 
     public function report()

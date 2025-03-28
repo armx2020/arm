@@ -244,6 +244,7 @@ class EntityAction
             $image->delete();
         }
         
+        $entity->appeals()->delete();
         $entity->deleteLogo();
         $entity->delete();
     }
