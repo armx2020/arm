@@ -87,8 +87,7 @@
                                         <img class="h-20 w-20 rounded-lg m-4  object-cover" id="logo"
                                             @if ($logo) src="{{ url('/storage/' . $logo->path) }}"  @else src="{{ url('/image/no-image.png') }}" @endif
                                             alt="logo">
-                                        <button type="button" id="remove_logo"
-                                            class="absolute top-2 right-2 hidden"
+                                        <button type="button" id="remove_logo" class="absolute top-2 right-2 hidden"
                                             @if ($logo) style="display: block;" @else style="display: none;" @endif><img
                                                 src="{{ url('/image/remove.png') }}" class="w-5 h-5"
                                                 style="cursor:pointer;"></button>
@@ -247,6 +246,14 @@
                                     {{-- Соц. ссылки --}}
                                     <hr class="my-5">
                                     <div class="grid grid-cols-6 gap-4">
+
+                                        <div class="col-span-6">
+                                            <x-input-label for="video_url" :value="__('Cсылка на видео из youtube')" />
+                                            <x-text-input id="video_url" name="video_url" type="text"
+                                                class="mt-1 block w-full bg-gray-50"
+                                                placeholder='https://youtube.com/****' :value="old('video_url', $entity->video_url)" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('video_url')" />
+                                        </div>
 
                                         <div class="col-span-6">
                                             <x-input-label for="paymant_link" :value="__('Платёжная ссылка')" />

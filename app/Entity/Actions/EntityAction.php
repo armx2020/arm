@@ -33,6 +33,7 @@ class EntityAction
         $entity->region_id = $city->region->id;
         $entity->phone = $request->phone;
         $entity->web = $request->web;
+        $entity->video_url = $request->video_url;
         $entity->whatsapp = $request->whatsapp;
         $entity->telegram = $request->telegram;
         $entity->instagram = $request->instagram;
@@ -114,6 +115,7 @@ class EntityAction
         $entity->region_id = $city->region->id;
         $entity->phone = $request->phone;
         $entity->web = $request->web;
+        $entity->video_url = $request->video_url;
         $entity->whatsapp = $request->whatsapp;
         $entity->telegram = $request->telegram;
         $entity->instagram = $request->instagram;

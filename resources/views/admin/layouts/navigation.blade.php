@@ -51,15 +51,21 @@
                                     @php
                                         $messagesCount = App\Models\Appeal::active()->count();
                                     @endphp
-
-                                    <div
-                                        class="mb-2 bottom-auto bg-red-300 mx-1 rounded-full bg-neutral-800 px-2 py-1 text-center align-baseline text-xs font-bold leading-none text-white">
-                                        @if ($messagesCount > 9)
-                                            9+
-                                        @elseif($messagesCount <= 9 && $messagesCount > 0)
-                                            {{ $messagesCount }}
-                                        @endif
-                                    </div>
+                                    @if ($messagesCount)
+                                        <div
+                                            class="mb-2 bottom-auto bg-red-300 mx-1 rounded-full px-2 py-1 text-center align-baseline text-xs font-bold leading-none text-white">
+                                            @if ($messagesCount > 9)
+                                                9+
+                                            @elseif($messagesCount <= 9 && $messagesCount > 0)
+                                                {{ $messagesCount }}
+                                            @endif
+                                        </div>
+                                    @else
+                                        <div
+                                            class="mb-2 bottom-auto bg-green-500 mx-1 rounded-full px-2 py-1 text-center align-baseline text-xs font-bold leading-none text-white">
+                                            0
+                                        </div>
+                                    @endif
                                 @endif
                             </x-nav-link>
                         @endif

@@ -51,8 +51,9 @@
 
                                     <div class="flex items-center">
                                         <label class="input-file relative inline-block">
-                                            <input name="logotype" type="file" accept=".jpg,.jpeg,.png" id="logotype"
-                                                class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                            <input name="logotype" type="file" accept=".jpg,.jpeg,.png"
+                                                id="logotype" class="absolute opacity-0 block w-0 h-0"
+                                                style="z-index:-1;" />
                                             <span
                                                 class="relative inline-blockalign-middle text-center p-2 w-full text-slate-600"
                                                 style="cursor:pointer;">Выберите логотип</span>
@@ -200,6 +201,14 @@
                                     {{-- Соц. ссылки --}}
                                     <hr class="my-5">
                                     <div class="grid grid-cols-6 gap-4">
+
+                                        <div class="col-span-6">
+                                            <x-input-label for="video_url" :value="__('Cсылка на видео из youtube')" />
+                                            <x-text-input id="video_url" name="video_url" type="text"
+                                                class="mt-1 block w-full bg-gray-50"
+                                                placeholder='https://youtube.com/****' :value="old('video_url')" />
+                                            <x-input-error class="mt-2" :messages="$errors->get('video_url')" />
+                                        </div>
 
                                         <div class="col-span-6">
                                             <x-input-label for="paymant_link" :value="__('Платёжная ссылка')" />
