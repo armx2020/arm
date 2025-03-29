@@ -12,6 +12,12 @@ use App\Models\Traits\HasUser;
 use App\Models\Traits\HasWorks;
 use App\Models\Traits\Search;
 use App\Models\Traits\TranscriptName;
+use App\Rules\InstagramUrl;
+use App\Rules\TelegramUrl;
+use App\Rules\VkontakteUrl;
+use App\Rules\WebUrl;
+use App\Rules\WhatsappUrl;
+use App\Rules\YoutubeUrl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -94,6 +100,7 @@ class Entity extends Model
         return $query->where('entity_type_id', 7);
     }
 
+    // Отношения
     public function type(): BelongsTo
     {
         return $this->belongsTo(EntityType::class, 'entity_type_id');
@@ -151,6 +158,7 @@ class Entity extends Model
             ->get();
     }
 
+    // Изображения
     public function images($isWithScope = true): MorphMany
     {
         if ($isWithScope) {
@@ -160,6 +168,17 @@ class Entity extends Model
         }
     }
 
+    public function primaryImage(): MorphOne
+    {
+        return $this->morphOne(Image::class, 'imageable')->orderBy('id')->where('is_logo', 0);
+    }
+
+    public function primaryImageView(): MorphOne
+    {
+        return $this->morphOne(Image::class, 'imageable')->orderByDesc('id')->where('checked', 1)->where('is_logo', 0);
+    }
+
+    // Логотип
     public function logo()
     {
         return $this->morphOne(Image::class, 'imageable')->where('is_logo', 1);
@@ -175,13 +194,62 @@ class Entity extends Model
         return false;
     }
 
-    public function primaryImage(): MorphOne
+
+
+    // Мутаторы
+    public function setVideoUrlAttribute($value)
     {
-        return $this->morphOne(Image::class, 'imageable')->orderBy('id')->where('is_logo', 0);
+        $this->attributes['video_url'] = YoutubeUrl::normalize($value);
     }
 
-    public function primaryImageView(): MorphOne
+    public function setWhatsappAttribute($value)
     {
-        return $this->morphOne(Image::class, 'imageable')->orderByDesc('id')->where('checked', 1)->where('is_logo', 0);
+        $this->attributes['whatsapp'] = WhatsappUrl::normalize($value);
+    }
+
+    public function setWebAttribute($value)
+    {
+        $this->attributes['web'] = WebUrl::normalize($value);
+    }
+
+    public function setVkontakteAttribute($value)
+    {
+        $this->attributes['vkontakte'] = VkontakteUrl::normalize($value);
+    }
+
+    public function setInstagramAttribute($value)
+    {
+        $this->attributes['instagram'] = InstagramUrl::normalize($value);
+    }
+
+    public function setTelegramAttribute($value)
+    {
+        $this->attributes['telegram'] = TelegramUrl::normalize($value);
+    }
+
+    // Аксессоры
+    public function getWhatsappLinkAttribute($value)
+    {
+        return WhatsappUrl::normalize($value);
+    }
+
+    public function getWebAttribute($value)
+    {
+        return $value ? WebUrl::normalize($value) : null;
+    }
+
+    public function getVkontakteAttribute($value)
+    {
+        return $value ? VkontakteUrl::normalize($value) : null;
+    }
+
+    public function getInstagramUrlAttribute($value)
+    {
+        return $value ? InstagramUrl::normalize($value) : null;
+    }
+
+    public function getTelegramAttribute($value)
+    {
+        return $value ? TelegramUrl::normalize($value) : null;
     }
 }
