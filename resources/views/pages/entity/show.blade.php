@@ -81,7 +81,9 @@
 
     <x-pages.entity-card :$entity :$entityTypeUrl />
 
-    <x-pages.other-entities :entities="$otherEntities" :$entityShowRoute :$region />
+    @if (!$otherEntities->isEmpty())
+        <x-pages.other-entities :entities="$otherEntities" :$entityShowRoute :$region />
+    @endif
 
     <x-inform-us.index />
 @endsection

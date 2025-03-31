@@ -340,11 +340,6 @@
                 hideClass: "fancybox-fadeOut",
             });
 
-            // Livewire.hook('message.processed', () => {
-            //     swiperMain.update();
-            //     swiperThumbs.update();
-            // });
-
         });
     </script>
     <style>
