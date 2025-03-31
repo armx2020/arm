@@ -24,8 +24,9 @@
         <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-3 lg:ml-5">
             <div class="flex flex-col basis-full">
                 <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-1 lg:p-5 relative">
-                    <form id="card-form" method="post" action="{{ route('mycompanies.update', ['mycompany' => $entity->id]) }}"
-                        class="w-full" enctype="multipart/form-data">
+                    <form id="card-form" method="post"
+                        action="{{ route('mycompanies.update', ['mycompany' => $entity->id]) }}" class="w-full"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('patch')
 
@@ -48,34 +49,6 @@
                             <x-input-error :messages="$errors->get('image')" />
                         </div>
 
-                        <!-- Logo  -->
-                        <div class="flex flex-row border-b" id="upload_area" wire:ignore>
-                            <div class="flex relative">
-                                <img class="h-10 w-10 rounded-lg m-4  object-cover" id="logo"
-                                    @if ($logo) src="{{ url('/storage/' . $logo->path) }}"  @else src="{{ url('/image/no-image.png') }}" @endif
-                                    alt="logo">
-                                <button type="button" id="remove_logo"
-                                    class="absolute top-2 right-2 hidden"
-                                    @if ($logo) style="display: block;" @else style="display: none;" @endif><img
-                                        src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                        style="cursor:pointer;"></button>
-                            </div>
-
-                            <div class="flex items-center">
-                                <label class="input-file relative inline-block">
-                                    <input name="logotype" type="file" accept=".jpg,.jpeg,.png"
-                                        id="logotype" class="absolute opacity-0 block w-0 h-0"
-                                        style="z-index:-1;" />
-                                    <span
-                                        class="relative inline-blockalign-middle text-center p-2 w-full text-slate-600"
-                                        style="cursor:pointer;">Выберите логотип</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <input name="logotype_remove" type="text" id="logotype_remove" class="hidden"
-                                    style="z-index:-10;" />
-
                         <div class="my-3">
                             <x-input-label for="name" :value="__('Название')" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
@@ -97,6 +70,31 @@
                             </x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
+
+                        <!-- Logo  -->
+                        <div class="flex flex-row border-y" id="upload_area" wire:ignore>
+                            <div class="flex relative">
+                                <img class="h-10 w-10 rounded-lg m-4  object-cover" id="logo"
+                                    @if ($logo) src="{{ url('/storage/' . $logo->path) }}"  @else src="{{ url('/image/no-image.png') }}" @endif
+                                    alt="logo">
+                                <button type="button" id="remove_logo" class="absolute top-2 right-2 hidden"
+                                    @if ($logo) style="display: block;" @else style="display: none;" @endif><img
+                                        src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                        style="cursor:pointer;"></button>
+                            </div>
+
+                            <div class="flex items-center">
+                                <label class="input-file relative inline-block">
+                                    <input name="logotype" type="file" accept=".jpg,.jpeg,.png" id="logotype"
+                                        class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                    <span class="relative inline-blockalign-middle text-center p-2 w-full text-slate-600"
+                                        style="cursor:pointer;">Выберите логотип</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <input name="logotype_remove" type="text" id="logotype_remove" class="hidden"
+                            style="z-index:-10;" />
 
                         <div class="my-3">
                             <x-input-label for="director" :value="__('Директор')" />
@@ -168,8 +166,7 @@
 
                         <div class="my-3">
                             <x-input-label for="video_url" :value="__('Cсылка на видео из youtube')" />
-                            <x-text-input id="video_url" name="video_url" type="text"
-                                class="mt-1 block w-full"
+                            <x-text-input id="video_url" name="video_url" type="text" class="mt-1 block w-full"
                                 placeholder='https://youtube.com/****' :value="old('video_url', $entity->video_url)" />
                             <x-input-error class="mt-2" :messages="$errors->get('video_url')" />
                         </div>
@@ -231,7 +228,8 @@
 
     <template id="image-slot-template">
         <div class="image-slot border border-dashed border-gray-300 relative p-2 float-left
-                flex items-center space-x-2 rounded-md ml-2 my-1" data-id="">
+                flex items-center space-x-2 rounded-md ml-2 my-1"
+            data-id="">
 
             <img class="preview-img w-20 h-20 object-cover rounded-md" src="{{ url('/image/no-image.png') }}">
 
@@ -282,7 +280,7 @@
             }
 
             const maxSlots = 20;
-            const maxSize  = 20 * 1024 * 1024; // 2MB
+            const maxSize = 20 * 1024 * 1024; // 2MB
             let newImageCounter = 1;
 
             const $sortable = $('#sortable-slots');
@@ -444,7 +442,8 @@
                 });
 
                 $slot.on('click', function(e) {
-                    if ($slot.data('isEmpty') && !$(e.target).closest('.remove-image-btn, .file-input, label').length) {
+                    if ($slot.data('isEmpty') && !$(e.target).closest(
+                            '.remove-image-btn, .file-input, label').length) {
                         $fileInput.trigger('click');
                     }
                 });
@@ -482,8 +481,11 @@
                     const $slot = $(this);
                     const slotId = $slot.attr('data-id');
                     const sortId = index;
-                    $form.append(`<input type="hidden" name="images[${index}][id]" value="${slotId}">`);
-                    $form.append(`<input type="hidden" name="images[${index}][sort_id]" value="${sortId}">`);
+                    $form.append(
+                        `<input type="hidden" name="images[${index}][id]" value="${slotId}">`);
+                    $form.append(
+                        `<input type="hidden" name="images[${index}][sort_id]" value="${sortId}">`
+                        );
                     const $fileInput = $slot.find('.file-input');
                     if ($fileInput.length) {
                         $fileInput.attr('name', `images[${index}][file]`);

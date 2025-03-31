@@ -38,27 +38,6 @@
                             <div id="add-slot-container"></div>
                         </div>
 
-                        <!-- Logo  -->
-                        <div class="flex flex-row border-b" id="upload_area" wire:ignore>
-                            <div class="flex relative">
-                                <img class="h-10 w-10 rounded-lg m-4  object-cover" id="logo"
-                                    src="{{ url('/image/no-image.png') }}" alt="image">
-                                <button type="button" id="remove_logo"
-                                    class="absolute top-2 right-2 hidden"><img
-                                        src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                        style="cursor:pointer;"></button>
-                            </div>
-
-                            <div class="flex items-center">
-                                <label class="input-file relative inline-block">
-                                    <input name="logotype" type="file" accept=".jpg,.jpeg,.png" id="logotype"
-                                        class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                    <span
-                                        class="relative inline-blockalign-middle text-center p-2 w-full text-slate-600"
-                                        style="cursor:pointer;">Выберите логотип</span>
-                                </label>
-                            </div>
-                        </div>
 
                         <div class="my-3">
                             <x-input-label for="name" :value="__('Название')" />
@@ -76,17 +55,36 @@
 
                         <div class="my-3">
                             <x-input-label for="description" :value="__('Описание (не обязательно)')" />
-                            <x-textarea id="description" name="description" class="mt-1 block w-full"
-                                        :error="$errors->get('description')">
+                            <x-textarea id="description" name="description" class="mt-1 block w-full" :error="$errors->get('description')">
                                 {{ old('description') }}
                             </x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
+                        <!-- Logo  -->
+                        <div class="flex flex-row border-y" id="upload_area" wire:ignore>
+                            <div class="flex relative">
+                                <img class="h-10 w-10 rounded-lg m-4  object-cover" id="logo"
+                                    src="{{ url('/image/no-image.png') }}" alt="image">
+                                <button type="button" id="remove_logo" class="absolute top-2 right-2 hidden"><img
+                                        src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                        style="cursor:pointer;"></button>
+                            </div>
+
+                            <div class="flex items-center">
+                                <label class="input-file relative inline-block">
+                                    <input name="logotype" type="file" accept=".jpg,.jpeg,.png" id="logotype"
+                                        class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                    <span class="relative inline-blockalign-middle text-center p-2 w-full text-slate-600"
+                                        style="cursor:pointer;">Выберите логотип</span>
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="my-3">
                             <x-input-label for="director" :value="__('Директор')" />
                             <x-text-input id="director" name="director" type="text" class="mt-1 block w-full"
-                                :error="$errors->get('director')" :value="old('director')"/>
+                                :error="$errors->get('director')" :value="old('director')" />
                             <x-input-error class="mt-2" :messages="$errors->get('director')" />
                         </div>
 
@@ -131,9 +129,8 @@
 
                         <div class="my-3">
                             <x-input-label for="phone" :value="__('Телефон')" />
-                            <x-text-input id="phone" name="phone" type="text"
-                                class="mt-1 block w-full mask-phone" placeholder='+7 (***) ***-**-**'
-                                :value="old('phone')" />
+                            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full mask-phone"
+                                placeholder='+7 (***) ***-**-**' :value="old('phone')" />
                             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
                         </div>
 
@@ -153,9 +150,8 @@
 
                         <div class="my-3">
                             <x-input-label for="video_url" :value="__('Cсылка на видео из youtube')" />
-                            <x-text-input id="video_url" name="video_url" type="text"
-                                class="mt-1 block w-full" placeholder='https://youtube.com/****'
-                                :value="old('video_url')" />
+                            <x-text-input id="video_url" name="video_url" type="text" class="mt-1 block w-full"
+                                placeholder='https://youtube.com/****' :value="old('video_url')" />
                             <x-input-error class="mt-2" :messages="$errors->get('video_url')" />
                         </div>
 
@@ -197,7 +193,8 @@
     </div>
 
     <template id="image-slot-template">
-        <div class="image-slot border border-dashed border-gray-300 relative p-2 float-left flex items-center space-x-2 rounded-md ml-2 my-1">
+        <div
+            class="image-slot border border-dashed border-gray-300 relative p-2 float-left flex items-center space-x-2 rounded-md ml-2 my-1">
 
             <img class="preview-img w-20 h-20 object-cover rounded-md" src="{{ url('/image/no-image.png') }}">
 
@@ -225,14 +222,14 @@
                         type: "GET",
                         delay: 250,
                         dataType: 'json',
-                        data: function (params) {
+                        data: function(params) {
                             return {
                                 query: params.term || '',
                                 page: params.page || 1,
                                 "_token": "{{ csrf_token() }}"
                             };
                         },
-                        processResults: function (response, params) {
+                        processResults: function(response, params) {
                             params.page = params.page || 1;
                             return {
                                 results: response.results,
@@ -247,7 +244,7 @@
             }
 
             const maxSlots = 20;
-            const maxSize  = 20 * 1024 * 1024; // 2MB
+            const maxSize = 20 * 1024 * 1024; // 2MB
 
             const $sortable = $('#sortable-slots');
             const $addSlotContainer = $('#add-slot-container');
@@ -393,7 +390,8 @@
                 });
 
                 $slot.on('click', function(e) {
-                    if ($slot.data('isEmpty') && !$(e.target).closest('.remove-image-btn, .file-input, label').length) {
+                    if ($slot.data('isEmpty') && !$(e.target).closest(
+                            '.remove-image-btn, .file-input, label').length) {
                         $fileInput.trigger('click');
                     }
                 });
@@ -412,6 +410,7 @@
             }
 
             let newImageCounter = 1;
+
             function cloneSlotTemplate() {
                 const template = document.getElementById('image-slot-template');
                 return $(template.content.cloneNode(true)).find('.image-slot');
