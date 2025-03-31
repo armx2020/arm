@@ -167,6 +167,14 @@
                         </div>
 
                         <div class="my-3">
+                            <x-input-label for="video_url" :value="__('Cсылка на видео из youtube')" />
+                            <x-text-input id="video_url" name="video_url" type="text"
+                                class="mt-1 block w-full"
+                                placeholder='https://youtube.com/****' :value="old('video_url', $entity->video_url)" />
+                            <x-input-error class="mt-2" :messages="$errors->get('video_url')" />
+                        </div>
+
+                        <div class="my-3">
                             <x-input-label for="telegram" :value="__('Телеграм (не обязательно)')" />
                             <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full"
                                 placeholder='https://t.me/******' :value="old('telegram', $entity->telegram)" autofocus />

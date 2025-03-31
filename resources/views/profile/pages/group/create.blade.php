@@ -57,8 +57,7 @@
 
                         <div class="my-3">
                             <x-input-label for="description" :value="__('Описание (не обязательно)')" />
-                            <x-textarea id="description" name="description" class="mt-1 block w-full"
-                                        :error="$errors->get('description')">
+                            <x-textarea id="description" name="description" class="mt-1 block w-full" :error="$errors->get('description')">
                                 {{ old('description') }}
                             </x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
@@ -67,7 +66,7 @@
                         <div class="my-3">
                             <x-input-label for="director" :value="__('Директор')" />
                             <x-text-input id="director" name="director" type="text" class="mt-1 block w-full"
-                                :error="$errors->get('director')" :value="old('director')"/>
+                                :error="$errors->get('director')" :value="old('director')" />
                             <x-input-error class="mt-2" :messages="$errors->get('director')" />
                         </div>
 
@@ -120,35 +119,42 @@
                         <div class="my-3">
                             <x-input-label for="whatsapp" :value="__('Whatsapp (не обязательно)')" />
                             <x-text-input id="whatsapp" name="whatsapp" type="text" class="mt-1 block w-full"
-                                :error="$errors->get('whatsapp')" :value="old('whatsapp')" />
+                                placeholder='https://wa.me/***********' :error="$errors->get('whatsapp')" :value="old('whatsapp')" />
                             <x-input-error class="mt-2" :messages="$errors->get('whatsapp')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="web" :value="__('Веб (не обязательно)')" />
                             <x-text-input id="web" name="web" type="text" class="mt-1 block w-full"
-                                :error="$errors->get('web')" :value="old('web')" />
+                                placeholder='https://***********.**' :error="$errors->get('web')" :value="old('web')" />
                             <x-input-error class="mt-2" :messages="$errors->get('web')" />
+                        </div>
+
+                        <div class="my-3">
+                            <x-input-label for="video_url" :value="__('Cсылка на видео из youtube')" />
+                            <x-text-input id="video_url" name="video_url" type="text" class="mt-1 block w-full"
+                                placeholder='https://youtube.com/****' :value="old('video_url')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('video_url')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="telegram" :value="__('Телеграм (не обязательно)')" />
                             <x-text-input id="telegram" name="telegram" type="text" class="mt-1 block w-full"
-                                :error="$errors->get('telegram')" :value="old('telegram')" />
+                                placeholder='https://t.me/******' :error="$errors->get('telegram')" :value="old('telegram')" />
                             <x-input-error class="mt-2" :messages="$errors->get('telegram')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="vkontakte" :value="__('Вконтакте (не обязательно)')" />
                             <x-text-input id="vkontakte" name="vkontakte" type="text" class="mt-1 block w-full"
-                                :error="$errors->get('vkontakte')" :value="old('vkontakte')" />
+                                placeholder='https://vk.com/***********' :error="$errors->get('vkontakte')" :value="old('vkontakte')" />
                             <x-input-error class="mt-2" :messages="$errors->get('vkontakte')" />
                         </div>
 
                         <div class="my-3">
                             <x-input-label for="instagram" :value="__('Инстаграм (не обязательно)')" />
                             <x-text-input id="instagram" name="instagram" type="text" class="mt-1 block w-full"
-                                :error="$errors->get('instagram')" :value="old('instagram')" />
+                                placeholder='https://instagram.com/*******' :error="$errors->get('instagram')" :value="old('instagram')" />
                             <x-input-error class="mt-2" :messages="$errors->get('instagram')" />
                         </div>
 
@@ -219,7 +225,7 @@
             }
 
             const maxSlots = 20;
-            const maxSize  = 20 * 1024 * 1024; // 2MB
+            const maxSize = 20 * 1024 * 1024; // 2MB
 
             const $sortable = $('#sortable-slots');
             const $addSlotContainer = $('#add-slot-container');
@@ -365,7 +371,8 @@
                 });
 
                 $slot.on('click', function(e) {
-                    if ($slot.data('isEmpty') && !$(e.target).closest('.remove-image-btn, .file-input, label').length) {
+                    if ($slot.data('isEmpty') && !$(e.target).closest(
+                            '.remove-image-btn, .file-input, label').length) {
                         $fileInput.trigger('click');
                     }
                 });
@@ -384,6 +391,7 @@
             }
 
             let newImageCounter = 1;
+
             function cloneSlotTemplate() {
                 const template = document.getElementById('image-slot-template');
                 return $(template.content.cloneNode(true)).find('.image-slot');

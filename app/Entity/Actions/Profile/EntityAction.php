@@ -7,7 +7,7 @@ use App\Models\Entity;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
-class GroupAction
+class CommunityAction
 {
     use GetCity;
 
@@ -21,7 +21,7 @@ class GroupAction
             $entity->activity = $isActive;
         }
 
-        $entity->entity_type_id = 2;
+        $entity->entity_type_id = 4;
         $entity->name = $request->name;
         $entity->address = $request->address;
         $entity->description = $request->description;
@@ -30,7 +30,6 @@ class GroupAction
         $entity->region_id = $city->region->id;
         $entity->phone = $request->phone;
         $entity->web = $request->web;
-        $entity->video_url = $request->video_url;
         $entity->whatsapp = $request->whatsapp;
         $entity->telegram = $request->telegram;
         $entity->instagram = $request->instagram;
@@ -72,7 +71,6 @@ class GroupAction
         $entity->region_id = $city->region->id;
         $entity->phone = $request->phone;
         $entity->web = $request->web;
-        $entity->video_url = $request->video_url;
         $entity->whatsapp = $request->whatsapp;
         $entity->telegram = $request->telegram;
         $entity->instagram = $request->instagram;
