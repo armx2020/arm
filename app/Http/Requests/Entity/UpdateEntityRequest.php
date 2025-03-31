@@ -7,7 +7,7 @@ use App\Rules\TelegramUrl;
 use App\Rules\VkontakteUrl;
 use App\Rules\WebUrl;
 use App\Rules\WhatsappUrl;
-use App\Rules\YoutubeUrl;
+use App\Rules\VideoUrl;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateEntityRequest extends FormRequest
@@ -20,7 +20,7 @@ class UpdateEntityRequest extends FormRequest
             'phone'            => ['nullable', 'string', 'max:36'],
             'description'      => ['nullable', 'string'],
             'director'         => ['nullable', 'string'],
-            'video_url'        => ['nullable', new YoutubeUrl],
+            'video_url'        => ['nullable', new VideoUrl],
             'paymant_link'     => ['nullable', new WebUrl],
             'web'              => ['nullable', new WebUrl],
             'whatsapp'         => ['nullable', new WhatsappUrl],

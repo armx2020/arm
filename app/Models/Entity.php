@@ -17,7 +17,7 @@ use App\Rules\TelegramUrl;
 use App\Rules\VkontakteUrl;
 use App\Rules\WebUrl;
 use App\Rules\WhatsappUrl;
-use App\Rules\YoutubeUrl;
+use App\Rules\VideoUrl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -199,7 +199,7 @@ class Entity extends Model
     // Мутаторы
     public function setVideoUrlAttribute($value)
     {
-        $this->attributes['video_url'] = YoutubeUrl::normalize($value);
+        $this->attributes['video_url'] = VideoUrl::normalize($value);
     }
 
     public function setWhatsappAttribute($value)
@@ -230,7 +230,7 @@ class Entity extends Model
     // Аксессоры
     public function getWhatsappLinkAttribute($value)
     {
-        return WhatsappUrl::normalize($value);
+        return $value ? WhatsappUrl::normalize($value) : null;
     }
 
     public function getWebAttribute($value)

@@ -165,7 +165,7 @@
                         </div>
 
                         <div class="my-3">
-                            <x-input-label for="video_url" :value="__('Cсылка на видео из youtube')" />
+                            <x-input-label for="video_url" :value="__('Cсылка на видео из youtube или rutube')" />
                             <x-text-input id="video_url" name="video_url" type="text" class="mt-1 block w-full"
                                 placeholder='https://youtube.com/****' :value="old('video_url', $entity->video_url)" />
                             <x-input-error class="mt-2" :messages="$errors->get('video_url')" />
