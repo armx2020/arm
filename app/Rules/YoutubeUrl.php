@@ -7,15 +7,6 @@ use Illuminate\Contracts\Validation\ValidationRule;
 
 class YoutubeUrl implements ValidationRule
 {
-    protected $width;
-    protected $height;
-
-    public function __construct($width = 400, $height = 400)
-    {
-        $this->width = $width;
-        $this->height = $height;
-    }
-
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if ($value === null) {
@@ -65,6 +56,6 @@ class YoutubeUrl implements ValidationRule
         $src = str_replace(['http://', 'https://'], '', $src);
         $src = 'https://www.' . ltrim($src, 'www.');
 
-        return '<iframe width="' . $this->width . '" height="' . $this->height . '" src="' . $src . '" frameborder="0" allowfullscreen></iframe>';
+        return '<iframe width="400" height="400" src="' . $src . '" frameborder="0" allowfullscreen></iframe>';
     }
 }
