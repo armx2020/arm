@@ -15,6 +15,7 @@
 
             @php
                 $images = $entity->images(true)->get();
+                $logo = $entity->logo()->First();
             @endphp
 
             <div class="flex flex-col gap-2">
@@ -22,6 +23,10 @@
                 @if ($images->count() > 0)
                     <div class="group relative max-w-full aspect-[16/11] sm:max-w-[320px] md:max-w-[380px] xl:max-w-[430px]"
                         wire:ignore>
+                        @if ($logo)
+                            <img class="w-24 max-h-24 object-cover rounded-lg absolute z-10 top-3 left-3"
+                                src="{{ asset('storage/' . $logo->path) }}">
+                        @endif
                         <div class="swiper mySwiper2 w-full h-full">
                             <div class="swiper-wrapper w-full h-full">
                                 @foreach ($images as $image)
@@ -142,7 +147,7 @@
                         }
                     </style>
                 @endif
-                
+
                 <div class="flex justify-between my-3 pl-0 text-xs text-blue-600">
 
                     <a href="{{ route('entity.photo.edit', ['idOrTranscript' => $entity->id]) }}"
