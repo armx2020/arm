@@ -29,37 +29,43 @@
                                     </div>
                                 </div>
 
-                                <div class="border-b min-h-auto overflow-hidden pb-2" wire:ignore>
-                                    <div id="sortable-slots"></div>
-                                    <div id="add-slot-container"></div>
+                                <div class="flex flex-row w-full justify-between border-b">
+
+                                    <div class="min-h-auto overflow-hidden" wire:ignore>
+                                        <div id="sortable-slots"></div>
+                                        <div id="add-slot-container"></div>
+                                    </div>
+
+                                    <!-- Logo  -->
+                                    <div class="flex flex-row bg-gray-100 max-h-28 border-r" id="upload_area">
+                                        <div class="flex relative">
+                                            <img class="h-20 w-20 rounded-lg m-4  object-cover" id="logo"
+                                                src="{{ url('/image/no-image.png') }}" alt="image">
+                                            <button type="button" id="remove_logo"
+                                                class="absolute top-2 right-2 hidden"><img
+                                                    src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                                    style="cursor:pointer;"></button>
+                                        </div>
+
+                                        <div class="flex items-center">
+                                            <label class="input-file relative inline-block">
+                                                <input name="logotype" type="file" accept=".jpg,.jpeg,.png"
+                                                    id="logotype" class="absolute opacity-0 block w-0 h-0"
+                                                    style="z-index:-1;" />
+                                                <span
+                                                    class="relative inline-blockalign-middle text-center p-2 w-full text-slate-600"
+                                                    style="cursor:pointer;">Выберите логотип</span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
+
 
                                 <div>
                                     <x-input-error :messages="$errors->get('image')" />
                                 </div>
 
-                                <!-- Logo  -->
-                                <div class="flex flex-row border-b" id="upload_area" wire:ignore>
-                                    <div class="flex relative">
-                                        <img class="h-20 w-20 rounded-lg m-4  object-cover" id="logo"
-                                            src="{{ url('/image/no-image.png') }}" alt="image">
-                                        <button type="button" id="remove_logo"
-                                            class="absolute top-2 right-2 hidden"><img
-                                                src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                                style="cursor:pointer;"></button>
-                                    </div>
 
-                                    <div class="flex items-center">
-                                        <label class="input-file relative inline-block">
-                                            <input name="logotype" type="file" accept=".jpg,.jpeg,.png"
-                                                id="logotype" class="absolute opacity-0 block w-0 h-0"
-                                                style="z-index:-1;" />
-                                            <span
-                                                class="relative inline-blockalign-middle text-center p-2 w-full text-slate-600"
-                                                style="cursor:pointer;">Выберите логотип</span>
-                                        </label>
-                                    </div>
-                                </div>
 
                                 <x-profile.alert />
 
@@ -197,8 +203,8 @@
                                         <x-admin.select-user />
 
                                         @role('super-admin')
-                                        {{-- Модератор --}}
-                                        <x-admin.select-moderator/>
+                                            {{-- Модератор --}}
+                                            <x-admin.select-moderator />
                                         @endrole
 
                                     </div>
