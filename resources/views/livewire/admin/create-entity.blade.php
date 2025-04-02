@@ -196,6 +196,11 @@
                                         {{-- Пользователь --}}
                                         <x-admin.select-user />
 
+                                        @role('super-admin')
+                                        {{-- Модератор --}}
+                                        <x-admin.select-moderator/>
+                                        @endrole
+
                                     </div>
 
                                     {{-- Соц. ссылки --}}

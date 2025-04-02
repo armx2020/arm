@@ -29,6 +29,7 @@ class UpdateEntityRequest extends FormRequest
             'vkontakte'        => ['nullable', new VkontakteUrl],
             'city'             => ['integer'],
             'user'             => ['nullable'],
+            'moderator'        => ['nullable'],
             'type'             => ['required', 'integer'],
             'category'         => ['nullable'],
             'fields'           => ['nullable'],

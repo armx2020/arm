@@ -66,7 +66,8 @@ class Entity extends Model
         'checked',
         'clinic',
         'paymant_link',
-        'director'
+        'director',
+        'moderator_id'
     ];
 
     protected $searchable = [

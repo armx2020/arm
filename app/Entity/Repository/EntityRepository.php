@@ -25,6 +25,7 @@ class EntityRepository implements EntityColumnsInterface, EntityFiltersInterface
         'telegram',
         'category_id',
         'user_id',
+        'moderator_id',
         'city_id',
         'sort_id',
         'region_id',

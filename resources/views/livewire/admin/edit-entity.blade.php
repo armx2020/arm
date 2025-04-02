@@ -241,6 +241,11 @@
 
                                         {{-- Пользователь --}}
                                         <x-admin.select-user :selectedUser="$entity->user" />
+
+                                        @role('super-admin')
+                                            {{-- Модератор --}}
+                                            <x-admin.select-moderator :selectedUser="$entity->moderator" />
+                                        @endrole
                                     </div>
 
                                     {{-- Соц. ссылки --}}
