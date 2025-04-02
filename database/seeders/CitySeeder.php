@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class CitySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         function translit($value)
@@ -1166,8 +1163,6 @@ class CitySeeder extends Seeder
             ['name' =>  'Щелкино'],
             ['name' =>  'Ялта'],
         ]);
-
-
 
         foreach ($citiesInRussia as $cityInRussia) {
             foreach($cityInRussia as $city) {
