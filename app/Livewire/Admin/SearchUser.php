@@ -24,13 +24,22 @@ class SearchUser extends BaseComponent
         $entity->update(['activity' => $isActive]);
     }
 
+    public function changeRole($id)
+    {
+        $entity = User::find($id);
+        if ($entity->hasRole('moderator')) {
+            $entity->removeRole('moderator');
+        } else {
+            $entity->assignRole('moderator');
+        }
+    }
+
     public function render()
     {
         $title = 'Все пользователи';
         $emptyEntity = 'Пользователей нет';
         $entityName = 'user';
 
-        sleep(0.5);
         $entities = User::query()->with('city');
 
         if ($this->term == "") {

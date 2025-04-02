@@ -15,62 +15,67 @@
                         </a>
                     </div>
 
-                    @foreach ($menu as $link)
-                        @if (count($link['sub']) > 0)
-                            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                                <x-dropdown align="right" width="48">
-                                    <x-slot name="trigger">
-                                        <button
-                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                            <div>{{ $link['name'] }} </div>
+                    @if (Auth::user()->hasRole('super-admin'))
+                        @foreach ($menu as $link)
+                            @if (count($link['sub']) > 0)
+                                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                                    <x-dropdown align="right" width="48">
+                                        <x-slot name="trigger">
+                                            <button
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                                <div>{{ $link['name'] }} </div>
 
-                                            <div class="ms-1">
-                                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
+                                                <div class="ms-1">
+                                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd"
+                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                            </button>
+                                        </x-slot>
+                                        <x-slot name="content">
+                                            @foreach ($link['sub'] as $sub)
+                                                <x-dropdown-link :href="route($sub['route'])">
+                                                    {{ $sub['name'] }}
+                                                </x-dropdown-link>
+                                            @endforeach
+                                        </x-slot>
+                                    </x-dropdown>
+                                </div>
+                            @else
+                                <x-nav-link :href="route($link['route'])" :active="request()->routeIs($link['routeIs'])">
+                                    {{ $link['name'] }}
+
+                                    @if ($link['name'] == 'Сообщения')
+                                        @php
+                                            $messagesCount = App\Models\Appeal::active()->count();
+                                        @endphp
+                                        @if ($messagesCount)
+                                            <div
+                                                class="mb-2 bottom-auto bg-red-300 mx-1 rounded-full px-2 py-1 text-center align-baseline text-xs font-bold leading-none text-white">
+                                                @if ($messagesCount > 9)
+                                                    9+
+                                                @elseif($messagesCount <= 9 && $messagesCount > 0)
+                                                    {{ $messagesCount }}
+                                                @endif
                                             </div>
-                                        </button>
-                                    </x-slot>
-                                    <x-slot name="content">
-                                        @foreach ($link['sub'] as $sub)
-                                            <x-dropdown-link :href="route($sub['route'])">
-                                                {{ $sub['name'] }}
-                                            </x-dropdown-link>
-                                        @endforeach
-                                    </x-slot>
-                                </x-dropdown>
-                            </div>
-                        @else
-                            <x-nav-link :href="route($link['route'])" :active="request()->routeIs($link['routeIs'])">
-                                {{ $link['name'] }}
-
-                                @if ($link['name'] == 'Сообщения')
-                                    @php
-                                        $messagesCount = App\Models\Appeal::active()->count();
-                                    @endphp
-                                    @if ($messagesCount)
-                                        <div
-                                            class="mb-2 bottom-auto bg-red-300 mx-1 rounded-full px-2 py-1 text-center align-baseline text-xs font-bold leading-none text-white">
-                                            @if ($messagesCount > 9)
-                                                9+
-                                            @elseif($messagesCount <= 9 && $messagesCount > 0)
-                                                {{ $messagesCount }}
-                                            @endif
-                                        </div>
-                                    @else
-                                        <div
-                                            class="mb-2 bottom-auto bg-green-500 mx-1 rounded-full px-2 py-1 text-center align-baseline text-xs font-bold leading-none text-white">
-                                            0
-                                        </div>
+                                        @else
+                                            <div
+                                                class="mb-2 bottom-auto bg-green-500 mx-1 rounded-full px-2 py-1 text-center align-baseline text-xs font-bold leading-none text-white">
+                                                0
+                                            </div>
+                                        @endif
                                     @endif
-                                @endif
-                            </x-nav-link>
-                        @endif
-                    @endforeach
-
+                                </x-nav-link>
+                            @endif
+                        @endforeach
+                    @else
+                        <x-nav-link :href="route('admin.entity.index')" :active="request()->routeIs('admin.entity.index')">
+                            Сущности
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

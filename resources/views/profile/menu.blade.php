@@ -47,7 +47,7 @@
                     вопросы</a>
             </li>
 
-            @role('super-admin')
+            @role('super-admin|moderator')
                 <hr class="my-3">
                 <li class="p-2 hover:text-gray-500 rounded-md"><a href="{{ route('admin.dashboard') }}">Админ панель</a>
                 </li>

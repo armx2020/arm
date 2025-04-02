@@ -237,6 +237,37 @@
                                                             </button>
                                                         </x-slot>
                                                         <x-slot name="content">
+
+                                                            @if ($entity->getTable() == 'users' && Auth::user() && Auth::user()->hasRole('super-admin'))
+                                                                <div
+                                                                    class="block px-4 text-sm font-medium hover:bg-gray-100 cursor-pointer">
+                                                                    <button
+                                                                        class="w-full h-full py-2 flex items-center space-x-2"
+                                                                        wire:click.prevent='changeRole("{{ $entity->id }}")'
+                                                                        role="button">
+                                                                        @if ($entity->hasRole('moderator'))
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                class="w-4 h-4 fill-green-500"
+                                                                                viewBox="0 0 576 512">
+                                                                                <path
+                                                                                    d="M192 64C86 64 0 150 0 256S86 448 192 448l192 0c106 0 192-86 192-192s-86-192-192-192L192 64zm192 96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" />
+                                                                            </svg>
+                                                                            <span class="text-green-500">отозвать
+                                                                                права</span>
+                                                                        @else
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                class="w-4 h-4 fill-gray-500"
+                                                                                viewBox="0 0 576 512">
+                                                                                <path
+                                                                                    d="M384 128c70.7 0 128 57.3 128 128s-57.3 128-128 128l-192 0c-70.7 0-128-57.3-128-128s57.3-128 128-128l192 0zM576 256c0-106-86-192-192-192L192 64C86 64 0 150 0 256S86 448 192 448l192 0c106 0 192-86 192-192zM192 352a96 96 0 1 0 0-192 96 96 0 1 0 0 192z" />
+                                                                            </svg>
+                                                                            <span class="text-gray-500">дать
+                                                                                права</span>
+                                                                        @endif
+                                                                    </button>
+                                                                </div>
+                                                            @endif
+
                                                             <div
                                                                 class="block px-4 text-sm font-medium hover:bg-gray-100 cursor-pointer">
                                                                 <button
@@ -250,7 +281,8 @@
                                                                             <path
                                                                                 d="M192 64C86 64 0 150 0 256S86 448 192 448l192 0c106 0 192-86 192-192s-86-192-192-192L192 64zm192 96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" />
                                                                         </svg>
-                                                                        <span class="text-red-500">деактивировать</span>
+                                                                        <span
+                                                                            class="text-red-500">деактивировать</span>
                                                                     @else
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                                             class="w-4 h-4 fill-green-500"
@@ -258,10 +290,12 @@
                                                                             <path
                                                                                 d="M384 128c70.7 0 128 57.3 128 128s-57.3 128-128 128l-192 0c-70.7 0-128-57.3-128-128s57.3-128 128-128l192 0zM576 256c0-106-86-192-192-192L192 64C86 64 0 150 0 256S86 448 192 448l192 0c106 0 192-86 192-192zM192 352a96 96 0 1 0 0-192 96 96 0 1 0 0 192z" />
                                                                         </svg>
-                                                                        <span class="text-green-500">активировать</span>
+                                                                        <span
+                                                                            class="text-green-500">активировать</span>
                                                                     @endif
                                                                 </button>
                                                             </div>
+
                                                             <form
                                                                 action="{{ route('admin.' . $entityName . '.destroy', [$entityName => $entity->id]) }}"
                                                                 method="post"

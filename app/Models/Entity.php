@@ -101,6 +101,11 @@ class Entity extends Model
     }
 
     // Отношения
+    public function moderator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'moderator_id');
+    }
+
     public function type(): BelongsTo
     {
         return $this->belongsTo(EntityType::class, 'entity_type_id');

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Entity;
 use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class SearchEntity extends BaseComponent
 {
@@ -81,6 +82,10 @@ class SearchEntity extends BaseComponent
         $entityName  = 'entity';
 
         $entities = Entity::query()->withoutGlobalScopes()->with('city', 'type', 'primaryImage', 'region', 'category', 'user');
+
+        if(Auth::user()->hasRole('moderator')) {
+            $entities = $entities->where('moderator_id', Auth::user()->id);
+        }
 
         if ($this->term == "") {
             foreach ($this->selectedFilters as $filterName => $filterValue) {

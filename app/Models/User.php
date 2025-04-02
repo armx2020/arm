@@ -60,7 +60,7 @@ class User extends Authenticatable
         'region_id',
         'phone_verified_at',
         'phone_fore_verification',
-        'check_id'
+        'check_id',
     ];
 
     protected $hidden = [
