@@ -30,14 +30,35 @@
 
                         <div class="w-full">
                             <h2 class="text-xl">Добавить компанию</h2>
-                            <hr class="w-full h-2 mt-2">
                         </div>
 
-                        <div class="border-b min-h-auto overflow-hidden pb-2">
-                            <div id="sortable-slots"></div>
-                            <div id="add-slot-container"></div>
-                        </div>
+                        <div class="flex flex-row w-full justify-between border-y">
+                            <div class="w-4/5 min-h-auto overflow-hidden">
+                                <div id="sortable-slots"></div>
+                                <div id="add-slot-container"></div>
+                            </div>
 
+                            <!-- Logo  -->
+                            <div class="flex flex-row basis-2/5 bg-gray-100 max-h-28 border-r" id="upload_area">
+                                <div class="flex relative">
+                                    <img class="h-20 w-20 rounded-lg m-4  object-cover" id="logo"
+                                        src="{{ url('/image/no-image.png') }}" alt="image">
+                                    <button type="button" id="remove_logo" class="absolute top-2 right-2 hidden"><img
+                                            src="{{ url('/image/remove.png') }}" class="w-5 h-5"
+                                            style="cursor:pointer;"></button>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <label class="input-file relative inline-block">
+                                        <input name="logotype" type="file" accept=".jpg,.jpeg,.png" id="logotype"
+                                            class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
+                                        <span
+                                            class="relative inline-blockalign-middle text-center p-2 w-full text-slate-600"
+                                            style="cursor:pointer;">Выберите логотип</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="my-3">
                             <x-input-label for="name" :value="__('Название')" />
@@ -59,26 +80,6 @@
                                 {{ old('description') }}
                             </x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
-                        </div>
-
-                        <!-- Logo  -->
-                        <div class="flex flex-row border-y" id="upload_area" wire:ignore>
-                            <div class="flex relative">
-                                <img class="h-10 w-10 rounded-lg m-4  object-cover" id="logo"
-                                    src="{{ url('/image/no-image.png') }}" alt="image">
-                                <button type="button" id="remove_logo" class="absolute top-2 right-2 hidden"><img
-                                        src="{{ url('/image/remove.png') }}" class="w-5 h-5"
-                                        style="cursor:pointer;"></button>
-                            </div>
-
-                            <div class="flex items-center">
-                                <label class="input-file relative inline-block">
-                                    <input name="logotype" type="file" accept=".jpg,.jpeg,.png" id="logotype"
-                                        class="absolute opacity-0 block w-0 h-0" style="z-index:-1;" />
-                                    <span class="relative inline-blockalign-middle text-center p-2 w-full text-slate-600"
-                                        style="cursor:pointer;">Выберите логотип</span>
-                                </label>
-                            </div>
                         </div>
 
                         <div class="my-3">
@@ -205,8 +206,7 @@
             <label class="file-label cursor-pointer flex-grow text-center">
                 <input type="file" name="images[]" class="file-input hidden" accept=".jpg,.jpeg,.png">
                 <span class="text-sm text-gray-500">
-                    <div class="text-left px-2">Выберите файл или</div>
-                    <div class="text-left px-2">перетащите сюда</div>
+                    <div class="text-left px-2">Выберите файл</div>
                 </span>
             </label>
         </div>
