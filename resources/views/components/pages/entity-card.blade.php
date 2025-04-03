@@ -66,16 +66,61 @@
                         </div>
                     </div>
 
-                    <div class="swiper mySwiper mt-1 w-full sm:w-[320px] md:w-[380px] xl:w-[430px] h-22">
-                        <div class="swiper-wrapper cursor-pointer">
-                            @foreach ($images as $image)
-                                <div class="swiper-slide">
-                                    <img class="w-full h-14 ms:h-16 ls:h-20 sm:h-16 md:h-20 object-cover rounded-lg"
-                                        src="{{ asset('storage/' . $image->path) }}">
+
+
+                    {{-- VIDEO --}}
+                    @php
+                        $url = $entity->video_url;
+                        $isYoutube = Str::contains($url, ['youtube.com', 'youtu.be']);
+                        $videoId = $isYoutube
+                            ? last(explode('/', parse_url($url, PHP_URL_PATH)))
+                            : last(explode('/', trim(parse_url($url, PHP_URL_PATH), '/')));
+                    @endphp
+
+                    @if ($entity->video_url)
+                        <div class="flex flex-row">
+                            <div class="block sm:w-[106px] md:w-[126px] xl:w-[143px] mr-0 sm:mr-[10px]">
+                                <div class="pt-1 h-14 ms:h-16 ls:h-20 sm:h-16 md:h-20">
+                                    <a href="{{ $isYoutube ? 'https://youtube.com/watch?v=' . $videoId : $url }}"
+                                        target="_blank" rel="noopener noreferrer"
+                                        class="block h-14 ms:h-16 ls:h-20 sm:h-16 md:h-20 relative hover:drop-shadow-xl">
+
+                                        <img class="w-full h-full object-cover rounded-lg"
+                                            src="{{ url('/image/video_link.jpg') }}">
+                                        <p class="absolute text-white bottom-2 right-3">
+                                            {{ $isYoutube ? 'YouTube' : 'RuTube' }} Video
+                                        </p>
+                                    </a>
                                 </div>
-                            @endforeach
+                            </div>
+                            {{-- SLAIDER --}}
+                            <div class="swiper mySwiper mt-1 w-full sm:w-[212px] md:w-[252px] xl:w-[286px] h-22">
+                                <div class="swiper-wrapper cursor-pointer">
+
+                                    @foreach ($images as $image)
+                                        <div class="swiper-slide">
+                                            <img class="w-full h-14 ms:h-16 ls:h-20 sm:h-16 md:h-20 object-cover rounded-lg"
+                                                src="{{ asset('storage/' . $image->path) }}">
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
+                    @else
+                        {{-- SLAIDER --}}
+                        <div class="swiper mySwiper mt-1 w-full sm:w-[320px] md:w-[380px] xl:w-[430px] h-22">
+                            <div class="swiper-wrapper cursor-pointer">
+
+                                @foreach ($images as $image)
+                                    <div class="swiper-slide">
+                                        <img class="w-full h-14 ms:h-16 ls:h-20 sm:h-16 md:h-20 object-cover rounded-lg"
+                                            src="{{ asset('storage/' . $image->path) }}">
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 @else
                     <div
                         class="group relative max-w-full aspect-[16/11] sm:max-w-[320px] md:max-w-[380px] xl:max-w-[430px]">
@@ -86,66 +131,6 @@
                             </div>
                         </div>
                     </div>
-                @endif
-
-                @php
-                    $url = $entity->video_url;
-                    $isYoutube = Str::contains($url, ['youtube.com', 'youtu.be']);
-                    $videoId = $isYoutube
-                        ? last(explode('/', parse_url($url, PHP_URL_PATH)))
-                        : last(explode('/', trim(parse_url($url, PHP_URL_PATH), '/')));
-                @endphp
-
-                @if ($entity->video_url)
-                    <div class="video-preview hidden lg:block">
-                        <a href="{{ $isYoutube ? 'https://youtube.com/watch?v=' . $videoId : $url }}" target="_blank"
-                            rel="noopener noreferrer" class="video-thumbnail">
-
-                            <svg viewBox="0 0 16 9" xmlns="http://www.w3.org/2000/svg" class="video-placeholder">
-                                <!-- Фон -->
-                                <rect width="16" height="9" fill="#171717" />
-
-                                <!-- Иконка play (центрированная) -->
-                                <path width="16" height="9" d="M7 3v3l2-1.5z" fill="#ff0000"
-                                    transform="translate(10.9,6.3) scale(1.5) translate(-6,-4) scale(0.5)" />
-
-                                <!-- Текст -->
-                                <text x="8" y="6.5" font-family="Arial" font-size="0.8" text-anchor="middle"
-                                    fill="#FFFFFF">
-                                    {{ $isYoutube ? 'YouTube' : 'RuTube' }} Video
-                                </text>
-
-                            </svg>
-                        </a>
-                    </div>
-
-                    <style>
-                        .video-preview {
-                            position: relative;
-                            width: 100%;
-                            max-width: 800px;
-                            margin: 0 auto;
-                        }
-
-                        .video-thumbnail {
-                            display: block;
-                            text-decoration: none;
-                        }
-
-                        .video-placeholder {
-                            width: 100%;
-                            height: auto;
-                            aspect-ratio: 16/9;
-                            border-radius: 8px;
-                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                            transition: transform 0.3s;
-                        }
-
-                        .video-thumbnail:hover .video-placeholder {
-                            transform: scale(1.02);
-                            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                        }
-                    </style>
                 @endif
 
                 <div class="flex justify-between my-3 pl-0 text-xs text-blue-600">
@@ -369,7 +354,7 @@
 
             let swiperThumbs = new Swiper(".mySwiper", {
                 spaceBetween: 10,
-                slidesPerView: 3,
+                slidesPerView: {{ $entity->video_url ? 2: 3 }},
                 freeMode: true,
                 watchSlidesProgress: true,
             });
