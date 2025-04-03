@@ -519,7 +519,7 @@
                         "display": "none"
                     });
                 } else {
-                    $('.input-file input[type=file]').next().html(file.name);
+                    $('.input-file input[type=file]').next().html('заменить');
                     $('.input-file input[type=file]').next().css({
                         "color": "rgb(71 85 105)"
                     });
