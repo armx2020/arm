@@ -79,7 +79,7 @@
 
                     @if ($entity->video_url)
                         <div class="flex flex-row">
-                            <div class="block sm:w-[106px] md:w-[126px] xl:w-[143px] mr-0 sm:mr-[10px]">
+                            <div class="block w-1/3 sm:w-[106px] md:w-[126px] xl:w-[143px] pr-[10px]">
                                 <div class="pt-1 h-14 ms:h-16 ls:h-20 sm:h-16 md:h-20">
                                     <a href="{{ $isYoutube ? 'https://youtube.com/watch?v=' . $videoId : $url }}"
                                         target="_blank" rel="noopener noreferrer"
@@ -87,14 +87,14 @@
 
                                         <img class="w-full h-full object-cover rounded-lg"
                                             src="{{ url('/image/video_link.jpg') }}">
-                                        <p class="absolute text-white bottom-2 right-3">
+                                        <p class="absolute text-white bottom-0 lg:bottom-2 right-3 text-[10px] lg:text-sm">
                                             {{ $isYoutube ? 'YouTube' : 'RuTube' }} Video
                                         </p>
                                     </a>
                                 </div>
                             </div>
                             {{-- SLAIDER --}}
-                            <div class="swiper mySwiper mt-1 w-full sm:w-[212px] md:w-[252px] xl:w-[286px] h-22">
+                            <div class="swiper mySwiper mt-1 w-2/3 sm:w-[212px] md:w-[252px] xl:w-[286px] h-22">
                                 <div class="swiper-wrapper cursor-pointer">
 
                                     @foreach ($images as $image)
