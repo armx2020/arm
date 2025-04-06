@@ -72,6 +72,17 @@
             </div>
         @endif
 
+
+        {{-- Ссылка на источник --}}
+        @if ($entity->category_id == 19 && isset($entity->link))
+            <div class="flex mt-1 lg:mt-4">
+                <a href="{{ $entity->link }}"
+                    class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] cursor-pointer inline-block bg-blue-700 hover:bg-blue-800 rounded-md px-2 lg:px-6 pb-1 lg:pb-2 pt-1 lg:pt-2.5 text-center text-white text-xs lg:text-base">
+                    Записаться на приём
+                </a>
+            </div>
+        @endif
+
         @if ($entity->city_id && $entity->city_id !== 1)
             <div class="max-h-4 mb-0 md:max-h-36 lg:max-h-48  break-words overflow-hidden">
                 <p
