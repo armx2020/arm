@@ -25,8 +25,7 @@ class GeocodeAddress implements ShouldQueue
         if ($this->entity->coordinates && $this->entity->address) {
             return;
         }
-        Log::error("Запустилась очередь: {$this->entity->id}");
-        
+
         try {
             $response = Http::withHeaders([
                 'User-Agent' => 'vsearmyane.com/1.0 (vsearmyane@gmail.com)',
