@@ -20,9 +20,7 @@ Route::middleware('guest')->group(function () {
     // Сброс пароля
     Route::get('forgot-password', [PasswordResetPhoneController::class, 'create'])
         ->name('forgot-password');
-
-    Route::post('forgot-password', [PasswordResetPhoneController::class, 'store'])
-        ->name('forgot-password');
+    Route::post('forgot-password', [PasswordResetPhoneController::class, 'store']);
 
     Route::get('confirm-phone', [PasswordResetPhoneController::class, 'confirmPhone'])->name('confirm-phone');
 });
