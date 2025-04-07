@@ -19,8 +19,8 @@ class Kernel extends ConsoleKernel
 
         // Обработка очереди каждую минуту
         $schedule->command('queue:work --once')
-            ->everyMinute()
-            ->withoutOverlapping()
+            ->everyThreeMinutes()
+            ->withoutOverlapping(1)
             ->appendOutputTo(storage_path('logs/queue.log'));
 
         // Очистка завершенных задач (опционально)
