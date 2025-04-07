@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel
         // Обработка очереди каждую минуту
         $schedule->command('queue:work --stop-when-empty --max-time=60')
             ->everyFifteenMinutes()
-            ->withoutOverlapping();
+            ->withoutOverlapping(2);
 
         // Очистка завершенных задач (опционально)
         $schedule->command('queue:prune-failed')->daily();

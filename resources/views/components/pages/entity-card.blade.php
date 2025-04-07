@@ -315,8 +315,13 @@
         </div>
     </div>
 
-
-
+    @if ($entity->coordinates)
+        <div class="flex">
+            <iframe src="https://yandex.ru/map-widget/v1/?ll={{ $entity->lon }},{{ $entity->lat }}&lat={{ $entity->lat }}&lon={{ $entity->lon }}&z=17&pt={{ $entity->lon }},{{ $entity->lat }},pm2blm"
+                width="100%" height="400" frameborder="0">
+            </iframe>
+        </div>
+    @endif
 
     @if ($entity->getTable() == 'companies')
         <x-pages.company-offers :$entity />
