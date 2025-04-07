@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('app:create-site-map --create --truncate')->dailyAt('03:00');
 
         // Обработка очереди каждую минуту
-        $schedule->command('queue:work --max-jobs=10')
+        $schedule->command('queue:work --max-jobs=5')
             ->everyMinute()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/queue.log'));
