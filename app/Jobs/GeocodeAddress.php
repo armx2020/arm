@@ -22,7 +22,7 @@ class GeocodeAddress implements ShouldQueue
 
     public function handle(): void
     {
-        if ($this->entity->coordinates && $this->entity->address) {
+        if ($this->entity->coordinates && $this->entity->address && $this->entity->city_id) {
             return;
         }
 
@@ -30,7 +30,7 @@ class GeocodeAddress implements ShouldQueue
             $response = Http::withHeaders([
                 'User-Agent' => 'vsearmyane.com/1.0 (vsearmyane@gmail.com)',
             ])->get('https://nominatim.openstreetmap.org/search', [
-                'q' => $this->entity->address,
+                'q' => $this->entity->city->name . ', ' . $this->entity->address,
                 'format' => 'json',
             ]);
 
