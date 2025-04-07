@@ -233,6 +233,16 @@ class Entity extends Model
         $this->attributes['telegram'] = TelegramUrl::normalize($value);
     }
 
+    public function setLatAttribute($value)
+    {
+        $this->attributes['lat'] = round((float)$value, 6);
+    }
+
+    public function setLonAttribute($value)
+    {
+        $this->attributes['lon'] = round((float)$value, 6);
+    }
+
     // Аксессоры
     public function getWhatsappLinkAttribute($value)
     {
@@ -257,5 +267,14 @@ class Entity extends Model
     public function getTelegramAttribute($value)
     {
         return $value ? TelegramUrl::normalize($value) : null;
+    }
+
+    public function getCoordinatesAttribute()
+    {
+        if ($this->lat && $this->lon) {
+            return [$this->lat, $this->lon];
+        }
+
+        return null;
     }
 }

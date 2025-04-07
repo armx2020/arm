@@ -16,6 +16,16 @@ class Kernel extends ConsoleKernel
         $schedule->command('cache-regions')->dailyAt('02:10');
         $schedule->command('cache-options')->dailyAt('02:20');
         $schedule->command('app:create-site-map --create --truncate')->dailyAt('03:00');
+
+        // Обработка очереди каждую минуту
+        $schedule->command('queue:work --once --tries=3')
+            ->everyMinute()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/queue.log'));
+
+        // Очистка завершенных задач (опционально)
+        $schedule->command('queue:prune-failed')->daily();
+        $schedule->command('queue:prune-batches')->daily();
     }
 
     protected function commands(): void
