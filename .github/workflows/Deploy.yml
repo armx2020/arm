@@ -29,5 +29,6 @@ jobs:
             php artisan cache-region
             php artisan cache-options
             php artisan routes:update
+            php artisan queue:restart
             npm run build
     
