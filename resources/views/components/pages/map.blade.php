@@ -1,7 +1,7 @@
   <div class="mb-8">
 
     <div id="geolocation-status"
-        class="mb-4 flex basis-full bg-yellow-100 rounded-lg px-6 py-2 text-xs lg:text-base text-green-700 w-full text-center"
+        class="mb-4 flex basis-full bg-yellow-100 rounded-lg px-6 py-2 text-xs lg:text-base text-green-700 w-full hidden"
         role="alert" style="max-height:64px;">
     </div>
 
@@ -82,14 +82,17 @@
         }
 
         function showError(message) {
-            document.getElementById('geolocation-status').textContent = message;
+            var statusEl = document.getElementById('geolocation-status');
+            statusEl.textContent = message;
+            statusEl.style.display = 'block';
             console.error('Geolocation Error:', message);
         }
 
         function showWarning(message) {
             var statusEl = document.getElementById('geolocation-status');
             statusEl.textContent = '⚠ ' + message;
-            statusEl.style.color = 'orange';
+            statusEl.style.display = 'block';
+            console.error('Geolocation Error:', message);
         }
     </script>
 </div>
