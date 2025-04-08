@@ -6,7 +6,6 @@ use App\Entity\Actions\GroupAction;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Http\Requests\Group\UpdateGroupRequest;
-use App\Jobs\GeocodeAddress;
 use App\Models\Category;
 use App\Models\Entity;
 use Illuminate\Http\Request;
@@ -55,8 +54,6 @@ class MyGroupController extends BaseController
     {
 
         $group = $this->groupAction->store($request, Auth::user()->id);
-
-        GeocodeAddress::dispatch($entity);
 
         return redirect()->route('mygroups.index')->with('success', 'Группа "' . $group->name . '" добавлена');
     }
@@ -121,8 +118,6 @@ class MyGroupController extends BaseController
         }
 
         $entity = $this->groupAction->update($request, $entity, Auth::user()->id);
-
-        GeocodeAddress::dispatch($entity);
 
         return redirect()->route('mygroups.show', ['mygroup' => $entity->id])->with('success', 'Сообщесвто "' . $entity->name . '" обнавлена');
     }

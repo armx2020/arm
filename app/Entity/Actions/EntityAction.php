@@ -3,7 +3,6 @@
 namespace App\Entity\Actions;
 
 use App\Entity\Actions\Traits\GetCity;
-use App\Jobs\GeocodeAddress;
 use App\Models\Category;
 use App\Models\Entity;
 use Illuminate\Support\Facades\Auth;
@@ -99,8 +98,6 @@ class EntityAction
                 }
             }
         }
-
-        GeocodeAddress::dispatch($entity);
 
         return $entity;
     }
@@ -232,8 +229,6 @@ class EntityAction
                 })
                 ->save();
         }
-
-        GeocodeAddress::dispatch($entity);
 
         return $entity;
     }

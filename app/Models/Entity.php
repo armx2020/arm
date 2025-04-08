@@ -12,12 +12,14 @@ use App\Models\Traits\HasUser;
 use App\Models\Traits\HasWorks;
 use App\Models\Traits\Search;
 use App\Models\Traits\TranscriptName;
+use App\Observers\EntityObserver;
 use App\Rules\InstagramUrl;
 use App\Rules\TelegramUrl;
 use App\Rules\VkontakteUrl;
 use App\Rules\WebUrl;
 use App\Rules\WhatsappUrl;
 use App\Rules\VideoUrl;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\Storage;
 
+#[ObservedBy([EntityObserver::class])]
 class Entity extends Model
 {
     use HasFactory,

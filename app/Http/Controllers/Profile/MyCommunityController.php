@@ -6,7 +6,6 @@ use App\Entity\Actions\CommunityAction;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Http\Requests\Group\UpdateGroupRequest;
-use App\Jobs\GeocodeAddress;
 use App\Models\Category;
 use App\Models\Entity;
 use Illuminate\Http\Request;
@@ -55,9 +54,7 @@ class MyCommunityController extends BaseController
     {
 
         $group = $this->groupAction->store($request, Auth::user()->id);
-
-        GeocodeAddress::dispatch($group);
-
+        
         return redirect()->route('mycommunities.index')->with('success', 'Община "' . $group->name . '" добавлена');
     }
 
@@ -121,9 +118,7 @@ class MyCommunityController extends BaseController
         }
 
         $entity = $this->groupAction->update($request, $entity, Auth::user()->id);
-
-        GeocodeAddress::dispatch($entity);
-
+        
         return redirect()->route('mycommunities.show', ['mycommunity' => $entity->id])->with('success', 'Община "' . $entity->name . '" обнавлена');
     }
 

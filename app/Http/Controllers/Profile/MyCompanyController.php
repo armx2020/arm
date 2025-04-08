@@ -6,7 +6,6 @@ use App\Entity\Actions\CompanyAction;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
-use App\Jobs\GeocodeAddress;
 use App\Models\Category;
 use App\Models\Entity;
 use Illuminate\Http\Request;
@@ -55,8 +54,6 @@ class MyCompanyController extends BaseController
     public function store(StoreCompanyRequest $request)
     {
         $company = $this->companyAction->store($request, Auth::user()->id);
-
-        GeocodeAddress::dispatch($company);
 
         return redirect()->route('mycompanies.index')->with('success', 'Компания "' . $company->name . '" добавлена');
     }
@@ -121,8 +118,6 @@ class MyCompanyController extends BaseController
         }
 
         $entity = $this->companyAction->update($request, $entity, Auth::user()->id);
-
-        GeocodeAddress::dispatch($entity);
 
         return redirect()->route('mycompanies.show', ['mycompany' => $entity->id])->with('success', 'Компания "' . $entity->name . '" обнавлена');
     }
