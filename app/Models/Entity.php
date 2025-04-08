@@ -104,6 +104,13 @@ class Entity extends Model
         return $query->where('entity_type_id', 7);
     }
 
+    public function scopeNearby($query, $lat, $lon, $radius = 5000)
+    {
+        return $query->selectRaw("id, name, lat, lon, ST_Distance_Sphere(POINT(lon, lat), POINT(?, ?)) AS distance", [$lon, $lat])
+            ->having('distance', '<=', $radius)
+            ->orderBy('distance');
+    }
+
     // Отношения
     public function moderator(): BelongsTo
     {
