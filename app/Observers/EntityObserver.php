@@ -18,8 +18,14 @@ class EntityObserver
     protected function geocode(Entity $entity)
     {
         try {
+            $apiKey = config('services.yandex.geocoder_key');
+
+            if (empty($apiKey)) {
+                throw new \Exception('Yandex Geocoder API key is missing in .env');
+            }
+
             $response = Http::get('https://geocode-maps.yandex.ru/1.x/', [
-                'apikey' => env('YANDEX_GEOCODER_KEY'),
+                'apikey' => $apiKey,
                 'geocode' => $entity->city->name . ', ' . $entity->address,
                 'format' => 'json',
             ]);
