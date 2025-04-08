@@ -6,108 +6,145 @@
       </div>
 
       <div id="map" style="height: 200px; width: 100%;"></div>
+      <style>
+          .ymaps-2-1-79-gototech {
+              display: none !important;
+          }
+
+          /* Альтернативный вариант - скрыть весь блок техподдержки */
+          .ymaps-2-1-79-copyrights-promo {
+              display: none !important;
+          }
+      </style>
 
       <script src="https://api-maps.yandex.ru/2.1/?apikey={{ config('services.yandex.geocoder_key') }}&lang=ru_RU"></script>
       <script type="text/javascript">
-          ymaps.ready(init);
+          $(document).ready(function() {
 
-          function init() {
-              // Создаем карту с центром по умолчанию (Москва)
-              var map = new ymaps.Map('map', {
-                  center: [55.755864, 37.617698], // Координаты Москвы
-                  zoom: 4
-              });
+              ymaps.ready(init);
 
-              // Проверяем поддержку геолокации браузером
-              if (!navigator.geolocation) {
-                  showError('Ваш браузер не поддерживает геолокацию');
-                  return;
+              function init() {
+                  var geolocation = ymaps.geolocation,
+                      myMap = new ymaps.Map('map', {
+                          center: [55, 34],
+                          zoom: 7,
+                          controls: ['zoomControl', 'geolocationControl', 'fullscreenControl'],
+                      }, {
+                          searchControlProvider: 'yandex#search'
+                      }),
+                      objectManager = new ymaps.ObjectManager({
+                          clusterize: true,
+                          gridSize: 32,
+                          clusterDisableClickZoom: true
+                      });
+
+                  // Добавляем ObjectManager на карту
+                  objectManager.objects.options.set('preset', 'islands#greenDotIcon');
+                  objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+                  myMap.geoObjects.add(objectManager);
+
+                  // Сначала пробуем получить точные координаты через браузер
+                  geolocation.get({
+                      provider: 'browser',
+                      mapStateAutoApply: true
+                  }).then(function(result) {
+                      // Успешно получили координаты через браузер
+                      result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
+                      myMap.geoObjects.add(result.geoObjects);
+
+                      var coords = result.geoObjects.position;
+                      loadNearbyObjects(coords[0], coords[1], objectManager, myMap);
+
+                  }).catch(function(error) {
+                      // Если не получилось через браузер, пробуем через IP
+                      console.warn('Браузерная геолокация недоступна:', error.message);
+
+                      geolocation.get({
+                          provider: 'yandex',
+                          mapStateAutoApply: true
+                      }).then(function(result) {
+                          result.geoObjects.options.set('preset', 'islands#redCircleIcon');
+                          result.geoObjects.get(0).properties.set({
+                              balloonContentBody: 'Ваше местоположение (определено по IP)'
+                          });
+                          myMap.geoObjects.add(result.geoObjects);
+
+                          var coords = result.geoObjects.position;
+                          loadNearbyObjects(coords[0], coords[1], objectManager, myMap);
+
+                      });
+                  });
               }
 
-              // Параметры для геолокации
-              var geoOptions = {
-                  enableHighAccuracy: true, // Высокая точность
-                  timeout: 10000, // Максимальное время ожидания (10 сек)
-                  maximumAge: 60000 // Кеширование результата (60 сек)
-              };
+              function loadNearbyObjects(latitude, longitude, objectManager, map) {
+                  // AJAX-запрос для получения ближайших объектов
+                  $.ajax({
+                      url: "{{ route('nearby-entities') }}",
+                      method: 'GET',
+                      data: {
+                          lat: latitude,
+                          lon: longitude,
+                          radius: 10000 // радиус в метрах
+                      },
+                      success: function(response) {
+                          // Очищаем предыдущие объекты
+                          objectManager.removeAll();
 
-              // Запрашиваем текущее положение
-              navigator.geolocation.getCurrentPosition(
-                  function(position) {
-                      // Успешное получение координат
-                      var userCoords = [position.coords.latitude, position.coords.longitude];
+                          // Добавляем новые объекты
+                          objectManager.add(response);
 
-                      // Центрируем карту на пользователе
-                      map.setCenter(userCoords, 15);
-
-                      // Добавляем метку пользователя
-                      var userPlacemark = new ymaps.Placemark(
-                          userCoords, {
-                              hintContent: 'Ваше местоположение',
-                              balloonContent: 'Точность: ±' + Math.round(position.coords.accuracy) + ' метров'
-                          }, {
-                              preset: 'islands#blueCircleDotIcon',
-                              iconColor: '#0088ff'
-                          }
-                      );
-                      map.geoObjects.add(userPlacemark);
-
-                      // Выводим информацию о точности
-                      if (position.coords.accuracy > 1000) {
-                          showWarning('Низкая точность определения (' + Math.round(position.coords.accuracy) + ' м)');
-                      }
-                  },
-                  function(error) {
-                      // Обработка ошибок
-                      var errorMessage;
-                      switch (error.code) {
-                          case error.PERMISSION_DENIED:
-                              errorMessage =
-                                  "Для корректного отображения разрешите доступ к геолокации в настройках браузера";
-                              break;
-                          case error.POSITION_UNAVAILABLE:
-                              errorMessage = "Информация о местоположении недоступна";
-                              break;
-                          case error.TIMEOUT:
-                              errorMessage = "Время ожидания истекло";
-                              break;
-                          case error.UNKNOWN_ERROR:
-                              errorMessage = "Произошла неизвестная ошибка";
-                              break;
-                      }
-                      showError(errorMessage);
-                  },
-                  geoOptions
-              );
-
-              // Загрузка ближайших сущностей
-              fetch(`/api/nearby-entities?lat=${coords.latitude}&lon=${coords.longitude}&radius=5000`)
-                  .then(response => response.json())
-                  .then(entities => {
-                      entities.forEach(entity => {
-                          new ymaps.Placemark(
-                              [entity.lat, entity.lon], {
-                                  balloonContent: entity.name
+                          const userPlacemark = new ymaps.Placemark(
+                              [latitude, longitude], {
+                                  hintContent: 'Я здесь'
                               }, {
-                                  preset: 'islands#blueIcon'
+                                  preset: 'islands#redDotIcon'
                               }
-                          ).addTo(map);
-                      });
-                  })
-          }
+                          );
 
-          function showError(message) {
-              var statusEl = document.getElementById('geolocation-status');
-              statusEl.textContent = message;
-              statusEl.style.display = 'block';
-              console.error('Geolocation Error:', message);
-          }
 
-          function showWarning(message) {
-              var statusEl = document.getElementById('geolocation-status');
-              statusEl.textContent = '⚠ ' + message;
-              statusEl.style.display = 'block';
-              console.error('Geolocation Error:', message);
-          }
+                          map.geoObjects.add(userPlacemark);
+
+                          setTimeout(() => {
+                              // Получаем все координаты объектов
+                              const allCoords = [];
+
+                              // 1. Получаем координаты через features из response
+                              if (response.features && response.features.length > 0) {
+                                  response.features.forEach(feature => {
+                                      if (feature.geometry && feature.geometry
+                                          .coordinates) {
+                                          // Координаты в GeoJSON: [lon, lat]
+                                          allCoords.push(feature.geometry.coordinates);
+                                      }
+                                  });
+                              }
+
+                              // 2. Добавляем координаты пользователя (преобразуем в [lon, lat])
+                              allCoords.push([latitude, longitude]);
+
+                              if (allCoords.length > 1) {
+                                  // 3. Создаем bounds вручную
+                                  const bounds = ymaps.util.bounds.fromPoints(allCoords);
+
+                                  // 4. Центрируем карту
+                                  map.setBounds(bounds, {
+                                      checkZoomRange: true,
+                                      zoomMargin: 50
+                                  });
+
+                              } else {
+                                  // Если объектов нет - центрируем только на пользователе
+                                  map.setCenter([latitude, longitude], 15);
+                              }
+                          }, 300);
+
+                      },
+                      error: function(xhr, status, error) {
+                          console.error('Ошибка при загрузке объектов:', error);
+                      }
+                  });
+              }
+
+          });
       </script>
   </div>
