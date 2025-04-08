@@ -30,6 +30,5 @@ jobs:
             php artisan cache-options
             php artisan routes:update
             php artisan schedule:clear-cache
-            php artisan queue:restart
             npm run build
     
