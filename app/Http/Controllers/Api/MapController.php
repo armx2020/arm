@@ -14,13 +14,16 @@ class MapController extends Controller
         $validated = $request->validate([
             'lat' => 'required|numeric',
             'lon' => 'required|numeric',
-            'radius' => 'numeric|min:100|max:10000' // радиус в метрах
+            'radius' => 'numeric|min:100|max:100000' // радиус в метрах
         ]);
+
+        $lat = (float)number_format($validated['lat'], 6);
+        $lon = (float)number_format($validated['lon'], 6);
 
         Log::info($validated);
         $objects = Entity::nearby(
-            $validated['lat'],
-            $validated['lon'],
+            $lat,
+            $lon,
             $validated['radius'] ?? 5000
         )->get();
 
@@ -36,7 +39,7 @@ class MapController extends Controller
                     ],
                     'properties' => [
                         'hintContent' => $item->name,
-                        'balloonContent' => "<strong>{$item->name}</strong><br>Расстояние: ".round($item->distance)." м",
+                        'balloonContent' => "<strong>{$item->name}</strong><br>Расстояние: " . round($item->distance) . " м",
                         'clusterCaption' => $item->name
                     ]
                 ];
