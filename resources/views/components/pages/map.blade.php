@@ -51,7 +51,7 @@
                       // Успешно получили координаты через браузер
                       result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
                       myMap.geoObjects.add(result.geoObjects);
-
+                        console.log(coords);
                       var coords = result.geoObjects.position;
                       loadNearbyObjects(coords[0], coords[1], objectManager, myMap);
 
