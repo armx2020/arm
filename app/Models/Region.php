@@ -17,7 +17,9 @@ class Region extends Model
 
     protected $fillable = [
         'name',
-        'transcription'
+        'transcription',
+        'lat',
+        'lon'
     ];
 
     public $timestamps = false;

@@ -18,7 +18,11 @@ class City extends Model
 
     protected $fillable = [
         'name',
-        'transcription'
+        'name_ru',
+        'name_en',
+        'transcription',
+        'lat',
+        'lon'
     ];
 
     public $timestamps = false;
