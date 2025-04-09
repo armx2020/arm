@@ -85,7 +85,7 @@
                       data: {
                           lat: latitude,
                           lon: longitude,
-                          radius: 10000 // радиус в метрах
+                          radius: 100000 // радиус в метрах
                       },
                       success: function(response) {
                           // Очищаем предыдущие объекты
