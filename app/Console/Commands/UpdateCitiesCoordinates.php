@@ -43,7 +43,7 @@ class UpdateCitiesCoordinates extends Command
 
         foreach ($cities as $city) {
             try {
-                $coordinates = $this->getCoordinates($city->name_ru);
+                $coordinates = $this->getCoordinates($city->name);
 
                 if ($coordinates) {
                     $city->update([
@@ -52,7 +52,7 @@ class UpdateCitiesCoordinates extends Command
                     ]);
                     $updatedCount++;
                 } else {
-                    $this->error("Failed to get coordinates for city: {$city->name_ru}");
+                    $this->error("Failed to get coordinates for city: {$city->name}");
                     $failedCount++;
                 }
             } catch (Exception $e) {
