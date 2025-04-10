@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('cache-regions')->dailyAt('02:10');
         $schedule->command('cache-options')->dailyAt('02:20');
         $schedule->command('app:create-site-map --create --truncate')->dailyAt('03:00');
-        $schedule->command('cities:update-coordinates')->hourly();
+      //  $schedule->command('cities:update-coordinates')->hourly();
     }
 
     protected function commands(): void
