@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\City;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Exception;
 
@@ -26,42 +25,46 @@ class UpdateCitiesCoordinates extends Command
 
     public function handle()
     {
-        $totalCities = City::count();
+        $cities = City::query()->limit(30)->get();
+        $totalCities = $cities->count();
 
         $this->info("Starting to update coordinates for {$totalCities} cities...");
+
+        if ($totalCities === 0) {
+            $this->info('No cities to update.');
+            return;
+        }
 
         $progressBar = $this->output->createProgressBar($totalCities);
         $progressBar->start();
 
-        City::chunk(50, function (Collection $cities) use ($progressBar) {
-            foreach ($cities as $city) {
+        $updatedCount = 0;
+        $failedCount = 0;
 
-                if ($city->id == 1) {
-                    continue;
+        foreach ($cities as $city) {
+            try {
+                $coordinates = $this->getCoordinates($city->name_ru);
+
+                if ($coordinates) {
+                    $city->update([
+                        'lat' => $coordinates['lat'],
+                        'lon' => $coordinates['lon']
+                    ]);
+                    $updatedCount++;
+                } else {
+                    $this->error("Failed to get coordinates for city: {$city->name_ru}");
+                    $failedCount++;
                 }
-
-
-                try {
-                    $coordinates = $this->getCoordinates($city->name_ru);
-
-                    if ($coordinates) {
-                        $city->update([
-                            'lat' => $coordinates['lat'],
-                            'lon' => $coordinates['lon']
-                        ]);
-                    } else {
-                        $this->error("Failed to get coordinates for city: {$city->name_ru}");
-                    }
-                } catch (Exception $e) {
-                    $this->error("Error processing city ID {$city->id}: " . $e->getMessage());
-                }
-
-                $progressBar->advance();
-
-                // Пауза чтобы не превысить лимиты API
-                usleep(500000); // 0.5 секунды
+            } catch (Exception $e) {
+                $this->error("Error processing city ID {$city->id}: " . $e->getMessage());
+                $failedCount++;
             }
-        });
+
+            $progressBar->advance();
+
+            // Пауза чтобы не превысить лимиты API
+            sleep(rand(13, 36)); // 13 - 36 секунды
+        }
 
         $progressBar->finish();
         $this->newLine(2);
