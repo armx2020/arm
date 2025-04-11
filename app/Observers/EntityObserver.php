@@ -19,7 +19,7 @@ class EntityObserver
     {
         if ($entity->address && $entity->city_id) {
             if (!$this->service->hasAvailableRequests()) {
-                ProcessEntitiesGeocoding::dispatch($entity)->onQueue('geocoding');
+               // ProcessEntitiesGeocoding::dispatch($entity)->onQueue('geocoding');
             }
 
             $coordinates = $this->service->geocode($entity->city->name, ', ', $entity->address);
