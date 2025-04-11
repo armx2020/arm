@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\Storage;
 
-// #[ObservedBy([EntityObserver::class])]
+#[ObservedBy([EntityObserver::class])]
 class Entity extends Model
 {
     use HasFactory,
