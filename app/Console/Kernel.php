@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -18,6 +19,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('cache-options')->dailyAt('02:20');
         $schedule->command('app:create-site-map --create --truncate')->dailyAt('03:00');
         $schedule->command('cities:update-coordinates')->hourly();
+
+        $schedule->call(function () {
+            Log::info('start-test-cron');
+        })->everyMinute();
 
         $schedule->call(function () {
             Cache::forget('yandex_geocoder_used_requests');
