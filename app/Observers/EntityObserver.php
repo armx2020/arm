@@ -2,53 +2,34 @@
 
 namespace App\Observers;
 
+use App\Jobs\ProcessEntitiesGeocoding;
 use App\Models\Entity;
+use App\Services\YandexGeocoderService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class EntityObserver
 {
-    public function saving(Entity $entity)
+    public function __construct(public YandexGeocoderService $service)
     {
-        if (!$entity->coordinates && $entity->address && $entity->city_id) {
-            $this->geocode($entity);
-        }
+        //
     }
 
-    protected function geocode(Entity $entity)
+    public function saving(Entity $entity)
     {
-        try {
-            $apiKey = config('services.yandex.geocoder_key');
-
-            if (empty($apiKey)) {
-                throw new \Exception('Yandex Geocoder API key is missing in .env');
+        if ($entity->address && $entity->city_id) {
+            if (!$this->service->hasAvailableRequests()) {
+                ProcessEntitiesGeocoding::dispatch($entity)->onQueue('geocoding');
             }
 
-            $response = Http::get('https://geocode-maps.yandex.ru/1.x/', [
-                'apikey' => $apiKey,
-                'geocode' => $entity->city->name . ', ' . $entity->address,
-                'format' => 'json',
-            ]);
+            $coordinates = $this->service->geocode($entity->city->name, ', ', $entity->address);
 
-            $data = $response->json();
-
-            if (isset($data['response']['GeoObjectCollection']['featureMember'][0])) {
-                $coords = explode(
-                    ' ',
-                    $data['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['Point']['pos']
-                );
-                $entity->lon = $coords[0]; // Долгота
-                $entity->lat = $coords[1]; // Широта
-
-            } else {
-                Log::warning("No geocoding results for Entity ID: {$entity->id}", [
-                    'city' => $entity->city->name,
-                    'address' => $entity->address,
-                    'full_response' => $data
+            if ($coordinates) {
+                $entity->update([
+                    'lat' => $coordinates['lat'],
+                    'lon' => $coordinates['lon']
                 ]);
             }
-        } catch (\Exception $e) {
-            Log::error("Geocoding failed for Entity ID: {$entity->id}", ['error' => $e->getMessage()]);
         }
     }
 }

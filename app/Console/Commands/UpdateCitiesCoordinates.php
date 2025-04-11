@@ -6,6 +6,7 @@ use App\Models\City;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class UpdateCitiesCoordinates extends Command
 {
@@ -25,6 +26,7 @@ class UpdateCitiesCoordinates extends Command
 
     public function handle()
     {
+        Log::info('start-cities');
         $cities = City::query()->limit(30)->get();
         $totalCities = $cities->count();
 

@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Log;
 
 class YandexGeocoderService
 {
-    protected string $apiUrl;
+    protected string $apiUrl = 'https://geocode-maps.yandex.ru/1.x/';
     protected string $apiKey;
-    protected int $dailyLimit = 2; // Дневной лимит
+    protected int $dailyLimit = 100; // Дневной лимит
     protected int $usedRequests = 0;
 
     public function __construct()
@@ -26,7 +26,7 @@ class YandexGeocoderService
         }
 
         try {
-            $response = Http::retry(3, 100)->get($this->apiUrl, [
+            $response = Http::get($this->apiUrl, [
                 'apikey' => $this->apiKey,
                 'geocode' => $address,
                 'format' => 'json',
