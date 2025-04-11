@@ -10,7 +10,7 @@ class YandexGeocoderService
 {
     protected string $apiUrl = 'https://geocode-maps.yandex.ru/1.x/';
     protected string $apiKey;
-    protected int $dailyLimit = 100; // Дневной лимит
+    protected int $dailyLimit = 1; // TODO:Исправить до 700
     protected int $usedRequests = 0;
 
     public function __construct()
@@ -21,22 +21,24 @@ class YandexGeocoderService
 
     public function geocode(string $address): ?array
     {
-        try {
-            $response = Http::get($this->apiUrl, [
-                'apikey' => $this->apiKey,
-                'geocode' => $address,
-                'format' => 'json',
-                'results' => 1,
-                'lang' => 'ru_RU'
-            ]);
+        if ($this->hasAvailableRequests()) {
+            try {
+                $response = Http::get($this->apiUrl, [
+                    'apikey' => $this->apiKey,
+                    'geocode' => $address,
+                    'format' => 'json',
+                    'results' => 1,
+                    'lang' => 'ru_RU'
+                ]);
 
-            $this->incrementRequestCount();
+                $this->incrementRequestCount();
 
-            if ($response->successful()) {
-                return $this->parseResponse($response->json());
+                if ($response->successful()) {
+                    return $this->parseResponse($response->json());
+                }
+            } catch (\Exception $e) {
+                Log::error("Yandex Geocoder error: " . $e->getMessage());
             }
-        } catch (\Exception $e) {
-            Log::error("Yandex Geocoder error: " . $e->getMessage());
         }
 
         return null;
@@ -66,15 +68,8 @@ class YandexGeocoderService
         Cache::put('yandex_geocoder_used_requests', $this->usedRequests, now()->addDay());
     }
 
-    public function getRemainingRequests(): int
-    {
-        return $this->dailyLimit - $this->usedRequests;
-    }
-
     public function hasAvailableRequests(): bool
     {
-        Log::info($this->usedRequests);
-        Log::info($this->dailyLimit);
         return $this->usedRequests < $this->dailyLimit;
     }
 }

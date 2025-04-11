@@ -22,12 +22,12 @@ class ProcessEntitiesGeocoding implements ShouldQueue
 
     public function handle(YandexGeocoderService $geocoder): void
     {
-        try {
-            if (!$geocoder->hasAvailableRequests()) {
-                $this->release(86400); // Откладываем на 24 часа (86400 секунд)
-                return;
-            }
+        if (!$geocoder->hasAvailableRequests()) {
+            $this->release(86400); // Откладываем на 24 часа (86400 секунд)
+            return;
+        }
 
+        try {
             $coordinates = $geocoder->geocode($this->entity->city->name, ', ', $this->entity->address);
 
             if ($coordinates) {
