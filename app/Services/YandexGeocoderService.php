@@ -21,10 +21,6 @@ class YandexGeocoderService
 
     public function geocode(string $address): ?array
     {
-        if ($this->usedRequests >= $this->dailyLimit) {
-            throw new \Exception('Daily limit exceeded');
-        }
-
         try {
             $response = Http::get($this->apiUrl, [
                 'apikey' => $this->apiKey,
@@ -77,6 +73,8 @@ class YandexGeocoderService
 
     public function hasAvailableRequests(): bool
     {
+        Log::info($this->usedRequests);
+        Log::info($this->dailyLimit);
         return $this->usedRequests < $this->dailyLimit;
     }
 }
