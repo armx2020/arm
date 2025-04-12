@@ -1,5 +1,12 @@
   <div class="mb-8">
 
+      @php
+          if (!isset($lat) && !isset($lon)) {
+              $lat = 55.755819;
+              $lon = 37.617644;
+          }
+      @endphp
+
       <div id="geolocation-status"
           class="mb-4 flex basis-full bg-yellow-100 rounded-lg px-6 py-2 text-xs lg:text-base text-green-700 w-full hidden"
           role="alert" style="max-height:64px;">
@@ -11,7 +18,6 @@
               display: none !important;
           }
 
-          /* Альтернативный вариант - скрыть весь блок техподдержки */
           .ymaps-2-1-79-copyrights-promo {
               display: none !important;
           }
@@ -26,8 +32,8 @@
               function init() {
                   var geolocation = ymaps.geolocation,
                       myMap = new ymaps.Map('map', {
-                          center: [55, 34],
-                          zoom: 7,
+                          center: [{{ $lat }}, {{ $lon }}],
+                          zoom: 9,
                           controls: ['zoomControl', 'geolocationControl', 'fullscreenControl'],
                       }, {
                           searchControlProvider: 'yandex#search'
@@ -43,38 +49,7 @@
                   objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
                   myMap.geoObjects.add(objectManager);
 
-                  // Сначала пробуем получить точные координаты через браузер
-                  geolocation.get({
-                      provider: 'browser',
-                      mapStateAutoApply: true
-                  }).then(function(result) {
-                      // Успешно получили координаты через браузер
-                      result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
-                      myMap.geoObjects.add(result.geoObjects);
-                        
-                      var coords = result.geoObjects.position;
-                      console.log(coords);
-                      loadNearbyObjects(coords[0], coords[1], objectManager, myMap);
-
-                  }).catch(function(error) {
-                      // Если не получилось через браузер, пробуем через IP
-                      console.warn('Браузерная геолокация недоступна:', error.message);
-
-                      geolocation.get({
-                          provider: 'yandex',
-                          mapStateAutoApply: true
-                      }).then(function(result) {
-                          result.geoObjects.options.set('preset', 'islands#redCircleIcon');
-                          result.geoObjects.get(0).properties.set({
-                              balloonContentBody: 'Ваше местоположение (определено по IP)'
-                          });
-                          myMap.geoObjects.add(result.geoObjects);
-
-                          var coords = result.geoObjects.position;
-                          loadNearbyObjects(coords[0], coords[1], objectManager, myMap);
-
-                      });
-                  });
+                  loadNearbyObjects({{ $lat }}, {{ $lon }}, objectManager, myMap);
               }
 
               function loadNearbyObjects(latitude, longitude, objectManager, map) {

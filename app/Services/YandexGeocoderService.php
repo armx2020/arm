@@ -10,7 +10,7 @@ class YandexGeocoderService
 {
     protected string $apiUrl = 'https://geocode-maps.yandex.ru/1.x/';
     protected string $apiKey;
-    protected int $dailyLimit = 1; // TODO:Исправить до 700
+    protected int $dailyLimit = 10; // TODO:Исправить до 700
     protected int $usedRequests = 0;
 
     public function __construct()
@@ -39,6 +39,8 @@ class YandexGeocoderService
             } catch (\Exception $e) {
                 Log::error("Yandex Geocoder error: " . $e->getMessage());
             }
+        } else {
+            Log::info('Yandex-service limit');
         }
 
         return null;

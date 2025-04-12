@@ -37,6 +37,8 @@ abstract class BaseController extends Controller
 
             $request->session()->put('regionName', $region->name);
             $request->session()->put('regionTranslit', $region->transcription);
+            $request->session()->put('lat', $region->lat);
+            $request->session()->put('lon', $region->lon);
         } else {
 
             $region = $regionsCollect->firstWhere('transcription', 'like', $regionTranslit);
@@ -44,6 +46,8 @@ abstract class BaseController extends Controller
             if ($region) {
                 $request->session()->put('regionName', $region->name);
                 $request->session()->put('regionTranslit', $region->transcription);
+                $request->session()->put('lat', $region->lat);
+                $request->session()->put('lon', $region->lon);
             } else {
                 $citiesCollect = collect(Cache::get('all_cities', []));
                 $city = $citiesCollect->firstWhere('transcription', 'like', $regionTranslit);
@@ -51,6 +55,8 @@ abstract class BaseController extends Controller
                 if ($city) {
                     $request->session()->put('regionName', $city->region->name);
                     $request->session()->put('regionTranslit', $city->region->transcription);
+                    $request->session()->put('lat', $city->lat);
+                    $request->session()->put('lon', $city->lon);
 
                     $region = $city->region;
                 } else {
@@ -64,9 +70,13 @@ abstract class BaseController extends Controller
                         if ($country->code == 'ru') {
                             $request->session()->put('regionName', $region->name);
                             $request->session()->put('regionTranslit', $region->transcription);
+                            $request->session()->put('lat', $region->lat);
+                            $request->session()->put('lon', $region->lon);
                         } else {
                             $request->session()->put('regionName', $country->name_ru);
                             $request->session()->put('regionTranslit', $country->code);
+                            $request->session()->put('lat', $country->lat);
+                            $request->session()->put('lon', $country->lon);
                         }
                     } else {
                         return null;
