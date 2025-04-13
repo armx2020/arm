@@ -20,9 +20,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('app:create-site-map --create --truncate')->dailyAt('03:00');
         $schedule->command('cities:update-coordinates')->hourly();
 
-        // $schedule->call(function () {
-        //     Log::info(now());
-        // })->everyMinute(); // Тест запуска команды
+        $schedule->call(function () {
+            Log::info(Cache::get('yandex_geocoder_used_requests'));
+        })->everyMinute(); // Тест запуска команды
 
         $schedule->call(function () {
             Cache::forget('yandex_geocoder_used_requests');
