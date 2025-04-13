@@ -65,7 +65,7 @@ class UpdateCitiesCoordinates extends Command
             $progressBar->advance();
 
             // Пауза чтобы не превысить лимиты API
-            sleep(rand(13, 36)); // 13 - 36 секунды
+            sleep(rand(1, 3)); // 1 - 3 секунды
         }
 
         $progressBar->finish();
