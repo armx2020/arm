@@ -21,10 +21,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('cities:update-coordinates')->hourly();
 
         $schedule->call(function () {
-            Log::info(Cache::get('yandex_geocoder_used_requests'));
-        })->everyMinute(); // Тест запуска команды
-
-        $schedule->call(function () {
             Cache::forget('yandex_geocoder_used_requests');
         })->dailyAt('00:00'); // Ежедневный сброс счётчика лимита Яндекс HTTP API
 
