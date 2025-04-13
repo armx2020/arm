@@ -332,8 +332,8 @@
 
                 <div class="flex flex-col basis-full lg:basis-4/5 lg:m-3 my-5 lg:ml-5 min-h-screen max-w-5xl">
 
-                    @if ($entityName == 'Интересные места, церкви')
-                        <x-pages.map :$lat :$lon/>
+                    @if ($entityName == 'Интересные места, церкви' && isset($lat) && iseet($lon))
+                        <x-pages.map :$lat :$lon />
                     @endif
 
                     <div class="w-full">
