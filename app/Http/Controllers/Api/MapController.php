@@ -20,7 +20,6 @@ class MapController extends Controller
         $lat = (float)number_format($validated['lat'], 6);
         $lon = (float)number_format($validated['lon'], 6);
 
-        Log::info($validated);
         $objects = Entity::nearby(
             $lat,
             $lon,

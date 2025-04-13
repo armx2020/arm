@@ -27,7 +27,10 @@ class UpdateCitiesCoordinates extends Command
     public function handle()
     {
         Log::info('start-cities');
-        $cities = City::query()->limit(30)->get();
+        $cities = City::query()->limit(30)
+            ->whereNull('lat')
+            ->orWhereNull('lon')
+            ->get();
         $totalCities = $cities->count();
 
         $this->info("Starting to update coordinates for {$totalCities} cities...");
@@ -46,7 +49,6 @@ class UpdateCitiesCoordinates extends Command
         foreach ($cities as $city) {
             try {
                 $coordinates = $this->getCoordinates($city->name);
-
                 if ($coordinates) {
                     $city->update([
                         'lat' => $coordinates['lat'],

@@ -12,8 +12,6 @@ class WebHookController extends Controller
 {
     public function store(Request $request)
     {
-        Log::info($request);
-
         $optionsCollect = Cache::get('options', []);
 
         $api_id = $optionsCollect->firstWhere('name_en', '=', 'api_id_active')['value'];
