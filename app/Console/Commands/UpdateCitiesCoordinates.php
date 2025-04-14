@@ -28,8 +28,8 @@ class UpdateCitiesCoordinates extends Command
 
     public function handle()
     {
-        if ($this->option('limit') && is_int($this->option('limit'))) {
-            $this->limit = $this->option('limit');
+        if ($this->option('limit')) {
+            $this->limit = (int)$this->option('limit');
         }
 
         Log::info('start-cities');
