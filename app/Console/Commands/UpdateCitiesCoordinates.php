@@ -10,13 +10,15 @@ use Illuminate\Support\Facades\Log;
 
 class UpdateCitiesCoordinates extends Command
 {
-    protected $signature = 'cities:update-coordinates';
+    protected $signature = 'cities:update-coordinates {--limit}';
 
     protected $description = 'Обновление геогрофических координат с помощью Yandex Geocoder API';
 
     protected $apiUrl = 'https://geocode-maps.yandex.ru/1.x/';
 
     protected $apiKey;
+
+    protected $limit = 50;
 
     public function __construct()
     {
@@ -26,8 +28,12 @@ class UpdateCitiesCoordinates extends Command
 
     public function handle()
     {
+        if ($this->option('limit') && is_int($this->option('limit'))) {
+            $this->limit = $this->option('limit');
+        }
+
         Log::info('start-cities');
-        $cities = City::query()->limit(30)
+        $cities = City::query()->limit($this->limit)
             ->whereNull('lat')
             ->orWhereNull('lon')
             ->get();

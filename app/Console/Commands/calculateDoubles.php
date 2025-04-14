@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class calculateDoubles extends Command
+class CalculateDoubles extends Command
 {
     /**
      * The name and signature of the console command.
