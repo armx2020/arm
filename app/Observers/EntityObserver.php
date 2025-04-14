@@ -2,33 +2,34 @@
 
 namespace App\Observers;
 
-use App\Jobs\ProcessEntitiesGeocoding;
 use App\Models\Entity;
 use App\Services\YandexGeocoderService;
-
+use Illuminate\Support\Facades\Log;
 
 class EntityObserver
 {
-    public function __construct(public YandexGeocoderService $service)
+    public function __construct(protected YandexGeocoderService $service)
     {
         //
     }
 
     public function saving(Entity $entity)
     {
-        if ($entity->address && $entity->city_id) {
-            if ($this->service->hasAvailableRequests()) {
-                $coordinates = $this->service->geocode($entity->city->name, ', ', $entity->address);
+        if (!$entity->isDirty('address')) {
+            return;
+        }
 
-                if ($coordinates) {
-                    $entity->update([
-                        'lat' => $coordinates['lat'],
-                        'lon' => $coordinates['lon']
-                    ]);
-                }
+        if ($entity->address && $entity->city_id) {
+            $coordinates = $this->service->geocode($entity);
+
+            if ($coordinates) {
+                $entity->lat = $coordinates['lat'];
+                $entity->lon = $coordinates['lon'];
             } else {
-                ProcessEntitiesGeocoding::dispatch($entity)->onQueue('geocoding');
+                Log::info('EntityObserver:  No coordinates for entity', ['entityID' => $entity->id]);
             }
         }
+
+        return;
     }
 }

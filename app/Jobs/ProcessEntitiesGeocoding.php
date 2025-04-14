@@ -22,23 +22,17 @@ class ProcessEntitiesGeocoding implements ShouldQueue
 
     public function handle(YandexGeocoderService $geocoder): void
     {
-        if (!$geocoder->hasAvailableRequests()) {
+        $coordinates = $geocoder->geocode($this->entity->city->name, ', ', $this->entity->address, false);
+
+        if ($coordinates) {
+            $this->entity->update([
+                'lat' => $coordinates['lat'],
+                'lon' => $coordinates['lon']
+            ]);
+        } else {
+            Log::warning("ProcessEntitiesGeocoding: No coordinates for entity {$this->entity->id}");
             $this->release(86400); // Откладываем на 24 часа (86400 секунд)
             return;
-        }
-
-        try {
-            $coordinates = $geocoder->geocode($this->entity->city->name, ', ', $this->entity->address);
-
-            if ($coordinates) {
-                $this->entity->update([
-                    'lat' => $coordinates['lat'],
-                    'lon' => $coordinates['lon']
-                ]);
-            }
-        } catch (\Exception $e) {
-            Log::error("Failed to process entity {$this->entity->id}: " . $e->getMessage());
-            $this->release(3600); // Повторить через час при ошибке
         }
     }
 }

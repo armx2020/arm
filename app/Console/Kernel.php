@@ -11,6 +11,11 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule): void
     {
+        // Проверочная команда каждые 5 минут
+        $schedule->command('check:cron')
+            ->everyFiveMinutes()
+            ->appendOutputTo(storage_path('logs/cron_check.log'));
+
         $schedule->command('cache-options')->everyFifteenMinutes();
         $schedule->command('app:calculate-doubles')->dailyAt('00:00');
         $schedule->command('app:calculate-fullness')->dailyAt('00:00');

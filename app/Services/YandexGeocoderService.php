@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\ProcessEntitiesGeocoding;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -19,28 +20,37 @@ class YandexGeocoderService
         $this->usedRequests = Cache::get('yandex_geocoder_used_requests', 0);
     }
 
-    public function geocode(string $address): ?array
+    public function geocode($entity, bool $queueIfExceeded = true): ?array
     {
-        if ($this->hasAvailableRequests()) {
-            try {
-                $response = Http::get($this->apiUrl, [
-                    'apikey' => $this->apiKey,
-                    'geocode' => $address,
-                    'format' => 'json',
-                    'results' => 1,
-                    'lang' => 'ru_RU'
-                ]);
-
-                $this->incrementRequestCount();
-
-                if ($response->successful()) {
-                    return $this->parseResponse($response->json());
-                }
-            } catch (\Exception $e) {
-                Log::error("Yandex Geocoder error: " . $e->getMessage());
+        if (!$this->hasAvailableRequests()) {
+            if ($queueIfExceeded) {
+                ProcessEntitiesGeocoding::dispatch($entity)->delay(now()->addDay());
+                Log::info('YandexGeocoderService: Geocoding queued due to limit exceeded', ['entityID' => $entity->id]);
             }
-        } else {
-            Log::info('Yandex-service limit');
+            return null;
+        }
+
+        try {
+            $response = Http::get($this->apiUrl, [
+                'apikey' => $this->apiKey,
+                'geocode' => $entity->city->name . ', ' . $entity->address,
+                'format' => 'json',
+                'results' => 1,
+                'lang' => 'ru_RU'
+            ]);
+
+            $this->incrementRequestCount();
+
+            if ($response->successful()) {
+                return $this->parseResponse($response->json());
+            } else {
+                Log::error('YandexGeocoderService - error:', [
+                    'status' => $response->status(),
+                    'response' => $response->body()
+                ]);
+            }
+        } catch (\Exception $e) {
+            Log::error("YandexGeocoderService - error " . $e->getMessage());
         }
 
         return null;
@@ -73,5 +83,15 @@ class YandexGeocoderService
     public function hasAvailableRequests(): bool
     {
         return $this->usedRequests < $this->dailyLimit;
+    }
+
+    public function getUsedRequestsCount(): int
+    {
+        return $this->usedRequests;
+    }
+
+    public function getDailyLimit(): int
+    {
+        return $this->dailyLimit;
     }
 }
