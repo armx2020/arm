@@ -19,11 +19,9 @@ class PageCount extends Command
 
     public function handle()
     {
-
         if($this->option('truncate')) {
             Page::truncate();
         }
-
 
         $entity_types = EntityType::with('categories')->active()->get();
 
