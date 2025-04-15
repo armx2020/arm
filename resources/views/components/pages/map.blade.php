@@ -29,98 +29,103 @@
       <script src="https://api-maps.yandex.ru/2.1/?apikey={{ config('services.yandex.geocoder_key') }}&lang=ru_RU"></script>
       <script type="text/javascript">
           $(document).ready(function() {
-              ymaps.ready(init);
-
-              function init() {
-                  var geolocation = ymaps.geolocation;
+              ymaps.ready(function() {
                   var myMap = new ymaps.Map('map', {
-                      center: [{{ $lat }}, {{ $lon }}],
-                      zoom: {{ $zoom }},
-                      controls: ['zoomControl', 'geolocationControl', 'fullscreenControl'],
-                  }, {
-                      searchControlProvider: 'yandex#search'
+                          center: [{{ $lat }}, {{ $lon }}],
+                          zoom: {{ $zoom }},
+                          controls: ['zoomControl', 'geolocationControl', 'fullscreenControl'],
+                      }, {
+                          searchControlProvider: 'yandex#search'
+                      }),
+                      clusterer = new ymaps.Clusterer({
+                          preset: 'islands#invertedVioletClusterIcons',
+                          groupByCoordinates: false,
+                          clusterDisableClickZoom: true,
+                          clusterHideIconOnBalloonOpen: false,
+                          geoObjectHideIconOnBalloonOpen: false
+                      }),
+                      /**
+                       * Модифицированная функция для использования данных из $entities
+                       */
+                      getEntityData = function(entity) {
+                          return {
+                              balloonContentHeader: '<font size=3><b>' + entity.name + '</b></font>',
+                              balloonContentBody: '<div style="padding: 5px; max-width: 300px;">' +
+                                  (entity.address ? '<p><strong>Адрес:</strong> ' + entity.address + '</p>' :
+                                      '') +
+                                  '<a target="_blank" href="https://yandex.ru/maps/?pt=' + entity.lon + ',' +
+                                  entity.lat + '&z=17&l=map">' +
+                                  'Открыть в Яндекс Картах</a>' +
+                                  '</div>',
+                              balloonContentFooter: '<font size=1>ID объекта: ' + entity.id + '</font>',
+                              clusterCaption: entity.name
+                          };
+                      },
+                      /**
+                       * Функция возвращает опции метки (можно кастомизировать)
+                       */
+                      getEntityOptions = function() {
+                          return {
+                              preset: 'islands#violetIcon',
+                              balloonCloseButton: true,
+                              hideIconOnBalloonOpen: false
+                          };
+                      },
+                      /**
+                       * Массив координат из ваших сущностей
+                       */
+                      entities = [
+                          @foreach ($entities as $entity)
+                              @if ($entity->coordinates)
+                                  {
+                                      id: {{ $entity->id }},
+                                      name: '{{ addslashes($entity->name) }}',
+                                      address: '{{ $entity->address ? addslashes($entity->address) : '' }}',
+                                      lat: {{ $entity->lat }},
+                                      lon: {{ $entity->lon }}
+                                  },
+                              @endif
+                          @endforeach
+                      ],
+                      geoObjects = [];
+                  console.log(entities)
+                  /**
+                   * Создаем метки для каждой сущности
+                   */
+                  for (var i = 0, len = entities.length; i < len; i++) {
+                      geoObjects[i] = new ymaps.Placemark(
+                          [entities[i].lat, entities[i].lon],
+                          getEntityData(entities[i]),
+                          getEntityOptions()
+                      );
+                  }
+
+                  /**
+                   * Настройки кластеризатора
+                   */
+                  clusterer.options.set({
+                      gridSize: 80,
+                      clusterDisableClickZoom: true,
+                      clusterOpenBalloonOnClick: true
                   });
 
-                  var objectManager = new ymaps.ObjectManager({
-                      clusterize: true,
-                      gridSize: 32,
-                      clusterDisableClickZoom: true
-                  });
+                  /**
+                   * Добавляем метки в кластеризатор
+                   */
+                  clusterer.add(geoObjects);
+                  myMap.geoObjects.add(clusterer);
 
-                  objectManager.objects.options.set('preset', 'islands#greenDotIcon');
-                  objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
-                  myMap.geoObjects.add(objectManager);
-
-                  // Собираем все координаты объектов
-                  var coordinates = [];
-                  var features = [];
-
-                  @foreach ($entities as $entity)
-                      @if ($entity->coordinates)
-                          coordinates.push([{{ $entity->lat }}, {{ $entity->lon }}]);
-                          features.push({
-                              type: 'Feature',
-                              id: {{ $entity->id }},
-                              geometry: {
-                                  type: 'Point',
-                                  coordinates: [{{ $entity->lat }}, {{ $entity->lon }}]
-                              },
-                              properties: {
-                                  balloonContent: `
-                            <div style="padding: 5px;">
-                                <strong>{{ $entity->name }}</strong><br>
-                                <a href="https://yandex.ru/maps/?pt={{ $entity->lon }},{{ $entity->lat }}&z=17&l=map" 
-                                   target="_blank" 
-                                   style="color: #1e88e5; text-decoration: none;">
-                                    Открыть в Яндекс Картах
-                                </a>
-                            </div>
-                        `,
-                                  hintContent: '{{ $entity->name }}'
-                              }
-                          });
-                      @elseif ($entity->city->coordinates)
-                          coordinates.push([{{ $entity->city->lat }}, {{ $entity->city->lon }}]);
-                          features.push({
-                              type: 'Feature',
-                              id: {{ $entity->id }},
-                              geometry: {
-                                  type: 'Point',
-                                  coordinates: [{{ $entity->city->lat }}, {{ $entity->city->lon }}]
-                              },
-                              properties: {
-                                  balloonContent: `
-                            <div style="padding: 5px;">
-                                <strong>{{ $entity->name }}</strong><br>
-                            </div>
-                        `,
-                                  hintContent: '{{ $entity->name }}'
-                              }
-                          });
-                      @endif
-                  @endforeach
-
-                  // Добавляем все метки через ObjectManager
-                  if (coordinates.length > 0) {
-                      objectManager.add({
-                          type: 'FeatureCollection',
-                          features: features
-                      });
-
-                      // Центрируем карту по всем объектам
-                      myMap.setBounds(myMap.geoObjects.getBounds(), {
+                  /**
+                   * Центрируем карту по всем объектам
+                   */
+                  if (geoObjects.length > 0) {
+                      myMap.setBounds(clusterer.getBounds(), {
                           checkZoomRange: true,
-                          zoomMargin: 20
+                          zoomMargin: 50
                       });
                   }
 
-                  // Обработчик клика по объекту для открытия ссылки
-                  objectManager.objects.events.add('click', function(e) {
-                      var objectId = e.get('objectId');
-                      var object = objectManager.objects.getById(objectId);
-                      // Можно добавить дополнительную логику при клике
-                  });
-              }
+              });
           });
       </script>
   </div>
