@@ -34,7 +34,6 @@ class UpdateEntityCoordinates extends Command
 
         Log::info('start-entities');
         $entities = Entity::query()->limit($this->limit)->with('city')
-            ->whereNotNull('address')
             ->whereNotNull('city_id')
             ->whereNull('lat')
             ->orWhereNull('lon')
@@ -54,12 +53,19 @@ class UpdateEntityCoordinates extends Command
         $updatedCount = 0;
         $failedCount = 0;
 
+
+
         foreach ($entities as $entity) {
 
-            if($entity->city_id == 1) continue;
+            if ($entity->city_id == 1) continue;
 
+            $address = $entity->city->name;
+
+            if ($entity->address) {
+                $address = $entity->city->name . ', ' . $entity->address;
+            }
             try {
-                $coordinates = $this->getCoordinates($entity->city->name . ', ' . $entity->address);
+                $coordinates = $this->getCoordinates($address);
                 if ($coordinates) {
                     $entity->update([
                         'lat' => $coordinates['lat'],
