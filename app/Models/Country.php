@@ -11,6 +11,8 @@ class Country extends Model
 
     protected $fillable = [
         'name_ru',
-        'name_en'
+        'name_en',
+        'lat',
+        'lon'
     ];
 }
