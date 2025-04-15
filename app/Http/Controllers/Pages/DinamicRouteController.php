@@ -113,6 +113,8 @@ class DinamicRouteController extends BaseController
         return view('pages.entity.index', [
             'region'   => $this->request->session()->get('regionTranslit'),
             'regionName' => $this->request->session()->get('regionName'),
+            'lat'   => $this->request->session()->get('lat'),
+            'lon' => $this->request->session()->get('lon'),
             'categoryUri' => null,
             'regions' => $this->regions,
             'countries' => $this->countries,
