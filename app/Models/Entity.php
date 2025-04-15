@@ -70,7 +70,9 @@ class Entity extends Model
         'clinic',
         'paymant_link',
         'director',
-        'moderator_id'
+        'moderator_id',
+        'lat',
+        'lon'
     ];
 
     protected $searchable = [
