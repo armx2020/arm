@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class UpdateCitiesCoordinates extends Command
+class UpdateEntityCoordinates extends Command
 {
     protected $signature = 'countries:update-coordinates {--limit= : Limit the number of entities to process}';
 
