@@ -79,6 +79,24 @@
                                   hintContent: '{{ $entity->name }}'
                               }
                           });
+                      @elseif ($entity->city->coordinates)
+                          coordinates.push([{{ $entity->city->lat }}, {{ $entity->city->lon }}]);
+                          features.push({
+                              type: 'Feature',
+                              id: {{ $entity->id }},
+                              geometry: {
+                                  type: 'Point',
+                                  coordinates: [{{ $entity->city->lat }}, {{ $entity->city->lon }}]
+                              },
+                              properties: {
+                                  balloonContent: `
+                            <div style="padding: 5px;">
+                                <strong>{{ $entity->name }}</strong><br>
+                            </div>
+                        `,
+                                  hintContent: '{{ $entity->name }}'
+                              }
+                          });
                       @endif
                   @endforeach
 

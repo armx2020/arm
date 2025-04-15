@@ -4,19 +4,21 @@ namespace App\Console\Commands;
 
 use App\Models\Region;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Exception;
 
 class UpdateRegionsCoordinates extends Command
 {
-    protected $signature = 'regions:update-coordinates';
+    protected $signature = 'regions:update-coordinates {--limit= : Limit the number of entities to process}';
 
-    protected $description = 'Обновление геогрофических координат с помощью Yandex Geocoder API';
+    protected $description = 'Обновление геогрофических координат регионов с помощью Yandex Geocoder API';
 
     protected $apiUrl = 'https://geocode-maps.yandex.ru/1.x/';
 
     protected $apiKey;
+
+    protected $limit = 50;
 
     public function __construct()
     {
@@ -26,42 +28,53 @@ class UpdateRegionsCoordinates extends Command
 
     public function handle()
     {
-        $totalCities = Region::count();
+        if ($this->option('limit')) {
+            $this->limit = (int)$this->option('limit');
+        }
 
-        $this->info("Starting to update coordinates for {$totalCities} cities...");
+        Log::info('start-regions');
+        $regions = Region::query()->limit($this->limit)
+            ->whereNull('lat')
+            ->orWhereNull('lon')
+            ->get();
+        $totalCities = $regions->count();
+
+        $this->info("Starting to update coordinates for {$totalCities} regions...");
+
+        if ($totalCities === 0) {
+            $this->info('No cities to update.');
+            return;
+        }
 
         $progressBar = $this->output->createProgressBar($totalCities);
         $progressBar->start();
 
-        Region::chunk(50, function (Collection $regions) use ($progressBar) {
-            foreach ($regions as $region) {
+        $updatedCount = 0;
+        $failedCount = 0;
 
-                if ($region->id == 1) {
-                    continue;
+        foreach ($regions as $region) {
+            try {
+                $coordinates = $this->getCoordinates($region->name);
+                if ($coordinates) {
+                    $region->update([
+                        'lat' => $coordinates['lat'],
+                        'lon' => $coordinates['lon']
+                    ]);
+                    $updatedCount++;
+                } else {
+                    $this->error("Failed to get coordinates for region: {$region->name}");
+                    $failedCount++;
                 }
-
-
-                try {
-                    $coordinates = $this->getCoordinates($region->name_ru);
-
-                    if ($coordinates) {
-                        $region->update([
-                            'lat' => $coordinates['lat'],
-                            'lon' => $coordinates['lon']
-                        ]);
-                    } else {
-                        $this->error("Failed to get coordinates for city: {$region->name_ru}");
-                    }
-                } catch (Exception $e) {
-                    $this->error("Error processing city ID {$region->id}: " . $e->getMessage());
-                }
-
-                $progressBar->advance();
-
-                // Пауза чтобы не превысить лимиты API
-                usleep(500000); // 0.5 секунды
+            } catch (Exception $e) {
+                $this->error("Error processing region ID {$region->id}: " . $e->getMessage());
+                $failedCount++;
             }
-        });
+
+            $progressBar->advance();
+
+            // Пауза чтобы не превысить лимиты API
+            sleep(rand(1, 3)); // 1 - 3 секунды
+        }
 
         $progressBar->finish();
         $this->newLine(2);
@@ -69,11 +82,11 @@ class UpdateRegionsCoordinates extends Command
         $this->info("Update completed!");
     }
 
-    protected function getCoordinates(string $cityName): ?array
+    protected function getCoordinates(string $regionName): ?array
     {
         $response = Http::get($this->apiUrl, [
             'apikey' => $this->apiKey,
-            'geocode' => $cityName,
+            'geocode' => $regionName,
             'format' => 'json',
             'results' => 1,
             'lang' => 'ru_RU',

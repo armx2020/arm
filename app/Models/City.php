@@ -41,4 +41,13 @@ class City extends Model
     {
         return $this->belongsTo(Region::class);
     }
+
+    public function getCoordinatesAttribute()
+    {
+        if ($this->lat && $this->lon) {
+            return [$this->lat, $this->lon];
+        }
+
+        return null;
+    }
 }
