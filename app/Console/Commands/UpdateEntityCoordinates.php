@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class UpdateEntityCoordinates extends Command
 {
-    protected $signature = 'countries:update-coordinates {--limit= : Limit the number of entities to process}';
+    protected $signature = 'entities:update-coordinates {--limit= : Limit the number of entities to process}';
 
     protected $description = 'Обновление геогрофических координат с помощью Yandex Geocoder API';
 
