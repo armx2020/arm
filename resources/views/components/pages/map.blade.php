@@ -51,10 +51,10 @@
                           return {
                               balloonContentHeader: '<font size=3><b>' + entity.name + '</b></font>',
                               balloonContentBody: '<div style="padding: 5px; max-width: 300px;">' +
-                                  (entity.address ? '<p><strong>Адрес:</strong> ' + entity.address + '</p>' :
-                                      '') +
                                   '<a target="_blank" href="https://yandex.ru/maps/?pt=' + entity.lon + ',' +
-                                  entity.lat + '&z=17&l=map">' +
+                                  entity.lat + '&z=17&l=map">' + (entity.address ?
+                                      '<p><strong>Адрес:</strong> ' + entity.address + '</p>' :
+                                      '') +
                                   'Открыть в Яндекс Картах</a>' +
                                   '</div>',
                               balloonContentFooter: '<font size=1>ID объекта: ' + entity.id + '</font>',
@@ -83,6 +83,14 @@
                                       address: '{{ $entity->address ? addslashes($entity->address) : '' }}',
                                       lat: {{ $entity->lat }},
                                       lon: {{ $entity->lon }}
+                                  },
+                              @else
+                                  {
+                                      id: {{ $entity->id }},
+                                      name: '{{ addslashes($entity->name) }}',
+                                      address: '{{ $entity->city->name ? addslashes($entity->name) : '' }}',
+                                      lat: {{ $entity->city->lat }},
+                                      lon: {{ $entity->city->lon }}
                                   },
                               @endif
                           @endforeach
