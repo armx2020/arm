@@ -16,7 +16,6 @@ class Kernel extends ConsoleKernel
             ->everyFiveMinutes()
             ->appendOutputTo(storage_path('logs/cron_check.log'));
 
-        $schedule->command('cache-options')->everyFifteenMinutes();
         $schedule->command('app:calculate-doubles')->dailyAt('00:00');
         $schedule->command('app:calculate-fullness')->dailyAt('00:00');
         $schedule->command('app:calculate-top-entities')->dailyAt('00:00');
