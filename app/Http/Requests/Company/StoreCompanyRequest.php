@@ -16,7 +16,11 @@ class StoreCompanyRequest extends FormRequest
     {
         return [
             'name'          => ['required', 'string', 'max:255', 'min:3'],
+            'city'          => ['nullable', 'string'],
+            'region'        => ['nullable', 'string'],
             'address'       => ['nullable', 'string', 'max:128'],
+            'latitude'      => ['nullable', 'numeric'],
+            'longitude'     => ['nullable', 'numeric'],
             'phone'         => ['nullable', 'string', 'max:36'],
             'description'   => ['nullable', 'string'],
             'web'           => ['nullable', new WebUrl],
@@ -25,7 +29,6 @@ class StoreCompanyRequest extends FormRequest
             'telegram'      => ['nullable', new TelegramUrl],
             'instagram'     => ['nullable', new InstagramUrl],
             'vkontakte'     => ['nullable', new VkontakteUrl],
-            'city'          => ['integer'],
             'user'          => ['nullable', 'integer'],
             'fields'        => ['required'],
             'images'        => ['nullable', 'array', 'max:20'],
