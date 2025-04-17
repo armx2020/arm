@@ -6,7 +6,7 @@
           if (!isset($lat) && !isset($lon)) {
               $lat = 55.755819;
               $lon = 37.617644;
-              $zoom = 8;
+              $zoom = 7;
           }
       @endphp
 
@@ -129,7 +129,7 @@
                   if (geoObjects.length > 0) {
                       myMap.setBounds(clusterer.getBounds(), {
                           checkZoomRange: true,
-                          zoomMargin: 50
+                          zoomMargin: 10
                       });
                   }
 
