@@ -190,7 +190,6 @@
                                         }
                                     });
 
-                                    // Пример обработки выбранного адреса
                                     $('.select2-address').on('select2:select', function(e) {
                                         var data = e.params.data;
                                         if (data.coordinates) {

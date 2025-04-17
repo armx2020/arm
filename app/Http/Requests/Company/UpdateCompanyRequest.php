@@ -18,7 +18,7 @@ class UpdateCompanyRequest extends FormRequest
             'name'             => ['required', 'string', 'max:255', 'min:3'],
             'city'          => ['nullable', 'string'],
             'region'        => ['nullable', 'string'],
-            'address'       => ['nullable', 'string', 'max:128'],
+            'address'       => ['nullable', 'string', 'max:255'],
             'latitude'      => ['nullable', 'numeric'],
             'longitude'     => ['nullable', 'numeric'],
             'phone'            => ['nullable', 'string', 'max:36'],
