@@ -66,7 +66,7 @@
                             <input type="hidden" id="latitude" name="latitude" value="{{ $entity->lat }}">
                             <input type="hidden" id="longitude" name="longitude" value="{{ $entity->lon }}">
                             <input type="hidden" id="city" name="city" value="{{ $entity->city->name }}">
-                            <input type="hidden" id="region" name="{{ $entity->region->name }}">
+                            <input type="hidden" id="region" name="region" value="{{ $entity->region->name }}">
                         </div>
 
                         <script>

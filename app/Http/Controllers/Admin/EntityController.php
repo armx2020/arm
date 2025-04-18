@@ -30,9 +30,7 @@ class EntityController extends BaseAdminController
 
     public function store(StoreEntityRequest $request)
     {
-        $user_id = null;
-
-        $user_id = $request->user;
+        $user_id = $request->user ?: null;
 
         $this->entityAction->store($request, $user_id ?: 1);
 
@@ -46,9 +44,7 @@ class EntityController extends BaseAdminController
 
     public function update(UpdateEntityRequest $request, Entity $entity)
     {
-        $user_id = null;
-
-        $user_id = $request->user;
+        $user_id = $request->user ?: null;
 
         $entity = $this->entityAction->update($request, $entity, $user_id ?: 1);
 

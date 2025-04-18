@@ -80,7 +80,8 @@
                                     </div>
 
                                     <!-- Logo  -->
-                                    <div class="flex flex-row bg-gray-100 max-h-28 border-r" id="upload_area" wire:ignore>
+                                    <div class="flex flex-row bg-gray-100 max-h-28 border-r" id="upload_area"
+                                        wire:ignore>
                                         <div class="flex relative">
                                             <img class="h-20 w-20 rounded-lg m-4  object-cover" id="logo"
                                                 @if ($logo) src="{{ url('/storage/' . $logo->path) }}"  @else src="{{ url('/image/no-image.png') }}" @endif
@@ -128,19 +129,21 @@
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         </div>
 
-                                        {{-- Город --}}
-                                        <div class="col-span-6 md:col-span-2" id="city_div" wire:ignore>
-                                            <x-admin.select-city :selectedCity="$entity->city" />
-                                        </div>
-
                                         {{-- Адрес --}}
-                                        <div class="col-span-6 md:col-span-2">
-                                            <label for="address"
-                                                class="text-sm font-medium text-gray-900 block mb-2">Адрес</label>
-                                            <input type="text" name="address" id="address"
-                                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                value="{{ old('address', $entity->address) }}">
-                                            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                                        <div class="col-span-6 md:col-span-4" wire:ignore>
+                                            <label for="city"
+                                                class="text-sm font-medium text-gray-900 block mb-2">Адрес (не
+                                                обязательно)</label>
+                                            <select class="form-control select2-address" id="address" name="address"
+                                                style="border-color: rgb(209 213 219); width: 100%"></select>
+                                            <input type="hidden" id="latitude" name="latitude"
+                                                value="{{ $entity->lat }}">
+                                            <input type="hidden" id="longitude" name="longitude"
+                                                value="{{ $entity->lon }}">
+                                            <input type="hidden" id="city" name="city"
+                                                value="{{ $entity->city->name }}">
+                                            <input type="hidden" id="region" name="region"
+                                                value="{{ $entity->region->name }}">
                                         </div>
 
                                         {{-- Телефон --}}
@@ -363,10 +366,150 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
+            // Инициализация Яндекс.Карт
+            ymaps.ready(init);
+
+            function init() {
+                // Инициализация Select2 для поиска адреса
+                $('.select2-address').select2({
+                    placeholder: "Начните вводить адрес (город, улица, дом)",
+                    minimumInputLength: 3,
+                    ajax: {
+                        transport: function(params, success, failure) {
+                            // Используем API Яндекс.Карт для поиска полного адреса
+                            ymaps.geocode(params.data.q, {
+                                results: 5,
+                                boundedBy: [ // Границы России
+                                    [41.185, 19.638], // Юго-западная точка
+                                    [81.858, 180.0] // Северо-восточная точка
+                                ],
+                                json: true,
+                            }).then(function(res) {
+                                var addresses = res.GeoObjectCollection.featureMember.filter(
+                                    function(item) {
+                                        // Проверяем, что адрес относится к России
+                                        var country = item.GeoObject.metaDataProperty
+                                            .GeocoderMetaData.Address.Components
+                                            .find(c => c.kind === 'country');
+                                        return country && country.name === 'Россия';
+                                    }).map(
+                                    function(item) {
+                                        var address = item.GeoObject.metaDataProperty
+                                            .GeocoderMetaData.text;
+                                        var components = item.GeoObject.metaDataProperty
+                                            .GeocoderMetaData.Address.Components;
+                                        var coordinates = [
+                                            parseFloat(item.GeoObject.Point.pos.split(
+                                                ' ')[1]), // Широта
+                                            parseFloat(item.GeoObject.Point.pos.split(
+                                                ' ')[0]) // Долгота
+                                        ];
+
+                                        // Извлекаем город, улицу и дом из компонентов
+                                        var city = components.find(c => c.kind ===
+                                            'locality')?.name || '';
+                                        var street = components.find(c => c.kind ===
+                                            'street')?.name || '';
+                                        var house = components.find(c => c.kind === 'house')
+                                            ?.name || '';
+
+                                        // Получаем именно край/область/республику (исключаем федеральные округа)
+                                        var region = components.find(c =>
+                                            c.kind === 'province' &&
+                                            !c.name.includes('федеральный округ')
+                                        )?.name || '';
+
+                                        // Альтернативный вариант - берем AdministrativeArea из метаданных
+                                        if (!region) {
+                                            region = item.GeoObject.metaDataProperty
+                                                .GeocoderMetaData.Address
+                                                .Components.find(c => ['region', 'republic',
+                                                    'krai', 'oblast'
+                                                ].some(
+                                                    type => c.kind.includes(type)
+                                                ))?.name || '';
+                                        }
+
+                                        return {
+                                            id: address,
+                                            text: address,
+                                            city: city,
+                                            region: region,
+                                            street: street,
+                                            house: house,
+                                            coordinates: coordinates,
+                                            data: item.GeoObject
+                                        };
+                                    });
+
+                                success({
+                                    results: addresses
+                                });
+                            }, failure);
+                        }
+                    },
+                    templateResult: function(address) {
+                        // Кастомизация отображения результатов
+                        if (address.loading) return address.text;
+
+                        var $container = $('<div>').addClass('address-item').append(
+                            $('<div>').addClass('address-full').text(address.text || ''),
+                            $('<div>').addClass('address-details').append(
+                                address.city ? $('<span>').addClass('city').text(address.city) : '',
+                                address.street ? $('<span>').addClass('street').text(', ' + address
+                                    .street) : '',
+                                address.house ? $('<span>').addClass('house').text(', ' + address
+                                    .house) : ''
+                            )
+                        );
+
+                        return $container;
+                    },
+                    templateSelection: function(address) {
+                        // Кастомизация отображения выбранного элемента
+                        return address.text || address.id;
+                    }
+                });
+
+                // После инициализации Select2
+                var initialAddress = {
+                    id: "{{ $entity->address }}",
+                    text: "{{ $entity->address }}",
+                    coordinates: [{{ $entity->lat }}, {{ $entity->lon }}],
+                    city: "{{ $entity->city->name }}",
+                };
+
+                if (initialAddress.id) {
+                    var $select = $('.select2-address');
+                    var option = new Option(initialAddress.text, initialAddress.id, true, true);
+                    $select.append(option).trigger('change');
+
+                    // Установка дополнительных данных
+                    $select.data('select2').$container.data('address-data', initialAddress);
+
+                    // Заполнение скрытых полей
+                    $('#latitude').val(initialAddress.coordinates[0]);
+                    $('#longitude').val(initialAddress.coordinates[1]);
+                    $('#city').val(initialAddress.city);
+                }
+
+                $('.select2-address').on('select2:select', function(e) {
+                    var data = e.params.data;
+                    if (data.coordinates) {
+                        $('#latitude').val(data.coordinates[0]);
+                        $('#longitude').val(data.coordinates[1]);
+                        $('#city').val(data.city);
+                        $('#region').val(data.region);
+                    }
+                });
+            }
+
+            // Delete
             $('#entity_delete').on("click", function() {
                 $('#entity_delete_form').submit();
             });
 
+            // Image
             const maxSlots = 20;
             const maxSize = 20 * 1024 * 1024; // 2MB
             let newImageCounter = 1;

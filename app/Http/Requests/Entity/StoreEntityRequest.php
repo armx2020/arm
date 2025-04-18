@@ -16,7 +16,11 @@ class StoreEntityRequest extends FormRequest
     {
         return [
             'name'            => ['required', 'string', 'max:255', 'min:3'],
-            'address'         => ['nullable', 'string', 'max:128'],
+            'city'            => ['nullable', 'string'],
+            'region'          => ['nullable', 'string'],
+            'address'         => ['nullable', 'string', 'max:255'],
+            'latitude'        => ['nullable', 'numeric'],
+            'longitude'       => ['nullable', 'numeric'],
             'phone'           => ['nullable', 'string', 'max:36'],
             'description'     => ['nullable', 'string'],
             'director'        => ['nullable', 'string'],
@@ -27,7 +31,6 @@ class StoreEntityRequest extends FormRequest
             'telegram'        => ['nullable', new TelegramUrl],
             'instagram'       => ['nullable', new InstagramUrl],
             'vkontakte'       => ['nullable', new VkontakteUrl],
-            'city'            => ['integer'],
             'user'            => ['nullable'],
             'moderator'       => ['nullable'],
             'type'            => ['required', 'integer'],

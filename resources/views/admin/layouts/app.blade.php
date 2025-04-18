@@ -19,10 +19,15 @@
 
     <script src="{{ url('/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ url('/select2.min.js') }}"></script>
-    <script src="{{ url('/jquery.maskedinput.min.js')}}"></script>
+    <script src="{{ url('/jquery.maskedinput.min.js') }}"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/select.css'])
     @livewireStyles
+
+    @if (request()->routeIs('admin.entity.create') || request()->routeIs('admin.entity.edit'))
+         <script src="https://api-maps.yandex.ru/2.1/?apikey={{ config('services.yandex.geocoder_key') }}&lang=ru_RU"
+            type="text/javascript"></script>
+    @endif
 </head>
 
 <body class="font-sans antialiased">

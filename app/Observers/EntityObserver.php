@@ -15,7 +15,10 @@ class EntityObserver
 
     public function saving(Entity $entity)
     {
-        if (!$entity->isDirty('address')) {
+        // Проверяем, изменились ли нужные поля
+        $relevantFieldsChanged = $entity->isDirty(['address', 'city_id', 'lat', 'lon']);
+
+        if (!$relevantFieldsChanged) {
             return;
         }
 
