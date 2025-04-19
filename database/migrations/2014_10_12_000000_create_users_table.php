@@ -20,12 +20,14 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('phone', 36)->unique();
-            $table->string('viber', 36)->nullable()->unique();
+            $table->string('phone_fore_verification', 36)->nullable();
+            $table->timestamp('phone_verified_at')->nullable();
             $table->string('whatsapp', 36)->nullable()->unique();
             $table->string('instagram', 255)->nullable()->unique();
             $table->string('vkontakte', 255)->nullable()->unique();
             $table->string('telegram', 255)->nullable()->unique();
             $table->string('image', 255)->nullable();
+            $table->string('check_id', 255)->nullable();
             $table->foreignId('city_id')->default(1)->constrained();
             $table->foreignId('region_id')->default(1)->constrained();
             $table->softDeletes('deleted_at', 0);

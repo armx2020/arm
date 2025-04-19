@@ -21,8 +21,11 @@ return new class extends Migration
             $table->foreignId('city_id')->nullable()->constrained();
             $table->foreignId('category_id')->nullable()->constrained();
             $table->foreignId('entity_type_id')->nullable()->constrained();
-            $table->foreignId('entity_id')->nullable()->constrained();
+            $table->foreignId('entity_id')->nullable()->onDelete('cascade');
             $table->boolean('index')->default(false);
+            $table->text('meta_1')->nullable();
+            $table->text('meta_2')->nullable();
+            $table->text('meta_3')->nullable();
         });
     }
 

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name_en', 255);
             $table->string('name_ru_locative', 255);
             $table->string('code', 2);
+            $table->decimal('lat', 10, 6)->nullable();
+            $table->decimal('lon', 11, 6)->nullable();
         });
     }
 

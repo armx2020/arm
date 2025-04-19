@@ -13,6 +13,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name', 255)->fulltext();
+            $table->string('transcription', 255)->nullable();
             $table->boolean('activity')->default(true);
         });
 

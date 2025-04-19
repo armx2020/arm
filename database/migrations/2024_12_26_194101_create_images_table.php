@@ -13,6 +13,9 @@ return new class extends Migration
             $table->timestamps();
             $table->morphs('imageable');
             $table->string('path', 255)->nullable();
+            $table->integer('sort_id')->index()->default(1);
+            $table->boolean('checked')->index()->default(1);
+            $table->boolean('is_logo')->default(0);
         });
     }
 

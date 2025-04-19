@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('category_id')->constrained();
-            $table->foreignId('entity_id')->constrained();
+            $table->foreignId('entity_id')->onDelete('cascade');
             $table->unsignedBigInteger('main_category_id')->nullable();
         });
     }
