@@ -19,8 +19,8 @@ class Transcript extends Command
     {
         $service->translitName(Category::query());
         // $service->translitName(EntityType::query());
-        $service->translitName(Entity::query());
-        $service->translitName(City::query());
-        $service->translitName(Region::query());
+        // $service->translitName(Entity::query());
+        // $service->translitName(City::query());
+        // $service->translitName(Region::query());
     }
 }
