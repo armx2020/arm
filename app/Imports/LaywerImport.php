@@ -40,13 +40,9 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
                         'web' => $row[9] == '_' ? null : $row[9],
                         'telegram' => $row[10] == '_' ? null : $row[10],
                         'vkontakte' => $row[11] == '_' ? null : $row[11],
-
                         'entity_type_id' => 1,
                         'category_id' => 78,
                         'comment' => $this->comment,
-
-
-                           'image' => null,
                         'activity' => false,
                     ]
                 );
@@ -63,7 +59,7 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
                 $entity->update();
             }
 
-              $entity->images()->delete();
+            $entity->images()->delete();
 
             if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/2.png")) {
                 $entity->images()->create([
