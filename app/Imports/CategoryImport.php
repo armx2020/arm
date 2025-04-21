@@ -13,17 +13,18 @@ class CategoryImport implements ToCollection, WithUpserts, PersistRelations
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-
-            $category = Category::updateOrCreate(
-                [
-                    'name' => $row[1]
-                ],
-                [
-                    'entity_type_id' => 1,
-                    'category_id' => $this->getMainCategory($row[0]),
-                    'activity' => 1,
-                ]
-            );
+            if ($row[1] !== null) {
+                $category = Category::updateOrCreate(
+                    [
+                        'name' => $row[1]
+                    ],
+                    [
+                        'entity_type_id' => 1,
+                        'category_id' => $this->getMainCategory($row[0]),
+                        'activity' => 1,
+                    ]
+                );
+            }
         }
     }
 
