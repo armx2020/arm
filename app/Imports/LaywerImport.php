@@ -24,29 +24,28 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
 
             $this->getCategories([$row[12], $row[13], $row[14], $row[15], $row[16], $row[17], $row[18], $row[18]]);
 
-            $entity = Entity::where('name', $row[2])->First();
-
-            if ($entity) {
-                $entity->update(
-                    [
-                        'link' => $row[1] == '_' ? null : $row[1],
-                        'description' => $row[3] == '_' ? null : $row[3],
-                        'city_id' => $this->getCityName($row[4] == '_' ? null : $row[4]),
-                        'region_id' => $this->getRegionName($row[4] == '_' ? null : $row[4]),
-                        'address' => $this->getAddress($row[5]),
-                        'phone' => $row[6] == '_' ? null : $row[6],
-                        'whatsapp' => $this->getWhatsapp($row[7]),
-                        'email' =>  $row[8] == '_' ? null : $row[8],
-                        'web' => $row[9] == '_' ? null : $row[9],
-                        'telegram' => $row[10] == '_' ? null : $row[10],
-                        'vkontakte' => $row[11] == '_' ? null : $row[11],
-                        'entity_type_id' => 1,
-                        'category_id' => 78,
-                        'comment' => $this->comment,
-                        'activity' => false,
-                    ]
-                );
-            }
+            $entity = Entity::updateOrCreate(
+                [
+                    'name' => $row[2]
+                ],
+                [
+                    'link' => $row[1] == '_' ? null : $row[1],
+                    'description' => $row[3] == '_' ? null : $row[3],
+                    'city_id' => $this->getCityName($row[4] == '_' ? null : $row[4]),
+                    'region_id' => $this->getRegionName($row[4] == '_' ? null : $row[4]),
+                    'address' => $this->getAddress($row[5]),
+                    'phone' => $row[6] == '_' ? null : $row[6],
+                    'whatsapp' => $this->getWhatsapp($row[7]),
+                    'email' =>  $row[8] == '_' ? null : $row[8],
+                    'web' => $row[9] == '_' ? null : $row[9],
+                    'telegram' => $row[10] == '_' ? null : $row[10],
+                    'vkontakte' => $row[11] == '_' ? null : $row[11],
+                    'entity_type_id' => 1,
+                    'category_id' => 78,
+                    'comment' => $this->comment,
+                    'activity' => false,
+                ]
+            );
 
             $entity->fields()->syncWithPivotValues($this->result, ['main_category_id' => 78]);
 
