@@ -41,7 +41,7 @@ class CategoryImport implements ToCollection, WithUpserts, PersistRelations
             ],
             [
                 'entity_type_id' => 1,
-                'category_id' => 19,
+                'category_id' => 78,
                 'activity' => 1,
             ]
         );
