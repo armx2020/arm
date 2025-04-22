@@ -74,8 +74,24 @@
                       /**
                        * Массив координат из ваших сущностей
                        */
-                      entities = [
+
+                      @php
+                          $isEntityHasFromThisRegion = false;
+
+                          foreach ($entities as $entity) {
+                              if ($entity->region->transcription == $region && $region !== 'russia') {
+                                  $isEntityHasFromThisRegion = true;
+                              }
+                          }
+                      @endphp
+
+                  entities = [
                           @foreach ($entities as $entity)
+
+                              @if ($isEntityHasFromThisRegion && $entity->region->transcription !== $region && $region !== 'russia')
+                                  @break
+                              @endif
+
                               @if ($entity->coordinates)
                                   {
                                       id: {{ $entity->id }},
@@ -127,10 +143,29 @@
                    * Центрируем карту по всем объектам
                    */
                   if (geoObjects.length > 0) {
-                      myMap.setBounds(clusterer.getBounds(), {
-                          checkZoomRange: true,
-                          zoomMargin: 10
-                      });
+                      if (geoObjects.length === 1) {
+                          // Если только один объект, устанавливаем zoom = 7
+                          myMap.setCenter([entities[0].lat, entities[0].lon], 7);
+                      } else {
+                          var bounds = clusterer.getBounds();
+
+                          // Расширяем границы с отступами (в градусах, а не в пикселях!)
+                          var paddingLat = 0.05; // ±0.05 градуса широты (~5 км)
+                          var paddingLon = 0.1; // ±0.1 градуса долготы (~7 км в средней полосе)
+
+                          var paddedBounds = [
+                              [bounds[0][0] - paddingLat, bounds[0][1] - paddingLon], // Юго-западный угол
+                              [bounds[1][0] + paddingLat, bounds[1][1] +
+                                  paddingLon
+                              ] // Северо-восточный угол
+                          ];
+                          // Если несколько объектов, используем автоматическое определение границ
+                          myMap.setBounds(paddedBounds, {
+                              checkZoomRange: true,
+                              zoomMargin: 3,
+                              padding: [1000, 100]
+                          });
+                      }
                   }
 
               });
