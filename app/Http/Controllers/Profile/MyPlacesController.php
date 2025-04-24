@@ -23,10 +23,11 @@ class MyPlacesController extends BaseController
     {
         $entitiesName = 'myplaces';
         $entityName = 'myplace';
+        $title = 'Мои места';
 
         $groups = Auth::user()->entities()->places()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
-        return view('profile.pages.place.index', [
+        return view('profile.pages.entity.index', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
@@ -34,6 +35,7 @@ class MyPlacesController extends BaseController
             'entities' => $groups,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
+            'title' => $title
         ]);
     }
 

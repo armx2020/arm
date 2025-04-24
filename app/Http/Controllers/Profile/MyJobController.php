@@ -24,10 +24,11 @@ class MyJobController extends BaseController
     {
         $entitiesName = 'myjobs';
         $entityName = 'myjob';
+        $title = 'Работа, вакансии';
 
         $companies = Auth::user()->entities()->jobs()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
-        return view('profile.pages.job.index', [
+        return view('profile.pages.entity.index', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
@@ -35,6 +36,7 @@ class MyJobController extends BaseController
             'entities' => $companies,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
+            'title' => $title
         ]);
     }
 

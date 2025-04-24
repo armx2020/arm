@@ -24,10 +24,11 @@ class MyCompanyController extends BaseController
     {
         $entitiesName = 'mycompanies';
         $entityName = 'mycompany';
+        $title = 'Мои компании';
 
         $companies = Auth::user()->entities()->companies()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
-        return view('profile.pages.company.index', [
+        return view('profile.pages.entity.index', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
@@ -35,6 +36,7 @@ class MyCompanyController extends BaseController
             'entities' => $companies,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
+            'title' => $title
         ]);
     }
 

@@ -23,10 +23,11 @@ class MyCommunityController extends BaseController
     {
         $entitiesName = 'mycommunities';
         $entityName = 'mycommunity';
+        $title = 'Мои общины';
 
         $groups = Auth::user()->entities()->communities()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
-        return view('profile.pages.community.index', [
+        return view('profile.pages.entity.index', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
@@ -34,6 +35,7 @@ class MyCommunityController extends BaseController
             'entities' => $groups,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
+            'title' => $title
         ]);
     }
 

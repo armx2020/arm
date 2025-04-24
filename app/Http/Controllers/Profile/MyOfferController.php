@@ -24,10 +24,11 @@ class MyOfferController extends BaseController
     {
         $entitiesName = 'myoffers';
         $entityName = 'myoffer';
+        $title = 'Мои товары и услуги';
 
         $offers = Auth::user()->offers()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
-        return view('profile.pages.offer.index', [
+        return view('profile.pages.entity.index', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,
@@ -35,6 +36,7 @@ class MyOfferController extends BaseController
             'entities' => $offers,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
+            'title' => $title
         ]);
     }
 
