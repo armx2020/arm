@@ -4,31 +4,17 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Entity;
-use App\Models\Image;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class CalculateTopEntities extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'app:calculate-top-entities';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Calculate top entities based on fullness';
 
-    /**
-     * Execute the console command.
-     */
-    public function handle() {
+    public function handle()
+    {
         $this->info('Calculating top entities...');
-
 
         DB::transaction(function () {
             Entity::query()->update(['region_top' => 0, 'city_top' => 0]);

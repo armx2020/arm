@@ -7,23 +7,9 @@ use Illuminate\Support\Facades\DB;
 
 class CalculateDoubles extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'app:calculate-doubles';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Calculate doubles for all entities';
-
-    /**
-     * Execute the console command.
-     */
 
     protected $fields = [
         'name'      => 'Название',

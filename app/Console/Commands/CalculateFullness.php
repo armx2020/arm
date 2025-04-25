@@ -5,27 +5,13 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Entity;
 use App\Models\Image;
-use DB;
 
 class CalculateFullness extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'app:calculate-fullness';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Calculate fullness for all entities';
 
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
         $this->info('Starting fullness calculation...');

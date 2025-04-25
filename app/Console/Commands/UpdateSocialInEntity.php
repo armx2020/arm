@@ -3,11 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Entity;
-use App\Models\EntityType;
-use Doctrine\Inflector\InflectorFactory;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Cache;
 
 class UpdateSocialinEntity extends Command
 {
