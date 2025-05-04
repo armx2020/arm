@@ -3,18 +3,14 @@
 namespace App\Models;
 
 use App\Models\Scopes\SortDescScope;
-use App\Models\Scopes\SortScope;
 use App\Models\Traits\Search;
 use App\Models\Traits\TranscriptName;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[ScopedBy([SortDescScope::class])]
-
 class Category extends Model
 {
     use HasFactory, Search, TranscriptName;

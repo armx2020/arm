@@ -75,6 +75,29 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Chat --}}
+            <div class="flex flex-col basis-full mt-8">
+                <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-2 lg:p-10 relative">
+        
+                    <div class="container mx-auto flex">
+                        <div class="w-1/3 pr-5">
+                            @livewire('profile.chat-list-for-entity', ['entityId' => $entity->id])
+                        </div>
+        
+                        <div class="w-2/3">
+                            @isset($chat)
+                                @livewire('profile.chat-window-for-entity', ['chatId' => $chat->id, 'entityId' => $entity->id])
+                            @else
+                                <div class="rounded-lg p-8 text-center">
+                                    <p>Выберите чат для начала общения...</p>
+                                </div>
+                            @endisset
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 @endsection

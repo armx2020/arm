@@ -54,7 +54,7 @@ class ProfileController extends BaseController
 
         $fullness = (round(($sum / 45) * 100));
 
-        return view('pages.user.user', [
+        return view('pages.user.index', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
             'regions' => $this->regions,

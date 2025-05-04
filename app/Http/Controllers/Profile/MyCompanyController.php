@@ -6,7 +6,9 @@ use App\Entity\Actions\CompanyAction;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
+use App\Http\Requests\Profile\Message\ChatRequest;
 use App\Models\Category;
+use App\Models\Chat;
 use App\Models\Entity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +62,7 @@ class MyCompanyController extends BaseController
         return redirect()->route('mycompanies.index')->with('success', 'Компания "' . $company->name . '" добавлена');
     }
 
-    public function show(Request $request, $id)
+    public function show(ChatRequest $request, $id)
     {
         $entity = Entity::where('user_id', '=', Auth::user()->id)->with('fields')->find($id);
 
@@ -81,6 +83,14 @@ class MyCompanyController extends BaseController
 
         $fullness = (round(($sum / 70) * 100));
 
+        $chat = null;
+
+        if (isset($request->chat)) {
+            $chat = Chat::with('messages')->where('uuid', $request->chat)->whereHas('participants', fn($q) => $q->where('participant_id', $entity->id))
+                ->with('participants')
+                ->first();
+        }
+
         return view('profile.pages.company.show', [
             'region'   => $request->session()->get('regionTranslit'),
             'regionName' => $request->session()->get('regionName'),
@@ -88,6 +98,7 @@ class MyCompanyController extends BaseController
             'countries' => $this->countries,
             'entity' => $entity,
             'fullness' => $fullness,
+            'chat' => $chat
         ]);
     }
 

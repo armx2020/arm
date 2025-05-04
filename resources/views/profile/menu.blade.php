@@ -12,6 +12,24 @@
                     страница</a>
             </li>
 
+            <li
+                class="p-2 hover:text-gray-500 rounded-md relative @if (request()->routeIs('messenger')) bg-gray-100 @endif">
+                <a href="{{ route('messenger') }}">Мессенджер</a>
+
+                <!-- Бейдж с уведомлением -->
+                @php
+                    $unreadCount = auth()->user()->unreadMessagesCount();
+                @endphp
+
+                @if ($unreadCount)
+                    <span
+                        class="absolute right-[-0.5rem] top-[-0.5rem] bg-blue-500 px-3 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                        {{ $unreadCount > 9 ? '9+' : $unreadCount }}
+                    </span>
+                @endif
+
+            </li>
+
             <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('mycompanies.*')) bg-gray-100 @endif"><a
                     href="{{ route('mycompanies.index') }}">Мои компании</a>
             </li>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Profile\MyCompanyController;
 use App\Http\Controllers\Profile\MyGroupController;
 use App\Http\Controllers\Profile\MyJobController;
+use App\Http\Controllers\Profile\MyMessengerController;
 use App\Http\Controllers\Profile\MyOfferController;
 use App\Http\Controllers\Profile\MyPlacesController;
 
@@ -19,6 +20,10 @@ Route::middleware(['auth', 'verificate_phone'])->group(function () {
     Route::get('/profile', [MyProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [MyProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [MyProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //Messenger
+    Route::get('/messenger', [MyMessengerController::class, 'index'])->name('messenger');
+    Route::post('/messenger', [MyMessengerController::class, 'store']);
 
     Route::resources([
         'mygroups'      =>  MyGroupController::class,

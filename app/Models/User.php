@@ -5,12 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Traits\HasCity;
-use App\Models\Traits\HasEvents;
 use App\Models\Traits\HasProjects;
 use App\Models\Traits\HasRegion;
 use App\Models\Traits\Search;
-use App\Models\Traits\HasNews;
-use App\Models\Traits\HasWorks;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -27,9 +24,6 @@ class User extends Authenticatable
         HasCity,
         HasRegion,
         HasProjects,
-        HasEvents,
-        HasWorks,
-        HasNews,
         Search;
 
 
@@ -47,6 +41,69 @@ class User extends Authenticatable
     public function offers(): HasMany
     {
         return $this->hasMany(Offer::class);
+    }
+
+    // Чаты пользователя
+    public function chats()
+    {
+        return $this->morphToMany(Chat::class, 'participant', 'chat_participants')
+            ->with(['participants'])
+            ->withTimestamps();
+    }
+
+    public function chats_to_user()
+    {
+        return $this->morphToMany(Chat::class, 'participant', 'chat_participants')
+            ->where('type', 'user_to_user')
+            ->with(['participants'])
+            ->withTimestamps();
+    }
+
+    public function chats_to_entity()
+    {
+        return $this->morphToMany(Chat::class, 'participant', 'chat_participants')
+            ->where('type', 'user_to_entity')
+            ->with(['participants'])
+            ->withTimestamps();
+    }
+
+    public function unreadMessagesCount()
+    {
+        return $this->chats()
+            ->withCount(['messages as unread_messages' => function ($query) {
+                $query->where('user_id', '!=', $this->id)
+                    ->where('is_read', false);
+            }])
+            ->get()
+            ->sum('unread_messages');
+    }
+
+    public function updateLastActivity()
+    {
+        $this->last_active_at = now();
+        $this->save();
+    }
+
+    public function isOnline()
+    {
+        return $this->last_active_at && $this->last_active_at->gt(now()->subMinutes(10));
+    }
+
+    public function whenVisited()
+    {
+        if ($this->isOnline()) {
+            return 'онлайн';
+        }
+
+        if ($this->last_active_at && $this->last_active_at->gt(now()->subMinutes(700))) {
+            return 'был(а) сегодня';
+        }
+
+        if ($this->last_active_at && $this->last_active_at->gt(now()->subMinutes(50000))) {
+            return 'был(а) в течение недели';
+        }
+
+        return 'был(а) давно';
     }
 
     protected $fillable = [

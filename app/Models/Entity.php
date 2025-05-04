@@ -4,12 +4,9 @@ namespace App\Models;
 
 use App\Models\Scopes\CheckedScope;
 use App\Models\Traits\HasCity;
-use App\Models\Traits\HasEvents;
-use App\Models\Traits\HasNews;
 use App\Models\Traits\HasProjects;
 use App\Models\Traits\HasRegion;
 use App\Models\Traits\HasUser;
-use App\Models\Traits\HasWorks;
 use App\Models\Traits\Search;
 use App\Models\Traits\TranscriptName;
 use App\Observers\EntityObserver;
@@ -36,10 +33,7 @@ class Entity extends Model
         HasCity,
         HasRegion,
         HasProjects,
-        HasEvents,
-        HasWorks,
         HasUser,
-        HasNews,
         TranscriptName,
         Search;
 
@@ -113,6 +107,11 @@ class Entity extends Model
             ->orderBy('distance');
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('activity', 1);
+    }
+
     // Отношения
     public function moderator(): BelongsTo
     {
@@ -127,6 +126,11 @@ class Entity extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function region(): BelongsTo
@@ -154,26 +158,19 @@ class Entity extends Model
         return $this->hasMany(Offer::class);
     }
 
-    public function scopeActive($query)
-    {
-        return $query->where('activity', 1);
-    }
 
     public function appeals(): HasMany
     {
         return $this->hasMany(Appeal::class);
     }
 
-    public function getSimilarEntities($limit = 3)
+    // Чаты пользователя
+    public function chats()
     {
-        return self::query()
-            ->where('entity_type_id', $this->entity_type_id)
-            ->where('category_id', $this->category_id)
-            ->where('activity', 1)
-            ->where('id', '!=', $this->id)
-            ->inRandomOrder()
-            ->limit($limit)
-            ->get();
+        return $this->morphToMany(Chat::class, 'participant', 'chat_participants')
+            ->where('type', 'user_to_entity')
+            ->with(['participants'])
+            ->withTimestamps();
     }
 
     // Изображения
@@ -211,8 +208,6 @@ class Entity extends Model
 
         return false;
     }
-
-
 
     // Мутаторы
     public function setVideoUrlAttribute($value)
@@ -288,5 +283,17 @@ class Entity extends Model
         }
 
         return null;
+    }
+
+    public function getSimilarEntities($limit = 3)
+    {
+        return self::query()
+            ->where('entity_type_id', $this->entity_type_id)
+            ->where('category_id', $this->category_id)
+            ->where('activity', 1)
+            ->where('id', '!=', $this->id)
+            ->inRandomOrder()
+            ->limit($limit)
+            ->get();
     }
 }
