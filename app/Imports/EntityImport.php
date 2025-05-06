@@ -48,7 +48,7 @@ class EntityImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     // 'telegram' => $this->telegram,
                     // 'city_id' => $this->getCityName($row[12]),
                     // 'region_id' => $this->getRegionName($row[12]),
-                    // 'image' => null,
+                    'image' => null,
                     // 'activity' => false,
                 ]
             );
@@ -56,8 +56,9 @@ class EntityImport implements ToCollection, WithUpserts, PersistRelations, WithS
             $entity->images()->withOutGlobalScopes()->delete();
 
             if (Storage::disk('public')->exists("uploaded/entity/$row[0]/1.jpg")) {
-                $entity->image = "uploaded/entity/$row[0]/1.jpg";
-                $entity->update();
+                $entity->images()->create([
+                    'path' => "uploaded/entity/$row[0]/1.jpg"
+                ]);
             }
 
             if (Storage::disk('public')->exists("uploaded/entity/$row[0]/2.jpg")) {
@@ -84,7 +85,7 @@ class EntityImport implements ToCollection, WithUpserts, PersistRelations, WithS
                 ]);
             }
 
-           // $this->resetWeb();
+            // $this->resetWeb();
         }
     }
 
@@ -187,8 +188,6 @@ class EntityImport implements ToCollection, WithUpserts, PersistRelations, WithS
         } else {
             $this->web = $data;
         }
-
-      
     }
 
     public function resetWeb()
