@@ -243,19 +243,22 @@
                     <x-pages.social :entity=$entity :coloric="true" />
                 </div>
 
-                {{-- Ссылка на источник --}}
-                @if ($entity->category_id == 19 && isset($entity->link))
-                    <div class="flex space-x-2 my-1 pl-0 pl-0 sm:pl-4 max-w-[400px]">
-                        <a href="{{ $entity->link }}"
-                            class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-full cursor-pointer inline-block bg-blue-700 hover:bg-blue-800 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white">
-                            Записаться на приём
-                        </a>
-                    </div>
-                @endif
+
 
                 @if ($entity->user_id && $entity->user_id !== Auth::user()?->id)
                     <div class="flex flex-col pl-0 sm:pl-4 mt-2">
-                        <div class="flex justify-between max-w-[400px]">
+
+                        {{-- Ссылка на источник --}}
+                        @if ($entity->category_id == 19 && isset($entity->link))
+                            <div class="flex max-w-[400px]">
+                                <a href="{{ $entity->link }}"
+                                    class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-full cursor-pointer inline-block bg-blue-700 hover:bg-blue-800 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white">
+                                    Записаться на приём
+                                </a>
+                            </div>
+                        @endif
+
+                        <div class="flex justify-between max-w-[400px] mt-2">
 
                             <form action="{{ route('messenger') }}" method="POST" class="w-1/2 mr-1">
                                 @csrf
