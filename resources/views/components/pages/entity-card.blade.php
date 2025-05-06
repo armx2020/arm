@@ -254,30 +254,30 @@
                 @endif
 
                 @if ($entity->user_id && $entity->user_id !== Auth::user()?->id)
-                    <div class="flex flex-col xl:flex-row pl-0 sm:pl-4">
-                        <div class="flex space-x-2 max-w-[400px]">
+                    <div class="flex flex-col pl-0 sm:pl-4 mt-2">
+                        <div class="flex justify-between max-w-[400px]">
 
-                            <form action="{{ route('messenger') }}" method="POST">
+                            <form action="{{ route('messenger') }}" method="POST" class="w-1/2 mr-1">
                                 @csrf
                                 <input type="hidden" name="entity_id" value="{{ $entity->id }}">
                                 <button type="submit"
-                                    class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white w-full">
+                                    class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 text-center text-white w-full">
                                     Написать
                                 </button>
                             </form>
 
                             @if (isset($entity->phone))
                                 <a href="tel:{{ $entity->phone }}"
-                                    class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white">
+                                    class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 text-center text-white">
                                     Позвонить
                                 </a>
                             @endif
                         </div>
 
                         @isset($entity->paymant_link)
-                            <div class="flex max-w-[400px] ml-0 xl:ml-2">
+                            <div class="flex max-w-[400px]">
                                 <a href="{{ $entity->paymant_link }}" target="_blank"
-                                    class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-full cursor-pointer inline-block bg-yellow-400 hover:bg-yellow-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center">
+                                    class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-full cursor-pointer inline-block bg-yellow-400 hover:bg-yellow-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center w-full">
                                     <p class="flex justify-between px-8 lg:px-12">Оказать помощь
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 pl-2" viewBox="0 0 576 512">
                                             <path
