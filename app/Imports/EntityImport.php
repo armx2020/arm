@@ -31,34 +31,34 @@ class EntityImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     'name' => $row[5]
                 ],
                 [
-                    'link' => $row[1],
-                    'comment' => $row[2],
-                    'entity_type_id' => $row[3],
-                    'category_id' => $row[4],
-                    'description' => $row[6],
-                    'started_at' => $this->getStartedDate($row[7]),
-                    'director' => $row[8],
-                    'phone' => $this->getPhone($row[9]),
-                    'email' => $this->getEmail($row[10]),
-                    'address' => mb_substr($row[12], 0, 128),
-                    'web' => $this->web,
-                    'whatsapp' => $this->whatsapp,
-                    'instagram' => $this->instagram,
-                    'vkontakte' => $this->vkontakte,
-                    'telegram' => $this->telegram,
-                    'city_id' => $this->getCityName($row[12]),
-                    'region_id' => $this->getRegionName($row[12]),
-                    'image' => null,
-                    'activity' => false,
+                    // 'link' => $row[1],
+                    // 'comment' => $row[2],
+                    // 'entity_type_id' => $row[3],
+                    // 'category_id' => $row[4],
+                    // 'description' => $row[6],
+                    // 'started_at' => $this->getStartedDate($row[7]),
+                    // 'director' => $row[8],
+                    // 'phone' => $this->getPhone($row[9]),
+                    // 'email' => $this->getEmail($row[10]),
+                    // 'address' => mb_substr($row[12], 0, 128),
+                    // 'web' => $this->web,
+                    // 'whatsapp' => $this->whatsapp,
+                    // 'instagram' => $this->instagram,
+                    // 'vkontakte' => $this->vkontakte,
+                    // 'telegram' => $this->telegram,
+                    // 'city_id' => $this->getCityName($row[12]),
+                    // 'region_id' => $this->getRegionName($row[12]),
+                    // 'image' => null,
+                    // 'activity' => false,
                 ]
             );
+
+            $entity->images()->withOutGlobalScopes()->delete();
 
             if (Storage::disk('public')->exists("uploaded/entity/$row[0]/1.jpg")) {
                 $entity->image = "uploaded/entity/$row[0]/1.jpg";
                 $entity->update();
             }
-
-            $entity->images()->delete();
 
             if (Storage::disk('public')->exists("uploaded/entity/$row[0]/2.jpg")) {
                 $entity->images()->create([
@@ -84,7 +84,7 @@ class EntityImport implements ToCollection, WithUpserts, PersistRelations, WithS
                 ]);
             }
 
-            $this->resetWeb();
+           // $this->resetWeb();
         }
     }
 
