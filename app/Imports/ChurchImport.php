@@ -33,15 +33,16 @@ class ChurchImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     // 'region_id' => $this->getRegionName($row[3]),
                     // 'entity_type_id' => 3,
                     // 'category_id' => 6,
-                    // 'image' => null
+                    'image' => null
                 ]
             );
 
             $entity->images()->withOutGlobalScopes()->delete();
 
-            if (Storage::disk('public')->exists("uploaded/church/$row[0]/$row[0]_1.jpg")) {
-                $entity->image = "uploaded/church/$row[0]/$row[0]_1.jpg";
-                $entity->update();
+            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/1.png")) {
+                $entity->images()->create([
+                    'path' => "uploaded/lawyer/$row[0]/1.png"
+                ]);
             }
 
             if (Storage::disk('public')->exists("uploaded/church/$row[0]/$row[0]_2.jpg")) {
@@ -67,7 +68,6 @@ class ChurchImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     'path' => "uploaded/church/$row[0]/$row[0]_5.jpg"
                 ]);
             }
-
         }
     }
 

@@ -22,7 +22,7 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
     {
         foreach ($rows as $row) {
 
-           // $this->getCategories([$row[12], $row[13], $row[14], $row[15], $row[16], $row[17], $row[18], $row[18]]);
+            // $this->getCategories([$row[12], $row[13], $row[14], $row[15], $row[16], $row[17], $row[18], $row[18]]);
 
             $entity = Entity::updateOrCreate(
                 [
@@ -44,10 +44,11 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
                     // 'category_id' => 78,
                     // 'comment' => $this->comment,
                     // 'activity' => false,
+                    'image' => null
                 ]
             );
 
-           //$entity->fields()->syncWithPivotValues($this->result, ['main_category_id' => 78]);
+            //$entity->fields()->syncWithPivotValues($this->result, ['main_category_id' => 78]);
 
             $this->comment = '';
             $this->result = [];
@@ -55,8 +56,9 @@ class LaywerImport implements ToCollection, WithUpserts, PersistRelations, WithS
             $entity->images()->withOutGlobalScopes()->delete();
 
             if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/1.png")) {
-                $entity->image = "uploaded/lawyer/$row[0]/1.png";
-                $entity->update();
+                $entity->images()->create([
+                    'path' => "uploaded/lawyer/$row[0]/1.png"
+                ]);
             }
 
             if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/2.png")) {
