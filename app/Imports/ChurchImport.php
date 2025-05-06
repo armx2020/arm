@@ -39,9 +39,9 @@ class ChurchImport implements ToCollection, WithUpserts, PersistRelations, WithS
 
             $entity->images()->withOutGlobalScopes()->delete();
 
-            if (Storage::disk('public')->exists("uploaded/lawyer/$row[0]/1.png")) {
+            if (Storage::disk('public')->exists("uploaded/church/$row[0]/1.png")) {
                 $entity->images()->create([
-                    'path' => "uploaded/lawyer/$row[0]/1.png"
+                    'path' => "uploaded/church/$row[0]/1.png"
                 ]);
             }
 
