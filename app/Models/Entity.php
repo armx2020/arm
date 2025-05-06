@@ -242,12 +242,12 @@ class Entity extends Model
 
     public function setLatAttribute($value)
     {
-        $this->attributes['lat'] = round((float)$value, 6);
+        $this->attributes['lat'] =  $value != 0 ? round((float)$value, 6) : null;
     }
 
     public function setLonAttribute($value)
     {
-        $this->attributes['lon'] = round((float)$value, 6);
+        $this->attributes['lon'] = $value != 0 ? round((float)$value, 6) : null;
     }
 
     // Аксессоры
