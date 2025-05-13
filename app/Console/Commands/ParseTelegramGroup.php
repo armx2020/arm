@@ -22,7 +22,7 @@ class ParseTelegramGroup extends Command
 
     public function handle()
     {
-        dd(env('TELEGRAM_API_ID'), env('TELEGRAM_API_HASH'));
+        dd(env('APP_NAME'), env('TELEGRAM_API_HASH'));
 
         $this->info('Инициализация MadelineProto...');
 
