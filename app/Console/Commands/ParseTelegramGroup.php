@@ -22,8 +22,6 @@ class ParseTelegramGroup extends Command
 
     public function handle()
     {
-        dd(env('APP_NAME'), env('TELEGRAM_API_HASH'));
-
         $this->info('Инициализация MadelineProto...');
 
         if (!Storage::exists('telegram')) {
