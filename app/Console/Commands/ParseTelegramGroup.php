@@ -102,9 +102,15 @@ class ParseTelegramGroup extends Command
 
             $this->info("Группа сохранена: {$groupModel->title}");
 
+            // Получаем ID последнего сохранённого сообщения
+            $lastMessageId = TelegramMessage::where('group_id', $groupModel->id)
+                ->latest('id')
+                ->value('id') ?? 0;
+
             // Получаем сообщения
             $messages = $madeline->messages->getHistory([
                 'peer' => $group,
+                'offset_id' => $lastMessageId,
                 'limit' => $limit
             ]);
 
