@@ -79,34 +79,46 @@ abstract class BaseAdminController extends Controller
                 'routeIs' => 'admin.category-entity.*',
                 'sub' => []
             ],
+            // [
+            //     'name' => 'Импорт',
+            //     'route' => '',
+            //     'sub' => [
+            //         [
+            //             'name' => 'церкви',
+            //             'route' => 'admin.import.church',
+            //             'routeIs' => 'admin.import.church.*',
+            //         ],
+            //         [
+            //             'name' => 'сущности',
+            //             'route' => 'admin.import.entity',
+            //             'routeIs' => 'admin.import.entity.*',
+            //         ],
+            //         [
+            //             'name' => 'адвокаты',
+            //             'route' => 'admin.import.lawyer',
+            //             'routeIs' => 'admin.import.lawyer.*',
+            //         ],
+            //         [
+            //             'name' => 'врачи',
+            //             'route' => 'admin.import.doctor',
+            //             'routeIs' => 'admin.import.doctor.*',
+            //         ],
+            //         [
+            //             'name' => 'категории',
+            //             'route' => 'admin.import.category',
+            //             'routeIs' => 'admin.import.category.*',
+            //         ],
+            //     ]
+            // ],
             [
-                'name' => 'Импорт',
+                'name' => 'Телеграм',
                 'route' => '',
+                'routeIs' => 'admin.telegram_group.*',
                 'sub' => [
                     [
-                        'name' => 'церкви',
-                        'route' => 'admin.import.church',
-                        'routeIs' => 'admin.import.church.*',
-                    ],
-                    [
-                        'name' => 'сущности',
-                        'route' => 'admin.import.entity',
-                        'routeIs' => 'admin.import.entity.*',
-                    ],
-                    [
-                        'name' => 'адвокаты',
-                        'route' => 'admin.import.lawyer',
-                        'routeIs' => 'admin.import.lawyer.*',
-                    ],
-                    [
-                        'name' => 'врачи',
-                        'route' => 'admin.import.doctor',
-                        'routeIs' => 'admin.import.doctor.*',
-                    ],
-                    [
-                        'name' => 'категории',
-                        'route' => 'admin.import.category',
-                        'routeIs' => 'admin.import.category.*',
+                        'name' => 'Группы',
+                        'route' => 'admin.telegram_group.index',
+                        'routeIs' => 'admin.telegram_group.*',
                     ],
                 ]
             ],
