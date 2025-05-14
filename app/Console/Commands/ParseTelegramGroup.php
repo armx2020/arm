@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 class ParseTelegramGroup extends Command
 {
     protected $signature = 'parse-telegram 
-                        {group : Username или ID группы (например: @mygroup)}
+                        {group=all : Username или ID группы (например: @mygroup)}
                         {--l|limit=100 : Лимит сообщений}';
 
     protected $description = 'Парсинг Telegram группы с авторизацией пользователя';
@@ -51,12 +51,24 @@ class ParseTelegramGroup extends Command
         // Авторизация
         $this->authorizeUser($madeline);
 
-        // Парсинг группы
-        $this->parseGroup(
-            $madeline,
-            $this->argument('group'),
-            $this->option('limit')
-        );
+        if ($this->argument('group') !== 'all') {
+            // Парсинг группы
+            $this->parseGroup(
+                $madeline,
+                $this->argument('group'),
+                $this->option('limit')
+            );
+        } else {
+            TelegramGroup::active()->chunk(5, function ($telegramGroups) use ($madeline) {
+                foreach ($telegramGroups as $group) {
+                    $this->parseGroup(
+                        $madeline,
+                        $group->username,
+                        $this->option('limit')
+                    );
+                }
+            });
+        }
     }
 
     protected function authorizeUser(API $madeline)

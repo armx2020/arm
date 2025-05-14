@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
-use danog\MadelineProto\API;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use danog\MadelineProto\API;
+use danog\MadelineProto\Settings;
+use danog\MadelineProto\Settings\Logger;
 
 class TelegramService
 {
@@ -18,16 +20,18 @@ class TelegramService
 
         $sessionPath = Storage::path('telegram/session.madeline');
 
-        $this->madeline = new API($sessionPath);
+        $settings = new Settings;
+
+        $settings->getLogger()
+            ->setType(Logger::FILE_LOGGER)
+            ->setExtra(storage_path('logs/madelineproto/madeline.log'));
+
+        $this->madeline = new API($sessionPath, $settings);
         $this->madeline->start();
     }
 
     public function checkGroup(Request $request)
     {
-        $request->validate([
-            'username' => 'required|string|regex:/^@?[a-zA-Z0-9_]{5,32}$/'
-        ]);
-
         try {
             $group = $this->madeline->getPwrChat($request->username);
 

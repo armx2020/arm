@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin\Telegram;
 use App\Entity\Actions\Admin\Telegram\TelegramGroupAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Admin\Telegram\TelegramGroupRequest;
-use App\Http\Requests\Category\StoreCategoryRequest;
-use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Models\TelegramGroup;
 use App\Services\TelegramService;

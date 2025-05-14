@@ -19,4 +19,9 @@ class TelegramGroup extends Model
     {
         return $this->hasMany(TelegramMessage::class, 'group_id', 'id');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('activity', 1);
+    }
 }
