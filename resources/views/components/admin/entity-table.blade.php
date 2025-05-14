@@ -209,10 +209,14 @@
                                                             @break
 
                                                             @default
-                                                                <a class="text-blue-800 hover:text-blue-600"
-                                                                    href="{{ route('admin.' . $entityName . '.edit', [$entityName => $entity->id]) }}">
+                                                                @if (Route::has('admin.' . $entityName . '.edit'))
+                                                                    <a class="text-blue-800 hover:text-blue-600"
+                                                                        href="{{ route('admin.' . $entityName . '.edit', [$entityName => $entity->id]) }}">
+                                                                        {{ $entity->$column ?? '-' }}
+                                                                    </a>
+                                                                @else
                                                                     {{ $entity->$column ?? '-' }}
-                                                                </a>
+                                                                @endif
                                                         @endswitch
 
                                                     </td>

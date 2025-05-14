@@ -61,7 +61,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
             // telegram
             Route::resource('telegram_group', TelegramGroupController::class)->except([
-                'show'
+                'show',
+                'edit',
+                'update'
             ]);
 
             Route::resource('telegram_user', TelegramUserController::class)->except([

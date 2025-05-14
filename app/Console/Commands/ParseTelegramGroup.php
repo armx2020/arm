@@ -52,6 +52,7 @@ class ParseTelegramGroup extends Command
         $this->authorizeUser($madeline);
 
         if ($this->argument('group') !== 'all') {
+
             // Парсинг группы
             $this->parseGroup(
                 $madeline,
@@ -117,14 +118,20 @@ class ParseTelegramGroup extends Command
             // Получаем ID последнего сохранённого сообщения
             $lastMessageId = TelegramMessage::where('group_id', $groupModel->id)
                 ->latest('id')
-                ->value('id') ?? 0;
+                ->value('id');
 
-            // Получаем сообщения
-            $messages = $madeline->messages->getHistory([
-                'peer' => $group,
-                'offset_id' => $lastMessageId,
-                'limit' => $limit
-            ]);
+            if ($lastMessageId) {
+                $messages = $madeline->messages->getHistory([
+                    'peer' => $group,
+                    'min_id' => $lastMessageId ?? 0,
+                    'limit' => $limit // Важно: offset_id должен быть на 1 меньше
+                ]);
+            } else {
+                $messages = $madeline->messages->getHistory([
+                    'peer' => $group,
+                    'limit' => $limit
+                ]);
+            }
 
             $bar = $this->output->createProgressBar(count($messages['messages']));
             $bar->start();
@@ -179,12 +186,12 @@ class ParseTelegramGroup extends Command
         }
 
         // Вариант 2: from_id как числовой ID (ваш случай)
-        if (is_numeric($message['from_id'])) {
+        if (isset($message['from_id']) && is_numeric($message['from_id'])) {
             return $message['from_id'];
         }
 
         // Вариант 3: from_id как объект peerUser
-        if ($message['from_id']['_'] === 'peerUser') {
+        if (isset($message['from_id']) && isset($message['from_id']['_']) && $message['from_id']['_'] === 'peerUser') {
             return $message['from_id']['user_id'];
         }
 

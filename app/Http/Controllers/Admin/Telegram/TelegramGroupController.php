@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Admin\Telegram\TelegramGroupRequest;
 use App\Models\Category;
 use App\Models\TelegramGroup;
-use App\Services\TelegramService;
+use Illuminate\Support\Facades\Http;
 
 class TelegramGroupController extends BaseAdminController
 {
@@ -29,56 +29,42 @@ class TelegramGroupController extends BaseAdminController
 
     public function store(TelegramGroupRequest $request)
     {
-        $telegramService = new TelegramService;
+        $newGroup = $this->checkGroup($request->username);
 
-        $newGroup = $telegramService->checkGroup($request);
+        if ($newGroup) {
+            $telegram_group = TelegramGroup::where('username', $request->username)->First();
 
-        if ($newGroup['exists']) {
-            $telegramGroup = TelegramGroup::updateOrCreate(
-                ['id' => $newGroup['group']['id']],
-                [
-                    'username' => $newGroup['group']['username'] ?? null,
-                    'title' => $newGroup['group']['title'],
-                    'description' => $newGroup['group']['about'] ?? null,
-                ]
-            );
+            if ($telegram_group) {
+                return redirect()->route('admin.telegram_group.create')->with('success', 'группа c таким названием уже есть в списке');
+            } else {
+                $telegram_group = TelegramGroup::create([
+                    'id' => rand(88888, 999999999),
+                    'username' => $request->username,
+                    'title' => 'не проверено'
+                ]);
+            }
             return redirect()->route('admin.telegram_group.index')->with('success', 'Телеграмм-группа добавлена');
         } else {
-            return redirect()->route('admin.telegram_group.create')->with('success', $newGroup['error']);
+            return redirect()->route('admin.telegram_group.create')->with('success', 'Группы с таким названием не существует');
         }
     }
-
-    public function edit(TelegramGroup $telegram_group)
-    {
-        return view('admin.telegram.telegram-group.edit', ['menu' => $this->menu, 'entity' => $telegram_group]);
-    }
-
-    public function update(TelegramGroupRequest $request, TelegramGroup $telegram_group)
-    {
-        $telegramService = new TelegramService;
-
-        $newGroup = $telegramService->checkGroup($request);
-
-        if ($newGroup['exists']) {
-            $telegramGroup = TelegramGroup::updateOrCreate(
-                ['id' => $newGroup['group']['id']],
-                [
-                    'username' => $newGroup['group']['username'] ?? null,
-                    'title' => $newGroup['group']['title'],
-                    'description' => $newGroup['group']['about'] ?? null,
-                ]
-            );
-            return redirect()->route('admin.telegram_group.index')->with('success', 'Телеграмм-группа сохранена');
-        } else {
-            return redirect()->route('admin.telegram_group.edit', ['telegram_group' => $telegram_group->id])->with('success', $newGroup['error']);
-        }
-    }
-
 
     public function destroy(Category $category)
     {
         $category->delete();
 
         return redirect()->route('admin.telegram_group.index')->with('success', 'Телеграмм-группа удалена');
+    }
+
+    public function checkGroup($username)
+    {
+        $response = Http::withoutRedirecting()
+            ->get("https://t.me/$username");
+
+        if ($response->status() === 200) {
+            return true; // Группа существует
+        }
+
+        return false; // Группа не найдена (status 404)
     }
 }
