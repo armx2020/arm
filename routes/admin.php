@@ -69,13 +69,17 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::resource('telegram_user', TelegramUserController::class)->except([
                 'show',
                 'create',
-                'store'
+                'store',
+                'edit',
+                'update'
             ]);
 
             Route::resource('telegram_message', TelegramMessageController::class)->except([
                 'show',
                 'create',
-                'store'
+                'store',
+                'edit',
+                'update'
             ]);
 
 

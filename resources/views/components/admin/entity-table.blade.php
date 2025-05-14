@@ -26,7 +26,7 @@
                         </form>
                     </div>
 
-                    @if ($entityName !== 'appeal' && $entityName !== 'image')
+                    @if ($entityName !== 'appeal' && $entityName !== 'image' && Route::has('admin.' . $entityName . '.create'))
                         <div class="flex items-center space-x-1 lg:space-x-2">
                             <a href="{{ route('admin.' . $entityName . '.create') }}"
                                 data-modal-toggle="add-{{ $entityName }}-modal"

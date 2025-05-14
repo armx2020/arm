@@ -120,6 +120,16 @@ abstract class BaseAdminController extends Controller
                         'route' => 'admin.telegram_group.index',
                         'routeIs' => 'admin.telegram_group.*',
                     ],
+                    [
+                        'name' => 'Пользователи',
+                        'route' => 'admin.telegram_user.index',
+                        'routeIs' => 'admin.telegram_user.*',
+                    ],
+                    [
+                        'name' => 'Сообшения',
+                        'route' => 'admin.telegram_message.index',
+                        'routeIs' => 'admin.telegram_message.*',
+                    ],
                 ]
             ],
             [
