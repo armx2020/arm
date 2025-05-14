@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Telegram;
 
-use App\Entity\Actions\Admin\Telegram\TelegramGroupAction;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Admin\Telegram\TelegramGroupRequest;
 use App\Models\Category;
@@ -11,10 +10,9 @@ use Illuminate\Support\Facades\Http;
 
 class TelegramGroupController extends BaseAdminController
 {
-    public function __construct(private TelegramGroupAction $telegram_group_action)
+    public function __construct()
     {
         parent::__construct();
-        $this->telegram_group_action = $telegram_group_action;
     }
 
     public function index()
@@ -49,9 +47,10 @@ class TelegramGroupController extends BaseAdminController
         }
     }
 
-    public function destroy(Category $category)
+    public function destroy(TelegramGroup $telegram_group)
     {
-        $category->delete();
+        $telegram_group->telegram_messages()->delete();
+        $telegram_group->delete();
 
         return redirect()->route('admin.telegram_group.index')->with('success', 'Телеграмм-группа удалена');
     }
