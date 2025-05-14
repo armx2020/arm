@@ -23,7 +23,6 @@ class TelegramService
         $settings = new Settings;
 
         $settings->getLogger()
-            ->setType(Logger::FILE_LOGGER)
             ->setExtra(storage_path('logs/madelineproto/madeline.log'));
 
         $this->madeline = new API($sessionPath, $settings);
