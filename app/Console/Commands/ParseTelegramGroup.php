@@ -60,15 +60,15 @@ class ParseTelegramGroup extends Command
                 $this->option('limit')
             );
         } else {
-            TelegramGroup::active()->chunk(5, function ($telegramGroups) use ($madeline) {
-                foreach ($telegramGroups as $group) {
-                    $this->parseGroup(
-                        $madeline,
-                        $group->username,
-                        $this->option('limit')
-                    );
-                }
-            });
+            $telegramGroups = TelegramGroup::active()->get();
+
+            foreach ($telegramGroups as $group) {
+                $this->parseGroup(
+                    $madeline,
+                    $group->username,
+                    $this->option('limit')
+                );
+            }
         }
     }
 
@@ -153,20 +153,23 @@ class ParseTelegramGroup extends Command
 
                 // Получаем информацию об авторе
                 $userInfo = $madeline->getInfo(['_' => 'inputUser', 'user_id' => $userId]);
-                $user = $this->saveUser($userInfo['User']);
 
-                // Сохраняем сообщение
-                TelegramMessage::updateOrCreate(
-                    ['id' => $message['id']],
-                    [
-                        'group_id' => $groupModel->id,
-                        'user_id' => $user->id,
-                        'text' => $message['message'],
-                        'date' => date('Y-m-d H:i:s', $message['date']),
-                    ]
-                );
+                if (isset($userInfo['User'])) {
+                    $user = $this->saveUser($userInfo['User']);
 
-                $bar->advance();
+                    // Сохраняем сообщение
+                    TelegramMessage::updateOrCreate(
+                        ['id' => $message['id']],
+                        [
+                            'group_id' => $groupModel->id,
+                            'user_id' => $user->id,
+                            'text' => $message['message'],
+                            'date' => date('Y-m-d H:i:s', $message['date']),
+                        ]
+                    );
+
+                    $bar->advance();
+                }
             }
 
             $bar->finish();
