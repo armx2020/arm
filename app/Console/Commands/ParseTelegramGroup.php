@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 class ParseTelegramGroup extends Command
 {
     protected $signature = 'parse-telegram 
-                        {group=all : Username или ID группы (например: @mygroup)}
+                        {group? : Username или ID группы (например: @mygroup)}
                         {--l|limit=100 : Лимит сообщений}';
 
     protected $description = 'Парсинг Telegram группы с авторизацией пользователя';
@@ -51,7 +51,7 @@ class ParseTelegramGroup extends Command
         // Авторизация
         $this->authorizeUser($madeline);
 
-        if ($this->argument('group') !== 'all') {
+        if ($this->argument('group')) {
 
             // Парсинг группы
             $this->parseGroup(
