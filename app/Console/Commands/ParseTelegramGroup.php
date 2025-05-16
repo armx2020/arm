@@ -14,11 +14,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ParseTelegramGroup extends Command
 {
-    protected $signature = 'parse-telegram 
-                        {group? : Username или ID группы (например: @mygroup)}
-                        {--l|limit=100 : Лимит сообщений}';
+    protected $signature = 'parse-telegram';
 
     protected $description = 'Парсинг Telegram группы с авторизацией пользователя';
+
 
     public function handle()
     {
@@ -51,24 +50,14 @@ class ParseTelegramGroup extends Command
         // Авторизация
         $this->authorizeUser($madeline);
 
-        if ($this->argument('group')) {
+        $telegramGroups = TelegramGroup::active()->get();
 
-            // Парсинг группы
+        foreach ($telegramGroups as $group) {
             $this->parseGroup(
                 $madeline,
-                $this->argument('group'),
-                $this->option('limit')
+                $group->username,
+                100
             );
-        } else {
-            $telegramGroups = TelegramGroup::active()->get();
-
-            foreach ($telegramGroups as $group) {
-                $this->parseGroup(
-                    $madeline,
-                    $group->username,
-                    $this->option('limit')
-                );
-            }
         }
     }
 
@@ -114,48 +103,35 @@ class ParseTelegramGroup extends Command
                 ]
             );
 
-            $this->info("Группа сохранена: {$groupModel->title}");
+            $this->info("Парсинг группы {$groupModel->title}");
 
-            // Получаем ID последнего сохранённого сообщения
-            $lastMessageId = TelegramMessage::where('group_id', $groupModel->id)
-                ->latest('id')
-                ->value('id');
+            $newMessagess = 0;
 
-            if ($lastMessageId) {
-                $messages = $madeline->messages->getHistory([
-                    'peer' => $group,
-                    'min_id' => $lastMessageId ?? 0,
-                    'limit' => $limit // Важно: offset_id должен быть на 1 меньше
-                ]);
-            } else {
-                $messages = $madeline->messages->getHistory([
-                    'peer' => $group,
-                    'limit' => $limit
-                ]);
-            }
-
-            $bar = $this->output->createProgressBar(count($messages['messages']));
-            $bar->start();
+            $messages = $madeline->messages->getHistory([
+                'peer' => $groupModel->username,
+                'limit' => $limit,
+                'offset_id' => 0,
+            ]);
 
             foreach ($messages['messages'] as $message) {
 
                 // Пропускаем служебные сообщения без текста
                 if (empty($message['message'])) {
-                    $bar->advance();
                     continue;
                 }
 
                 // Обрабатываем разные форматы from_id
                 $userId = $this->resolveUserId($message);
+
                 if (!$userId) {
-                    $bar->advance();
                     continue;
                 }
 
                 // Получаем информацию об авторе
-                $userInfo = $madeline->getInfo(['_' => 'inputUser', 'user_id' => $userId]);
+                $userInfo = $madeline->getFullInfo($userId);
 
                 if (isset($userInfo['User'])) {
+
                     $user = $this->saveUser($userInfo['User']);
 
                     // Сохраняем сообщение
@@ -169,14 +145,12 @@ class ParseTelegramGroup extends Command
                         ]
                     );
 
-                    $bar->advance();
+                    $newMessagess++;
                 }
             }
 
-            $bar->finish();
+            $this->info("Сохранено сообщений: " . $newMessagess);
             $this->newLine();
-
-            $this->info("Сохранено сообщений: " . TelegramMessage::where('group_id', $groupModel->id)->count());
         } catch (\Exception $e) {
             $this->error("Ошибка: " . $e->getMessage());
         }
@@ -184,22 +158,10 @@ class ParseTelegramGroup extends Command
 
     protected function resolveUserId(array $message): ?int
     {
-        // Вариант 1: from_id как объект с user_id
-        if (isset($message['from_id']['user_id'])) {
-            return $message['from_id']['user_id'];
-        }
-
-        // Вариант 2: from_id как числовой ID (ваш случай)
-        if (isset($message['from_id']) && is_numeric($message['from_id'])) {
+        if (isset($message['from_id'])) {
             return $message['from_id'];
         }
 
-        // Вариант 3: from_id как объект peerUser
-        if (isset($message['from_id']) && isset($message['from_id']['_']) && $message['from_id']['_'] === 'peerUser') {
-            return $message['from_id']['user_id'];
-        }
-
-        // Для сообщений без пользователя (системные)
         return null;
     }
 
