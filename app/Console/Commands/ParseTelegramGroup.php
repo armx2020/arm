@@ -105,8 +105,9 @@ class ParseTelegramGroup extends Command
 
             // Сохраняем группу
             $groupModel = TelegramGroup::updateOrCreate(
-                ['id' => $groupInfo['id']],
+                ['username' => $groupInfo['username'] ?? null],
                 [
+                    'id' => $groupInfo['id'],
                     'username' => $groupInfo['username'] ?? null,
                     'title' => $groupInfo['title'],
                     'description' => $groupInfo['about'] ?? null,
