@@ -155,7 +155,7 @@ class CommunityAction
                     ]);
 
                     Image::make('storage/' . $newImage->path)
-                        ->resize(400, null, function($constraint){
+                        ->resize(400, null, function ($constraint) {
                             $constraint->aspectRatio();
                         })
                         ->save();
@@ -257,11 +257,11 @@ class CommunityAction
             ) as distance',
             [$lon, $lat]
         )
-        ->whereRaw('ST_Distance_Sphere(
+            ->whereRaw('ST_Distance_Sphere(
             POINT(lon, lat),
             POINT(?, ?)
         ) < ?', [$lon, $lat, 10000]) // 100 км в метрах
-        ->orderBy('distance')
-        ->first();
+            ->orderBy('distance')
+            ->first();
     }
 }

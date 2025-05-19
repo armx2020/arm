@@ -117,7 +117,7 @@ class CommunityAction
                     ]);
 
                     Image::make('storage/' . $newImage->path)
-                        ->resize(400, null, function($constraint){
+                        ->resize(400, null, function ($constraint) {
                             $constraint->aspectRatio();
                         })
                         ->save();
