@@ -12,6 +12,8 @@
                     страница</a>
             </li>
 
+            {{-- 
+            TODO - доделать мессенджер
             <li
                 class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('messenger')) bg-gray-100 @endif">
                 <a href="{{ route('messenger') }}" class="relative">Мессенджер
@@ -27,7 +29,7 @@
                         </span>
                     @endif
                 </a>
-            </li>
+            </li> --}}
 
             <li class="p-2 hover:text-gray-500 rounded-md @if (request()->routeIs('mycompanies.*')) bg-gray-100 @endif"><a
                     href="{{ route('mycompanies.index') }}">Мои компании</a>

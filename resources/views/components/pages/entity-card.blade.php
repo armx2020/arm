@@ -260,6 +260,8 @@
 
                         <div class="flex justify-between max-w-[400px] mt-2">
 
+                            {{-- 
+                            TODO - доделать мессенджер
                             <form action="{{ route('messenger') }}" method="POST" class="w-1/2 mr-1">
                                 @csrf
                                 <input type="hidden" name="entity_id" value="{{ $entity->id }}">
@@ -267,7 +269,7 @@
                                     class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 text-center text-white w-full">
                                     Написать
                                 </button>
-                            </form>
+                            </form> --}}
 
                             @if (isset($entity->phone))
                                 <a href="tel:{{ $entity->phone }}"

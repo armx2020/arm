@@ -72,6 +72,8 @@
             </div>
 
             {{-- Chat --}}
+            {{-- 
+            TODO - доделать мессенджер
             <div class="flex flex-col basis-full mt-8">
                 <div class="flex flex-col md:flex-row basis-full bg-white rounded-md p-2 lg:p-10 relative">
         
@@ -91,7 +93,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

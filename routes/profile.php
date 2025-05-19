@@ -21,9 +21,10 @@ Route::middleware(['auth', 'verificate_phone'])->group(function () {
     Route::patch('/profile', [MyProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [MyProfileController::class, 'destroy'])->name('profile.destroy');
 
+    
     //Messenger
-    Route::get('/messenger', [MyMessengerController::class, 'index'])->name('messenger');
-    Route::post('/messenger', [MyMessengerController::class, 'store']);
+    // Route::get('/messenger', [MyMessengerController::class, 'index'])->name('messenger');  TODO - доделать мессенджер
+    // Route::post('/messenger', [MyMessengerController::class, 'store']);
 
     Route::resources([
         'mygroups'      =>  MyGroupController::class,

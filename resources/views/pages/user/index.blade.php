@@ -201,6 +201,8 @@
                         <div class="flex flex-col xl:flex-row pl-0">
                             <div class="flex space-x-2 max-w-[400px]">
 
+                                {{-- 
+                                TODO - доделать мессенджер
                                 <form action="{{ route('messenger') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -208,10 +210,10 @@
                                         class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-blue-400 hover:bg-blue-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white w-full">
                                         Написать
                                     </button>
-                                </form>
+                                </form> --}}
                                 @if (isset($user->phone))
                                     <a href="tel:{{ $user->phone }}"
-                                        class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-1/2 cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white">
+                                        class="whitespace-nowrap text-[clamp(10px, 4vw, 16px)] w-full cursor-pointer inline-block bg-green-400 hover:bg-green-500 rounded-lg px-6 pb-2 pt-2.5 mt-1 text-center text-white">
                                         Позвонить
                                     </a>
                                 @endif
