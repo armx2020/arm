@@ -3,26 +3,21 @@
 namespace App\Http\Controllers\InformUs;
 
 use App\Entity\Actions\AppealAction;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Appeal\StoreAppealRequest;
 use Illuminate\Http\Request;
 
-class AppealController extends BaseInformUsController
+class AppealController extends Controller
 {
 
     public function __construct(private AppealAction $appealAction)
     {
         $this->appealAction = $appealAction;
-        parent::__construct();
     }
 
     public function index(Request $request)
     {
-        return view('inform-us.appeal', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
-        ]);
+        return view('inform-us.appeal');
     }
 
     public function store(StoreAppealRequest $request)

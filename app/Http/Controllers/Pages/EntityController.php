@@ -44,11 +44,7 @@ class EntityController extends BaseController
         $entityShowRoute = "$entitySingular.show";
 
         return view('pages.entity.edit', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
             'categoryUri' => null,
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entityName' => $entityName,
             'entityTranscription' => $entityTranscription,
             'entityShowRoute' => $entityShowRoute,
@@ -128,11 +124,7 @@ class EntityController extends BaseController
         $entityShowRoute = "$entitySingular.show";
 
         return view('pages.entity.photo', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
             'categoryUri' => null,
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entityName' => $entityName,
             'entityTranscription' => $entityTranscription,
             'entityShowRoute' => $entityShowRoute,

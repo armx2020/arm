@@ -29,10 +29,6 @@ class MyOfferController extends BaseController
         $offers = Auth::user()->offers()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.entity.index', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entities' => $offers,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
@@ -51,12 +47,8 @@ class MyOfferController extends BaseController
         $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->get();
 
         return view('profile.pages.offer.create', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
             'companies' => $companies,
             'categories' => $categories,
-            'regions' => $this->regions,
-            'countries' => $this->countries,
         ]);
     }
 
@@ -84,10 +76,6 @@ class MyOfferController extends BaseController
         }
 
         return view('profile.pages.offer.show', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entity' => $offer,
         ]);
     }
@@ -113,10 +101,6 @@ class MyOfferController extends BaseController
         $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->get();
 
         return view('profile.pages.offer.edit', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'offer' => $offer,
             'categories' => $categories,
             'companies' => $companies,

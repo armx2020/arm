@@ -32,10 +32,6 @@ class MyMessengerController extends BaseController
         }
 
         return view('profile.pages.messenger.index', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'chat' => $chat
         ]);
     }
@@ -67,10 +63,6 @@ class MyMessengerController extends BaseController
         }
 
         return view('profile.pages.messenger.index', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'chat' => $chat
         ]);
     }

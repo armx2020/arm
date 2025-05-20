@@ -28,10 +28,6 @@ class MyCommunityController extends BaseController
         $groups = Auth::user()->entities()->communities()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.entity.index', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entities' => $groups,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
@@ -44,10 +40,6 @@ class MyCommunityController extends BaseController
         $categories = Category::query()->communities()->active()->paginate(10);
 
         return view('profile.pages.community.create', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'categories' => $categories,
         ]);
     }
@@ -102,11 +94,7 @@ class MyCommunityController extends BaseController
         $categories = Category::query()->communities()->active()->get();
 
         return view('profile.pages.community.edit', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
             'categories' => $categories,
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entity' => $entity,
         ]);
     }

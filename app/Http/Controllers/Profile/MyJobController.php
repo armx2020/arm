@@ -29,10 +29,6 @@ class MyJobController extends BaseController
         $companies = Auth::user()->entities()->jobs()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.entity.index', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entities' => $companies,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
@@ -45,11 +41,7 @@ class MyJobController extends BaseController
         $categories = Category::query()->jobs()->active()->where('category_id', null)->with('categories')->get();
 
         return view('profile.pages.job.create', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
             'categories' => $categories,
-            'regions' => $this->regions,
-            'countries' => $this->countries,
         ]);
     }
 
@@ -82,10 +74,6 @@ class MyJobController extends BaseController
         $fullness = (round(($sum / 70) * 100));
 
         return view('profile.pages.job.show', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entity' => $entity,
             'fullness' => $fullness,
         ]);
@@ -102,11 +90,7 @@ class MyJobController extends BaseController
         $categories = Category::query()->jobs()->active()->where('category_id', null)->with('categories')->get();
 
         return view('profile.pages.job.edit', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
             'categories' => $categories,
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entity' => $entity,
         ]);
     }

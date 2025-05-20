@@ -23,12 +23,7 @@ class PasswordResetPhoneController extends BaseController
         $request->session()->forget('call_phone_pretty');
         $request->session()->forget('time_to_reset_phone');
 
-        return view('auth.forgot-password', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
-        ]);
+        return view('auth.forgot-password');
     }
 
     public function store(Request $request)
@@ -138,10 +133,6 @@ class PasswordResetPhoneController extends BaseController
         $timeForeVerification = gmdate('i:s', $timeForeVerification);
 
         return view('auth.phone-verify', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'phoneForeVerification' => $phoneForeVerification,
             'timeForeVerification' => $timeForeVerification
         ]);
@@ -163,12 +154,7 @@ class PasswordResetPhoneController extends BaseController
         $request->session()->forget('call_phone_pretty');
         $request->session()->forget('time_to_reset_phone');
 
-        return view('auth.new-password', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
-        ]);
+        return view('auth.new-password');
     }
 
     public function newPasswordStore(Request $request)

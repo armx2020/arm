@@ -34,31 +34,17 @@ class HomeController extends BaseController
         }
 
         return view('home', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
             'group' => $group,
-            'regions' => $this->regions,
-            'countries' => $this->countries
         ]);
     }
 
     public function privacyPolicy(Request $request)
     {
-        return view('pages.privacy-policy', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries
-        ]);
+        return view('pages.privacy-policy');
     }
 
     public function conditionOfUse(Request $request)
     {
-        return view('pages.condition-of-use', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries
-        ]);
+        return view('pages.condition-of-use');
     }
 }

@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\InformUs;
 
 use App\Entity\Actions\GroupAction;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class GroupController extends BaseInformUsController
+class GroupController extends Controller
 {
 
     public function __construct(private GroupAction $groupAction)
     {
         $this->groupAction = $groupAction;
-        parent::__construct();
     }
 
     public function index(Request $request)
@@ -21,11 +21,6 @@ class GroupController extends BaseInformUsController
         $categories = Category::query()->groups()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('inform-us.create-group', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
-            'cities' => $this->cities,
             'categories' => $categories,
         ]);
     }

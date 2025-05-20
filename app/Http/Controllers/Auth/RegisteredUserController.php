@@ -21,12 +21,7 @@ class RegisteredUserController extends BaseController
 
     public function create(Request $request)
     {
-        return view('auth.register', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
-        ]);
+        return view('auth.register');
     }
 
     public function store(Request $request)

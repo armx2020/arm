@@ -111,13 +111,7 @@ class DinamicRouteController extends BaseController
         $entityShowRoute = "$entitySingular.show";
 
         return view('pages.entity.index', [
-            'region'   => $this->request->session()->get('regionTranslit'),
-            'regionName' => $this->request->session()->get('regionName'),
-            'lat'   => $this->request->session()->get('lat'),
-            'lon' => $this->request->session()->get('lon'),
             'categoryUri' => null,
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entityName' => $entityName,
             'entityTranscription' => $entityTranscription,
             'entityShowRoute' => $entityShowRoute,
@@ -199,13 +193,7 @@ class DinamicRouteController extends BaseController
         $entityShowRoute = "$entitySingular.show";
 
         return view('pages.entity.index', [
-            'region'   => $this->request->session()->get('regionTranslit'),
-            'regionName' => $this->request->session()->get('regionName'),
-            'lat'   => $this->request->session()->get('lat'),
-            'lon' => $this->request->session()->get('lon'),
             'categoryUri' => null,
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entityName' => $entityName,
             'entityTranscription' => $entityTranscription,
             'entityShowRoute' => $entityShowRoute,
@@ -246,11 +234,7 @@ class DinamicRouteController extends BaseController
         $otherEntities = $entity->getSimilarEntities();
 
         return view('pages.entity.show', [
-            'region'   => $this->request->session()->get('regionTranslit'),
-            'regionName' => $this->request->session()->get('regionName'),
             'categoryUri' => null,
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entityName' => $entityName,
             'entityTranscription' => $entityTranscription,
             'entity' => $entity,

@@ -31,10 +31,6 @@ class MyCompanyController extends BaseController
         $companies = Auth::user()->entities()->companies()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.entity.index', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entities' => $companies,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
@@ -47,11 +43,7 @@ class MyCompanyController extends BaseController
         $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->get();
 
         return view('profile.pages.company.create', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
             'categories' => $categories,
-            'regions' => $this->regions,
-            'countries' => $this->countries,
         ]);
     }
 
@@ -92,10 +84,6 @@ class MyCompanyController extends BaseController
         }
 
         return view('profile.pages.company.show', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entity' => $entity,
             'fullness' => $fullness,
             'chat' => $chat
@@ -113,11 +101,7 @@ class MyCompanyController extends BaseController
         $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->get();
 
         return view('profile.pages.company.edit', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
             'categories' => $categories,
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entity' => $entity,
         ]);
     }

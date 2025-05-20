@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\InformUs;
 
 use App\Entity\Actions\CompanyAction;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CompanyController extends BaseInformUsController
+class CompanyController extends Controller
 {
 
     public function __construct(private CompanyAction $companyAction)
     {
         $this->companyAction = $companyAction;
-        parent::__construct();
     }
 
     public function index(Request $request)
@@ -21,11 +21,6 @@ class CompanyController extends BaseInformUsController
         $categories = Category::query()->companies()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('inform-us.create-company', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
-            'cities' => $this->cities,
             'categories' => $categories,
         ]);
     }

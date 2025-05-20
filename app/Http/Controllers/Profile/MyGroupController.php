@@ -28,10 +28,6 @@ class MyGroupController extends BaseController
         $groups = Auth::user()->entities()->groups()->with('primaryImage')->orderByDesc('updated_at')->paginate(10);
 
         return view('profile.pages.entity.index', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entities' => $groups,
             'entitiesName' => $entitiesName,
             'entityName' => $entityName,
@@ -44,10 +40,6 @@ class MyGroupController extends BaseController
         $categories = Category::query()->groups()->active()->paginate(10);
 
         return view('profile.pages.group.create', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'categories' => $categories,
         ]);
     }
@@ -82,10 +74,6 @@ class MyGroupController extends BaseController
         $fullness = (round(($sum / 70) * 100));
 
         return view('profile.pages.group.show', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entity' => $entity,
             'fullness' => $fullness,
         ]);
@@ -102,10 +90,6 @@ class MyGroupController extends BaseController
         $categories = Category::query()->groups()->active()->get();
 
         return view('profile.pages.group.edit', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'categories' => $categories,
-            'regions' => $this->regions,
             'countries' => $this->countries,
             'entity' => $entity,
         ]);

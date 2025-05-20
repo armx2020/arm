@@ -5,15 +5,13 @@ namespace App\Http\Controllers\Profile;
 use App\Entity\Actions\ProfileAction;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\ProfileRequest;
-use App\Models\City;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-use Intervention\Image\Facades\Image as Image;
+
 
 class MyProfileController extends BaseController
 {
@@ -27,11 +25,7 @@ class MyProfileController extends BaseController
     public function edit(Request $request): View
     {
         return view('profile.edit', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
             'user' => $request->user(),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
         ]);
     }
 
@@ -53,10 +47,6 @@ class MyProfileController extends BaseController
         $fullness = (round(($sum / 45) * 100));
 
         return view('pages.user.user', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'user' => $user,
             'fullness' => $fullness,
         ]);

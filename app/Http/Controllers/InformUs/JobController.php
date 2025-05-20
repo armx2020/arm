@@ -4,17 +4,17 @@ namespace App\Http\Controllers\InformUs;
 
 use App\Entity\Actions\GroupAction;
 use App\Entity\Actions\JobAction;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class JobController extends BaseInformUsController
+class JobController extends Controller
 {
 
     public function __construct(private JobAction $jobAction)
     {
         $this->jobAction = $jobAction;
-        parent::__construct();
     }
 
     public function index(Request $request)
@@ -22,11 +22,6 @@ class JobController extends BaseInformUsController
         $categories = Category::query()->jobs()->active()->where('category_id', null)->with('categories')->orderBy('sort_id')->get();
 
         return view('inform-us.create-job', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
-            'cities' => $this->cities,
             'categories' => $categories,
         ]);
     }

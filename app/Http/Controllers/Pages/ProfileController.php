@@ -24,10 +24,8 @@ class ProfileController extends BaseController
     {
         return view('profile.edit', [
             'user' => $request->user(),
-            'region'   => $request->session()->get('region'),
             'regions' => $this->regions,
             'countries' => $this->countries,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 
@@ -55,13 +53,8 @@ class ProfileController extends BaseController
         $fullness = (round(($sum / 45) * 100));
 
         return view('pages.user.index', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'user' => $user,
             'fullness' => $fullness,
-            'regionCode' => $request->session()->get('regionId')
         ]);
     }
 

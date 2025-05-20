@@ -18,12 +18,7 @@ class AuthenticatedSessionController extends BaseController
 
     public function create(Request $request)
     {
-        return view('auth.login', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
-        ]);
+        return view('auth.login');
     }
 
     public function store(LoginRequest $request): RedirectResponse

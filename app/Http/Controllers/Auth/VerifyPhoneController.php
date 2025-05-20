@@ -60,10 +60,6 @@ class VerifyPhoneController extends BaseController
         $timeForeVerification = gmdate('i:s', $timeForeVerification);
 
         return view('auth.phone-verify', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'phoneForeVerification' => $phoneForeVerification,
             'timeForeVerification' => $timeForeVerification
         ]);
