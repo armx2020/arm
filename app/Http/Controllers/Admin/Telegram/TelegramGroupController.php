@@ -3,25 +3,21 @@
 namespace App\Http\Controllers\Admin\Telegram;
 
 use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Telegram\TelegramGroupRequest;
 use App\Models\TelegramGroup;
 use Illuminate\Support\Facades\Http;
 
-class TelegramGroupController extends BaseAdminController
+class TelegramGroupController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function index()
     {
-        return view('admin.telegram.telegram-group.index', ['menu' => $this->menu]);
+        return view('admin.telegram.telegram-group.index');
     }
 
     public function create()
     {
-        return view('admin.telegram.telegram-group.create', ['menu' => $this->menu]);
+        return view('admin.telegram.telegram-group.create');
     }
 
     public function store(TelegramGroupRequest $request)

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entity\Actions\UserAction;
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\StoreUserRequest;
 use App\Http\Requests\Admin\User\UpdateUserPasswordRequest;
 use App\Http\Requests\Admin\User\UpdateUserRequest;
@@ -11,22 +11,21 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class UserController extends BaseAdminController
+class UserController extends Controller
 {
     public function __construct(private UserAction $userAction)
     {
-        parent::__construct();
         $this->userAction = $userAction;
     }
 
     public function index()
     {
-        return view('admin.user.index', ['menu' => $this->menu]);
+        return view('admin.user.index');
     }
 
     public function create()
     {
-        return view('admin.user.create', ['menu' => $this->menu]);
+        return view('admin.user.create');
     }
 
     public function store(StoreUserRequest $request)
@@ -53,9 +52,9 @@ class UserController extends BaseAdminController
             'address',
             'phone'
         ];
+
         return view('admin.user.edit', [
             'user' => $user,
-            'menu' => $this->menu,
             'entities' => $entities,
             'selectedColumns' => $selectedColumns,
             'entityName' => $entityName,

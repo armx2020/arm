@@ -15,7 +15,6 @@ class MyCommunityController extends BaseController
 {
     public function __construct(private CommunityAction $groupAction)
     {
-        parent::__construct();
         $this->groupAction = $groupAction;
     }
 

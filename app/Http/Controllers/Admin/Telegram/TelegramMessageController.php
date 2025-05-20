@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Telegram;
 
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Controller;
 use App\Models\TelegramMessage;
 
-class TelegramMessageController extends BaseAdminController
+class TelegramMessageController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function index()
     {
-        return view('admin.telegram.telegram-message.index', ['menu' => $this->menu]);
+        return view('admin.telegram.telegram-message.index');
     }
 
     public function destroy(TelegramMessage $telegram_message)

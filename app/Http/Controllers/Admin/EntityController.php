@@ -3,29 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entity\Actions\EntityAction;
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Entity\StoreEntityRequest;
 use App\Http\Requests\Entity\UpdateEntityRequest;
 use App\Models\Entity;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
-class EntityController extends BaseAdminController
+class EntityController extends Controller
 {
     public function __construct(private EntityAction $entityAction)
     {
-        parent::__construct();
         $this->entityAction = $entityAction;
     }
 
     public function index()
     {
-        return view('admin.entity.index', ['menu' => $this->menu]);
+        return view('admin.entity.index');
     }
 
     public function create()
     {
-        return view('admin.entity.create', ['menu' => $this->menu]);
+        return view('admin.entity.create');
     }
 
     public function store(StoreEntityRequest $request)
@@ -39,7 +36,7 @@ class EntityController extends BaseAdminController
 
     public function edit(Entity $entity)
     {
-        return view('admin.entity.edit', ['entity' => $entity, 'menu' => $this->menu]);
+        return view('admin.entity.edit', ['entity' => $entity]);
     }
 
     public function update(UpdateEntityRequest $request, Entity $entity)
@@ -61,16 +58,16 @@ class EntityController extends BaseAdminController
 
     public function report()
     {
-        return view('admin.entity.report.index', ['menu' => $this->menu]);
+        return view('admin.entity.report.index');
     }
 
     public function reportTwo()
     {
-        return view('admin.entity.report.index-two', ['menu' => $this->menu]);
+        return view('admin.entity.report.index-two');
     }
 
     public function reportDouble()
     {
-        return view('admin.entity.report.index-double', ['menu' => $this->menu]);
+        return view('admin.entity.report.index-double');
     }
 }

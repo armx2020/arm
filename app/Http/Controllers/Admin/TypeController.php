@@ -3,27 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entity\Actions\TypeAction;
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Type\StoreTypeRequest;
 use App\Http\Requests\Type\UpdateTypeRequest;
 use App\Models\EntityType;
 
-class TypeController extends BaseAdminController
+class TypeController extends Controller
 {
     public function __construct(private TypeAction $typeAction)
     {
-        parent::__construct();
         $this->typeAction = $typeAction;
     }
 
     public function index()
     {
-        return view('admin.type.index', ['menu' => $this->menu]);
+        return view('admin.type.index');
     }
 
     public function create()
     {
-        return view('admin.type.create', ['menu' => $this->menu]);
+        return view('admin.type.create');
     }
 
     public function store(StoreTypeRequest $request)
@@ -37,7 +36,6 @@ class TypeController extends BaseAdminController
     {
         return view('admin.type.edit', [
             'type' => $type,
-            'menu' => $this->menu
         ]);
     }
 

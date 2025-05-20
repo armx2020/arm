@@ -3,27 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entity\Actions\OfferAction;
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Offer\StoreOfferRequest;
 use App\Http\Requests\Offer\UpdateOfferRequest;
 use App\Models\Offer;
 
-class OfferController extends BaseAdminController
+class OfferController extends Controller
 {
     public function __construct(private OfferAction $offerAction)
     {
-        parent::__construct();
         $this->offerAction = $offerAction;
     }
 
     public function index()
     {
-        return view('admin.offer.index', ['menu' => $this->menu]);
+        return view('admin.offer.index');
     }
 
     public function create()
     {
-        return view('admin.offer.create', ['menu' => $this->menu]);
+        return view('admin.offer.create');
     }
 
     public function store(StoreOfferRequest $request)
@@ -43,7 +42,6 @@ class OfferController extends BaseAdminController
 
         return view('admin.offer.edit', [
             'offer' => $offer,
-            'menu' => $this->menu
         ]);
     }
 

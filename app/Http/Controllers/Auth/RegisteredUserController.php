@@ -14,11 +14,6 @@ use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function create(Request $request)
     {
         return view('auth.register');

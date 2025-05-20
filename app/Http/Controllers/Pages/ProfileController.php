@@ -15,17 +15,10 @@ use Intervention\Image\Facades\Image as Image;
 
 class ProfileController extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function edit(Request $request): View
     {
         return view('profile.edit', [
             'user' => $request->user(),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
         ]);
     }
 

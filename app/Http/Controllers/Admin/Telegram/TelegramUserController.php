@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Telegram;
 
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Controller;
 use App\Models\TelegramUser;
 
-class TelegramUserController extends BaseAdminController
+class TelegramUserController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function index()
     {
-        return view('admin.telegram.telegram-user.index', ['menu' => $this->menu]);
+        return view('admin.telegram.telegram-user.index');
     }
 
     public function destroy(TelegramUser $telegram_user)

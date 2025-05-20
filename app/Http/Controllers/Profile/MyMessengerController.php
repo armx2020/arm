@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class MyMessengerController extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function index(ChatRequest $request)
     {
         $chat = null;

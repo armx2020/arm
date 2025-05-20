@@ -17,7 +17,6 @@ class MyCompanyController extends BaseController
 {
     public function __construct(private CompanyAction $companyAction)
     {
-        parent::__construct();
         $this->companyAction = $companyAction;
     }
 

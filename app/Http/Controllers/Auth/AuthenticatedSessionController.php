@@ -11,11 +11,6 @@ use App\Providers\RouteServiceProvider;
 
 class AuthenticatedSessionController extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function create(Request $request)
     {
         return view('auth.login');

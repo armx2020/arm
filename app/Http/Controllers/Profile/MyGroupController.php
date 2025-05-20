@@ -15,7 +15,6 @@ class MyGroupController extends BaseController
 {
     public function __construct(private GroupAction $groupAction)
     {
-        parent::__construct();
         $this->groupAction = $groupAction;
     }
 

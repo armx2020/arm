@@ -17,7 +17,6 @@ class DinamicRouteController extends BaseController
 
     public function __construct(Request $request)
     {
-        parent::__construct();
         $this->request = $request;
         $this->inflector = InflectorFactory::create()->build();
     }

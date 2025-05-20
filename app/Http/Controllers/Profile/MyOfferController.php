@@ -16,7 +16,6 @@ class MyOfferController extends BaseController
 {
     public function __construct(private OfferAction $offerAction)
     {
-        parent::__construct();
         $this->offerAction = $offerAction;
     }
 

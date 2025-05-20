@@ -10,11 +10,6 @@ use Illuminate\Http\Request;
 
 class VerifyPhoneController extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function index(Request $request)
     {
         if ($request->user() && $request->user()->hasVerifiedPhone()) {

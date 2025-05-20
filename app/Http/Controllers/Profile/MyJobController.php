@@ -15,7 +15,6 @@ class MyJobController extends BaseController
 {
     public function __construct(private JobAction $jobAction)
     {
-        parent::__construct();
         $this->jobAction = $jobAction;
     }
 

@@ -3,27 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entity\Actions\CategoryAction;
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
 
-class CategoryController extends BaseAdminController
+class CategoryController extends Controller
 {
     public function __construct(private CategoryAction $categoryAction)
     {
-        parent::__construct();
         $this->categoryAction = $categoryAction;
     }
 
     public function index()
     {
-        return view('admin.category.index', ['menu' => $this->menu]);
+        return view('admin.category.index');
     }
 
     public function create()
     {
-        return view('admin.category.create', ['menu' => $this->menu]);
+        return view('admin.category.create');
     }
 
     public function store(StoreCategoryRequest $request)
@@ -35,7 +34,7 @@ class CategoryController extends BaseAdminController
 
     public function edit(Category $category)
     {
-        return view('admin.category.edit', ['menu' => $this->menu, 'category' => $category]);
+        return view('admin.category.edit', ['category' => $category]);
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)

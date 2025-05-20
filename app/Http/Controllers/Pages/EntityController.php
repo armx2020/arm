@@ -16,7 +16,6 @@ class EntityController extends BaseController
 
     public function __construct(private AppealAction $appealAction)
     {
-        parent::__construct();
         $this->appealAction = $appealAction;
         $this->inflector = InflectorFactory::create()->build();
     }

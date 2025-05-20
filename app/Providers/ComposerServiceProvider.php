@@ -66,6 +66,12 @@ class ComposerServiceProvider extends ServiceProvider
                 'lon' => $lon,
             ]);
         });
+
+        View::composer('admin.layouts.navigation', function ($view) {
+            $view->with([
+                'menu'   => config('menu.admin'),
+            ]);
+        });
     }
 
     protected function isMenuItemActive(array $item, Request $request): bool

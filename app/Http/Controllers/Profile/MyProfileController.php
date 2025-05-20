@@ -17,7 +17,6 @@ class MyProfileController extends BaseController
 {
     public function __construct(private ProfileAction $profileAction)
     {
-        parent::__construct();
         $this->profileAction = $profileAction;
     }
 

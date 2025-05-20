@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Controller;
 use App\Models\Appeal;
 use App\Models\Entity;
 use App\Models\Image;
@@ -11,7 +11,7 @@ use App\Models\Scopes\SortAscScope;
 use App\Models\User;
 
 
-class DashboardController extends BaseAdminController
+class DashboardController extends Controller
 {
     public function index()
     {
@@ -38,7 +38,6 @@ class DashboardController extends BaseAdminController
             'users' => $users,
             'appeals' => $appeals,
             'images' => $images,
-            'menu' => $this->menu
         ]);
     }
 }

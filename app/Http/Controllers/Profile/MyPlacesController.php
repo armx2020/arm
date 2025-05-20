@@ -15,7 +15,6 @@ class MyPlacesController extends BaseController
 {
     public function __construct(private PlaceAction $groupAction)
     {
-        parent::__construct();
         $this->groupAction = $groupAction;
     }
 

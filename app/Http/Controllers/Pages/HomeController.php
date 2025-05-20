@@ -8,11 +8,6 @@ use Illuminate\Http\Request;
 
 class HomeController extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function home(Request $request, $regionTranslit = null)
     {
         $region = $this->getRegion($request, $regionTranslit);
