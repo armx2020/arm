@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Entity\Actions\CompanyAction;
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\StoreCompanyRequest;
 use App\Http\Requests\Company\UpdateCompanyRequest;
 use App\Http\Requests\Profile\Message\ChatRequest;
@@ -13,13 +13,12 @@ use App\Models\Entity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MyCompanyController extends BaseController
+class MyCompanyController extends Controller
 {
     public function __construct(private CompanyAction $companyAction)
     {
         $this->companyAction = $companyAction;
     }
-
 
     public function index(Request $request)
     {

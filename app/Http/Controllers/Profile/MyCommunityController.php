@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Entity\Actions\CommunityAction;
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Http\Requests\Group\UpdateGroupRequest;
 use App\Models\Category;
@@ -11,7 +11,7 @@ use App\Models\Entity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MyCommunityController extends BaseController
+class MyCommunityController extends Controller
 {
     public function __construct(private CommunityAction $groupAction)
     {
@@ -73,10 +73,6 @@ class MyCommunityController extends BaseController
         $fullness = (round(($sum / 70) * 100));
 
         return view('profile.pages.community.show', [
-            'region'   => $request->session()->get('regionTranslit'),
-            'regionName' => $request->session()->get('regionName'),
-            'regions' => $this->regions,
-            'countries' => $this->countries,
             'entity' => $entity,
             'fullness' => $fullness,
         ]);

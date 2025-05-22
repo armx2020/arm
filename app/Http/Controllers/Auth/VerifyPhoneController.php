@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Services\SmsService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class VerifyPhoneController extends BaseController
+class VerifyPhoneController extends Controller
 {
     public function index(Request $request)
     {

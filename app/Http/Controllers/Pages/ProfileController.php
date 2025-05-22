@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Pages;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Intervention\Image\Facades\Image as Image;
 
-class ProfileController extends BaseController
+class ProfileController extends Controller
 {
     public function edit(Request $request): View
     {

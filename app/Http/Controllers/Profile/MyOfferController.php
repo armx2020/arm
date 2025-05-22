@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Entity\Actions\OfferAction;
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Offer\StoreOfferRequest;
 use App\Http\Requests\Offer\UpdateOfferRequest;
 use App\Models\Category;
@@ -12,7 +12,7 @@ use App\Models\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MyOfferController extends BaseController
+class MyOfferController extends Controller
 {
     public function __construct(private OfferAction $offerAction)
     {

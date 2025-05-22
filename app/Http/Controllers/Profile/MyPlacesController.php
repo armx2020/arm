@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Entity\Actions\PlaceAction;
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Http\Requests\Group\UpdateGroupRequest;
 use App\Models\Category;
@@ -11,7 +11,7 @@ use App\Models\Entity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MyPlacesController extends BaseController
+class MyPlacesController extends Controller
 {
     public function __construct(private PlaceAction $groupAction)
     {

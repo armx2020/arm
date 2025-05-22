@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\Message\ChatRequest;
 use App\Http\Requests\Profile\Message\StoreChatRequest;
 use App\Models\Chat;
 use App\Models\ChatParticipant;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MyMessengerController extends BaseController
+class MyMessengerController extends Controller
 {
     public function index(ChatRequest $request)
     {

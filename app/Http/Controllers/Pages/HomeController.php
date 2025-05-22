@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Pages;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
+use App\Http\Traits\RegionTrait;
 use App\Models\Entity;
 use Illuminate\Http\Request;
 
-class HomeController extends BaseController
+class HomeController extends Controller
 {
+    use RegionTrait;
+
     public function home(Request $request, $regionTranslit = null)
     {
         $region = $this->getRegion($request, $regionTranslit);

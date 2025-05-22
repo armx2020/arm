@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Entity\Actions\ProfileAction;
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -13,13 +13,12 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 
-class MyProfileController extends BaseController
+class MyProfileController extends Controller
 {
     public function __construct(private ProfileAction $profileAction)
     {
         $this->profileAction = $profileAction;
     }
-
 
     public function edit(Request $request): View
     {

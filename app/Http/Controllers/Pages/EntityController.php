@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Entity\Actions\AppealAction;
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Models\Entity;
 use Doctrine\Inflector\InflectorFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as Image;
 
-class EntityController extends BaseController
+class EntityController extends Controller
 {
     protected $inflector;
 

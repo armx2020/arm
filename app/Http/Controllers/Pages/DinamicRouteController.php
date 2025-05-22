@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Pages;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
+use App\Http\Traits\RegionTrait;
 use App\Models\Category;
 use App\Models\Entity;
 use App\Models\EntityType;
@@ -10,10 +11,13 @@ use Doctrine\Inflector\InflectorFactory;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class DinamicRouteController extends BaseController
+class DinamicRouteController extends Controller
 {
+    use RegionTrait;
+
     protected $inflector;
     protected $request;
+    protected $quantityOfDisplayed = 20; // Количество отоброжаемых сущностей
 
     public function __construct(Request $request)
     {

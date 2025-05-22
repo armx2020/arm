@@ -15,26 +15,31 @@ class CacheRegions extends Command
 
     public function handle()
     {
-        $regionsSortByName = Region::whereNot('id', 1)->get()->sortBy('name')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name, 0, 1);
-            });
+        // Для меню
+        Cache::rememberForever('regions', function () {
+            return Region::whereNot('id', 1)->get()->sortBy('name')
+                ->groupBy(function ($item) {
+                    return mb_substr($item->name, 0, 1);
+                });
+        });
 
-        $countriesSortByName = Country::whereNot('id', 190)->get()->sortBy('name_ru')
-            ->groupBy(function ($item) {
-                return mb_substr($item->name_ru, 0, 1);
-            });
+        Cache::rememberForever('countries', function () {
+            return Country::whereNot('id', 190)->get()->sortBy('name_ru')
+                ->groupBy(function ($item) {
+                    return mb_substr($item->name_ru, 0, 1);
+                });
+        });
 
-        $all_regions = Region::get();
-        $all_cities = City::get();
-        $all_countries = Country::get();
+        Cache::rememberForever('all_regions', function () {
+            return Region::all();
+        });
 
-        Cache::put('regions', $regionsSortByName); // Для меню
-        Cache::put('countries', $countriesSortByName);// Для меню
-
-        Cache::put('all_regions', $all_regions);
-        Cache::put('all_cities', $all_cities);
-        Cache::put('all_countries', $all_countries);
+        Cache::rememberForever('all_cities', function () {
+            return City::all();
+        });
+        Cache::rememberForever('all_countries', function () {
+            return Country::all();
+        });
 
         $this->info('Countries, regions and cities data saved successfully.');
     }
