@@ -171,7 +171,6 @@ return [
         Stevebauman\Location\LocationServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
         App\Providers\DynamicRouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
     ])->toArray(),
@@ -191,7 +190,6 @@ return [
         // 'Example' => App\Facades\Example::class,
         'Location' => 'Stevebauman\Location\Facades\Location',
         'Image' => Intervention\Image\Facades\Image::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

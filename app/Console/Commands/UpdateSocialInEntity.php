@@ -6,7 +6,7 @@ use App\Models\Entity;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 
-class UpdateSocialinEntity extends Command
+class UpdateSocialInEntity extends Command
 {
     protected $signature = 'update:social-entity';
     protected $description = 'Обновление whatsapp и telegram у сущностей';

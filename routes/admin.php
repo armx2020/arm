@@ -7,11 +7,6 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryEntityController;
 use App\Http\Controllers\Admin\EntityController;
 use App\Http\Controllers\Admin\ImageController;
-use App\Http\Controllers\Admin\ImportCategoryController;
-use App\Http\Controllers\Admin\ImportChurchController;
-use App\Http\Controllers\Admin\ImportDoctorController;
-use App\Http\Controllers\Admin\ImportEntityController;
-use App\Http\Controllers\Admin\ImportLawyerController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\Telegram\TelegramGroupController;
 use App\Http\Controllers\Admin\Telegram\TelegramMessageController;
@@ -83,29 +78,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
             ]);
 
 
-
-
             // report
             Route::get('entity/report', [EntityController::class, 'report'])->name('entity.report');
             Route::get('entity/report-two', [EntityController::class, 'reportTwo'])->name('entity.report-two');
             Route::get('entity/report-double', [EntityController::class, 'reportDouble'])->name('entity.report-double');
 
-
-            // import
-            Route::get('/import-church', [ImportChurchController::class, 'index'])->name('import.church');
-            Route::post('/import-church', [ImportChurchController::class, 'import']);
-
-            Route::get('/import-entity', [ImportEntityController::class, 'index'])->name('import.entity');
-            Route::post('/import-entity', [ImportEntityController::class, 'import']);
-
-            Route::get('/import-lawyer', [ImportLawyerController::class, 'index'])->name('import.lawyer');
-            Route::post('/import-lawyer', [ImportLawyerController::class, 'import']);
-
-            Route::get('/import-doctor', [ImportDoctorController::class, 'index'])->name('import.doctor');
-            Route::post('/import-doctor', [ImportDoctorController::class, 'import']);
-
-            Route::get('/import-category', [ImportCategoryController::class, 'index'])->name('import.category');
-            Route::post('/import-category', [ImportCategoryController::class, 'import']);
         });
     });
 

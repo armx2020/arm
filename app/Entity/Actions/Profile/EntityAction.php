@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Entity\Actions;
+namespace App\Entity\Actions\Profile;
 
 use App\Entity\Actions\Traits\GetCity;
 use App\Models\Entity;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
 
-class CommunityAction
+class EntityAction
 {
     use GetCity;
 
